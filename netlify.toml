@@ -1,0 +1,45 @@
+# Netlify build configuration.
+#
+# Lives at the repository root, and exists so the deploy settings are version
+# controlled rather than typed into a web form. A netlify.toml takes precedence
+# over the values in the Netlify UI, so this is now the single source of truth.
+#
+# THE PROBLEM IT FIXES: the app is in a subdirectory. Without `base`, Netlify
+# runs `npm run build` from the repository root, finds no package.json, and
+# fails with ENOENT before it starts.
+#
+# Paths below are relative to `base`, so `publish = "dist"` means
+# naoshi-app/dist.
+
+[build]
+  base = "naoshi-app"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Netlify picked Node 24 on its own, but pinning it means a future default
+  # change cannot quietly alter the build. 24 is Active LTS.
+  NODE_VERSION = "24"
+
+# Single-page app: every path serves index.html rather than 404ing. Not needed
+# today — the app switches modules in React without changing the URL — but it
+# costs nothing and prevents a confusing 404 the moment routing is added.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    # Vite fingerprints these filenames, so a changed file is a changed name.
+    # Safe to cache hard, and it is what makes a return visit instant.
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/audio/*"
+  [headers.values]
+    # The kana sprite is not fingerprinted. A week is long enough to spare
+    # testers the 750 KB on every visit, short enough that a re-recording
+    # reaches them without anyone clearing a cache.
+    Cache-Control = "public, max-age=604800"

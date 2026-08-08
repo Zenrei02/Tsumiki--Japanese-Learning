@@ -156,6 +156,32 @@ for k, ms in sorted(keys.items(), key=lambda kv: -len(kv[1])):
 shared = sum(1 for ms in keys.values() if len(ms) > 1)
 lines += ["", f"{shared} of {len(keys)} keys are shared across modules.", ""]
 
+
+# ---- the kana sprite exists in two committed places ----
+# audio/ is what the single-file artifacts and standalone builds fetch;
+# naoshi-app/public/audio/ is what the Vite app serves. Same bytes today. If the
+# sprite is ever rebuilt and only one copy updated, testers and the reviewer hear
+# different audio — the exact silent-divergence class this tool exists for.
+import hashlib as _h
+pairs = [("audio/kana-sprite.mp3", "naoshi-app/public/audio/kana-sprite.mp3"),
+         ("audio/kana-sprite.json", "naoshi-app/public/audio/kana-sprite.json")]
+lines += ["", "## Kana audio sprite", ""]
+for a, b in pairs:
+    pa, pb = HERE / a, HERE / b
+    if not pa.exists() or not pb.exists():
+        lines.append(f"- {a}: one copy missing — {pa.exists()} / {pb.exists()}")
+        continue
+    ha = _h.md5(pa.read_bytes()).hexdigest()[:8]
+    hb = _h.md5(pb.read_bytes()).hexdigest()[:8]
+    if ha == hb:
+        lines.append(f"- ✅ `{pa.name}` identical in both locations (`{ha}`)")
+    else:
+        problems.append(f"kana sprite {pa.name} differs between copies")
+        lines.append(f"- ❌ **`{pa.name}` DIFFERS** — audio/ `{ha}` vs naoshi-app/public/audio/ `{hb}`")
+lines.append("")
+lines.append("If these diverge, re-run `Audio/build-kana-sprite.py` and copy the result to")
+lines.append("both locations, rather than editing either by hand.")
+
 # ---- verdict ----
 lines += ["## Verdict", ""]
 if problems:

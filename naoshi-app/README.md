@@ -65,12 +65,23 @@ and drag the `dist` folder onto the page. You get a URL immediately. Good for
 update it you drag again.
 
 **Better once you are past the first try — connect a repo.** Put the project on
-GitHub, then point Netlify, Vercel or Cloudflare Pages at it. Build command
-`npm run build`, publish directory `dist`. After that, every change you push
-updates the site by itself.
+GitHub and point Netlify at it. **There is a `netlify.toml` at the repository
+root and it already carries every build setting** — base directory, build
+command, publish directory, Node version. Connect the repo and deploy; you
+should not have to type anything into the build-settings form.
 
-Any of the three is fine. Netlify and Cloudflare Pages are the least fiddly for
-a plain static site like this one.
+> ⚠️ **The one thing that trips this up.** The app lives in `naoshi-app/`, not at
+> the repository root. Without a **base directory** of `naoshi-app`, Netlify runs
+> `npm run build` from the root, finds no `package.json`, and fails with `ENOENT`
+> before the build starts. That is what `netlify.toml` exists to prevent — and
+> `netlify.toml` overrides anything set in the UI, so if the two disagree, the
+> file wins.
+
+**For Vercel or Cloudflare Pages instead**, they will not read `netlify.toml`.
+Set it by hand: root/base directory `naoshi-app`, build command `npm run build`,
+output directory `dist`.
+
+After that, every change you push updates the site by itself.
 
 ---
 
