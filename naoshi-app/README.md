@@ -129,6 +129,13 @@ browser console for a 404 on `audio/kana-sprite.mp3`.
 Do not hand-edit `src/modules/*.jsx`, `src/App.jsx` or `src/main.jsx` — they are
 **generated**, and your changes will vanish on the next build.
 
+**They are also committed, deliberately.** The generator is a Python script that
+runs on your machine; Netlify only runs `npm run build`. So the generated files
+have to be in the repository or the deploy has no application source at all —
+which is exactly how the second deploy failed, with *"Failed to resolve
+/src/main.jsx"* and *"0 modules transformed."* After regenerating, commit the
+result along with whatever you changed.
+
 The single-file modules in the parent folder are the source of truth, because the
 reviewer is still grading through the published artifacts. To regenerate after
 editing one of them:
