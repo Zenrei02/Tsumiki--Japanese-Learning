@@ -1,0 +1,969 @@
+{
+ "generated": "2026-08-03",
+ "method": "0.7*ledger-demand + 0.3*merged-frequency, / (strokes + 1.5*parts + 0.5*lookalikes); greedy topological",
+ "corpora_used": [
+  "kanjidic (newspaper rank)"
+ ],
+ "wikipedia_ignored": false,
+ "order": [
+  {
+   "pos": 1,
+   "char": "日",
+   "hand_pos": 5,
+   "demand_words": 28,
+   "strokes": 4,
+   "centrality": 0.25,
+   "parts": []
+  },
+  {
+   "pos": 2,
+   "char": "白",
+   "hand_pos": 10,
+   "demand_words": 3,
+   "strokes": 5,
+   "centrality": 0.0151,
+   "parts": [
+    "日"
+   ]
+  },
+  {
+   "pos": 3,
+   "char": "目",
+   "hand_pos": 7,
+   "demand_words": 1,
+   "strokes": 5,
+   "centrality": 0.0058,
+   "parts": []
+  },
+  {
+   "pos": 4,
+   "char": "一",
+   "hand_pos": 1,
+   "demand_words": 9,
+   "strokes": 1,
+   "centrality": 0.125,
+   "parts": []
+  },
+  {
+   "pos": 5,
+   "char": "人",
+   "hand_pos": 15,
+   "demand_words": 11,
+   "strokes": 2,
+   "centrality": 0.1117,
+   "parts": []
+  },
+  {
+   "pos": 6,
+   "char": "入",
+   "hand_pos": 16,
+   "demand_words": 3,
+   "strokes": 2,
+   "centrality": 0.0268,
+   "parts": []
+  },
+  {
+   "pos": 7,
+   "char": "八",
+   "hand_pos": 17,
+   "demand_words": 1,
+   "strokes": 2,
+   "centrality": 0.0094,
+   "parts": []
+  },
+  {
+   "pos": 8,
+   "char": "三",
+   "hand_pos": 3,
+   "demand_words": 10,
+   "strokes": 3,
+   "centrality": 0.0905,
+   "parts": [
+    "一"
+   ]
+  },
+  {
+   "pos": 9,
+   "char": "今",
+   "hand_pos": 32,
+   "demand_words": 6,
+   "strokes": 4,
+   "centrality": 0.039,
+   "parts": [
+    "人"
+   ]
+  },
+  {
+   "pos": 10,
+   "char": "分",
+   "hand_pos": 50,
+   "demand_words": 2,
+   "strokes": 4,
+   "centrality": 0.0114,
+   "parts": [
+    "八"
+   ]
+  },
+  {
+   "pos": 11,
+   "char": "手",
+   "hand_pos": 60,
+   "demand_words": 8,
+   "strokes": 4,
+   "centrality": 0.0512,
+   "parts": []
+  },
+  {
+   "pos": 12,
+   "char": "十",
+   "hand_pos": 4,
+   "demand_words": 4,
+   "strokes": 2,
+   "centrality": 0.0458,
+   "parts": []
+  },
+  {
+   "pos": 13,
+   "char": "二",
+   "hand_pos": 2,
+   "demand_words": 4,
+   "strokes": 2,
+   "centrality": 0.0444,
+   "parts": []
+  },
+  {
+   "pos": 14,
+   "char": "時",
+   "hand_pos": 36,
+   "demand_words": 14,
+   "strokes": 10,
+   "centrality": 0.0321,
+   "parts": [
+    "日"
+   ]
+  },
+  {
+   "pos": 15,
+   "char": "生",
+   "hand_pos": 61,
+   "demand_words": 8,
+   "strokes": 5,
+   "centrality": 0.0421,
+   "parts": []
+  },
+  {
+   "pos": 16,
+   "char": "大",
+   "hand_pos": 18,
+   "demand_words": 3,
+   "strokes": 3,
+   "centrality": 0.0393,
+   "parts": []
+  },
+  {
+   "pos": 17,
+   "char": "天",
+   "hand_pos": 53,
+   "demand_words": 4,
+   "strokes": 4,
+   "centrality": 0.0251,
+   "parts": [
+    "一",
+    "大"
+   ]
+  },
+  {
+   "pos": 18,
+   "char": "先",
+   "hand_pos": 62,
+   "demand_words": 6,
+   "strokes": 6,
+   "centrality": 0.0253,
+   "parts": [
+    "八"
+   ]
+  },
+  {
+   "pos": 19,
+   "char": "上",
+   "hand_pos": 56,
+   "demand_words": 5,
+   "strokes": 3,
+   "centrality": 0.0297,
+   "parts": [
+    "一"
+   ]
+  },
+  {
+   "pos": 20,
+   "char": "下",
+   "hand_pos": 57,
+   "demand_words": 5,
+   "strokes": 3,
+   "centrality": 0.0285,
+   "parts": [
+    "一"
+   ]
+  },
+  {
+   "pos": 21,
+   "char": "子",
+   "hand_pos": 22,
+   "demand_words": 3,
+   "strokes": 3,
+   "centrality": 0.0264,
+   "parts": []
+  },
+  {
+   "pos": 22,
+   "char": "学",
+   "hand_pos": 43,
+   "demand_words": 10,
+   "strokes": 8,
+   "centrality": 0.0318,
+   "parts": [
+    "子"
+   ]
+  },
+  {
+   "pos": 23,
+   "char": "百",
+   "hand_pos": 38,
+   "demand_words": 3,
+   "strokes": 6,
+   "centrality": 0.0128,
+   "parts": [
+    "一",
+    "白"
+   ]
+  },
+  {
+   "pos": 24,
+   "char": "水",
+   "hand_pos": 12,
+   "demand_words": 4,
+   "strokes": 4,
+   "centrality": 0.0253,
+   "parts": []
+  },
+  {
+   "pos": 25,
+   "char": "車",
+   "hand_pos": 20,
+   "demand_words": 7,
+   "strokes": 7,
+   "centrality": 0.0251,
+   "parts": []
+  },
+  {
+   "pos": 26,
+   "char": "円",
+   "hand_pos": 25,
+   "demand_words": 5,
+   "strokes": 4,
+   "centrality": 0.0235,
+   "parts": []
+  },
+  {
+   "pos": 27,
+   "char": "月",
+   "hand_pos": 6,
+   "demand_words": 3,
+   "strokes": 4,
+   "centrality": 0.022,
+   "parts": []
+  },
+  {
+   "pos": 28,
+   "char": "明",
+   "hand_pos": 35,
+   "demand_words": 4,
+   "strokes": 8,
+   "centrality": 0.0131,
+   "parts": [
+    "日",
+    "月"
+   ]
+  },
+  {
+   "pos": 29,
+   "char": "気",
+   "hand_pos": 55,
+   "demand_words": 7,
+   "strokes": 6,
+   "centrality": 0.0197,
+   "parts": []
+  },
+  {
+   "pos": 30,
+   "char": "行",
+   "hand_pos": 46,
+   "demand_words": 5,
+   "strokes": 6,
+   "centrality": 0.0187,
+   "parts": []
+  },
+  {
+   "pos": 31,
+   "char": "見",
+   "hand_pos": 45,
+   "demand_words": 3,
+   "strokes": 7,
+   "centrality": 0.0104,
+   "parts": [
+    "目"
+   ]
+  },
+  {
+   "pos": 32,
+   "char": "小",
+   "hand_pos": 11,
+   "demand_words": 2,
+   "strokes": 3,
+   "centrality": 0.0175,
+   "parts": []
+  },
+  {
+   "pos": 33,
+   "char": "年",
+   "hand_pos": 52,
+   "demand_words": 4,
+   "strokes": 6,
+   "centrality": 0.0167,
+   "parts": []
+  },
+  {
+   "pos": 34,
+   "char": "国",
+   "hand_pos": 24,
+   "demand_words": 3,
+   "strokes": 8,
+   "centrality": 0.0159,
+   "parts": []
+  },
+  {
+   "pos": 35,
+   "char": "雨",
+   "hand_pos": 54,
+   "demand_words": 5,
+   "strokes": 8,
+   "centrality": 0.0157,
+   "parts": []
+  },
+  {
+   "pos": 36,
+   "char": "間",
+   "hand_pos": 37,
+   "demand_words": 6,
+   "strokes": 12,
+   "centrality": 0.0118,
+   "parts": [
+    "日"
+   ]
+  },
+  {
+   "pos": 37,
+   "char": "火",
+   "hand_pos": 63,
+   "demand_words": 2,
+   "strokes": 4,
+   "centrality": 0.0126,
+   "parts": []
+  },
+  {
+   "pos": 38,
+   "char": "来",
+   "hand_pos": 47,
+   "demand_words": 4,
+   "strokes": 7,
+   "centrality": 0.0121,
+   "parts": []
+  },
+  {
+   "pos": 39,
+   "char": "七",
+   "hand_pos": 58,
+   "demand_words": 2,
+   "strokes": 2,
+   "centrality": 0.0117,
+   "parts": [
+    "一"
+   ]
+  },
+  {
+   "pos": 40,
+   "char": "千",
+   "hand_pos": 51,
+   "demand_words": 2,
+   "strokes": 3,
+   "centrality": 0.0115,
+   "parts": [
+    "十"
+   ]
+  },
+  {
+   "pos": 41,
+   "char": "何",
+   "hand_pos": 33,
+   "demand_words": 3,
+   "strokes": 7,
+   "centrality": 0.0089,
+   "parts": [
+    "人"
+   ]
+  },
+  {
+   "pos": 42,
+   "char": "田",
+   "hand_pos": 8,
+   "demand_words": 2,
+   "strokes": 5,
+   "centrality": 0.0107,
+   "parts": []
+  },
+  {
+   "pos": 43,
+   "char": "町",
+   "hand_pos": 41,
+   "demand_words": 2,
+   "strokes": 7,
+   "centrality": 0.006,
+   "parts": [
+    "田"
+   ]
+  },
+  {
+   "pos": 44,
+   "char": "力",
+   "hand_pos": 39,
+   "demand_words": 1,
+   "strokes": 2,
+   "centrality": 0.0099,
+   "parts": []
+  },
+  {
+   "pos": 45,
+   "char": "山",
+   "hand_pos": 14,
+   "demand_words": 1,
+   "strokes": 3,
+   "centrality": 0.0091,
+   "parts": []
+  },
+  {
+   "pos": 46,
+   "char": "女",
+   "hand_pos": 21,
+   "demand_words": 1,
+   "strokes": 3,
+   "centrality": 0.009,
+   "parts": []
+  },
+  {
+   "pos": 47,
+   "char": "好",
+   "hand_pos": 42,
+   "demand_words": 3,
+   "strokes": 6,
+   "centrality": 0.0126,
+   "parts": [
+    "女",
+    "子"
+   ]
+  },
+  {
+   "pos": 48,
+   "char": "川",
+   "hand_pos": 13,
+   "demand_words": 1,
+   "strokes": 3,
+   "centrality": 0.0089,
+   "parts": []
+  },
+  {
+   "pos": 49,
+   "char": "男",
+   "hand_pos": 40,
+   "demand_words": 1,
+   "strokes": 7,
+   "centrality": 0.0037,
+   "parts": [
+    "田",
+    "力"
+   ]
+  },
+  {
+   "pos": 50,
+   "char": "口",
+   "hand_pos": 9,
+   "demand_words": 1,
+   "strokes": 3,
+   "centrality": 0.0087,
+   "parts": []
+  },
+  {
+   "pos": 51,
+   "char": "中",
+   "hand_pos": 19,
+   "demand_words": 3,
+   "strokes": 4,
+   "centrality": 0.0186,
+   "parts": [
+    "口"
+   ]
+  },
+  {
+   "pos": 52,
+   "char": "土",
+   "hand_pos": 59,
+   "demand_words": 1,
+   "strokes": 3,
+   "centrality": 0.0087,
+   "parts": []
+  },
+  {
+   "pos": 53,
+   "char": "食",
+   "hand_pos": 48,
+   "demand_words": 3,
+   "strokes": 9,
+   "centrality": 0.0084,
+   "parts": []
+  },
+  {
+   "pos": 54,
+   "char": "話",
+   "hand_pos": 49,
+   "demand_words": 5,
+   "strokes": 13,
+   "centrality": 0.008,
+   "parts": []
+  },
+  {
+   "pos": 55,
+   "char": "母",
+   "hand_pos": 44,
+   "demand_words": 2,
+   "strokes": 5,
+   "centrality": 0.0078,
+   "parts": []
+  },
+  {
+   "pos": 56,
+   "char": "木",
+   "hand_pos": 26,
+   "demand_words": 1,
+   "strokes": 4,
+   "centrality": 0.0065,
+   "parts": []
+  },
+  {
+   "pos": 57,
+   "char": "本",
+   "hand_pos": 27,
+   "demand_words": 11,
+   "strokes": 5,
+   "centrality": 0.061,
+   "parts": [
+    "木"
+   ]
+  },
+  {
+   "pos": 58,
+   "char": "休",
+   "hand_pos": 31,
+   "demand_words": 4,
+   "strokes": 6,
+   "centrality": 0.0167,
+   "parts": [
+    "木",
+    "人"
+   ]
+  },
+  {
+   "pos": 59,
+   "char": "校",
+   "hand_pos": 30,
+   "demand_words": 6,
+   "strokes": 10,
+   "centrality": 0.0131,
+   "parts": [
+    "木"
+   ]
+  },
+  {
+   "pos": 60,
+   "char": "四",
+   "hand_pos": 23,
+   "demand_words": 1,
+   "strokes": 5,
+   "centrality": 0.0048,
+   "parts": [
+    "八"
+   ]
+  },
+  {
+   "pos": 61,
+   "char": "私",
+   "hand_pos": 34,
+   "demand_words": 2,
+   "strokes": 7,
+   "centrality": 0.0051,
+   "parts": []
+  },
+  {
+   "pos": 62,
+   "char": "林",
+   "hand_pos": 28,
+   "demand_words": 1,
+   "strokes": 8,
+   "centrality": 0.0032,
+   "parts": [
+    "木"
+   ]
+  },
+  {
+   "pos": 63,
+   "char": "森",
+   "hand_pos": 29,
+   "demand_words": 1,
+   "strokes": 12,
+   "centrality": 0.0021,
+   "parts": [
+    "木",
+    "林"
+   ]
+  }
+ ],
+ "contrast_adjacency_chains": [
+  [
+   "日",
+   "白",
+   "目"
+  ],
+  [
+   "人",
+   "入",
+   "八"
+  ],
+  [
+   "今",
+   "分"
+  ],
+  [
+   "木",
+   "本"
+  ]
+ ],
+ "expansion_queue": [
+  {
+   "char": "会",
+   "demand_words": 5,
+   "example_words": [
+    "会う",
+    "会議",
+    "会"
+   ]
+  },
+  {
+   "char": "友",
+   "demand_words": 4,
+   "example_words": [
+    "友達"
+   ]
+  },
+  {
+   "char": "公",
+   "demand_words": 3,
+   "example_words": [
+    "公園"
+   ]
+  },
+  {
+   "char": "文",
+   "demand_words": 3,
+   "example_words": [
+    "作文",
+    "文",
+    "一文"
+   ]
+  },
+  {
+   "char": "毎",
+   "demand_words": 4,
+   "example_words": [
+    "毎日"
+   ]
+  },
+  {
+   "char": "画",
+   "demand_words": 5,
+   "example_words": [
+    "映画",
+    "計画"
+   ]
+  },
+  {
+   "char": "電",
+   "demand_words": 8,
+   "example_words": [
+    "電車",
+    "電気",
+    "電話"
+   ]
+  },
+  {
+   "char": "写",
+   "demand_words": 3,
+   "example_words": [
+    "写真を撮る",
+    "写真"
+   ]
+  },
+  {
+   "char": "犬",
+   "demand_words": 2,
+   "example_words": [
+    "犬"
+   ]
+  },
+  {
+   "char": "机",
+   "demand_words": 3,
+   "example_words": [
+    "机",
+    "机の上"
+   ]
+  },
+  {
+   "char": "週",
+   "demand_words": 5,
+   "example_words": [
+    "週末",
+    "来週",
+    "先週"
+   ]
+  },
+  {
+   "char": "映",
+   "demand_words": 4,
+   "example_words": [
+    "映画"
+   ]
+  },
+  {
+   "char": "作",
+   "demand_words": 3,
+   "example_words": [
+    "作る",
+    "作",
+    "作文"
+   ]
+  },
+  {
+   "char": "図",
+   "demand_words": 3,
+   "example_words": [
+    "図書館"
+   ]
+  },
+  {
+   "char": "広",
+   "demand_words": 2,
+   "example_words": [
+    "広い",
+    "広"
+   ]
+  },
+  {
+   "char": "書",
+   "demand_words": 4,
+   "example_words": [
+    "図書館",
+    "書"
+   ]
+  },
+  {
+   "char": "九",
+   "demand_words": 1,
+   "example_words": [
+    "九時"
+   ]
+  },
+  {
+   "char": "仕",
+   "demand_words": 2,
+   "example_words": [
+    "仕事"
+   ]
+  },
+  {
+   "char": "冬",
+   "demand_words": 2,
+   "example_words": [
+    "冬"
+   ]
+  },
+  {
+   "char": "部",
+   "demand_words": 4,
+   "example_words": [
+    "部屋",
+    "全部"
+   ]
+  },
+  {
+   "char": "出",
+   "demand_words": 1,
+   "example_words": [
+    "出"
+   ]
+  },
+  {
+   "char": "前",
+   "demand_words": 3,
+   "example_words": [
+    "前",
+    "名前"
+   ]
+  },
+  {
+   "char": "物",
+   "demand_words": 3,
+   "example_words": [
+    "果物"
+   ]
+  },
+  {
+   "char": "果",
+   "demand_words": 3,
+   "example_words": [
+    "果物"
+   ]
+  },
+  {
+   "char": "歩",
+   "demand_words": 3,
+   "example_words": [
+    "散歩する",
+    "散歩",
+    "歩"
+   ]
+  },
+  {
+   "char": "終",
+   "demand_words": 4,
+   "example_words": [
+    "終わる",
+    "終わ",
+    "終わり"
+   ]
+  },
+  {
+   "char": "安",
+   "demand_words": 2,
+   "example_words": [
+    "安い",
+    "安"
+   ]
+  },
+  {
+   "char": "五",
+   "demand_words": 1,
+   "example_words": [
+    "五時"
+   ]
+  },
+  {
+   "char": "昨",
+   "demand_words": 3,
+   "example_words": [
+    "昨日"
+   ]
+  },
+  {
+   "char": "朝",
+   "demand_words": 4,
+   "example_words": [
+    "朝ごはん",
+    "朝"
+   ]
+  },
+  {
+   "char": "丈",
+   "demand_words": 1,
+   "example_words": [
+    "大丈夫"
+   ]
+  },
+  {
+   "char": "音",
+   "demand_words": 3,
+   "example_words": [
+    "音楽"
+   ]
+  },
+  {
+   "char": "屋",
+   "demand_words": 3,
+   "example_words": [
+    "部屋"
+   ]
+  },
+  {
+   "char": "達",
+   "demand_words": 4,
+   "example_words": [
+    "友達"
+   ]
+  },
+  {
+   "char": "忙",
+   "demand_words": 2,
+   "example_words": [
+    "忙しい",
+    "忙し"
+   ]
+  },
+  {
+   "char": "曜",
+   "demand_words": 6,
+   "example_words": [
+    "月曜日",
+    "火曜日",
+    "土曜日"
+   ]
+  },
+  {
+   "char": "事",
+   "demand_words": 2,
+   "example_words": [
+    "仕事"
+   ]
+  },
+  {
+   "char": "言",
+   "demand_words": 2,
+   "example_words": [
+    "言う",
+    "言"
+   ]
+  },
+  {
+   "char": "真",
+   "demand_words": 3,
+   "example_words": [
+    "写真を撮る",
+    "写真"
+   ]
+  },
+  {
+   "char": "帰",
+   "demand_words": 3,
+   "example_words": [
+    "帰る",
+    "帰"
+   ]
+  }
+ ]
+}

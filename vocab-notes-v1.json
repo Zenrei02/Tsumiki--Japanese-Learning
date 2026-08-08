@@ -1,0 +1,85 @@
+{
+  "_": "Per-word teaching notes for the vocabulary module. HAND-AUTHORED — this is the one file here that is not generated, which is why it is separate from vocab-data-v1.json. build-vocab-data.py merges it in; regenerating never overwrites it.",
+  "_shape": "Same four fields as the grammar module's lesson `exp` blocks — what / build / when / watch — so the two modules teach in one voice. `watch` is always the L1-interference trap, never a general caution.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Every claim below is about Japanese and none has been checked by a native speaker. Goes to the reviewer with the rest of the queue. See the 'Reviewer — vocabulary module teaching notes' tracker row.",
+  "_scope": "13 of 89 taught words. Deliberately NOT all of them: the other 76 are plain nouns whose entire lesson is the gloss, and manufacturing a note for each would produce 76 shallow paragraphs that dilute the ones worth reading. A word earns a note when it carries something the gloss cannot say.",
+
+  "一緒に": {
+    "what": "The dictionary says \"together,\" but 一緒 on its own is a noun — roughly \"one and the same group.\" The に is what turns it into a description of HOW something is done, which is why the phrase is almost always 一緒に and not 一緒.",
+    "build": "一緒に goes before the verb: 一緒に行きます. The person you are with is marked separately with と — 友達と一緒に行きます.",
+    "when": "Doing something jointly. Inviting someone, or describing an outing you shared.",
+    "watch": "English says \"with my friend\" once and is done, so learners write 友達一緒に or 一緒に友達. Japanese needs both pieces: と marks the companion, 一緒に says the action was shared. You can drop 一緒に and keep just と — 友達と行きます is perfectly natural and slightly plainer. What you cannot do is drop the と."
+  },
+  "手を洗う": {
+    "what": "This is a phrase, not a word — 手 (hands), を (marks them as what gets acted on), 洗う (wash). It sits in the vocabulary list as a lump because that is how you will use it.",
+    "build": "Keep を between them. Adding a topic goes in front and changes nothing else: 私は手を洗います.",
+    "when": "Before eating, coming home, cooking. It is one of the small daily-routine phrases.",
+    "watch": "Memorised as a single lump, it becomes hard to take apart later — learners who only know 手を洗う often stall on 手が汚い or 手が大きい, because they never registered 手 as a word in its own right. It is one word plus one particle plus one verb, and each piece works elsewhere."
+  },
+  "歯をみがく": {
+    "what": "Same shape as 手を洗う: 歯 (teeth), を, みがく (polish, scrub).",
+    "build": "歯をみがきます in polite form.",
+    "when": "Daily routine, usually alongside 起きる and 寝る.",
+    "watch": "みがく means polish or scrub, not \"brush\" — it is also what you do to shoes and to a skill. Translating it as \"brush\" hides that, and then 技を磨く looks like a different word."
+  },
+  "薬を飲む": {
+    "what": "Medicine plus 飲む. Japanese takes medicine by \"drinking\" it, whatever its actual form.",
+    "build": "薬を飲みます.",
+    "when": "Any medicine — tablets, capsules, powder, liquid.",
+    "watch": "English \"take medicine\" tempts 薬を取る, which means physically picking it up. 飲む is the verb even for a tablet you swallow whole."
+  },
+  "写真を撮る": {
+    "what": "Photo plus 撮る, a verb used specifically for capturing images.",
+    "build": "写真を撮ります. The thing photographed takes の — 犬の写真を撮る.",
+    "when": "Taking a picture, filming.",
+    "watch": "取る and 撮る are both とる and learners reach for the common one. 取る is take or pick up; 撮る is reserved for photographing and filming. Same sound, different character, and the checker will notice."
+  },
+  "雨が降る": {
+    "what": "Rain plus 降る (to fall). Japanese makes the rain the thing doing the falling, so it takes が.",
+    "build": "雨が降ります. Past: 雨が降りました.",
+    "when": "Describing weather that is happening or happened.",
+    "watch": "There is no \"it\" in Japanese weather — 雨が降る is literally \"rain falls.\" Learners looking for a subject to match English \"it's raining\" invent one. Also 降る is for things falling from the sky specifically; a dropped cup uses 落ちる."
+  },
+  "勉強する": {
+    "what": "勉強 is a noun — \"study.\" する turns nouns into verbs, and a large part of Japanese vocabulary works this way.",
+    "build": "Two patterns are both correct: 日本語を勉強する, or 日本語の勉強をする. The first is more common in speech.",
+    "when": "Any studying. The same する trick makes 散歩する, 電話する, 料理する.",
+    "watch": "Mixing the two patterns produces 日本語を勉強をする, with two を in one clause — a very common early error and one the checker flags. Pick one shape and finish it."
+  },
+  "散歩する": {
+    "what": "散歩 (a walk, as a noun) plus する.",
+    "build": "散歩します, or 散歩をします. Where you walk takes を in a different sense — 公園を散歩する, where を marks the space moved through.",
+    "when": "A walk taken for its own sake, not walking to get somewhere.",
+    "watch": "公園を散歩する uses を on a place, which contradicts the \"を marks the object\" rule learners have just been taught. It is a real second use of を — the path or space traversed — and it turns up again with 道を歩く and 橋を渡る."
+  },
+  "今日": {
+    "what": "Today. The reading きょう belongs to the whole word.",
+    "build": "Used like a noun. It usually needs no particle for time — 今日行きます, not 今日に行きます.",
+    "when": "Constantly. It is among the first words worth knowing cold.",
+    "watch": "きょう cannot be built from 今 (いま/こん) and 日 (ひ/にち). This is a word whose reading was assigned to the pair, so learn the sound as a unit. Taking it apart produces confident nonsense like いまび."
+  },
+  "昨日": {
+    "what": "Yesterday, read きのう — again a reading that belongs to the whole word.",
+    "build": "Like 今日, no particle needed for the time itself: 昨日食べました.",
+    "when": "Talking about the past, usually with a past-form verb.",
+    "watch": "Same trap as 今日. Also, 昨日 has a second, stiffer reading さくじつ used in news and formal writing — you will hear it, but きのう is what you say."
+  },
+  "入る": {
+    "what": "To enter. Read はいる.",
+    "build": "Despite ending in -いる, this is a Godan verb: 入ります, 入って, 入った.",
+    "when": "Going into a room, a bath, a club, a company.",
+    "watch": "Verbs ending -いる or -える are usually Ichidan, and learners generalise the rule to produce 入て or 入ました. 入る is one of the well-known exceptions that is Godan anyway. So is 帰る. The ending tells you the likely answer, not the certain one."
+  },
+  "帰る": {
+    "what": "To go home, or to return to where you belong. Read かえる.",
+    "build": "Godan despite the -える ending: 帰ります, 帰って, 帰った.",
+    "when": "Going home, going back to your own country.",
+    "watch": "Two traps at once. It is Godan, not Ichidan (see 入る). And it means returning to your own place, so you cannot use it for going back to a shop or a friend's house — that is 戻る."
+  },
+  "行く": {
+    "what": "To go. Read いく.",
+    "build": "Godan, but its て-form is irregular: 行って, not 行いて. Past is 行った.",
+    "when": "Everywhere. Pairs with に or へ for destination — 学校に行きます.",
+    "watch": "行く is the one Godan verb whose て-form breaks the pattern, and it is common enough that the wrong form gets a lot of practice before anyone corrects it. Learn 行って early and separately."
+  }
+}

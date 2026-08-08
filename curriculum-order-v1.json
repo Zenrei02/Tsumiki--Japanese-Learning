@@ -1,0 +1,1900 @@
+{
+ "generated": "2026-08-08",
+ "source": "grammar-module.jsx (live)",
+ "kanji_order": "kanji-order-v2.json",
+ "grammar": {
+  "steps": [
+   {
+    "cat": "Step 0 · Before any Japanese",
+    "points": 2,
+    "bank": 0
+   },
+   {
+    "cat": "Step 1 · Your first sentences",
+    "points": 10,
+    "bank": 8
+   },
+   {
+    "cat": "Step 2 · Core particles",
+    "points": 10,
+    "bank": 8
+   },
+   {
+    "cat": "Step 3 · Joining, choosing & counting",
+    "points": 15,
+    "bank": 8
+   },
+   {
+    "cat": "Step 4 · Verbs: from dictionary form up",
+    "points": 18,
+    "bank": 8
+   },
+   {
+    "cat": "Checkpoint 1",
+    "points": 2,
+    "bank": 6
+   },
+   {
+    "cat": "Step 5 · Requests, permission & obligation",
+    "points": 7,
+    "bank": 8
+   },
+   {
+    "cat": "Step 6 · Invitations, desire & intention",
+    "points": 8,
+    "bank": 8
+   },
+   {
+    "cat": "Step 7 · Linking actions & time",
+    "points": 9,
+    "bank": 8
+   },
+   {
+    "cat": "Checkpoint 2",
+    "points": 2,
+    "bank": 6
+   },
+   {
+    "cat": "Step 8 · Existence & possession",
+    "points": 6,
+    "bank": 8
+   },
+   {
+    "cat": "Step 9 · Adjectives & adverbs",
+    "points": 11,
+    "bank": 8
+   },
+   {
+    "cat": "Step 10 · Comparing & preferring",
+    "points": 9,
+    "bank": 8
+   },
+   {
+    "cat": "Step 11 · Reasons, contrast & connectors",
+    "points": 10,
+    "bank": 8
+   },
+   {
+    "cat": "Step 12 · Past N5 · the shape-changers",
+    "points": 4,
+    "bank": 8
+   },
+   {
+    "cat": "Checkpoint 3 · Stage review",
+    "points": 2,
+    "bank": 6
+   },
+   {
+    "cat": "Stress test — first N4 lesson",
+    "points": 1,
+    "bank": 6
+   }
+  ],
+  "total_points": 126,
+  "integrity": {
+   "duplicate_ids": [],
+   "missing_requires": [],
+   "forward_requires": [],
+   "empty_requires_builds": []
+  },
+  "units": [
+   {
+    "step": "Step 0 · Before any Japanese",
+    "closes": null,
+    "close_en": null,
+    "points": [
+     "prim-shape",
+     "prim-drop"
+    ]
+   },
+   {
+    "step": "Step 1 · Your first sentences",
+    "closes": "b-s1",
+    "close_en": "introduce yourself",
+    "points": [
+     "desu",
+     "kosoado",
+     "janai",
+     "deshita",
+     "ka",
+     "qwords",
+     "ne",
+     "yo",
+     "cc-greetings",
+     "b-s1"
+    ]
+   },
+   {
+    "step": "Step 2 · Core particles",
+    "closes": "b-s2a",
+    "close_en": "four particles, one sentence",
+    "points": [
+     "wa",
+     "ga",
+     "sb-waga",
+     "o",
+     "ni-time",
+     "ni-dest",
+     "de-place",
+     "de-means",
+     "sb-nide",
+     "b-s2a"
+    ]
+   },
+   {
+    "step": "Step 3 · Joining, choosing & counting",
+    "closes": "b-s2b",
+    "close_en": "join things up",
+    "points": [
+     "to-and",
+     "mo",
+     "no",
+     "sb-pronouns",
+     "kara-from",
+     "yori",
+     "ka-or",
+     "ya",
+     "dake",
+     "shika",
+     "counters",
+     "gurai",
+     "goro",
+     "sb-slots",
+     "b-s2b"
+    ]
+   },
+   {
+    "step": "Step 4 · Verbs: from dictionary form up",
+    "closes": "b-s3a",
+    "close_en": "chain three actions",
+    "points": [
+     "dict",
+     "masu",
+     "sb-verbtypes",
+     "ta-plain",
+     "mashita",
+     "te",
+     "b-s3a"
+    ]
+   },
+   {
+    "step": "Step 4 · Verbs: from dictionary form up",
+    "closes": "b-s3c",
+    "close_en": "describe a state",
+    "points": [
+     "teiru",
+     "teiru2",
+     "sb-transitive",
+     "b-s3c"
+    ]
+   },
+   {
+    "step": "Step 4 · Verbs: from dictionary form up",
+    "closes": "b-s3b",
+    "close_en": "describe a person",
+    "points": [
+     "cc-teru",
+     "mou",
+     "mada",
+     "sb-future",
+     "sb-register",
+     "sb-nounmod",
+     "b-s3b"
+    ]
+   },
+   {
+    "step": "Checkpoint 1",
+    "closes": "b1",
+    "close_en": "put yesterday together",
+    "points": [
+     "b1",
+     "rc1"
+    ]
+   },
+   {
+    "step": "Step 5 · Requests, permission & obligation",
+    "closes": "b-s4",
+    "close_en": "write the house rules",
+    "points": [
+     "tekudasai",
+     "naidekudasai",
+     "temoii",
+     "tewaikemasen",
+     "nakereba",
+     "nakutemoii",
+     "b-s4"
+    ]
+   },
+   {
+    "step": "Step 6 · Invitations, desire & intention",
+    "closes": "b-s5",
+    "close_en": "state a plan",
+    "points": [
+     "mashou",
+     "mashouka",
+     "masenka",
+     "tai",
+     "hoshii",
+     "tsumori",
+     "niiku",
+     "b-s5"
+    ]
+   },
+   {
+    "step": "Step 7 · Linking actions & time",
+    "closes": "b-s6",
+    "close_en": "narrate a routine",
+    "points": [
+     "tekara",
+     "atode",
+     "maeni",
+     "nagara",
+     "taritari",
+     "kata",
+     "toki",
+     "deshou",
+     "b-s6"
+    ]
+   },
+   {
+    "step": "Checkpoint 2",
+    "closes": "b2",
+    "close_en": "make a plan with someone",
+    "points": [
+     "b2",
+     "rc2"
+    ]
+   },
+   {
+    "step": "Step 8 · Existence & possession",
+    "closes": "b-s7",
+    "close_en": "map a room",
+    "points": [
+     "arimasu",
+     "motteiru",
+     "location",
+     "ageru",
+     "cc-konbini",
+     "b-s7"
+    ]
+   },
+   {
+    "step": "Step 9 · Adjectives & adverbs",
+    "closes": "b-s8",
+    "close_en": "sell me a place",
+    "points": [
+     "iadj",
+     "naadj",
+     "kute",
+     "narimasu",
+     "shimasu-change",
+     "nisuru",
+     "amari",
+     "zenzen",
+     "totemo",
+     "cc-slang",
+     "b-s8"
+    ]
+   },
+   {
+    "step": "Step 10 · Comparing & preferring",
+    "closes": "b-s9",
+    "close_en": "rank and prefer",
+    "points": [
+     "hou",
+     "ichiban",
+     "suki",
+     "jouzu",
+     "wakaru",
+     "nogasuki",
+     "potential",
+     "sb-ganotwo",
+     "b-s9"
+    ]
+   },
+   {
+    "step": "Step 11 · Reasons, contrast & connectors",
+    "closes": "b-s10",
+    "close_en": "make your case",
+    "points": [
+     "kara-because",
+     "node",
+     "ga-but",
+     "demo",
+     "toiu",
+     "doushite",
+     "nanika",
+     "sb-orthography",
+     "sb-waga2",
+     "b-s10"
+    ]
+   },
+   {
+    "step": "Step 12 · Past N5 · the shape-changers",
+    "closes": "b-s11",
+    "close_en": "explain how something works",
+    "points": [
+     "sb-omou",
+     "passive",
+     "tara",
+     "b-s11"
+    ]
+   },
+   {
+    "step": "Checkpoint 3 · Stage review",
+    "closes": "b3",
+    "close_en": "argue a preference",
+    "points": [
+     "b3",
+     "rc3"
+    ]
+   },
+   {
+    "step": "Stress test — first N4 lesson",
+    "closes": null,
+    "close_en": null,
+    "points": [
+     "teshimau"
+    ]
+   }
+  ],
+  "oversized_units": [
+   "b-s2b"
+  ]
+ },
+ "vocabulary": {
+  "taught_words": 93,
+  "ledger_total": 286,
+  "recurring": {
+   "本": [
+    "Step 1 · Your first sentences",
+    "Checkpoint 1"
+   ],
+   "学校": [
+    "Step 2 · Core particles",
+    "Step 3 · Joining, choosing & counting",
+    "Checkpoint 1"
+   ],
+   "駅": [
+    "Step 2 · Core particles",
+    "Step 3 · Joining, choosing & counting"
+   ],
+   "友達": [
+    "Step 2 · Core particles",
+    "Step 3 · Joining, choosing & counting",
+    "Checkpoint 1"
+   ],
+   "電車": [
+    "Step 2 · Core particles",
+    "Step 3 · Joining, choosing & counting"
+   ],
+   "映画": [
+    "Step 2 · Core particles",
+    "Step 3 · Joining, choosing & counting",
+    "Checkpoint 1"
+   ],
+   "公園": [
+    "Step 2 · Core particles",
+    "Step 3 · Joining, choosing & counting"
+   ],
+   "朝ごはん": [
+    "Step 2 · Core particles",
+    "Step 3 · Joining, choosing & counting"
+   ],
+   "図書館": [
+    "Step 2 · Core particles",
+    "Step 3 · Joining, choosing & counting"
+   ],
+   "毎日": [
+    "Step 4 · Verbs: from dictionary form up",
+    "Checkpoint 1"
+   ],
+   "昨日": [
+    "Step 4 · Verbs: from dictionary form up",
+    "Checkpoint 1"
+   ],
+   "帰る": [
+    "Step 5 · Requests, permission & obligation",
+    "Checkpoint 2"
+   ],
+   "一緒に": [
+    "Step 6 · Invitations, desire & intention",
+    "Checkpoint 2"
+   ],
+   "買う": [
+    "Step 6 · Invitations, desire & intention",
+    "Checkpoint 2"
+   ],
+   "音楽": [
+    "Step 7 · Linking actions & time",
+    "Checkpoint 2"
+   ],
+   "宿題": [
+    "Step 7 · Linking actions & time",
+    "Checkpoint 2"
+   ],
+   "終わる": [
+    "Step 7 · Linking actions & time",
+    "Step 12 · Past N5 · the shape-changers"
+   ],
+   "猫": [
+    "Step 8 · Existence & possession",
+    "Checkpoint 3 · Stage review"
+   ],
+   "部屋": [
+    "Step 8 · Existence & possession",
+    "Checkpoint 3 · Stage review"
+   ],
+   "夏": [
+    "Step 10 · Comparing & preferring",
+    "Checkpoint 3 · Stage review"
+   ],
+   "果物": [
+    "Step 10 · Comparing & preferring",
+    "Checkpoint 3 · Stage review"
+   ],
+   "雨": [
+    "Step 11 · Reasons, contrast & connectors",
+    "Checkpoint 3 · Stage review"
+   ],
+   "時間": [
+    "Step 11 · Reasons, contrast & connectors",
+    "Step 12 · Past N5 · the shape-changers",
+    "Checkpoint 3 · Stage review"
+   ]
+  },
+  "checkpoint_only_recurrence": 13,
+  "identical_banks": [
+   [
+    "Step 2 · Core particles",
+    "Step 3 · Joining, choosing & counting",
+    [
+     "公園",
+     "友達",
+     "図書館",
+     "学校",
+     "映画",
+     "朝ごはん",
+     "電車",
+     "駅"
+    ]
+   ]
+  ],
+  "invisible_to_ledger": [
+   "かさ",
+   "全部",
+   "忘れる",
+   "最後まで",
+   "落とす",
+   "財布"
+  ],
+  "first_introduction": {
+   "学生": {
+    "word": "学生",
+    "gloss": "student",
+    "step": "Step 1 · Your first sentences"
+   },
+   "先生": {
+    "word": "先生",
+    "gloss": "teacher",
+    "step": "Step 1 · Your first sentences"
+   },
+   "本": {
+    "word": "本",
+    "gloss": "book",
+    "step": "Step 1 · Your first sentences"
+   },
+   "水": {
+    "word": "水",
+    "gloss": "water",
+    "step": "Step 1 · Your first sentences"
+   },
+   "今日": {
+    "word": "今日",
+    "gloss": "today",
+    "step": "Step 1 · Your first sentences"
+   },
+   "天気": {
+    "word": "天気",
+    "gloss": "weather",
+    "step": "Step 1 · Your first sentences"
+   },
+   "犬": {
+    "word": "犬",
+    "gloss": "dog",
+    "step": "Step 1 · Your first sentences"
+   },
+   "日本人": {
+    "word": "日本人",
+    "gloss": "Japanese person",
+    "step": "Step 1 · Your first sentences"
+   },
+   "学校": {
+    "word": "学校",
+    "gloss": "school",
+    "step": "Step 2 · Core particles"
+   },
+   "駅": {
+    "word": "駅",
+    "gloss": "station",
+    "step": "Step 2 · Core particles"
+   },
+   "友達": {
+    "word": "友達",
+    "gloss": "friend",
+    "step": "Step 2 · Core particles"
+   },
+   "電車": {
+    "word": "電車",
+    "gloss": "train",
+    "step": "Step 2 · Core particles"
+   },
+   "映画": {
+    "word": "映画",
+    "gloss": "movie",
+    "step": "Step 2 · Core particles"
+   },
+   "公園": {
+    "word": "公園",
+    "gloss": "park",
+    "step": "Step 2 · Core particles"
+   },
+   "朝ごはん": {
+    "word": "朝ごはん",
+    "gloss": "breakfast",
+    "step": "Step 2 · Core particles"
+   },
+   "図書館": {
+    "word": "図書館",
+    "gloss": "library",
+    "step": "Step 2 · Core particles"
+   },
+   "勉強する": {
+    "word": "勉強する",
+    "gloss": "to study",
+    "step": "Step 4 · Verbs: from dictionary form up"
+   },
+   "食べる": {
+    "word": "食べる",
+    "gloss": "to eat",
+    "step": "Step 4 · Verbs: from dictionary form up"
+   },
+   "見る": {
+    "word": "見る",
+    "gloss": "to see",
+    "step": "Step 4 · Verbs: from dictionary form up"
+   },
+   "行く": {
+    "word": "行く",
+    "gloss": "to go",
+    "step": "Step 4 · Verbs: from dictionary form up"
+   },
+   "起きる": {
+    "word": "起きる",
+    "gloss": "to get up",
+    "step": "Step 4 · Verbs: from dictionary form up"
+   },
+   "寝る": {
+    "word": "寝る",
+    "gloss": "to sleep",
+    "step": "Step 4 · Verbs: from dictionary form up"
+   },
+   "毎日": {
+    "word": "毎日",
+    "gloss": "every day",
+    "step": "Step 4 · Verbs: from dictionary form up"
+   },
+   "昨日": {
+    "word": "昨日",
+    "gloss": "yesterday",
+    "step": "Step 4 · Verbs: from dictionary form up"
+   },
+   "待つ": {
+    "word": "待つ",
+    "gloss": "to wait",
+    "step": "Step 5 · Requests, permission & obligation"
+   },
+   "座る": {
+    "word": "座る",
+    "gloss": "to sit",
+    "step": "Step 5 · Requests, permission & obligation"
+   },
+   "写真を撮る": {
+    "word": "写真を撮る",
+    "gloss": "to take a photo",
+    "step": "Step 5 · Requests, permission & obligation"
+   },
+   "薬を飲む": {
+    "word": "薬を飲む",
+    "gloss": "to take medicine",
+    "step": "Step 5 · Requests, permission & obligation"
+   },
+   "帰る": {
+    "word": "帰る",
+    "gloss": "to go home",
+    "step": "Step 5 · Requests, permission & obligation"
+   },
+   "入る": {
+    "word": "入る",
+    "gloss": "to enter",
+    "step": "Step 5 · Requests, permission & obligation"
+   },
+   "使う": {
+    "word": "使う",
+    "gloss": "to use",
+    "step": "Step 5 · Requests, permission & obligation"
+   },
+   "急ぐ": {
+    "word": "急ぐ",
+    "gloss": "to hurry",
+    "step": "Step 5 · Requests, permission & obligation"
+   },
+   "一緒に": {
+    "word": "一緒に",
+    "gloss": "together",
+    "step": "Step 6 · Invitations, desire & intention"
+   },
+   "昼ごはん": {
+    "word": "昼ごはん",
+    "gloss": "lunch",
+    "step": "Step 6 · Invitations, desire & intention"
+   },
+   "お茶": {
+    "word": "お茶",
+    "gloss": "tea",
+    "step": "Step 6 · Invitations, desire & intention"
+   },
+   "買う": {
+    "word": "買う",
+    "gloss": "to buy",
+    "step": "Step 6 · Invitations, desire & intention"
+   },
+   "会う": {
+    "word": "会う",
+    "gloss": "to meet",
+    "step": "Step 6 · Invitations, desire & intention"
+   },
+   "新しい": {
+    "word": "新しい",
+    "gloss": "new",
+    "step": "Step 6 · Invitations, desire & intention"
+   },
+   "車": {
+    "word": "車",
+    "gloss": "car",
+    "step": "Step 6 · Invitations, desire & intention"
+   },
+   "国": {
+    "word": "国",
+    "gloss": "country",
+    "step": "Step 6 · Invitations, desire & intention"
+   },
+   "手を洗う": {
+    "word": "手を洗う",
+    "gloss": "to wash hands",
+    "step": "Step 7 · Linking actions & time"
+   },
+   "歯をみがく": {
+    "word": "歯をみがく",
+    "gloss": "to brush teeth",
+    "step": "Step 7 · Linking actions & time"
+   },
+   "音楽": {
+    "word": "音楽",
+    "gloss": "music",
+    "step": "Step 7 · Linking actions & time"
+   },
+   "散歩する": {
+    "word": "散歩する",
+    "gloss": "to take a walk",
+    "step": "Step 7 · Linking actions & time"
+   },
+   "宿題": {
+    "word": "宿題",
+    "gloss": "homework",
+    "step": "Step 7 · Linking actions & time"
+   },
+   "仕事": {
+    "word": "仕事",
+    "gloss": "work",
+    "step": "Step 7 · Linking actions & time"
+   },
+   "終わる": {
+    "word": "終わる",
+    "gloss": "to end",
+    "step": "Step 7 · Linking actions & time"
+   },
+   "話す": {
+    "word": "話す",
+    "gloss": "to speak",
+    "step": "Step 7 · Linking actions & time"
+   },
+   "写真": {
+    "word": "写真",
+    "gloss": "photo",
+    "step": "Checkpoint 2"
+   },
+   "机": {
+    "word": "机",
+    "gloss": "desk",
+    "step": "Step 8 · Existence & possession"
+   },
+   "いす": {
+    "word": "いす",
+    "gloss": "chair",
+    "step": "Step 8 · Existence & possession"
+   },
+   "猫": {
+    "word": "猫",
+    "gloss": "cat",
+    "step": "Step 8 · Existence & possession"
+   },
+   "子ども": {
+    "word": "子ども",
+    "gloss": "child",
+    "step": "Step 8 · Existence & possession"
+   },
+   "銀行": {
+    "word": "銀行",
+    "gloss": "bank",
+    "step": "Step 8 · Existence & possession"
+   },
+   "前": {
+    "word": "前",
+    "gloss": "front",
+    "step": "Step 8 · Existence & possession"
+   },
+   "下": {
+    "word": "下",
+    "gloss": "under",
+    "step": "Step 8 · Existence & possession"
+   },
+   "部屋": {
+    "word": "部屋",
+    "gloss": "room",
+    "step": "Step 8 · Existence & possession"
+   },
+   "高い": {
+    "word": "高い",
+    "gloss": "expensive; tall",
+    "step": "Step 9 · Adjectives & adverbs"
+   },
+   "安い": {
+    "word": "安い",
+    "gloss": "cheap",
+    "step": "Step 9 · Adjectives & adverbs"
+   },
+   "寒い": {
+    "word": "寒い",
+    "gloss": "cold",
+    "step": "Step 9 · Adjectives & adverbs"
+   },
+   "暑い": {
+    "word": "暑い",
+    "gloss": "hot",
+    "step": "Step 9 · Adjectives & adverbs"
+   },
+   "静か": {
+    "word": "静か",
+    "gloss": "quiet",
+    "step": "Step 9 · Adjectives & adverbs"
+   },
+   "簡単": {
+    "word": "簡単",
+    "gloss": "easy",
+    "step": "Step 9 · Adjectives & adverbs"
+   },
+   "面白い": {
+    "word": "面白い",
+    "gloss": "interesting",
+    "step": "Step 9 · Adjectives & adverbs"
+   },
+   "広い": {
+    "word": "広い",
+    "gloss": "spacious",
+    "step": "Step 9 · Adjectives & adverbs"
+   },
+   "夏": {
+    "word": "夏",
+    "gloss": "summer",
+    "step": "Step 10 · Comparing & preferring"
+   },
+   "冬": {
+    "word": "冬",
+    "gloss": "winter",
+    "step": "Step 10 · Comparing & preferring"
+   },
+   "果物": {
+    "word": "果物",
+    "gloss": "fruit",
+    "step": "Step 10 · Comparing & preferring"
+   },
+   "りんご": {
+    "word": "りんご",
+    "gloss": "apple",
+    "step": "Step 10 · Comparing & preferring"
+   },
+   "歌": {
+    "word": "歌",
+    "gloss": "song",
+    "step": "Step 10 · Comparing & preferring"
+   },
+   "ピアノ": {
+    "word": "ピアノ",
+    "gloss": "piano",
+    "step": "Step 10 · Comparing & preferring"
+   },
+   "野菜": {
+    "word": "野菜",
+    "gloss": "vegetables",
+    "step": "Step 10 · Comparing & preferring"
+   },
+   "バス": {
+    "word": "バス",
+    "gloss": "bus",
+    "step": "Step 10 · Comparing & preferring"
+   },
+   "頭": {
+    "word": "頭",
+    "gloss": "head",
+    "step": "Step 11 · Reasons, contrast & connectors"
+   },
+   "雨": {
+    "word": "雨",
+    "gloss": "rain",
+    "step": "Step 11 · Reasons, contrast & connectors"
+   },
+   "時間": {
+    "word": "時間",
+    "gloss": "time",
+    "step": "Step 11 · Reasons, contrast & connectors"
+   },
+   "遅れる": {
+    "word": "遅れる",
+    "gloss": "to be late",
+    "step": "Step 11 · Reasons, contrast & connectors"
+   },
+   "窓": {
+    "word": "窓",
+    "gloss": "window",
+    "step": "Step 11 · Reasons, contrast & connectors"
+   },
+   "開ける": {
+    "word": "開ける",
+    "gloss": "to open",
+    "step": "Step 11 · Reasons, contrast & connectors"
+   },
+   "忙しい": {
+    "word": "忙しい",
+    "gloss": "busy",
+    "step": "Step 11 · Reasons, contrast & connectors"
+   },
+   "痛い": {
+    "word": "痛い",
+    "gloss": "painful",
+    "step": "Step 11 · Reasons, contrast & connectors"
+   },
+   "思う": {
+    "word": "思う",
+    "gloss": "to think",
+    "step": "Step 12 · Past N5 · the shape-changers"
+   },
+   "言う": {
+    "word": "言う",
+    "gloss": "to say",
+    "step": "Step 12 · Past N5 · the shape-changers"
+   },
+   "雨が降る": {
+    "word": "雨が降る",
+    "gloss": "to rain",
+    "step": "Step 12 · Past N5 · the shape-changers"
+   },
+   "作る": {
+    "word": "作る",
+    "gloss": "to make",
+    "step": "Step 12 · Past N5 · the shape-changers"
+   },
+   "会議": {
+    "word": "会議",
+    "gloss": "meeting",
+    "step": "Step 12 · Past N5 · the shape-changers"
+   },
+   "電気": {
+    "word": "電気",
+    "gloss": "electricity; lights",
+    "step": "Step 12 · Past N5 · the shape-changers"
+   },
+   "全部": {
+    "word": "全部",
+    "gloss": "all",
+    "step": "Stress test — first N4 lesson"
+   },
+   "忘れる": {
+    "word": "忘れる",
+    "gloss": "to forget",
+    "step": "Stress test — first N4 lesson"
+   },
+   "かさ": {
+    "word": "かさ",
+    "gloss": "umbrella",
+    "step": "Stress test — first N4 lesson"
+   },
+   "財布": {
+    "word": "財布",
+    "gloss": "wallet",
+    "step": "Stress test — first N4 lesson"
+   },
+   "落とす": {
+    "word": "落とす",
+    "gloss": "to drop",
+    "step": "Stress test — first N4 lesson"
+   },
+   "最後まで": {
+    "word": "最後まで",
+    "gloss": "to the end",
+    "step": "Stress test — first N4 lesson"
+   }
+  }
+ },
+ "promotion_queue": [
+  {
+   "word": "三時",
+   "reading": "さんじ",
+   "meaning": "three o'clock",
+   "jlpt": "N5",
+   "sources": 3,
+   "kanji_covered": "2/2",
+   "plain_at": 29,
+   "score": 6.5
+  },
+  {
+   "word": "百円",
+   "reading": "ひゃくえん",
+   "meaning": "100 yen",
+   "jlpt": "N5",
+   "sources": 3,
+   "kanji_covered": "2/2",
+   "plain_at": 38,
+   "score": 6.5
+  },
+  {
+   "word": "一つ",
+   "reading": "ひとつ",
+   "meaning": "one (thing)",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "1/1",
+   "plain_at": 1,
+   "score": 5.5
+  },
+  {
+   "word": "七時",
+   "reading": "しちじ",
+   "meaning": "seven o'clock",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "2/2",
+   "plain_at": 43,
+   "score": 5.5
+  },
+  {
+   "word": "三年",
+   "reading": "さんねん",
+   "meaning": "three years",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "2/2",
+   "plain_at": 40,
+   "score": 5.5
+  },
+  {
+   "word": "上手",
+   "reading": "じょうず",
+   "meaning": "good at",
+   "jlpt": "N5",
+   "sources": 3,
+   "kanji_covered": "2/2",
+   "plain_at": "jukujikun",
+   "score": 5.5
+  },
+  {
+   "word": "二つ",
+   "reading": "ふたつ",
+   "meaning": "two (things)",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "1/1",
+   "plain_at": 2,
+   "score": 5.5
+  },
+  {
+   "word": "今",
+   "reading": "いま",
+   "meaning": "now",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "1/1",
+   "plain_at": 26,
+   "score": 5.5
+  },
+  {
+   "word": "休み",
+   "reading": "やすみ",
+   "meaning": "holiday; rest",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "1/1",
+   "plain_at": 61,
+   "score": 5.5
+  },
+  {
+   "word": "何",
+   "reading": "なに",
+   "meaning": "what",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "1/1",
+   "plain_at": 50,
+   "score": 5.5
+  },
+  {
+   "word": "千円",
+   "reading": "せんえん",
+   "meaning": "1000 yen",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "2/2",
+   "plain_at": 44,
+   "score": 5.5
+  },
+  {
+   "word": "好き",
+   "reading": "すき",
+   "meaning": "liked; to like",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "1/1",
+   "plain_at": 39,
+   "score": 5.5
+  },
+  {
+   "word": "手",
+   "reading": "て",
+   "meaning": "hand",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "1/1",
+   "plain_at": 28,
+   "score": 5.5
+  },
+  {
+   "word": "日本",
+   "reading": "にほん",
+   "meaning": "Japan",
+   "jlpt": "N5",
+   "sources": 3,
+   "kanji_covered": "2/2",
+   "plain_at": "jukujikun",
+   "score": 5.5
+  },
+  {
+   "word": "母",
+   "reading": "はは",
+   "meaning": "my mother",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "1/1",
+   "plain_at": 51,
+   "score": 5.5
+  },
+  {
+   "word": "田中",
+   "reading": "たなか",
+   "meaning": "Tanaka (name)",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "2/2",
+   "plain_at": 19,
+   "score": 5.5
+  },
+  {
+   "word": "私",
+   "reading": "わたし",
+   "meaning": "I",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "1/1",
+   "plain_at": 58,
+   "score": 5.5
+  },
+  {
+   "word": "一人",
+   "reading": "ひとり",
+   "meaning": "one person; alone",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "2/2",
+   "plain_at": "jukujikun",
+   "score": 4.5
+  },
+  {
+   "word": "下手",
+   "reading": "へた",
+   "meaning": "bad at",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "2/2",
+   "plain_at": "jukujikun",
+   "score": 4.5
+  },
+  {
+   "word": "先週",
+   "reading": "せんしゅう",
+   "meaning": "last week",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "1/2",
+   "plain_at": null,
+   "score": 4.5
+  },
+  {
+   "word": "十日",
+   "reading": "とおか",
+   "meaning": "the 10th; ten days",
+   "jlpt": "N4",
+   "sources": 2,
+   "kanji_covered": "2/2",
+   "plain_at": 5,
+   "score": 4.5
+  },
+  {
+   "word": "月曜日",
+   "reading": "げつようび",
+   "meaning": "Monday",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "2/3",
+   "plain_at": null,
+   "score": 4.5
+  },
+  {
+   "word": "来週",
+   "reading": "らいしゅう",
+   "meaning": "next week",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "1/2",
+   "plain_at": null,
+   "score": 4.5
+  },
+  {
+   "word": "火曜日",
+   "reading": "かようび",
+   "meaning": "Tuesday",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "2/3",
+   "plain_at": null,
+   "score": 4.5
+  },
+  {
+   "word": "町",
+   "reading": "まち",
+   "meaning": "town",
+   "jlpt": "N4",
+   "sources": 2,
+   "kanji_covered": "1/1",
+   "plain_at": 48,
+   "score": 4.5
+  },
+  {
+   "word": "電話",
+   "reading": "でんわ",
+   "meaning": "telephone",
+   "jlpt": "N5",
+   "sources": 2,
+   "kanji_covered": "1/2",
+   "plain_at": null,
+   "score": 4.5
+  },
+  {
+   "word": "上",
+   "reading": "うえ",
+   "meaning": "above",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 30,
+   "score": 3.5
+  },
+  {
+   "word": "中",
+   "reading": "なか",
+   "meaning": "inside",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 19,
+   "score": 3.5
+  },
+  {
+   "word": "休む",
+   "reading": "やすむ",
+   "meaning": "to rest",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 61,
+   "score": 3.5
+  },
+  {
+   "word": "何時",
+   "reading": "なんじ",
+   "meaning": "what time",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "2/2",
+   "plain_at": 50,
+   "score": 3.5
+  },
+  {
+   "word": "八つ",
+   "reading": "やっつ",
+   "meaning": "eight things",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 17,
+   "score": 3.5
+  },
+  {
+   "word": "分かる",
+   "reading": "わかる",
+   "meaning": "to understand",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 27,
+   "score": 3.5
+  },
+  {
+   "word": "力",
+   "reading": "ちから",
+   "meaning": "strength",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 52,
+   "score": 3.5
+  },
+  {
+   "word": "口",
+   "reading": "くち",
+   "meaning": "mouth",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 9,
+   "score": 3.5
+  },
+  {
+   "word": "四つ",
+   "reading": "よっつ",
+   "meaning": "four things",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 23,
+   "score": 3.5
+  },
+  {
+   "word": "大きい",
+   "reading": "おおきい",
+   "meaning": "big",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 18,
+   "score": 3.5
+  },
+  {
+   "word": "女の人",
+   "reading": "おんなのひと",
+   "meaning": "woman",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "2/2",
+   "plain_at": 21,
+   "score": 3.5
+  },
+  {
+   "word": "小さい",
+   "reading": "ちいさい",
+   "meaning": "small",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 11,
+   "score": 3.5
+  },
+  {
+   "word": "山",
+   "reading": "やま",
+   "meaning": "mountain",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 14,
+   "score": 3.5
+  },
+  {
+   "word": "川",
+   "reading": "かわ",
+   "meaning": "river",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 13,
+   "score": 3.5
+  },
+  {
+   "word": "明るい",
+   "reading": "あかるい",
+   "meaning": "bright",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 34,
+   "score": 3.5
+  },
+  {
+   "word": "明日",
+   "reading": "あした",
+   "meaning": "tomorrow",
+   "jlpt": "N4",
+   "sources": 2,
+   "kanji_covered": "2/2",
+   "plain_at": "jukujikun",
+   "score": 3.5
+  },
+  {
+   "word": "木",
+   "reading": "き",
+   "meaning": "tree",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 59,
+   "score": 3.5
+  },
+  {
+   "word": "来る",
+   "reading": "くる",
+   "meaning": "to come",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 47,
+   "score": 3.5
+  },
+  {
+   "word": "林",
+   "reading": "はやし",
+   "meaning": "woods",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 63,
+   "score": 3.5
+  },
+  {
+   "word": "森",
+   "reading": "もり",
+   "meaning": "forest",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 64,
+   "score": 3.5
+  },
+  {
+   "word": "男の人",
+   "reading": "おとこのひと",
+   "meaning": "man",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "2/2",
+   "plain_at": 53,
+   "score": 3.5
+  },
+  {
+   "word": "白い",
+   "reading": "しろい",
+   "meaning": "white",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 10,
+   "score": 3.5
+  },
+  {
+   "word": "目",
+   "reading": "め",
+   "meaning": "eye",
+   "jlpt": null,
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 7,
+   "score": 3.5
+  },
+  {
+   "word": "一",
+   "reading": "いち",
+   "meaning": "one",
+   "jlpt": "N5",
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 1,
+   "score": 3.0
+  },
+  {
+   "word": "三",
+   "reading": "さん",
+   "meaning": "three",
+   "jlpt": "N5",
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 3,
+   "score": 3.0
+  },
+  {
+   "word": "三つ",
+   "reading": "みっつ",
+   "meaning": "three (things)",
+   "jlpt": "N5",
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 3,
+   "score": 3.0
+  },
+  {
+   "word": "三人",
+   "reading": "さんにん",
+   "meaning": "three people",
+   "jlpt": "N5",
+   "sources": 1,
+   "kanji_covered": "2/2",
+   "plain_at": 15,
+   "score": 3.0
+  },
+  {
+   "word": "三十分",
+   "reading": "さんじゅっぷん",
+   "meaning": "thirty minutes",
+   "jlpt": "N5",
+   "sources": 1,
+   "kanji_covered": "3/3",
+   "plain_at": 27,
+   "score": 3.0
+  },
+  {
+   "word": "三月",
+   "reading": "さんがつ",
+   "meaning": "March",
+   "jlpt": "N5",
+   "sources": 1,
+   "kanji_covered": "2/2",
+   "plain_at": 6,
+   "score": 3.0
+  },
+  {
+   "word": "二",
+   "reading": "に",
+   "meaning": "two",
+   "jlpt": "N5",
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 2,
+   "score": 3.0
+  },
+  {
+   "word": "人",
+   "reading": "ひと",
+   "meaning": "person",
+   "jlpt": "N5",
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 15,
+   "score": 3.0
+  },
+  {
+   "word": "休",
+   "reading": "やす",
+   "meaning": "rest",
+   "jlpt": "N5",
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 61,
+   "score": 3.0
+  },
+  {
+   "word": "入",
+   "reading": "はい",
+   "meaning": "enter",
+   "jlpt": "N5",
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 16,
+   "score": 3.0
+  },
+  {
+   "word": "十人",
+   "reading": "じゅうにん",
+   "meaning": "ten people",
+   "jlpt": "N5",
+   "sources": 1,
+   "kanji_covered": "2/2",
+   "plain_at": 15,
+   "score": 3.0
+  }
+ ],
+ "rendering": {
+  "never_plain_in_stage_1": [
+   "犬",
+   "駅",
+   "友達",
+   "電車",
+   "映画",
+   "公園",
+   "朝ごはん",
+   "図書館",
+   "勉強する",
+   "起きる",
+   "寝る",
+   "毎日",
+   "待つ",
+   "座る",
+   "写真を撮る",
+   "薬を飲む",
+   "帰る",
+   "使う",
+   "急ぐ",
+   "一緒に",
+   "昼ごはん",
+   "お茶",
+   "買う",
+   "会う",
+   "新しい",
+   "手を洗う",
+   "歯をみがく",
+   "音楽",
+   "散歩する",
+   "宿題",
+   "仕事",
+   "終わる",
+   "写真",
+   "机",
+   "猫",
+   "銀行",
+   "前",
+   "部屋",
+   "高い",
+   "安い",
+   "寒い",
+   "暑い",
+   "静か",
+   "簡単",
+   "面白い",
+   "広い",
+   "夏",
+   "冬",
+   "果物",
+   "歌",
+   "野菜",
+   "頭",
+   "遅れる",
+   "窓",
+   "開ける",
+   "忙しい",
+   "痛い",
+   "思う",
+   "雨が降る",
+   "作る",
+   "会議",
+   "電気",
+   "全部",
+   "忘れる",
+   "財布",
+   "落とす",
+   "最後まで"
+  ],
+  "kana_only": 5,
+  "promotion_by_kanji_decile": {
+   "10": 3,
+   "20": 2,
+   "30": 4,
+   "40": 4,
+   "50": 5,
+   "60": 1
+  },
+  "blocking_untaught_kanji": {
+   "電": [
+    "電車",
+    "電気"
+   ],
+   "写": [
+    "写真を撮る",
+    "写真"
+   ],
+   "真": [
+    "写真を撮る",
+    "写真"
+   ],
+   "会": [
+    "会う",
+    "会議"
+   ],
+   "部": [
+    "部屋",
+    "全部"
+   ],
+   "犬": [
+    "犬"
+   ],
+   "駅": [
+    "駅"
+   ],
+   "友": [
+    "友達"
+   ],
+   "達": [
+    "友達"
+   ],
+   "映": [
+    "映画"
+   ],
+   "画": [
+    "映画"
+   ],
+   "公": [
+    "公園"
+   ],
+   "園": [
+    "公園"
+   ],
+   "朝": [
+    "朝ごはん"
+   ],
+   "図": [
+    "図書館"
+   ],
+   "書": [
+    "図書館"
+   ],
+   "館": [
+    "図書館"
+   ],
+   "勉": [
+    "勉強する"
+   ],
+   "強": [
+    "勉強する"
+   ],
+   "起": [
+    "起きる"
+   ],
+   "寝": [
+    "寝る"
+   ],
+   "毎": [
+    "毎日"
+   ],
+   "待": [
+    "待つ"
+   ],
+   "座": [
+    "座る"
+   ],
+   "撮": [
+    "写真を撮る"
+   ],
+   "薬": [
+    "薬を飲む"
+   ],
+   "飲": [
+    "薬を飲む"
+   ],
+   "帰": [
+    "帰る"
+   ],
+   "使": [
+    "使う"
+   ],
+   "急": [
+    "急ぐ"
+   ],
+   "緒": [
+    "一緒に"
+   ],
+   "昼": [
+    "昼ごはん"
+   ],
+   "茶": [
+    "お茶"
+   ],
+   "買": [
+    "買う"
+   ],
+   "新": [
+    "新しい"
+   ],
+   "洗": [
+    "手を洗う"
+   ],
+   "歯": [
+    "歯をみがく"
+   ],
+   "音": [
+    "音楽"
+   ],
+   "楽": [
+    "音楽"
+   ],
+   "散": [
+    "散歩する"
+   ],
+   "歩": [
+    "散歩する"
+   ],
+   "宿": [
+    "宿題"
+   ],
+   "題": [
+    "宿題"
+   ],
+   "仕": [
+    "仕事"
+   ],
+   "事": [
+    "仕事"
+   ],
+   "終": [
+    "終わる"
+   ],
+   "机": [
+    "机"
+   ],
+   "猫": [
+    "猫"
+   ],
+   "銀": [
+    "銀行"
+   ],
+   "前": [
+    "前"
+   ],
+   "屋": [
+    "部屋"
+   ],
+   "高": [
+    "高い"
+   ],
+   "安": [
+    "安い"
+   ],
+   "寒": [
+    "寒い"
+   ],
+   "暑": [
+    "暑い"
+   ],
+   "静": [
+    "静か"
+   ],
+   "簡": [
+    "簡単"
+   ],
+   "単": [
+    "簡単"
+   ],
+   "面": [
+    "面白い"
+   ],
+   "広": [
+    "広い"
+   ],
+   "夏": [
+    "夏"
+   ],
+   "冬": [
+    "冬"
+   ],
+   "果": [
+    "果物"
+   ],
+   "物": [
+    "果物"
+   ],
+   "歌": [
+    "歌"
+   ],
+   "野": [
+    "野菜"
+   ],
+   "菜": [
+    "野菜"
+   ],
+   "頭": [
+    "頭"
+   ],
+   "遅": [
+    "遅れる"
+   ],
+   "窓": [
+    "窓"
+   ],
+   "開": [
+    "開ける"
+   ],
+   "忙": [
+    "忙しい"
+   ],
+   "痛": [
+    "痛い"
+   ],
+   "思": [
+    "思う"
+   ],
+   "降": [
+    "雨が降る"
+   ],
+   "作": [
+    "作る"
+   ],
+   "議": [
+    "会議"
+   ],
+   "全": [
+    "全部"
+   ],
+   "忘": [
+    "忘れる"
+   ],
+   "財": [
+    "財布"
+   ],
+   "布": [
+    "財布"
+   ],
+   "落": [
+    "落とす"
+   ],
+   "最": [
+    "最後まで"
+   ],
+   "後": [
+    "最後まで"
+   ]
+  }
+ }
+}
