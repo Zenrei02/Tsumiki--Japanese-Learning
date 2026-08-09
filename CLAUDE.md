@@ -67,18 +67,36 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   `mv` also works and needs no permission, which is why `OLD/` remains the right home for
   superseded files worth keeping.
 
-- **⚠️ Do not run `git` in the project folder. It locks Lloyd's repository.**
-  `git status` — and anything else that refreshes the index — creates `.git/index.lock` and
-  then deletes it. **If delete permission has not been granted, that cleanup fails**, the lock
-  is left behind, and Lloyd's GitHub Desktop reports the repo as locked. A read-only command
-  with a write-shaped side effect. Session 9 did this with `git status --porcelain`.
+- **`git` in the project folder: COMMITTING WORKS. Pushing does not. Check delete permission
+  first.**
 
-  To inspect the repo state, read the files directly, or use `git --no-optional-locks …`,
-  which does not take the index lock. To clear a lock that already exists, request delete
-  permission (above) and `rm .git/index.lock`; `mv` out of `.git/` also works and needs no
-  permission.
+  The hazard is `.git/index.lock`: `git status` and anything else that refreshes the index
+  creates it and then deletes it. **If delete permission has not been granted that cleanup
+  fails**, the lock is left behind, and Lloyd's GitHub Desktop reports the repo as locked. A
+  read-only command with a write-shaped side effect — Session 9 did exactly this with
+  `git status --porcelain` and then wrote git off entirely, which was an overcorrection.
 
-  Committing and pushing are Lloyd's, from GitHub Desktop. Never attempt them from here.
+  **The order of operations that works:**
+
+  1. Probe delete permission before any git call — `touch .p && rm .p` in the project folder.
+     If it fails, call `mcp__cowork__allow_cowork_file_delete` and let Lloyd approve.
+  2. Inspect with `git --no-optional-locks …`, which never takes the index lock. Safe even
+     without permission.
+  3. `git add -A && git commit -F -` works. Author comes from repo-local config and is already
+     set to Lloyd (`Clifton L. Myles, Jr. <zensoreno@gmail.com>`) — commits land as his,
+     which is what he asked for. Session 9 shipped `a4e0c71` this way; Session 10 `735eaf9`.
+  4. **Check for a stray lock afterwards** (`ls .git/index.lock`) and remove it if present.
+
+  **`git push` FAILS and always will** — `could not read Username for 'https://github.com'`.
+  No credentials in the sandbox and GitHub is proxy-blocked anyway. Do not go looking for a
+  way around it and do not accept a token: it would sit permanently in the transcript and can
+  rewrite history. **Lloyd pushes from GitHub Desktop**, usually within a minute of the commit
+  appearing.
+
+  One trap when confirming: after his push, the local `origin/main` ref advances and
+  `rev-list origin/main..HEAD` reads 0, which looks identical to "my push succeeded." It did
+  not. Distinguish them by timestamp — compare `stat .git/refs/remotes/origin/main` against
+  the commit time — or just ask.
 
 - **Write scratch files to the system temp dir, not the project folder.** Even with delete
   permission granted, a script that creates and removes its own temp files is cleaner run
