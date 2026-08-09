@@ -84,7 +84,7 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
      without permission.
   3. `git add -A && git commit -F -` works. Author comes from repo-local config and is already
      set to Lloyd (`Clifton L. Myles, Jr. <zensoreno@gmail.com>`) — commits land as his,
-     which is what he asked for. Session 9 shipped `a4e0c71` this way; Session 10 `735eaf9`.
+     which is what he asked for. Session 9 shipped `a4e0c71`, `735eaf9` and `8b4bf60` this way.
   4. **Check for a stray lock afterwards** (`ls .git/index.lock`) and remove it if present.
 
   **`git push` FAILS and always will** — `could not read Username for 'https://github.com'`.

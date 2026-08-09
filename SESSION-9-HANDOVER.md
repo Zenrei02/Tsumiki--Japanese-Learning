@@ -52,7 +52,7 @@ attributes KanjiVG CC BY-SA 3.0 in-file and adding a second source changes that.
 make at 2am.** Either fetch KanjiVG's 08a00 paths on your machine, or decide about
 `hanzi-writer-data`.
 
-> ### ⛔ CORRECTED IN SESSION 10 — the table above is wrong, and this is why
+> ### ⛔ CORRECTED LATER THE SAME SESSION — the table above is wrong, and this is why
 >
 > The original text is left standing because it is what was believed at the time and the
 > reasoning built on it is only legible with it in place. But **the conclusion was false.**
@@ -69,7 +69,7 @@ make at 2am.** Either fetch KanjiVG's 08a00 paths on your machine, or decide abo
 >
 > **There was never a licensing decision to make.** The blocker was the search, and it was
 > escalated to Lloyd as a provenance question he then carried for a session. 言 shipped in
-> Session 10 with KanjiVG's own paths and no second source.
+> later the same session with KanjiVG's own paths and no second source.
 >
 > The generalised lesson is in `CLAUDE.md` under the `rm` bullet: a limitation written into a
 > handover stops being checked, so record the method, not the verdict.

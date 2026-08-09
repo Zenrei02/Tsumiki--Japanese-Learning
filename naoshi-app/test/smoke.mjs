@@ -14,7 +14,7 @@
 // A build check catches none of these. They are runtime ReferenceErrors, and a
 // white screen is what a learner sees.
 //
-// COVERAGE — read this before trusting a green run. Until Session 10 this file
+// COVERAGE — read this before trusting a green run. Until late in Session 9 this file
 // exercised KANJI and HIRAGANA only, while its own header claimed "each module".
 // Katakana and Vocabulary were never opened, which is the worse half of the gap:
 // Vocabulary is the module the build pipeline splices TWICE (its WORDS table
@@ -30,7 +30,7 @@
 //     kanji only three words qualify, so the module can render an almost-empty
 //     page that still clears any length threshold. It gets a richer known-set
 //     so its queues actually populate — including 言う, whose kanji was added
-//     in Session 10.
+//     in Session 9.
 //
 // RUN:  npm run smoke      (bundles test/entry.jsx, then runs this)
 // Exits nonzero if any view collapses, any required tab is missing, or any

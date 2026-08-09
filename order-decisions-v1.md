@@ -82,7 +82,8 @@ it bites. Recording it as an override keeps the rule intact and the exception vi
 > dictionary entry with readings, and a lesson slot **before the order can be applied.** The
 > pipeline places it; it cannot supply the data. See §8, step 3.
 
-✅ **RESOLVED, Session 10.** All three were supplied and the blocker is closed. 言 carries its
+✅ **RESOLVED later the same session (Session 9).** All three were supplied and the blocker is
+closed. 言 carries its
 seven KanjiVG paths (`@madcat/kanjivg`, same CC BY-SA 3.0 source and the same 109-unit box as
 the other sixty-three — no second provenance was introduced), a dictionary entry, and a lesson
 slot: `k-verbs` becomes **"Six verbs you already say"**, with 言 immediately before 話 so the
