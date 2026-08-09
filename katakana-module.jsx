@@ -671,18 +671,30 @@ function StrokeView({ ch, size = 132, numbers, auto }) {
   );
 }
 
-function StrokePanel({ ch, onClose }) {
+function StrokePanel({ ch, onClose, onPractise }) {
   const [numbers, setNumbers] = useState(false);
+  const [replay, setReplay] = useState(0);
+  const boxRef = useRef(null);
   const { play, canPlay, playSound } = useKanaAudio();
+
+  // Bring the panel to the learner. Without this the stroke animation plays
+  // off-screen on a long chart and is finished before they scroll to it, which
+  // reads as "it does not animate".
+  useEffect(() => {
+    if (ch && boxRef.current?.scrollIntoView) {
+      boxRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [ch]);
+
   if (!ch) return null;
   const known = !!STROKES[ch];
   return (
-    <div style={{
+    <div ref={boxRef} style={{
       marginTop: 14, padding: 16, background: T.paper,
-      border: `1px solid ${T.hairline}`, borderRadius: 6,
+      border: `2px solid ${T.ink}`, borderRadius: 6,
       display: "flex", gap: 18, alignItems: "flex-start", flexWrap: "wrap",
     }}>
-      {known ? <StrokeView ch={ch} auto numbers={numbers} /> : (
+      {known ? <StrokeView key={ch + replay} ch={ch} auto numbers={numbers} /> : (
         <div style={{ fontSize: 13, color: T.sub }}>No stroke data for this character yet.</div>
       )}
       <div style={{ flex: 1, minWidth: 160 }}>
@@ -694,6 +706,12 @@ function StrokePanel({ ch, onClose }) {
           Tap the square to watch it written again. Stroke order is most of what makes
           handwriting readable — worth copying the sequence, not just the shape.
         </p>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
+          <button className="btn-ghost" onClick={() => setReplay((n) => n + 1)}>↻ Watch again</button>
+          {onPractise && known && (
+            <button className="btn-primary" onClick={() => onPractise(ch)}>Try drawing it</button>
+          )}
+        </div>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           {canPlay(ch) && (ALT_SOUND[ch] ? (
             <>
@@ -757,7 +775,7 @@ function YouonChart() {
   );
 }
 
-function Learn({ mod, progress, onProgress }) {
+function Learn({ mod, progress, onProgress, onPractise }) {
   const col = mod.col ? COLS.find((c) => c.key === mod.col) : null;
   const [sel, setSel] = useState(null);
   const walk = walkCharsFor(mod);
@@ -834,7 +852,7 @@ function Learn({ mod, progress, onProgress }) {
         </div>
       )}
 
-      <StrokePanel ch={sel} onClose={() => setSel(null)} />
+      <StrokePanel ch={sel} onClose={() => setSel(null)} onPractise={onPractise} />
 
       {mod.showcase && mod.showcase.length > 0 && (
         <div style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 8 }}>
@@ -871,7 +889,7 @@ function Learn({ mod, progress, onProgress }) {
 }
 
 // ————— Drill —————
-function Drill({ mod, idx, progress, onProgress }) {
+function Drill({ mod, idx, progress, onProgress, onGoTrace }) {
   const { pool, focus } = useMemo(() => {
     const seen = [...availableAt(idx)].filter((k) => k !== "ー");
     let f;
@@ -931,12 +949,15 @@ function Drill({ mod, idx, progress, onProgress }) {
         <div style={{ fontFamily: T.jpFont, fontSize: 34, color: pct >= 0.8 ? T.ok : T.ink }}>
           {score} / {queue.length}
         </div>
-        <p style={{ fontSize: 14, color: T.sub }}>
-          {pct === 1 ? "Clean. Go and trace them."
-            : pct >= 0.8 ? "Close. One more pass, then trace them."
-            : "Worth another run before tracing."}
-        </p>
-        <button className="btn-ghost" onClick={() => { setQueue(make()); setI(0); setPicked(null); setScore(0); setDone(false); }}>Again</button>
+        <Flourish
+          title={pct === 1 ? "Every one." : pct >= 0.8 ? "Nearly clean." : "Drill finished."}
+          detail={pct >= 0.8
+            ? "Recognition is there. Tracing is what makes it stick — that is the next tab."
+            : "Worth another run before you trace them; the shapes land better once the sounds are solid."}
+          nextLabel="Go to Trace"
+          onNext={onGoTrace}
+          onAgain={() => { setQueue(make()); setI(0); setPicked(null); setScore(0); setDone(false); }}
+        />
       </div>
     );
   }
@@ -1235,7 +1256,9 @@ function Write({ mod, idx, progress, onProgress, listen }) {
               border: `1px solid ${T.note}44`, fontSize: 13, lineHeight: 1.6,
             }}>
               No Japanese voice is available on this device, so this activity can't run here.
-              The Write tab covers the same words.
+              Listen &amp; Write covers the same words and falls back to their meaning
+              as the prompt, so nothing is lost. Listen is optional either way — it
+              does not gate finishing the lesson.
             </div>
           )}
           {result?.ok && <span style={{ fontSize: 14, color: T.sub }}>{w.en}</span>}
@@ -1535,8 +1558,10 @@ const STAGES = [
   { id: "blank", label: "Blank", blurb: "Nothing shown. Order is yours to get right now." },
 ];
 
-function StrokePractice({ chars, modId, progress, onProgress }) {
-  const [ch, setCh] = useState(chars[0] || null);
+function StrokePractice({ chars, modId, progress, onProgress, startCh }) {
+  const [ch, setCh] = useState(startCh || chars[0] || null);
+  // Arriving from a character panel should land on THAT character.
+  useEffect(() => { if (startCh) setCh(startCh); }, [startCh]);
   const [stageIdx, setStageIdx] = useState(0);
   const [strokeIdx, setStrokeIdx] = useState(0);
   const [drawn, setDrawn] = useState([]);      // learner strokes, box coords
@@ -2346,6 +2371,7 @@ function PairPractice({ pairs, modId, progress, onProgress }) {
 function ListenWrite({ mod, progress, onProgress }) {
   const words = (mod.words || []).filter((w) => Array.from(w.kana).every((c) => STROKES[c]));
   const { voice, checked, supported } = useJapaneseVoice();
+
   const [wi, setWi] = useState(0);
   const [got, setGot] = useState([]);
   const [helped, setHelped] = useState(false);
@@ -2399,6 +2425,21 @@ function ListenWrite({ mod, progress, onProgress }) {
             No Japanese voice on this device — the meaning is the prompt instead.
           </span>
         )}
+        {/* The activity still works without audio: the English meaning becomes
+            the prompt, which is harder but not impossible. So this is an escape
+            hatch, not a necessity — for a learner who cannot hear it, or whose
+            device reports a voice and then plays nothing, which does happen.
+            It is offered rather than applied: silently marking it complete would
+            claim they did something they did not. */}
+        {!supported && ((progress[mod.id] || {}).lwSkipped ? (
+          <span style={{ fontSize: 13, color: T.ok }}>✓ Counted as done</span>
+        ) : (
+          <button className="btn-ghost" onClick={() => {
+            const prev = progress[mod.id] || {};
+            onProgress({ ...progress, [mod.id]: {
+              ...prev, listenWrote: words.length, lwSkipped: true } });
+          }}>Can't do this one — count it as done</button>
+        ))}
         <button className="btn-ghost" onClick={() => setReveal((v) => !v)}>
           {reveal ? "hide the word" : "I'm stuck"}
         </button>
@@ -2627,6 +2668,32 @@ function CharacterWalk({ chars, modId, progress, onProgress, onDone }) {
   );
 }
 
+// ————— Finish flourish —————
+// An activity that just ends leaves the learner wondering whether it counted.
+// This marks the moment and points at what is next, which is also the only
+// place the app ever says "well done" — so it should mean something.
+//
+// Deliberately not a modal: it appears in place, under the activity, and does
+// not have to be dismissed. A learner who wants another run is one tap away.
+function Flourish({ title, detail, nextLabel, onNext, onAgain }) {
+  return (
+    <div role="status" style={{
+      marginTop: 18, padding: "18px 18px 16px", borderRadius: 10,
+      background: T.okBg || "#EDF5EE", border: `1px solid ${T.ok}`, textAlign: "center",
+    }}>
+      <div style={{ fontSize: 26, lineHeight: 1 }}>✓</div>
+      <div style={{ font: `600 16px ${T.uiFont}`, color: T.ink, marginTop: 8 }}>{title}</div>
+      {detail && (
+        <div style={{ font: `13px/1.6 ${T.uiFont}`, color: T.sub, marginTop: 4 }}>{detail}</div>
+      )}
+      <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 14, flexWrap: "wrap" }}>
+        {onNext && <button className="btn-primary" onClick={onNext}>{nextLabel || "Next"}</button>}
+        {onAgain && <button className="btn-ghost" onClick={onAgain}>Again</button>}
+      </div>
+    </div>
+  );
+}
+
 // ————— Module shell —————
 function Module({ mod, idx, progress, onProgress, onBack }) {
   const isCulture = mod.kind === "culture";
@@ -2648,8 +2715,17 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
     Array.from(p).every((c) => padChars.has(c))
   );
   const [tab, setTab] = useState("learn");
-  useEffect(() => setTab("learn"), [mod.id]);
+  const [traceFocus, setTraceFocus] = useState(null);   // set by "Try drawing it"
+  useEffect(() => { setTab("learn"); setTraceFocus(null); }, [mod.id]);
   const p = progress[mod.id] || {};
+  const lessonComplete = (() => {
+    if (isCulture) return !!p.read;
+    if (isSkill) return (p.judged || 0) >= (mod.judge?.length || 1);
+    const traced = new Set((p.traced || []).map((t) => String(t).split(":")[0]));
+    const allTraced = traceChars.length > 0 && traceChars.every((c) => traced.has(c));
+    const needsWords = !!(mod.words && mod.words.length);
+    return p.drill != null && allTraced && (!needsWords || (p.listenWrote || 0) >= mod.words.length);
+  })();
 
   return (
     <div>
@@ -2661,8 +2737,20 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
         <KindBadge kind={mod.kind} />
       </div>
 
+        {/* Lesson-level flourish. Appears once every activity in this lesson is
+          satisfied, so a learner knows the lesson is finished rather than
+          guessing from a tick in a list they have to go back to see. */}
+      {lessonComplete && (
+        <Flourish
+          title="Lesson complete"
+          detail="Recognised, formed, and heard. The next lesson is waiting in the list."
+          nextLabel="← Back to lessons"
+          onNext={onBack}
+        />
+      )}
+
       {tabs.length > 1 && (
-        <div style={{ display: "flex", gap: 6, margin: "16px 0", flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 6, margin: "16px 0", flexWrap: "wrap" }}>
           {tabs.map(([id, label]) => (
             <button key={id} onClick={() => setTab(id)} style={{
               padding: "7px 16px", borderRadius: 999, fontSize: 13, cursor: "pointer", fontFamily: T.uiFont,
@@ -2681,8 +2769,8 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
       {tabs.length === 1 && <div style={{ height: 16 }} />}
 
       <div style={{ background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 8, padding: 20 }}>
-        {tab === "learn" && <Learn mod={mod} progress={progress} onProgress={onProgress} />}
-        {tab === "drill" && <Drill mod={mod} idx={idx} progress={progress} onProgress={onProgress} />}
+        {tab === "learn" && <Learn mod={mod} progress={progress} onProgress={onProgress} onPractise={(c) => { setTraceFocus(c); setTab("trace"); }} />}
+        {tab === "drill" && <Drill mod={mod} idx={idx} progress={progress} onProgress={onProgress} onGoTrace={() => setTab("trace")} />}
         {tab === "listen" && <Write mod={mod} idx={idx} progress={progress} onProgress={onProgress} listen />}
         {tab === "pad" && (
           <div>
@@ -2695,7 +2783,7 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
         )}
         {tab === "trace" && (
           <div>
-            <StrokePractice chars={traceChars} modId={mod.id} progress={progress} onProgress={onProgress} />
+            <StrokePractice chars={traceChars} modId={mod.id} progress={progress} onProgress={onProgress} startCh={traceFocus} />
             {pairChars.length > 0 && (
               <PairPractice pairs={pairChars} modId={mod.id} progress={progress} onProgress={onProgress} />
             )}
@@ -2734,10 +2822,28 @@ export default function KatakanaModule() {
     if (!p) return false;
     if (m.kind === "culture") return !!p.read;
     if (m.kind === "skill") return (p.judged || 0) >= (m.judge?.length || 1);
-    // Drill proves recognition; tracing proves the hand knows it. Assemble
-    // supplied `written` and has been removed — tracing takes its place, which
-    // also fixes the Learn section never counting the stroke work.
-    return p.drill != null && (p.traced || []).length > 0;
+    // Recognise it, form it, then hear it and write it. Three abilities, in
+    // the order the lesson teaches them.
+    //
+    //   drill      — recognition
+    //   traced     — EVERY character in the lesson, not just one. A five-kana
+    //                lesson finishing after one traced character was the old
+    //                behaviour and it flattered the learner.
+    //   listenWrote— only where the lesson has words AND the device can speak
+    //                them. ListenWrite runs on speech synthesis, not the
+    //                recorded sprite, so a device with no Japanese voice cannot
+    //                do it at all. Requiring it unconditionally would lock those
+    //                learners out permanently — which is why Listen was excluded
+    //                from completion originally. It marks itself satisfied when
+    //                unsupported.
+    //
+    // Free pad is open practice and is deliberately never part of this.
+    const chars = traceCharsFor(m);
+    const traced = new Set((p.traced || []).map((t) => String(t).split(":")[0]));
+    const allTraced = chars.length > 0 && chars.every((c) => traced.has(c));
+    const needsWords = !!(m.words && m.words.length);
+    const wordsDone = !needsWords || (p.listenWrote || 0) >= m.words.length;
+    return p.drill != null && allTraced && wordsDone;
   };
 
   const doneCount = MODULES.filter(isDone).length;

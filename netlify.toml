@@ -43,3 +43,23 @@
     # testers the 750 KB on every visit, short enough that a re-recording
     # reaches them without anyone clearing a cache.
     Cache-Control = "public, max-age=604800"
+
+# ── Previewing on a phone ───────────────────────────────────────────────────
+# Lloyd works from a phone and cannot run `npm run dev` there, so "check it
+# locally first" is not advice that applies. Branch deploys are the substitute:
+# push any branch other than main and Netlify builds it at its own URL, which
+# opens on a phone like any other link. main stays untouched until it is merged.
+#
+# Deploy Previews (pull requests) are on by default for GitHub-connected sites.
+# Branch deploys need enabling once, in Netlify:
+#   Site configuration → Build & deploy → Branches and deploy contexts
+#   → "Deploy all branches pushed to the repository"
+#
+# The contexts below just make the branch build behave exactly like production,
+# so what you see on the phone is what merging will publish.
+
+[context.deploy-preview]
+  command = "npm run build"
+
+[context.branch-deploy]
+  command = "npm run build"

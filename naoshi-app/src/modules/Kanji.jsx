@@ -611,6 +611,18 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
 
   const [tab, setTab] = useState("learn");
   const [panel, setPanel] = useState(null);
+  const [replay, setReplay] = useState(0);      // remounts StrokeView to replay
+  const [writeFocus, setWriteFocus] = useState(null);
+  const panelRef = useRef(null);
+
+  // Bring the panel to the learner rather than making them hunt for it. Without
+  // this the stroke animation plays off-screen and is over before they scroll
+  // down, which reads as "it does not animate".
+  useEffect(() => {
+    if (panel && panelRef.current?.scrollIntoView) {
+      panelRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [panel]);
   const chars = mod.chars || [];
   const allKnown = chars.length > 0 && chars.every((c) => known.includes(c));
 
@@ -655,24 +667,51 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
         <>
           <Learn mod={mod} known={known} onTapChar={setPanel} />
           {panel && (
-            <div style={{
-              marginTop: 14, padding: 16, background: T.paper, border: `1px solid ${T.hairline}`,
+            <div ref={panelRef} style={{
+              marginTop: 14, padding: 16, background: T.paper, border: `2px solid ${T.ink}`,
               borderRadius: 6, display: "flex", gap: 18, alignItems: "flex-start", flexWrap: "wrap",
             }}>
-              <StrokeView ch={panel} auto numbers />
-              <div style={{ flex: 1, minWidth: 160 }}>
-                <p style={{ fontSize: 13, color: T.sub, lineHeight: 1.6, marginTop: 0 }}>
-                  Tap the square to watch it again. Copy the sequence, not just the shape — the
-                  order is most of what makes handwriting readable.
+              {/* The panel used to render far below the character grid, so tapping
+                  a kanji meant scrolling down to find it — and by the time you
+                  arrived the stroke animation had already played and finished.
+                  It looked static because you were late, not because it was
+                  broken. Now it scrolls itself into view, replays on demand, and
+                  offers the thing you actually wanted next: to try drawing it. */}
+              <div>
+                <StrokeView key={panel + replay} ch={panel} auto numbers />
+                <button className="btn-ghost" style={{ marginTop: 6, width: "100%" }}
+                        onClick={() => setReplay((n) => n + 1)}>↻ Watch again</button>
+              </div>
+              <div style={{ flex: 1, minWidth: 190 }}>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
+                  <span style={{ fontFamily: T.jpFont, fontSize: 30 }}>{panel}</span>
+                  {K[panel] && <span style={{ fontSize: 14, color: T.sub }}>{K[panel].m}</span>}
+                </div>
+                {K[panel] && (K[panel].on || K[panel].kun) && (
+                  <div style={{ fontSize: 13, color: T.sub, marginTop: 4 }}>
+                    {K[panel].on && <span>音 {K[panel].on}</span>}
+                    {K[panel].on && K[panel].kun && <span> · </span>}
+                    {K[panel].kun && <span>訓 {K[panel].kun}</span>}
+                  </div>
+                )}
+                <p style={{ fontSize: 13, color: T.sub, lineHeight: 1.6, marginTop: 10 }}>
+                  Copy the sequence, not just the shape — stroke order is most of what
+                  makes handwriting readable.
                 </p>
-                <button className="btn-ghost" onClick={() => setPanel(null)}>Close</button>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 4 }}>
+                  <button className="btn-primary" onClick={() => { setWriteFocus(panel); setTab("write"); }}>
+                    Try drawing it
+                  </button>
+                  <button className="btn-ghost" onClick={() => setPanel(null)}>Close</button>
+                </div>
               </div>
             </div>
           )}
         </>
       )}
       {mod.kind !== "culture" && tab === "write" && (
-        <StrokePractice chars={chars} modId={mod.id} progress={progress} onProgress={onProgress} />
+        <StrokePractice chars={chars} modId={mod.id} progress={progress}
+                        onProgress={onProgress} startCh={writeFocus} />
       )}
       {mod.kind !== "culture" && tab === "recall" && (
         <Recall mod={mod} progress={progress} onProgress={onProgress} />

@@ -205,8 +205,11 @@ function useStrokeData() {
   return { cal, floor: cal.length >= CAL_MIN ? median(cal) : null, record };
 }
 
-function StrokePractice({ chars, modId, progress, onProgress }) {
-  const [ch, setCh] = useState(chars[0] || null);
+function StrokePractice({ chars, modId, progress, onProgress, startCh }) {
+  const [ch, setCh] = useState(startCh || chars[0] || null);
+  // Arriving from a character panel should land on THAT character, not reset to
+  // the first one in the lesson.
+  useEffect(() => { if (startCh) setCh(startCh); }, [startCh]);
   const [stageIdx, setStageIdx] = useState(0);
   const [strokeIdx, setStrokeIdx] = useState(0);
   const [drawn, setDrawn] = useState([]);

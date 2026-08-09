@@ -40,14 +40,40 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
 
 ## Other environment quirks
 
-- **The Cowork mount blocks `rm`, but `mv` works.** Deleting anything — even a file created
-  seconds earlier in the same session — fails with `Operation not permitted`. **Renaming and
-  moving succeed.** So a superseded file cannot be removed, but it *can* be renamed and moved
-  into `OLD/`, which is the right disposal route and keeps the working directory honest.
-  Session 9 verified both directions explicitly; the earlier "create but not unlink" note was
-  correct about delete and missed that rename is the workaround.
-  Still write scratch to the system temp dir rather than the output directory — a script that
-  expects to delete its own temp files will abort. (Session 8 — this killed the audio splitter
+- **`rm` fails until you ASK for permission. It is not impossible.**
+  A delete returns `Operation not permitted` by default, and it is tempting to conclude the
+  mount forbids deletion. It does not. Call **`mcp__cowork__allow_cowork_file_delete`** with
+  the path; Lloyd approves once, and `rm` works normally for the whole folder from then on.
+  The tool's own description says to do this "rather than telling the user it is impossible."
+
+  Session 9 got this wrong three times in a row — the superseded grammar module, scratch
+  files, and a stale git lock were all reported to Lloyd as undeletable, and the false
+  limitation was written into this file twice before he asked "even if I give permissions?"
+  and it turned out the answer was one tool call.
+
+  **The lesson generalises past this tool:** an `Operation not permitted` is a closed door, not
+  a wall. Check for the sanctioned path before reporting a limitation, especially before
+  writing that limitation down where it will be believed later.
+
+  `mv` also works and needs no permission, which is why `OLD/` remains the right home for
+  superseded files worth keeping.
+
+- **⚠️ Do not run `git` in the project folder. It locks Lloyd's repository.**
+  `git status` — and anything else that refreshes the index — creates `.git/index.lock` and
+  then deletes it. **If delete permission has not been granted, that cleanup fails**, the lock
+  is left behind, and Lloyd's GitHub Desktop reports the repo as locked. A read-only command
+  with a write-shaped side effect. Session 9 did this with `git status --porcelain`.
+
+  To inspect the repo state, read the files directly, or use `git --no-optional-locks …`,
+  which does not take the index lock. To clear a lock that already exists, request delete
+  permission (above) and `rm .git/index.lock`; `mv` out of `.git/` also works and needs no
+  permission.
+
+  Committing and pushing are Lloyd's, from GitHub Desktop. Never attempt them from here.
+
+- **Write scratch files to the system temp dir, not the project folder.** Even with delete
+  permission granted, a script that creates and removes its own temp files is cleaner run
+  outside the mount. (Session 8 — probe files next to the masters aborted the audio splitter
   on its first clip.)
 - **GitHub raw is blocked** by the sandbox proxy (HTTP 403 from CONNECT). Anything needing
   `raw.githubusercontent.com` — e.g. the scriptin kanji-frequency corpora — must be fetched by
