@@ -350,7 +350,7 @@ const WORDS = [
 // a learner sets in one module applies in the other without recalibrating.
 //
 // KanjiVG (Ulrich Apel), CC BY-SA 3.0 — http://kanjivg.tagaini.net
-// 26 characters, 156 paths — only those reachable through taught vocabulary.
+// 27 characters, 163 paths — only those reachable through taught vocabulary.
 
 
 

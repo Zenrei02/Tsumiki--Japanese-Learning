@@ -55,6 +55,15 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   a wall. Check for the sanctioned path before reporting a limitation, especially before
   writing that limitation down where it will be believed later.
 
+  **This has now happened three times** — `rm`, `git`, and the KanjiVG fetch below. Each time
+  an early failure was recorded as a property of the environment, and each time the record
+  outlived the mistake and was believed by a later session. **A limitation written into a
+  handover or into this file stops being checked.** So the bar for writing one down is higher
+  than the bar for hitting it: before it goes in a document, exhaust the sanctioned path,
+  search rather than guess, and say what was actually tried so the next session can retry it
+  cheaply. A dead end recorded with its method attached is useful; one recorded as a verdict
+  is a wall that was never there.
+
   `mv` also works and needs no permission, which is why `OLD/` remains the right home for
   superseded files worth keeping.
 
@@ -77,7 +86,32 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   on its first clip.)
 - **GitHub raw is blocked** by the sandbox proxy (HTTP 403 from CONNECT). Anything needing
   `raw.githubusercontent.com` — e.g. the scriptin kanji-frequency corpora — must be fetched by
-  Lloyd on his own machine.
+  Lloyd on his own machine. `github.com`, `codeload`, and the GitHub API are blocked too.
+
+- **⚠️ The npm registry is reachable, and it is the way around a blocked GitHub. SEARCH it;
+  do not guess package names.** Session 9 wanted KanjiVG stroke paths for 言, tried
+  `kanjivg`, `kanjivg-js`, `kanji-svg` and three other guesses, got 404s, and recorded in the
+  handover that KanjiVG was unreachable from the sandbox — leaving the character blocked
+  across a whole session and pushing a licensing decision at Lloyd that never needed making.
+
+  **`@madcat/kanjivg` has the entire corpus** — 22,923 files, CC BY-SA 3.0 (the licence the
+  modules already attribute), `viewBox="0 0 109 109"`, path strings in exactly the shape
+  `STROKES` wants. It was one registry search away the whole time:
+
+  ```
+  curl -sS "https://registry.npmjs.org/-/v1/search?text=kanjivg&size=12"
+  ```
+
+  Scoped packages will never turn up by guessing bare names. Search first.
+
+  Also: `npm install` is unreliable here and its background process does not survive between
+  tool calls. Fetch the tarball from `registry.npmjs.org` and `tar xzf --wildcards` the one
+  file you need. For any long command, `setsid … & disown` then `sleep` **in the same call** —
+  a plain `&` is killed when the call returns, which looks exactly like a hang.
+
+- **Long-running commands need `setsid` + a done-marker.** `setsid bash -c 'cmd > log 2>&1;
+  echo EXIT=$? > /tmp/x.done' < /dev/null & disown`, then poll for the marker. Backgrounding
+  without `setsid` produces an empty log and no error, which reads as a failure that isn't one.
 - Do not work around blocked fetches with curl/wget/Python. If `web_fetch` refuses a domain,
   say so and stop.
 - **Live artifacts cannot be published publicly on any plan**, and an artifact has to be

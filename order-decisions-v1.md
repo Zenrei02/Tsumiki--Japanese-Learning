@@ -82,6 +82,18 @@ it bites. Recording it as an override keeps the rule intact and the exception vi
 > dictionary entry with readings, and a lesson slot **before the order can be applied.** The
 > pipeline places it; it cannot supply the data. See §8, step 3.
 
+✅ **RESOLVED, Session 10.** All three were supplied and the blocker is closed. 言 carries its
+seven KanjiVG paths (`@madcat/kanjivg`, same CC BY-SA 3.0 source and the same 109-unit box as
+the other sixty-three — no second provenance was introduced), a dictionary entry, and a lesson
+slot: `k-verbs` becomes **"Six verbs you already say"**, with 言 immediately before 話 so the
+precedence the order asserts is the one the learner meets. The pipeline's own warning cleared
+on regeneration because it derives from the module rather than from this note.
+
+⚠️ The dictionary entry and the rewritten lesson text are **AI-authored and unreviewed** — the
+ゲン/ゴン・い(う)/こと readings, the 口-plus-lines shape story, and 言葉 as an example word all
+need the reviewer. The mnemonic is a shape observation in house style, not an etymological
+claim, and should be read as one.
+
 For the other twenty-three parts the resolution is not to add characters. It is to state what
 was always true:
 

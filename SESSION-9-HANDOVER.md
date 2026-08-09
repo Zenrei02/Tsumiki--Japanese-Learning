@@ -52,6 +52,28 @@ attributes KanjiVG CC BY-SA 3.0 in-file and adding a second source changes that.
 make at 2am.** Either fetch KanjiVG's 08a00 paths on your machine, or decide about
 `hanzi-writer-data`.
 
+> ### ⛔ CORRECTED IN SESSION 10 — the table above is wrong, and this is why
+>
+> The original text is left standing because it is what was believed at the time and the
+> reasoning built on it is only legible with it in place. But **the conclusion was false.**
+>
+> The npm rows were guesses at bare package names, never a search of the registry.
+> **`@madcat/kanjivg` carries the full corpus** — 22,923 files, CC BY-SA 3.0 (the licence
+> already attributed in the module), 109-unit viewBox, path strings in exactly the shape
+> `STROKES` wants. `kanjivg-js` exists too (MIT), so that row is wrong on its own terms.
+> One registry search would have found both:
+>
+> ```
+> curl -sS "https://registry.npmjs.org/-/v1/search?text=kanjivg&size=12"
+> ```
+>
+> **There was never a licensing decision to make.** The blocker was the search, and it was
+> escalated to Lloyd as a provenance question he then carried for a session. 言 shipped in
+> Session 10 with KanjiVG's own paths and no second source.
+>
+> The generalised lesson is in `CLAUDE.md` under the `rm` bullet: a limitation written into a
+> handover stops being checked, so record the method, not the verdict.
+
 **Blocker B — applying the order is authoring, not data.** Standing rule in `CLAUDE.md`, and
 the ordering report says the same: group *themes* and stroke-rule sentences are authored. The
 existing titles — "The tree family", "Frames: outside before inside" — set a bar generated

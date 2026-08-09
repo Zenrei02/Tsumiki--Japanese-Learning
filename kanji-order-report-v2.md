@@ -1,4 +1,4 @@
-# Kanji order v2 — 2026-08-08
+# Kanji order v2 — 2026-08-09
 
 Supersedes `kanji-order-report.md` (v1, 2026-08-03). Same method; the two blockers v1 raised are resolved here rather than deferred.
 
@@ -28,8 +28,6 @@ v1 listed 22 characters containing parts the syllabus never teaches and asked wh
 ### The one authored override — 言 is promoted
 
 Lloyd's call, Session 9, and it is worth recording as an override rather than folding it into the rule. 言 has the most demand of any candidate and still only 2, so the demand rule alone would have left it a named shape. It is promoted on grounds the ledger cannot see: **言う is a high-frequency verb in its own right, and 言 is the backbone of 話, 読む, 語, 言語** — most of which sit just past this syllabus. The ledger measures the corpus as it is today, not as it will be two stages out. That is a genuine limitation of demand-driven ordering and this is the first case where it bites.
-
-⚠️ **Not free.** 言 has no KanjiVG stroke paths and no dictionary entry in `kanji-module.jsx` — it appears there only as a part of 話. Promoting it needs stroke paths, a dictionary entry with readings, and a lesson slot **before this order can be applied**. The pipeline places it; it cannot supply the data.
 
 ### Everything else stays out
 
@@ -135,26 +133,26 @@ Two different effects are visible here and they should not be conflated. Charact
 
 - 林: hand #28 → v2 #63
 - 森: hand #29 → v2 #64
+- 手: hand #61 → v2 #28
 - 木: hand #26 → v2 #59
 - 本: hand #27 → v2 #60
-- 手: hand #60 → v2 #28
 - 校: hand #30 → v2 #62
 - 休: hand #31 → v2 #61
-- 生: hand #61 → v2 #33
-- 上: hand #56 → v2 #30
-- 先: hand #62 → v2 #36
-- 下: hand #57 → v2 #32
+- 生: hand #62 → v2 #33
+- 上: hand #57 → v2 #30
+- 先: hand #63 → v2 #36
+- 下: hand #58 → v2 #32
+- 分: hand #51 → v2 #27
 - 私: hand #34 → v2 #58
-- 分: hand #50 → v2 #27
-- 天: hand #53 → v2 #35
-- 気: hand #55 → v2 #37
+- 天: hand #54 → v2 #35
+- 気: hand #56 → v2 #37
 - 何: hand #33 → v2 #50
-- 七: hand #58 → v2 #43
-- 火: hand #63 → v2 #49
+- 七: hand #59 → v2 #43
+- 火: hand #64 → v2 #49
+- 年: hand #53 → v2 #40
 - 力: hand #39 → v2 #52
 - 男: hand #40 → v2 #53
 - 学: hand #43 → v2 #31
-- 年: hand #52 → v2 #40
 
 ## Contrastive adjacency chains (Session 4 Decision 6)
 

@@ -1,4 +1,4 @@
-// Smoke test — opens a lesson in each module and clicks every sub-view.
+// Smoke test — opens each module, enters a lesson, and clicks every sub-view.
 //
 // WHY IT EXISTS. The earlier render test only MOUNTED the app and checked the
 // nav bar. It passed while two views were white-screening, because it never
@@ -14,51 +14,163 @@
 // A build check catches none of these. They are runtime ReferenceErrors, and a
 // white screen is what a learner sees.
 //
-// RUN:  node test/smoke.mjs        (needs a bundle at /tmp/test-bundle.js —
-//                                   see the build step in the README)
-// Exits nonzero if any view renders under 200 characters.
+// COVERAGE — read this before trusting a green run. Until Session 10 this file
+// exercised KANJI and HIRAGANA only, while its own header claimed "each module".
+// Katakana and Vocabulary were never opened, which is the worse half of the gap:
+// Vocabulary is the module the build pipeline splices TWICE (its WORDS table
+// from build-vocab-data.py, its engine from build-shared-stroke-engine.py), so
+// it carries the most generated surface and had the least checking. A test that
+// overstates its own reach is a documented trap in this project — "suspect a
+// green result that arrives too easily."
+//
+// Two further sharp edges, both of which used to pass silently:
+//   - A tab that is ABSENT now fails unless it is listed in `optional`.
+//     "Assemble" is deliberately gone; anything else missing is a bug.
+//   - Vocabulary's queues are driven by known-kanji-v1. With the default five
+//     kanji only three words qualify, so the module can render an almost-empty
+//     page that still clears any length threshold. It gets a richer known-set
+//     so its queues actually populate — including 言う, whose kanji was added
+//     in Session 10.
+//
+// RUN:  npm run smoke      (bundles test/entry.jsx, then runs this)
+// Exits nonzero if any view collapses, any required tab is missing, or any
+// module throws.
 
 import { JSDOM } from "jsdom";
 import fs from "fs";
-async function go(modId, lessonMatch, tabs) {
-  const errors=[];
-  const dom=new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',
-    {runScripts:"outside-only",pretendToBeVisual:true,url:"http://localhost/"});
-  const w=dom.window;
-  w.HTMLCanvasElement.prototype.getContext=()=>new Proxy({
-    canvas:{width:300,height:300}, lineCap:"", lineJoin:"", lineWidth:1,
-    strokeStyle:"", fillStyle:"", globalAlpha:1, font:"",
-    measureText:()=>({width:0}), getImageData:()=>({data:[]}),
-    createLinearGradient:()=>({addColorStop(){}}),
-  }, { get:(t,k)=> (k in t ? t[k] : ()=>{}) , set:(t,k,v)=>{t[k]=v;return true;} });
-  w.AudioContext=function(){return{decodeAudioData:async()=>({}),createBufferSource:()=>({connect(){},start(){}}),destination:{},currentTime:0};};
-  w.fetch=()=>Promise.resolve({ok:false,status:404});
-  w.console.error=(...a)=>{const s=a.join(" ");if(!/Not implemented|jsdom|Could not parse CSS/i.test(s))errors.push(s);};
-  w.console.warn=()=>{};
-  w.addEventListener("error",e=>errors.push("UNCAUGHT: "+(e.error?.message||e.message)));
-  w.localStorage.setItem("known-kanji-v1",JSON.stringify(["日","一","二","三","十"]));
-  w.localStorage.setItem("naoshi-last-module",modId);
-  w.eval(fs.readFileSync("/tmp/test-bundle.js","utf8"));
-  await new Promise(r=>setTimeout(r,2200));
-  const d=w.document;
-  const lesson=[...d.querySelectorAll("button")].find(b=>lessonMatch.test(b.textContent||""));
-  console.log(`\n${modId.toUpperCase()} — opening ${JSON.stringify((lesson?.textContent||"").trim().slice(0,44))}`);
-  lesson?.click(); await new Promise(r=>setTimeout(r,800));
-  const avail=[...d.querySelectorAll("button")].map(b=>(b.textContent||"").trim());
-  console.log("  tabs available:", avail.filter(t=>t.length<14&&t.length>1).join(" | "));
+
+const DEFAULT_KNOWN = ["日", "一", "二", "三", "十"];
+// Enough of the syllabus for the vocabulary queues to have real work in them.
+const RICH_KNOWN = [
+  "日", "一", "二", "三", "十", "見", "行", "来", "食", "言", "話", "私",
+  "木", "本", "人", "大", "女", "子", "上", "下", "中", "山", "川", "口",
+  "目", "田", "月",
+];
+
+const failures = [];
+function fail(msg) { failures.push(msg); }
+
+async function go(modId, lessonMatch, tabs, opts = {}) {
+  const errors = [];
+  const dom = new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',
+    { runScripts: "outside-only", pretendToBeVisual: true, url: "http://localhost/" });
+  const w = dom.window;
+  w.HTMLCanvasElement.prototype.getContext = () => new Proxy({
+    canvas: { width: 300, height: 300 }, lineCap: "", lineJoin: "", lineWidth: 1,
+    strokeStyle: "", fillStyle: "", globalAlpha: 1, font: "",
+    measureText: () => ({ width: 0 }), getImageData: () => ({ data: [] }),
+    createLinearGradient: () => ({ addColorStop() {} }),
+  }, { get: (t, k) => (k in t ? t[k] : () => {}), set: (t, k, v) => { t[k] = v; return true; } });
+  w.AudioContext = function () {
+    return {
+      decodeAudioData: async () => ({}),
+      createBufferSource: () => ({ connect() {}, start() {} }),
+      destination: {}, currentTime: 0,
+    };
+  };
+  w.fetch = () => Promise.resolve({ ok: false, status: 404 });
+  w.console.error = (...a) => {
+    const s = a.join(" ");
+    if (!/Not implemented|jsdom|Could not parse CSS/i.test(s)) errors.push(s);
+  };
+  w.console.warn = () => {};
+  w.addEventListener("error", e => errors.push("UNCAUGHT: " + (e.error?.message || e.message)));
+  w.localStorage.setItem("known-kanji-v1", JSON.stringify(opts.known || DEFAULT_KNOWN));
+  w.localStorage.setItem("naoshi-last-module", modId);
+  w.eval(fs.readFileSync("/tmp/test-bundle.js", "utf8"));
+  await new Promise(r => setTimeout(r, 2200));
+
+  const d = w.document;
+  const NAME = modId.toUpperCase();
+  const btns = () => [...d.querySelectorAll("button")];
+  const rootText = () => (d.getElementById("root")?.textContent || "").trim();
+
+  // The module must render something before we go looking for a lesson.
+  if (rootText().length < 200) {
+    console.log(`\n${NAME} — ❌ module did not render (${rootText().length} chars)`);
+    if (errors.length) console.log("     errors:", errors.slice(0, 3));
+    fail(`${NAME}: module did not render`);
+    return;
+  }
+
+  let opened = "(top level)";
+  if (lessonMatch) {
+    const lesson = btns().find(b => lessonMatch.test(b.textContent || ""));
+    if (!lesson) {
+      console.log(`\n${NAME} — ❌ no lesson matched ${lessonMatch}`);
+      fail(`${NAME}: lesson entry point not found`);
+      return;
+    }
+    opened = JSON.stringify((lesson.textContent || "").trim().slice(0, 44));
+    lesson.click();
+    await new Promise(r => setTimeout(r, 800));
+  }
+  console.log(`\n${NAME} — opening ${opened}`);
+
+  const avail = btns().map(b => (b.textContent || "").trim());
+  console.log("  tabs available:", avail.filter(t => t.length < 14 && t.length > 1).join(" | "));
+
+  const optional = new Set(opts.optional || []);
   for (const tab of tabs) {
-    const b=[...d.querySelectorAll("button")].find(x=>(x.textContent||"").trim()===tab);
-    if (!b) { console.log(`  "${tab}" — not present`); continue; }
-    b.click(); await new Promise(r=>setTimeout(r,900));
-    const t=(d.getElementById("root")?.textContent||"").trim();
-    const broke = t.length<200;
-    console.log(`  "${tab}" → ${t.length} chars ${broke?"❌ WHITE SCREEN":"ok"}`);
-    if (broke) globalThis.__smokeFailed = true;
-    if (errors.length) { console.log("     errors:", errors.slice(0,2)); errors.length=0; }
+    const b = btns().find(x => (x.textContent || "").trim() === tab);
+    if (!b) {
+      if (optional.has(tab)) { console.log(`  "${tab}" — not present (expected)`); }
+      else { console.log(`  "${tab}" — ❌ MISSING`); fail(`${NAME}: tab "${tab}" missing`); }
+      continue;
+    }
+    b.click();
+    await new Promise(r => setTimeout(r, 900));
+    const t = rootText();
+    const broke = t.length < 200;
+    console.log(`  "${tab}" → ${t.length} chars ${broke ? "❌ WHITE SCREEN" : "ok"}`);
+    if (broke) fail(`${NAME}: view "${tab}" collapsed`);
+    if (errors.length) { console.log("     errors:", errors.slice(0, 2)); errors.length = 0; }
+  }
+
+  if (opts.then) await opts.then({ d, btns, rootText, log: (...a) => console.log("  ", ...a), fail, NAME });
+  if (errors.length) {
+    console.log("     late errors:", errors.slice(0, 3));
+    fail(`${NAME}: console errors after interaction`);
   }
 }
-await go("kanji", /KJLines/, ["Learn","Write","Recall","Use it"]);
-await go("hiragana", /Main Vowel Series/, ["Learn","Trace","Drill","Listen","Assemble"]);
 
-// fail the run if any view collapsed
-if (globalThis.__smokeFailed) process.exitCode = 1;
+await go("kanji", /KJLines/, ["Learn", "Write", "Recall", "Use it"]);
+
+await go("hiragana", /Main Vowel Series/, ["Learn", "Trace", "Drill", "Listen", "Assemble"],
+  { optional: ["Assemble"] });
+
+// Katakana shares the kana engine but carries its own lesson table and its own
+// copy of the spliced blocks — "identical to hiragana" is an assumption the
+// drift checker verifies for shared blocks only, not for this module's own code.
+await go("katakana", /Main Vowel Series/, ["Learn", "Trace", "Drill", "Listen", "Assemble"],
+  { optional: ["Assemble"] });
+
+// Vocabulary has no lessons — its top level IS the queues, so there is nothing
+// to open. The tabs are the queue views; the deep step enters a word, which is
+// where the spliced WORDS table and the shared stroke engine actually meet.
+await go("vocabulary", null, ["New", "Review"], {
+  known: RICH_KNOWN,
+  then: async ({ btns, rootText, log, fail: f, NAME }) => {
+    const back = btns().find(b => (b.textContent || "").trim() === "New");
+    if (back) { back.click(); await new Promise(r => setTimeout(r, 600)); }
+    const card = btns().find(b => (b.textContent || "").includes("言う"))
+              || btns().find(b => (b.textContent || "").trim().length > 6
+                                && !["New", "Review"].includes((b.textContent || "").trim()));
+    if (!card) { log('❌ no word card to open — queues are empty'); f(`${NAME}: no word cards`); return; }
+    log(`opening word card ${JSON.stringify((card.textContent || "").trim().slice(0, 30))}`);
+    card.click();
+    await new Promise(r => setTimeout(r, 900));
+    const t = rootText();
+    log(`word view → ${t.length} chars ${t.length < 200 ? "❌ WHITE SCREEN" : "ok"}`);
+    if (t.length < 200) f(`${NAME}: word practice view collapsed`);
+  },
+});
+
+console.log("\n" + "─".repeat(60));
+if (failures.length) {
+  console.log(`FAILED — ${failures.length} problem${failures.length > 1 ? "s" : ""}:`);
+  for (const f of failures) console.log("  ✗ " + f);
+  process.exitCode = 1;
+} else {
+  console.log("PASSED — 4 modules, every required view rendered.");
+}
