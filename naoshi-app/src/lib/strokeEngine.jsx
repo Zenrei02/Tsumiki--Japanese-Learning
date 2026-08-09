@@ -4,14 +4,30 @@
 // against each other's mistakes. Hoisting removes that class of bug rather
 // than merely watching for it.
 // KanjiVG (Ulrich Apel), CC BY-SA 3.0 — http://kanjivg.tagaini.net
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { T } from "./tokens.js";
 import { STROKES } from "./strokeData.js";
 
-const TOL = { good: 7, ok: 12, loose: 20 };
-const STROKE_BOX = 109;
-const SD_KEY = "stroke-data-v1";
 const CAL_MIN = 8, CAL_KEEP = 60, LOG_KEEP = 400, LOG_PTS = 48;
+const SD_KEY = "stroke-data-v1";
+const STROKE_BOX = 109;
+const TOL = { good: 7, ok: 12, loose: 20 };
+const TRACE_N = 24;
+const TRACE_STAGES = [
+  { id: "trace",  label: "Trace",  blurb: "Follow the grey stroke. This is about the movement, not accuracy." },
+  { id: "guided", label: "Guided", blurb: "Earlier strokes stay. Draw the next one from memory." },
+  { id: "blank",  label: "Blank",  blurb: "Nothing shown. Order is yours to get right now." },
+];
+const meanDist = (a, b) => {
+  let s = 0;
+  for (let i = 0; i < a.length; i++) s += Math.hypot(a[i][0]-b[i][0], a[i][1]-b[i][1]);
+  return s / a.length;
+};
+const median = (a) => {
+  if (!a.length) return null;
+  const b = [...a].sort((x, y) => x - y), m = b.length >> 1;
+  return b.length % 2 ? b[m] : (b[m-1] + b[m]) / 2;
+};
 
 function strokeStart(d) {
   const m = /^M\s*(-?[\d.]+)[,\s]+(-?[\d.]+)/i.exec(d);
@@ -406,4 +422,4 @@ function StrokePractice({ chars, modId, progress, onProgress }) {
   );
 }
 
-export { strokeStart, StrokeView, resample, samplePath, scoreStroke, tolerancesFor, thinPoints, useStrokeData, StrokePractice, TOL, STROKE_BOX, SD_KEY };
+export { strokeStart, StrokeView, resample, samplePath, scoreStroke, tolerancesFor, thinPoints, useStrokeData, StrokePractice, CAL_KEEP, CAL_MIN, LOG_KEEP, LOG_PTS, SD_KEY, STROKE_BOX, TOL, TRACE_N, TRACE_STAGES, meanDist, median };

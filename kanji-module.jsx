@@ -102,6 +102,9 @@ const K = {
 // Kind codes stay English here for the same reason the kana modules do: a module
 // teaching a script cannot label its own interface in that script.
 const MODULES = [
+  { id: "cc-furigana", kind: "culture", title: "The little kana above the kanji",
+    exp: "Those small kana printed above or beside a kanji are called furigana, and they are simply its pronunciation. Japanese uses them wherever a reader might not know a character — children's books, learners' material, a surname nobody can guess, a rare word in a newspaper.\n\nHere they are your training wheels. Every kanji you have not learned yet wears its reading, so you can always read the sentence even when you cannot yet read the character.\n\nThey come off by themselves. As you learn a character it stops needing its furigana, and the word you already knew quietly changes shape on the page. That moment — when 見る stops being a shape with a label and becomes a word you can just read — is the whole point of this module.\n\nOne thing worth knowing early: furigana in the wild mostly signals *this is written for someone still learning*. Adult Japanese runs without them. So the goal is not to read furigana well. It is to stop needing them." },
+
   { id: "cc-intro", kind: "culture", title: "Where this order comes from",
     exp: "There is no official kanji list for any JLPT level. The Japan Foundation stopped publishing test specifications in 2010, on the reasoning that the point of study is communication rather than memorising a list. Every \"N5 kanji list\" you have seen is a reconstruction.\n\nSo the order here is a choice, and it is worth telling you what the choice was. Not the elementary-school order — that one is built for children who already speak fluent Japanese and are learning to write what they can already say, which is why it front-loads 貝, 竹 and 糸.\n\nInstead: characters are scored on how much reading they buy you divided by how much they cost to learn, then reshuffled just enough that nothing appears before its own parts do. The first block is different again — those characters are chosen because between them they demonstrate every stroke rule, and they happen to also be common and to turn up inside hundreds of other kanji. That block is close to free." },
 
@@ -183,6 +186,11 @@ const GROUPS = [
     ids: ["k-tree","k-person2","k-sun","k-field","k-woman","k-verbs","sb-tree","k-numbers","k-weather","k-rest","cp-parts"] },
 ];
 const INTRO = MODULES.find((m) => m.id === "cc-intro");
+const FURIGANA = MODULES.find((m) => m.id === "cc-furigana");
+// The two lessons that must be met before anything else. They are pinned above
+// the groups and highlighted until acknowledged — a learner who scrolls straight
+// to 一 has skipped the two things that explain what they are looking at.
+const INTROS = [FURIGANA, INTRO].filter(Boolean);
 const GROUPED = GROUPS.map((g) => ({
   ...g, points: g.ids.map((id) => MODULES.find((m) => m.id === id)).filter(Boolean),
 }));
@@ -983,6 +991,26 @@ function UseIt({ mod, grammarDone }) {
 const TABS = [["learn","Learn"],["write","Write"],["recall","Recall"],["use","Use it"]];
 
 function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone }) {
+  // ── Completion writes known-kanji-v1 ──────────────────────────────────────
+  // Previously nothing did this except a button. A lesson is complete when every
+  // character has been traced at least once AND recall has been attempted with a
+  // passing score — the same test the lesson list uses to draw its tick, so the
+  // tick and the unlock can never disagree.
+  const lessonChars = mod.chars || [];
+  useEffect(() => {
+    if (!lessonChars.length) return;
+    const p = progress[mod.id] || {};
+    const tracedChars = new Set((p.traced || []).map((t) => String(t).split(":")[0]));
+    const allTraced = lessonChars.every((c) => tracedChars.has(c));
+    const recallPassed = p.recallBest != null && p.recallOf
+      ? p.recallBest / p.recallOf >= 0.8
+      : false;
+    if (allTraced && recallPassed) {
+      const unlearned = lessonChars.filter((c) => !known.includes(c));
+      if (unlearned.length) onLearn(unlearned);
+    }
+  }, [progress, mod.id, known]);
+
   const [tab, setTab] = useState("learn");
   const [panel, setPanel] = useState(null);
   const chars = mod.chars || [];
@@ -1006,6 +1034,22 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
               padding: "6px 12px", cursor: "pointer", fontFamily: "inherit",
             }}>{label}</button>
           ))}
+        </div>
+      )}
+
+      {mod.kind === "culture" && (
+        <div style={{ marginTop: 22, paddingTop: 16, borderTop: `1px solid ${T.hairline}` }}>
+          {/* Culture lessons had no completion at all, so the list could never
+              stop highlighting them and nothing recorded that they were read.
+              One button, one flag. */}
+          {(progress[mod.id] || {}).read ? (
+            <p style={{ fontSize: 13, color: T.ok, margin: 0 }}>✓ Read</p>
+          ) : (
+            <button className="btn-primary" onClick={() => {
+              const prev = progress[mod.id] || {};
+              onProgress({ ...progress, [mod.id]: { ...prev, read: true } });
+            }}>Got it!</button>
+          )}
         </div>
       )}
 
@@ -1039,14 +1083,27 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
         <UseIt mod={mod} grammarDone={grammarDone} />
       )}
 
+      {/* The manual "Add these to my syllabus" button is gone. It asked the
+          learner to declare mastery before they had done anything, and it was
+          also the only thing writing known-kanji-v1 — so the vocabulary module
+          depended on a button most people would never press. Completion now
+          does it: trace the characters, pass recall, and they are yours.
+
+          The furigana control returns later as a culture lesson about taking
+          the training wheels off, not as a button at the top of lesson one. */}
       {chars.length > 0 && (
-        <div style={{ marginTop: 26, paddingTop: 18, borderTop: `1px solid ${T.hairline}`, display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-          <button className="btn-primary" onClick={() => onLearn(chars)} disabled={allKnown}>
-            {allKnown ? "In your syllabus" : "Add these to my syllabus"}
-          </button>
-          <span style={{ fontSize: 12, color: T.sub }}>
-            Adding them drops the furigana from these kanji everywhere in Grammar Practice.
-          </span>
+        <div style={{ marginTop: 26, paddingTop: 18, borderTop: `1px solid ${T.hairline}` }}>
+          {allKnown ? (
+            <p style={{ fontSize: 13, color: T.ok, margin: 0 }}>
+              ✓ These are yours. Words using them have appeared in Vocabulary, and
+              they will lose their furigana as you keep meeting them.
+            </p>
+          ) : (
+            <p style={{ fontSize: 13, color: T.sub, margin: 0 }}>
+              Trace each character and pass Recall, and these become yours —
+              no button to press.
+            </p>
+          )}
         </div>
       )}
     </div>
@@ -1085,7 +1142,15 @@ export default function KanjiModule() {
   const lessonDone = (m) => {
     const p = progress[m.id];
     if (!m.chars) return false;
-    return !!(p && p.recallBest != null && (p.traced || []).length > 0);
+    if (!p) return false;
+    // Same test the lesson itself uses to unlock characters, so a ticked lesson
+    // and an unlocked character can never disagree. The old version accepted a
+    // single traced stroke and any recall attempt at all, which is why lessons
+    // looked finished while nothing had actually been learned.
+    const traced = new Set((p.traced || []).map((t) => String(t).split(":")[0]));
+    const allTraced = m.chars.every((c) => traced.has(c));
+    const recallPassed = p.recallBest != null && p.recallOf ? p.recallBest / p.recallOf >= 0.8 : false;
+    return allTraced && recallPassed;
   };
   const pct = coverageAtRank(known.length);
 
@@ -1146,18 +1211,38 @@ export default function KanjiModule() {
               ))}
             </div>
 
-            {/* Culture intro, pulled out so it can't be scrolled past */}
-            {INTRO && (
-              <button className="row" onClick={() => setCurrent(INTRO.id)} style={{ marginBottom: 22, alignItems: "flex-start" }}>
-                <KindBadge kind="culture" />
-                <span style={{ flex: 1 }}>
-                  <span style={{ display: "block", fontSize: 15, fontWeight: 600 }}>{INTRO.title}</span>
-                  <span style={{ display: "block", fontSize: 13, color: T.sub, marginTop: 2 }}>
-                    Read this first — it explains why the order is what it is.
+            {/* The two intro lessons, pinned above the groups so they cannot be
+                scrolled past, and HIGHLIGHTED until acknowledged. Furigana comes
+                first: it is what the learner is looking at on every screen in
+                this module, and nothing had ever explained it. Once both are
+                marked "Got it!" the highlight drops and they read as ordinary
+                lessons. */}
+            {INTROS.map((m) => {
+              const read = !!(progress[m.id] || {}).read;
+              const blurb = m.id === "cc-furigana"
+                ? "Start here — what those little kana above the characters are."
+                : "Then this — why the order is what it is.";
+              return (
+                <button key={m.id} className="row" onClick={() => setCurrent(m.id)}
+                        style={{
+                          marginBottom: 10, alignItems: "flex-start",
+                          background: read ? undefined : T.noteBg,
+                          border: read ? undefined : `1px solid ${T.note}`,
+                        }}>
+                  <KindBadge kind="culture" />
+                  <span style={{ flex: 1 }}>
+                    <span style={{ display: "block", fontSize: 15, fontWeight: 600 }}>
+                      {m.title}
+                      {read && <span style={{ color: T.ok, marginLeft: 8, fontSize: 13 }}>✓</span>}
+                    </span>
+                    <span style={{ display: "block", fontSize: 13, color: read ? T.sub : T.note, marginTop: 2 }}>
+                      {read ? "Read" : blurb}
+                    </span>
                   </span>
-                </span>
-              </button>
-            )}
+                </button>
+              );
+            })}
+            <div style={{ marginBottom: 22 }} />
 
             {GROUPED.map((g, gi) => {
               const open = !!openGroups[gi];

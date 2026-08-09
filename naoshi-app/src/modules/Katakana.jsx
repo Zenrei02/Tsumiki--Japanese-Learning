@@ -4,7 +4,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { installStorage } from "../lib/storage.js";
 import { T } from "../lib/tokens.js";
-import { StrokeView, samplePath, scoreStroke, tolerancesFor, thinPoints, useStrokeData, StrokePractice, TOL, STROKE_BOX } from "../lib/strokeEngine.jsx";
+import { StrokeView, samplePath, scoreStroke, tolerancesFor, thinPoints, useStrokeData, StrokePractice, LOG_PTS, STROKE_BOX, TOL, TRACE_N } from "../lib/strokeEngine.jsx";
 import { STROKES } from "../lib/strokeData.js";
 import "../data/strokes-katakana.js";
 installStorage();
@@ -584,6 +584,7 @@ function Squares({ value, length, reveal }) {
 
 
 
+
 // ————— Stroke-order animation —————
 
 
@@ -815,12 +816,25 @@ function Drill({ mod, idx, progress, onProgress }) {
   const [picked, setPicked] = useState(null);
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(false);
+  const [showRomaji, setShowRomaji] = useState(false);
+  const { playSound, canPlaySound } = useKanaAudio();
 
   useEffect(() => {
     setQueue(make()); setI(0); setPicked(null); setScore(0); setDone(false);
   }, [mod.id, idx]);
 
   const target = queue[i];
+
+  // Play on arrival so the drill is listening-first without needing a tap,
+  // and hide the romaji again for each new question. MUST sit above the
+  // early returns below — a hook after a conditional return runs on some
+  // renders and not others, which is "Rendered more hooks than during the
+  // previous render" and a white screen.
+  useEffect(() => {
+    setShowRomaji(false);
+    if (target) playSound(soundFor(target), target);
+  }, [target]);
+
   const opts = useMemo(() => {
     if (!target) return [];
     const wrong = pool.filter((k) => k !== target).sort(() => Math.random() - 0.5).slice(0, 5);
@@ -835,9 +849,9 @@ function Drill({ mod, idx, progress, onProgress }) {
           {score} / {queue.length}
         </div>
         <p style={{ fontSize: 14, color: T.sub }}>
-          {pct === 1 ? "Clean. Go build some words in Write."
-            : pct >= 0.8 ? "Close. One more pass, then Write."
-            : "Worth another run before Write."}
+          {pct === 1 ? "Clean. Go and trace them."
+            : pct >= 0.8 ? "Close. One more pass, then trace them."
+            : "Worth another run before tracing."}
         </p>
         <button className="btn-ghost" onClick={() => { setQueue(make()); setI(0); setPicked(null); setScore(0); setDone(false); }}>Again</button>
       </div>
@@ -859,8 +873,31 @@ function Drill({ mod, idx, progress, onProgress }) {
     <div>
       <div style={{ fontSize: 12, color: T.sub, marginBottom: 14 }}>{i + 1} of {queue.length} · Score {score}</div>
       <div style={{ textAlign: "center", marginBottom: 20 }}>
-        <div style={{ fontSize: 13, color: T.sub, marginBottom: 6 }}>Tap the character for</div>
-        <div style={{ fontSize: 42, letterSpacing: "2px", fontWeight: 300 }}>{soundFor(target)}</div>
+        <div style={{ fontSize: 13, color: T.sub, marginBottom: 10 }}>Tap the character you hear</div>
+        {/* drill-audio-v1 — prompting in romaji taught the romaji: the learner read
+            "ka" and matched letters. The prompt is now the sound itself. Romaji
+            stays one tap away, because a learner on a silent bus or a device with
+            no audio must still be able to finish. */}
+        <button onClick={() => playSound(soundFor(target), target)}
+                disabled={!canPlaySound(soundFor(target))}
+                aria-label="Play the sound again"
+                style={{
+                  fontSize: 30, padding: "14px 30px", borderRadius: 999, cursor: "pointer",
+                  border: `1px solid ${T.hairline}`, background: T.sheet, color: T.ink,
+                  opacity: canPlaySound(soundFor(target)) ? 1 : 0.45,
+                }}>♪</button>
+        {!canPlaySound(soundFor(target)) ? (
+          <div style={{ fontSize: 34, letterSpacing: "2px", fontWeight: 300, marginTop: 10 }}>
+            {soundFor(target)}
+          </div>
+        ) : (
+          <div style={{ marginTop: 8, minHeight: 26 }}>
+            {showRomaji
+              ? <span style={{ fontSize: 22, letterSpacing: "2px", fontWeight: 300 }}>{soundFor(target)}</span>
+              : <button className="btn-ghost" style={{ fontSize: 12 }}
+                        onClick={() => setShowRomaji(true)}>Show the romaji</button>}
+          </div>
+        )}
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 8 }}>
         {opts.map((k, n) => {
@@ -1259,17 +1296,14 @@ function Judge({ mod, progress, onProgress }) {
 // samples any reference stroke into comparable points, so no library is needed.
 // TOL is in units of the 109-box and is deliberately lenient — these numbers
 // need tuning against real handwriting on a phone before they mean anything.
-const TRACE_N = 24;
 
 
 
 
 
-const meanDist = (a, b) => {
-  let s = 0;
-  for (let i = 0; i < a.length; i++) s += Math.hypot(a[i][0] - b[i][0], a[i][1] - b[i][1]);
-  return s / a.length;
-};
+
+
+
 
 // Compares a learner stroke to a reference. Direction is caught by scoring the
 // reference both ways round: if reversed fits clearly better, they drew it
@@ -1287,12 +1321,12 @@ const meanDist = (a, b) => {
 // re-scored offline with any algorithm later. Logging only the score would mean
 // re-collecting from scratch every time the maths changes.
 
-const median = (a) => {
-  if (!a.length) return null;
-  const b = [...a].sort((x, y) => x - y);
-  const m = b.length >> 1;
-  return b.length % 2 ? b[m] : (b[m - 1] + b[m]) / 2;
-};
+        // samples before the floor is trusted
+      // rolling calibration window
+     // rolling attempt log
+       // points retained per attempt
+
+
 
 // Multipliers come from the synthetic separation analysis: correct-with-tremor
 // stays well under the point where wrong strokes begin. Clamps stop a freakishly
@@ -2089,7 +2123,7 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
     ? [["learn", "Read"]]
     : isSkill
       ? [["learn", "Learn"], ["judge", "Choose"], ["trace", "Trace"], ["pad", "Free pad"]]
-      : [["learn", "Learn"], ["drill", "Drill"], ["write", "Assemble"], ["listen", "Listen"], ["trace", "Trace"],
+      : [["learn", "Learn"], ["drill", "Drill"], ["listen", "Listen"], ["trace", "Trace"],
           ...(mod.words && mod.words.length ? [["lw", "Listen & Write"]] : []),
           ["pad", "Free pad"]];
   // Only what they have met by this lesson, so free practice can never ask for
@@ -2116,7 +2150,7 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
       </div>
 
       {tabs.length > 1 && (
-        <div style={{ display: "flex", gap: 6, margin: "16px 0" }}>
+        <div style={{ display: "flex", gap: 6, margin: "16px 0", flexWrap: "wrap" }}>
           {tabs.map(([id, label]) => (
             <button key={id} onClick={() => setTab(id)} style={{
               padding: "7px 16px", borderRadius: 999, fontSize: 13, cursor: "pointer", fontFamily: T.uiFont,
@@ -2125,8 +2159,7 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
             }}>
               {label}
               {id === "drill" && p.drill != null ? ` · ${p.drill}` : ""}
-              {id === "write" && p.written ? ` · ${p.written}` : ""}
-              {id === "listen" && p.heard ? ` · ${p.heard}` : ""}
+                {id === "listen" && p.heard ? ` · ${p.heard}` : ""}
               {id === "trace" && p.traced ? ` · ${p.traced.length}` : ""}
               {id === "judge" && p.judged != null ? ` · ${p.judged}` : ""}
             </button>
@@ -2138,7 +2171,6 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
       <div style={{ background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 8, padding: 20 }}>
         {tab === "learn" && <Learn mod={mod} progress={progress} onProgress={onProgress} />}
         {tab === "drill" && <Drill mod={mod} idx={idx} progress={progress} onProgress={onProgress} />}
-        {tab === "write" && <Write mod={mod} idx={idx} progress={progress} onProgress={onProgress} />}
         {tab === "listen" && <Write mod={mod} idx={idx} progress={progress} onProgress={onProgress} listen />}
         {tab === "pad" && (
           <div>
@@ -2190,8 +2222,10 @@ export default function KatakanaModule() {
     if (!p) return false;
     if (m.kind === "culture") return !!p.read;
     if (m.kind === "skill") return (p.judged || 0) >= (m.judge?.length || 1);
-    if (!m.words || m.words.length === 0) return p.drill != null;
-    return p.drill != null && (p.written || 0) >= m.words.length;
+    // Drill proves recognition; tracing proves the hand knows it. Assemble
+    // supplied `written` and has been removed — tracing takes its place, which
+    // also fixes the Learn section never counting the stroke work.
+    return p.drill != null && (p.traced || []).length > 0;
   };
 
   const doneCount = MODULES.filter(isDone).length;

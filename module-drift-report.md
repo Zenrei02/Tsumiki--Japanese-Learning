@@ -30,8 +30,8 @@ every other module that reads it. These are the real seams.
 | `n5-progress-v1` | grammar-module.jsx, kanji-module.jsx ⚠️ shared |
 | `kanji-progress-v1` | kanji-module.jsx |
 | `katakana-progress-v1` | katakana-module.jsx |
-| `known-words-v1` | vocabulary-module.jsx |
 | `achievement-points-v1` | vocabulary-module.jsx |
+| `known-words-v1` | vocabulary-module.jsx |
 
 4 of 8 keys are shared across modules.
 

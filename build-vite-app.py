@@ -50,10 +50,36 @@ MODULES = [
 ]
 ENGINE_FNS = ["strokeStart", "StrokeView", "resample", "samplePath", "scoreStroke",
               "tolerancesFor", "thinPoints", "useStrokeData", "StrokePractice"]
-SHARED_CONSTS = ["TOL", "STROKE_BOX", "SD_KEY", "CAL_MIN", "CAL_KEEP", "LOG_KEEP", "LOG_PTS"]
+# SHARED_CONSTS is DERIVED below, from what the engine actually references.
 
 problems = []
 CANON = (HERE / "kanji-module.jsx").read_text(encoding="utf-8")
+
+
+def decl_span(text, name):
+    """Span of a top-level `const NAME = ...` declaration, however many lines.
+
+    A line-based strip (`^const NAME = [^\n]*\n`) removes only the first line of
+    a multi-line object or arrow function and leaves its body and closing `};`
+    behind — which is a syntax error, not a subtle bug. TRACE_STAGES is exactly
+    that shape.
+    """
+    m = re.search(r"^const " + re.escape(name) + r"\b", text, re.M)
+    if not m: return None
+    i = m.start(); k = m.end(); depth = 0
+    while k < len(text):
+        c = text[k]
+        if c in "{[(": depth += 1
+        elif c in "}])": depth -= 1
+        elif c == ";" and depth <= 0:
+            return i, k + 1
+        elif c == "\n" and depth <= 0:
+            # unterminated single-line form: stop at the newline
+            rest = text[i:k]
+            if rest.count("=") and not rest.rstrip().endswith(","):
+                return i, k + 1
+        k += 1
+    return i, len(text)
 
 
 def brace_span(text, pat):
@@ -123,11 +149,60 @@ for fn in ENGINE_FNS:
     if sp: parts.append(CANON[sp[0]:sp[1]])
     else: problems.append(f"engine function {fn} not found in kanji-module.jsx")
 
-consts = []
-for pat in [r"const TOL = [^\n]*", r"const STROKE_BOX = [^\n]*",
-            r'const SD_KEY = "stroke-data-v1";', r"const CAL_MIN = [^\n]*"]:
-    m = re.search(pat, CANON)
-    if m: consts.append(m.group(0).split("//")[0].rstrip())
+# ── what does the engine actually depend on? ─────────────────────────────────
+# DERIVED, not hand-listed. Three separate white screens came from a hand-written
+# constant list drifting from what the engine really used: STROKES (missing
+# import), LOG_PTS (stripped but not exported), useMemo (hardcoded React import),
+# and TRACE_N. Each fix revealed the next, which is the signature of maintaining
+# by hand a list the compiler could compute.
+#
+# So: scan the engine for identifiers it references but does not declare, and
+# hoist any that are module-level constants in the canonical source.
+engine_src_probe = "\n".join(parts)
+declared_in_engine = set(re.findall(r"(?:function|const|let|var)\s+([A-Za-z_$][\w$]*)", engine_src_probe))
+referenced = set(re.findall(r"\b([A-Za-z_$][\w$]*)\b", engine_src_probe))
+JS_GLOBALS = {"Math","JSON","Object","Array","Promise","Set","Map","Date","String","Number",
+              "Boolean","Error","console","window","document","isNaN","parseFloat","parseInt",
+              "undefined","null","true","false","requestAnimationFrame","setTimeout","AudioContext"}
+REACT_HOOKS = {"useState","useEffect","useRef","useMemo","useCallback","useReducer","useLayoutEffect"}
+IMPORTED = {"T", "STROKES"}
+
+consts, hoisted_names = [], []
+for name in sorted(referenced - declared_in_engine - JS_GLOBALS - REACT_HOOKS - IMPORTED):
+    sp = decl_span(CANON, name)          # multi-line safe, same helper as the strip
+    if sp:
+        decl = CANON[sp[0]:sp[1]].rstrip()
+        consts.append(decl)
+        # Names this declaration DEFINES — not every `x =` inside its body.
+        # The greedy version pulled `s`, `i`, `b`, `m` out of meanDist/median's
+        # loop bodies and would have stripped a module's own variable of that
+        # name. Only a brace-free declaration can define several names
+        # (const A = 1, B = 2); anything with a body defines exactly one.
+        head = re.match(r"const\s+([A-Za-z_$][\w$]*)", decl)
+        if head:
+            if "{" in decl or "[" in decl or "=>" in decl:
+                hoisted_names.append(head.group(1))
+            else:
+                hoisted_names += re.findall(r"(?:const\s+|,\s*)([A-Za-z_$][\w$]*)\s*=", decl)
+
+# de-duplicate declarations that define the same names
+seen, uniq = set(), []
+for d in consts:
+    key = tuple(sorted(re.findall(r"([A-Za-z_$][\w$]*)\s*=", d)))
+    if key not in seen:
+        seen.add(key); uniq.append(d)
+consts = uniq
+SHARED_CONSTS = sorted(set(hoisted_names))
+print(f"  engine dependencies hoisted: {', '.join(SHARED_CONSTS)}")
+
+# Derive the engine's React imports from what it actually uses. Hardcoding
+# "useState, useEffect, useRef" shipped an engine calling useMemo with no import
+# — a ReferenceError inside StrokePractice, which is the white screen Lloyd hit
+# on BOTH kana Trace and kanji Write. Same shared engine, same crash, two doors.
+engine_src = "\n".join(parts)
+engine_hooks = sorted({h for h in ["useState", "useEffect", "useRef", "useMemo",
+                                   "useCallback", "useReducer", "useLayoutEffect"]
+                       if re.search(r"\b" + h + r"\s*\(", engine_src)})
 
 (LIB / "strokeEngine.jsx").write_text(
     "// GENERATED by build-vite-app.py from kanji-module.jsx — ONE implementation.\n"
@@ -136,12 +211,17 @@ for pat in [r"const TOL = [^\n]*", r"const STROKE_BOX = [^\n]*",
     "// against each other's mistakes. Hoisting removes that class of bug rather\n"
     "// than merely watching for it.\n"
     "// KanjiVG (Ulrich Apel), CC BY-SA 3.0 — http://kanjivg.tagaini.net\n"
-    'import { useState, useEffect, useRef } from "react";\n'
+    'import { ' + ", ".join(engine_hooks) + ' } from "react";\n'
     'import { T } from "./tokens.js";\n'
     'import { STROKES } from "./strokeData.js";\n\n'
     + "\n".join(consts) + "\n\n"
     + "\n\n".join(parts) + "\n\n"
-    + "export { " + ", ".join(ENGINE_FNS + ["TOL", "STROKE_BOX", "SD_KEY"]) + " };\n",
+    # Export every shared constant, not a hand-picked subset. An earlier version
+    # exported only TOL/STROKE_BOX/SD_KEY while stripping CAL_* and LOG_* from the
+    # modules too — so a module using LOG_PTS outside the engine (both kana modules
+    # do, when logging stroke attempts) got a ReferenceError and a white screen the
+    # instant tracing started. Stripping and exporting must cover the same list.
+    + "export { " + ", ".join(ENGINE_FNS + SHARED_CONSTS) + " };\n",
     encoding="utf-8")
 
 # ── storage helpers, shared ──────────────────────────────────────────────────
@@ -203,10 +283,11 @@ for src_name, out_name, comp, label, jp in MODULES:
                 start = src.rindex("async", 0, start)
             src = src[:start] + src[sp[1]:]
     for c in SHARED_CONSTS:
-        src = re.sub(r"^const " + c + r" = [^\n]*\n", "", src, flags=re.M)
+        sp = decl_span(src, c)
+        if sp: src = src[:sp[0]] + src[sp[1]:]
 
     used_engine = [f for f in ENGINE_FNS if re.search(r"\b" + f + r"\b", src)]
-    used_const = [c for c in ("TOL", "STROKE_BOX", "SD_KEY") if re.search(r"\b" + c + r"\b", src)]
+    used_const = [c for c in SHARED_CONSTS if re.search(r"\b" + c + r"\b", src)]
     # Modules reference STROKES outside the engine too — e.g. filtering which
     # characters actually have paths before offering writing practice. Stripping
     # the table without importing the registry left a ReferenceError that only a
@@ -214,6 +295,10 @@ for src_name, out_name, comp, label, jp in MODULES:
     needs_strokes = bool(re.search(r"\bSTROKES\b", src))
     used_json = [f for f in ("loadJSON", "saveJSON") if re.search(r"\b" + f + r"\(", src)]
     needs_T = bool(re.search(r"\bT\.", src))
+
+    for c in SHARED_CONSTS:
+        if re.search(r"\b" + c + r"\b", src) and c not in used_const:
+            problems.append(f"{out_name}: uses {c} but it is neither declared nor imported")
 
     for pattern, why in [(r"api\.anthropic\.com", "API endpoint"),
                          (r"ANTHROPIC_API_KEY", "API key reference")]:

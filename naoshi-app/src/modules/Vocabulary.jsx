@@ -359,36 +359,28 @@ const WORDS = [
 
 
 
+
+
 // ————— Tracing engine (ported wholesale from the kana modules) —————
-const TRACE_N = 24;
 
 
 
 
 
-const meanDist = (a, b) => {
-  let s = 0;
-  for (let i = 0; i < a.length; i++) s += Math.hypot(a[i][0]-b[i][0], a[i][1]-b[i][1]);
-  return s / a.length;
-};
-
-
-
-const median = (a) => {
-  if (!a.length) return null;
-  const b = [...a].sort((x, y) => x - y), m = b.length >> 1;
-  return b.length % 2 ? b[m] : (b[m-1] + b[m]) / 2;
-};
 
 
 
 
 
-const TRACE_STAGES = [
-  { id: "trace",  label: "Trace",  blurb: "Follow the grey stroke. This is about the movement, not accuracy." },
-  { id: "guided", label: "Guided", blurb: "Earlier strokes stay. Draw the next one from memory." },
-  { id: "blank",  label: "Blank",  blurb: "Nothing shown. Order is yours to get right now." },
-];
+
+
+
+
+
+
+
+
+
 
 
 // @@ENGINE-END@@
