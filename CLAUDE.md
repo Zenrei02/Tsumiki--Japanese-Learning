@@ -191,6 +191,31 @@ what was known at a moment, and correcting one retroactively destroys what makes
 - **Read the journal that made a decision, not a later journal's recap of it.** Adopted in
   Session 6 after a pipeline was built against a summary; broken again in Session 9 against a
   reconstruction. Both times it produced confident, wrong work.
+
+- **⚠️ A CONTEXT-COMPACTION SUMMARY IS THAT RECAP. Treat it as a lead, never as the record.**
+  A long session hits the context limit and resumes from a generated summary. It reads as
+  authoritative and it is not — it is a later recap of earlier work, exactly the artifact the
+  rule above says not to build on.
+
+  Session 9 broke this twice within an hour of editing that rule, and **neither failure was
+  lost information** — both facts were sitting in the summary:
+
+  - It opened with Lloyd's own words, *"This is Session 9."* A **"Session 10"** was invented
+    anyway and reached six places across four files and two tracker rows before he caught it.
+  - It gave the journal's page ID and said that page was mid-edit. Lloyd was still told no
+    Session 9 journal existed, and nearly got a duplicate.
+
+  So the failure mode is not a small context window. It is **substituting a confident
+  inference for a cheap check** — the same move as guessing npm package names instead of
+  searching the registry. On resuming from a summary:
+
+  1. **Never infer the session number.** It is in the summary's first user message, or ask.
+     A fabricated one poisons journals, tracker cross-references and commit messages at once.
+  2. **List before you create.** `notion-fetch` on the journals parent page (id in "Notion IDs"
+     above) costs one call and shows every journal that exists.
+  3. **Re-read the source before repeating any claim the summary makes**, especially a
+     limitation — see the `rm`, `git` and KanjiVG entries above, all three of which were
+     believed from a written record rather than retested.
 - **Whole-file deliverables, never patches.** A patch caused a white screen in Session 3.
 - Verify files build cleanly before delivering.
 - No lesson counts anywhere in the UI — Lloyd has stated they are discouraging. The kanji
