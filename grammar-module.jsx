@@ -473,7 +473,7 @@ const CURRICULUM = [
   },
   {
     cat: "Step 3 · Joining, choosing & counting",
-    bank: [["学校", "school"], ["駅", "station"], ["友達", "friend"], ["電車", "train"], ["映画", "movie"], ["公園", "park"], ["朝ごはん", "breakfast"], ["図書館", "library"]],
+    bank: [["パン", "bread"], ["牛乳", "milk"], ["肉", "meat"], ["魚", "fish"], ["妹", "younger sister"], ["家", "house, home"], ["日本語", "Japanese language"], ["月曜日", "Monday"]],
     points: [
       {
         id: "to-and", jp: "と (and / with)", en: "joining nouns, naming your companion",
@@ -658,12 +658,12 @@ const CURRICULUM = [
         id: "sb-verbtypes", jp: "Go と Ichi", en: "the two verb families", kind: "skill",
         quizHint: "Test conjugating dictionary form into ます form. Use wrong-family traps as distractors, e.g. 食べます (correct) vs 食べります (wrong), 飲みます (correct) vs 飲べます (wrong).",
         exp: {
-          what: "Every Japanese verb belongs to one of two families, and the family decides how every single form is built. Learn a verb's family once and you never have to think about it again. Textbooks call them godan and ichidan — from here we'll just say Go and Ichi.",
+          what: "Every Japanese verb belongs to one of two families — plus exactly two exceptions, する and 来る, and that is the whole system. The family decides how every single form is built: learn a verb's family once and you never have to think about it again. Textbooks call the families godan and ichidan — from here we'll just say Go and Ichi.",
           build: "Ichi verbs drop る and add the ending: 食べる → 食べます. Go verbs shift their final sound to the i-row first: 飲む → 飲みます, 行く → 行きます, 買う → 買います.",
-          when: "Sorting them: if a verb doesn't end in る, it's Go, guaranteed. If it ends in る, look at the vowel before it — える or いる usually means Ichi (食べる, 見る), while ある, うる, おる means Go (作る, 乗る).",
+          when: "Sorting them: if a verb doesn't end in る, it's Go, guaranteed. If it ends in る, look at the vowel before it — える or いる usually means Ichi (食べる, 見る), while ある, うる, おる means Go (作る, 乗る). する and 来る ignore this test entirely — they are the two irregulars, and later lessons give each its own forms. There are no others hiding.",
           watch: "A handful of verbs end in いる or える and are Go anyway: 帰る, 入る, 走る, 切る, 知る. They're common enough that it's worth learning these five as a set now rather than being surprised by 帰ります later.",
         },
-        ex: [["食べる → 食べます", "Ichi: drop る, add ます."], ["飲む → 飲みます", "Go: む → み, add ます."], ["帰る → 帰ります", "Looks Ichi, behaves Go."]],
+        ex: [["食べる → 食べます", "Ichi: drop る, add ます."], ["飲む → 飲みます", "Go: む → み, add ます."], ["帰る → 帰ります", "Looks Ichi, behaves Go."], ["する → します・来る → 来ます", "The two exceptions — small enough to just memorise."]],
       },
       {
         id: "ta-plain", jp: "〜た / 〜ない (plain past & negative)", en: "the sound changes everything else depends on",
@@ -1211,6 +1211,14 @@ function levelPoints(level) {
   return (level.groups || []).flatMap((g) => g.points);
 }
 
+// ————— Static build flag —————
+// false here, in the artifact, where the grader runs and the reviewer grades
+// through the published checker path. build-vite-app.py flips it to true for
+// the static app: no prompts in the bundle, no API call, and the quiz and both
+// graders swap for self-marked equivalents that still write n5-progress-v1 —
+// the key the vocabulary module reads to unlock words by step (Session 10).
+const STATIC_BUILD = false;
+
 // ————— API helpers —————
 async function callClaude(system, user, maxTokens = 1000) {
   const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -1358,6 +1366,31 @@ function Chip({ children, color }) {
   );
 }
 
+// Static-build stand-in for the generated quiz: the lesson still needs a way
+// to write progress (the vocabulary module unlocks words off it), so the
+// learner self-marks. `studied` is deliberately NOT `quizBest` — imported
+// artifact progress keeps its real scores, and isDone accepts either.
+function StaticMark({ point, progress, onProgress }) {
+  const p = progress[point.id] || {};
+  const done = !!(p.studied || p.quizBest != null);
+  return (
+    <div style={{ textAlign: "center", padding: "24px 0" }}>
+      <p style={{ fontSize: 14, color: T.sub, marginTop: 0 }}>
+        Quizzes are generated fresh by the grader, which is not part of this static
+        preview — it arrives with the full app.
+      </p>
+      {done ? (
+        <p style={{ fontSize: 14, color: T.ok }}>Marked as studied ✓</p>
+      ) : (
+        <button className="btn-primary"
+          onClick={() => onProgress({ ...progress, [point.id]: { ...p, studied: true, at: Date.now() } })}>
+          Mark as studied
+        </button>
+      )}
+    </div>
+  );
+}
+
 function Quiz({ point, progress, onProgress, mode, onTapWord }) {
   const [state, setState] = useState("idle"); // idle | loading | active | done | error
   const [questions, setQuestions] = useState([]);
@@ -1404,6 +1437,7 @@ function Quiz({ point, progress, onProgress, mode, onTapWord }) {
   };
 
   if (state === "idle" || state === "error" || state === "loading") {
+    if (STATIC_BUILD) return <StaticMark point={point} progress={progress} onProgress={onProgress} />;
     return (
       <div style={{ textAlign: "center", padding: "24px 0" }}>
         <p style={{ fontSize: 14, color: T.sub, marginTop: 0 }}>
@@ -1555,11 +1589,21 @@ function Practice({ point, bank = [], progress, onProgress, mode, onTapWord }) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [err, setErr] = useState("");
+  const [logged, setLogged] = useState(false);
   const gradingMsg = useRotating(GRADING_MESSAGES, loading);
 
   const grade = async () => {
     const input = text.trim();
     if (!input || loading) return;
+    if (STATIC_BUILD) {
+      // No grader in the static build. Log the attempt the way the vocabulary
+      // module logs its self-assessed sentence; the checker takes over
+      // post-Phase 0 through this same progress shape.
+      const prev = progress[point.id] || {};
+      onProgress({ ...progress, [point.id]: { ...prev, practiced: (prev.practiced || 0) + 1 } });
+      setResult(null); setErr(""); setLogged(true);
+      return;
+    }
     setLoading(true); setErr(""); setResult(null);
     try {
       const data = await callClaude(
@@ -1610,7 +1654,7 @@ function Practice({ point, bank = [], progress, onProgress, mode, onTapWord }) {
       )}
       <div style={{ marginTop: 10, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
         <button className="btn-primary" onClick={grade} disabled={loading || !text.trim()}>
-          {loading ? "Grading…" : "Grade my sentence"}
+          {loading ? "Grading…" : STATIC_BUILD ? "I wrote it — log practice" : "Grade my sentence"}
         </button>
         {loading && (
           <span style={{ fontSize: 13, color: T.sub, fontStyle: "italic" }} aria-live="polite">
@@ -1619,6 +1663,11 @@ function Practice({ point, bank = [], progress, onProgress, mode, onTapWord }) {
         )}
       </div>
       {err && <p style={{ color: T.shu, fontSize: 14 }}>{err}</p>}
+      {logged && (
+        <p style={{ color: T.ok, fontSize: 14 }} role="status">
+          Logged. Check your sentence against the examples in Learn — the grader arrives with the full app.
+        </p>
+      )}
       {result && (
         <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 10 }}>
           <div style={{
@@ -1656,12 +1705,25 @@ function Build({ point, bank = [], progress, onProgress, mode, onTapWord }) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [err, setErr] = useState("");
+  const [logged, setLogged] = useState(false);
   const msg = useRotating(BUILD_MESSAGES, loading);
   const required = (point.requires || []).map((id) => ALL_POINTS.find((x) => x.id === id)).filter(Boolean);
 
   const grade = async () => {
     const input = text.trim();
     if (!input || loading) return;
+    if (STATIC_BUILD) {
+      // No grader here — the element-by-element check is the learner's, against
+      // the visible checklist. bestElements is deliberately not written: it is
+      // a graded number and self-marking must not mint one.
+      const prev = progress[point.id] || {};
+      onProgress({
+        ...progress,
+        [point.id]: { ...prev, built: (prev.built || 0) + 1, elementTotal: required.length },
+      });
+      setResult(null); setErr(""); setLogged(true);
+      return;
+    }
     setLoading(true); setErr(""); setResult(null);
     try {
       const data = await callClaude(
@@ -1767,7 +1829,7 @@ function Build({ point, bank = [], progress, onProgress, mode, onTapWord }) {
       )}
       <div style={{ marginTop: 10, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
         <button className="btn-primary" onClick={grade} disabled={loading || !text.trim()}>
-          {loading ? "Reading…" : "Check my sentences"}
+          {loading ? "Reading…" : STATIC_BUILD ? "I wrote it — log this build" : "Check my sentences"}
         </button>
         {loading && (
           <span style={{ fontSize: 13, color: T.sub, fontStyle: "italic" }} aria-live="polite">{msg}</span>
@@ -1775,6 +1837,11 @@ function Build({ point, bank = [], progress, onProgress, mode, onTapWord }) {
         <span style={{ fontSize: 12, color: T.sub, marginLeft: "auto" }}>{text.length}/400</span>
       </div>
       {err && <p style={{ color: T.shu, fontSize: 14 }}>{err}</p>}
+      {logged && (
+        <p style={{ color: T.ok, fontSize: 14 }} role="status">
+          Logged. Walk the checklist above yourself — is each required element present, and does it do its job?
+        </p>
+      )}
 
       {result && (
         <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 10 }}>
@@ -1924,7 +1991,10 @@ export default function GrammarPractice() {
     if (!pr) return false;
     if (pt.kind === "primer") return !!pr.read;
     if (pt.kind === "build") return !!pr.built;
-    return pr.quizBest != null && !!pr.practiced;
+    // `studied` is the static build's self-mark; nothing writes it in the
+    // artifact, so behaviour there is unchanged. Progress imported from the
+    // artifact keeps counting through quizBest.
+    return (pr.quizBest != null || !!pr.studied) && !!pr.practiced;
   };
 
   const stagesComplete = LEVELS.filter(

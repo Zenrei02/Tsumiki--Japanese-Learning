@@ -1,7 +1,7 @@
 {
- "generated": "2026-08-08",
+ "generated": "2026-08-10",
  "note": "Authoritative word set for the app. Input to the word-driven ordering pipeline. Regenerate with build-word-ledger.py.",
- "count": 286,
+ "count": 288,
  "words": [
   {
    "written": "学生",
@@ -136,7 +136,6 @@
    ],
    "sources": [
     "bank:Step 2",
-    "bank:Step 3",
     "bank:Checkpoint 1",
     "KANJI_DICT",
     "w:校",
@@ -154,7 +153,6 @@
    ],
    "sources": [
     "bank:Step 2",
-    "bank:Step 3",
     "KANJI_DICT"
    ],
    "jlpt": "N4"
@@ -169,7 +167,6 @@
    ],
    "sources": [
     "bank:Step 2",
-    "bank:Step 3",
     "bank:Checkpoint 1",
     "KANJI_DICT"
    ],
@@ -185,7 +182,6 @@
    ],
    "sources": [
     "bank:Step 2",
-    "bank:Step 3",
     "KANJI_DICT",
     "w:車"
    ],
@@ -201,7 +197,6 @@
    ],
    "sources": [
     "bank:Step 2",
-    "bank:Step 3",
     "bank:Checkpoint 1",
     "KANJI_DICT"
    ],
@@ -217,7 +212,6 @@
    ],
    "sources": [
     "bank:Step 2",
-    "bank:Step 3",
     "KANJI_DICT"
    ],
    "jlpt": "N3"
@@ -232,7 +226,6 @@
    ],
    "sources": [
     "bank:Step 2",
-    "bank:Step 3",
     "KANJI_DICT"
    ],
    "jlpt": "N5"
@@ -247,10 +240,120 @@
    ],
    "sources": [
     "bank:Step 2",
-    "bank:Step 3",
     "KANJI_DICT"
    ],
    "jlpt": "N3"
+  },
+  {
+   "written": "パン",
+   "readings": [],
+   "meanings": [
+    "bread"
+   ],
+   "sources": [
+    "bank:Step 3"
+   ]
+  },
+  {
+   "written": "牛乳",
+   "readings": [
+    "ぎゅうにゅう"
+   ],
+   "meanings": [
+    "milk"
+   ],
+   "sources": [
+    "bank:Step 3",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "肉",
+   "readings": [
+    "にく"
+   ],
+   "meanings": [
+    "meat"
+   ],
+   "sources": [
+    "bank:Step 3",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "魚",
+   "readings": [
+    "さかな"
+   ],
+   "meanings": [
+    "fish"
+   ],
+   "sources": [
+    "bank:Step 3",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "妹",
+   "readings": [
+    "いもうと"
+   ],
+   "meanings": [
+    "younger sister",
+    "my younger sister"
+   ],
+   "sources": [
+    "bank:Step 3",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "家",
+   "readings": [
+    "いえ"
+   ],
+   "meanings": [
+    "house, home",
+    "house; home"
+   ],
+   "sources": [
+    "bank:Step 3",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "日本語",
+   "readings": [
+    "にほんご"
+   ],
+   "meanings": [
+    "Japanese language"
+   ],
+   "sources": [
+    "bank:Step 3",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "月曜日",
+   "readings": [
+    "げつようび"
+   ],
+   "meanings": [
+    "Monday"
+   ],
+   "sources": [
+    "bank:Step 3",
+    "KANJI_DICT",
+    "w:月"
+   ],
+   "jlpt": "N5"
   },
   {
    "written": "勉強する",
@@ -1065,12 +1168,15 @@
   },
   {
    "written": "言う",
-   "readings": [],
+   "readings": [
+    "いう"
+   ],
    "meanings": [
     "to say"
    ],
    "sources": [
-    "bank:Step 12"
+    "bank:Step 12",
+    "w:言"
    ]
   },
   {
@@ -1134,19 +1240,6 @@
     "KANJI_DICT"
    ],
    "jlpt": "N4"
-  },
-  {
-   "written": "日本語",
-   "readings": [
-    "にほんご"
-   ],
-   "meanings": [
-    "Japanese language"
-   ],
-   "sources": [
-    "KANJI_DICT"
-   ],
-   "jlpt": "N5"
   },
   {
    "written": "日本",
@@ -2058,19 +2151,6 @@
    "jlpt": "N4"
   },
   {
-   "written": "妹",
-   "readings": [
-    "いもうと"
-   ],
-   "meanings": [
-    "my younger sister"
-   ],
-   "sources": [
-    "KANJI_DICT"
-   ],
-   "jlpt": "N4"
-  },
-  {
    "written": "弟",
    "readings": [
     "おとうと"
@@ -2096,19 +2176,6 @@
     "w:今"
    ],
    "jlpt": "N5"
-  },
-  {
-   "written": "牛乳",
-   "readings": [
-    "ぎゅうにゅう"
-   ],
-   "meanings": [
-    "milk"
-   ],
-   "sources": [
-    "KANJI_DICT"
-   ],
-   "jlpt": "N4"
   },
   {
    "written": "結婚",
@@ -2161,32 +2228,6 @@
     "KANJI_DICT"
    ],
    "jlpt": "N4"
-  },
-  {
-   "written": "肉",
-   "readings": [
-    "にく"
-   ],
-   "meanings": [
-    "meat"
-   ],
-   "sources": [
-    "KANJI_DICT"
-   ],
-   "jlpt": "N5"
-  },
-  {
-   "written": "魚",
-   "readings": [
-    "さかな"
-   ],
-   "meanings": [
-    "fish"
-   ],
-   "sources": [
-    "KANJI_DICT"
-   ],
-   "jlpt": "N5"
   },
   {
    "written": "彼",
@@ -2370,20 +2411,6 @@
    ],
    "sources": [
     "KANJI_DICT"
-   ],
-   "jlpt": "N5"
-  },
-  {
-   "written": "月曜日",
-   "readings": [
-    "げつようび"
-   ],
-   "meanings": [
-    "Monday"
-   ],
-   "sources": [
-    "KANJI_DICT",
-    "w:月"
    ],
    "jlpt": "N5"
   },
@@ -2671,19 +2698,6 @@
     "KANJI_DICT"
    ],
    "jlpt": "N4"
-  },
-  {
-   "written": "家",
-   "readings": [
-    "いえ"
-   ],
-   "meanings": [
-    "house; home"
-   ],
-   "sources": [
-    "KANJI_DICT"
-   ],
-   "jlpt": "N5"
   },
   {
    "written": "茶",
@@ -3691,6 +3705,18 @@
    ],
    "sources": [
     "w:来"
+   ]
+  },
+  {
+   "written": "言葉",
+   "readings": [
+    "ことば"
+   ],
+   "meanings": [
+    "word; language"
+   ],
+   "sources": [
+    "w:言"
    ]
   },
   {

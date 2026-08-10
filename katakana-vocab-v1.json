@@ -1,0 +1,22 @@
+{
+  "_comment": "Common-use katakana words for the vocabulary module. Session 10 decision (Lloyd): kana-only words enter the vocab queues when EITHER their grammar step is reached OR their katakana-track trigger lesson (kt) is touched — whichever fires first — with the katakana module's CC/SB lessons preferred as triggers. Every word here already appears in a shipped grammar-module example at the step given; nothing is newly authored Japanese. kt is the katakana-module lesson the word appears in, or the first CC lesson after the word becomes readable. Readings are hiragana (ー kept as-is, kids'-material convention) and exist for ruby: a katakana word wears its hiragana reading until the katakana track has walked every character in it.",
+  "_status": "Readings and glosses are dictionary facts, DERIVED NOT REVIEWED — same standing as word-readings-patch-v1.json.",
+  "words": [
+    {"written": "パン", "reading": "ぱん", "meaning": "bread", "step": 3, "kt": "dakuten"},
+    {"written": "バス", "reading": "ばす", "meaning": "bus", "step": 10, "kt": "dakuten"},
+    {"written": "テレビ", "reading": "てれび", "meaning": "television", "step": 4, "kt": "dakuten"},
+    {"written": "ペン", "reading": "ぺん", "meaning": "pen", "step": 3, "kt": "cc-2"},
+    {"written": "コーヒー", "reading": "こーひー", "meaning": "coffee", "step": 3, "kt": "cc-4"},
+    {"written": "ラーメン", "reading": "らーめん", "meaning": "ramen", "step": 4, "kt": "cc-4"},
+    {"written": "レポート", "reading": "れぽーと", "meaning": "report, essay", "step": 4, "kt": "cc-4"},
+    {"written": "ルール", "reading": "るーる", "meaning": "rule", "step": 5, "kt": "cc-4"},
+    {"written": "デパート", "reading": "でぱーと", "meaning": "department store", "step": 6, "kt": "cc-4"},
+    {"written": "コンビニ", "reading": "こんびに", "meaning": "convenience store", "step": 8, "kt": "cc-2"},
+    {"written": "レストラン", "reading": "れすとらん", "meaning": "restaurant", "step": 8, "kt": "cc-recognise"},
+    {"written": "ピアノ", "reading": "ぴあの", "meaning": "piano", "step": 10, "kt": "cc-2"},
+    {"written": "クラス", "reading": "くらす", "meaning": "class", "step": 10, "kt": "cc-recognise"},
+    {"written": "カード", "reading": "かーど", "meaning": "card", "step": 10, "kt": "cc-4"},
+    {"written": "ボタン", "reading": "ぼたん", "meaning": "button", "step": 12, "kt": "cc-2"},
+    {"written": "ドア", "reading": "どあ", "meaning": "door", "step": 12, "kt": "cc-2"}
+  ]
+}

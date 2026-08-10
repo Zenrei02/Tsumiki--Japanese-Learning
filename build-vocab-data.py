@@ -32,6 +32,24 @@ LEDGER = json.loads((HERE / "word-ledger-v1.json").read_text(encoding="utf-8"))
 KO = json.loads((HERE / "kanji-order-v2.json").read_text(encoding="utf-8"))
 CO = json.loads((HERE / "curriculum-order-v1.json").read_text(encoding="utf-8"))
 
+# Session 10: curated katakana words (Lloyd's decision — kana-only words enter
+# via grammar step OR katakana-track lesson trigger). See the file's _comment.
+KATA = []
+kata_path = HERE / "katakana-vocab-v1.json"
+if kata_path.exists():
+    KATA = json.loads(kata_path.read_text(encoding="utf-8"))["words"]
+kata_by_w = {e["written"]: e for e in KATA}
+
+# Step metadata parsed from the grammar module itself (read the modules, not
+# the specs): the full cat string per step number, and every point id per step
+# — the module needs the ids to test "step reached" against n5-progress-v1.
+GRAMMAR = (HERE / "grammar-module.jsx").read_text(encoding="utf-8")
+_chunks = re.split(r'cat: "(Step \d+[^"]*)"', GRAMMAR)
+STEP_CAT, STEP_POINTS = {}, {}
+for _cat, _body in zip(_chunks[1::2], _chunks[2::2]):
+    STEP_CAT[int(re.match(r"Step (\d+)", _cat).group(1))] = _cat
+    STEP_POINTS[_cat] = re.findall(r'id: "([^"]+)"', _body)
+
 kpos = {r["char"]: r["pos"] for r in KO["order"]}
 first_intro = CO["vocabulary"]["first_introduction"]
 KANJI_RE = re.compile(r"[㐀-鿿々]")
@@ -70,15 +88,31 @@ for e in LEDGER["words"]:
     ks = [c for c in w if KANJI_RE.match(c)]
     taught = sorted((c for c in ks if c in kpos), key=lambda c: kpos[c])
     untaught = [c for c in ks if c not in kpos]
+    kata = kata_by_w.get(w, {})
     words.append({
         "w": w,
-        "r": (e["readings"] or [None])[0] or PATCH.get(w),
-        "m": (e["meanings"] or [None])[0],
+        "r": (e["readings"] or [None])[0] or PATCH.get(w) or kata.get("reading"),
+        "m": (e["meanings"] or [None])[0] or kata.get("meaning"),
         "k": taught,
         "u": untaught,
         "j": w in JUKUJIKUN,
         "s": first_intro.get(w, {}).get("step"),
         "x": NOTES.get(w),
+        "kt": kata.get("kt"),
+    })
+
+# Curated katakana words the ledger doesn't carry (they appear only in example
+# sentences, never in a bank, so the ledger builder never sees them).
+_ledger_ws = {e["written"] for e in LEDGER["words"]}
+for e in KATA:
+    if e["written"] in _ledger_ws:
+        continue
+    words.append({
+        "w": e["written"], "r": e["reading"], "m": e["meaning"],
+        "k": [], "u": [], "j": False,
+        "s": STEP_CAT.get(e["step"]),
+        "x": NOTES.get(e["written"]),
+        "kt": e["kt"],
     })
 
 # taught words first, then by first unlock position — the order the module meets them
@@ -98,6 +132,7 @@ out = {"generated": datetime.date.today().isoformat(),
            "ruby_capable": sum(1 for x in words if x["s"] and (x["k"] or x["u"]) and x["r"]),
            "readings_from_patch": sum(1 for x in words if x["s"] and x["w"] in PATCH),
            "with_teaching_notes": sum(1 for x in words if x.get("x")),
+           "kata_triggered": sum(1 for x in words if x.get("kt")),
        },
        "words": words}
 (HERE / "vocab-data-v1.json").write_text(
@@ -112,6 +147,7 @@ def js(x):
     if x["u"]: parts.append("u:[%s]" % ",".join(f'"{c}"' for c in x["u"]))
     if x["j"]: parts.append("j:1")
     if x["s"]: parts.append(f's:"{x["s"]}"')
+    if x.get("kt"): parts.append(f'kt:"{x["kt"]}"')
     if x.get("x"):
         n = x["x"]
         inner = ",".join(f'{f}:{json.dumps(n[f], ensure_ascii=False)}'
@@ -129,6 +165,10 @@ lines = ["// ————— Word table —————",
          "const WORDS = ["]
 lines += ["  " + js(x) + "," for x in words]
 lines.append("];")
+lines.append("// STEP_POINTS: every grammar point id per step, parsed from grammar-module.jsx —")
+lines.append("// lets kana-only words test \"step reached\" against n5-progress-v1 (Session 10).")
+lines.append("const STEP_POINTS = " + json.dumps(
+    {cat: ids for cat, ids in STEP_POINTS.items()}, ensure_ascii=False) + ";")
 (HERE / "vocab-data-v1.js").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 print(json.dumps(out["counts"], indent=2))

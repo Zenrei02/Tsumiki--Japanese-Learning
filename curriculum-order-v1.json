@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-08",
+ "generated": "2026-08-10",
  "source": "grammar-module.jsx (live)",
  "kanji_order": "kanji-order-v2.json",
  "grammar": {
@@ -363,8 +363,8 @@
   ]
  },
  "vocabulary": {
-  "taught_words": 93,
-  "ledger_total": 286,
+  "taught_words": 101,
+  "ledger_total": 288,
   "recurring": {
    "本": [
     "Step 1 · Your first sentences",
@@ -372,38 +372,15 @@
    ],
    "学校": [
     "Step 2 · Core particles",
-    "Step 3 · Joining, choosing & counting",
     "Checkpoint 1"
-   ],
-   "駅": [
-    "Step 2 · Core particles",
-    "Step 3 · Joining, choosing & counting"
    ],
    "友達": [
     "Step 2 · Core particles",
-    "Step 3 · Joining, choosing & counting",
     "Checkpoint 1"
-   ],
-   "電車": [
-    "Step 2 · Core particles",
-    "Step 3 · Joining, choosing & counting"
    ],
    "映画": [
     "Step 2 · Core particles",
-    "Step 3 · Joining, choosing & counting",
     "Checkpoint 1"
-   ],
-   "公園": [
-    "Step 2 · Core particles",
-    "Step 3 · Joining, choosing & counting"
-   ],
-   "朝ごはん": [
-    "Step 2 · Core particles",
-    "Step 3 · Joining, choosing & counting"
-   ],
-   "図書館": [
-    "Step 2 · Core particles",
-    "Step 3 · Joining, choosing & counting"
    ],
    "毎日": [
     "Step 4 · Verbs: from dictionary form up",
@@ -463,23 +440,8 @@
     "Checkpoint 3 · Stage review"
    ]
   },
-  "checkpoint_only_recurrence": 13,
-  "identical_banks": [
-   [
-    "Step 2 · Core particles",
-    "Step 3 · Joining, choosing & counting",
-    [
-     "公園",
-     "友達",
-     "図書館",
-     "学校",
-     "映画",
-     "朝ごはん",
-     "電車",
-     "駅"
-    ]
-   ]
-  ],
+  "checkpoint_only_recurrence": 16,
+  "identical_banks": [],
   "invisible_to_ledger": [
    "かさ",
    "全部",
@@ -568,6 +530,46 @@
     "word": "図書館",
     "gloss": "library",
     "step": "Step 2 · Core particles"
+   },
+   "パン": {
+    "word": "パン",
+    "gloss": "bread",
+    "step": "Step 3 · Joining, choosing & counting"
+   },
+   "牛乳": {
+    "word": "牛乳",
+    "gloss": "milk",
+    "step": "Step 3 · Joining, choosing & counting"
+   },
+   "肉": {
+    "word": "肉",
+    "gloss": "meat",
+    "step": "Step 3 · Joining, choosing & counting"
+   },
+   "魚": {
+    "word": "魚",
+    "gloss": "fish",
+    "step": "Step 3 · Joining, choosing & counting"
+   },
+   "妹": {
+    "word": "妹",
+    "gloss": "younger sister",
+    "step": "Step 3 · Joining, choosing & counting"
+   },
+   "家": {
+    "word": "家",
+    "gloss": "house, home",
+    "step": "Step 3 · Joining, choosing & counting"
+   },
+   "日本語": {
+    "word": "日本語",
+    "gloss": "Japanese language",
+    "step": "Step 3 · Joining, choosing & counting"
+   },
+   "月曜日": {
+    "word": "月曜日",
+    "gloss": "Monday",
+    "step": "Step 3 · Joining, choosing & counting"
    },
    "勉強する": {
     "word": "勉強する",
@@ -1168,16 +1170,6 @@
    "score": 4.5
   },
   {
-   "word": "月曜日",
-   "reading": "げつようび",
-   "meaning": "Monday",
-   "jlpt": "N5",
-   "sources": 2,
-   "kanji_covered": "2/3",
-   "plain_at": null,
-   "score": 4.5
-  },
-  {
    "word": "来週",
    "reading": "らいしゅう",
    "meaning": "next week",
@@ -1556,6 +1548,16 @@
    "kanji_covered": "2/2",
    "plain_at": 15,
    "score": 3.0
+  },
+  {
+   "word": "大き",
+   "reading": "おおき",
+   "meaning": "big",
+   "jlpt": "N5",
+   "sources": 1,
+   "kanji_covered": "1/1",
+   "plain_at": 18,
+   "score": 3.0
   }
  ],
  "rendering": {
@@ -1568,6 +1570,13 @@
    "公園",
    "朝ごはん",
    "図書館",
+   "牛乳",
+   "肉",
+   "魚",
+   "妹",
+   "家",
+   "日本語",
+   "月曜日",
    "勉強する",
    "起きる",
    "寝る",
@@ -1628,7 +1637,7 @@
    "落とす",
    "最後まで"
   ],
-  "kana_only": 5,
+  "kana_only": 6,
   "promotion_by_kanji_decile": {
    "10": 3,
    "20": 2,
@@ -1693,6 +1702,30 @@
    ],
    "館": [
     "図書館"
+   ],
+   "牛": [
+    "牛乳"
+   ],
+   "乳": [
+    "牛乳"
+   ],
+   "肉": [
+    "肉"
+   ],
+   "魚": [
+    "魚"
+   ],
+   "妹": [
+    "妹"
+   ],
+   "家": [
+    "家"
+   ],
+   "語": [
+    "日本語"
+   ],
+   "曜": [
+    "月曜日"
    ],
    "勉": [
     "勉強する"
