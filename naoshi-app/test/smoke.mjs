@@ -39,6 +39,33 @@
 import { JSDOM } from "jsdom";
 import fs from "fs";
 
+// The bundle path is overridable because a sandboxed /tmp can be unwritable —
+// and worse, a STALE /tmp/test-bundle.js from an earlier session reads as a
+// green run against old code. Session 10 shipped several "PASSED" results that
+// way before noticing. Hence: explicit path, and a hard freshness gate — the
+// bundle must be newer than every module source it claims to test.
+const BUNDLE = process.env.SMOKE_BUNDLE || "/tmp/test-bundle.js";
+{
+  const { fileURLToPath } = await import("url");
+  const bundleTime = fs.statSync(BUNDLE).mtimeMs;
+  const srcDir = fileURLToPath(new URL("../src/", import.meta.url));
+  const stale = [];
+  const walk = (dir) => {
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = dir + e.name;
+      if (e.isDirectory()) walk(p + "/");
+      else if (fs.statSync(p).mtimeMs > bundleTime) stale.push(p.slice(srcDir.length));
+    }
+  };
+  walk(srcDir);
+  if (stale.length) {
+    console.error(`REFUSING TO RUN: bundle at ${BUNDLE} is OLDER than ${stale.length} source file(s):`);
+    for (const s of stale.slice(0, 8)) console.error("  " + s);
+    console.error("Rebuild first (npm run smoke does), or point SMOKE_BUNDLE at a fresh bundle.");
+    process.exit(2);
+  }
+}
+
 const DEFAULT_KNOWN = ["日", "一", "二", "三", "十"];
 // Enough of the syllabus for the vocabulary queues to have real work in them.
 const RICH_KNOWN = [
@@ -77,7 +104,7 @@ async function go(modId, lessonMatch, tabs, opts = {}) {
   w.addEventListener("error", e => errors.push("UNCAUGHT: " + (e.error?.message || e.message)));
   w.localStorage.setItem("known-kanji-v1", JSON.stringify(opts.known || DEFAULT_KNOWN));
   w.localStorage.setItem("naoshi-last-module", modId);
-  w.eval(fs.readFileSync("/tmp/test-bundle.js", "utf8"));
+  w.eval(fs.readFileSync(BUNDLE, "utf8"));
   await new Promise(r => setTimeout(r, 2200));
 
   const d = w.document;
@@ -145,6 +172,52 @@ await go("hiragana", /Main Vowel Series/, ["Learn", "Trace", "Drill", "Listen", 
 await go("katakana", /Main Vowel Series/, ["Learn", "Trace", "Drill", "Listen", "Assemble"],
   { optional: ["Assemble"] });
 
+// Grammar is the static port (Session 10): the grader is stripped from the
+// bundle, so the API surfaces must be REPLACED by self-mark fallbacks — and
+// self-marking must write n5-progress-v1, the key the vocabulary module
+// unlocks kana-only words from. Both halves are asserted: grader UI absent,
+// progress write present. Navigation is two-deep (stage card → point row),
+// which go() can't do alone, so it all lives in `then`.
+await go("grammar", null, [], {
+  then: async ({ d, btns, rootText, log, fail: f, NAME }) => {
+    const wait = (ms = 700) => new Promise(r => setTimeout(r, ms));
+    const stage = btns().find(b => /Foundations/.test(b.textContent || ""));
+    if (!stage) { f(`${NAME}: Stage 1 card not found`); return; }
+    stage.click(); await wait();
+    const step1 = btns().find(b => /Your first sentences/.test(b.textContent || ""));
+    if (step1) { step1.click(); await wait(); }
+    const row = btns().find(b => /making a statement|です/.test(b.textContent || ""));
+    if (!row) { f(`${NAME}: no Step 1 point row found`); return; }
+    log(`opening point ${JSON.stringify((row.textContent || "").trim().slice(0, 40))}`);
+    row.click(); await wait(900);
+    for (const tab of ["Learn", "Quiz", "Practice"]) {
+      const b = btns().find(x => (x.textContent || "").trim().startsWith(tab));
+      if (!b) { log(`  "${tab}" — ❌ MISSING`); f(`${NAME}: tab "${tab}" missing`); continue; }
+      b.click(); await wait(800);
+      const t = rootText();
+      log(`"${tab}" → ${t.length} chars ${t.length < 200 ? "❌ WHITE SCREEN" : "ok"}`);
+      if (t.length < 200) f(`${NAME}: view "${tab}" collapsed`);
+    }
+    // Quiz tab: static stand-in present, grader UI absent
+    const quizTab = btns().find(x => (x.textContent || "").trim().startsWith("Quiz"));
+    if (quizTab) { quizTab.click(); await wait(); }
+    if (rootText().includes("Start quiz")) f(`${NAME}: grader quiz UI leaked into static build`);
+    const mark = btns().find(b => (b.textContent || "").trim() === "Mark as studied");
+    if (!mark) { f(`${NAME}: "Mark as studied" fallback missing`); return; }
+    mark.click(); await wait();
+    if (!rootText().includes("Marked as studied")) f(`${NAME}: self-mark did not register`);
+    let prog = {};
+    try { prog = JSON.parse(d.defaultView.localStorage.getItem("n5-progress-v1") || "{}"); } catch {}
+    const wrote = Object.values(prog).some(p => p && p.studied);
+    log(`n5-progress-v1 studied entry: ${wrote ? "ok — vocabulary can unlock from this" : "❌ NOT WRITTEN"}`);
+    if (!wrote) f(`${NAME}: self-mark did not write n5-progress-v1`);
+    const practiceTab = btns().find(x => (x.textContent || "").trim().startsWith("Practice"));
+    if (practiceTab) { practiceTab.click(); await wait(); }
+    if (rootText().includes("Grade my sentence")) f(`${NAME}: grader practice UI leaked into static build`);
+    if (!btns().some(b => (b.textContent || "").includes("log practice"))) f(`${NAME}: practice self-log button missing`);
+  },
+});
+
 // Vocabulary has no lessons — its top level IS the queues, so there is nothing
 // to open. The tabs are the queue views; the deep step enters a word, which is
 // where the spliced WORDS table and the shared stroke engine actually meet.
@@ -172,5 +245,5 @@ if (failures.length) {
   for (const f of failures) console.log("  ✗ " + f);
   process.exitCode = 1;
 } else {
-  console.log("PASSED — 4 modules, every required view rendered.");
+  console.log("PASSED — 5 modules, every required view rendered.");
 }

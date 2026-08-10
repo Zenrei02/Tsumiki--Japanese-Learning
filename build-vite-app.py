@@ -45,6 +45,7 @@ for d in (LIB, DATA, MODDIR): d.mkdir(parents=True, exist_ok=True)
 MODULES = [
     ("hiragana-module.jsx",   "Hiragana.jsx",   "HiraganaModule",   "Hiragana",   "ひらがな"),
     ("katakana-module.jsx",   "Katakana.jsx",   "KatakanaModule",   "Katakana",   "カタカナ"),
+    ("grammar-module.jsx",    "Grammar.jsx",    "GrammarPractice",  "Grammar",    "ぶんぽう"),
     ("kanji-module.jsx",      "Kanji.jsx",      "KanjiModule",      "Kanji",      "漢字"),
     ("vocabulary-module.jsx", "Vocabulary.jsx", "VocabularyModule", "Vocabulary", "ことば"),
 ]
@@ -253,6 +254,26 @@ for src_name, out_name, comp, label, jp in MODULES:
                      '  throw new Error("grader-unavailable-in-static-build");\n'
                      "}", src, count=1, flags=re.S)
 
+    # flip the static flag: the flag gates the UI (self-mark stand-ins for the
+    # quiz and both graders), while the strips above and below keep the BUNDLE
+    # clean — the flag is a control-flow promise, the strips are bundle promises,
+    # and the build makes both.
+    if re.search(r"^const STATIC_BUILD = false;", src, re.M):
+        src = re.sub(r"^const STATIC_BUILD = false;",
+                     "const STATIC_BUILD = true;  // flipped by build-vite-app.py",
+                     src, count=1, flags=re.M)
+
+    # the frozen Phase 0 prompts ship only in the graded artifact, never in a
+    # public static bundle. References stay valid (the flag or the stripped
+    # callClaude makes them unreachable); the text itself is gone. Matched by
+    # the *_SYSTEM convention rather than a hand-list — the hand-listed first
+    # version missed kanji-module's SENTENCE_SYSTEM, which had been shipping in
+    # the public bundle since the app was first built. The purity check below
+    # is what caught it.
+    src = re.sub(r"^const (\w*_SYSTEM) = `.*?`;",
+                 lambda m: f"const {m.group(1)} = null; // stripped by build-vite-app.py — prompts ship only in the graded artifact",
+                 src, flags=re.M | re.S)
+
     # extract this module's stroke table into its own data file, then register it
     sp = brace_span(src, r"const STROKES = \{")
     data_import = ""
@@ -301,9 +322,12 @@ for src_name, out_name, comp, label, jp in MODULES:
             problems.append(f"{out_name}: uses {c} but it is neither declared nor imported")
 
     for pattern, why in [(r"api\.anthropic\.com", "API endpoint"),
-                         (r"ANTHROPIC_API_KEY", "API key reference")]:
-        for m in re.finditer(pattern, src):
-            problems.append(f"{src_name}:{src[:m.start()].count(chr(10)) + 1} — {why} survived stripping")
+                         (r"ANTHROPIC_API_KEY", "API key reference"),
+                         (r"You grade", "grader prompt survived stripping"),
+                         (r"You write multiple-choice", "quiz prompt survived stripping"),
+                         (r"^const STATIC_BUILD = false;", "static flag not flipped")]:
+        for m in re.finditer(pattern, src, re.M):
+            problems.append(f"{src_name}:{src[:m.start()].count(chr(10)) + 1} — {why}")
 
     hooks = sorted({h for h in ["useState", "useEffect", "useRef", "useMemo",
                                 "useCallback", "useReducer"] if re.search(r"\b" + h + r"\s*\(", src)})

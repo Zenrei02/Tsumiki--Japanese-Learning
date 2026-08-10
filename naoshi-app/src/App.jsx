@@ -4,12 +4,14 @@ import { downloadProgress, importProgress } from "./lib/storage.js";
 import { T } from "./lib/tokens.js";
 const HiraganaModule = lazy(() => import("./modules/Hiragana.jsx"));
 const KatakanaModule = lazy(() => import("./modules/Katakana.jsx"));
+const GrammarPractice = lazy(() => import("./modules/Grammar.jsx"));
 const KanjiModule = lazy(() => import("./modules/Kanji.jsx"));
 const VocabularyModule = lazy(() => import("./modules/Vocabulary.jsx"));
 
 const MODULES = [
   { id: "hiragana", label: "Hiragana", jp: "ひらがな", Comp: HiraganaModule },
   { id: "katakana", label: "Katakana", jp: "カタカナ", Comp: KatakanaModule },
+  { id: "grammar", label: "Grammar", jp: "ぶんぽう", Comp: GrammarPractice },
   { id: "kanji", label: "Kanji", jp: "漢字", Comp: KanjiModule },
   { id: "vocabulary", label: "Vocabulary", jp: "ことば", Comp: VocabularyModule }
 ];

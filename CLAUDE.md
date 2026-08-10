@@ -143,6 +143,15 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
 - **openpyxl `cell(row, col, value=None)` is a no-op, not a clear.** Two Session 7 guard tests
   appeared to pass while doing nothing because the fixtures were never actually broken.
   Suspect a green result that arrives too easily.
+- **⚠️ `node test/smoke.mjs` run directly reads whatever bundle is already at
+  `/tmp/test-bundle.js` — including one from a previous session.** Session 10 reported several
+  smoke PASSes for new code that way; the bundle predated every change it claimed to test, and
+  the sandbox's unwritable /tmp is what finally exposed it (`npm run smoke` failed to write,
+  revealing that nothing had been rebuilding it). The test now refuses any bundle older than
+  the sources and takes a `SMOKE_BUNDLE` env override — in the sandbox, build to `$HOME` and
+  run `SMOKE_BUNDLE=$HOME/test-bundle.js node test/smoke.mjs`. The freshness gate is code, but
+  the habit generalises: before trusting a green render test, check what artifact it actually
+  loaded.
 
 ## Artifact-environment quirks (Session 5 — all probed, none are code bugs)
 
