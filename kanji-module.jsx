@@ -143,40 +143,92 @@ const MODULES = [
     chars: ["三","日","小","人","中","国"],
     exp: "Six characters, one from each rule you have met. No new material.\n\nDo these on Blank if you can. If a stroke will not come, the hint gives you one stroke and one only — that is enough to unstick you without handing over the answer, and the difference matters for whether it sticks." },
 
-  { id: "k-tree", kind: "kanji", title: "The tree family", chars: ["木","本","林","森","校"],
-    exp: "From here on, most kanji are assembled rather than drawn. 木 is a tree. Two of them make 林, woods. Three make 森, forest. The logic is as transparent as kanji ever gets, and it is real — this is how the characters were actually built.\n\n本 is 木 with a mark at the base: the root, the origin, and by extension the source, a book, and Japan itself (日本, sun-origin).\n\n校 pairs 木 with 交. That second part is not carrying meaning here so much as sound — a hint you will learn to read much later. For now, treat it as a shape you have met." },
+  { id: "k-t1", kind: "kanji", title: "Time on your hands", chars: ["今","分","手","時","上"],
+    rule: "Horizontal-before-vertical applies only when they cross. A vertical nothing crosses — 上's opening stroke — goes first.",
+    exp: "時 and 分 are the o'clock and minutes on every clock face, and 今 is the word that asks what they say right now. Three characters in, you can read a clock: 三時十分.\n\n今 and 分 open identically — the same two spreading diagonals you wrote in 人 and 八. Then they part company: 今 tucks its strokes underneath, 分 hangs a blade (刀) below. Write them side by side once and they will stay apart for good.\n\n分 is 八 over 刀 — something divided by a blade. A minute is a division of the hour, and the same character reads わ in 分ける, to divide. The story is real, not a memory trick.\n\n時 puts 日 on the left — the sun, telling you the meaning lives near days and time. The right-hand side is carrying sound rather than meaning: a pattern you will meet again and again, so treat it as a shape for now.\n\n上 is where the rule earns its keep — its vertical goes first, because nothing crosses it. 手 is the hand itself; put 上 next to it and you have 上手 — \"skilled,\" written up-hand — the word you will hear the first time your Japanese lands." },
 
-  { id: "k-person2", kind: "kanji", title: "Person, standing to the left", chars: ["休","今","何","私"],
-    exp: "When 人 sits on the left of a character it squashes into 亻. Same character, different posture — this happens to a lot of components and is worth expecting rather than relearning each time.\n\n休 is 亻 plus 木: a person against a tree, resting. It is one of the cleanest stories in the whole system and it is genuinely the historical one.\n\n何 and 私 are here because they are unavoidable — 何 is \"what\" and 私 is \"I\", and you cannot get far in a conversation without either." },
+  { id: "sb-lid", kind: "skill", title: "今 and 分 — the same lid", chars: ["今","分"],
+    exp: "今 and 分 share a lid and differ entirely in what sits under it. They are drilled together because separating them is what causes the confusion.\n\nA useful habit starts here — when a new kanji looks like one you know, stop and find the difference deliberately rather than noting that they are similar. \"Similar\" is what your memory will store otherwise, and it is not enough to read with." },
 
-  { id: "k-sun", kind: "kanji", title: "Sun, moon, and telling the time", chars: ["明","時","間","白","百"],
-    exp: "明 is 日 and 月 written together: bright. 時 is the sun 日 beside a temple 寺 — where the hour was announced. 間 is the sun seen through a gate 門: a gap, an interval, the space between two things.\n\nEach of these is a component you already know plus one you do not. That is the shape of most kanji learning from here: the new part is one piece, not the whole character." },
+  { id: "k-t2", kind: "kanji", title: "Your first sentence, in kanji", chars: ["学","下","生","明","天"],
+    rule: "Two parts side by side are written left part completely first — 明 is all of 日, then all of 月.",
+    exp: "学 and 生 make 学生 — the word you put in your very first sentence, 私は学生です, back when です was all you had. 学 has 子 at its base, under a roof and some marks: a child under instruction.\n\n生 is worth a note of its own. It means life, birth, raw, and student, and its readings are among the most irregular in the language. Do not try to hold all of them now — meet it in words and let the readings accumulate.\n\n下 arrives one group after 上, its mirror — and like 上 it does grammatical work: 下手 is 上手's opposite number.\n\n明 is the sun and moon sharing one sky: bright — the first kanji you can read as a story, and the first assembled entirely from characters you can already write. 天 is 大 with the sky drawn above it, and the first half of 天気, which finishes next group." },
 
-  { id: "k-field", kind: "kanji", title: "Fields and power", chars: ["田","力","男","町"],
-    exp: "田 is a rice field seen from above — the paths between the plots are the cross in the middle.\n\n男 is 田 over 力, power in the field. 町 is 田 beside 丁, fields on a grid: a town.\n\nBoth are worth noticing as compositions rather than as new shapes. Once you can see 田 inside a character, you have already learned five of its strokes." },
+  { id: "k-t3", kind: "kanji", title: "The teacher and the weather", chars: ["先","気","百","好","年"],
+    rule: "A three-sided wrap like 気's is drawn before what shelters inside it — only a closed box saves its floor for last.",
+    exp: "Two of your very first words finish in this group. 先 joins the 生 you already have to make 先生 — literally \"born before\": a teacher is someone who got there first. And 気 joins 天 for 天気, sky-spirit, the weather.\n\n気 on its own is one of the hardest characters to pin to a single English word — spirit, air, mood, inclination — and it turns up everywhere, including in 元気, the standard way of asking whether someone is well.\n\n好 is 女 and 子 together: fondness, liking. Whether the original image was a mother with her child or a marriage is argued about; either way the pairing is the character — another one assembled entirely from pieces you can already write, straight out of Stage 0. It will carry 好き when liking things arrives in the grammar.\n\n百 is 一 over 白, both yours already. It buys you prices — 百円 turns up the first time you shop, and the first time the grammar teaches you to say you cannot afford something.\n\n年 is the year, and it needs care: the long horizontal near the bottom pierces, so it goes last — Stage 0's piercing rule, back on duty." },
 
-  { id: "k-woman", kind: "kanji", title: "Woman, child, learning", chars: ["女","子","好","学","母"],
-    exp: "好 is 女 and 子 together: fondness, liking. Whether the original image was a mother with her child or a marriage is argued about; either way the pairing is the character.\n\n学 has 子 at its base, under a roof and some marks — a child under instruction. It gives you 学生 (student) and 学校 (school), two words you will use constantly." },
+  { id: "k-t4", kind: "kanji", title: "Seeing, going, and the gap between", chars: ["見","行","七","千","間"],
+    rule: "門 is a wrap too: the gate is drawn whole before what you see through it.",
+    exp: "見る and 行く have been yours since Step 4 — here is what they look like written down. 見 is an eye 目 on legs 儿. 行 began, the story goes, as a drawing of a crossroads — the place where going happens — and its narrow left side is finished before the right, the same left-then-right that runs through everything.\n\n間 is the sun seen through a gate 門: a gap, an interval, the space between two things. It joins the 時 you already have to make 時間 — time itself.\n\n七 and 千 close out the numbers your day runs on: 七時 is seven o'clock, and 千円 is a thousand yen — you will read it on the first note you handle." },
 
-  { id: "k-verbs", kind: "kanji", title: "Six verbs you already say", chars: ["見","行","来","食","言","話"],
-    exp: "These are verbs you already say, or very shortly will — 見る, 行く, 来る and 食べる from your earliest lessons, 話す soon after, and 言う a little further along. All that is new here is the written form.\n\nThat is a much easier task than learning a character cold, and it is why the order works the way it does: kanji arrive for words you can already say, not as abstract shapes with meanings attached.\n\n見 is an eye 目 on legs 儿.\n\n言 and 話 sit next to each other on purpose. 言 is words — 言う, to say. 話 is those same words 言 with a tongue 舌 beside them. Learn the first and the second is already half drawn, which is the whole reason it comes second." },
+  { id: "k-t5", kind: "kanji", title: "Rain, fire, and what's coming", chars: ["雨","来","町","火","何"],
+    rule: "雨 is a frame with the weather still inside — the four drops go in last.",
+    exp: "雨 is the closest thing to a picture this group has: a frame with the rain still falling in it. The drops are the last four strokes — Stage 0's frame rule, holding.\n\n来 you have been saying since 来る arrived — one of the two irregular verbs, the pair that stands outside the Go and Ichi families entirely. The written form is all that is new.\n\n田 is a rice field seen from above — the paths between the plots are the cross in the middle — and 町 is 田 beside 丁, fields on a grid: a town. 火 is fire, and it gives you 火曜日 — Tuesday, straight out of Step 3's calendar.\n\n何 is \"what,\" and you cannot get far in a conversation without it. Its left side is 人, squashed to stand at the edge of a character — a posture you will see constantly from here. The right side is carrying sound, the way 時's right side does." },
 
-  { id: "sb-tree", kind: "skill", title: "木 and 本, 今 and 分", chars: ["木","本","今","分"],
-    exp: "木 and 本 differ by one short stroke near the bottom. 今 and 分 share a lid and differ entirely in what sits under it.\n\nSame drill as before: they are together because separating them is what causes the confusion.\n\nA useful habit — when a new kanji looks like one you know, stop and find the difference deliberately rather than noting that they are similar. \"Similar\" is what your memory will store otherwise, and it is not enough to read with." },
+  { id: "k-t6", kind: "kanji", title: "The family table", chars: ["母","力","男","土","食"],
+    rule: "母's long horizontal pierces the whole character: the two dots go in first, the piercer last of all.",
+    exp: "母 is mother, and its shape needs the most care here: the two dots go in before the long horizontal, which pierces everything and is written last — the piercing rule, hiding somewhere unexpected.\n\n力 is strength — usually told as a flexed arm. 男 is 田 over 力, power in the field. Both are compositions rather than new shapes: once you can see 田 inside a character, you have already learned five of its strokes.\n\n土 is the ground itself, and it gives Saturday its character. 食 is eating — 食べる, from your earliest verb lessons: a lid over a full dish, and the character that will follow you onto every menu in Japan." },
 
-  { id: "k-numbers", kind: "kanji", title: "Counting further", chars: ["千","円","年","分"],
-    exp: "千円 is a thousand yen and you will read it on the first note you handle. 分 is minutes, and also the verb 分かる, to understand — the same character splitting in two senses.\n\n年 needs care: the long horizontal near the bottom pierces, so it goes last." },
+  { id: "k-t7", kind: "kanji", title: "Speaking for yourself", chars: ["言","話","私","木","本"],
+    rule: "話 writes all of 言 before any of 舌 — a component finishes whole before the next begins.",
+    exp: "言 is words — 言う, to say. 話 is those same words with a tongue 舌 beside them: 話す, to speak. Learn the first and the second is already half drawn, which is the whole reason they arrive together.\n\n私 is \"I.\" The left side is 禾, a grain plant; the right is 厶, which once meant \"private\" — grain of one's own. However you hold the story, it is the single most unavoidable character in this course.\n\n木 is a tree, and 本 is 木 with one short mark near the base: the root — and from root, the origin, the source, a book, and Japan itself: 日本, sun-origin." },
 
-  { id: "k-weather", kind: "kanji", title: "Sky, rain, and how you're doing", chars: ["天","雨","気","上","下"],
-    exp: "天気 is the weather, literally sky-spirit. 気 on its own is one of the hardest characters to pin to a single English word — spirit, air, mood, inclination — and it turns up everywhere, including in 元気, the standard way of asking whether someone is well.\n\n上 and 下 are up and down, but they also do heavy grammatical work: 上手 (good at) and 下手 (bad at) are the ones you will meet first." },
+  { id: "sb-root", kind: "skill", title: "木 and 本 — one stroke apart", chars: ["木","本"],
+    exp: "木 and 本 differ by one short stroke near the bottom. Same drill as before: find the one stroke deliberately. 本 is the tree with its root marked — if you can say which stroke is the mark, you have the difference encoded, and 日本 will never read as \"sun-tree.\"" },
 
-  { id: "k-rest", kind: "kanji", title: "Odds and ends worth having", chars: ["七","土","手","生","先","火","山"],
-    exp: "A cleanup lesson. These do not form a family; they are here because they are frequent and because they unlock days of the week, 先生, 学生 and 上手.\n\n生 is worth a note. It means life, birth, raw, and student, and its readings are among the most irregular in the language. Do not try to hold all of them now — meet it in words and let the readings accumulate." },
+  { id: "k-t8", kind: "kanji", title: "The tree family", chars: ["休","校","林","森"],
+    rule: "A repeated component runs across before down: 林 is left tree then right; 森 is the top tree, then the bottom pair, left to right.",
+    exp: "Every character here contains the 木 you met one group ago.\n\nTwo trees make 林, woods. Three make 森, forest. The logic is as transparent as kanji ever gets, and it is real — this is how the characters were actually built.\n\n休 is 亻 plus 木: a person against a tree, resting. It is one of the cleanest stories in the whole system and it is genuinely the historical one.\n\n校 pairs 木 with 交. That second part is not carrying meaning so much as sound — a hint you will learn to read much later. For now, treat it as a shape you have met. It closes 学校: the 学 from six groups back finally gets its school." },
 
   { id: "cp-parts", kind: "checkpoint", title: "Checkpoint — reading the parts",
     chars: ["休","明","男","好","時"],
     exp: "Five compound characters. Before you write each one, name its parts out loud.\n\nThat step is the point of the checkpoint. Copying a shape is a drawing task; naming the parts first is a reading task, and reading is what you are actually building." },
 ];
+
+// ————— Progress migration: order-v1 → order-v2 lesson ids (Session 10) —————
+// The order-v2 regroup renamed every post-Stage-0 lesson, so per-lesson
+// progress under the old ids would silently orphan while known-kanji-v1 kept
+// claiming the characters. Migration is by CHARACTER — the only unit stable
+// across the regroup: each traced entry ("char:mode") moves to the first
+// current lesson that teaches its character. Two deliberate losses, both
+// chosen over guessing: recall-quiz bests are lesson-scoped and have no
+// faithful mapping to the new groups, so recall is retaken; and the split
+// skill builders (sb-lid, sb-root) start fresh rather than inheriting traces
+// from kanji lessons — the drill is the point, not the ink.
+const DEAD_IDS_V1 = ["k-tree", "k-person2", "k-sun", "k-field", "k-woman",
+                     "k-verbs", "sb-tree", "k-numbers", "k-weather", "k-rest"];
+function migrateProgressV2(p) {
+  if (!p || !DEAD_IDS_V1.some((id) => p[id])) return p;      // nothing to migrate
+  // char → current home lesson. Kanji lessons win; skills are the fallback so
+  // 白 — whose only current lesson is sb-eye — still has somewhere to land.
+  // (Dead lessons re-listed Stage 0 characters: 田 in k-field, 女·子 in
+  // k-woman. Their traces merge into the SURVIVING Stage 0 entries, which is
+  // why this runs in two passes — survivors first, then merges on top.)
+  const home = {};
+  for (const kind of ["kanji", "skill"]) {
+    for (const m of MODULES) {
+      if (m.kind !== kind || !m.chars) continue;
+      for (const c of m.chars) if (!home[c]) home[c] = m.id;
+    }
+  }
+  const next = {};
+  for (const [id, entry] of Object.entries(p)) {             // pass 1: survivors
+    if (!DEAD_IDS_V1.includes(id)) next[id] = entry;
+  }
+  for (const id of DEAD_IDS_V1) {                            // pass 2: merges
+    for (const t of (p[id] && p[id].traced) || []) {
+      const dest = home[String(t).split(":")[0]];
+      if (!dest) continue;
+      const d = next[dest] = { ...(next[dest] || {}) };      // never mutate a survivor
+      const seen = new Set(d.traced || []);
+      seen.add(t);
+      d.traced = [...seen];
+    }
+  }
+  next._migratedV2 = { at: Date.now(), from: DEAD_IDS_V1.filter((id) => p[id]) };
+  return next;
+}
 
 const GROUPS = [
   { title: "Foundations — how strokes work",
@@ -184,7 +236,7 @@ const GROUPS = [
     ids: ["k-lines","k-frame","sb-eye","k-center","k-sweep","sb-person","k-pierce","k-enclose","cp-strokes"] },
   { title: "Building from parts",
     blurb: "Characters stop being shapes and start being assemblies. Nothing appears before its own components do.",
-    ids: ["k-tree","k-person2","k-sun","k-field","k-woman","k-verbs","sb-tree","k-numbers","k-weather","k-rest","cp-parts"] },
+    ids: ["k-t1","sb-lid","k-t2","k-t3","k-t4","k-t5","k-t6","k-t7","sb-root","k-t8","cp-parts"] },
 ];
 const INTRO = MODULES.find((m) => m.id === "cc-intro");
 const FURIGANA = MODULES.find((m) => m.id === "cc-furigana");
@@ -1166,7 +1218,10 @@ export default function KanjiModule() {
     (async () => {
       const k = await loadJSON(KNOWN_KEY, []);
       setKnown(Array.isArray(k) ? k : []);
-      setProgress(await loadJSON(KEY, {}));
+      const raw = await loadJSON(KEY, {});
+      const migrated = migrateProgressV2(raw);
+      if (migrated !== raw) await saveJSON(KEY, migrated);  // upgrade storage once
+      setProgress(migrated);
       const g = await loadJSON(GRAMMAR_KEY, {});
       setGrammarDone(Object.keys(g || {}).length > 0);
       loaded.current = true;
