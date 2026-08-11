@@ -2675,7 +2675,7 @@ function CharacterWalk({ chars, modId, progress, onProgress, onDone }) {
 //
 // Deliberately not a modal: it appears in place, under the activity, and does
 // not have to be dismissed. A learner who wants another run is one tap away.
-function Flourish({ title, detail, nextLabel, onNext, onAgain }) {
+function Flourish({ title, detail, milestone, nextLabel, onNext, onAgain }) {
   return (
     <div role="status" style={{
       marginTop: 18, padding: "18px 18px 16px", borderRadius: 10,
@@ -2685,6 +2685,15 @@ function Flourish({ title, detail, nextLabel, onNext, onAgain }) {
       <div style={{ font: `600 16px ${T.uiFont}`, color: T.ink, marginTop: 8 }}>{title}</div>
       {detail && (
         <div style={{ font: `13px/1.6 ${T.uiFont}`, color: T.sub, marginTop: 4 }}>{detail}</div>
+      )}
+      {milestone && (
+        <div style={{ marginTop: 12, paddingTop: 12, borderTop: `1px dashed ${T.ok}` }}>
+          <div style={{ fontFamily: T.jpFont, fontSize: 30, color: T.ink }}>{milestone.word}</div>
+          <div style={{ font: `13px/1.6 ${T.uiFont}`, color: T.sub, marginTop: 4 }}>
+            You have been building this word since {new Date(milestone.since)
+              .toLocaleDateString(undefined, { month: "long", day: "numeric" })}. Today it became yours.
+          </div>
+        </div>
       )}
       <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 14, flexWrap: "wrap" }}>
         {onNext && <button className="btn-primary" onClick={onNext}>{nextLabel || "Next"}</button>}
@@ -2743,7 +2752,8 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
       {lessonComplete && (
         <Flourish
           title="Lesson complete"
-          detail="Recognised, formed, and heard. The next lesson is waiting in the list."
+          detail={flourishDetail(mod, progress)}
+          milestone={thenVsNow(mod, progress)}
           nextLabel="← Back to lessons"
           onNext={onBack}
         />
@@ -2806,6 +2816,121 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
   );
 }
 
+// ————— First-clear timestamps + the capability line (Session 11) —————
+// Same design as the hiragana module; see the comment there and
+// reward-system-design-v1.md. Stamps equal to _stampEpoch predate stamping.
+function stampFirsts(next) {
+  const t = Date.now();
+  const stamps = { ...(next._firstAt || {}) };
+  for (const id of Object.keys(next)) {
+    if (id.startsWith("_")) continue;
+    const entry = next[id];
+    if (!entry || typeof entry !== "object") continue;
+    for (const field of Object.keys(entry)) {
+      const v = entry[field];
+      if (Array.isArray(v)) {
+        for (const el of v) {
+          const k = id + ":" + field + ":" + String(el);
+          if (stamps[k] == null) stamps[k] = t;
+        }
+      } else if (v && typeof v === "object") {
+        for (const kk of Object.keys(v)) {
+          const k = id + ":" + field + ":" + kk;
+          if (stamps[k] == null) stamps[k] = t;
+        }
+      } else if (v != null) {
+        const k = id + ":" + field;
+        if (stamps[k] == null) stamps[k] = t;
+      }
+    }
+  }
+  return { ...next, _firstAt: stamps, _stampEpoch: next._stampEpoch == null ? t : next._stampEpoch };
+}
+
+const BASE_KANA = (() => {
+  const s = new Set();
+  COLS.forEach((c) => c.kana.forEach((k) => k && s.add(k)));
+  s.add("ン"); // lives outside COLS — the wa lesson adds it (see availableAt)
+  return s;
+})();
+function tracedEverywhere(progress) {
+  const s = new Set();
+  for (const id of Object.keys(progress)) {
+    if (id.startsWith("_")) continue;
+    const p = progress[id];
+    if (!p) continue;
+    (Array.isArray(p.traced) ? p.traced : []).forEach((tr) => s.add(String(tr).split(":")[0]));
+    (Array.isArray(p.walked) ? p.walked : []).forEach((c) => s.add(c));
+  }
+  return s;
+}
+function flourishDetail(mod, progress) {
+  const traced = tracedEverywhere(progress);
+  const can = [...BASE_KANA].filter((k) => traced.has(k)).length;
+  if (!can) return "Recognised, formed, and heard. The next lesson is waiting in the list.";
+  let lessonChars = new Set();
+  try { lessonChars = new Set(traceCharsFor(mod)); } catch (e) {}
+  const seen = new Set(), withNew = [], rest = [];
+  for (const m of MODULES) {
+    for (const w of (m.words || [])) {
+      if (!w.kana || seen.has(w.kana)) continue;
+      const chars = [...w.kana];
+      if (!chars.every((c) => traced.has(c) || c === "ー")) continue;
+      seen.add(w.kana);
+      (chars.some((c) => lessonChars.has(c)) ? withNew : rest).push(w.kana);
+    }
+  }
+  const ex = [...withNew, ...rest].slice(0, 3);
+  let line = "You can now write " + can + " of the 46 katakana" +
+    (ex.length ? " — enough for " + ex.join("、") : "") + ".";
+  const g = GROUPS.find((gr) => gr.ids.includes(mod.id));
+  if (g) {
+    const left = g.ids.length - 1 - g.ids.indexOf(mod.id);
+    line += left > 0
+      ? " " + left + " more lesson" + (left === 1 ? "" : "s") + " in “" + g.title + "”."
+      : " That wraps up “" + g.title + "”.";
+  }
+  return line;
+}
+
+// ————— Then-vs-now (Session 11) —————
+// Same design as the hiragana module; see the comment there. Silence until a
+// learner's own history spans the window is by design, not a bug.
+const THEN_WINDOW = 21 * 24 * 60 * 60 * 1000;
+function charFirstTimes(progress) {
+  const map = {};
+  const fa = progress._firstAt || {};
+  for (const key of Object.keys(fa)) {
+    const parts = key.split(":");
+    if (parts.length < 3 || (parts[1] !== "traced" && parts[1] !== "walked")) continue;
+    const ch = parts[2];
+    if (map[ch] == null || fa[key] < map[ch]) map[ch] = fa[key];
+  }
+  return map;
+}
+function thenVsNow(mod, progress) {
+  const times = charFirstTimes(progress);
+  let lessonChars = new Set();
+  try { lessonChars = new Set(traceCharsFor(mod)); } catch (e) {}
+  let best = null;
+  for (const m of MODULES) {
+    for (const w of (m.words || [])) {
+      if (!w.kana) continue;
+      const chars = [...w.kana].filter((c) => c !== "ー");
+      if (chars.length < 2) continue;
+      const ts = chars.map((c) => times[c]);
+      if (ts.some((t) => t == null)) continue;
+      const newest = Math.max(...ts);
+      if (!lessonChars.has(chars[ts.indexOf(newest)])) continue;
+      if (Date.now() - newest > 18 * 36e5) continue;
+      const oldest = Math.min(...ts);
+      if (newest - oldest < THEN_WINDOW) continue;
+      if (!best || chars.length > best.n) best = { word: w.kana, since: oldest, n: chars.length };
+    }
+  }
+  return best;
+}
+
 // ————— Root —————
 export default function KatakanaModule() {
   const [progress, setProgress] = useState({});
@@ -2815,7 +2940,7 @@ export default function KatakanaModule() {
   const loaded = useRef(false);
 
   useEffect(() => { loadProgress().then((p) => { setProgress(p); loaded.current = true; }); }, []);
-  const update = (p) => { setProgress(p); if (loaded.current) saveProgress(p); };
+  const update = (p) => { const s = stampFirsts(p); setProgress(s); if (loaded.current) saveProgress(s); };
 
   const isDone = (m) => {
     const p = progress[m.id];

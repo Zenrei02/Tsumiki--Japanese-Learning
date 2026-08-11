@@ -1206,6 +1206,40 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
 }
 
 // ————— Root —————
+// ————— First-clear timestamps (Session 11) —————
+// Every save stamps any array element, object key, or newly-set field that has
+// no stamp yet, under progress._firstAt. The then-vs-now moment
+// (reward-system-design-v1.md) needs this history before Phase 0 recruiting;
+// nothing reads it yet. Stamps equal to _stampEpoch predate stamping and mean
+// "before we started counting". The "_" guard also skips _migratedV2.
+function stampFirsts(next) {
+  const t = Date.now();
+  const stamps = { ...(next._firstAt || {}) };
+  for (const id of Object.keys(next)) {
+    if (id.startsWith("_")) continue;
+    const entry = next[id];
+    if (!entry || typeof entry !== "object") continue;
+    for (const field of Object.keys(entry)) {
+      const v = entry[field];
+      if (Array.isArray(v)) {
+        for (const el of v) {
+          const k = id + ":" + field + ":" + String(el);
+          if (stamps[k] == null) stamps[k] = t;
+        }
+      } else if (v && typeof v === "object") {
+        for (const kk of Object.keys(v)) {
+          const k = id + ":" + field + ":" + kk;
+          if (stamps[k] == null) stamps[k] = t;
+        }
+      } else if (v != null) {
+        const k = id + ":" + field;
+        if (stamps[k] == null) stamps[k] = t;
+      }
+    }
+  }
+  return { ...next, _firstAt: stamps, _stampEpoch: next._stampEpoch == null ? t : next._stampEpoch };
+}
+
 export default function KanjiModule() {
   const [known, setKnown] = useState([]);
   const [progress, setProgress] = useState({});
@@ -1228,7 +1262,7 @@ export default function KanjiModule() {
     })();
   }, []);
 
-  const updateProgress = (p) => { setProgress(p); if (loaded.current) saveJSON(KEY, p); };
+  const updateProgress = (p) => { const s = stampFirsts(p); setProgress(s); if (loaded.current) saveJSON(KEY, s); };
   const learn = (chars) => {
     const next = [...known];
     chars.forEach((c) => { if (!next.includes(c)) next.push(c); });

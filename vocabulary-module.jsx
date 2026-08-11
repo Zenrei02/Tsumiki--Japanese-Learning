@@ -850,7 +850,21 @@ async function saveJSON(key, v) {
 // Working name only — flagged for renaming in a later phase (§6.9).
 // Tiers per §6.7: completion carries the weight, the optional exercise is the
 // best RATE rather than the biggest lump. These are starting constants.
-const AP = { complete: 10, kanji: 3, sentence: 2 };
+const AP = { complete: 10, kanji: 3, sentence: 2, marker: 2 };
+
+// ————— Koban icon (Session 11) —————
+// The currency shows as a coin, never as a word (Lloyd: no high-level Japanese
+// in chrome UI). Drawn inline; same shape as the room demo's.
+function KobanIcon({ size = 13 }) {
+  return (
+    <svg width={size} height={Math.round(size * 1.3)} viewBox="0 0 14 18" aria-label="koban"
+         style={{ verticalAlign: "-2px" }}>
+      <ellipse cx="7" cy="9" rx="6" ry="8" fill="#E8C87A" stroke="#8B6B4A" strokeWidth="1.2" />
+      <line x1="3.2" y1="9" x2="10.8" y2="9" stroke="#B99A4F" strokeWidth="1.2" />
+      <ellipse cx="7" cy="9" rx="3.6" ry="5.2" fill="none" stroke="#B99A4F" strokeWidth="0.9" />
+    </svg>
+  );
+}
 
 // ————— Retention ladder —————
 // vocab-retention-model-v1.md §2. Days to the next review, by stage.
@@ -936,6 +950,41 @@ function kanaEligible(word) {
   return !!pts && pts.some((id) => GRAMMAR_STARTED.has(id));
 }
 
+// ————— First-clear timestamps (Session 11) —————
+// Every save stamps any array element, object key, or newly-set field that has
+// no stamp yet, under progress._firstAt — for per-word entries this yields
+// exactly the "word:written:字" times the then-vs-now moment needs
+// (reward-system-design-v1.md). Nothing reads it yet. Stamps equal to
+// _stampEpoch predate stamping. Prev-free by design: persist() has a stale
+// closure over progress, so the stamper only consults existing stamps.
+function stampFirsts(next) {
+  const t = Date.now();
+  const stamps = { ...(next._firstAt || {}) };
+  for (const id of Object.keys(next)) {
+    if (id.startsWith("_")) continue;
+    const entry = next[id];
+    if (!entry || typeof entry !== "object") continue;
+    for (const field of Object.keys(entry)) {
+      const v = entry[field];
+      if (Array.isArray(v)) {
+        for (const el of v) {
+          const k = id + ":" + field + ":" + String(el);
+          if (stamps[k] == null) stamps[k] = t;
+        }
+      } else if (v && typeof v === "object") {
+        for (const kk of Object.keys(v)) {
+          const k = id + ":" + field + ":" + kk;
+          if (stamps[k] == null) stamps[k] = t;
+        }
+      } else if (v != null) {
+        const k = id + ":" + field;
+        if (stamps[k] == null) stamps[k] = t;
+      }
+    }
+  }
+  return { ...next, _firstAt: stamps, _stampEpoch: next._stampEpoch == null ? t : next._stampEpoch };
+}
+
 export default function VocabularyModule() {
   const [progress, setProgress] = useState({});
   const [known, setKnown] = useState([]);
@@ -944,6 +993,7 @@ export default function VocabularyModule() {
   const [view, setView] = useState("today");     // today | review
   const [active, setActive] = useState(null);    // word being practised
   const [toast, setToast] = useState(null);
+  const [markerQuiz, setMarkerQuiz] = useState(null); // {kind, t, words} — Session 11 markers
 
   useEffect(() => {
     (async () => {
@@ -967,6 +1017,7 @@ export default function VocabularyModule() {
   const get = useCallback((w) => progress[w] || blank(), [progress]);
 
   const persist = useCallback(async (next, apDelta) => {
+    next = stampFirsts(next);
     setProgress(next);
     await saveJSON(KEY, next);
     if (apDelta) {
@@ -1003,10 +1054,35 @@ export default function VocabularyModule() {
     return { fresh, returning, due, older };
   }, [ready, progress, known, get]);
 
+  // Guarded: progress now carries top-level _firstAt/_stampEpoch entries
+  // (Session 11 first-clear timestamps), which are not word records.
   const encountered = useMemo(
-    () => Object.values(progress).filter((p) => p.exposures > 0).length, [progress]);
+    () => Object.values(progress).filter((p) => p && p.exposures > 0).length, [progress]);
   const practised = useMemo(
-    () => Object.values(progress).filter((p) => p.written.length > 0).length, [progress]);
+    () => Object.values(progress).filter((p) => p && Array.isArray(p.written) && p.written.length > 0).length, [progress]);
+
+  // ————— Achievement markers (Session 11) —————
+  // ENCOUNTER / SEMI-MASTERY (tracker row): accumulation thresholds. Crossing
+  // one OFFERS a short check-in — user choice, never a gate — which pays
+  // AP.marker per remembered word. progress._markers holds the highest
+  // threshold already answered per kind; the "_" prefix keeps it clear of
+  // first-clear stamping. Thresholds and pay are placeholders like all of AP.
+  const MARKER_T = [10, 25, 50, 100, 150, 200];
+  const markers = progress._markers || {};
+  const pracDue = [...MARKER_T].reverse().find((t) => practised >= t && t > (markers.prac || 0));
+  const encDue = [...MARKER_T].reverse().find((t) => encountered >= t && t > (markers.enc || 0));
+  const offer = pracDue ? { kind: "prac", t: pracDue } : encDue ? { kind: "enc", t: encDue } : null;
+  const recordMarker = (kind, t, ap) =>
+    persist({ ...progress, _markers: { ...markers, [kind]: t } }, ap || 0);
+  const startMarkerQuiz = (kind, t) => {
+    const pool = WORDS.filter((x) => {
+      const p = get(x.w);
+      return kind === "prac"
+        ? (Array.isArray(p.written) && p.written.length > 0)
+        : p.exposures > 0;
+    });
+    setMarkerQuiz({ kind, t, words: [...pool].sort(() => Math.random() - 0.5).slice(0, 5) });
+  };
 
   // ————— Completing a visit —————
   const finishVisit = useCallback(async (word, opts) => {
@@ -1035,7 +1111,7 @@ export default function VocabularyModule() {
 
     await persist({ ...progress, [word.w]: p }, ap);
     setActive(null);
-    setToast(ap ? `+${ap} AP` + (p.completed && wasComplete ? " · word complete" : "") : null);
+    setToast(ap ? <span>+{ap} <KobanIcon size={12} />{p.completed && wasComplete ? " · word complete" : ""}</span> : null);
     setTimeout(() => setToast(null), 2200);
   }, [get, known, progress, persist]);
 
@@ -1071,6 +1147,23 @@ export default function VocabularyModule() {
     );
   }
 
+  if (markerQuiz) {
+    return (
+      <Shell>
+        <MarkerQuiz
+          quiz={markerQuiz}
+          onBack={() => setMarkerQuiz(null)}
+          onDone={(g) => {
+            recordMarker(markerQuiz.kind, markerQuiz.t, g * AP.marker);
+            setMarkerQuiz(null);
+            setToast(g ? <span>+{g * AP.marker} <KobanIcon size={12} /></span> : "Marker noted");
+            setTimeout(() => setToast(null), 2200);
+          }}
+        />
+      </Shell>
+    );
+  }
+
   return (
     <Shell>
       <header style={{ marginBottom: 20 }}>
@@ -1084,8 +1177,33 @@ export default function VocabularyModule() {
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 22 }}>
         <Stat label="encountered" value={encountered} />
         <Stat label="practised with" value={practised} />
-        <Stat label="AP" value={points} accent />
+        <Stat label={<KobanIcon size={11} />} value={points} accent />
       </div>
+
+      {/* Marker offer (Session 11) — proposes, never disposes. */}
+      {offer && (
+        <div role="status" style={{
+          background: T.noteBg, border: `1px solid ${T.note}`, borderRadius: 10,
+          padding: "12px 16px", marginBottom: 22,
+        }}>
+          <div style={{ font: `600 14px ${T.uiFont}`, color: T.ink }}>
+            You have now {offer.kind === "prac" ? "practised with" : "met"} {offer.t} words.
+          </div>
+          <div style={{ font: `13px/1.5 ${T.uiFont}`, color: T.sub, marginTop: 2 }}>
+            Fancy a two-minute check-in? Remembering pays <KobanIcon size={11} />. Skipping costs nothing.
+          </div>
+          <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
+            <button onClick={() => startMarkerQuiz(offer.kind, offer.t)} style={{
+              font: `600 13px ${T.uiFont}`, padding: "8px 14px", borderRadius: 8, cursor: "pointer",
+              background: T.ink, color: T.sheet, border: `1px solid ${T.ink}`,
+            }}>Sure — check me</button>
+            <button onClick={() => recordMarker(offer.kind, offer.t, 0)} style={{
+              font: `600 13px ${T.uiFont}`, padding: "8px 14px", borderRadius: 8, cursor: "pointer",
+              background: "none", color: T.sub, border: `1px solid ${T.hairline}`,
+            }}>Not now</button>
+          </div>
+        </div>
+      )}
 
       <Tabs view={view} setView={setView}
             reviewCount={older.length} />
@@ -1115,6 +1233,65 @@ export default function VocabularyModule() {
         }}>{toast}</div>
       )}
     </Shell>
+  );
+}
+
+// ————— Marker check-in (Session 11) —————
+// The ENCOUNTER / SEMI-MASTERY markers' short quiz. SEMI-MASTERY prompts the
+// meaning and asks the learner to recall the word; ENCOUNTER prompts the word
+// and asks for the meaning. Self-marked — honest enough for a check-in that
+// was optional to begin with, and it keeps the flow to two taps per word.
+function MarkerQuiz({ quiz, onDone, onBack }) {
+  const [i, setI] = useState(0);
+  const [revealed, setRevealed] = useState(false);
+  const [got, setGot] = useState(0);
+  const w = quiz.words[i];
+  if (!w) return null;
+  const isPrac = quiz.kind === "prac";
+  const next = (ok) => {
+    const g = got + (ok ? 1 : 0);
+    if (i + 1 >= quiz.words.length) onDone(g);
+    else { setGot(g); setI(i + 1); setRevealed(false); }
+  };
+  return (
+    <div>
+      <button className="btn-ghost" onClick={onBack} style={{ marginBottom: 14 }}>← Not now</button>
+      <div style={{ background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 10,
+                    padding: 22, textAlign: "center" }}>
+        <div style={{ font: `12px ${T.uiFont}`, color: T.sub, marginBottom: 10 }}>
+          check-in · {i + 1} of {quiz.words.length}
+        </div>
+        {isPrac
+          ? <div style={{ font: `600 20px ${T.uiFont}`, color: T.ink }}>{w.m}</div>
+          : <div style={{ fontFamily: T.jpFont, fontSize: 34, color: T.ink }}>{w.w}</div>}
+        {!revealed ? (
+          <button onClick={() => setRevealed(true)} style={{
+            font: `600 13px ${T.uiFont}`, padding: "9px 16px", borderRadius: 8, cursor: "pointer",
+            background: T.ink, color: T.sheet, border: `1px solid ${T.ink}`, marginTop: 16,
+          }}>{isPrac ? "Show the word" : "Show the meaning"}</button>
+        ) : (
+          <>
+            <div style={{ marginTop: 12 }}>
+              {isPrac
+                ? <div style={{ fontFamily: T.jpFont, fontSize: 34, color: T.ink }}>{w.w}
+                    <span style={{ fontSize: 15, color: T.sub, marginLeft: 10 }}>{w.r}</span></div>
+                : <div style={{ font: `600 18px ${T.uiFont}`, color: T.ink }}>{w.m}
+                    <span style={{ font: `14px ${T.uiFont}`, color: T.sub, marginLeft: 10 }}>{w.r}</span></div>}
+            </div>
+            <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 16 }}>
+              <button onClick={() => next(true)} style={{
+                font: `600 13px ${T.uiFont}`, padding: "9px 16px", borderRadius: 8, cursor: "pointer",
+                background: T.ok, color: T.sheet, border: `1px solid ${T.ok}`,
+              }}>I had it</button>
+              <button className="btn-ghost" onClick={() => next(false)} style={{
+                font: `600 13px ${T.uiFont}`, padding: "9px 16px", borderRadius: 8, cursor: "pointer",
+                background: "none", color: T.sub, border: `1px solid ${T.hairline}`,
+              }}>Not yet</button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
   );
 }
 
