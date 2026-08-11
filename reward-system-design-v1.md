@@ -222,10 +222,20 @@ regardless). A plain list of what they actually did over the week: kana traced, 
 practised, lessons finished, how far the kanji coverage moved. Accumulation only, no
 denominators, capability framing where it fits. It reaches the learner *away* from the
 app, where evidence of progress does its best work — and an email that says only what you
-did, with no ask in it, is rare enough to be read. Skip the send on a week with nothing
-in it rather than dressing up an empty list — an empty digest is the guilt mechanic
-sneaking back in through the mailbox. Computable today from `_firstAt` stamps and the
-visit logs; only storage and delivery are new.
+did, with no ask in it, is rare enough to be read. Computable today from `_firstAt`
+stamps and the visit logs; only storage and delivery are new.
+
+**Empty weeks** (Lloyd, Session 11): never a dressed-up empty list. Instead the slot
+leads with the absence email — the break-blessing copy above — followed by **a small
+tidbit about the Japanese language or culture**: something to connect with the country
+even in a week with no study in it. Almost a newsletter. The tidbit pool is authored and
+reviewed like everything else (it is the natural home for the *Japanese Language Trivia*
+track the spotlight note parks at Phase 3, and kin to the culture lessons already in the
+grammar module) — never model-generated claims about Japan. Reconciling with
+once-per-absence: the **first** empty week sends absence email + tidbit; **further empty
+weeks send nothing** until the learner returns — week three of the same blessing is a nag
+(flagged: Lloyd may prefer tidbit-only continuation for long absences). Late phase, like
+the rest of this section.
 
 **Dependency:** accounts, server-side progress, email opt-in. Until then progress lives in
 `window.storage` on-device and there is nowhere to send anything from.
