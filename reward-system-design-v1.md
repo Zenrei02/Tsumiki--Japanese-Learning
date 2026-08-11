@@ -199,11 +199,16 @@ Both need durable per-user data — and the second needs an email address — so
 **Return thanks.** When a learner opens the app after a gap (working definition: ≥5 days),
 the first screen thanks them for coming back and persevering — **no koban** (Lloyd's
 explicit call): paying for returning would make absence a transaction and thanks a wage.
-Copy rules: warm and guilt-free; never state how long they were away; no "we missed you"
-pressure; no streak language. A small authored pool of inspirational blurbs, rotating —
-authored like earned lines, though these make no factual claims, so review is a tone pass.
-Sample register: *"Good to see you. Coming back is the skill — everything else is just
-practice."* Appears once per return, in place, no dismissal required.
+Copy rules: warm and guilt-free; **name the break and bless it** rather than tiptoeing
+around it (Lloyd, Session 11); never state how long they were away; no "we missed you"
+pressure; no streak language. Canonical register, Lloyd's wording:
+
+> It's healthy to take breaks from studying. We're here when you're ready to continue.
+
+(Small tense option for the return screen, since they're already back: *"…Ready when you
+are — let's pick up where you left off."*) A small authored pool of blurbs in this
+register, rotating — these make no factual claims, so review is a tone pass. Appears once
+per return, in place, no dismissal required.
 
 **Week-in-review.** Every once in a while — deliberately random, not a strict weekly
 ritual that could be "broken" — the learner gets a plain list of what they actually did
