@@ -196,28 +196,36 @@ remains the steady-state rate everything is priced against.
 Both need durable per-user data — and the second needs an email address — so they are
 **gated on publishing with accounts**. Filed now so they are not lost; tracker row exists.
 
-**Return thanks.** When a learner opens the app after a gap (working definition: ≥5 days),
-the first screen thanks them for coming back and persevering — **no koban** (Lloyd's
-explicit call): paying for returning would make absence a transaction and thanks a wage.
-Copy rules: warm and guilt-free; **name the break and bless it** rather than tiptoeing
-around it (Lloyd, Session 11); never state how long they were away; no "we missed you"
-pressure; no streak language. Canonical register, Lloyd's wording:
+Three pieces (Lloyd, Session 11 — the break message and the digest are both **emails**):
+
+**1. The absence email.** After a gap (working definition: ≥5 days), one email, sent
+**once per absence, never repeated** — a second one is a nag wearing kindness. Canonical
+copy, Lloyd's wording, verbatim:
 
 > It's healthy to take breaks from studying. We're here when you're ready to continue.
 
-(Small tense option for the return screen, since they're already back: *"…Ready when you
-are — let's pick up where you left off."*) A small authored pool of blurbs in this
-register, rotating — these make no factual claims, so review is a tone pass. Appears once
-per return, in place, no dismissal required.
+The tense is exactly right *because* it's an email — it reaches them while they're away.
+Rules: **name the break and bless it**; never state how long they've been gone; no streak
+language, no "we missed you" pressure, no ask beyond existing. A small authored pool in
+this register, rotating; these make no factual claims, so review is a tone pass.
 
-**Week-in-review.** Every once in a while — deliberately random, not a strict weekly
-ritual that could be "broken" — the learner gets a plain list of what they actually did
-over the last week or so: kana traced, words practised, lessons finished, how far the
-kanji coverage moved. Accumulation only, no denominators, capability framing where it
-fits. Probably an **email** (Lloyd): it reaches the learner *away* from the app, where
-evidence of progress does its best work — and an email that says only what you did, with
-no ask in it, is rare enough to be read. Computable today from `_firstAt` stamps and the
-visit logs, so data collection needs nothing new; only storage and delivery do.
+**2. The in-app return thanks.** When they do come back, the first screen thanks them for
+persevering — **no koban** (Lloyd's explicit call): paying for returning would make
+absence a transaction and thanks a wage. Same copy rules; register: *"Good to see you.
+Coming back is the skill — everything else is just practice."* Once per return, in place,
+no dismissal required.
+
+**3. The weekly progress email.** **Weekly** (Lloyd, Session 11 — an earlier draft said
+"deliberately random," but the breakable-ritual worry doesn't apply to email: a ritual is
+only breakable when it depends on the learner showing up, and an email arrives
+regardless). A plain list of what they actually did over the week: kana traced, words
+practised, lessons finished, how far the kanji coverage moved. Accumulation only, no
+denominators, capability framing where it fits. It reaches the learner *away* from the
+app, where evidence of progress does its best work — and an email that says only what you
+did, with no ask in it, is rare enough to be read. Skip the send on a week with nothing
+in it rather than dressing up an empty list — an empty digest is the guilt mechanic
+sneaking back in through the mailbox. Computable today from `_firstAt` stamps and the
+visit logs; only storage and delivery are new.
 
 **Dependency:** accounts, server-side progress, email opt-in. Until then progress lives in
 `window.storage` on-device and there is nowhere to send anything from.
