@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Naoshi — Room demo</title>
+<!--
+  Naoshi room demo, Session 11 (revision 2, same session).
+  Standalone: no network requests, no module code touched.
+
+  Revision 2, per Lloyd:
+  - Shop and Room are separate views. Shop shows an SVG preview of each item
+    and sells into an INVENTORY; the Room places from inventory.
+  - Items rotate (R key or the Rotate button) — footprint swaps, drawing follows.
+  - Koban is an icon, not the word 小判. Item names stay in Japanese because
+    each now has a pictured preview (Lloyd's stated condition).
+  - Balance is visible only in the Shop, per reward-system-design-v1.md.
+  Layout persists in localStorage.
+-->
+<style>
+  :root {
+    --washi: #F6F1E7; --ink: #3B3630; --sub: #8A7F6F;
+    --shu: #B7503E; --wood: #8B6B4A; --panel: #FFFDF7;
+    --edge: #E4DAC8; --ok: #5E8C61;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    background: var(--washi); color: var(--ink);
+    font: 15px/1.5 "Hiragino Sans", "Yu Gothic", "Segoe UI", sans-serif;
+    padding: 14px;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; }
+  .topbar { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+  .topbar h1 { font-size: 19px; margin-right: auto; }
+  .tabs { display: flex; gap: 6px; background: #EDE5D3; padding: 4px; border-radius: 10px; }
+  .tabs button {
+    font: 600 14px/1 inherit; padding: 8px 18px; border: none; border-radius: 8px;
+    background: none; color: var(--sub); cursor: pointer;
+  }
+  .tabs button.on { background: var(--panel); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .koin { vertical-align: -1px; }
+  .layout { display: flex; gap: 14px; flex-wrap: wrap; }
+  .stage {
+    flex: 1 1 560px; background: var(--panel); border: 1px solid var(--edge);
+    border-radius: 12px; padding: 6px; min-width: 320px; position: relative;
+  }
+  .intro {
+    position: absolute; inset: 0; z-index: 5; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(59, 54, 48, .28);
+  }
+  .intro .box {
+    background: var(--panel); border: 1px solid var(--edge); border-radius: 12px;
+    padding: 20px 22px; max-width: 340px; margin: 16px; text-align: center;
+    box-shadow: 0 6px 24px rgba(0,0,0,.18);
+  }
+  .intro .box p { font-size: 15.5px; line-height: 1.65; }
+  .intro .box button { margin-top: 14px; }
+  #room { display: block; width: 100%; height: auto; touch-action: none; user-select: none; }
+  .side { width: 300px; flex: 0 0 300px; display: flex; flex-direction: column; gap: 12px; }
+  .card { background: var(--panel); border: 1px solid var(--edge); border-radius: 12px; padding: 12px 14px; }
+  .card h2 { font-size: 13px; color: var(--sub); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+  .wallet { display: flex; align-items: center; gap: 10px; }
+  .wallet .amt { font-size: 24px; font-weight: 700; }
+  /* shop grid */
+  .shopgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+  .shopcard { background: var(--panel); border: 1px solid var(--edge); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+  .shopcard .prev { height: 110px; display: flex; align-items: center; justify-content: center; background: #F3EDDF; border-radius: 8px; }
+  .shopcard .prev svg { max-height: 104px; max-width: 100%; }
+  .shopcard .nm { display: flex; align-items: baseline; gap: 8px; }
+  .shopcard .jp { font-size: 18px; font-weight: 700; }
+  .shopcard .reading { color: var(--shu); font-size: 13px; }
+  .shopcard .en { color: var(--sub); font-size: 13px; }
+  .shopcard .row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+  .shopcard .price { font-weight: 600; display: flex; align-items: center; gap: 5px; }
+  .shopcard .owned { font-size: 12px; color: var(--sub); margin-left: auto; }
+  button.act {
+    font: 600 13px/1 inherit; padding: 8px 14px; border-radius: 8px; cursor: pointer;
+    border: 1px solid var(--edge); background: #fff; color: var(--ink);
+  }
+  button.act.primary { background: var(--shu); border-color: var(--shu); color: #fff; }
+  button.act.primary:disabled { background: #D8CBB6; border-color: #D8CBB6; cursor: default; }
+  button.act.ghost { background: none; }
+  /* inventory */
+  .inv-item { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px 8px;
+    border: 1px solid transparent; border-radius: 8px; background: none; cursor: pointer;
+    text-align: left; font: inherit; color: inherit; }
+  .inv-item:hover { background: #F3EDDF; }
+  .inv-item.active { border-color: var(--shu); background: #FBF1EC; }
+  .inv-item .prev { width: 40px; height: 40px; flex: 0 0 40px; display: flex; align-items: center; justify-content: center; }
+  .inv-item .prev svg { max-width: 40px; max-height: 40px; }
+  .inv-item .jp { font-weight: 600; }
+  .inv-item .en { color: var(--sub); font-size: 12.5px; }
+  .inv-item .sell { margin-left: auto; font-size: 12px; color: var(--sub); border: 1px solid var(--edge);
+    border-radius: 6px; padding: 4px 8px; background: #fff; cursor: pointer; }
+  .info .jp-big { font-size: 24px; font-weight: 700; }
+  .info .reading { color: var(--shu); margin-left: 8px; }
+  .info .en { color: var(--sub); font-size: 14px; }
+  .hint { font-size: 12.5px; color: var(--sub); margin-top: 8px; line-height: 1.55; }
+  .btnrow { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .foot { font-size: 12px; color: var(--sub); }
+  .hidden { display: none !important; }
+  @media (max-width: 720px) { .side { flex: 1 1 100%; width: auto; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <h1>Your room</h1>
+    <nav class="tabs">
+      <button id="tabRoom">Room</button>
+      <button id="tabShop">Shop</button>
+    </nav>
+  </div>
+
+  <!-- ROOM VIEW -->
+  <div id="viewRoom" class="layout">
+    <div class="stage"><svg id="room" viewBox="0 0 720 560" aria-label="Isometric room"></svg>
+      <div id="intro" class="intro hidden" role="dialog" aria-label="Welcome">
+        <div class="box">
+          <p>Welcome home! This little room is all yours &mdash; fill it with
+          whatever catches your eye in the shop.<br>
+          And as your Japanese grows, so will your home. You&rsquo;ll be moving
+          somewhere bigger before you know it.</p>
+          <button class="act primary" id="introBtn">Let&rsquo;s decorate</button>
+        </div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="card"><h2>Inventory</h2><div id="invlist"></div></div>
+      <div class="card info"><h2>Item</h2><div id="infobody">
+        <div class="hint">Tap something in the room, or pick an item from your inventory to place it.</div>
+      </div></div>
+      <div class="card">
+        <div class="btnrow"><button class="act ghost" id="resetBtn">Reset room</button></div>
+        <p class="foot" style="margin-top:8px">R rotates while placing. Layout saves on this device.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOP VIEW -->
+  <div id="viewShop">
+    <div class="card wallet" style="margin-bottom:12px; max-width:280px">
+      <span class="amt" id="balance">0</span><span id="walletIcon"></span>
+      <span style="margin-left:auto;color:var(--sub);font-size:12.5px">koban</span>
+    </div>
+    <div class="shopgrid" id="shopgrid"></div>
+    <p class="foot" style="margin-top:10px">Bought items go to your inventory — place them from the Room.</p>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ---------- storage (localStorage with memory fallback) ---------- */
+const store = (() => {
+  const mem = {};
+  try { localStorage.setItem("__t", "1"); localStorage.removeItem("__t");
+    return { get: k => localStorage.getItem(k), set: (k, v) => localStorage.setItem(k, v) };
+  } catch (e) { return { get: k => mem[k] ?? null, set: (k, v) => { mem[k] = v; } }; }
+})();
+const KEY = "naoshi-room-demo-v1";
+
+/* ---------- iso geometry ---------- */
+const N = 8;
+const TW = 33, TH = 16.5;
+const OX = 360, OY = 168;
+const WALLH = 96;
+const iso = (gx, gy) => ({ x: OX + (gx - gy) * TW, y: OY + (gx + gy) * TH });
+function pickTile(mx, my) {
+  const a = (mx - OX) / TW, b = (my - OY) / TH;
+  return { gx: Math.floor((a + b) / 2), gy: Math.floor((b - a) / 2) };
+}
+const pts = arr => arr.map(p => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ");
+function poly(arr, fill, stroke, extra) {
+  return `<polygon points="${pts(arr)}" fill="${fill}"` +
+    (stroke ? ` stroke="${stroke}" stroke-width="1"` : "") + (extra || "") + "/>";
+}
+function isoBox(gx, gy, w, d, h, lift, top, left, right, stroke) {
+  const L = lift || 0;
+  const c = [iso(gx, gy), iso(gx + w, gy), iso(gx + w, gy + d), iso(gx, gy + d)];
+  const b = c.map(p => ({ x: p.x, y: p.y - L }));
+  const t = c.map(p => ({ x: p.x, y: p.y - L - h }));
+  return poly([t[0], t[1], t[2], t[3]], top, stroke) +
+         poly([b[3], b[2], t[2], t[3]], left, stroke) +
+         poly([b[2], b[1], t[1], t[2]], right, stroke);
+}
+
+/* ---------- koban icon ---------- */
+function koban(size) {
+  const s = size || 15;
+  return `<svg class="koin" width="${s}" height="${Math.round(s * 1.3)}" viewBox="0 0 14 18" aria-label="koban" role="img">` +
+    `<ellipse cx="7" cy="9" rx="6" ry="8" fill="#E8C87A" stroke="#8B6B4A" stroke-width="1.2"/>` +
+    `<line x1="3.2" y1="9" x2="10.8" y2="9" stroke="#B99A4F" stroke-width="1.2"/>` +
+    `<ellipse cx="7" cy="9" rx="3.6" ry="5.2" fill="none" stroke="#B99A4F" stroke-width="0.9"/></svg>`;
+}
+
+/* ---------- catalogue (every item is a vocabulary item) ---------- */
+const CATALOG = [
+  { id: "yunomi",   jp: "湯呑",   reading: "ゆのみ",     en: "teacup",           price: 20,  w: 1, d: 1 },
+  { id: "zabuton",  jp: "座布団", reading: "ざぶとん",   en: "floor cushion",    price: 25,  w: 1, d: 1 },
+  { id: "bonsai",   jp: "盆栽",   reading: "ぼんさい",   en: "bonsai tree",      price: 90,  w: 1, d: 1 },
+  { id: "andon",    jp: "行灯",   reading: "あんどん",   en: "paper floor lamp", price: 110, w: 1, d: 1 },
+  { id: "maneki",   jp: "招き猫", reading: "まねきねこ", en: "beckoning cat",    price: 130, w: 1, d: 1 },
+  { id: "byobu",    jp: "屏風",   reading: "びょうぶ",   en: "folding screen",   price: 150, w: 1, d: 3 },
+  { id: "kotatsu",  jp: "こたつ", reading: "こたつ",     en: "heated table",     price: 300, w: 2, d: 2 },
+  { id: "futon",    jp: "布団",   reading: "ふとん",     en: "bedding",          price: 320, w: 2, d: 3 },
+  { id: "kakejiku", jp: "掛け軸", reading: "かけじく",   en: "hanging scroll",   price: 80,  wall: "L", len: 1.2 },
+  { id: "noren",    jp: "暖簾",   reading: "のれん",     en: "doorway curtain",  price: 100, wall: "R", len: 2.2 },
+];
+const byId = Object.fromEntries(CATALOG.map(c => [c.id, c]));
+const WALL_SLOTS = { L: [1.2, 3.4, 5.6], R: [1.2, 3.4, 5.6] };
+
+/* ---------- state ---------- */
+let state = { balance: 500, inventory: [], items: [], wallItems: [], last: null, seq: 1, view: "room" };
+try {
+  const s = JSON.parse(store.get(KEY) || "null");
+  if (s && s.items) { state = s; state.inventory = state.inventory || []; state.view = state.view || "room"; }
+} catch (e) {}
+const save = () => store.set(KEY, JSON.stringify(state));
+
+let placing = null;   // {invUid, type, rot} while placing from inventory
+let hover = null;     // {gx,gy}
+let drag = null;      // {uid, type, rot, gx, gy, ok, offX, offY}
+let selected = null;  // uid of placed item (floor or wall)
+
+/* ---------- footprints & occupancy (rotation-aware) ---------- */
+const dims = it => { const c = byId[it.type]; return it.rot ? [c.d, c.w] : [c.w, c.d]; };
+function occupied(exceptUid) {
+  const m = new Set();
+  for (const it of state.items) {
+    if (it.uid === exceptUid) continue;
+    const [w, d] = dims(it);
+    for (let x = it.gx; x < it.gx + w; x++)
+      for (let y = it.gy; y < it.gy + d; y++) m.add(x + "," + y);
+  }
+  return m;
+}
+function fits(type, gx, gy, rot, exceptUid) {
+  const [w, d] = dims({ type, rot });
+  if (gx < 0 || gy < 0 || gx + w > N || gy + d > N) return false;
+  const occ = occupied(exceptUid);
+  for (let x = gx; x < gx + w; x++)
+    for (let y = gy; y < gy + d; y++) if (occ.has(x + "," + y)) return false;
+  return true;
+}
+function footprintPts(it) {
+  const [w, d] = dims(it);
+  return [iso(it.gx, it.gy), iso(it.gx + w, it.gy), iso(it.gx + w, it.gy + d), iso(it.gx, it.gy + d)];
+}
+
+/* ---------- floor item renderers ---------- */
+const S = "#4A4238";
+function drawItem(it, ghost) {
+  const [w, d] = dims(it);
+  const g = it.gx, y = it.gy;
+  const cx = iso(g + w / 2, y + d / 2);
+  let s = "";
+  switch (it.type) {
+    case "zabuton":
+      s = isoBox(g + .12, y + .12, .76, .76, 6, 0, "#6B6CA3", "#54558A", "#494A7C", S);
+      break;
+    case "yunomi":
+      s = isoBox(g + .33, y + .33, .34, .34, 11, 0, "#8FB6B7", "#6E9C9D", "#5F8A8B", S) +
+          `<ellipse cx="${cx.x}" cy="${cx.y - 11}" rx="8" ry="4" fill="#4E6E6F"/>`;
+      break;
+    case "bonsai":
+      s = isoBox(g + .25, y + .25, .5, .5, 9, 0, "#A56A45", "#8C5738", "#7C4C30", S) +
+          `<path d="M ${cx.x} ${cx.y - 9} q -3 -12 4 -20" stroke="#6B4A2F" stroke-width="3" fill="none"/>` +
+          `<ellipse cx="${cx.x + 6}" cy="${cx.y - 32}" rx="14" ry="8" fill="#5E8C61" stroke="${S}"/>` +
+          `<ellipse cx="${cx.x - 7}" cy="${cx.y - 24}" rx="10" ry="6" fill="#6EA271" stroke="${S}"/>`;
+      break;
+    case "andon":
+      s = `<ellipse cx="${cx.x}" cy="${cx.y - 26}" rx="26" ry="15" fill="#F4DFA5" opacity=".45"/>` +
+          isoBox(g + .28, y + .28, .44, .44, 40, 0, "#EFE3C0", "#EAD9AC", "#E2CE9B", "#8B6B4A") +
+          isoBox(g + .24, y + .24, .52, .52, 4, 40, "#8B6B4A", "#7A5C3F", "#6D5238", S);
+      break;
+    case "maneki": {
+      const p = { x: cx.x, y: cx.y - 4 };
+      s = `<ellipse cx="${p.x}" cy="${p.y}" rx="15" ry="7" fill="rgba(0,0,0,.12)"/>` +
+          `<ellipse cx="${p.x}" cy="${p.y - 12}" rx="13" ry="14" fill="#F6F1E7" stroke="${S}"/>` +
+          `<circle cx="${p.x}" cy="${p.y - 32}" r="10" fill="#F6F1E7" stroke="${S}"/>` +
+          `<path d="M ${p.x - 9} ${p.y - 38} l -3 -8 l 7 3 z M ${p.x + 9} ${p.y - 38} l 3 -8 l -7 3 z" fill="#F6F1E7" stroke="${S}"/>` +
+          `<circle cx="${p.x + 13}" cy="${p.y - 26}" r="5" fill="#F6F1E7" stroke="${S}"/>` +
+          `<path d="M ${p.x - 8} ${p.y - 25} q 8 4 16 0" stroke="#B7503E" stroke-width="3" fill="none"/>` +
+          `<ellipse cx="${p.x}" cy="${p.y - 8}" rx="7" ry="5" fill="#E8C87A" stroke="${S}"/>` +
+          `<path d="M ${p.x - 4} ${p.y - 33} l 2 2 M ${p.x + 4} ${p.y - 33} l -2 2" stroke="${S}" stroke-width="1.5"/>`;
+      break;
+    }
+    case "kotatsu":
+      s = isoBox(g + .2, y + .2, 1.6, 1.6, 16, 0, "#C96F4A", "#B25E3C", "#9E5233", S) +
+          isoBox(g + .05, y + .05, 1.9, 1.9, 5, 16, "#8B6B4A", "#7A5C3F", "#6D5238", S) +
+          `<ellipse cx="${cx.x}" cy="${cx.y - 21}" rx="9" ry="4.5" fill="#D9CBB1" stroke="${S}"/>`;
+      break;
+    case "futon":
+      if (!it.rot) {
+        s = isoBox(g + .05, y + .05, 1.9, 2.9, 9, 0, "#F3EFE6", "#E4DECF", "#D8D1C0", S) +
+            isoBox(g + .05, y + 1.0, 1.9, 1.95, 10, 0, "#A9BDCE", "#93A9BC", "#8399AC", S) +
+            isoBox(g + .55, y + .18, .9, .55, 8, 9, "#EFE6D2", "#E2D7BE", "#D6CAAE", S);
+      } else {
+        s = isoBox(g + .05, y + .05, 2.9, 1.9, 9, 0, "#F3EFE6", "#E4DECF", "#D8D1C0", S) +
+            isoBox(g + 1.0, y + .05, 1.95, 1.9, 10, 0, "#A9BDCE", "#93A9BC", "#8399AC", S) +
+            isoBox(g + .18, y + .55, .55, .9, 8, 9, "#EFE6D2", "#E2D7BE", "#D6CAAE", S);
+      }
+      break;
+    case "byobu": {
+      s = "";
+      for (let i = 0; i < 3; i++) {
+        const off = (i % 2 === 0) ? .12 : .42;
+        if (!it.rot) s += isoBox(g + off, y + i + .02, .14, .96, 62, 0, "#D9B878", "#CBA968", "#BC9A58", S);
+        else         s += isoBox(g + i + .02, y + off, .96, .14, 62, 0, "#D9B878", "#CBA968", "#BC9A58", S);
+      }
+      s += `<path d="M ${cx.x - 12} ${cx.y - 44} q 14 -8 26 2" stroke="#6B4A2F" stroke-width="2" fill="none" opacity=".7"/>`;
+      break;
+    }
+  }
+  const op = ghost ? ` opacity="0.55"` : "";
+  const sel = (selected === it.uid && !ghost)
+    ? poly(footprintPts(it), "none", "#B7503E", ' stroke-dasharray="4 3" stroke-width="1.5"') : "";
+  return `<g data-uid="${it.uid || ""}"${op} style="cursor:${ghost ? "default" : "grab"}">` +
+         poly(footprintPts(it), "rgba(0,0,0,0.001)") + s + sel + "</g>";
+}
+
+/* ---------- wall items ---------- */
+function wallQuad(wall, start, len, topLift, botLift) {
+  const p0 = wall === "L" ? iso(0, start) : iso(start, 0);
+  const p1 = wall === "L" ? iso(0, start + len) : iso(start + len, 0);
+  return [ { x: p0.x, y: p0.y - botLift }, { x: p1.x, y: p1.y - botLift },
+           { x: p1.x, y: p1.y - topLift }, { x: p0.x, y: p0.y - topLift } ];
+}
+function drawWallItemAt(type, start, uid, ghost) {
+  const c = byId[type];
+  let s = "";
+  if (type === "kakejiku") {
+    s = poly(wallQuad("L", start, c.len, WALLH - 8, 14), "#EFE6D2", S) +
+        poly(wallQuad("L", start - .06, c.len + .12, WALLH - 6, WALLH - 12), "#6D5238", S) +
+        poly(wallQuad("L", start - .06, c.len + .12, 20, 14), "#6D5238", S);
+    const m0 = iso(0, start + c.len * .5);
+    s += `<path d="M ${m0.x} ${m0.y - WALLH + 26} q -8 18 4 34 q 8 12 2 22" stroke="#4A4238" stroke-width="2.5" fill="none"/>` +
+         `<ellipse cx="${m0.x - 6}" cy="${m0.y - WALLH + 30}" rx="7" ry="4" fill="#5E8C61" opacity=".8"/>` +
+         `<circle cx="${m0.x + 10}" cy="${m0.y - 30}" r="4" fill="#B7503E" opacity=".9"/>`;
+  } else {
+    const flap = c.len / 3;
+    for (let i = 0; i < 3; i++) {
+      s += poly(wallQuad("R", start + i * flap + .04, flap - .08, WALLH - 10, 26 + (i === 1 ? 0 : 6)), "#3E4E77", S);
+    }
+    s += poly(wallQuad("R", start - .05, c.len + .1, WALLH - 8, WALLH - 14), "#6D5238", S);
+    const mid = iso(start + c.len / 2, 0);
+    s += `<circle cx="${mid.x}" cy="${mid.y - WALLH + 34}" r="8" fill="none" stroke="#F6F1E7" stroke-width="2"/>`;
+  }
+  const op = ghost ? ` opacity="0.55"` : "";
+  const selMark = (selected === uid && !ghost)
+    ? poly(wallQuad(c.wall, start - .05, c.len + .1, WALLH - 4, 10), "none", "#B7503E", ' stroke-dasharray="4 3" stroke-width="1.5"') : "";
+  return `<g data-uid="${uid || ""}"${op} style="cursor:pointer">` +
+         poly(wallQuad(c.wall, start, c.len, WALLH - 8, 12), "rgba(0,0,0,0.001)") + s + selMark + "</g>";
+}
+const drawWallItem = w => drawWallItemAt(w.type, WALL_SLOTS[byId[w.type].wall][w.slot], w.uid, false);
+
+/* ---------- ambient cat ---------- */
+function drawCat() {
+  if (!state.last) return "";
+  const it = state.items.find(i => i.uid === state.last);
+  if (!it) return "";
+  const [w, d] = dims(it);
+  const spots = [[it.gx + w, it.gy], [it.gx - 1, it.gy + d - 1], [it.gx, it.gy + d], [it.gx + w - 1, it.gy - 1]];
+  const occ = occupied(null);
+  const s = spots.find(([x, y]) => x >= 0 && y >= 0 && x < N && y < N && !occ.has(x + "," + y));
+  if (!s) return "";
+  const p = iso(s[0] + .5, s[1] + .5);
+  return `<g pointer-events="none"><ellipse cx="${p.x}" cy="${p.y}" rx="13" ry="6" fill="rgba(0,0,0,.1)"/>` +
+    `<ellipse cx="${p.x}" cy="${p.y - 6}" rx="13" ry="8" fill="#9A938A" stroke="${S}"/>` +
+    `<circle cx="${p.x + 9}" cy="${p.y - 10}" r="6" fill="#9A938A" stroke="${S}"/>` +
+    `<path d="M ${p.x + 6} ${p.y - 14} l -2 -4 l 4 1 z M ${p.x + 12} ${p.y - 15} l 1 -4 l 3 3 z" fill="#9A938A" stroke="${S}"/>` +
+    `<path d="M ${p.x - 12} ${p.y - 6} q -7 -2 -5 -9" stroke="#7E776E" stroke-width="3" fill="none"/>` +
+    `<path d="M ${p.x + 7} ${p.y - 10} l 2 1 M ${p.x + 11} ${p.y - 10} l 2 1" stroke="${S}" stroke-width="1.2"/>` +
+    `<text x="${p.x + 16}" y="${p.y - 20}" font-size="9" fill="#8A7F6F">z z</text></g>`;
+}
+
+/* ---------- previews (shop & inventory) ---------- */
+function previewSVG(type) {
+  const c = byId[type];
+  let body, minX, maxX, topY, botY;
+  if (c.wall) {
+    const start = 1;
+    const p0 = c.wall === "L" ? iso(0, start) : iso(start, 0);
+    const p1 = c.wall === "L" ? iso(0, start + c.len) : iso(start + c.len, 0);
+    minX = Math.min(p0.x, p1.x) - 10; maxX = Math.max(p0.x, p1.x) + 10;
+    topY = Math.min(p0.y, p1.y) - WALLH - 6; botY = Math.max(p0.y, p1.y) + 10;
+    body = drawWallItemAt(type, start, "", false);
+  } else {
+    minX = iso(0, c.d).x - 8; maxX = iso(c.w, 0).x + 8;
+    topY = iso(0, 0).y - 84; botY = iso(c.w, c.d).y + 10;
+    body = drawItem({ type, gx: 0, gy: 0, rot: 0, uid: "" }, false);
+  }
+  return `<svg viewBox="${minX.toFixed(0)} ${topY.toFixed(0)} ${(maxX - minX).toFixed(0)} ${(botY - topY).toFixed(0)}" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
+}
+
+/* ---------- room render ---------- */
+const svg = document.getElementById("room");
+function render() {
+  let s = "";
+  s += poly(wallQuad("L", 0, N, WALLH, 0), "#EFE7D6", "#D8CDB8");
+  s += poly(wallQuad("R", 0, N, WALLH, 0), "#E7DDC9", "#D8CDB8");
+  for (let i = 1; i < 4; i++) s += poly(wallQuad("L", i * 1.6, .04, WALLH - 10, 8), "#DCD2BD");
+  for (let x = 0; x < N; x++) for (let y = 0; y < N; y++) {
+    const even = ((x >> 1) + (y >> 1)) % 2 === 0;
+    s += poly([iso(x, y), iso(x + 1, y), iso(x + 1, y + 1), iso(x, y + 1)],
+      even ? "#B7B98A" : "#ADAF80", "#9A9C72");
+  }
+  for (let i = 0; i <= N; i += 2) {
+    s += `<line x1="${iso(i, 0).x}" y1="${iso(i, 0).y}" x2="${iso(i, N).x}" y2="${iso(i, N).y}" stroke="#83855D" stroke-width="1.4"/>`;
+    s += `<line x1="${iso(0, i).x}" y1="${iso(0, i).y}" x2="${iso(N, i).x}" y2="${iso(N, i).y}" stroke="#83855D" stroke-width="1.4"/>`;
+  }
+  for (const w of state.wallItems) s += drawWallItem(w);
+  if (placing && byId[placing.type].wall) {
+    const wall = byId[placing.type].wall;
+    WALL_SLOTS[wall].forEach((start, idx) => {
+      const taken = state.wallItems.some(w => w.slot === idx && byId[w.type].wall === wall);
+      if (!taken) s += `<g data-slot="${idx}" style="cursor:pointer">` +
+        poly(wallQuad(wall, start, byId[placing.type].len, WALLH - 8, 12),
+          "rgba(94,140,97,.25)", "#5E8C61", ' stroke-dasharray="5 4" stroke-width="1.5"') + "</g>";
+    });
+  }
+  const sorted = [...state.items].sort((a, b) => {
+    const [aw, ad] = dims(a), [bw, bd] = dims(b);
+    return (a.gx + aw + a.gy + ad) - (b.gx + bw + b.gy + bd);
+  });
+  for (const it of sorted) if (!drag || it.uid !== drag.uid) s += drawItem(it, false);
+  if (placing && !byId[placing.type].wall && hover) {
+    const ok = fits(placing.type, hover.gx, hover.gy, placing.rot, null);
+    const ghostIt = { type: placing.type, gx: hover.gx, gy: hover.gy, rot: placing.rot, uid: "" };
+    s += poly(footprintPts(ghostIt), ok ? "rgba(94,140,97,.35)" : "rgba(183,80,62,.35)");
+    if (ok) s += drawItem(ghostIt, true);
+  }
+  if (drag) {
+    const ghostIt = { type: drag.type, gx: drag.gx, gy: drag.gy, rot: drag.rot, uid: "" };
+    s += poly(footprintPts(ghostIt), drag.ok ? "rgba(94,140,97,.35)" : "rgba(183,80,62,.35)");
+    s += drawItem(ghostIt, true);
+  }
+  s += drawCat();
+  svg.innerHTML = s;
+  renderInventory();
+}
+
+/* ---------- side panels ---------- */
+function renderInventory() {
+  const list = document.getElementById("invlist");
+  if (!state.inventory.length) {
+    list.innerHTML = `<div class="hint">Nothing here yet — visit the <a href="#" id="goShop">Shop</a>.</div>`;
+    return;
+  }
+  list.innerHTML = state.inventory.map(v => {
+    const c = byId[v.type];
+    const active = placing && placing.invUid === v.uid;
+    return `<div class="inv-item${active ? " active" : ""}" data-inv="${v.uid}" role="button" tabindex="0">
+      <span class="prev">${previewSVG(v.type)}</span>
+      <span><span class="jp">${c.jp}</span><br><span class="en">${c.en}</span></span>
+      <button class="sell" data-sell="${v.uid}" title="Sell back">${c.price} ${koban(10)} ↩</button>
+    </div>`;
+  }).join("");
+}
+function renderShop() {
+  document.getElementById("balance").textContent = state.balance;
+  document.getElementById("walletIcon").innerHTML = koban(20);
+  document.getElementById("shopgrid").innerHTML = CATALOG.map(c => {
+    const cant = state.balance < c.price;
+    const ownedCount = state.inventory.filter(v => v.type === c.id).length +
+      state.items.filter(v => v.type === c.id).length +
+      state.wallItems.filter(v => v.type === c.id).length;
+    return `<div class="shopcard">
+      <div class="prev">${previewSVG(c.id)}</div>
+      <div class="nm"><span class="jp">${c.jp}</span><span class="reading">${c.reading}</span></div>
+      <div class="en">${c.en}${c.wall ? " · hangs on the wall" : ""}</div>
+      <div class="row">
+        <span class="price">${c.price} ${koban(13)}</span>
+        ${ownedCount ? `<span class="owned">×${ownedCount} owned</span>` : ""}
+        <button class="act primary" data-buy="${c.id}" ${cant ? "disabled" : ""} style="margin-left:auto">Buy</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+function showInfo(catId, placedUid) {
+  const c = byId[catId];
+  const rotatable = !c.wall && c.w !== c.d;
+  document.getElementById("infobody").innerHTML =
+    `<div><span class="jp-big">${c.jp}</span><span class="reading">${c.reading}</span></div>
+     <div class="en">${c.en}</div>
+     <div class="btnrow">
+       ${rotatable && placedUid ? `<button class="act" data-rotate="${placedUid}">Rotate</button>` : ""}
+       ${placedUid ? `<button class="act" data-putaway="${placedUid}">Put away</button>` : ""}
+     </div>
+     <div class="hint">${placedUid ? "Drag it to move it around the room." : ""}</div>`;
+}
+function clearInfo() {
+  document.getElementById("infobody").innerHTML =
+    `<div class="hint">Tap something in the room, or pick an item from your inventory to place it.</div>`;
+}
+
+/* ---------- view switching ---------- */
+const views = { room: document.getElementById("viewRoom"), shop: document.getElementById("viewShop") };
+const tabs = { room: document.getElementById("tabRoom"), shop: document.getElementById("tabShop") };
+function setView(v) {
+  state.view = v; save();
+  views.room.classList.toggle("hidden", v !== "room");
+  views.shop.classList.toggle("hidden", v !== "shop");
+  tabs.room.classList.toggle("on", v === "room");
+  tabs.shop.classList.toggle("on", v === "shop");
+  if (v === "shop") renderShop(); else render();
+  if (v === "room" && !state.introSeen)
+    document.getElementById("intro").classList.remove("hidden");
+}
+document.getElementById("introBtn").addEventListener("click", () => {
+  state.introSeen = true; save();
+  document.getElementById("intro").classList.add("hidden");
+});
+tabs.room.addEventListener("click", () => setView("room"));
+tabs.shop.addEventListener("click", () => setView("shop"));
+
+/* ---------- events: shop ---------- */
+document.getElementById("viewShop").addEventListener("click", ev => {
+  const buy = ev.target.closest("[data-buy]");
+  if (buy && !buy.disabled) {
+    const c = byId[buy.dataset.buy];
+    if (state.balance >= c.price) {
+      state.balance -= c.price;
+      state.inventory.push({ uid: "u" + (state.seq++), type: c.id });
+      save(); renderShop();
+    }
+  }
+});
+
+/* ---------- events: room side ---------- */
+document.getElementById("viewRoom").addEventListener("click", ev => {
+  if (ev.target.id === "goShop") { ev.preventDefault(); setView("shop"); return; }
+  const sell = ev.target.closest("[data-sell]");
+  if (sell) {
+    const uid = sell.dataset.sell;
+    const v = state.inventory.find(i => i.uid === uid);
+    if (v) {
+      state.balance += byId[v.type].price;
+      state.inventory = state.inventory.filter(i => i.uid !== uid);
+      if (placing && placing.invUid === uid) placing = null;
+      save(); render();
+    }
+    return;
+  }
+  const inv = ev.target.closest("[data-inv]");
+  if (inv) {
+    const v = state.inventory.find(i => i.uid === inv.dataset.inv);
+    if (v) {
+      placing = (placing && placing.invUid === v.uid) ? null : { invUid: v.uid, type: v.type, rot: 0 };
+      selected = null; showInfo(v.type, null); render();
+    }
+    return;
+  }
+  const rot = ev.target.closest("[data-rotate]");
+  if (rot) {
+    const it = state.items.find(i => i.uid === rot.dataset.rotate);
+    if (it) {
+      const nr = it.rot ? 0 : 1;
+      if (fits(it.type, it.gx, it.gy, nr, it.uid)) { it.rot = nr; save(); render(); }
+      else { // try to keep it in bounds by nudging toward origin
+        const [w, d] = dims({ type: it.type, rot: nr });
+        const ngx = Math.min(it.gx, N - w), ngy = Math.min(it.gy, N - d);
+        if (fits(it.type, ngx, ngy, nr, it.uid)) { it.rot = nr; it.gx = ngx; it.gy = ngy; save(); render(); }
+      }
+    }
+    return;
+  }
+  const put = ev.target.closest("[data-putaway]");
+  if (put) {
+    const uid = put.dataset.putaway;
+    const inFloor = state.items.find(i => i.uid === uid);
+    const inWall = state.wallItems.find(i => i.uid === uid);
+    const it = inFloor || inWall;
+    if (it) {
+      state.inventory.push({ uid, type: it.type });
+      state.items = state.items.filter(i => i.uid !== uid);
+      state.wallItems = state.wallItems.filter(i => i.uid !== uid);
+      if (state.last === uid) state.last = null;
+      selected = null; save(); clearInfo(); render();
+    }
+  }
+});
+document.getElementById("resetBtn").addEventListener("click", () => {
+  state = { balance: 500, inventory: [], items: [], wallItems: [], last: null, seq: 1, view: "room" };
+  placing = null; selected = null; save(); clearInfo(); setView("room");
+});
+
+/* ---------- events: room canvas ---------- */
+function svgPoint(ev) {
+  const r = svg.getBoundingClientRect();
+  return { x: (ev.clientX - r.left) * 720 / r.width, y: (ev.clientY - r.top) * 560 / r.height };
+}
+svg.addEventListener("pointermove", ev => {
+  const p = svgPoint(ev);
+  if (placing && !byId[placing.type].wall) { hover = pickTile(p.x, p.y); render(); }
+  if (drag) {
+    const t = pickTile(p.x - drag.offX, p.y - drag.offY);
+    drag.gx = t.gx; drag.gy = t.gy;
+    drag.ok = fits(drag.type, t.gx, t.gy, drag.rot, drag.uid);
+    render();
+  }
+});
+svg.addEventListener("pointerdown", ev => {
+  const p = svgPoint(ev);
+  const slotEl = ev.target.closest("[data-slot]");
+  if (placing && byId[placing.type].wall && slotEl) {
+    state.wallItems.push({ uid: placing.invUid, type: placing.type, slot: +slotEl.dataset.slot });
+    state.inventory = state.inventory.filter(i => i.uid !== placing.invUid);
+    selected = placing.invUid; showInfo(placing.type, placing.invUid); placing = null;
+    save(); render(); return;
+  }
+  if (placing && !byId[placing.type].wall) {
+    const t = pickTile(p.x, p.y);
+    if (fits(placing.type, t.gx, t.gy, placing.rot, null)) {
+      state.items.push({ uid: placing.invUid, type: placing.type, gx: t.gx, gy: t.gy, rot: placing.rot });
+      state.inventory = state.inventory.filter(i => i.uid !== placing.invUid);
+      state.last = placing.invUid; selected = placing.invUid;
+      showInfo(placing.type, placing.invUid); placing = null; hover = null;
+      save(); render();
+    }
+    return;
+  }
+  const el = ev.target.closest("[data-uid]");
+  const uid = el && el.dataset.uid;
+  if (uid) {
+    const floorIt = state.items.find(i => i.uid === uid);
+    const wallIt = state.wallItems.find(i => i.uid === uid);
+    if (floorIt) {
+      selected = uid; showInfo(floorIt.type, uid);
+      const base = iso(floorIt.gx, floorIt.gy);
+      drag = { uid, type: floorIt.type, rot: floorIt.rot || 0, gx: floorIt.gx, gy: floorIt.gy,
+               ok: true, offX: p.x - base.x, offY: p.y - base.y };
+      svg.setPointerCapture(ev.pointerId);
+    } else if (wallIt) { selected = uid; showInfo(wallIt.type, uid); }
+    render(); return;
+  }
+  selected = null; placing = null; hover = null; clearInfo(); render();
+});
+svg.addEventListener("pointerup", () => {
+  if (drag) {
+    const it = state.items.find(i => i.uid === drag.uid);
+    if (it && drag.ok) { it.gx = drag.gx; it.gy = drag.gy; save(); }
+    drag = null; render();
+  }
+});
+window.addEventListener("keydown", ev => {
+  if (ev.key === "Escape") { placing = null; hover = null; drag = null; render(); }
+  if (ev.key === "r" || ev.key === "R") {
+    if (placing && !byId[placing.type].wall) { placing.rot = placing.rot ? 0 : 1; render(); }
+    else if (selected) {
+      const it = state.items.find(i => i.uid === selected);
+      if (it) {
+        const nr = it.rot ? 0 : 1;
+        if (fits(it.type, it.gx, it.gy, nr, it.uid)) { it.rot = nr; save(); render(); }
+      }
+    }
+  }
+});
+
+setView(state.view);
+</script>
+</body>
+</html>
