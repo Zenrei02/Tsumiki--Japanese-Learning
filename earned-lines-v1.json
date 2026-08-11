@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "generated": "2026-08-11 · Session 11",
+  "status": "DRAFT — pending reviewer sign-off. NO LINE SHIPS UNREVIEWED. Every line makes a factual claim about learners or about Japanese; the reviewer must be able to stand behind each one, or it is deleted, not softened.",
+  "firing_rules": [
+    "Flourish only. At most one earned line per flourish; if a point announcement, capability line, and earned line all qualify, the earned line wins (rarest).",
+    "Each line fires ONCE per learner, ever. The trigger must actually have happened — a difficulty line fires on demonstrated correct use, not on finishing the reading.",
+    "Never model-generated, never paraphrased at runtime. Text ships exactly as reviewed.",
+    "The 'many quit before X' register was considered and DROPPED (Session 11): unverifiable and it primes quitting. Do not reintroduce it via synonyms ('most give up', 'few make it')."
+  ],
+  "lines": [
+    { "id": "d-waga", "register": "difficulty", "trigger": "correct contrastive/subject use of は vs が in practice", "text": "は and が trouble learners for years — and you just used them correctly, unprompted." },
+    { "id": "d-potential-ga", "register": "difficulty", "trigger": "correct particle choice with a potential verb", "text": "Particle choice with potential verbs is a place even advanced learners hesitate. You didn't." },
+    { "id": "d-conditionals", "register": "difficulty", "trigger": "correct choice among たら/ば/と/なら in practice", "text": "Japanese has four ways to say 'if', and picking the right one is famously hard. That was the right one." },
+    { "id": "d-teiru", "register": "difficulty", "trigger": "correct state (not progressive) reading of 〜ている", "text": "〜ている as a state rather than an action trips up almost everyone at first. You read it the way a native does." },
+    { "id": "d-omission", "register": "difficulty", "trigger": "learner produces a natural sentence with omitted subject/topic", "text": "Leaving the subject out — and being understood — is where Japanese stops feeling like translated English. That sentence did it." },
+    { "id": "s-handwriting", "register": "distinction", "trigger": "first kana lesson where every character was traced by hand", "text": "You are writing these by hand. Plenty of learners never do — recognition fades; a hand that has drawn the strokes doesn't forget as easily." },
+    { "id": "s-production", "register": "distinction", "trigger": "first free-production sentence graded (grammar practice)", "text": "Producing your own sentence is a different skill from picking the right answer — and it's one a test-prep syllabus rarely asks for." },
+    { "id": "s-listening-write", "register": "distinction", "trigger": "first Listen & Write clear", "text": "Hearing a word and writing it with nothing to copy from — that is dictation, and it builds a kind of memory reading alone can't." },
+    { "id": "s-pitchless", "register": "distinction", "trigger": "first audio lesson completed", "text": "You are learning these sounds from a voice, not a chart. Your ear is training alongside your hand." },
+    { "id": "b-katakana-name", "register": "bridge", "trigger": "learner can write their own name's katakana (all chars traced)", "text": "You can write your name the way Japan will write it. Most visitors never can." },
+    { "id": "b-order-food", "register": "bridge", "trigger": "capability threshold: menu-word set fully readable", "text": "You could read this off a menu now — no pictures needed." },
+    { "id": "b-bridge-en", "register": "bridge", "trigger": "correct use of a structure with no clean English equivalent (e.g. 〜てくれる)", "text": "There's no neat English for what you just said — the gratitude is built into the grammar. Plenty of Japanese speakers struggle to carry that into English. You can now carry it the other way." },
+    { "id": "a-smalltalk", "register": "arc", "trigger": "smalltalk capability unit ~75% of prerequisite points cleared", "text": "You're most of the way to holding small talk — greetings, weather, where you're from, what you do." },
+    { "id": "a-selfintro", "register": "arc", "trigger": "self-introduction capability unit complete", "text": "You can introduce yourself entirely in Japanese now. That's not a lesson — that's a thing you can do." },
+    { "id": "a-kana-done", "register": "arc", "trigger": "both kana scripts fully traced", "text": "Every kana in the language is now yours to write. From here, everything you learn is words and ideas — the alphabet part of Japanese is behind you." }
+  ],
+  "wiring_note": "Triggers are named by construction/capability, not by lesson id — the grammar module's point ids drift with curriculum order, and the pain-point resurfacing map (curriculum-revisit-map-v1.md) is the right source for where these constructions are actually demonstrated. Wiring ships with Phase 1 flourish work; this file exists so the reviewer can pass judgment on the CLAIMS now."
+}
