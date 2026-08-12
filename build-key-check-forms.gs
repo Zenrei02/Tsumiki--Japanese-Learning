@@ -57,7 +57,7 @@ var DATA = [
     "status": "CORRECT",
     "tier": "NONE",
     "correction": "—",
-    "rationale": "名詞「予定」の後に「な」が正しく入っている(予定なので)。誤り行の鏡像となる正しい文。"
+    "rationale": "名詞「予定」の後に「な」が正しく入っている(予定なので)。文法的に問題はなく、指摘の必要はない。"
   },
   {
     "id": "E39",
@@ -241,13 +241,13 @@ var DATA = [
   },
   {
     "id": "E35",
-    "batch": "B5",
+    "batch": "B8",
     "level": "N3",
-    "sentence": "英会話を作った外国人はに日本がキツイと言われたんです。",
+    "sentence": "あの時、誰もに興味がなかったよ",
     "status": "ERROR",
     "tier": "FIX",
-    "correction": "英会話を作った外国人に、日本はキツイと言われたんです。",
-    "rationale": "「は」と「に」は一つの名詞に重ねられない。ここでは言った人なので「に」:「外国人に…と言われた」。引用節の中に「日本は」を置く。"
+    "correction": "あの時、誰にも興味がなかったよ",
+    "rationale": "「も」は格助詞「に」の後ろに付く:「誰にも」。「誰もに」は順序が逆。「誰も来なかった」のように「誰も」が単独で主語になる形があるため、「誰も」を一つの塊と捉えてしまいやすい。"
   },
   {
     "id": "E36",
@@ -418,6 +418,106 @@ var DATA = [
     "tier": "FIX",
     "correction": "ゴルフが好きな人のためだけではなく、気になる人も集まりたいでしょ？",
     "rationale": "「好き」はな形容詞なので名詞の前は「好きな人」。(「ゴルフ好きの人」という複合語も可。)"
+  },
+  {
+    "id": "E41",
+    "batch": "B9",
+    "level": "N5",
+    "sentence": "日本のランキングはどう思う？",
+    "status": "CORRECT",
+    "tier": "NONE",
+    "correction": "—",
+    "rationale": "普通の口語の疑問文で、直すところはない。"
+  },
+  {
+    "id": "E42",
+    "batch": "B9",
+    "level": "N4",
+    "sentence": "鳥山先生のネーミングセンスは変！！",
+    "status": "CORRECT",
+    "tier": "NONE",
+    "correction": "—",
+    "rationale": "「変」を「だ」なしで述語に使うのは口語として普通。「変だ」に直すのは誤指摘になる。"
+  },
+  {
+    "id": "E43",
+    "batch": "B9",
+    "level": "N4",
+    "sentence": "今週末のパーティに行こうかなー",
+    "status": "CORRECT",
+    "tier": "NONE",
+    "correction": "—",
+    "rationale": "意向形「行こう」＋「かな」で正しい。意向形が誤っているE30と対になる、正しい方の例。"
+  },
+  {
+    "id": "E44",
+    "batch": "B9",
+    "level": "N4",
+    "sentence": "今週末はいっぱい宿題があるけど、来週はお休み",
+    "status": "CORRECT",
+    "tier": "NONE",
+    "correction": "—",
+    "rationale": "口語の二文で、最後を名詞「お休み」で終える普通の書き方。E31と同じ形を、実際の学習者が書いた例。"
+  },
+  {
+    "id": "E45",
+    "batch": "B9",
+    "level": "N3",
+    "sentence": "あのとき、凄くハマってたよ…",
+    "status": "CORRECT",
+    "tier": "NONE",
+    "correction": "—",
+    "rationale": "「ハマってた」は「ハマっていた」の口語の縮約形で、誤りではない。口語を誤りとしないかを見る行。"
+  },
+  {
+    "id": "E46",
+    "batch": "B9",
+    "level": "N3",
+    "sentence": "他の仕事を見つけられませんので、近い所で探しました。岡山市はあまり遠くないでしょう？",
+    "status": "CORRECT",
+    "tier": "NONE",
+    "correction": "—",
+    "rationale": "丁寧体。可能形の否定「見つけられません」＋「ので」、続けて丁寧な疑問文。文法上の問題はない。"
+  },
+  {
+    "id": "E47",
+    "batch": "B9",
+    "level": "N5",
+    "sentence": "進撃の巨人をみたい〜",
+    "status": "ERROR",
+    "tier": "WORTH KNOWING",
+    "correction": "進撃の巨人を見たい〜",
+    "rationale": "文法の誤りではないため注意喚起（WORTH KNOWING）。「見たい」は漢字で書くのが標準で、かなの「みたい」は「〜のようだ」の意味と紛らわしい。"
+  },
+  {
+    "id": "E48",
+    "batch": "B9",
+    "level": "N5",
+    "sentence": "来週、ともだちと映画を見に行きます。",
+    "status": "ERROR",
+    "tier": "WORTH KNOWING",
+    "correction": "来週、友達と映画を見に行きます。",
+    "rationale": "「友達」が標準的な表記。かなでも誤りではないが、同じ文で「映画」「見」「行」は漢字なので不統一に見える。文法上の問題はない。"
+  },
+  {
+    "id": "E49",
+    "batch": "B9",
+    "level": "N3",
+    "sentence": "前はちょっと感情があったけど今はあんまりないと思う",
+    "status": "ERROR",
+    "tier": "UNNATURAL",
+    "correction": "前はちょっと気持ちがあったけど今はあんまりないと思う",
+    "rationale": "文法的には正しいのでUNNATURALどまり。「感情」は心理学的なカテゴリーとしての感情。人に対する気持ちは「気持ち」（慣用的には「気がある」）。"
+  },
+  {
+    "id": "E50",
+    "batch": "B9",
+    "level": "N3",
+    "sentence": "例えば、糖尿病は家族でよくあること。",
+    "status": "ERROR",
+    "tier": "UNNATURAL",
+    "correction": "例えば、糖尿病は家系によくあること。",
+    "rationale": "文法的には正しいのでUNNATURALどまり。「家族」は同居する家族、遺伝的な傾向は「家系」。英語の"runs in the family"の直訳。"
   }
 ];
 
@@ -467,7 +567,7 @@ function itemTitle(row) {
 function itemHelp(row) {
   return '【文】\n' + row.sentence + '\n' +
          'レベル: ' + row.level + ' ・ 出題の想定: ' + intendedJa(row.status) + '\n\n' +
-         '【解答キー】← 確認していただくのはこの部分です\n' +
+         '【解答キー】\n' +
          '判定: ' + row.tier + '\n' +
          '修正案: ' + row.correction + '\n' +
          '理由: ' + row.rationale;

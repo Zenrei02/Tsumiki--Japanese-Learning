@@ -35,6 +35,13 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   existing text with the new entry appended.** Session 9 destroyed the Session 4 and 6 history
   on two kanji rows this way; it was rebuilt from the journals, but the original wording is
   only recoverable through Notion's page history (⋯ → Version history).
+
+  **The procedure that works, used successfully Aug 12 2026:** `query_data_sources` selecting
+  `length("Notes")` **and** the full `Notes`; build the new string as `old + separator + new`;
+  `update_properties`; then re-query `length`, `substr(Notes,1,95)` and a `substr` across the
+  seam. If the head still matches, the seam shows the old text ending where it used to end, and
+  the length equals old+added, nothing was lost. Verifying by length alone would not catch a
+  head that had been overwritten.
 - There is no delete tool. Superseded pages get an `[SUPERSEDED — safe to delete]` title prefix
   for Lloyd to remove by hand.
 
@@ -126,6 +133,26 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   tool calls. Fetch the tarball from `registry.npmjs.org` and `tar xzf --wildcards` the one
   file you need. For any long command, `setsid … & disown` then `sleep` **in the same call** —
   a plain `&` is killed when the call returns, which looks exactly like a hang.
+
+- **⚠️ Rebuilding a Google Form in place ORPHANS its response columns — and the rebuild
+  reports success.** `patch-b7-b8-forms.gs` deleted and re-added the questions on B7/B8
+  (correct, and it preserved the form IDs so live links survived). But the linked sheet keeps
+  the old columns and adds new ones, so every Eval ID then appears TWICE in the header row —
+  B8 went to 36 columns where it needs 20 — with the stale duplicates trailing and empty.
+  `import-key-check-responses.py` took the LAST matching column, so all five original B8
+  sentences would have imported as unanswered with no error shown. Fixed Aug 12 2026: the
+  importer now takes the first non-empty value per field, never lets a blank overwrite an
+  answer, and prints a `NOTE` naming the duplicated columns. To tidy at source, delete the
+  affected tabs or unlink/relink the form — safe only while that batch has zero responses.
+
+  **Generalise it: a rebuild can succeed and still break whatever reads its output.** This is
+  the second time a success log on these forms hid a failure (Session 7 patched eight forms
+  that were in the Drive trash). Both times the log was truthful about the thing it did and
+  silent about the thing it broke. Inspect the artifact, not the log.
+
+  Related red herring: after a rebuild, **Drive still shows the OLD form title** (B8 read
+  "(5文)" with six question groups live). `setTitle` updates the form; the Drive filename
+  lags. Do not read it as evidence the patch failed — check the questions.
 
 - **Long-running commands need `setsid` + a done-marker.** `setsid bash -c 'cmd > log 2>&1;
   echo EXIT=$? > /tmp/x.done' < /dev/null & disown`, then poll for the marker. Backgrounding
@@ -227,6 +254,38 @@ what was known at a moment, and correcting one retroactively destroys what makes
      believed from a written record rather than retested.
 - **Whole-file deliverables, never patches.** A patch caused a white screen in Session 3.
 - Verify files build cleanly before delivering.
+- **Audit the eval set's COMPOSITION, not just its row count.** Aug 12 2026 found three faults
+  no mechanical check would catch: (1) REAL/SYNTHETIC was perfectly confounded with
+  CORRECT/ERROR — 1 REAL clean row against 12 SYNTHETIC — so the invented-error rate, the number
+  the whole go/tune decision rests on, was measured almost entirely on sentences written to be
+  clean rather than real learner writing that happens to be clean; (2) the WORTH KNOWING tier had
+  ZERO rows, which meant regression R4 was undetectable by the eval that exists to detect it;
+  (3) UNNATURAL, "the app's core value tier", had 3 rows. **A tier or a cell of the
+  source×status grid with no rows is a defect the eval cannot see.** Cross-tabulate before
+  trusting a score. Useful arithmetic: the invented-error count bar (≤2 goal, ≤1 stretch) holds
+  for any n from 40 to 59, so ADDING rows is free and only dropping below 40 moves the bar.
+- **Match the instrument to the question — an eval row is not always the right one.** The tracker
+  asked for romaji-leak eval rows for a year. They cannot work: Blind Grading's vocabulary is
+  一致/部分一致/見逃し/誤指摘, none of which expresses "the explanation was right but written in
+  romaji", so a reviewer would grade the verdict and miss the leak. `check-romaji-leak.py` scans
+  every feedback cell after the run instead — no reviewer time, and it covers all rows rather
+  than two special ones. Before adding eval rows for a property, check the grading vocabulary can
+  actually express failing it.
+- **⚠️ Never change the eval set's ROW COUNT without re-deriving the gates.** The
+  invented-error bars are rates (≤5% goal, ≤3% stretch), set Aug 2 2026 deliberately before any
+  results existed. At n=40 the goal means "at most 2 invented". At n=39 two invented is 5.13%
+  and FAILS — dropping a single row silently converts the goal gate into the stretch gate while
+  every Results cell still reads as though the original decision held. Aug 12 2026: E35 was
+  going to be dropped for being unparseable; it was REPLACED instead, keeping n=40. If a row
+  ever must go, change the threshold in the same edit and say why, or the bar moves without
+  anyone choosing to move it.
+- **Replace a bad eval sentence from the chat logs, don't invent one.** `Chat Logs/*.txt` are
+  the source of every REAL row. Grep Lloyd's own lines for the target pattern (e.g. particle
+  stacks) and pick from real hits — several usually surface. Selection criterion learned from
+  E35's failure: the sentence must be *comprehensible*, with exactly one thing wrong. An
+  ambiguous sentence is not automatically unusable, though — see E33: ambiguity the checker
+  cannot resolve may be the most valuable thing a row can test, but it has to be graded as
+  such deliberately, not left tagged ERROR where no grader can rule on it.
 - No lesson counts anywhere in the UI — Lloyd has stated they are discouraging. The kanji
   coverage percentage is the one permitted number, because it states capability not workload.
 - Pipelines must not rewrite the `.jsx` modules. Applying an order to lessons is an authoring

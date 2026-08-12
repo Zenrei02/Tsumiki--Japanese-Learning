@@ -76,8 +76,16 @@ naoshi-eval-v1.xlsx
 naoshi-eval-v1-with-outputs.xlsx
 bakeoff-log.jsonl
 
+# Same rule, same reason: the Step 2 response files carry the reviewer's verdicts
+# and their proposed corrections, which IS key material. Added Aug 12 2026 after a
+# provisional import copy landed in OLD/.
+*responses*.xlsx
+OLD/keycheck-responses-*.xlsx
+
 # ── Local noise ─────────────────────────────────────────────────────────────
 .~lock.*#
 *.tmp
 .DS_Store
+__pycache__/
+*.py[cod]
 OLD/*.scratch*

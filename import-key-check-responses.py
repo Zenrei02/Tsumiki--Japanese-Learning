@@ -39,6 +39,16 @@ def main():
             continue
         name_col = next((i for i, h in enumerate(headers)
                          if isinstance(h, str) and ('お名前' in h or 'name' in h.lower())), None)
+        # Rebuilding a form in place (patch-b7-b8-forms.gs) leaves the old response
+        # columns behind, so an Eval ID can appear twice in one header row. Report
+        # it: the reading rule below is safe, but the sheet still wants tidying.
+        qcols = [h for h in headers
+                 if re.match(r'^E\d{2} ・ (キー確認|修正案|コメント)$', str(h))]
+        dupes = sorted({h for h in qcols if qcols.count(h) > 1})
+        if dupes:
+            print(f'  NOTE {ws.title}: {len(dupes)} duplicated question column(s) — '
+                  f'{dupes[0]} …. Reading the first non-empty of each; '
+                  f'delete the stale columns when convenient.')
         for row in ws.iter_rows(min_row=2, values_only=True):
             if not row[0]:
                 continue
@@ -47,8 +57,17 @@ def main():
             per_eid = {}
             for i, h in enumerate(headers):
                 m = re.match(r'^(E\d{2}) ・ (キー確認|修正案|コメント)$', str(h))
-                if m:
-                    per_eid.setdefault(m.group(1), {})[m.group(2)] = row[i]
+                if not m:
+                    continue
+                eid, field, val = m.group(1), m.group(2), row[i]
+                slot = per_eid.setdefault(eid, {})
+                if val in (None, ''):
+                    slot.setdefault(field, val)      # never clobber an answer with a blank
+                elif slot.get(field) in (None, ''):
+                    slot[field] = val                # first real value wins
+                elif slot[field] != val:
+                    print(f'  DUPLICATE {ws.title} {eid} ・ {field}: '
+                          f'{slot[field]!r} vs {val!r} → keeping the first')
             for eid, d in per_eid.items():
                 if d.get('キー確認'):
                     answers.setdefault(eid, []).append(
