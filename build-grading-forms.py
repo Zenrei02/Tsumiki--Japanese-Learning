@@ -2,8 +2,8 @@
 """
 Generates build-grading-forms.gs — the Step 3 (blind grading) Google Forms script.
 
-Step 2 (key check) had its 40 sentences hand-baked into build-key-check-forms.gs.
-Step 3 can't work that way: the 120 rows it grades don't exist until the bake-off
+Step 2 (key check) had its sentences hand-baked into build-key-check-forms.gs.
+Step 3 can't work that way: the rows it grades don't exist until the bake-off
 harness has run. So this script reads the filled workbook and WRITES the .gs.
 
 WHAT IT READS
@@ -26,7 +26,8 @@ RATIONALES COME FROM THE .GS, NOT THE WORKBOOK
   (Aug 6 2026: reviewer-facing surfaces are Japanese-primary).
 
 WHAT IT WRITES
-  build-grading-forms.gs — 8 forms, one per batch, 15 outputs each, all feeding
+  build-grading-forms.gs — one form per batch, sized from the data (batches are
+  UNEVEN since Aug 12 2026: B5=12, B8=18, B9=30 outputs, rest 15), all feeding
   one response spreadsheet. Paste into script.google.com, run buildAllGradingForms.
 
 BLINDING

@@ -86,8 +86,13 @@ python3 bakeoff-harness.py --run --key-verified
 
 The `--key-verified` flag is you asserting the reviewer has checked the
 answer key — the script refuses to run without it, on purpose. Takes a few
-minutes: 120 calls, one per second, each result printed as it lands. Total
-cost ~US$1.60, less with caching.
+minutes: **150 calls** (50 sentences x 3 models), one per second, each result
+printed as it lands. Total cost **~US$2.00**, less with caching.
+
+(It was 120 calls / ~$1.60 when the set was 40 sentences. The set grew to 50 on
+Aug 12 2026 — six REAL clean controls, two WORTH KNOWING, two UNNATURAL. The
+invented-error gates did NOT move: at most 2 invented still passes the goal bar
+and at most 1 the stretch bar.)
 
 **If it crashes or you close the window mid-run: just run the same command
 again.** Every completed call is already saved in `bakeoff-log.jsonl`; the
@@ -102,14 +107,16 @@ the two yellow cells on the Results sheet.
 ## 4. After the run — Step 3 grading forms
 
 The run produces the outputs; it doesn't grade them. Two commands turn those
-120 outputs into the Results sheet.
+150 outputs into the Results sheet.
 
 ```
 python3 build-grading-forms.py
 ```
 
-Reads the filled workbook and writes `build-grading-forms.gs` — 8 Google Forms,
-one per batch, 15 outputs each. Same routine as Step 2: script.google.com → New
+Reads the filled workbook and writes `build-grading-forms.gs` — **9 Google Forms**,
+one per batch (B1–B9). **Batches are no longer equal**: most are 5 sentences (15
+outputs), but B5 is 4 (12), B8 is 6 (18) and B9 is 10 (30). The script prints a
+`NOTE` about uneven batches — that is expected, not an error. Same routine as Step 2: script.google.com → New
 project → paste over Code.gs → Run → `buildAllGradingForms` → send each reviewer
 the LIVE link for their batch, B1 first as calibration.
 
@@ -122,8 +129,9 @@ Reviewers see the sentence, the verified key (including any correction they made
 at Step 2), and the tool's output — but never which model produced it. Grading is
 the same four choices as column G: 一致 / 部分一致 / 見逃し / 誤指摘.
 
-**A grading batch is 15 outputs, roughly 25–35 minutes** — noticeably longer than
-a Step 2 batch. One sitting per batch.
+**A grading batch is 12–30 outputs, roughly 25–60 minutes** depending on the batch
+— noticeably longer than a Step 2 batch. One sitting per batch. B9 is the big one
+at 30 outputs; consider warning whoever grades it.
 
 ```
 python3 import-grading-responses.py

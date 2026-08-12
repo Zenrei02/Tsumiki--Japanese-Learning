@@ -105,6 +105,22 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   not. Distinguish them by timestamp — compare `stat .git/refs/remotes/origin/main` against
   the commit time — or just ask.
 
+- **⚠️ Apps Script must run from — or be shared with — the account Cowork connects as.**
+  Forms are owned by `quantumshifting@gmail.com`; Cowork's Drive connector authenticates as
+  `zensoreno`. B9 was built while signed into the other account and was simply INVISIBLE to a
+  Drive search, so the only evidence it was correct was its execution log — the exact evidence
+  this project has twice been burned by. Sharing it fixed that and the form checked out. The
+  slip is cheap when caught (share it) and expensive when not: **re-running the script under
+  the other account would have created a SECOND live form**, which is the v1/v2 trap again.
+  After any Apps Script run, confirm the artifact is visible from a Drive search before
+  trusting it.
+- **The eval workbook has no version history — snapshot it by hand into `backups/`.**
+  `naoshi-eval-v1.xlsx` is gitignored on purpose (it carries the answer key), which makes it
+  the only load-bearing artefact here that git cannot restore. `backups/` holds numbered
+  snapshots and is gitignored for the same reason — so it protects against a bad edit, not
+  against losing the machine. Copy before any edit that changes row count, key content or
+  formula ranges, then OPEN the copy and check it holds what you think; `backups/README.md`
+  carries the table and the restore warning about re-deriving the gates.
 - **Write scratch files to the system temp dir, not the project folder.** Even with delete
   permission granted, a script that creates and removes its own temp files is cleaner run
   outside the mount. (Session 8 — probe files next to the masters aborted the audio splitter
@@ -140,7 +156,12 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   the old columns and adds new ones, so every Eval ID then appears TWICE in the header row —
   B8 went to 36 columns where it needs 20 — with the stale duplicates trailing and empty.
   `import-key-check-responses.py` took the LAST matching column, so all five original B8
-  sentences would have imported as unanswered with no error shown. Fixed Aug 12 2026: the
+  sentences would have imported as unanswered with no error shown.
+
+  **You cannot delete the stale columns.** A form-linked response sheet locks its column
+  structure and Sheets refuses. Only whole-tab routes work — delete the tab, or unlink and
+  relink the form — and both destroy real data once that batch has responses. Confirmed
+  Aug 12 2026 after the script's own header note wrongly told Lloyd to delete them. Fixed Aug 12 2026: the
   importer now takes the first non-empty value per field, never lets a blank overwrite an
   answer, and prints a `NOTE` naming the duplicated columns. To tidy at source, delete the
   affected tabs or unlink/relink the form — safe only while that batch has zero responses.
