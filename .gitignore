@@ -82,6 +82,11 @@ bakeoff-log.jsonl
 *responses*.xlsx
 OLD/keycheck-responses-*.xlsx
 
+# Workbook snapshots. Same key material as the workbook itself, so same rule.
+# They exist because the workbook is NOT in git — it is the only artefact in this
+# project with no version history, so a bad edit is otherwise unrecoverable.
+backups/
+
 # ── Local noise ─────────────────────────────────────────────────────────────
 .~lock.*#
 *.tmp
