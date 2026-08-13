@@ -1,7 +1,7 @@
 {
  "generated": "2026-08-13",
  "note": "Authoritative word set for the app. Input to the word-driven ordering pipeline. Regenerate with build-word-ledger.py.",
- "count": 302,
+ "count": 309,
  "words": [
   {
    "written": "学生",
@@ -425,12 +425,16 @@
   },
   {
    "written": "寝る",
-   "readings": [],
+   "readings": [
+    "ねる"
+   ],
    "meanings": [
-    "to sleep"
+    "to sleep",
+    "to sleep; to go to bed"
    ],
    "sources": [
-    "bank:Step 4"
+    "bank:Step 4",
+    "w:寝"
    ]
   },
   {
@@ -668,22 +672,30 @@
   },
   {
    "written": "手を洗う",
-   "readings": [],
+   "readings": [
+    "てをあらう"
+   ],
    "meanings": [
-    "to wash hands"
+    "to wash hands",
+    "to wash one's hands"
    ],
    "sources": [
-    "bank:Step 7"
+    "bank:Step 7",
+    "w:洗"
    ]
   },
   {
    "written": "歯をみがく",
-   "readings": [],
+   "readings": [
+    "はをみがく"
+   ],
    "meanings": [
-    "to brush teeth"
+    "to brush teeth",
+    "to brush one's teeth"
    ],
    "sources": [
-    "bank:Step 7"
+    "bank:Step 7",
+    "w:歯"
    ]
   },
   {
@@ -773,11 +785,14 @@
     "しゃしん"
    ],
    "meanings": [
-    "photo"
+    "photo",
+    "photograph"
    ],
    "sources": [
     "bank:Checkpoint 2",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:写",
+    "w:真"
    ],
    "jlpt": "N4"
   },
@@ -927,22 +942,29 @@
   },
   {
    "written": "寒い",
-   "readings": [],
+   "readings": [
+    "さむい"
+   ],
    "meanings": [
     "cold"
    ],
    "sources": [
-    "bank:Step 9"
+    "bank:Step 9",
+    "w:寒"
    ]
   },
   {
    "written": "暑い",
-   "readings": [],
+   "readings": [
+    "あつい"
+   ],
    "meanings": [
-    "hot"
+    "hot",
+    "hot (weather)"
    ],
    "sources": [
-    "bank:Step 9"
+    "bank:Step 9",
+    "w:暑"
    ]
   },
   {
@@ -1188,22 +1210,29 @@
   },
   {
    "written": "忙しい",
-   "readings": [],
+   "readings": [
+    "いそがしい"
+   ],
    "meanings": [
     "busy"
    ],
    "sources": [
-    "bank:Step 11"
+    "bank:Step 11",
+    "w:忙"
    ]
   },
   {
    "written": "痛い",
-   "readings": [],
+   "readings": [
+    "いたい"
+   ],
    "meanings": [
-    "painful"
+    "painful",
+    "painful; ouch"
    ],
    "sources": [
-    "bank:Step 11"
+    "bank:Step 11",
+    "w:痛"
    ]
   },
   {
@@ -1362,7 +1391,9 @@
     "meaning"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:意",
+    "w:味"
    ],
    "jlpt": "N4"
   },
@@ -1416,7 +1447,8 @@
    ],
    "sources": [
     "KANJI_DICT",
-    "w:歩"
+    "w:歩",
+    "w:散"
    ],
    "jlpt": "N3"
   },
@@ -1429,7 +1461,9 @@
     "study"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:勉",
+    "w:強"
    ],
    "jlpt": "N4"
   },
@@ -1968,7 +2002,8 @@
     "tooth"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:歯"
    ],
    "jlpt": "N3"
   },
@@ -3131,10 +3166,12 @@
     "とくい"
    ],
    "meanings": [
-    "good at (about yourself)"
+    "good at (about yourself)",
+    "one's strong suit"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:意"
    ],
    "jlpt": "N3"
   },
@@ -3850,7 +3887,8 @@
     "shopping"
    ],
    "sources": [
-    "w:買"
+    "w:買",
+    "w:物"
    ]
   },
   {
@@ -3922,7 +3960,8 @@
     "newspaper"
    ],
    "sources": [
-    "w:新"
+    "w:新",
+    "w:聞"
    ]
   },
   {
@@ -3970,7 +4009,8 @@
     "a drink"
    ],
    "sources": [
-    "w:飲"
+    "w:飲",
+    "w:物"
    ]
   },
   {
@@ -3983,6 +4023,90 @@
    ],
    "sources": [
     "w:歩"
+   ]
+  },
+  {
+   "written": "聞く",
+   "readings": [
+    "きく"
+   ],
+   "meanings": [
+    "to hear; to ask"
+   ],
+   "sources": [
+    "w:聞"
+   ]
+  },
+  {
+   "written": "物",
+   "readings": [
+    "もの"
+   ],
+   "meanings": [
+    "thing"
+   ],
+   "sources": [
+    "w:物"
+   ]
+  },
+  {
+   "written": "真ん中",
+   "readings": [
+    "まんなか"
+   ],
+   "meanings": [
+    "the very middle"
+   ],
+   "sources": [
+    "w:真"
+   ]
+  },
+  {
+   "written": "強い",
+   "readings": [
+    "つよい"
+   ],
+   "meanings": [
+    "strong"
+   ],
+   "sources": [
+    "w:強"
+   ]
+  },
+  {
+   "written": "味",
+   "readings": [
+    "あじ"
+   ],
+   "meanings": [
+    "taste"
+   ],
+   "sources": [
+    "w:味"
+   ]
+  },
+  {
+   "written": "洗う",
+   "readings": [
+    "あらう"
+   ],
+   "meanings": [
+    "to wash"
+   ],
+   "sources": [
+    "w:洗"
+   ]
+  },
+  {
+   "written": "散る",
+   "readings": [
+    "ちる"
+   ],
+   "meanings": [
+    "to scatter; to fall (petals)"
+   ],
+   "sources": [
+    "w:散"
    ]
   }
  ]
