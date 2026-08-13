@@ -70,6 +70,26 @@ sb-kanaparticles, plus the tara watch addition.
    claims in the module and deserve the reviewer's closest read; also the
    recommended response そうですか、また今度ぜひ.
 
+## Batch F — the Steps 5–11 scaffolding pass (44 lessons, one sitting if skimmed)
+
+Where: grammar-module.jsx — every former one-line lesson in Steps 5–11,
+rewritten four-beat with an added third example (commit pending). The
+structures were already reviewed as stubs; what needs native eyes is the
+new prose's judgment calls:
+
+- Register/social claims: たい・ほしい third-person restriction and the
+  superior-prying caution (何を食べたいですか); 上手 deflection exchange
+  (いえいえ、まだまだです); きらい "lands hard", polite dislike via あまり;
+  下手 bluntness; ぜんぜん+positive described as common-but-slangy;
+  なんで/どうして/なぜ register ladder; preamble-が (すみませんが) framing;
+  知りません-about-a-person "sounds cold".
+- Grammar rules stated hard: あとで always takes た, 前に always takes
+  dictionary; ながら same-subject only, main action last; たり…たりする's
+  mandatory する; とき relative tense (the two-cities bag example);
+  雨なので never 雨だので; 何か vs 何を question-type split.
+- All 44 added third examples, most of them Q&A pairs — natural as
+  dialogue?
+
 ## Batch B — kanji Group 3, 17 characters (五六九会電開買作文使書朝起帰週毎曜)
 
 Where: kanji-module.jsx k-t9…k-t13, sb-gate, cp-day + K entries.

@@ -34,6 +34,22 @@ three new SBs.
    (Step 1, after cc-yes) — approved by Lloyd, who reports the wiring has
    flipped his English. cc-yes's promise line updated to point at it.
 
+3. **行くとき / 行ったとき — the とき tense drill.** SB. Attach: after
+   toki (Step 7). The scaffolded toki lesson now teaches that the tense
+   before とき is relative to the main clause; the pair 日本に行くとき／
+   行ったとき、かばんを買いました puts the bag in two different cities.
+   Drillable as a two-option judgment; no English equivalent (English
+   'when' never carries this) — auto-qualifies. Surfaced during the
+   Session 13 scaffolding pass.
+
+4. **The compliment deflection — 日本語が上手ですね → いえいえ、まだまだです.**
+   CC. Attach: after jouzu (Step 10). English accepts compliments;
+   Japanese deflects them, and accepting flatly (はい、上手です) is a real
+   learner accident. The scaffolded jouzu lesson banks the exchange in one
+   example; the CC would cover the wider ritual (compliment inflation to
+   foreigners, why deflection isn't false modesty, how far to take it).
+   Auto-qualifies. Surfaced during the scaffolding pass.
+
 ## Bookkeeping
 
 When one is approved: it gets authored in module voice, placed at the attach

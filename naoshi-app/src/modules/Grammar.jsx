@@ -917,12 +917,66 @@ const CURRICULUM = [
     cat: "Step 5 · Requests, permission & obligation",
     bank: [["待つ", "to wait"], ["座る", "to sit"], ["写真を撮る", "to take a photo"], ["薬を飲む", "to take medicine"], ["帰る", "to go home"], ["入る", "to enter"], ["使う", "to use"], ["急ぐ", "to hurry"]],
     points: [
-      { id: "tekudasai", jp: "〜てください", en: "please do", exp: "Polite request using the te-form.", ex: [["ちょっと待ってください。", "Please wait a moment."], ["ゆっくり話してください。", "Please speak slowly."]] },
-      { id: "naidekudasai", jp: "〜ないでください", en: "please don't", exp: "Polite negative request.", ex: [["ここで写真を撮らないでください。", "Please don't take photos here."], ["心配しないでください。", "Please don't worry."]] },
-      { id: "temoii", jp: "〜てもいいです", en: "may / it's okay to", exp: "Grants or asks permission.", ex: [["ここに座ってもいいですか。", "May I sit here?"], ["帰ってもいいですよ。", "You may go home."]] },
-      { id: "tewaikemasen", jp: "〜てはいけません", en: "must not", exp: "Prohibition — something is not allowed.", ex: [["ここでたばこを吸ってはいけません。", "You must not smoke here."], ["授業中に寝てはいけません。", "You must not sleep in class."]] },
-      { id: "nakereba", jp: "〜なければなりません", en: "must / have to", exp: "Obligation — something is necessary.", ex: [["毎日薬を飲まなければなりません。", "I have to take medicine every day."], ["明日早く起きなければなりません。", "I must get up early tomorrow."]] },
-      { id: "nakutemoii", jp: "〜なくてもいいです", en: "don't have to", exp: "The action is not necessary.", ex: [["明日は来なくてもいいです。", "You don't have to come tomorrow."], ["急がなくてもいいですよ。", "You don't have to hurry."]] },
+      {
+        id: "tekudasai", jp: "〜てください", en: "please do",
+        exp: {
+          what: "The all-purpose polite request: please do this. It is built on the て-form, which is a large part of why the て-form was worth the sweat.",
+          build: "て-form + ください: 待ってください, 話してください. You will also hear the softer 〜てくださいませんか — recognize it; producing it can wait.",
+          when: "Asking anyone to do anything politely — counters, teachers, taxi drivers. The neutral default for requests to people you are not close to.",
+          watch: "However polite, it is still an instruction — for favours from superiors, お願いします or the invitation forms do the job more gracefully. And bare ください with を asks for a THING: 水をください. The split is clean: を + noun for things, て + verb for actions.",
+        },
+        ex: [["ちょっと待ってください。", "Please wait a moment."], ["ゆっくり話してください。", "Please speak slowly."], ["すみません、写真を撮ってください。— いいですよ。", "Asking a stranger for a photo — request and easy grant."]],
+      },
+      {
+        id: "naidekudasai", jp: "〜ないでください", en: "please don't",
+        exp: {
+          what: "The please-don't — a request pointed at not-doing.",
+          build: "ない-form + でください: 撮らないでください, 心配しないでください. The negative lives on ない; there is no ませんでください.",
+          when: "House rules, gentle warnings, and asking someone to stop — softly.",
+          watch: "Delivery sets the temperature: 心配しないでください is comfort, not command. Keep it apart from てはいけません two lessons on — ないでください asks THIS person, now; てはいけません states a standing rule that applies to everyone.",
+        },
+        ex: [["ここで写真を撮らないでください。", "Please don't take photos here."], ["心配しないでください。", "Please don't worry."], ["忘れないでくださいね。", "A gentle reminder — the ね from Step 1 softens it further."]],
+      },
+      {
+        id: "temoii", jp: "〜てもいいです", en: "may / it's okay to",
+        exp: {
+          what: "Permission, in both directions: 〜てもいいですか asks it, 〜てもいいですよ grants it. The question form is the one you will use daily — this is HOW you ask 'may I'.",
+          build: "て-form + もいいですか to ask; drop the か to grant. Literally 'even if I do it, is it good?' — which is what the も is doing there.",
+          when: "Before touching, sitting, photographing, borrowing, leaving early. Japanese social space runs on asking first, and this form is the asking.",
+          watch: "Learn the answers with the question. Yes: いいですよ, or just どうぞ. A real no usually avoids だめ — you will hear ちょっと… or すみません、それは…. Hesitation IS the answer; take it as one.",
+        },
+        ex: [["ここに座ってもいいですか。", "May I sit here?"], ["帰ってもいいですよ。", "You may go home."], ["写真を撮ってもいいですか。— どうぞ。", "Asking permission, and the friendly grant."], ["入ってもいいですか。— あ、ちょっと…", "The soft refusal — the trailing ちょっと is a complete answer."]],
+      },
+      {
+        id: "tewaikemasen", jp: "〜てはいけません", en: "must not",
+        exp: {
+          what: "Prohibition as a standing rule: must not. Impersonal — it belongs to the place or the situation, not to you.",
+          build: "て-form + はいけません. The written は is the particle, read wa — the kana lesson's rule on duty.",
+          when: "Rules attached to places: signs, classrooms, hospitals, pools. Often what a sign means even when the sign just says 禁止.",
+          watch: "Strong and flat — to stop a PERSON, ないでください is kinder. And hold the triangle corner: must-not is this; don't-have-to is なくてもいい, built from entirely different parts. English builds both from 'must'; Japanese never does.",
+        },
+        ex: [["ここでたばこを吸ってはいけません。", "You must not smoke here."], ["授業中に寝てはいけません。", "You must not sleep in class."], ["この部屋を使ってはいけません。", "A rule about the room — it applies to everyone, not just you."]],
+      },
+      {
+        id: "nakereba", jp: "〜なければなりません", en: "must / have to",
+        exp: {
+          what: "Obligation: must, have to. Japanese builds it as a double negative — 'if I do not do it, it will not do' — which is why the pieces look the way they do.",
+          build: "ない-form, drop the い, + ければなりません: 飲まなければなりません. 〜ないといけません means the same with a lighter step — the modular slots are two lessons on.",
+          when: "Duties, deadlines, medicine, early alarms — and the polite exit: もう帰らなければなりません.",
+          watch: "About yourself it states duty; aimed at the listener it can order them around — 行かなければなりませんよ is bossy. And keep the direction straight: this whole assembly means MUST DO. Must-NOT lives next door in てはいけません.",
+        },
+        ex: [["毎日薬を飲まなければなりません。", "I have to take medicine every day."], ["明日早く起きなければなりません。", "I must get up early tomorrow."], ["もう帰らなければなりません。", "The polite exit line — duty offered as courtesy."]],
+      },
+      {
+        id: "nakutemoii", jp: "〜なくてもいいです", en: "don't have to",
+        exp: {
+          what: "Permission not to: you don't have to. The kind corner of the obligation triangle.",
+          build: "ない-form, drop the い, + くてもいいです — the same skeleton as てもいい: 'even if you don't, it's fine.'",
+          when: "Reassuring people, lightening loads, and answering must-I questions with mercy.",
+          watch: "This is the corner English miswires — the skill builder two lessons on drills it. Notice the negotiation pair: 行かなければなりませんか asks the obligation; いいえ、行かなくてもいいですよ is its kind release.",
+        },
+        ex: [["明日は来なくてもいいです。", "You don't have to come tomorrow."], ["急がなくてもいいですよ。", "You don't have to hurry."], ["明日も来なければなりませんか。— いいえ、来なくてもいいですよ。", "The obligation question and its kind answer."]],
+      },
       { id: "cc-nakya", jp: "なきゃ・なくちゃ・ないと", en: "how 'must' actually sounds", kind: "culture",
         exp: "Nobody says なければなりません to a friend. Speech clips it hard, and the clipped forms usually drop the second half entirely: 行かなきゃ — gotta go. 勉強しなくちゃ — I've got to study. 帰らないと — I'd better get home. The missing なりません is understood, the way English 'gotta' carries 'have got to' inside it.\n\nThe full forms survive where formality does — strangers, bosses, writing. The clipped ones own everywhere else, so your ears need them even while your own sentences stay polite: なきゃ from なければ, なくちゃ from なくては, and ないと standing alone with its consequence left hanging.",
         ex: [["もう行かなきゃ。", "Gotta go — the second half is understood."], ["宿題しないと…", "The trailing と leaves the consequence unsaid — exactly like English 'or else…'"]],
@@ -959,16 +1013,70 @@ const CURRICULUM = [
     cat: "Step 6 · Invitations, desire & intention",
     bank: [["一緒に", "together"], ["昼ごはん", "lunch"], ["お茶", "tea"], ["買う", "to buy"], ["会う", "to meet"], ["新しい", "new"], ["車", "car"], ["国", "country"]],
     points: [
-      { id: "mashou", jp: "〜ましょう", en: "let's", exp: "Suggests doing something together.", ex: [["一緒に帰りましょう。", "Let's go home together."], ["昼ごはんを食べましょう。", "Let's eat lunch."]] },
-      { id: "mashouka", jp: "〜ましょうか", en: "shall I / shall we?", exp: "Offers help or suggests an action as a question.", ex: [["手伝いましょうか。", "Shall I help you?"], ["窓を開けましょうか。", "Shall I open the window?"]] },
-      { id: "masenka", jp: "〜ませんか", en: "won't you ...? (invitation)", exp: "Polite invitation, softer than ましょう.", ex: [["一緒に映画を見ませんか。", "Won't you watch a movie with me?"], ["お茶を飲みませんか。", "Won't you have some tea?"]] },
+      {
+        id: "mashou", jp: "〜ましょう", en: "let's",
+        exp: {
+          what: "Let's — proposing joint action as though it is as good as agreed.",
+          build: "ます-stem + ましょう: 行きましょう, 始めましょう, 食べましょう.",
+          when: "Moving a group: let's start, let's eat, let's go. Also self-encouragement, said to no one in particular.",
+          watch: "ましょう assumes the other person is on board. If it is a genuine question, ましょうか (next lesson); if you are inviting rather than deciding, ませんか (softer still). The three form a ladder of presumption — pick by how sure you are they want it.",
+        },
+        ex: [["一緒に帰りましょう。", "Let's go home together."], ["昼ごはんを食べましょう。", "Let's eat lunch."], ["じゃ、そろそろ行きましょう。", "Moving the group — decided together, announced kindly."]],
+      },
+      {
+        id: "mashouka", jp: "〜ましょうか", en: "shall I / shall we?",
+        exp: {
+          what: "Two jobs in one form: shall we? — the genuine-question version of ましょう — and shall I?, the polite offer of help.",
+          build: "ます-stem + ましょうか: 何を食べましょうか (deciding together), 手伝いましょうか (offering).",
+          when: "Deciding jointly, and offering: to carry, to open, to help, to pick someone up.",
+          watch: "As an offer, learn the replies with it: お願いします accepts gratefully; 大丈夫です declines politely — the same 大丈夫 from the konbini lesson. And the か is load-bearing: 手伝いますか asks whether you WILL help; 手伝いましょうか offers to.",
+        },
+        ex: [["手伝いましょうか。", "Shall I help you?"], ["窓を開けましょうか。", "Shall I open the window?"], ["荷物を持ちましょうか。— すみません、お願いします。", "The offer, and its grateful yes."]],
+      },
+      {
+        id: "masenka", jp: "〜ませんか", en: "won't you ...? (invitation)",
+        exp: {
+          what: "The polite invitation: won't you? Softest of the three proposal forms because the negative question builds room-to-decline into the grammar itself.",
+          build: "ます-stem negative + か: 見ませんか, 行きませんか, 飲みませんか.",
+          when: "First invitations, and any invitation upward in politeness — colleagues, seniors, people you'd like to know better.",
+          watch: "Two earlier lessons come due here at once. The answer to listen for is the soft no — 日曜日はちょっと…. And per the yes/no drill: accepting an invitation is ぜひ or いいですね, almost never a bare はい — answer the invitation, not the grammar.",
+        },
+        ex: [["一緒に映画を見ませんか。", "Won't you watch a movie with me?"], ["お茶を飲みませんか。", "Won't you have some tea?"], ["今度一緒に食べませんか。— いいですね！", "Invitation, and the enthusiastic accept."]],
+      },
       { id: "cc-no", jp: "「ちょっと…」", en: "how to hear no", kind: "culture",
         exp: "You can now invite people — so you need to hear the answers, and Japanese rarely refuses with いいえ. A direct no forces the other person to reject you to your face, so the culture routes around it, and the refusals sound like anything but refusals.\n\nThe repertoire: 日曜日はちょっと… — 'Sunday's a bit…' — is a complete and final no; nothing comes after the ちょっと, and nothing is supposed to. 難しいですね — 'that's difficult' — means it isn't going to happen. 考えておきます — 'I'll think it over' — from a shop clerk or a business contact, almost always means the thinking is already done. また今度 — 'another time' — usually contains no other time. Add the physical set: the slow うーん, the tilted head, the breath drawn through teeth.\n\nThe learner mistake isn't producing these — it's not hearing them. 'I'm a little busy' sounds, to an English ear, like an invitation to reschedule: 'then how about Saturday?' But the vagueness WAS the answer, and pressing forces the refusal to get harder — an unkindness in both directions. When you hear ちょっと, the kind move is そうですか、また今度ぜひ — accept the soft no softly, whether or not the other person's また今度 contains a next time; yours can.\n\nAnd for your own refusals, the same machinery is yours from day one: すみません、日曜日はちょっと… is complete, polite, and kinder than any full sentence — the trailing-off pattern that Step 11's けど lesson develops further.",
         ex: [["日曜日はちょっと…", "A complete, final, polite no. Nothing follows the ちょっと."], ["考えておきます。", "'I'll think it over' — the thinking is usually already done."]],
       },
-      { id: "tai", jp: "〜たいです", en: "want to do", exp: "Expresses the speaker's own desire to do something. The object often takes が.", ex: [["日本へ行きたいです。", "I want to go to Japan."], ["水が飲みたいです。", "I want to drink water."]] },
-      { id: "hoshii", jp: "〜がほしいです", en: "want (a thing)", exp: "Expresses wanting an object (not an action). The thing wanted takes が.", ex: [["新しいかばんがほしいです。", "I want a new bag."], ["時間がほしいです。", "I want time."]] },
-      { id: "tsumori", jp: "〜つもりです", en: "intend to", exp: "States a plan or intention, with the dictionary form.", ex: [["夏に国へ帰るつもりです。", "I intend to return to my country in summer."], ["車を買うつもりです。", "I plan to buy a car."]] },
+      {
+        id: "tai", jp: "〜たいです", en: "want to do",
+        exp: {
+          what: "Wanting to DO something, spoken from the inside: たい bends the verb into an adjective of desire.",
+          build: "ます-stem + たい(です), then conjugate like an い-adjective: 行きたくない, 行きたかった. The object often switches to が: 水が飲みたい.",
+          when: "Your own wishes, plans, and cravings — and asking about them between equals: 何がしたいですか.",
+          watch: "たい reports your OWN inner state. Asking a superior 何を食べたいですか peers inside them — 何にしますか does the job politely. And third parties are off limits: 妹は行きたいです claims to feel her wanting; Japanese reroutes that through 〜たがっている, which arrives in Stage 2.",
+        },
+        ex: [["日本へ行きたいです。", "I want to go to Japan."], ["水が飲みたいです。", "I want to drink water."], ["日本で何がしたいですか。— 京都に行きたいです。", "The want-question between equals, and its answer."]],
+      },
+      {
+        id: "hoshii", jp: "〜がほしいです", en: "want (a thing)",
+        exp: {
+          what: "Wanting a THING. The wanted thing takes が, and the word behaves like an い-adjective.",
+          build: "[thing] が ほしいです; ほしくない, ほしかった.",
+          when: "Shopping, wishlists, and the birthday interrogation: 何がほしいですか.",
+          watch: "The same inner-state restriction as たい: your own wanting only; other people's runs through ほしがっている (Stage 2). And when OFFERING something to a superior, ほしいですか pries — いかがですか is the graceful version; recognize it now.",
+        },
+        ex: [["新しいかばんがほしいです。", "I want a new bag."], ["時間がほしいです。", "I want time."], ["誕生日に何がほしいですか。— 新しいかばんがほしいです。", "The wish question — が on the wanted thing, both directions."]],
+      },
+      {
+        id: "tsumori", jp: "〜つもりです", en: "intend to",
+        exp: {
+          what: "Stated intention: a plan you have actually settled on, not a mood.",
+          build: "Dictionary form + つもりです. Negative plans put the ない first: 行かないつもりです — intending NOT to.",
+          when: "Answering what-are-you-doing questions with commitment: 夏休みは何をするつもりですか.",
+          watch: "つもり claims real intention — for a soft maybe, Japanese reaches for 〜たいと思います, which completes in Step 12 when と思います arrives. And the past, 〜るつもりでした, means intended-but-didn't: quiet regret built into tense.",
+        },
+        ex: [["夏に国へ帰るつもりです。", "I intend to return to my country in summer."], ["車を買うつもりです。", "I plan to buy a car."], ["夏休みは何をするつもりですか。— 国へ帰るつもりです。", "Plan question, committed answer."]],
+      },
       { id: "niiku", jp: "〜に行きます", en: "go (somewhere) to do", exp: "Verb stem + に + motion verb: moving somewhere for a purpose.", ex: [["デパートへ買い物に行きます。", "I go to the department store to shop."], ["友達に会いに行きました。", "I went to meet a friend."]] },
       {
         id: "b-s5", jp: "作文 · 計画", en: "state a plan", kind: "build",
@@ -988,13 +1096,76 @@ const CURRICULUM = [
     cat: "Step 7 · Linking actions & time",
     bank: [["手を洗う", "to wash hands"], ["歯をみがく", "to brush teeth"], ["音楽", "music"], ["散歩する", "to take a walk"], ["宿題", "homework"], ["仕事", "work"], ["終わる", "to end"], ["話す", "to speak"]],
     points: [
-      { id: "tekara", jp: "〜てから", en: "after doing", exp: "Do A, then B — with the te-form.", ex: [["手を洗ってから食べます。", "I eat after washing my hands."], ["仕事が終わってから飲みに行きました。", "After work ended, I went drinking."]] },
-      { id: "atode", jp: "〜たあとで", en: "after ...", exp: "After A (past-tense verb or noun+の), B happens.", ex: [["ごはんを食べたあとで散歩します。", "I take a walk after eating."], ["授業のあとで図書館へ行きます。", "After class I go to the library."]] },
-      { id: "maeni", jp: "〜まえに", en: "before ...", exp: "Before A (dictionary form or noun+の), B happens.", ex: [["寝るまえに歯をみがきます。", "I brush my teeth before sleeping."], ["食事のまえに手を洗います。", "I wash my hands before meals."]] },
-      { id: "nagara", jp: "〜ながら", en: "while doing", exp: "Two actions by the same person at the same time; the main action comes second.", ex: [["音楽を聞きながら勉強します。", "I study while listening to music."], ["歩きながら話しましょう。", "Let's talk while walking."]] },
-      { id: "taritari", jp: "〜たり〜たりします", en: "do things like A and B", exp: "Lists representative activities, implying there are others.", ex: [["週末は本を読んだり、映画を見たりします。", "On weekends I read books, watch movies, and so on."], ["日曜日は掃除したり、洗濯したりしました。", "On Sunday I cleaned, did laundry, and such."]] },
-      { id: "kata", jp: "〜かた", en: "how to ...", exp: "Verb stem + 方: the way or method of doing something.", ex: [["漢字の読み方を教えてください。", "Please teach me how to read this kanji."], ["この機械の使い方がわかりません。", "I don't know how to use this machine."]] },
-      { id: "toki", jp: "〜とき", en: "when ...", exp: "'At the time of A' — A can be a verb, adjective, or noun+の.", ex: [["ひまなとき、音楽を聞きます。", "When I'm free, I listen to music."], ["日本に来たとき、驚きました。", "When I came to Japan, I was surprised."]] },
+      {
+        id: "tekara", jp: "〜てから", en: "after doing",
+        exp: {
+          what: "After doing X, Y — two actions chained in strict order on the て-form.",
+          build: "て-form + から, then the next clause: 手を洗ってから、食べます.",
+          when: "Routines, instructions, itineraries — anywhere order matters.",
+          watch: "This から is pure sequence — the reason-から (Step 11) attaches to whole clauses, this one to て-forms; position tells them apart. Tense lives only at the END: 食べてから行きました casts the whole chain into the past. And one てから per sentence is the natural load — chains of three read as a list wearing a costume.",
+        },
+        ex: [["手を洗ってから食べます。", "I eat after washing my hands."], ["仕事が終わってから飲みに行きました。", "After work ended, I went drinking."], ["仕事が終わってから、何をしますか。", "The after-work question — sequence inside a question."]],
+      },
+      {
+        id: "atode", jp: "〜たあとで", en: "after ...",
+        exp: {
+          what: "After X — looser than てから, and happy to take a noun.",
+          build: "Plain PAST verb + あとで (食べたあとで), or noun + のあとで (仕事のあとで).",
+          when: "Afterwards-plans, and gentle scheduling: 会議のあとで話しましょう.",
+          watch: "The verb before あとで is ALWAYS plain past — even when everything is in the future: 食べたあとで行きます. The た marks completed-relative-to, not past-in-time; English tense instinct fights this exactly once a sentence.",
+        },
+        ex: [["ごはんを食べたあとで散歩します。", "I take a walk after eating."], ["授業のあとで図書館へ行きます。", "After class I go to the library."], ["仕事のあとで、飲みに行きませんか。", "Noun + のあとで, wrapped in an invitation."]],
+      },
+      {
+        id: "maeni", jp: "〜まえに", en: "before ...",
+        exp: {
+          what: "Before X — あとで's mirror.",
+          build: "DICTIONARY form + 前に (寝る前に), or noun + の前に (食事の前に).",
+          when: "Routines and warnings: before bed, before eating, before the meeting.",
+          watch: "The mirror rule: BEFORE takes dictionary form even for past events — 食べる前に手を洗いました. Pair it with あとで's rule and keep both: before→る, after→た, regardless of when anything actually happened. The pair is one of the cleanest systems in the language once you stop consulting English tense.",
+        },
+        ex: [["寝るまえに歯をみがきます。", "I brush my teeth before sleeping."], ["食事のまえに手を洗います。", "I wash my hands before meals."], ["日本に来る前に、日本語を勉強しましたか。", "Dictionary form before 前に — even though everything here is past."]],
+      },
+      {
+        id: "nagara", jp: "〜ながら", en: "while doing",
+        exp: {
+          what: "Doing X while doing Y — two actions, one person, one main event.",
+          build: "ます-stem + ながら, main action LAST: 音楽を聞きながら勉強します — the studying is the point; the music is backdrop.",
+          when: "Multitasking of every kind — and describing your habits: テレビを見ながら食べます.",
+          watch: "One body only: both actions belong to the same person. Two different people doing things at once needs 〜ている間に, later. And the order is meaningful — the ながら clause is the background; swap them and you claim to be mainly listening while incidentally studying.",
+        },
+        ex: [["音楽を聞きながら勉強します。", "I study while listening to music."], ["歩きながら話しましょう。", "Let's talk while walking."], ["歩きながら話しましょう。", "Let's talk while we walk — background action first, main action last."]],
+      },
+      {
+        id: "taritari", jp: "〜たり〜たりします", en: "do things like A and B",
+        exp: {
+          what: "Doing things LIKE X and Y — a sample of activities, order not implied.",
+          build: "た-form + り, repeat, close with する — which carries all the tense: 読んだり書いたりします, 読んだり書いたりしました.",
+          when: "Describing weekends, hobbies, and any answer to what-do-you-do questions that deserves more than one verb.",
+          watch: "The final する is not optional — it holds the tense, and without it the sentence hangs unfinished. And unlike てから, no order is claimed: 食べたり飲んだりしました scatters the evening; 食べてから飲みました schedules it.",
+        },
+        ex: [["週末は本を読んだり、映画を見たりします。", "On weekends I read books, watch movies, and so on."], ["日曜日は掃除したり、洗濯したりしました。", "On Sunday I cleaned, did laundry, and such."], ["週末は何をしますか。— 映画を見たり、買い物したりします。", "The weekend question and its sampling answer."]],
+      },
+      {
+        id: "kata", jp: "〜かた", en: "how to ...",
+        exp: {
+          what: "How-to as a noun: 方(かた) turns a verb into the way of doing it.",
+          build: "ます-stem + 方: 読み方, 使い方, 作り方. The result is a NOUN, so it takes の from what it attaches to: 漢字の読み方.",
+          when: "Asking how anything works — which makes it one of the most useful question machines you own.",
+          watch: "The を becomes の: 漢字を読む, but 漢字の読み方 — keeping the を (漢字を読み方) is the signature error. This is also の quietly doing its noun-glue job from Step 3, one more time.",
+        },
+        ex: [["漢字の読み方を教えてください。", "Please teach me how to read this kanji."], ["この機械の使い方がわかりません。", "I don't know how to use this machine."], ["すみません、この漢字の読み方を教えてください。", "The learner's power tool: how-to + please-teach in one sentence."]],
+      },
+      {
+        id: "toki", jp: "〜とき", en: "when ...",
+        exp: {
+          what: "When X, Y — とき turns any clause into a time.",
+          build: "Plain clause + とき: 子どものとき, 忙しいとき, 雨のとき. Nouns take の, な-adjectives keep な.",
+          when: "Childhood stories, conditions, habits — when it rains, when I was small, when I'm busy.",
+          watch: "The famous subtlety: the tense BEFORE とき is relative to the main clause, not to now. 日本に行くとき、かばんを買いました — bought before/while going (still on this side of arrival). 日本に行ったとき、かばんを買いました — bought after arriving. One character, different city where the bag was bought.",
+        },
+        ex: [["ひまなとき、音楽を聞きます。", "When I'm free, I listen to music."], ["日本に来たとき、驚きました。", "When I came to Japan, I was surprised."], ["日本に行くとき、空港でかばんを買いました。", "る + とき: not yet arrived — the bag is from the airport at home."], ["日本に行ったとき、京都でかばんを買いました。", "た + とき: after arriving — the bag is from Kyoto."]],
+      },
       { id: "deshou", jp: "〜でしょう", en: "probably", exp: "Expresses probability or conjecture; also used in weather forecasts.", ex: [["明日は晴れるでしょう。", "It will probably be sunny tomorrow."], ["彼は来ないでしょう。", "He probably won't come."]] },
       {
         id: "b-s6", jp: "作文 · 一日のながれ", en: "narrate a routine", kind: "build",
@@ -1033,9 +1204,36 @@ const CURRICULUM = [
     cat: "Step 8 · Existence & possession",
     bank: [["机", "desk"], ["いす", "chair"], ["猫", "cat"], ["子ども", "child"], ["銀行", "bank"], ["前", "front"], ["下", "under"], ["部屋", "room"]],
     points: [
-      { id: "arimasu", jp: "あります / います", en: "there is / exists", exp: "あります for inanimate things; います for people and animals.", ex: [["机の上に本があります。", "There is a book on the desk."], ["公園に子どもがいます。", "There are children in the park."]] },
-      { id: "motteiru", jp: "〜を持っています", en: "have / own", exp: "Possession of objects, using 持つ in the ています form.", ex: [["車を持っています。", "I have a car."], ["ペンを持っていますか。", "Do you have a pen?"]] },
-      { id: "location", jp: "〜は〜にあります / います", en: "X is (located) at Y", exp: "States where something or someone is.", ex: [["銀行は駅の前にあります。", "The bank is in front of the station."], ["猫はいすの下にいます。", "The cat is under the chair."]] },
+      {
+        id: "arimasu", jp: "あります / います", en: "there is / exists",
+        exp: {
+          what: "Existence: there is. ある for things, いる for anything alive — Japanese splits 'is' by animacy before it tells you anything else.",
+          build: "[place] に [thing] が あります/います. Negatives: ありません, いません.",
+          when: "What's around you, what a place has — and availability, which makes ありますか one of the most-used questions in the language: Wi-Fiはありますか。英語のメニューはありますか。",
+          watch: "The animacy line is strict and drawn by aliveness, not importance: your car takes あります, your goldfish います. And the next lesson adds the one twist this rule can't call alone — あります for events happening.",
+        },
+        ex: [["机の上に本があります。", "There is a book on the desk."], ["公園に子どもがいます。", "There are children in the park."], ["すみません、英語のメニューはありますか。— はい、あります。", "THE availability question, asked and answered."]],
+      },
+      {
+        id: "motteiru", jp: "〜を持っています", en: "have / own",
+        exp: {
+          what: "Having something on you, or owning it — 持つ frozen into the ている state.",
+          build: "[thing] を持っています; negative 持っていません. The state of having, not the act of holding.",
+          when: "Do-you-have questions of every kind: ペンを持っていますか。傘を持っていますか。",
+          watch: "持っています is the state; 持ちます means will take/hold — offering 持ちましょうか uses that one. And living things are never possessions grammatically: 犬がいます, never 犬を持っています — the dog exists at your house; you don't carry it.",
+        },
+        ex: [["車を持っています。", "I have a car."], ["ペンを持っていますか。", "Do you have a pen?"], ["ペン、持っていますか。— はい、どうぞ。", "Got a pen? — casual particle-drop, and the handover."]],
+      },
+      {
+        id: "location", jp: "〜は〜にあります / います", en: "X is (located) at Y",
+        exp: {
+          what: "Where something IS: the known thing takes は, its place takes に.",
+          build: "AはBにあります/います, with position words slotting in through の: 駅の前に, いすの下に.",
+          when: "Directions, descriptions, and the survival question: どこにありますか — or the shorter どこですか, which works everywhere.",
+          watch: "Compare this to the arimasu-sentence and you are watching は and が at work: 机の上に本があります introduces a book; 本は机の上にあります locates the book we both know about. Same facts, different information flow — sb-waga's whole story, on location duty.",
+        },
+        ex: [["銀行は駅の前にあります。", "The bank is in front of the station."], ["猫はいすの下にいます。", "The cat is under the chair."], ["すみません、トイレはどこにありますか。— あそこです。", "THE survival question."]],
+      },
       {
         id: "sb-nide2", jp: "に vs で · second look", en: "existing, located — or held", kind: "skill",
         exp: {
@@ -1075,15 +1273,96 @@ const CURRICULUM = [
     cat: "Step 9 · Adjectives & adverbs",
     bank: [["高い", "expensive; tall"], ["安い", "cheap"], ["寒い", "cold"], ["暑い", "hot"], ["静か", "quiet"], ["簡単", "easy"], ["面白い", "interesting"], ["広い", "spacious"]],
     points: [
-      { id: "iadj", jp: "い形容詞 (i-adjectives)", en: "i-adjective conjugation", exp: "い-adjectives conjugate: 高い → 高くない (neg), 高かった (past), 高くなかった (past neg).", ex: [["この店は高くないです。", "This shop is not expensive."], ["昨日は寒かったです。", "It was cold yesterday."]] },
-      { id: "naadj", jp: "な形容詞 (na-adjectives)", en: "na-adjective usage", exp: "な-adjectives take な before nouns and conjugate with です/じゃない/でした.", ex: [["静かな町です。", "It's a quiet town."], ["この問題は簡単じゃないです。", "This problem is not easy."]] },
-      { id: "kute", jp: "〜くて / 〜で (connecting)", en: "and (adjectives)", exp: "Connects adjectives: い-adj → 〜くて; na-adj/noun → 〜で.", ex: [["この部屋は広くて明るいです。", "This room is spacious and bright."], ["彼は親切で優しいです。", "He is kind and gentle."]] },
-      { id: "narimasu", jp: "〜くなります / 〜になります", en: "become", exp: "Change of state: い-adj → 〜くなる; na-adj/noun → 〜になる.", ex: [["天気がよくなりました。", "The weather got better."], ["兄は医者になりました。", "My brother became a doctor."]] },
-      { id: "shimasu-change", jp: "〜くします / 〜にします", en: "make (something) ...", exp: "Someone changes a thing's state: い-adj → 〜くする; na-adj/noun → 〜にする.", ex: [["部屋を暖かくしてください。", "Please make the room warm."], ["音を静かにしました。", "I made the sound quiet."]] },
-      { id: "nisuru", jp: "〜にします", en: "decide on", exp: "Choosing or deciding on something, e.g. when ordering.", ex: [["私はコーヒーにします。", "I'll have coffee."], ["赤いのにします。", "I'll go with the red one."]] },
-      { id: "amari", jp: "あまり〜ない", en: "not very", exp: "'Not much / not very', always with a negative.", ex: [["あまり高くないです。", "It's not very expensive."], ["あまりテレビを見ません。", "I don't watch TV much."]] },
-      { id: "zenzen", jp: "ぜんぜん〜ない", en: "not at all", exp: "'Not at all', with a negative.", ex: [["ぜんぜんわかりません。", "I don't understand at all."], ["お金がぜんぜんありません。", "I have no money at all."]] },
-      { id: "totemo", jp: "とても / ちょっと", en: "very / a little", exp: "Degree adverbs placed before adjectives or verbs.", ex: [["この映画はとても面白いです。", "This movie is very interesting."], ["ちょっと疲れました。", "I'm a little tired."]] },
+      {
+        id: "iadj", jp: "い形容詞 (i-adjectives)", en: "i-adjective conjugation",
+        exp: {
+          what: "い-adjectives conjugate themselves — tense and negation live on the adjective, and です contributes only politeness.",
+          build: "Drop the い: 高くない (negative), 高かった (past), 高くなかった (past negative). です goes after any of them, unchanged.",
+          when: "Describing anything, and answering どうでしたか — the how-was-it question that follows every movie, meal and trip.",
+          watch: "Two traps carry most of the failures. 高いでした is the classic — でした belongs to nouns and な-adjectives; い-adjectives carry their own past (高かったです). And いい is irregular everywhere: よくない, よかった, よくなかった — never いくない. Chant it once a day until it's boring.",
+        },
+        ex: [["この店は高くないです。", "This shop is not expensive."], ["昨日は寒かったです。", "It was cold yesterday."], ["映画はどうでしたか。— とても面白かったです。", "Past tense rides the adjective; です just adds polish."]],
+      },
+      {
+        id: "naadj", jp: "な形容詞 (na-adjectives)", en: "na-adjective usage",
+        exp: {
+          what: "な-adjectives are nouns wearing adjective clothing: な before a noun, です-machinery for everything else.",
+          build: "静かな町 before a noun; 静かです, 静かじゃないです, 静かでした standing alone.",
+          when: "Description, like the い-family — the split between the two families is arbitrary history, so the family of each word has to be learned with the word.",
+          watch: "The な appears ONLY before a noun — 静かなです is wrong. The traps are the な-words that end in い: きれい and きらい both belong HERE, so きれいくない is wrong (きれいじゃない), and — from Step 3's の drill — きれいの人 is doubly wrong: it's きれいな人.",
+        },
+        ex: [["静かな町です。", "It's a quiet town."], ["この問題は簡単じゃないです。", "This problem is not easy."], ["どんな町ですか。— 静かで、きれいな町です。", "The what-kind question — な before the noun, で joining."]],
+      },
+      {
+        id: "kute", jp: "〜くて / 〜で (connecting)", en: "and (adjectives)",
+        exp: {
+          what: "Joining adjectives into one description: and, without a second sentence.",
+          build: "い-adjectives become 〜くて: 広くて明るい. な-adjectives and nouns take で: 静かで優しい, 先生で母です.",
+          when: "Descriptions with two or more qualities — which is most descriptions worth giving.",
+          watch: "Match the connector to the family: くて for い, で for な — mixing them is the visible error. いい joins as よくて. And the て carries a whisper of sequence or cause: 忙しくて、行けません leans on busy as the reason — a preview of how much work て does in this language.",
+        },
+        ex: [["この部屋は広くて明るいです。", "This room is spacious and bright."], ["彼は親切で優しいです。", "He is kind and gentle."], ["この店は安くて、おいしいです。", "Two claims, one sentence — the standard restaurant verdict."]],
+      },
+      {
+        id: "narimasu", jp: "〜くなります / 〜になります", en: "become",
+        exp: {
+          what: "Becoming — change of state, with the change inside the verb なる.",
+          build: "い-adjectives: 〜くなります (寒くなりました). な-adjectives and nouns: 〜になります (元気になりました, 医者になりました).",
+          when: "Weather turning, people recovering, careers happening, prices rising.",
+          watch: "なる is the it-happens twin — nobody has to do anything for 寒くなる. The someone-does-it twin is する, next lesson, and the pair is the transitivity logic from Step 4 wearing adjective clothing. Watch the joint: 寒くなる, never 寒いなる.",
+        },
+        ex: [["天気がよくなりました。", "The weather got better."], ["兄は医者になりました。", "My brother became a doctor."], ["日本語が上手になりましたね。", "The compliment of progress — becoming, aimed at you."]],
+      },
+      {
+        id: "shimasu-change", jp: "〜くします / 〜にします", en: "make (something) ...",
+        exp: {
+          what: "Making something become — the deliberate twin of なります.",
+          build: "い-adjectives: 〜くします (部屋を暖かくします). な-adjectives and nouns: 〜にします (音を静かにします).",
+          when: "Requests and adjustments: warmer, quieter, cheaper, cleaner.",
+          watch: "する needs a doer and a を — that is the whole difference from なる. 部屋が暖かくなりました (it warmed up) versus 部屋を暖かくしました (someone warmed it): the verb pair logic from Step 4, one more time, because it never stops applying.",
+        },
+        ex: [["部屋を暖かくしてください。", "Please make the room warm."], ["音を静かにしました。", "I made the sound quiet."], ["すみません、少し静かにしてください。", "The polite adjustment request — change-する riding てください."]],
+      },
+      {
+        id: "nisuru", jp: "〜にします", en: "decide on",
+        exp: {
+          what: "Deciding on something — the choosing にします, mostly heard across counters.",
+          build: "[chosen thing] にします: コーヒーにします. Question: 何にしますか.",
+          when: "Ordering, choosing between options, settling any what-will-you-have.",
+          watch: "One vowel from a different world: にします chooses, になります becomes — コーヒーにします orders a coffee; コーヒーになります is a prophecy. And 何にしますか is THE restaurant question; answering it with にします closes the loop politely.",
+        },
+        ex: [["私はコーヒーにします。", "I'll have coffee."], ["赤いのにします。", "I'll go with the red one."], ["何にしますか。— 私はうどんにします。", "THE ordering exchange, both halves."]],
+      },
+      {
+        id: "amari", jp: "あまり〜ない", en: "not very",
+        exp: {
+          what: "Not very — a softener that only works holding hands with a negative.",
+          build: "あまり + negative: あまり高くないです, あまり食べません.",
+          when: "Polite lukewarmness — about food, hobbies, weather, and anything you'd rather not condemn outright.",
+          watch: "The negative is not optional: あまり高いです is broken. In speech you will hear あんまり — same word, relaxed. And あまり好きじゃないです is the polite way to dislike something, which the liking lesson in Step 10 will lean on.",
+        },
+        ex: [["あまり高くないです。", "It's not very expensive."], ["あまりテレビを見ません。", "I don't watch TV much."], ["スポーツをしますか。— あまりしません。", "The polite lukewarm answer."]],
+      },
+      {
+        id: "zenzen", jp: "ぜんぜん〜ない", en: "not at all",
+        exp: {
+          what: "Not at all — total negation's adverb.",
+          build: "ぜんぜん + negative: ぜんぜんわかりません, ぜんぜんありません.",
+          when: "Honest zeroes: no money, no idea, no time.",
+          watch: "Textbook rule: negative required. Street truth: casual speech says ぜんぜん大丈夫 (totally fine) constantly — recognize it, enjoy it, and keep your own ぜんぜん glued to negatives for now; in writing the positive use still reads as slang.",
+        },
+        ex: [["ぜんぜんわかりません。", "I don't understand at all."], ["お金がぜんぜんありません。", "I have no money at all."], ["わかりましたか。— いいえ、ぜんぜんわかりませんでした。", "The honest zero, politely delivered."]],
+      },
+      {
+        id: "totemo", jp: "とても / ちょっと", en: "very / a little",
+        exp: {
+          what: "The everyday degree dials: とても turns it up, ちょっと turns it down.",
+          build: "Both sit before the adjective or verb: とても面白い, ちょっと疲れました.",
+          when: "Everywhere — degree words are how opinions get their volume set.",
+          watch: "ちょっと is double-booked: it measures smallness AND powers the soft refusal (the invitations step's ちょっと…). Tone and the trailing-off decide which. In speech すごく does とても's job, and めっちゃ sits further down the casual ladder — the slang stop next door covers that crowd.",
+        },
+        ex: [["この映画はとても面白いです。", "This movie is very interesting."], ["ちょっと疲れました。", "I'm a little tired."], ["日本の夏はどうですか。— とても暑いです。", "Volume set to high — the standard weather verdict."]],
+      },
       { id: "cc-slang", jp: "すごい → すげー", en: "slang cousins of what you know", kind: "culture", exp: "Casual speech stretches and swaps what you just learned: すごい → すげー, and めっちゃ or 超 replace とても. Recognize them anywhere; use them only with friends.", ex: [["この店、めっちゃ安い！", "This place is super cheap! (casual とても)"], ["すげー！", "Whoa! (very casual — friends only)"]] },
       {
         id: "b-s8", jp: "作文 · 場所をえがく", en: "sell me a place", kind: "build",
@@ -1103,12 +1382,66 @@ const CURRICULUM = [
     cat: "Step 10 · Comparing & preferring",
     bank: [["夏", "summer"], ["冬", "winter"], ["果物", "fruit"], ["りんご", "apple"], ["歌", "song"], ["ピアノ", "piano"], ["野菜", "vegetables"], ["バス", "bus"]],
     points: [
-      { id: "hou", jp: "〜より〜のほうが", en: "B more than A", exp: "'Compared to A, B is more X.' The preferred item takes のほうが.", ex: [["電車よりバスのほうが安いです。", "The bus is cheaper than the train."], ["夏より冬のほうが好きです。", "I like winter more than summer."]] },
-      { id: "ichiban", jp: "〜のなかで〜がいちばん", en: "the most (superlative)", exp: "Within a group, X is the most Y.", ex: [["果物のなかでりんごがいちばん好きです。", "Among fruits, I like apples the most."], ["クラスのなかで田中さんがいちばん背が高いです。", "Tanaka-san is the tallest in the class."]] },
-      { id: "suki", jp: "〜が好きです / きらいです", en: "like / dislike", exp: "The liked thing takes が (a classic が-not-を pattern).", ex: [["音楽が好きです。", "I like music."], ["野菜がきらいです。", "I dislike vegetables."]] },
-      { id: "jouzu", jp: "〜が上手です / 下手です", en: "good at / bad at", exp: "Skill at something; the skill takes が. 上手 is not used about yourself — prefer 得意.", ex: [["妹はピアノが上手です。", "My sister is good at piano."], ["私は歌が下手です。", "I'm bad at singing."]] },
-      { id: "wakaru", jp: "〜がわかります", en: "understand", exp: "わかる takes が for the thing understood, not を.", ex: [["日本語が少しわかります。", "I understand a little Japanese."], ["意味がわかりません。", "I don't understand the meaning."]] },
-      { id: "nogasuki", jp: "〜のが好きです", en: "like doing", exp: "の turns a verb into a noun so you can like/dislike an activity.", ex: [["本を読むのが好きです。", "I like reading books."], ["料理を作るのが好きです。", "I like cooking."]] },
+      {
+        id: "hou", jp: "〜より〜のほうが", en: "B more than A",
+        exp: {
+          what: "Comparing two things: the winner takes のほうが.",
+          build: "AよりBのほうが + adjective: 電車よりバスのほうが安いです. The question: AとBと、どちらのほうが…ですか.",
+          when: "Preferences, recommendations, and every which-is-better decision spoken aloud.",
+          watch: "The adjective never changes — no -er, no more: the frame does all the comparing while 安い stays 安い. English keeps groping for morphology here; stop letting it. And answer the どちら question WITH のほうが even though it repeats: 猫のほうが好きです.",
+        },
+        ex: [["電車よりバスのほうが安いです。", "The bus is cheaper than the train."], ["夏より冬のほうが好きです。", "I like winter more than summer."], ["犬と猫と、どちらのほうが好きですか。— 猫のほうが好きです。", "THE comparison question, frame echoed in the answer."]],
+      },
+      {
+        id: "ichiban", jp: "〜のなかで〜がいちばん", en: "the most (superlative)",
+        exp: {
+          what: "The superlative, made of number one: いちばん.",
+          build: "[group] のなかで [X] がいちばん + adjective. Questions: 何が / 誰が / どこがいちばん…ですか.",
+          when: "Favourites, records, rankings — and small talk's favourite question shape: 日本料理のなかで何がいちばん好きですか.",
+          watch: "Question words take が (the rule from Step 1, still on duty), the group takes のなかで, and again no morphology — いちばん does the lifting while the adjective rests. Answering with just the winner + です is natural: 寿司です。",
+        },
+        ex: [["果物のなかでりんごがいちばん好きです。", "Among fruits, I like apples the most."], ["クラスのなかで田中さんがいちばん背が高いです。", "Tanaka-san is the tallest in the class."], ["日本料理のなかで何がいちばん好きですか。— 寿司です。", "Superlative question; predicate-echo answer."]],
+      },
+      {
+        id: "suki", jp: "〜が好きです / きらいです", en: "like / dislike",
+        exp: {
+          what: "Liking, built as a な-adjective rather than a verb — which is why the liked thing takes が.",
+          build: "[thing] が好きです. Stronger: 大好きです. Dislike: きらいです — but see the caution.",
+          when: "Preferences of every kind, and the getting-to-know-you question: 〜が好きですか.",
+          watch: "が, never を — Step 10's drum, drummed. And きらい lands HARD in conversation; polite dislike is あまり好きじゃないです, the あまり lesson doing social work. きらい also hides in the な-family despite its い — きらいくない is wrong twice.",
+        },
+        ex: [["音楽が好きです。", "I like music."], ["野菜がきらいです。", "I dislike vegetables."], ["日本の食べ物が好きですか。— はい、大好きです。", "The liking question, asked and amplified."]],
+      },
+      {
+        id: "jouzu", jp: "〜が上手です / 下手です", en: "good at / bad at",
+        exp: {
+          what: "Skill: good at, bad at — the skill takes が.",
+          build: "[skill] が上手です / 下手です.",
+          when: "Praising others' abilities — and hearing your own praised, which will happen the moment you say こんにちは.",
+          watch: "上手 praises OTHERS; about yourself use 得意 (strong suit) or 苦手 — the 得意 you met in the kanji module. 下手 about someone else is blunt; あまり上手じゃないです spares feelings. And when 日本語が上手ですね lands on you, the native move is deflection: いえいえ、まだまだです.",
+        },
+        ex: [["妹はピアノが上手です。", "My sister is good at piano."], ["私は歌が下手です。", "I'm bad at singing."], ["日本語が上手ですね。— いえいえ、まだまだです。", "The compliment you WILL receive, and its standard deflection."]],
+      },
+      {
+        id: "wakaru", jp: "〜がわかります", en: "understand",
+        exp: {
+          what: "Understanding — what makes sense to you takes が.",
+          build: "[thing] がわかります. わかりました — got it. わかりません — I don't understand, or I can't tell.",
+          when: "Classrooms, directions, and the meta-question that keeps every conversation alive: わかりますか.",
+          watch: "わかる vs 知る: 知っています is having the information; わかります is it making sense. The negatives split harder — 知りません (never heard of it) about a person you've met sounds cold; わかりません stays safe. When lost, the full sentence すみません、よくわかりません buys help without offence.",
+        },
+        ex: [["日本語が少しわかります。", "I understand a little Japanese."], ["意味がわかりません。", "I don't understand the meaning."], ["この言葉の意味がわかりますか。— いいえ、よくわかりません。", "The meaning question — 意味 from the kanji module, earning its keep."]],
+      },
+      {
+        id: "nogasuki", jp: "〜のが好きです", en: "like doing",
+        exp: {
+          what: "Liking an activity — の turns the verb into a noun first, then 好き treats it like any liked thing.",
+          build: "Dictionary form + のが好きです: 読むのが好きです.",
+          when: "Hobbies, and the hobby question: 何をするのが好きですか.",
+          watch: "This is の's fourth job — the one Step 3's drill promised was coming. Don't drop it: 読むが好き is broken; the verb can't take が until の makes it a noun. こと also works (読むことが好きです) — slightly stiffer, at home in writing; both are correct.",
+        },
+        ex: [["本を読むのが好きです。", "I like reading books."], ["料理を作るのが好きです。", "I like cooking."], ["何をするのが好きですか。— 音楽を聞くのが好きです。", "The hobby question — の quietly making nouns of verbs, twice."]],
+      },
       {
         id: "potential", jp: "可能形 (〜られる / 〜える)", en: "saying you can do something",
         exp: {
@@ -1148,17 +1481,80 @@ const CURRICULUM = [
     cat: "Step 11 · Reasons, contrast & connectors",
     bank: [["頭", "head"], ["雨", "rain"], ["時間", "time"], ["遅れる", "to be late"], ["窓", "window"], ["開ける", "to open"], ["忙しい", "busy"], ["痛い", "painful"]],
     points: [
-      { id: "kara-because", jp: "〜から (because)", en: "because / so", exp: "Reason + から + result. Also answers なぜ/どうして questions.", ex: [["暑いから、窓を開けました。", "Because it's hot, I opened the window."], ["時間がないから、急ぎましょう。", "We have no time, so let's hurry."]] },
-      { id: "node", jp: "〜ので", en: "because (softer)", exp: "Like から but softer and more objective; common in polite explanations.", ex: [["頭が痛いので、帰ります。", "I'm going home because I have a headache."], ["雨なので、家にいます。", "Since it's raining, I'll stay home."]] },
-      { id: "ga-but", jp: "〜が / けど (but)", en: "but / although", exp: "Connects two contrasting clauses. けど is casual; が is neutral-polite.", ex: [["高いですが、おいしいです。", "It's expensive, but delicious."], ["行きたいけど、時間がありません。", "I want to go, but I have no time."]] },
+      {
+        id: "kara-because", jp: "〜から (because)", en: "because / so",
+        exp: {
+          what: "Reason first, から, then the result — Japanese states the cause before the effect.",
+          build: "[reason clause] から、[result]. Standalone answer: 〜からです.",
+          when: "Explaining yourself, and answering どうして — where 〜からです is the complete polite answer.",
+          watch: "The order is the mirror of English 'because', which trails its reason — flip your instinct. After a NOUN, から means from (Step 3); after a clause, because — position decides. And a から on every sentence reads as defending yourself; ので, next lesson, is the pressure valve.",
+        },
+        ex: [["暑いから、窓を開けました。", "Because it's hot, I opened the window."], ["時間がないから、急ぎましょう。", "We have no time, so let's hurry."], ["どうして日本語を勉強していますか。— 日本で働きたいからです。", "The why-question and its complete からです answer."]],
+      },
+      {
+        id: "node", jp: "〜ので", en: "because (softer)",
+        exp: {
+          what: "The softer because — presenting the reason as circumstance rather than argument.",
+          build: "Plain clause + ので. Nouns and な-adjectives interpose な: 雨なので, 静かなので.",
+          when: "Polite explanations, requests, and apologies — where から might sound like pleading a case, ので simply reports how things stand.",
+          watch: "The な is the trap: 雨だので is wrong, 雨なので is right — the same な that appears before ん in 学生なんです, doing the same job. Writing to anyone senior, reach for ので; it reads as adult.",
+        },
+        ex: [["頭が痛いので、帰ります。", "I'm going home because I have a headache."], ["雨なので、家にいます。", "Since it's raining, I'll stay home."], ["頭が痛いので、お先に失礼します。", "The polite early exit — reason as circumstance, not excuse."]],
+      },
+      {
+        id: "ga-but", jp: "〜が / けど (but)", en: "but / although",
+        exp: {
+          what: "Joining two clauses that pull against each other: but.",
+          build: "[clause] が、[clause] — neutral-polite. けど is its casual cousin, けれど and けれども climb back up the formality ladder.",
+          when: "Contrasts, concessions, and the polite preamble — すみませんが、 before a request isn't contrasting anything; it's cushioning.",
+          watch: "That preamble-が is worth having on purpose: すみませんが、駅はどこですか reads as courtesy, not contradiction. And the trailing-off usage — ending AT the けど — is its own move, covered next lesson; don't read those sentences as unfinished.",
+        },
+        ex: [["高いですが、おいしいです。", "It's expensive, but delicious."], ["行きたいけど、時間がありません。", "I want to go, but I have no time."], ["すみませんが、駅はどこですか。", "The cushion-が — no contrast, pure courtesy."]],
+      },
       { id: "cc-kedo", jp: "〜けど…", en: "the sentence that trails off on purpose", kind: "culture",
         exp: "You just learned けど and が as 'but' — here is the part no textbook leads with: Japanese routinely ends the sentence there. ちょっと高いんですけど… — it's a bit expensive, and the sentence is over. Nothing is missing; the unsaid half (…so could we talk about the price?) is the point, handed to the listener to complete.\n\nIn English a trailing 'but…' sounds unfinished or passive-aggressive. In Japanese it's polished — softer than saying the conclusion aloud, because the conclusion might force the other person to refuse, and this way nobody has to. You'll hear it constantly in requests: すみません、駅に行きたいんですけど… is a complete, polite request for directions — the ん you met in Step 3 and the けど from two lessons ago, doing their best work together.\n\nRecognition first, then production: end your request at けど and stop talking. The silence is doing grammar.",
         ex: [["駅に行きたいんですけど…", "A complete request for directions — the asking lives in the unsaid half."], ["ちょっと高いんですけど…", "A complete negotiation opener."]],
       },
-      { id: "demo", jp: "でも / そして / それから", en: "but / and / and then", exp: "Sentence-starting connectors: でも (but), そして (and), それから (and then).", ex: [["雨でした。でも、出かけました。", "It was raining. But I went out."], ["朝ごはんを食べました。それから、学校へ行きました。", "I ate breakfast. Then I went to school."]] },
-      { id: "toiu", jp: "〜という", en: "called / named", exp: "Introduces a name the listener may not know.", ex: [["「花」という映画を見ました。", "I watched a movie called 'Hana'."], ["ポチという犬を飼っています。", "I have a dog named Pochi."]] },
-      { id: "doushite", jp: "どうして / なぜ〜からです", en: "why? ... because", exp: "Ask a reason with どうして/なぜ; answer with 〜からです.", ex: [["どうして遅れましたか。", "Why were you late?"], ["電車が止まったからです。", "Because the train stopped."]] },
-      { id: "nanika", jp: "何か / どこか / だれか", en: "something / somewhere / someone", exp: "Question word + か makes an indefinite: something, somewhere, someone.", ex: [["何か食べたいです。", "I want to eat something."], ["どこかへ行きましょう。", "Let's go somewhere."]] },
+      {
+        id: "demo", jp: "でも / そして / それから", en: "but / and / and then",
+        exp: {
+          what: "The sentence-starters: でも (but), そして (and), それから (and then) — connection across a full stop.",
+          build: "Start the new sentence with them: 雨でした。でも、出かけました。",
+          when: "Longer thoughts, stories, and anywhere one sentence isn't enough — which is soon.",
+          watch: "でも STARTS sentences; が and けど JOIN clauses — でも in the middle of a sentence is the visible learner seam. それから sequences (and then); そして adds without sequencing. Speech also opens with で alone — a clipped それで — recognize it.",
+        },
+        ex: [["雨でした。でも、出かけました。", "It was raining. But I went out."], ["朝ごはんを食べました。それから、学校へ行きました。", "I ate breakfast. Then I went to school."], ["朝ごはんを食べました。それから、学校へ行きました。", "Sequence across the full stop."]],
+      },
+      {
+        id: "toiu", jp: "〜という", en: "called / named",
+        exp: {
+          what: "Introducing a name the listener may not know: called, named.",
+          build: "[name] という [noun]: 「花」という映画, ポチという犬.",
+          when: "Titles, names, new words — and the learner's power tool: asking what things are called.",
+          watch: "The question form is the treasure here: これは日本語で何といいますか asks the name of anything you can point at, and the answer comes back in the same frame — 「はさみ」といいます. One pattern, infinite vocabulary lessons, free.",
+        },
+        ex: [["「花」という映画を見ました。", "I watched a movie called 'Hana'."], ["ポチという犬を飼っています。", "I have a dog named Pochi."], ["これは日本語で何といいますか。— 「はさみ」といいます。", "The what's-it-called question — infinite vocabulary, one frame."]],
+      },
+      {
+        id: "doushite", jp: "どうして / なぜ〜からです", en: "why? ... because",
+        exp: {
+          what: "Asking why, and answering it as a pair: どうして…か。— 〜からです。",
+          build: "どうして (neutral-polite), なぜ (formal, written), なんで (casual) — three registers of the same question. Answer with 〜からです.",
+          when: "Any why. どうしてですか alone follows anything anyone says.",
+          watch: "Bare why-questions can press hard in Japanese — どうして来ないんですか with the explanatory ん (Step 3's cc) softens the demand into curiosity. Choose the register with the relationship: なんで with friends, どうして as default, なぜ on paper.",
+        },
+        ex: [["どうして遅れましたか。", "Why were you late?"], ["電車が止まったからです。", "Because the train stopped."], ["どうして遅れたんですか。— 電車が止まったからです。", "Why softened with ん, answered with からです."]],
+      },
+      {
+        id: "nanika", jp: "何か / どこか / だれか", en: "something / somewhere / someone",
+        exp: {
+          what: "Something, someone, somewhere — question words plus か stop asking and start gesturing.",
+          build: "何か, 誰か, どこか, いつか. Particles often drop after them: 何か食べたい.",
+          when: "Offers, vague plans, and half-formed wants: 何か飲みますか。どこか行きたいです。",
+          watch: "The one-syllable trap: 何か食べましたか asks WHETHER you ate (yes/no); 何を食べましたか asks WHAT you ate (content). Answer type follows question type — a はい to the を-version answers a question nobody asked. sb-negq's statement-tracking rule, from the other side.",
+        },
+        ex: [["何か食べたいです。", "I want to eat something."], ["どこかへ行きましょう。", "Let's go somewhere."], ["何か飲みますか。— はい、じゃあお茶をください。", "The something-offer: a yes/no question wearing a question word."]],
+      },
       {
         id: "sb-orthography", jp: "漢字とかな", en: "which script a word gets", kind: "skill",
         exp: {
