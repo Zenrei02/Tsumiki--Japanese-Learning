@@ -1,6 +1,6 @@
-# Word ledger report — 2026-08-10
+# Word ledger report — 2026-08-13
 
-**288 distinct words** across the three stores: 95 in lesson banks, 218 in KANJI_DICT, 76 in kanji w: arrays; 88 appear in more than one store.
+**302 distinct words** across the three stores: 95 in lesson banks, 218 in KANJI_DICT, 120 in kanji w: arrays; 110 appear in more than one store.
 
 ## Cross-store reading conflicts
 
@@ -10,4 +10,4 @@ None. The three stores never disagree on a reading — the divergence is in *sco
 
 These appear only in a lesson `bank` (which stores no readings). The display path covers them only if KANJI_DICT happens to have the word; otherwise they render as 'not in dictionary'. This is the concrete cost of the three-store split:
 
-お茶, 一緒に, 会う, 作る, 使う, 写真を撮る, 勉強する, 安い, 寒い, 寝る, 帰る, 広い, 座る, 待つ, 忙しい, 思う, 急ぐ, 手を洗う, 散歩する, 新しい, 暑い, 歯をみがく, 痛い, 終わる, 薬を飲む, 買う, 起きる, 遅れる, 開ける, 雨が降る, 面白い, 高い
+一緒に, 写真を撮る, 勉強する, 寒い, 寝る, 座る, 忙しい, 急ぐ, 手を洗う, 散歩する, 暑い, 歯をみがく, 痛い, 薬を飲む, 遅れる, 雨が降る, 面白い

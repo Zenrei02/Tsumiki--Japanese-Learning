@@ -1,7 +1,7 @@
 {
- "generated": "2026-08-10",
+ "generated": "2026-08-13",
  "note": "Authoritative word set for the app. Input to the word-driven ordering pipeline. Regenerate with build-word-ledger.py.",
- "count": 288,
+ "count": 302,
  "words": [
   {
    "written": "学生",
@@ -183,7 +183,8 @@
    "sources": [
     "bank:Step 2",
     "KANJI_DICT",
-    "w:車"
+    "w:車",
+    "w:電"
    ],
    "jlpt": "N5"
   },
@@ -226,7 +227,8 @@
    ],
    "sources": [
     "bank:Step 2",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:朝"
    ],
    "jlpt": "N5"
   },
@@ -240,7 +242,8 @@
    ],
    "sources": [
     "bank:Step 2",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:書"
    ],
    "jlpt": "N3"
   },
@@ -332,11 +335,13 @@
     "にほんご"
    ],
    "meanings": [
-    "Japanese language"
+    "Japanese language",
+    "Japanese (language)"
    ],
    "sources": [
     "bank:Step 3",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:語"
    ],
    "jlpt": "N5"
   },
@@ -351,7 +356,8 @@
    "sources": [
     "bank:Step 3",
     "KANJI_DICT",
-    "w:月"
+    "w:月",
+    "w:曜"
    ],
    "jlpt": "N5"
   },
@@ -406,12 +412,15 @@
   },
   {
    "written": "起きる",
-   "readings": [],
+   "readings": [
+    "おきる"
+   ],
    "meanings": [
     "to get up"
    ],
    "sources": [
-    "bank:Step 4"
+    "bank:Step 4",
+    "w:起"
    ]
   },
   {
@@ -436,7 +445,8 @@
     "bank:Step 4",
     "bank:Checkpoint 1",
     "KANJI_DICT",
-    "w:日"
+    "w:日",
+    "w:毎"
    ],
    "jlpt": "N5"
   },
@@ -457,12 +467,15 @@
   },
   {
    "written": "待つ",
-   "readings": [],
+   "readings": [
+    "まつ"
+   ],
    "meanings": [
     "to wait"
    ],
    "sources": [
-    "bank:Step 5"
+    "bank:Step 5",
+    "w:待"
    ]
   },
   {
@@ -497,13 +510,16 @@
   },
   {
    "written": "帰る",
-   "readings": [],
+   "readings": [
+    "かえる"
+   ],
    "meanings": [
     "to go home"
    ],
    "sources": [
     "bank:Step 5",
-    "bank:Checkpoint 2"
+    "bank:Checkpoint 2",
+    "w:帰"
    ]
   },
   {
@@ -521,12 +537,15 @@
   },
   {
    "written": "使う",
-   "readings": [],
+   "readings": [
+    "つかう"
+   ],
    "meanings": [
     "to use"
    ],
    "sources": [
-    "bank:Step 5"
+    "bank:Step 5",
+    "w:使"
    ]
   },
   {
@@ -566,43 +585,55 @@
   },
   {
    "written": "お茶",
-   "readings": [],
+   "readings": [
+    "おちゃ"
+   ],
    "meanings": [
     "tea"
    ],
    "sources": [
-    "bank:Step 6"
+    "bank:Step 6",
+    "w:茶"
    ]
   },
   {
    "written": "買う",
-   "readings": [],
+   "readings": [
+    "かう"
+   ],
    "meanings": [
     "to buy"
    ],
    "sources": [
     "bank:Step 6",
-    "bank:Checkpoint 2"
+    "bank:Checkpoint 2",
+    "w:買"
    ]
   },
   {
    "written": "会う",
-   "readings": [],
+   "readings": [
+    "あう"
+   ],
    "meanings": [
     "to meet"
    ],
    "sources": [
-    "bank:Step 6"
+    "bank:Step 6",
+    "w:会"
    ]
   },
   {
    "written": "新しい",
-   "readings": [],
+   "readings": [
+    "あたらしい"
+   ],
    "meanings": [
     "new"
    ],
    "sources": [
-    "bank:Step 6"
+    "bank:Step 6",
+    "w:新"
    ]
   },
   {
@@ -711,13 +742,16 @@
   },
   {
    "written": "終わる",
-   "readings": [],
+   "readings": [
+    "おわる"
+   ],
    "meanings": [
     "to end"
    ],
    "sources": [
     "bank:Step 7",
-    "bank:Step 12"
+    "bank:Step 12",
+    "w:終"
    ]
   },
   {
@@ -822,11 +856,13 @@
    ],
    "meanings": [
     "front",
-    "before; in front"
+    "before; in front",
+    "front; before"
    ],
    "sources": [
     "bank:Step 8",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:前"
    ],
    "jlpt": "N5"
   },
@@ -864,22 +900,29 @@
   },
   {
    "written": "高い",
-   "readings": [],
+   "readings": [
+    "たかい"
+   ],
    "meanings": [
-    "expensive; tall"
+    "expensive; tall",
+    "tall; expensive"
    ],
    "sources": [
-    "bank:Step 9"
+    "bank:Step 9",
+    "w:高"
    ]
   },
   {
    "written": "安い",
-   "readings": [],
+   "readings": [
+    "やすい"
+   ],
    "meanings": [
     "cheap"
    ],
    "sources": [
-    "bank:Step 9"
+    "bank:Step 9",
+    "w:安"
    ]
   },
   {
@@ -943,12 +986,16 @@
   },
   {
    "written": "広い",
-   "readings": [],
+   "readings": [
+    "ひろい"
+   ],
    "meanings": [
-    "spacious"
+    "spacious",
+    "spacious; wide"
    ],
    "sources": [
-    "bank:Step 9"
+    "bank:Step 9",
+    "w:広"
    ]
   },
   {
@@ -1128,12 +1175,15 @@
   },
   {
    "written": "開ける",
-   "readings": [],
+   "readings": [
+    "あける"
+   ],
    "meanings": [
     "to open"
    ],
    "sources": [
-    "bank:Step 11"
+    "bank:Step 11",
+    "w:開"
    ]
   },
   {
@@ -1158,12 +1208,15 @@
   },
   {
    "written": "思う",
-   "readings": [],
+   "readings": [
+    "おもう"
+   ],
    "meanings": [
     "to think"
    ],
    "sources": [
-    "bank:Step 12"
+    "bank:Step 12",
+    "w:思"
    ]
   },
   {
@@ -1191,12 +1244,15 @@
   },
   {
    "written": "作る",
-   "readings": [],
+   "readings": [
+    "つくる"
+   ],
    "meanings": [
     "to make"
    ],
    "sources": [
-    "bank:Step 12"
+    "bank:Step 12",
+    "w:作"
    ]
   },
   {
@@ -1224,7 +1280,8 @@
    ],
    "sources": [
     "bank:Step 12",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:電"
    ],
    "jlpt": "N4"
   },
@@ -1354,10 +1411,12 @@
     "さんぽ"
    ],
    "meanings": [
-    "a walk"
+    "a walk",
+    "a walk; a stroll"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:歩"
    ],
    "jlpt": "N3"
   },
@@ -1425,7 +1484,8 @@
     "weekend"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:週"
    ],
    "jlpt": "N4"
   },
@@ -2212,7 +2272,9 @@
     "name"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:名",
+    "w:前"
    ],
    "jlpt": "N5"
   },
@@ -2451,7 +2513,8 @@
     "nine o'clock"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:九"
    ],
    "jlpt": "N5"
   },
@@ -2464,7 +2527,8 @@
     "five o'clock"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:五"
    ],
    "jlpt": "N5"
   },
@@ -2548,7 +2612,8 @@
    ],
    "sources": [
     "KANJI_DICT",
-    "w:来"
+    "w:来",
+    "w:週"
    ],
    "jlpt": "N5"
   },
@@ -2562,7 +2627,8 @@
    ],
    "sources": [
     "KANJI_DICT",
-    "w:先"
+    "w:先",
+    "w:週"
    ],
    "jlpt": "N5"
   },
@@ -2629,7 +2695,8 @@
     "the end"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:終"
    ],
    "jlpt": "N4"
   },
@@ -2734,7 +2801,8 @@
     "morning"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:朝"
    ],
    "jlpt": "N5"
   },
@@ -2982,10 +3050,13 @@
     "さくぶん"
    ],
    "meanings": [
-    "composition; writing"
+    "composition; writing",
+    "composition"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:作",
+    "w:文"
    ],
    "jlpt": "N3"
   },
@@ -3115,7 +3186,8 @@
     "sentence"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:文"
    ],
    "jlpt": "N4"
   },
@@ -3206,7 +3278,8 @@
     "company"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:会"
    ],
    "jlpt": "N4"
   },
@@ -3220,7 +3293,8 @@
    ],
    "sources": [
     "KANJI_DICT",
-    "w:話"
+    "w:話",
+    "w:電"
    ],
    "jlpt": "N5"
   },
@@ -3741,6 +3815,174 @@
    ],
    "sources": [
     "w:何"
+   ]
+  },
+  {
+   "written": "五つ",
+   "readings": [
+    "いつつ"
+   ],
+   "meanings": [
+    "five things"
+   ],
+   "sources": [
+    "w:五"
+   ]
+  },
+  {
+   "written": "六時",
+   "readings": [
+    "ろくじ"
+   ],
+   "meanings": [
+    "six o'clock"
+   ],
+   "sources": [
+    "w:六"
+   ]
+  },
+  {
+   "written": "買い物",
+   "readings": [
+    "かいもの"
+   ],
+   "meanings": [
+    "shopping"
+   ],
+   "sources": [
+    "w:買"
+   ]
+  },
+  {
+   "written": "書く",
+   "readings": [
+    "かく"
+   ],
+   "meanings": [
+    "to write"
+   ],
+   "sources": [
+    "w:書"
+   ]
+  },
+  {
+   "written": "毎朝",
+   "readings": [
+    "まいあさ"
+   ],
+   "meanings": [
+    "every morning"
+   ],
+   "sources": [
+    "w:朝"
+   ]
+  },
+  {
+   "written": "毎週",
+   "readings": [
+    "まいしゅう"
+   ],
+   "meanings": [
+    "every week"
+   ],
+   "sources": [
+    "w:毎"
+   ]
+  },
+  {
+   "written": "何曜日",
+   "readings": [
+    "なんようび"
+   ],
+   "meanings": [
+    "what day of the week"
+   ],
+   "sources": [
+    "w:曜"
+   ]
+  },
+  {
+   "written": "英語",
+   "readings": [
+    "えいご"
+   ],
+   "meanings": [
+    "English (language)"
+   ],
+   "sources": [
+    "w:語"
+   ]
+  },
+  {
+   "written": "新聞",
+   "readings": [
+    "しんぶん"
+   ],
+   "meanings": [
+    "newspaper"
+   ],
+   "sources": [
+    "w:新"
+   ]
+  },
+  {
+   "written": "始まる",
+   "readings": [
+    "はじまる"
+   ],
+   "meanings": [
+    "to begin (by itself)"
+   ],
+   "sources": [
+    "w:始"
+   ]
+  },
+  {
+   "written": "始める",
+   "readings": [
+    "はじめる"
+   ],
+   "meanings": [
+    "to begin (something)"
+   ],
+   "sources": [
+    "w:始"
+   ]
+  },
+  {
+   "written": "飲む",
+   "readings": [
+    "のむ"
+   ],
+   "meanings": [
+    "to drink"
+   ],
+   "sources": [
+    "w:飲"
+   ]
+  },
+  {
+   "written": "飲み物",
+   "readings": [
+    "のみもの"
+   ],
+   "meanings": [
+    "a drink"
+   ],
+   "sources": [
+    "w:飲"
+   ]
+  },
+  {
+   "written": "歩く",
+   "readings": [
+    "あるく"
+   ],
+   "meanings": [
+    "to walk"
+   ],
+   "sources": [
+    "w:歩"
    ]
   }
  ]
