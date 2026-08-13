@@ -428,6 +428,16 @@ const CURRICULUM = [
         ex: [["学校に行きます。", "I go to school."], ["日本へ来ました。", "I came to Japan."]],
       },
       {
+        id: "sb-kanaparticles", jp: "は・へ・を", en: "when a kana stops sounding like itself", kind: "skill",
+        exp: {
+          what: "Three particles are written with kana that stop sounding like themselves: は reads wa, へ reads e, and を reads o. The kana module planted this before you knew what a particle was — this is where it lands, because now you own all three as grammar.",
+          build: "The rule is mercifully clean: the special reading applies ONLY when the kana is working as a particle. はな (flower) reads hana; the は in 私は reads wa. を is the easy one — it exists for nothing except the particle, so it is always o.",
+          when: "Every sentence you read aloud, and every sentence you type. The IME expects the spelling, not the sound: type 'ha' for the particle は and 'wo' for を — typing 'wa' gets you わ, which is the single most common romaji-input slip there is.",
+          watch: "One sentence can carry the same kana both ways: はなはきれいです — the first は belongs to hana, the second is the particle, wa. Reading aloud is where this shows; writing わたしわ is how it shows in the other direction.",
+        },
+        ex: [["私は学校へ行きます。", "Read watashi wa gakkō e — two spelling quirks in one short sentence."], ["はなはきれいです。", "Same kana twice, read two ways — the second は is the particle."]],
+      },
+      {
         id: "de-place", jp: "で (place)", en: "where the action happens",
         exp: {
           what: "で marks the stage an action is performed on.",
@@ -453,7 +463,7 @@ const CURRICULUM = [
           what: "Both translate as \"at\" or \"in,\" which is exactly why they get swapped. The split isn't about the place — it's about the verb.",
           build: "で goes with verbs of doing. に goes with verbs of being: あります, います, 住んでいる, and with destinations after movement verbs.",
           when: "Ask one question before choosing: is something happening here, or is something simply located here? Happening → で. Located → に.",
-          watch: "Same building, either particle, depending on the verb. 図書館で勉強します and 図書館に本があります are both correct — the place didn't change, the verb did.",
+          watch: "Same building, either particle, depending on the verb. 図書館で勉強します and 図書館に本があります are both correct — the place didn't change, the verb did. The split isn't finished, either — it returns in Step 8, when あります and います give 'being somewhere' a verb of its own, and bring one surprise with them.",
         },
         ex: [["図書館で勉強します。", "I study at the library. (action → で)"], ["図書館に本がたくさんあります。", "There are many books in the library. (existence → に)"]],
       },
@@ -511,7 +521,7 @@ const CURRICULUM = [
           what: "English requires a subject in every clause. Japanese doesn't — and leaves it out whenever context makes it obvious. Sentences with no visible subject at all are the norm, not an abbreviation.",
           build: "Just delete it. If it's clear who you're talking about, the sentence is finished without a pronoun.",
           when: "Keep 私 only for genuine contrast, or when introducing yourself as a new topic. For other people, use their name plus さん — 田中さんは — which is what あなた's job actually is.",
-          watch: "Repeating 私 in every sentence is the single loudest marker of an English-speaking learner. And あなた toward someone whose name you know can read as cold or even confrontational, despite every textbook glossing it as \"you.\"",
+          watch: "Repeating 私 in every sentence is the single loudest marker of an English-speaking learner. And あなた toward someone whose name you know can read as cold or even confrontational, despite every textbook glossing it as \"you.\" And this is only half the lesson — Step 11 covers the cases where 私 has to stay, once you can build the clauses it stays for.",
         },
         ex: [["昨日映画を見ました。とても面白かったです。", "No 私 anywhere — and completely natural."], ["私は行きますが、妹は行きません。", "私 kept on purpose: contrast."], ["田中さんは今日も忙しいですか。", "Their name, not あなた."]],
       },
@@ -735,7 +745,7 @@ const CURRICULUM = [
           what: "English uses one verb for both sides of an action: I opened the door, and the door opened. Japanese uses two different verbs. 開ける is what a person does to a door; 開く is what the door does on its own. There is no overlap, and English gives you no warning that a choice is being made.",
           build: "The pairs travel in recognisable families: 開ける/開く, 閉める/閉まる, 始める/始まる, 止める/止まる, 出す/出る, 入れる/入る, つける/つく, 消す/消える. The particle has to agree with the verb you picked — the someone-does-it verb takes を (窓を開けます), the it-just-happens verb takes が (窓が開きます). Choose the verb first and the particle follows automatically.",
           when: "Constantly, and especially with 〜ています. 窓が開いています describes a window that is open, which is what you would actually say about a room. 窓を開けています means you are in the middle of opening it right now, which is rarely the point.",
-          watch: "This is the error the checker flags hardest, because there is nothing in English to warn you. 窓を閉まりました is wrong twice: 閉まる is the intransitive verb so it cannot take を, and a person closing something needs 閉めました. Useful self-check — if you find を sitting in front of an intransitive verb, one of the two is wrong.",
+          watch: "This is the error the checker flags hardest, because there is nothing in English to warn you. 窓を閉まりました is wrong twice: 閉まる is the intransitive verb so it cannot take を, and a person closing something needs 閉めました. Useful self-check — if you find を sitting in front of an intransitive verb, one of the two is wrong. You'll meet this again in Step 10, where a second, unrelated family of が verbs arrives — keeping the two がs apart is that lesson's whole point.",
         },
         ex: [["窓を閉めました。", "I closed the window. (I did it → を + transitive)"], ["窓が閉まりました。", "The window closed. (it happened → が + intransitive)"], ["電気がついています。", "The light is on. (state, from the intransitive)"], ["会議は三時に始まります。", "The meeting starts at three. (it starts itself)"]],
       },
@@ -950,6 +960,16 @@ const CURRICULUM = [
       { id: "motteiru", jp: "〜を持っています", en: "have / own", exp: "Possession of objects, using 持つ in the ています form.", ex: [["車を持っています。", "I have a car."], ["ペンを持っていますか。", "Do you have a pen?"]] },
       { id: "location", jp: "〜は〜にあります / います", en: "X is (located) at Y", exp: "States where something or someone is.", ex: [["銀行は駅の前にあります。", "The bank is in front of the station."], ["猫はいすの下にいます。", "The cat is under the chair."]] },
       {
+        id: "sb-nide2", jp: "に vs で · second look", en: "existing, located — or held", kind: "skill",
+        exp: {
+          what: "Step 2's rule: happening → で, located → に. It couldn't be finished there, because the being-somewhere verbs あります and います hadn't arrived. Now they have — and they bring the one case the old rule can't call on its own.",
+          build: "Location keeps に, exactly as promised: 銀行は駅の前にあります. But あります has a second job — an event being held. パーティーがあります, 会議があります. When あります means 'takes place', the place takes で: 明日、学校でパーティーがあります. Same verb on the page; the meaning switched from existing to happening, and the particle follows the meaning, not the verb.",
+          when: "Where things are → に. Where events happen → で. Where you're headed → に or へ, as in Step 6 — the destination never takes で.",
+          watch: "The question is still the one you learned in Step 2 — is something happening here, or simply located here? What's new is that あります can now sit on either side of it. A book あります → に. A party あります → で.",
+        },
+        ex: [["机の上に本があります。", "The book exists there → に."], ["明日、学校でパーティーがあります。", "The party happens there → で, even with あります."]],
+      },
+      {
         id: "ageru", jp: "あげる・くれる・もらう", en: "giving and receiving", kind: "skill",
         exp: {
           what: "Three verbs for one English idea. English says give no matter which way the thing travels; Japanese makes you choose based on who ends up holding it. あげる is giving away from you, くれる is someone giving toward you, もらう is you receiving.",
@@ -1022,6 +1042,16 @@ const CURRICULUM = [
         },
         ex: [["日本語が少し話せます。", "I can speak a little Japanese."], ["この店でカードが使えますか。", "Can I use a card at this shop?"], ["朝早く起きられません。", "I can't get up early."]],
       },
+      {
+        id: "sb-transitive2", jp: "自動詞・他動詞 · second look", en: "two different がs are about to collide", kind: "skill",
+        exp: {
+          what: "Step 4 taught the verb pairs and their particles: を for the twin you do, が for the twin that happens. The reason it resurfaces here, of all places: this step hands out が for a completely different reason, and the two がs need to stay apart in your head.",
+          build: "ドアが開きました — が because 開く is the twin that happens by itself. 音楽が好きです — が because 好き belongs to the small set that demands it. Same particle, two unrelated reasons. In both cases the particle follows the verb's nature; what differs is which nature.",
+          when: "Any time you catch yourself about to write が and can't say which rule put it there. Say the reason out loud: 'happens by itself', or 'one of the が words'. If neither fits, the particle is probably wrong.",
+          watch: "The self-check from Step 4 still holds — を in front of an intransitive verb is always an error — and it matters more now, because this step's compositions are full of both がs at once. 窓が開いています and 犬が好きです earn their がs entirely differently.",
+        },
+        ex: [["ドアが開きました。", "It happened by itself → the intransitive twin's が."], ["音楽が好きです。", "A が word → the other が. Same particle, different law."]],
+      },
       { id: "sb-ganotwo", jp: "を じゃなくて が", en: "the が-not-を reflex", kind: "skill", exp: "A small set of words takes が where English instinct says 'object': 好き, きらい, 上手, 下手, ほしい, わかる, できる — and every potential form (日本語が話せる, 朝早く起きられる). 〜を好き sounds off to native ears — this lesson trains the reflex until が feels automatic.", ex: [["日本語がわかります。", "I understand Japanese."], ["新しいくつがほしいです。", "I want new shoes."]] },
       {
         id: "b-s9", jp: "作文 · 好みを言う", en: "rank and prefer", kind: "build",
@@ -1059,6 +1089,16 @@ const CURRICULUM = [
         ex: [["きれいな部屋です。", "Conventionally kana, even though 綺麗 exists."], ["暑い日に熱いお茶を飲みます。", "A hot day and hot tea — identical sound, different kanji."]],
       },
       { id: "sb-waga2", jp: "は vs が · second look", en: "the refresher, with everything you know now", kind: "skill", exp: "You met は vs が back in Step 2. Now you have contrast, reasons, and comparisons — the places where the choice really matters. A known topic keeps は even through a long sentence (この店は高いですが、おいしいです), while が introduces, answers, and marks preference targets (コーヒーのほうが好きです). If the sentence answers 'which, who, or what' — reach for が.", ex: [["この店は高いですが、おいしいです。", "Topic は carries through the contrast."], ["誰が作りましたか。— 母が作りました。", "Question and answer: が both times."]] },
+      {
+        id: "sb-pronouns2", jp: "私・あなた · second look", en: "when the pronoun must stay", kind: "skill",
+        exp: {
+          what: "Step 3's advice was delete it — and it couldn't be finished there, because the main place 私 genuinely earns its keep needs grammar you didn't have yet: a whole clause describing a noun (Step 4's 名詞修飾).",
+          build: "A describing clause carries its own subject slot, and when that subject isn't obvious from context, it has to be said: 私が好きなスポーツはテニスです — the 私が belongs to the clause, telling you whose liking it is. Swap the subject and the clause follows: 母が作った料理. Inside a describing clause the subject takes が, never は — the rule from the lesson next door.",
+          when: "Describing clauses whose subject needs saying, direct contrast (私は行きますが、妹は行きません — Step 3 already gave you this one), answers to だれが questions, and introducing yourself.",
+          watch: "The over-correction is real: learners who took Step 3 to heart start deleting every 私, and then a sentence like 私が好きなスポーツはテニスです looks 'too English' to them. It isn't — it is exactly how a native speaker says it when the clause needs an owner. Deleting the pronoun is a default, not a law.",
+        },
+        ex: [["私が好きなスポーツはテニスです。", "私 stays: the describing clause needs its own subject — and it takes が."], ["母が作った料理がいちばんおいしいです。", "Same slot, different owner — the clause says whose."]],
+      },
       {
         id: "b-s10", jp: "作文 · 理由を言う", en: "make your case", kind: "build",
         requires: ["kara-because", "node", "ga-but", "doushite"],
@@ -1103,7 +1143,7 @@ const CURRICULUM = [
           what: "English leans on one word, if, and lets context sort out whether you mean a real possibility or an inevitable consequence. Japanese splits those apart, and picking the wrong one changes what you are claiming about the world.",
           build: "〜たら is built from the plain past: 食べる → 食べたら, 行く → 行ったら, 高い → 高かったら. It covers both if and when for one-off events. 〜と attaches to the plain non-past (行くと) and means every single time, without exception — a law of nature, not a plan.",
           when: "〜たら for anything that might or might not happen, and for when-then sequences. 〜と for machines, rules, and reliable consequences: このボタンを押すと、ドアが開きます.",
-          watch: "〜と cannot be followed by a request, an invitation, or anything expressing your will — 東京に行くと、電話してください is wrong, because 〜と describes automatic consequences and a request is not automatic. Use 〜たら. Note also that 〜たら is built from the た-form, which means every sound change you learned in Step 4 is working for you here.",
+          watch: "〜と cannot be followed by a request, an invitation, or anything expressing your will — 東京に行くと、電話してください is wrong, because 〜と describes automatic consequences and a request is not automatic. Use 〜たら. Note also that 〜たら is built from the た-form, which means every sound change you learned in Step 4 is working for you here. One more thing, so the map is honest: Japanese has four ifs — 〜たら, 〜と, 〜ば, 〜なら. Stage 1 gives you the first two; 〜ば and 〜なら arrive in Stage 2, and the four-way choice only makes sense once they do.",
         },
         ex: [["時間があったら、行きます。", "If I have time, I'll go."], ["このボタンを押すと、ドアが開きます。", "Press this button and the door opens. (every time)"], ["日本に着いたら、電話してください。", "When you arrive in Japan, please call. (a request → たら)"]],
       },
@@ -1137,7 +1177,7 @@ const CURRICULUM = [
         },
         ex: [],
       },
-      { id: "rc3", jp: "復習 · Stage 1", en: "checkpoint: the full stage", kind: "review", covers: ["arimasu", "location", "ageru", "iadj", "naadj", "kute", "narimasu", "amari", "hou", "ichiban", "suki", "potential", "wakaru", "nogasuki", "kara-because", "node", "ga-but", "toiu", "sb-pronouns", "sb-waga", "sb-ganotwo", "sb-transitive", "sb-orthography", "sb-omou"], exp: "The full Stage 1 review — existence, adjectives, comparisons, and connectors, plus the skill-builder judgments (pronouns, は/が, が-not-を). Write like you mean it.", ex: [] },
+      { id: "rc3", jp: "復習 · Stage 1", en: "checkpoint: the full stage", kind: "review", covers: ["arimasu", "location", "ageru", "iadj", "naadj", "kute", "narimasu", "amari", "hou", "ichiban", "suki", "potential", "wakaru", "nogasuki", "kara-because", "node", "ga-but", "toiu", "sb-pronouns", "sb-waga", "sb-ganotwo", "sb-transitive", "sb-orthography", "sb-omou", "sb-nide2", "sb-transitive2", "sb-pronouns2"], exp: "The full Stage 1 review — existence, adjectives, comparisons, and connectors, plus the skill-builder judgments (pronouns, は/が, が-not-を). Write like you mean it.", ex: [] },
     ],
   },
   {
