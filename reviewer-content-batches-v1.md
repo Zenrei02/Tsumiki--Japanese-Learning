@@ -62,6 +62,13 @@ sb-kanaparticles, plus the tara watch addition.
    negative-question claim (はい agrees with the negative) — state of the
    art says this is right but usage wobbles in real speech; how hard
    should the lesson state it?
+9. **sb-negq + cc-no** (commit pending): sb-negq's "both systems agree on
+   positive questions" framing and the skip-the-particle escape-hatch
+   advice ("native speakers do this constantly" — confirm); cc-no's
+   readings of ちょっと…/難しいですね/考えておきます/また今度 as
+   refusals — the register judgments here are the most culture-loaded
+   claims in the module and deserve the reviewer's closest read; also the
+   recommended response そうですか、また今度ぜひ.
 
 ## Batch B — kanji Group 3, 17 characters (五六九会電開買作文使書朝起帰週毎曜)
 

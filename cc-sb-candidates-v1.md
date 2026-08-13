@@ -30,13 +30,9 @@ three new SBs.
    agreement そうです now lives in cc-yes (Step 1), which forward-points
    here — the triangle SB should link back to it.
 
-2. **はい/いいえ under negative questions.** SB. Attach: after cc-yes
-   (Step 1), or wherever negative questions get drilled. 学生じゃないですか
-   → はい means "correct, not a student" — Japanese yes/no tracks the
-   statement, English tracks the fact. No English equivalent —
-   auto-qualifies. cc-yes banks the warning and promises "its own drill
-   someday"; this is that drill. Surfaced while authoring cc-yes,
-   flagged per the review-first rule.
+2. ~~はい/いいえ under negative questions~~ **SHIPPED** as sb-negq
+   (Step 1, after cc-yes) — approved by Lloyd, who reports the wiring has
+   flipped his English. cc-yes's promise line updated to point at it.
 
 ## Bookkeeping
 
