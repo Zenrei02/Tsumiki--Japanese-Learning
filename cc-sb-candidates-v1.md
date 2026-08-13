@@ -26,7 +26,17 @@ three new SBs.
    降るそうです vs そうですね — three near-identical shapes, three meanings;
    classic N4 confusion set. Approved by Lloyd with the rest of v1, but
    BLOCKED until its parent lessons exist — author the 〜そう lessons with
-   this SB slot in mind, then ship both together.
+   this SB slot in mind, then ship both together. Note: the everyday
+   agreement そうです now lives in cc-yes (Step 1), which forward-points
+   here — the triangle SB should link back to it.
+
+2. **はい/いいえ under negative questions.** SB. Attach: after cc-yes
+   (Step 1), or wherever negative questions get drilled. 学生じゃないですか
+   → はい means "correct, not a student" — Japanese yes/no tracks the
+   statement, English tracks the fact. No English equivalent —
+   auto-qualifies. cc-yes banks the warning and promises "its own drill
+   someday"; this is that drill. Surfaced while authoring cc-yes,
+   flagged per the review-first rule.
 
 ## Bookkeeping
 

@@ -312,6 +312,10 @@ const CURRICULUM = [
         },
         ex: [["これは何ですか。", "What is this?"], ["田中さんは学生ですか。", "Is Tanaka-san a student?"]],
       },
+      { id: "cc-yes", jp: "はい・ええ・そうです", en: "how to say yes, in more ways than one", kind: "culture",
+        exp: "Japanese has no single word doing what English 'yes' does — it has a repertoire, and each member has a register. はい is the polite workhorse (it's also 'present!' at roll call, and 'go on' while listening — more on that much later). ええ is はい's softer cousin, common in relaxed polite speech. うん is casual, for friends, and its refusal twin ううん is a different pitch of the same hum.\n\nそうです is the agreeing yes: 'that's so.' 学生ですか。— そうです。 It agrees with a statement rather than answering a request, and そうですね adds thinking-time — you'll hear it open half of all answers, meaning something between 'yes' and 'let me see'. そう has other jobs waiting in Stage 2; this everyday one comes first.\n\nBut the most native yes of all is none of these: repeat the predicate. 学生ですか。— はい、学生です。 Echoing the verb back is what full agreement actually sounds like, and it works when nothing else quite does.\n\nOne warning to bank now: with NEGATIVE questions, はい agrees with the negative. 学生じゃないですか。— はい means 'correct — not a student', exactly where English says no. Japanese yes/no tracks the statement, not the underlying fact. File it; it gets its own drill someday.",
+        ex: [["学生ですか。— はい、学生です。", "The most native yes: echo the predicate."], ["いい店ですね。— そうですね。", "Agreeing with a statement — and buying a half-second to think."]],
+      },
       {
         id: "qwords", jp: "何・誰・どこ・いつ・どう", en: "the question words",
         exp: {

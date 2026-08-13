@@ -57,6 +57,11 @@ sb-kanaparticles, plus the tara watch addition.
    "が and に mostly stay" generalization; cc-aizuchi's はい-means-go-on
    and the meetings warning; cc-ritual's よろしくお願いします gloss and
    いただきます-even-alone claim.
+8. **cc-yes** (Step 1): the はい/ええ/うん register ladder; そうですね as
+   thinking-time; echo-the-predicate as "the most native yes"; and the
+   negative-question claim (はい agrees with the negative) — state of the
+   art says this is right but usage wobbles in real speech; how hard
+   should the lesson state it?
 
 ## Batch B — kanji Group 3, 17 characters (五六九会電開買作文使書朝起帰週毎曜)
 
