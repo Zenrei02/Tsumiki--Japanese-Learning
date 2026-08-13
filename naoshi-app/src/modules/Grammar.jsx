@@ -509,6 +509,20 @@ const CURRICULUM = [
         ex: [["私の本です。", "It's my book."], ["日本語の先生です。", "He's a Japanese language teacher."]],
       },
       {
+        id: "sb-no", jp: "の · 一人四役", en: "one particle, four jobs", kind: "skill",
+        exp: {
+          what: "English has no single word doing what の does, so your instinct has nothing to map it onto — which is exactly why it gets a drill of its own. Count the jobs: possession (私の本), description (日本語の先生), standing in for a noun you already named (赤いの — the red one), and a fourth — turning whole verbs into nouns — that arrives in Step 10.",
+          build: "A の B — B is the main thing, A describes it. Read it as 'B of A' while it's new. For the stand-in job, drop the noun and keep の: 赤いのをください.",
+          when: "Whenever two nouns need connecting, and whenever repeating a noun would be clumsy. Japanese reaches for の far more often than English reaches for 'of'.",
+          watch: "The classic overreach: の does NOT attach describing-words to nouns. きれいの人 is wrong — words like きれい bring their own connector (きれいな人), and words like 高い attach directly (高い店). If both sides aren't nouns, の isn't the glue; the two describing-word families get their full lessons in Step 9. Long chains unwind from the right: 私の日本語の先生の本 — the book of the teacher of my Japanese.",
+        },
+        ex: [["私の日本語の先生の本です。", "Chains unwind from the right: my Japanese teacher's book."], ["赤いのをください。", "の standing in for the noun: the red one, please."], ["きれいな人です。", "NOT きれいの人 — describing-words bring their own connector."]],
+      },
+      { id: "cc-n", jp: "ん", en: "の in a hurry", kind: "culture",
+        exp: "Spoken Japanese compresses の to ん constantly, and one pattern carries most of it: 〜んです. どうしたんですか — what's going on? 高いんです — the thing is, it's expensive. The ん adds a flavour English handles with tone of voice: this is an explanation; there's context behind it.\n\nYou don't have to produce it yet. You do have to recognize it, because real speech hands it to you in the first minute: 行くんですか。忙しいんです。 And the bare の on the end of a casual question — なんで来ないの？ — is the same particle, uncompressed.\n\nTwo anchors to keep. In writing and formal speech the full のです survives. And after nouns, a な steps in first: 学生なんです, never 学生んです — that な will matter again when the explanation pattern gets its full lesson later.",
+        ex: [["どうしたんですか。", "What's going on? — the ん marks it as asking for the story."], ["学生なんです。", "Nouns take な before ん: I'm a student, you see."]],
+      },
+      {
         id: "sb-pronouns", jp: "私・あなたを省く", en: "when to drop pronouns", kind: "skill",
         exp: {
           what: "English requires a subject in every clause. Japanese doesn't — and leaves it out whenever context makes it obvious. Sentences with no visible subject at all are the norm, not an abbreviation.",
@@ -848,7 +862,7 @@ const CURRICULUM = [
         },
         ex: [],
       },
-      { id: "rc1", jp: "復習 · Steps 1–3", en: "checkpoint: basics, particles & tense", kind: "review", covers: ["desu", "ka", "wa", "ga", "o", "ni-time", "de-place", "mo", "no", "masu", "mashita", "teiru", "mada"], exp: "Mixed review of everything so far: the copula, core particles, and polite tense. The quiz pulls from all of it. In practice, try combining at least two patterns in one sentence.", ex: [] },
+      { id: "rc1", jp: "復習 · Steps 1–3", en: "checkpoint: basics, particles & tense", kind: "review", covers: ["desu", "ka", "wa", "ga", "o", "ni-time", "de-place", "mo", "no", "masu", "mashita", "teiru", "mada", "sb-no"], exp: "Mixed review of everything so far: the copula, core particles, and polite tense. The quiz pulls from all of it. In practice, try combining at least two patterns in one sentence.", ex: [] },
     ],
   },
   {
@@ -861,6 +875,20 @@ const CURRICULUM = [
       { id: "tewaikemasen", jp: "〜てはいけません", en: "must not", exp: "Prohibition — something is not allowed.", ex: [["ここでたばこを吸ってはいけません。", "You must not smoke here."], ["授業中に寝てはいけません。", "You must not sleep in class."]] },
       { id: "nakereba", jp: "〜なければなりません", en: "must / have to", exp: "Obligation — something is necessary.", ex: [["毎日薬を飲まなければなりません。", "I have to take medicine every day."], ["明日早く起きなければなりません。", "I must get up early tomorrow."]] },
       { id: "nakutemoii", jp: "〜なくてもいいです", en: "don't have to", exp: "The action is not necessary.", ex: [["明日は来なくてもいいです。", "You don't have to come tomorrow."], ["急がなくてもいいですよ。", "You don't have to hurry."]] },
+      { id: "cc-nakya", jp: "なきゃ・なくちゃ・ないと", en: "how 'must' actually sounds", kind: "culture",
+        exp: "Nobody says なければなりません to a friend. Speech clips it hard, and the clipped forms usually drop the second half entirely: 行かなきゃ — gotta go. 勉強しなくちゃ — I've got to study. 帰らないと — I'd better get home. The missing なりません is understood, the way English 'gotta' carries 'have got to' inside it.\n\nThe full forms survive where formality does — strangers, bosses, writing. The clipped ones own everywhere else, so your ears need them even while your own sentences stay polite: なきゃ from なければ, なくちゃ from なくては, and ないと standing alone with its consequence left hanging.",
+        ex: [["もう行かなきゃ。", "Gotta go — the second half is understood."], ["宿題しないと…", "The trailing と leaves the consequence unsaid — exactly like English 'or else…'"]],
+      },
+      {
+        id: "sb-must", jp: "「must」の三すくみ", en: "must, must-not, don't-have-to", kind: "skill",
+        exp: {
+          what: "Three patterns from this step form a triangle English wires differently, and the miswiring is invisible until it does real damage: しなければなりません (must do), してはいけません (must not do), しなくてもいいです (don't have to do).",
+          build: "The dangerous corner is the third. English builds 'must not' and 'don't have to' from the same material, so the instinct is to negate 'must' and hope. Japanese splits them completely: negative form + なくてもいい grants permission NOT to do; て-form + はいけない prohibits. The two share nothing.",
+          when: "Rules, obligations, reassurances. Telling someone 来なくてもいいです (you don't have to come) when you meant 来てはいけません (you must not come) — or the reverse — flips the message, and both sentences are grammatical, so nothing warns you.",
+          watch: "The 'must' pattern itself is modular: なければ, ないと or なきゃ on the left; なりません, いけません or だめ on the right. Most combinations work and mean the same thing — 行かないといけない, 行かなきゃだめ — so don't memorize six patterns, memorize two slots. The double negative is doing the work in all of them ('if you don't go, it won't do'), which is why adding your own extra negative on top is the one honestly wrong move.",
+        },
+        ex: [["明日は来なくてもいいです。", "Don't have to — permission not to."], ["ここに入ってはいけません。", "Must not — prohibition. A different corner entirely."], ["薬を飲まないといけません。", "The same 'must' as なければなりません — two slots, many fillings."]],
+      },
       {
         id: "b-s4", jp: "作文 · ルールを説明する", en: "write the house rules", kind: "build",
         requires: ["tekudasai", "tewaikemasen", "nakereba", "temoii"],
@@ -942,7 +970,7 @@ const CURRICULUM = [
         },
         ex: [],
       },
-      { id: "rc2", jp: "復習 · Steps 4–6", en: "checkpoint: requests, desire & linking", kind: "review", covers: ["tekudasai", "temoii", "tewaikemasen", "nakereba", "mashou", "masenka", "tai", "hoshii", "tsumori", "tekara", "maeni", "nagara", "taritari", "toki"], exp: "Mixed review of requests, permission, obligation, invitations, desire, and linking actions in time. In practice, combine at least two patterns in one sentence.", ex: [] },
+      { id: "rc2", jp: "復習 · Steps 4–6", en: "checkpoint: requests, desire & linking", kind: "review", covers: ["tekudasai", "temoii", "tewaikemasen", "nakereba", "mashou", "masenka", "tai", "hoshii", "tsumori", "tekara", "maeni", "nagara", "taritari", "toki", "sb-must"], exp: "Mixed review of requests, permission, obligation, invitations, desire, and linking actions in time. In practice, combine at least two patterns in one sentence.", ex: [] },
     ],
   },
   {
@@ -1174,11 +1202,54 @@ const CURRICULUM = [
     ],
   },
   {
-    cat: "Stress test — first N4 lesson",
+    cat: "Step 13 · て-form, second wind",
     level: "N4",
-    bank: [["全部", "all"], ["忘れる", "to forget"], ["かさ", "umbrella"], ["財布", "wallet"], ["落とす", "to drop"], ["最後まで", "to the end"]],
+    bank: [["全部", "all"], ["忘れる", "to forget"], ["かさ", "umbrella"], ["財布", "wallet"], ["落とす", "to drop"], ["最後まで", "to the end"], ["予約", "reservation"], ["窓", "window"], ["電気", "electricity; lights"], ["晩ご飯", "dinner"]],
     points: [
-      { id: "teshimau", jp: "〜てしまう", en: "completely / regrettably do", n4: true, exp: "N4: expresses completion ('finished entirely') or an unintended, regrettable result. Casual contractions: 〜ちゃう / 〜じゃう.", ex: [["宿題を全部やってしまいました。", "I finished all my homework."], ["電車の中でかさを忘れてしまいました。", "I (regrettably) forgot my umbrella on the train."]] },
+      {
+        id: "teshimau", jp: "〜てしまう", en: "done — completely, or regrettably", n4: true,
+        exp: {
+          what: "One ending, two flavours sharing a root: the action went all the way. Neutrally that's completion — 最後まで読んでしまいました, read to the very end. Emotionally it's a result you can't take back — 財布を落としてしまいました, and the regret lives inside the verb rather than being added to it.",
+          build: "て-form + しまう, which then conjugates like any Go verb: 食べてしまいます, 食べてしまいました.",
+          when: "Finishing things entirely, and reporting accidents, losses, and things said that shouldn't have been. English needs a whole phrase — 'went and lost it', 'ended up eating it all'; Japanese folds it into the verb.",
+          watch: "Context picks the flavour, and the past tense with an unfortunate object almost always reads as regret. Don't reach for it on happy outcomes — 合格してしまいました reads as 'I regrettably passed'. In speech this compresses to ちゃう / じゃう — the culture stop two lessons ahead — so 忘れちゃった IS 忘れてしまった, not a verb you never learned.",
+        },
+        ex: [["宿題を全部やってしまいました。", "Completion: every bit of it, done."], ["電車の中でかさを忘れてしまいました。", "Regret: the umbrella is gone, and the verb says how you feel about it."]],
+      },
+      {
+        id: "teoku", jp: "〜ておく", en: "do it now, for later", n4: true,
+        exp: {
+          what: "An action done in advance so that later goes smoothly. English says 'ahead of time' or 'go ahead and'; Japanese puts the preparation inside the verb: ホテルを予約しておきます — book it now, because the trip is coming.",
+          build: "て-form + おく: 買っておく, 作っておく, 調べておく. Polite 〜ておきます, past 〜ておきました.",
+          when: "Preparations of every size — chilling drinks before guests arrive, reading the papers before the meeting, leaving a note before going out. A quieter second use points the same idea at not-doing: そのままにしておいてください, leave it as it is.",
+          watch: "The trap is translating it as plain future. 買います says you will buy it; 買っておきます says you're buying it now so that later works. If you can't name the 'later', ておく is the wrong tool. Speech clips it to とく — 買っとく — same culture stop as ちゃう.",
+        },
+        ex: [["ホテルを予約しておきました。", "Booked ahead — the later is already in the verb's mind."], ["飲み物を冷やしておいてください。", "Please chill the drinks (for when they're needed)."]],
+      },
+      {
+        id: "tearu", jp: "〜てある", en: "it's been done, and it shows", n4: true,
+        exp: {
+          what: "A state that exists because somebody deliberately made it: 窓が開けてあります — the window stands open, and someone opened it on purpose. English needs the awkward 'has been opened (and still is)'; Japanese keeps a form for exactly this.",
+          build: "て-form of a TRANSITIVE verb + ある, and the thing takes が: 窓が開けてある, 晩ご飯が作ってある. The doer goes unmentioned — the point is the arranged state, not who arranged it.",
+          when: "Describing preparations already in place — very often the visible result of someone's earlier ておく. 予約してあります: the booking exists; relax.",
+          watch: "This corners the transitivity work from Steps 4 and 10, so slow down. 窓が開いている (intransitive + ている): it happens to be open, no story. 窓が開けてある (transitive + てある): it's open because someone wanted it open. Same window, different claim about intent. And yes — the particle really is が on a transitive verb's object here, the one place your を-reflex must stand down.",
+        },
+        ex: [["窓が開けてあります。", "Open on purpose — the state carries the intent."], ["晩ご飯はもう作ってあります。", "Dinner's already made (someone saw to it)."]],
+      },
+      { id: "cc-chau", jp: "ちゃう・じゃう・とく", en: "the て-forms you'll actually hear", kind: "culture", n4: true,
+        exp: "The patterns you just learned wear casual disguises, and speech uses the disguises most of the time.\n\n〜てしまう becomes 〜ちゃう: 食べてしまった → 食べちゃった. Where the て-form voices to で, it becomes 〜じゃう: 飲んでしまった → 飲んじゃった. 〜ておく becomes 〜とく: 買っておく → 買っとく, and 言っておいて → 言っといて. てある has no clipped cousin — it was already short.\n\nThe clipped forms conjugate as ordinary Go verbs, so they climb the politeness ladder too: 忘れちゃいました is polite in shape and casual at heart, and you will hear it constantly. Recognition first; production when the room is casual. The compression itself runs on the same sound-shift instinct as さんぽ's ぽ — Japanese clips where the mouth wants to go.",
+        ex: [["かさ、忘れちゃった。", "= 忘れてしまった — gone, and I feel it."], ["先に言っといてね。", "= 言っておいて — tell them ahead of time, okay?"]],
+      },
+      {
+        id: "sb-aspect", jp: "ている・てある・ておく・てしまう", en: "four continuations, one choice", kind: "skill", n4: true,
+        exp: {
+          what: "The て-form now has four continuations, and they divide the world cleanly: ている (ongoing, or a state), てある (a state someone arranged), ておく (arranging now for later), てしまう (went all the way). Choosing between them IS the grammar — the verb itself barely changes.",
+          build: "Ask two questions. State or action? States → ている / てある; actions → ておく / てしまう. Then: does intent matter? てある and ておく carry purpose; ている and てしまう don't ask for any.",
+          when: "Any description of how things stand, any preparation, any completed-or-regretted act — between them the four cover a large share of everyday verb endings.",
+          watch: "Two mistakes do most of the damage. First: 窓が開いてある — welding the intransitive twin to てある. てある demands the transitive (開けてある), because an arranged state needs an arranger; the twins from Steps 4 and 10 run straight through this lesson at higher stakes. Second: parking ておく where nothing is being prepared — if you can't say what the 'later' is, you wanted plain form or ている.",
+        },
+        ex: [["電気がついています。", "State, no story — intransitive + ている."], ["電気がつけてあります。", "State with intent — transitive + てある."], ["電気をつけておきます。", "Action now, for later — ておく."]],
+      },
     ],
   },
 ];
@@ -1187,7 +1258,7 @@ const ALL_POINTS = CURRICULUM.flatMap((c) => c.points.map((p) => ({ ...p, cat: c
 
 const LEVELS = [
   { id: "S1", title: "1", subtitle: "Foundations", jlpt: "≈ JLPT N5", markers: "en", tagline: "First sentences to full daily basics — grammar, skill builders, culture stops, and checkpoints along the way.", groups: CURRICULUM.filter((c) => !c.level) },
-  { id: "S2", title: "2", subtitle: "Everyday fluency", jlpt: "≈ JLPT N4", markers: "kana", tagline: "One stress-test lesson so far. Full curriculum coming after Stage 1 validation.", groups: CURRICULUM.filter((c) => c.level === "N4") },
+  { id: "S2", title: "2", subtitle: "Everyday fluency", jlpt: "≈ JLPT N4", markers: "kana", tagline: "Opens with the て-form's second wind — aspect, preparation, and the casual forms speech actually uses. Full curriculum coming after Stage 1 validation.", groups: CURRICULUM.filter((c) => c.level === "N4") },
   { id: "S3", title: "3", subtitle: "Independence", jlpt: "≈ JLPT N3", markers: "kanji", locked: true },
   { id: "S4", title: "4", subtitle: "Nuance", jlpt: "≈ JLPT N2", markers: "kanji", locked: true },
   { id: "S5", title: "5", subtitle: "Mastery", jlpt: "≈ JLPT N1", markers: "kanji", locked: true },
