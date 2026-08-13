@@ -46,6 +46,17 @@ sb-kanaparticles, plus the tara watch addition.
    which don't); Step 13: てある with transitive + が stated hard,
    窓が開いてある called an error, ちゃいました described as
    polite-in-shape-casual-at-heart, 合格してしまいました reads as regret.
+7. **The nine shipped queue lessons** (commit f886fb6): sb-yone's claim
+   that 疲れていますよ is presumptuous; sb-counters' shift set
+   (いっぽん・にほん・さんぼん・ろっぽん) and the "wrong counter understood,
+   missing counter broken" claim; sb-kosoado's "それ even in their hands at
+   distance" framing; cc-family's full humble/honorific sets and the
+   お母さん-to-a-stranger judgment; cc-ogo's お/ご native-vs-Sino split
+   (known to have exceptions — how should the lesson hedge?) and the
+   fossilized list; cc-kedo's けど-request register claims; cc-drop's
+   "が and に mostly stay" generalization; cc-aizuchi's はい-means-go-on
+   and the meetings warning; cc-ritual's よろしくお願いします gloss and
+   いただきます-even-alone claim.
 
 ## Batch B — kanji Group 3, 17 characters (五六九会電開買作文使書朝起帰週毎曜)
 
