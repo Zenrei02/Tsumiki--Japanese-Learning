@@ -607,11 +607,39 @@ function StrokeView({ ch, size = 132, numbers, auto }) {
   );
 }
 
+// ————— Sound-first header (Session 13) —————
+// The listening control leads every character view. It used to trail the
+// canvases as a small ghost button, which on a phone meant scrolling past two
+// boxes to reach the one thing being taught first — the sound. Big enough for
+// a thumb and first in reading order. Silent units render it disabled and let
+// the romaji stand alone.
+function SoundHeader({ ch }) {
+  const { play, canPlay, playSound, canPlaySound } = useKanaAudio();
+  const able = canPlay(ch);
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
+      <button onClick={() => play(ch)} disabled={!able} aria-label={"Play " + soundFor(ch)}
+        style={{
+          width: 64, height: 64, borderRadius: 999, cursor: able ? "pointer" : "default",
+          border: `1px solid ${able ? T.ink : T.hairline}`, background: T.sheet,
+          color: T.ink, fontSize: 26, opacity: able ? 1 : 0.45, flex: "0 0 auto",
+        }}>♪</button>
+      <span style={{ fontFamily: T.jpFont, fontSize: 44, lineHeight: 1 }}>{ch}</span>
+      <span style={{ fontSize: 20, letterSpacing: ".5px", color: T.ink }}>
+        {ALT_SOUND[ch] ? `${ALT_SOUND[ch]} · ${soundFor(ch)}` : soundFor(ch)}
+      </span>
+      {ALT_SOUND[ch] && canPlaySound(ALT_SOUND[ch]) && (
+        <button className="btn-ghost" style={{ padding: "4px 12px", fontSize: 13 }}
+          onClick={() => playSound(ALT_SOUND[ch], ch)}>▶ {ALT_SOUND[ch]}</button>
+      )}
+    </div>
+  );
+}
+
 function StrokePanel({ ch, onClose, onPractise }) {
   const [numbers, setNumbers] = useState(false);
   const [replay, setReplay] = useState(0);
   const boxRef = useRef(null);
-  const { play, canPlay, playSound } = useKanaAudio();
 
   // Bring the panel to the learner. Without this the stroke animation plays
   // off-screen on a long chart and is finished before they scroll to it, which
@@ -628,41 +656,31 @@ function StrokePanel({ ch, onClose, onPractise }) {
     <div ref={boxRef} style={{
       marginTop: 14, padding: 16, background: T.paper,
       border: `2px solid ${T.ink}`, borderRadius: 6,
-      display: "flex", gap: 18, alignItems: "flex-start", flexWrap: "wrap",
     }}>
-      {known ? <StrokeView key={ch + replay} ch={ch} auto numbers={numbers} /> : (
-        <div style={{ fontSize: 13, color: T.sub }}>No stroke data for this character yet.</div>
-      )}
-      <div style={{ flex: 1, minWidth: 160 }}>
-        <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
-          <span style={{ fontFamily: T.jpFont, fontSize: 26 }}>{ch}</span>
-          <span style={{ fontSize: 14, color: T.sub }}>{soundFor(ch)}</span>
-        </div>
-        <p style={{ fontSize: 13, color: T.sub, lineHeight: 1.6, marginTop: 8, marginBottom: 10 }}>
-          Tap the square to watch it written again. Stroke order is most of what makes
-          handwriting readable — worth copying the sequence, not just the shape.
-        </p>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
-          <button className="btn-ghost" onClick={() => setReplay((n) => n + 1)}>↻ Watch again</button>
-          {onPractise && known && (
-            <button className="btn-primary" onClick={() => onPractise(ch)}>Try drawing it</button>
-          )}
-        </div>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          {canPlay(ch) && (ALT_SOUND[ch] ? (
-            <>
-              <button className="btn-ghost" onClick={() => playSound(ALT_SOUND[ch], ch)}>
-                ▶ {ALT_SOUND[ch]}
-              </button>
-              <button className="btn-ghost" onClick={() => play(ch)}>▶ {soundFor(ch)}</button>
-            </>
-          ) : (
-            <button className="btn-ghost" onClick={() => play(ch)}>▶ Hear it</button>
-          ))}
-          <button className="btn-ghost" onClick={() => setNumbers((v) => !v)}>
-            {numbers ? "Hide numbers" : "Show numbers"}
-          </button>
-          <button className="btn-ghost" onClick={onClose}>Close</button>
+      {/* Sound first (Session 13) — the listening control leads the panel
+          rather than trailing the animation. */}
+      <SoundHeader ch={ch} />
+      <div style={{ display: "flex", gap: 18, alignItems: "flex-start", flexWrap: "wrap", marginTop: 14 }}>
+        {known ? <StrokeView key={ch + replay} ch={ch} auto numbers={numbers} /> : (
+          <div style={{ fontSize: 13, color: T.sub }}>No stroke data for this character yet.</div>
+        )}
+        <div style={{ flex: 1, minWidth: 160 }}>
+          <p style={{ fontSize: 13, color: T.sub, lineHeight: 1.6, marginTop: 0, marginBottom: 10 }}>
+            Tap the square to watch it written again. Stroke order is most of what makes
+            handwriting readable — worth copying the sequence, not just the shape.
+          </p>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 8 }}>
+            <button className="btn-ghost" onClick={() => setReplay((n) => n + 1)}>↻ Watch again</button>
+            {onPractise && known && (
+              <button className="btn-primary" onClick={() => onPractise(ch)}>Try drawing it</button>
+            )}
+          </div>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <button className="btn-ghost" onClick={() => setNumbers((v) => !v)}>
+              {numbers ? "Hide numbers" : "Show numbers"}
+            </button>
+            <button className="btn-ghost" onClick={onClose}>Close</button>
+          </div>
         </div>
       </div>
     </div>
@@ -711,19 +729,42 @@ function YouonChart() {
   );
 }
 
-function Learn({ mod, progress, onProgress, onPractise }) {
+function Learn({ mod, progress, onProgress, onPractise, onFinish, finishLabel }) {
+  // Paged, not scrolled (Session 13). The lesson used to be one long column —
+  // explanation, walk, chart, look-alikes, words, notes — and on a phone the
+  // sound sat below two canvases. Now it is one idea per screen: the
+  // explanation first, then each character on its own page with the sound at
+  // the top, then the chart and the sections that used to stack below it.
   const col = mod.col ? COLS.find((c) => c.key === mod.col) : null;
-  const [sel, setSel] = useState(null);
   const walk = walkCharsFor(mod);
-  const walked = ((progress || {})[mod.id] || {}).walked || [];
-  const [showChart, setShowChart] = useState(!walk.length);
-  useEffect(() => {
-    setSel(null);
-    const w = walkCharsFor(mod);
-    const done = ((progress || {})[mod.id] || {}).walked || [];
-    setShowChart(!w.length || w.every((c) => done.includes(c)));
-  }, [mod.id]);
   const traps = mod.show || [];
+  const [sel, setSel] = useState(null);
+
+  const pages = [];
+  if (mod.exp) pages.push({ id: "about", label: "about" });
+  walk.forEach((c) => pages.push({ id: "ch:" + c, label: c, ch: c }));
+  if (col) pages.push({ id: "chart", label: "the full chart" });
+  if (mod.youon) pages.push({ id: "combined", label: "combined sounds" });
+  if (traps.length) pages.push({ id: "traps", label: "look-alikes" });
+  if (mod.showcase && mod.showcase.length) pages.push({ id: "words", label: "words" });
+  if (mod.notes.length) pages.push({ id: "notes", label: "worth knowing" });
+
+  // Resume at the first character not yet walked — but only if they have
+  // started; a fresh lesson opens on the explanation.
+  const resumePage = () => {
+    const done = ((progress || {})[mod.id] || {}).walked || [];
+    const idx = walk.findIndex((c) => !done.includes(c));
+    if (idx <= 0) return 0;
+    const p = pages.findIndex((pg) => pg.ch === walk[idx]);
+    return p < 0 ? 0 : p;
+  };
+  const [page, setPage] = useState(resumePage);
+  useEffect(() => { setPage(resumePage()); setSel(null); }, [mod.id]);
+  useEffect(() => { setSel(null); }, [page]);
+
+  const cur = pages[Math.min(page, pages.length - 1)] || { id: "about" };
+  const walked = ((progress || {})[mod.id] || {}).walked || [];
+  const last = page >= pages.length - 1;
 
   const charBtn = (k, i, sound) => (
     <button key={i} onClick={() => setSel(sel === k ? null : k)}
@@ -741,20 +782,45 @@ function Learn({ mod, progress, onProgress, onPractise }) {
 
   return (
     <div>
-      {String(mod.exp).split("\n\n").map((para, i) => (
-        <p key={i} style={{ fontSize: 15, lineHeight: 1.75, marginTop: i === 0 ? 0 : 14 }}>{para}</p>
-      ))}
-
-      {walk.length > 0 && (
-        <CharacterWalk chars={walk} modId={mod.id} progress={progress} onProgress={onProgress}
-          onDone={() => setShowChart(true)} />
+      {/* Page rail: tap to jump. Character pages show their kana and go green
+          once walked; section pages are dots. */}
+      {pages.length > 1 && (
+        <div style={{ display: "flex", gap: 6, marginBottom: 14, alignItems: "center", flexWrap: "wrap" }}>
+          {pages.map((pg, n) => pg.ch ? (
+            <button key={pg.id} onClick={() => setPage(n)} style={{
+              width: 28, height: 28, borderRadius: 999, padding: 0, cursor: "pointer",
+              fontFamily: T.jpFont, fontSize: 14, lineHeight: 1,
+              background: n === page ? T.ink : walked.includes(pg.ch) ? T.ok : "none",
+              color: n === page || walked.includes(pg.ch) ? T.paper : T.sub,
+              border: `1px solid ${n === page ? T.ink : walked.includes(pg.ch) ? T.ok : T.hairline}`,
+            }}>{pg.ch}</button>
+          ) : (
+            <button key={pg.id} onClick={() => setPage(n)} aria-label={pg.label} title={pg.label}
+              style={{
+                width: 12, height: 12, borderRadius: 999, padding: 0, cursor: "pointer",
+                background: n === page ? T.ink : "none",
+                border: `1px solid ${n === page ? T.ink : T.hairline}`,
+              }} />
+          ))}
+        </div>
       )}
-      {walk.length > 0 && !showChart && (
-        <button className="btn-ghost" onClick={() => setShowChart(true)}>Skip to the full chart</button>
+
+      {cur.id === "about" && (
+        <div>
+          {String(mod.exp).split("\n\n").map((para, i) => (
+            <p key={i} style={{ fontSize: 15, lineHeight: 1.75, marginTop: i === 0 ? 0 : 14 }}>{para}</p>
+          ))}
+        </div>
       )}
 
-      {showChart && col && (
-        <div style={{ margin: "18px 0 0" }}>
+      {cur.ch && (
+        <WalkPage key={cur.ch} ch={cur.ch} modId={mod.id} progress={progress}
+          onProgress={onProgress}
+          onAdvance={() => setPage((p) => Math.min(p + 1, pages.length - 1))} />
+      )}
+
+      {cur.id === "chart" && col && (
+        <div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {col.kana.map((k, i) =>
               k ? charBtn(k, i, col.sounds[i]) : (
@@ -769,13 +835,14 @@ function Learn({ mod, progress, onProgress, onPractise }) {
           <p style={{ fontSize: 11, color: T.sub, marginTop: 8, marginBottom: 0 }}>
             Tap any character to watch it written.{CHART_NOTE ? " " + CHART_NOTE : ""}
           </p>
+          <StrokePanel ch={sel} onClose={() => setSel(null)} onPractise={onPractise} />
         </div>
       )}
 
-      {showChart && mod.youon && <YouonChart />}
+      {cur.id === "combined" && <YouonChart />}
 
-      {traps.length > 0 && (
-        <div style={{ margin: "18px 0 0" }}>
+      {cur.id === "traps" && (
+        <div>
           <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".5px", color: T.sub, marginBottom: 8 }}>
             WATCH THEM WRITTEN
           </div>
@@ -785,14 +852,13 @@ function Learn({ mod, progress, onProgress, onPractise }) {
           <p style={{ fontSize: 11, color: T.sub, marginTop: 8, marginBottom: 0 }}>
             The difference is in the movement, not the finished shape. Tap each one.
           </p>
+          <StrokePanel ch={sel} onClose={() => setSel(null)} onPractise={onPractise} />
         </div>
       )}
 
-      <StrokePanel ch={sel} onClose={() => setSel(null)} onPractise={onPractise} />
-
-      {mod.showcase && mod.showcase.length > 0 && (
-        <div style={{ marginTop: 18, display: "flex", flexDirection: "column", gap: 8 }}>
-          {mod.showcase.map((w, i) => (
+      {cur.id === "words" && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {(mod.showcase || []).map((w, i) => (
             <div key={i} style={{
               border: `1px solid ${T.hairline}`, borderLeft: `3px solid ${T.ok}`,
               background: T.sheet, borderRadius: 4, padding: "12px 16px",
@@ -807,10 +873,10 @@ function Learn({ mod, progress, onProgress, onPractise }) {
         </div>
       )}
 
-      {mod.notes.length > 0 && (
+      {cur.id === "notes" && (
         <div style={{
           background: T.noteBg, border: `1px solid ${T.note}44`, borderLeft: `3px solid ${T.note}`,
-          borderRadius: 4, padding: "12px 16px", marginTop: 16,
+          borderRadius: 4, padding: "12px 16px",
         }}>
           <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".5px", color: T.note, marginBottom: 8 }}>
             WORTH KNOWING
@@ -818,6 +884,21 @@ function Learn({ mod, progress, onProgress, onPractise }) {
           {mod.notes.map((n, i) => (
             <div key={i} style={{ fontSize: 14, lineHeight: 1.6, marginBottom: 5 }}>{n}</div>
           ))}
+        </div>
+      )}
+
+      {pages.length > 1 && (
+        <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
+          <button className="btn-ghost" onClick={() => setPage((p) => Math.max(0, p - 1))}
+            disabled={page === 0}
+            style={{ flex: 1, padding: "12px 0", opacity: page === 0 ? 0.4 : 1 }}>‹ Back</button>
+          {!last ? (
+            <button className="btn-primary" onClick={() => setPage((p) => Math.min(p + 1, pages.length - 1))}
+              style={{ flex: 2, padding: "12px 0" }}>Next ›</button>
+          ) : onFinish ? (
+            <button className="btn-primary" onClick={onFinish}
+              style={{ flex: 2, padding: "12px 0" }}>{finishLabel || "Next ›"}</button>
+          ) : null}
         </div>
       )}
     </div>
@@ -2094,7 +2175,7 @@ function traceCharsFor(mod) {
 }
 
 // ————— Shared handwriting box —————
-// Extracted from CharacterWalk so the pair practice and Listen & Write can both
+// Extracted from the character walk (now WalkPage) so the pair practice and Listen & Write can both
 // reuse the stroke scoring. The canvas keeps a fixed internal resolution and is
 // sized by CSS, so two of them can shrink side by side on a phone without the
 // pointer maths drifting — toBox reads the live bounding box.
@@ -2409,12 +2490,13 @@ function ListenWrite({ mod, progress, onProgress }) {
   );
 }
 
-function CharacterWalk({ chars, modId, progress, onProgress, onDone }) {
-  const { play: playKana, canPlay: canPlayKana,
-          playSound: playSoundKana } = useKanaAudio();
-  const cleared = (progress[modId] || {}).walked || [];
-  const firstUndone = chars.findIndex((c) => !cleared.includes(c));
-  const [i, setI] = useState(firstUndone < 0 ? chars.length : firstUndone);
+function WalkPage({ ch, modId, progress, onProgress, onAdvance }) {
+  // One character, one page (Session 13). The walk used to be one block
+  // cycling through the lesson's characters with the sound tucked under the
+  // canvases; each character now gets its own page — sound first, then watch
+  // it written, then trace it. Clearing WALK_REPS traces records the character
+  // and turns the page. The Next button still moves freely: paging is
+  // navigation, walked is progress, and neither gates the other.
   const [reps, setReps] = useState(0);
   const [strokeIdx, setStrokeIdx] = useState(0);
   const [drawn, setDrawn] = useState([]);
@@ -2426,14 +2508,12 @@ function CharacterWalk({ chars, modId, progress, onProgress, onDone }) {
   const { floor, record } = useStrokeData();
   const tol = tolerancesFor(floor);
 
-  const ch = chars[i];
   const paths = (ch && STROKES[ch]) || [];
   const refs = useMemo(() => paths.map((d) => samplePath(d, TRACE_N)), [ch]);
   const SIZE = 210;
   const K = SIZE / STROKE_BOX;
 
   useEffect(() => { setReps(0); setStrokeIdx(0); setDrawn([]); setFeedback(null); }, [ch]);
-  useEffect(() => { if (i >= chars.length && onDone) onDone(); }, [i]);
 
   const redraw = () => {
     const cv = canvasRef.current;
@@ -2510,42 +2590,17 @@ function CharacterWalk({ chars, modId, progress, onProgress, onDone }) {
       const prev = progress[modId] || {};
       const set = new Set(prev.walked || []); set.add(ch);
       onProgress({ ...progress, [modId]: { ...prev, walked: [...set] } });
-      setI(i + 1);
+      if (onAdvance) onAdvance();
     }
   };
 
-  if (i >= chars.length) {
-    return (
-      <div style={{
-        margin: "16px 0", padding: "14px 16px", borderRadius: 4, background: "#EDF4EE",
-        border: `1px solid ${T.ok}55`, fontSize: 14, lineHeight: 1.7,
-      }}>
-        <strong style={{ color: T.ok }}>All {chars.length} written. </strong>
-        You've met every character in this lesson one at a time. The chart below shows them together —
-        then Drill and Assemble mix them up, and Listen & Write asks for them from nothing.
-        <div style={{ marginTop: 10 }}>
-          <button className="btn-ghost" onClick={() => { setI(0); setReps(0); }}>Go through them again</button>
-        </div>
-      </div>
-    );
-  }
+  const cleared = ((progress[modId] || {}).walked || []).includes(ch);
 
   return (
-    <div style={{ margin: "18px 0", padding: 16, background: T.paper, border: `1px solid ${T.hairline}`, borderRadius: 6 }}>
-      <div style={{ display: "flex", gap: 6, marginBottom: 12, alignItems: "center", flexWrap: "wrap" }}>
-        {chars.map((c, n) => (
-          <span key={c} style={{
-            width: 26, height: 26, borderRadius: 999, display: "inline-flex", alignItems: "center",
-            justifyContent: "center", fontFamily: T.jpFont, fontSize: 14,
-            background: n < i ? T.ok : n === i ? T.ink : "none",
-            color: n <= i ? T.paper : T.sub,
-            border: `1px solid ${n < i ? T.ok : n === i ? T.ink : T.hairline}`,
-          }}>{c}</span>
-        ))}
-        <span style={{ fontSize: 12, color: T.sub, marginLeft: 4 }}>{i + 1} of {chars.length}</span>
-      </div>
+    <div>
+      <SoundHeader ch={ch} />
 
-      <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "flex-start" }}>
+      <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "flex-start", marginTop: 14 }}>
         <div>
           <StrokeView ch={ch} size={SIZE} auto />
         </div>
@@ -2557,25 +2612,13 @@ function CharacterWalk({ chars, modId, progress, onProgress, onDone }) {
             }}
             onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onPointerLeave={up} />
           <div style={{ fontSize: 11, color: T.sub, marginTop: 4, textAlign: "center" }}>
-            trace it — {reps} of {WALK_REPS} done
+            trace it — {reps} of {WALK_REPS} done{cleared ? " · already cleared" : ""}
           </div>
         </div>
       </div>
 
-      <div style={{ display: "flex", alignItems: "baseline", gap: 10, marginTop: 12, flexWrap: "wrap" }}>
-        <span style={{ fontFamily: T.jpFont, fontSize: 24 }}>{ch}</span>
-        <span style={{ fontSize: 15 }}>{soundFor(ch)}</span>
-        {canPlayKana(ch) && ALT_SOUND[ch] && (
-          <button className="btn-ghost" style={{ padding: "2px 10px", fontSize: 12 }}
-            onClick={() => playSoundKana(ALT_SOUND[ch], ch)}>▶ {ALT_SOUND[ch]}</button>
-        )}
-        {canPlayKana(ch) && (
-          <button className="btn-ghost" style={{ padding: "2px 10px", fontSize: 12 }}
-            onClick={() => playKana(ch)}>▶ {ALT_SOUND[ch] ? soundFor(ch) : "hear it"}</button>
-        )}
-        <span style={{ fontSize: 12, color: T.sub }}>
-          · {paths.length} stroke{paths.length === 1 ? "" : "s"} · stroke {strokeIdx + 1}
-        </span>
+      <div style={{ fontSize: 12, color: T.sub, marginTop: 10 }}>
+        {paths.length} stroke{paths.length === 1 ? "" : "s"} · stroke {strokeIdx + 1}
       </div>
 
       {feedback && (
@@ -2586,12 +2629,14 @@ function CharacterWalk({ chars, modId, progress, onProgress, onDone }) {
         <button className="btn-ghost" onClick={() => { setDrawn([]); setStrokeIdx(0); setFeedback(null); }}>
           Clear
         </button>
-        <button className="btn-ghost" onClick={() => {
-          const prev = progress[modId] || {};
-          const set = new Set(prev.walked || []); set.add(ch);
-          onProgress({ ...progress, [modId]: { ...prev, walked: [...set] } });
-          setI(i + 1);
-        }}>Skip this one</button>
+        {!cleared && (
+          <button className="btn-ghost" onClick={() => {
+            const prev = progress[modId] || {};
+            const set = new Set(prev.walked || []); set.add(ch);
+            onProgress({ ...progress, [modId]: { ...prev, walked: [...set] } });
+            if (onAdvance) onAdvance();
+          }}>Skip this one</button>
+        )}
       </div>
     </div>
   );
@@ -2705,7 +2750,10 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
       </div>
 
       <div style={{ background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 8, padding: 20 }}>
-        {tab === "learn" && <Learn mod={mod} progress={progress} onProgress={onProgress} onPractise={(c) => { setTraceFocus(c); setTab("trace"); }} />}
+        {tab === "learn" && <Learn mod={mod} progress={progress} onProgress={onProgress}
+          onPractise={(c) => { setTraceFocus(c); setTab("trace"); }}
+          onFinish={isCulture ? null : () => setTab(isSkill ? "judge" : "drill")}
+          finishLabel={isSkill ? "Go to Choose ›" : "Go to Drill ›"} />}
         {tab === "drill" && <Drill mod={mod} idx={idx} progress={progress} onProgress={onProgress} onGoTrace={() => setTab("trace")} />}
         {tab === "listen" && <Write mod={mod} idx={idx} progress={progress} onProgress={onProgress} listen />}
         {tab === "pad" && (
