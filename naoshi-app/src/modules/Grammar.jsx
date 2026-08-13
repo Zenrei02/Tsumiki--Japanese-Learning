@@ -273,6 +273,16 @@ const CURRICULUM = [
         ex: [["これは私の本です。", "This is my book. (near me)"], ["その店は安いですよ。", "That shop is cheap. (near you, or one you mentioned)"]],
       },
       {
+        id: "sb-kosoado", jp: "こそあど · 三方向", en: "three directions, two sets", kind: "skill",
+        exp: {
+          what: "English points two ways; Japanese points three, and then doubles the system: これ・それ・あれ stand alone, この・その・あの must hold a noun. Two choices in every act of pointing, and both run on instinct in your first language — which is exactly why they need a drill in this one.",
+          build: "Choose the distance first: near me → こ, near you → そ, away from both of us → あ. Then choose the set: naming the thing itself, bare (これ); pointing at a noun you're about to say, +の (この本). The ど row — どれ, どの — asks the same two questions as a question.",
+          when: "Every act of pointing, and half of conversation — where それ mostly means 'the thing you just said' rather than anything in the room.",
+          watch: "The two errors are mirror images. これ本です — a bare pointer leaning on a noun it cannot hold. And あの for anything far from YOU — but あ means far from both of you; something in your listener's hands is それ however far away they're standing. Distance is measured from the pair of you, not from your arm.",
+        },
+        ex: [["この本は高いです。", "Holding a noun → この."], ["それは何ですか。", "Near the listener, standing alone → それ."], ["あれは学校です。", "Away from both of us → あれ."]],
+      },
+      {
         id: "janai", jp: "〜じゃないです / ではありません", en: "saying it isn't",
         exp: {
           what: "The \"no, it isn't\" partner of です.",
@@ -331,6 +341,16 @@ const CURRICULUM = [
           watch: "よ can land as pushy or lecturing if the listener already knew. When unsure, leave it off — a bare です is never rude, while a misplaced よ can be.",
         },
         ex: [["この店は安いですよ。", "This shop is cheap, you know."], ["明日は休みですよ。", "Tomorrow is a day off, you know."]],
+      },
+      {
+        id: "sb-yone", jp: "ね・よ・よね", en: "the tuning particles", kind: "skill",
+        exp: {
+          what: "English does this entire system with tone of voice, so nothing in your first language tells you which particle you need. The choice is social, not grammatical: ね hands the thought over for agreement, よ delivers news, よね states a belief while asking for backup.",
+          build: "Same sentence, three settings. 暑いですね — we both feel it; nod along. 暑いですよ — you clearly haven't been outside yet. 暑いですよね — I'm fairly sure; back me up. The order in よね is fixed: there is no ねよ.",
+          when: "Constantly — these three end an enormous share of spoken sentences. Choosing none is itself a setting: a bare です states a fact and asks nothing of anyone.",
+          watch: "The mistake that lands worst is よ about the listener's own experience — 疲れていますよ tells someone how they feel, exactly as presumptuous as it sounds in English. When unsure: ね if you're sharing, nothing if you're not. A misplaced ね is friendly noise; a misplaced よ is a small shove.",
+        },
+        ex: [["暑いですね。", "Shared — we both feel it."], ["この店、安いですよ。", "News — you didn't know."], ["明日は休みですよね。", "Fairly sure — back me up?"]],
       },
       {
         id: "cc-greetings", jp: "あいさつ in real life", en: "greetings people actually use", kind: "culture",
@@ -532,6 +552,10 @@ const CURRICULUM = [
         },
         ex: [["昨日映画を見ました。とても面白かったです。", "No 私 anywhere — and completely natural."], ["私は行きますが、妹は行きません。", "私 kept on purpose: contrast."], ["田中さんは今日も忙しいですか。", "Their name, not あなた."]],
       },
+      { id: "cc-family", jp: "母 と お母さん", en: "two words for every relative", kind: "culture",
+        exp: "Japanese keeps two words for each family member, and which one you use depends on whose family it is. Talking about YOUR OWN family to someone outside it, use the plain, humble set: 母, 父, 兄, 姉, 妹, 弟. Talking about SOMEONE ELSE'S family — or to your own mother across the dinner table — use the honorific set: お母さん, お父さん, お兄さん, お姉さん.\n\nEnglish has nothing like this, so the mistake writes itself: introducing your own mother as お母さん to a stranger sounds, to Japanese ears, like calling her 'my esteemed mother' — polite in exactly the wrong direction. The rule underneath is the inside/outside (うち・そと) instinct that runs through the whole language: humble about your own side, respectful about the other side. This is its first appearance; keigo, much later, is the same instinct grown up.\n\nRecognition first: when someone says 母, they mean their own mother. When they ask about お母さん, they mean yours.",
+        ex: [["母は先生です。", "MY mother — plain word, humble direction."], ["お母さんはお元気ですか。", "YOUR mother — honorific direction."]],
+      },
       {
         id: "kara-from", jp: "から〜まで", en: "from here to there",
         exp: {
@@ -601,6 +625,16 @@ const CURRICULUM = [
           watch: "一人 and 二人 are read ひとり and ふたり — irregular, extremely common, worth memorizing today. Beyond that, don't try to learn every counter now; 〜つ will carry you through most conversations, and a wrong counter is understood while a missing one is not.",
         },
         ex: [["りんごを三つ買いました。", "I bought three apples."], ["学生が二人います。", "There are two students."]],
+      },
+      {
+        id: "sb-counters", jp: "三本は「さんぼん」", en: "picking the counter, hearing the shift", kind: "skill",
+        exp: {
+          what: "No English equivalent — you say 'two coffees' and move on. Japanese asks two questions of everything you count: which counter word, and what the number does to its sound.",
+          build: "Counter first: 〜人 people, 〜枚 flat things, 〜本 long things, 〜冊 bound things, 〜匹 small animals, 〜つ for anything you're unsure of. Then the sound: some numbers fuse with some counters — 一本 いっぽん, 三本 さんぼん, 六本 ろっぽん — while 二本 にほん stays plain. The shifts are the same clipping-and-voicing machinery the kana modules taught, running at conversation speed.",
+          when: "Ordering two beers, buying three tickets, counting anything out loud — daily, in other words.",
+          watch: "Priorities. ひとり and ふたり are non-negotiable. The 〜本 row is the classic shift set — drill いっぽん・にほん・さんぼん as a chant until it stops being arithmetic. Past that, relax: a wrong counter is understood and gently corrected, while a MISSING one (りんご三ください) is genuinely broken. When stuck, 〜つ — みっつください is always a sentence.",
+        },
+        ex: [["ビールを二本ください。", "Long thing → 本, and 二本 stays plain: にほん."], ["ビールを三本ください。", "Same counter, new sound: さんぼん."], ["切手を三枚買いました。", "Flat thing → 枚, no shift: さんまい."]],
       },
       {
         id: "gurai", jp: "〜ぐらい / くらい", en: "about (an amount)",
@@ -862,7 +896,7 @@ const CURRICULUM = [
         },
         ex: [],
       },
-      { id: "rc1", jp: "復習 · Steps 1–3", en: "checkpoint: basics, particles & tense", kind: "review", covers: ["desu", "ka", "wa", "ga", "o", "ni-time", "de-place", "mo", "no", "masu", "mashita", "teiru", "mada", "sb-no"], exp: "Mixed review of everything so far: the copula, core particles, and polite tense. The quiz pulls from all of it. In practice, try combining at least two patterns in one sentence.", ex: [] },
+      { id: "rc1", jp: "復習 · Steps 1–3", en: "checkpoint: basics, particles & tense", kind: "review", covers: ["desu", "ka", "wa", "ga", "o", "ni-time", "de-place", "mo", "no", "masu", "mashita", "teiru", "mada", "sb-no", "sb-kosoado", "sb-yone", "sb-counters"], exp: "Mixed review of everything so far: the copula, core particles, and polite tense. The quiz pulls from all of it. In practice, try combining at least two patterns in one sentence.", ex: [] },
     ],
   },
   {
@@ -888,6 +922,10 @@ const CURRICULUM = [
           watch: "The 'must' pattern itself is modular: なければ, ないと or なきゃ on the left; なりません, いけません or だめ on the right. Most combinations work and mean the same thing — 行かないといけない, 行かなきゃだめ — so don't memorize six patterns, memorize two slots. The double negative is doing the work in all of them ('if you don't go, it won't do'), which is why adding your own extra negative on top is the one honestly wrong move.",
         },
         ex: [["明日は来なくてもいいです。", "Don't have to — permission not to."], ["ここに入ってはいけません。", "Must not — prohibition. A different corner entirely."], ["薬を飲まないといけません。", "The same 'must' as なければなりません — two slots, many fillings."]],
+      },
+      { id: "cc-ogo", jp: "お茶・ご飯", en: "the polish prefixes", kind: "culture",
+        exp: "That お on お茶 isn't part of the word — it's a politeness prefix, and Japanese attaches it to nouns to add respect or plain refinement: 水 becomes お水, 話 becomes お話. Native-Japanese words take お; Chinese-origin words take ご (ご飯, ご家族). English has no equivalent — the closest thing is the distance between 'water' and 'some water for you', carried by one syllable.\n\nSome words fossilized with the prefix welded on: ご飯 (cooked rice, and meals generally), お茶, お金, お願い — in polite conversation nobody strips these down, so treat the prefix as part of the word. Others take お only when politeness calls for it. And some never take it — foreign loanwords especially: おビール is a joke, not a request.\n\nFor now: learn ご飯, お茶, お金 and お願いします as whole words, notice the prefix when you hear it elsewhere, and don't manufacture your own yet. Over-prefixing (お犬, おコーヒー) is a real and endearing learner error — but an error.",
+        ex: [["お茶をください。", "Fossilized — お茶 is simply the word."], ["ご家族はお元気ですか。", "ご for the Chinese-origin word — politeness pointed at THEIR family."]],
       },
       {
         id: "b-s4", jp: "作文 · ルールを説明する", en: "write the house rules", kind: "build",
@@ -1095,6 +1133,10 @@ const CURRICULUM = [
       { id: "kara-because", jp: "〜から (because)", en: "because / so", exp: "Reason + から + result. Also answers なぜ/どうして questions.", ex: [["暑いから、窓を開けました。", "Because it's hot, I opened the window."], ["時間がないから、急ぎましょう。", "We have no time, so let's hurry."]] },
       { id: "node", jp: "〜ので", en: "because (softer)", exp: "Like から but softer and more objective; common in polite explanations.", ex: [["頭が痛いので、帰ります。", "I'm going home because I have a headache."], ["雨なので、家にいます。", "Since it's raining, I'll stay home."]] },
       { id: "ga-but", jp: "〜が / けど (but)", en: "but / although", exp: "Connects two contrasting clauses. けど is casual; が is neutral-polite.", ex: [["高いですが、おいしいです。", "It's expensive, but delicious."], ["行きたいけど、時間がありません。", "I want to go, but I have no time."]] },
+      { id: "cc-kedo", jp: "〜けど…", en: "the sentence that trails off on purpose", kind: "culture",
+        exp: "You just learned けど and が as 'but' — here is the part no textbook leads with: Japanese routinely ends the sentence there. ちょっと高いんですけど… — it's a bit expensive, and the sentence is over. Nothing is missing; the unsaid half (…so could we talk about the price?) is the point, handed to the listener to complete.\n\nIn English a trailing 'but…' sounds unfinished or passive-aggressive. In Japanese it's polished — softer than saying the conclusion aloud, because the conclusion might force the other person to refuse, and this way nobody has to. You'll hear it constantly in requests: すみません、駅に行きたいんですけど… is a complete, polite request for directions — the ん you met in Step 3 and the けど from two lessons ago, doing their best work together.\n\nRecognition first, then production: end your request at けど and stop talking. The silence is doing grammar.",
+        ex: [["駅に行きたいんですけど…", "A complete request for directions — the asking lives in the unsaid half."], ["ちょっと高いんですけど…", "A complete negotiation opener."]],
+      },
       { id: "demo", jp: "でも / そして / それから", en: "but / and / and then", exp: "Sentence-starting connectors: でも (but), そして (and), それから (and then).", ex: [["雨でした。でも、出かけました。", "It was raining. But I went out."], ["朝ごはんを食べました。それから、学校へ行きました。", "I ate breakfast. Then I went to school."]] },
       { id: "toiu", jp: "〜という", en: "called / named", exp: "Introduces a name the listener may not know.", ex: [["「花」という映画を見ました。", "I watched a movie called 'Hana'."], ["ポチという犬を飼っています。", "I have a dog named Pochi."]] },
       { id: "doushite", jp: "どうして / なぜ〜からです", en: "why? ... because", exp: "Ask a reason with どうして/なぜ; answer with 〜からです.", ex: [["どうして遅れましたか。", "Why were you late?"], ["電車が止まったからです。", "Because the train stopped."]] },
@@ -1249,6 +1291,18 @@ const CURRICULUM = [
           watch: "Two mistakes do most of the damage. First: 窓が開いてある — welding the intransitive twin to てある. てある demands the transitive (開けてある), because an arranged state needs an arranger; the twins from Steps 4 and 10 run straight through this lesson at higher stakes. Second: parking ておく where nothing is being prepared — if you can't say what the 'later' is, you wanted plain form or ている.",
         },
         ex: [["電気がついています。", "State, no story — intransitive + ている."], ["電気がつけてあります。", "State with intent — transitive + てある."], ["電気をつけておきます。", "Action now, for later — ておく."]],
+      },
+      { id: "cc-drop", jp: "コーヒー、飲む？", en: "the particles speech leaves out", kind: "culture", n4: true,
+        exp: "Casual speech drops particles the way English drops 'have you' from 'been there?'. コーヒーを飲みますか becomes コーヒー飲む？ — を gone, か gone, politeness gone, and to Japanese ears nothing is missing. は and を vanish most readily; が and に mostly stay, because they carry information that position alone can't recover.\n\nTwo cautions. This is a SPOKEN register — dropped particles in writing read as texting or carelessness, and the checker will keep flagging them in your written practice here, correctly. And don't file casual speech as 'the same thing minus particles': the particles are still there in the grammar; speech just trusts you to hear them. If you can't say which particle was dropped, that sentence is teaching you less than it seems to be.",
+        ex: [["コーヒー、飲む？", "= コーヒーを飲みますか — casual strips を and か."], ["それ、何？", "= それは何ですか — the は is silent, not absent."]],
+      },
+      { id: "cc-aizuchi", jp: "あいづち", en: "the listening noises", kind: "culture", n4: true,
+        exp: "Japanese conversation expects the listener to make noise. うん、はい、へえ、そうですか、なるほど — these are あいづち, and they don't mean 'I agree'; they mean 'I'm here, keep going'. A speaker getting silence from you will stop and ask what's wrong; on the phone あいづち are practically mandatory, which is why phone Japanese sounds like a duet.\n\nEnglish back-channels exist ('mm-hm', 'right') but at a fraction of the density, so the learner error runs both directions: too few あいづち reads as cold or lost, and reading them literally reads too much in — はい mid-story means 'go on', not 'yes, I agree'. That one causes real misunderstandings in meetings, and not only for learners.\n\nStart with three: そうですか for new information, へえ for mild surprise, なるほど for 'now I see'. Place them at the ends of the other person's phrases and feel the conversation relax.",
+        ex: [["へえ、そうなんですか。", "Mild surprise + keep-going — the workhorse pair."], ["なるほど。", "'Now I see' — respectful, adult, everywhere."]],
+      },
+      { id: "cc-ritual", jp: "いただきます・よろしく", en: "phrases that are actions", kind: "culture", n4: true,
+        exp: "Some phrases aren't sentences with meanings so much as actions with sounds. いただきます before eating and ごちそうさまでした after aren't 'bon appétit' and 'that was delicious' — they're a bracket pair marking receipt of a meal, said even alone, even over a convenience-store onigiri. Skipping them isn't rude exactly; it's like not closing a door you opened.\n\nよろしくお願いします is the biggest and least translatable: said when meeting someone, joining a team, or asking a favour, it means roughly 'I place this — and myself — in your good hands'. No English sentence swaps in, which is why learners underuse it; Japanese speakers end half their introductions and emails with it. おじゃまします, on entering someone's home, announces 'I am intruding' — the acknowledgment IS the courtesy.\n\nYou met the workplace set (お疲れさまです) back in the greetings lesson — same species. These are load-bearing: produce them early and often, and let the grammar catch up later.",
+        ex: [["いただきます。", "Before eating — even alone. A bracket, not a comment."], ["これからよろしくお願いします。", "Meeting someone new — untranslatable, indispensable."]],
       },
     ],
   },
