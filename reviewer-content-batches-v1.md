@@ -38,6 +38,14 @@ sb-kanaparticles, plus the tara watch addition.
 4. **tara flag**: the four-ifs sentence — accurate as stated?
 5. Carried from Session 7, never sent: the two UniDic-flagged readings in
    vocab-notes (お茶 multi-token; 言う ゆう-vs-いう).
+6. **Added later in Session 13** (commit f38af96): sb-no's claim that の
+   never attaches describing-words (きれいの人 wrong — any counterexamples
+   worth teaching?); cc-n's 学生なんです な-insertion rule; cc-nakya's
+   clipped forms and registers; sb-must's two-slot claim (なければ・ないと・
+   なきゃ × なりません・いけません・だめ — "most combinations work"; confirm
+   which don't); Step 13: てある with transitive + が stated hard,
+   窓が開いてある called an error, ちゃいました described as
+   polite-in-shape-casual-at-heart, 合格してしまいました reads as regret.
 
 ## Batch B — kanji Group 3, 17 characters (五六九会電開買作文使書朝起帰週毎曜)
 
