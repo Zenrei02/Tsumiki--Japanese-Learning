@@ -24,7 +24,7 @@ installStorage();
 // Structural, not pedagogical: KanjiVG reports 白 as containing 日, which is true
 // of the shape and misleading about the meaning. Where that matters the lesson's
 // own note overrides it.
-const PARTS = {"一":[],"二":[],"三":[{"e":"一"}],"川":[],"十":[],"七":[{"e":"一"},{"e":"乙"}],"土":[],"小":[],"水":[],"日":[],"月":[],"田":[],"目":[],"口":[],"四":[{"e":"囗"},{"e":"儿","orig":"八"}],"国":[{"e":"囗"},{"e":"玉"}],"人":[],"入":[],"八":[],"大":[],"中":[{"e":"口"},{"e":"丨"}],"車":[],"女":[],"子":[],"母":[{"e":"毋"}],"本":[{"e":"木"}],"木":[],"火":[],"山":[],"上":[{"e":"卜"},{"e":"一"}],"下":[{"e":"一"},{"e":"卜"}],"力":[],"男":[{"e":"田"},{"e":"力"}],"休":[{"e":"亻","orig":"人"},{"e":"木"}],"林":[{"e":"木"}],"森":[{"e":"木"},{"e":"林"}],"好":[{"e":"女"},{"e":"子"}],"明":[{"e":"日"},{"e":"月"}],"町":[{"e":"田"},{"e":"丁"}],"白":[{"e":"日"}],"百":[{"e":"一"},{"e":"白"}],"千":[{"e":"丿"},{"e":"十"}],"円":[{"e":"冂"}],"手":[],"生":[],"先":[{"e":"儿","orig":"八"}],"学":[{"e":"子"}],"校":[{"e":"木"},{"e":"交"}],"年":[{"e":"丿"},{"e":"干"}],"今":[{"e":"人"}],"分":[{"e":"八"},{"e":"刀"}],"見":[{"e":"目"},{"e":"儿"}],"行":[{"e":"彳"}],"来":[{"e":"米"}],"食":[],"気":[{"e":"气"},{"e":"乂"}],"天":[{"e":"一"},{"e":"大"}],"雨":[],"私":[{"e":"禾"},{"e":"厶"}],"何":[{"e":"亻","orig":"人"},{"e":"可"}],"時":[{"e":"日"},{"e":"寺"}],"間":[{"e":"門"},{"e":"日"}],"言":[],"話":[{"e":"言"},{"e":"舌"}],"五":[],"六":[{"e":"八"}],"九":[],"会":[{"e":"人"},{"e":"云"}],"電":[{"e":"雨"},{"e":"田"}],"開":[{"e":"門"},{"e":"开"}],"買":[{"e":"罒"},{"e":"貝"}],"作":[{"e":"亻","orig":"人"},{"e":"乍"}],"文":[],"使":[{"e":"亻","orig":"人"},{"e":"吏"}],"書":[{"e":"聿"},{"e":"日"}],"朝":[{"e":"十"},{"e":"日"},{"e":"月"}],"起":[{"e":"走"},{"e":"己"}],"帰":[{"e":"刂"},{"e":"帚"}],"週":[{"e":"辶"},{"e":"周"}],"毎":[{"e":"母"}],"曜":[{"e":"日"},{"e":"羽"},{"e":"隹"}],"名":[{"e":"夕"},{"e":"口"}],"前":[{"e":"月"},{"e":"刂"}],"語":[{"e":"言"},{"e":"五"},{"e":"口"}],"高":[{"e":"口"},{"e":"冂"}],"安":[{"e":"宀"},{"e":"女"}],"新":[{"e":"木"},{"e":"斤"}],"広":[{"e":"广"},{"e":"厶"}],"思":[{"e":"田"},{"e":"心"}],"待":[{"e":"彳"},{"e":"寺"}],"始":[{"e":"女"},{"e":"台"}],"終":[{"e":"糸"},{"e":"冬"}],"飲":[{"e":"飠","orig":"食"},{"e":"欠"}],"茶":[{"e":"艹"},{"e":"木"}],"歩":[{"e":"止"},{"e":"少"}]};
+const PARTS = {"一":[],"二":[],"三":[{"e":"一"}],"川":[],"十":[],"七":[{"e":"一"},{"e":"乙"}],"土":[],"小":[],"水":[],"日":[],"月":[],"田":[],"目":[],"口":[],"四":[{"e":"囗"},{"e":"儿","orig":"八"}],"国":[{"e":"囗"},{"e":"玉"}],"人":[],"入":[],"八":[],"大":[],"中":[{"e":"口"},{"e":"丨"}],"車":[],"女":[],"子":[],"母":[{"e":"毋"}],"本":[{"e":"木"}],"木":[],"火":[],"山":[],"上":[{"e":"卜"},{"e":"一"}],"下":[{"e":"一"},{"e":"卜"}],"力":[],"男":[{"e":"田"},{"e":"力"}],"休":[{"e":"亻","orig":"人"},{"e":"木"}],"林":[{"e":"木"}],"森":[{"e":"木"},{"e":"林"}],"好":[{"e":"女"},{"e":"子"}],"明":[{"e":"日"},{"e":"月"}],"町":[{"e":"田"},{"e":"丁"}],"白":[{"e":"日"}],"百":[{"e":"一"},{"e":"白"}],"千":[{"e":"丿"},{"e":"十"}],"円":[{"e":"冂"}],"手":[],"生":[],"先":[{"e":"儿","orig":"八"}],"学":[{"e":"子"}],"校":[{"e":"木"},{"e":"交"}],"年":[{"e":"丿"},{"e":"干"}],"今":[{"e":"人"}],"分":[{"e":"八"},{"e":"刀"}],"見":[{"e":"目"},{"e":"儿"}],"行":[{"e":"彳"}],"来":[{"e":"米"}],"食":[],"気":[{"e":"气"},{"e":"乂"}],"天":[{"e":"一"},{"e":"大"}],"雨":[],"私":[{"e":"禾"},{"e":"厶"}],"何":[{"e":"亻","orig":"人"},{"e":"可"}],"時":[{"e":"日"},{"e":"寺"}],"間":[{"e":"門"},{"e":"日"}],"言":[],"話":[{"e":"言"},{"e":"舌"}],"五":[],"六":[{"e":"八"}],"九":[],"会":[{"e":"人"},{"e":"云"}],"電":[{"e":"雨"},{"e":"田"}],"開":[{"e":"門"},{"e":"开"}],"買":[{"e":"罒"},{"e":"貝"}],"作":[{"e":"亻","orig":"人"},{"e":"乍"}],"文":[],"使":[{"e":"亻","orig":"人"},{"e":"吏"}],"書":[{"e":"聿"},{"e":"日"}],"朝":[{"e":"十"},{"e":"日"},{"e":"月"}],"起":[{"e":"走"},{"e":"己"}],"帰":[{"e":"刂"},{"e":"帚"}],"週":[{"e":"辶"},{"e":"周"}],"毎":[{"e":"母"}],"曜":[{"e":"日"},{"e":"羽"},{"e":"隹"}],"名":[{"e":"夕"},{"e":"口"}],"前":[{"e":"月"},{"e":"刂"}],"語":[{"e":"言"},{"e":"五"},{"e":"口"}],"高":[{"e":"口"},{"e":"冂"}],"安":[{"e":"宀"},{"e":"女"}],"新":[{"e":"木"},{"e":"斤"}],"広":[{"e":"广"},{"e":"厶"}],"思":[{"e":"田"},{"e":"心"}],"待":[{"e":"彳"},{"e":"寺"}],"始":[{"e":"女"},{"e":"台"}],"終":[{"e":"糸"},{"e":"冬"}],"飲":[{"e":"飠","orig":"食"},{"e":"欠"}],"茶":[{"e":"艹"},{"e":"木"}],"歩":[{"e":"止"},{"e":"少"}],"聞":[{"e":"門"},{"e":"耳"}],"物":[{"e":"牜","orig":"牛"},{"e":"勿"}],"写":[{"e":"冖"},{"e":"与"}],"真":[{"e":"十"},{"e":"目"}],"勉":[{"e":"免"},{"e":"力"}],"強":[{"e":"弓"},{"e":"虫"}],"意":[{"e":"音"},{"e":"心"}],"味":[{"e":"口"},{"e":"未"}],"寒":[{"e":"宀"}],"暑":[{"e":"日"},{"e":"者"}],"忙":[{"e":"忄","orig":"心"},{"e":"亡"}],"痛":[{"e":"疒"},{"e":"甬"}],"寝":[{"e":"宀"},{"e":"爿"}],"洗":[{"e":"氵","orig":"水"},{"e":"先"}],"歯":[{"e":"止"},{"e":"米"}],"散":[{"e":"月"},{"e":"攵"}]};
 
 // ————— Kanji ——————
 // m=meaning, on/kun=readings, story=the hook, w=words, look=confusables
@@ -124,6 +124,22 @@ const K = {
   "飲": { m: "drink", on: "イン", kun: "の(む)", story: "The food radical — 食, squashed to stand at the left — beside 欠, a wide-open mouth.", sentence: true, w: [["飲む","のむ","to drink"],["飲み物","のみもの","a drink"]] },
   "茶": { m: "tea", on: "チャ・サ", kun: "—", story: "The grass crown 艹 on top marks plants — tea is first of many words wearing it.", w: [["お茶","おちゃ","tea"]] },
   "歩": { m: "walk; step", on: "ホ", kun: "ある(く)", story: "止 began as a footprint. 歩 is two of them, one after the other — walking, drawn directly.", sentence: true, w: [["歩く","あるく","to walk"],["散歩","さんぽ","a walk; a stroll"]] },
+  "聞": { m: "hear; ask", on: "ブン", kun: "き(く)", story: "An ear 耳 standing in the gateway — the third guest, exactly where the gate lesson said it would be.", sentence: true, w: [["聞く","きく","to hear; to ask"],["新聞","しんぶん","newspaper"]] },
+  "物": { m: "thing", on: "ブツ・モツ", kun: "もの", story: "The left side is an ox, squashed to stand aside the way 亻 does — things were measured in livestock long before yen. Hold the story loosely; the character is everywhere either way.", w: [["物","もの","thing"],["買い物","かいもの","shopping"],["飲み物","のみもの","a drink"]] },
+  "写": { m: "copy", on: "シャ", kun: "うつ(す)", w: [["写真","しゃしん","photograph"]] },
+  "真": { m: "true; real", on: "シン", kun: "ま", story: "写真 is a true-copy — which is exactly what a photograph claimed to be when the word was coined.", w: [["写真","しゃしん","photograph"],["真ん中","まんなか","the very middle"]] },
+  "勉": { m: "effort", on: "ベン", kun: "—", w: [["勉強","べんきょう","study"]] },
+  "強": { m: "strong", on: "キョウ", kun: "つよ(い)", sentence: true, w: [["勉強","べんきょう","study"],["強い","つよい","strong"]] },
+  "意": { m: "mind; intention", on: "イ", kun: "—", story: "音 a sound, over 心 the heart — the sound the heart makes: what you mean. 心's second customer, one group after it arrived.", w: [["意味","いみ","meaning"],["得意","とくい","one's strong suit"]] },
+  "味": { m: "taste; flavour", on: "ミ", kun: "あじ", w: [["意味","いみ","meaning"],["味","あじ","taste"]] },
+  "寒": { m: "cold (weather)", on: "カン", kun: "さむ(い)", sentence: true, w: [["寒い","さむい","cold"]] },
+  "暑": { m: "hot (weather)", on: "ショ", kun: "あつ(い)", story: "The sun 日 on top is doing the heating.", sentence: true, w: [["暑い","あつい","hot (weather)"]] },
+  "忙": { m: "busy", on: "ボウ", kun: "いそが(しい)", story: "The heart radical 忄 — 心 squashed to stand at the left — beside 亡, loss: a heart with no room left in it. The old account and the daily experience agree.", sentence: true, w: [["忙しい","いそがしい","busy"]] },
+  "痛": { m: "pain", on: "ツウ", kun: "いた(い)", story: "The lean-to 疒 marks the sickness family — you will meet it again in 病 and 疲.", sentence: true, w: [["痛い","いたい","painful; ouch"]] },
+  "寝": { m: "sleep; lie down", on: "シン", kun: "ね(る)", story: "A roof 宀, a bed stood on its side, and the broom-shape from 帰 — a room readied for the night. Loose story, honest parts.", sentence: true, w: [["寝る","ねる","to sleep; to go to bed"]] },
+  "洗": { m: "wash", on: "セン", kun: "あら(う)", story: "The water radical 氵 — 水, squashed — beside the 先 you already write.", sentence: true, w: [["洗う","あらう","to wash"],["手を洗う","てをあらう","to wash one's hands"]] },
+  "歯": { m: "tooth", on: "シ", kun: "は", story: "止 sits on top carrying the sound; below it, teeth in an open mouth — one of the few characters that is still simply a picture.", w: [["歯","は","tooth"],["歯をみがく","はをみがく","to brush one's teeth"]] },
+  "散": { m: "scatter", on: "サン", kun: "ち(る)", w: [["散歩","さんぽ","a walk; a stroll"],["散る","ちる","to scatter; to fall (petals)"]] },
 };
 
 // ————— Lessons —————
@@ -267,6 +283,35 @@ const MODULES = [
     chars: ["語","高","思","始","飲","歩"],
     exp: "Six characters, one from each lesson in this group. Between them: the language you study, the price you thought about, the thing you started, the tea you drank, and the walk after.\n\nBlank if you can. The hint gives one stroke, as always.",
     },
+
+  { id: "k-t18", kind: "kanji", title: "Paper, pictures, things", chars: ["聞","物","写","真"],
+    rule: "聞 draws the whole gate 門 first — the third time you have done it, and the rule has not moved.",
+    exp: "聞 is the guest you were promised: an ear in the gateway. 聞く does double duty — to hear, and to ask — which surprises English speakers exactly once. And 新聞 sheds the furigana it wore into k-t15: the news, heard on paper.\n\n物 is もの, the all-purpose thing, and it pays for itself instantly: 買い物, 飲み物, and 物 alone. Its left side is an ox squashed to stand aside, the way 亻 stands aside in 休 — things were measured in livestock long before yen, a story to hold loosely.\n\n写真 arrives as a pair — some words are simply bought whole. 写 is copy, 真 is true: a photograph is a true-copy, which is exactly what the camera claimed when the word was coined. The bank's 写真を撮る keeps 撮 in furigana for now; the noun itself is yours.",
+    },
+
+  { id: "sb-gate2", kind: "skill", title: "間・開・聞 — the gate, complete", chars: ["間","開","聞"],
+    exp: "The family sb-gate promised is now whole. Three guests, three meanings: the sun in the gap makes 間, the interval; the bar and hands make 開, to open; the ear makes 聞, to hear.\n\nWrite all three in a row and notice what your hand already knows: the gate is eight of the strokes every time, so each new member cost you almost nothing. That is what a component family is for — and it is why the glance at 門 back in 間's lesson was an investment, not a detour. Say the guest out loud as you write; at reading speed the guest is the only difference there is.",
+    },
+
+  { id: "k-t19", kind: "kanji", title: "Study, and what it means", chars: ["勉","強","意","味"],
+    rule: "強's bow 弓 finishes whole before anything stands beside it — components complete themselves, always.",
+    exp: "勉強 is the second word this group buys whole — and the word for what you are doing right now. 強 repays the pair on its own: 強い, strong, straight into your Step 9 adjectives.\n\n意 is 音, a sound, over 心, the heart — the sound the heart makes: what you mean. The heart was promised to keep turning up when you met it under 思; here it is, one group later.\n\n味 is taste, and 意味 — meaning — is what a word holds the way food holds flavour. It also half-opens 得意, the word the 上手 lesson recommended for talking about your own strengths; 得 keeps its furigana a while longer.",
+    },
+
+  { id: "k-t20", kind: "kanji", title: "How the day feels", chars: ["寒","暑","忙","痛"],
+    rule: "寒 stacks under its roof top to bottom, and the two floor dots go in last.",
+    exp: "Four adjectives straight out of Step 9, and between them most of how a day gets described: 寒い, 暑い, 忙しい, 痛い.\n\n寒 and 暑 are the weather pair. 暑's sun 日 sits on top, doing the heating — and the grammar module's script lesson already showed you why the kanji matters here: 暑い and 熱い sound identical, and only the character says whether the day or the tea is hot. 熱 itself comes later; the distinction starts now.\n\n忙 introduces the fourth member of the squashed family: 忄 is 心, the heart, turned sideways to stand at the left — alongside 亻 the person, 飠 the food, and 氵 the water you will meet next lesson. Beside it, 亡: loss. A heart with no room left in it — the old account and the daily experience agree.\n\n痛 wears the lean-to 疒 that marks the sickness family (病 and 疲 wait further on). 痛い earns its keep in speech, too — it is what Japanese says where English says ouch.",
+    },
+
+  { id: "k-t21", kind: "kanji", title: "Winding down", chars: ["寝","洗","歯","散"],
+    rule: "洗's water radical 氵 is three strokes, top to bottom, before the whole of 先.",
+    exp: "The evening, in order: 手を洗う, 歯をみがく, 散歩 if the weather holds, and 寝る.\n\n洗 is the group's assembly moment: the water radical 氵 — 水, squashed — beside the 先 you have written since 先生. Two knowns, one new character.\n\n歯 is nearly a photograph of itself: teeth in an open mouth, with 止 on top carrying the sound. 散 finally frees 散歩 from its furigana — さんぽ, the ぽ hardened by the ん in front of it, exactly the shift k-t17 flagged.\n\nAnd 寝 closes what 起 opened back in the daily-arc lesson: a roof, a bed stood on its side, and — look closely — the broom-shape from 帰, the room being readied for the night. The story is loose but the parts are honestly there. The day the module teaches now runs end to end: 起きて、食べて、歩いて、寝る.",
+    },
+
+  { id: "cp-feel", kind: "checkpoint", title: "Checkpoint — the whole day now",
+    chars: ["聞","真","強","暑","洗","寝"],
+    exp: "Six characters across the group: the news you heard, the photo that was true, the strength you studied up, the heat of the afternoon, the washing before bed, and the sleep at the end of it.\n\nBlank if you can. One stroke from the hint, as always.",
+    },
 ];
 
 // ————— Progress migration: order-v1 → order-v2 lesson ids (Session 10) —————
@@ -326,6 +371,9 @@ const GROUPS = [
   { title: "Describing your days",
     blurb: "Your name and your language, the price of things, and the verbs that run underneath — thinking, waiting, starting, finishing, and the tea in between.",
     ids: ["k-t14","k-t15","k-t16","sb-tera","k-t17","cp-desc"] },
+  { title: "The rest of the day",
+    blurb: "News and photos, study and meaning, how a day feels, and the routine that closes it — the gate family completed, the squashed radicals named.",
+    ids: ["k-t18","sb-gate2","k-t19","k-t20","k-t21","cp-feel"] },
 ];
 const INTRO = MODULES.find((m) => m.id === "cc-intro");
 const FURIGANA = MODULES.find((m) => m.id === "cc-furigana");
