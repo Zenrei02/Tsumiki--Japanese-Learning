@@ -24,7 +24,7 @@ installStorage();
 // Structural, not pedagogical: KanjiVG reports 白 as containing 日, which is true
 // of the shape and misleading about the meaning. Where that matters the lesson's
 // own note overrides it.
-const PARTS = {"一":[],"二":[],"三":[{"e":"一"}],"川":[],"十":[],"七":[{"e":"一"},{"e":"乙"}],"土":[],"小":[],"水":[],"日":[],"月":[],"田":[],"目":[],"口":[],"四":[{"e":"囗"},{"e":"儿","orig":"八"}],"国":[{"e":"囗"},{"e":"玉"}],"人":[],"入":[],"八":[],"大":[],"中":[{"e":"口"},{"e":"丨"}],"車":[],"女":[],"子":[],"母":[{"e":"毋"}],"本":[{"e":"木"}],"木":[],"火":[],"山":[],"上":[{"e":"卜"},{"e":"一"}],"下":[{"e":"一"},{"e":"卜"}],"力":[],"男":[{"e":"田"},{"e":"力"}],"休":[{"e":"亻","orig":"人"},{"e":"木"}],"林":[{"e":"木"}],"森":[{"e":"木"},{"e":"林"}],"好":[{"e":"女"},{"e":"子"}],"明":[{"e":"日"},{"e":"月"}],"町":[{"e":"田"},{"e":"丁"}],"白":[{"e":"日"}],"百":[{"e":"一"},{"e":"白"}],"千":[{"e":"丿"},{"e":"十"}],"円":[{"e":"冂"}],"手":[],"生":[],"先":[{"e":"儿","orig":"八"}],"学":[{"e":"子"}],"校":[{"e":"木"},{"e":"交"}],"年":[{"e":"丿"},{"e":"干"}],"今":[{"e":"人"}],"分":[{"e":"八"},{"e":"刀"}],"見":[{"e":"目"},{"e":"儿"}],"行":[{"e":"彳"}],"来":[{"e":"米"}],"食":[],"気":[{"e":"气"},{"e":"乂"}],"天":[{"e":"一"},{"e":"大"}],"雨":[],"私":[{"e":"禾"},{"e":"厶"}],"何":[{"e":"亻","orig":"人"},{"e":"可"}],"時":[{"e":"日"},{"e":"寺"}],"間":[{"e":"門"},{"e":"日"}],"言":[],"話":[{"e":"言"},{"e":"舌"}],"五":[],"六":[{"e":"八"}],"九":[],"会":[{"e":"人"},{"e":"云"}],"電":[{"e":"雨"},{"e":"田"}],"開":[{"e":"門"},{"e":"开"}],"買":[{"e":"罒"},{"e":"貝"}],"作":[{"e":"亻","orig":"人"},{"e":"乍"}],"文":[],"使":[{"e":"亻","orig":"人"},{"e":"吏"}],"書":[{"e":"聿"},{"e":"日"}],"朝":[{"e":"十"},{"e":"日"},{"e":"月"}],"起":[{"e":"走"},{"e":"己"}],"帰":[{"e":"刂"},{"e":"帚"}],"週":[{"e":"辶"},{"e":"周"}],"毎":[{"e":"母"}],"曜":[{"e":"日"},{"e":"羽"},{"e":"隹"}]};
+const PARTS = {"一":[],"二":[],"三":[{"e":"一"}],"川":[],"十":[],"七":[{"e":"一"},{"e":"乙"}],"土":[],"小":[],"水":[],"日":[],"月":[],"田":[],"目":[],"口":[],"四":[{"e":"囗"},{"e":"儿","orig":"八"}],"国":[{"e":"囗"},{"e":"玉"}],"人":[],"入":[],"八":[],"大":[],"中":[{"e":"口"},{"e":"丨"}],"車":[],"女":[],"子":[],"母":[{"e":"毋"}],"本":[{"e":"木"}],"木":[],"火":[],"山":[],"上":[{"e":"卜"},{"e":"一"}],"下":[{"e":"一"},{"e":"卜"}],"力":[],"男":[{"e":"田"},{"e":"力"}],"休":[{"e":"亻","orig":"人"},{"e":"木"}],"林":[{"e":"木"}],"森":[{"e":"木"},{"e":"林"}],"好":[{"e":"女"},{"e":"子"}],"明":[{"e":"日"},{"e":"月"}],"町":[{"e":"田"},{"e":"丁"}],"白":[{"e":"日"}],"百":[{"e":"一"},{"e":"白"}],"千":[{"e":"丿"},{"e":"十"}],"円":[{"e":"冂"}],"手":[],"生":[],"先":[{"e":"儿","orig":"八"}],"学":[{"e":"子"}],"校":[{"e":"木"},{"e":"交"}],"年":[{"e":"丿"},{"e":"干"}],"今":[{"e":"人"}],"分":[{"e":"八"},{"e":"刀"}],"見":[{"e":"目"},{"e":"儿"}],"行":[{"e":"彳"}],"来":[{"e":"米"}],"食":[],"気":[{"e":"气"},{"e":"乂"}],"天":[{"e":"一"},{"e":"大"}],"雨":[],"私":[{"e":"禾"},{"e":"厶"}],"何":[{"e":"亻","orig":"人"},{"e":"可"}],"時":[{"e":"日"},{"e":"寺"}],"間":[{"e":"門"},{"e":"日"}],"言":[],"話":[{"e":"言"},{"e":"舌"}],"五":[],"六":[{"e":"八"}],"九":[],"会":[{"e":"人"},{"e":"云"}],"電":[{"e":"雨"},{"e":"田"}],"開":[{"e":"門"},{"e":"开"}],"買":[{"e":"罒"},{"e":"貝"}],"作":[{"e":"亻","orig":"人"},{"e":"乍"}],"文":[],"使":[{"e":"亻","orig":"人"},{"e":"吏"}],"書":[{"e":"聿"},{"e":"日"}],"朝":[{"e":"十"},{"e":"日"},{"e":"月"}],"起":[{"e":"走"},{"e":"己"}],"帰":[{"e":"刂"},{"e":"帚"}],"週":[{"e":"辶"},{"e":"周"}],"毎":[{"e":"母"}],"曜":[{"e":"日"},{"e":"羽"},{"e":"隹"}],"名":[{"e":"夕"},{"e":"口"}],"前":[{"e":"月"},{"e":"刂"}],"語":[{"e":"言"},{"e":"五"},{"e":"口"}],"高":[{"e":"口"},{"e":"冂"}],"安":[{"e":"宀"},{"e":"女"}],"新":[{"e":"木"},{"e":"斤"}],"広":[{"e":"广"},{"e":"厶"}],"思":[{"e":"田"},{"e":"心"}],"待":[{"e":"彳"},{"e":"寺"}],"始":[{"e":"女"},{"e":"台"}],"終":[{"e":"糸"},{"e":"冬"}],"飲":[{"e":"飠","orig":"食"},{"e":"欠"}],"茶":[{"e":"艹"},{"e":"木"}],"歩":[{"e":"止"},{"e":"少"}]};
 
 // ————— Kanji ——————
 // m=meaning, on/kun=readings, story=the hook, w=words, look=confusables
@@ -110,6 +110,20 @@ const K = {
   "週": { m: "week", on: "シュウ", kun: "—", story: "The road 辶 taken all the way around 周 — a circuit that comes back to its start.", w: [["先週","せんしゅう","last week"],["来週","らいしゅう","next week"],["週末","しゅうまつ","weekend"]] },
   "毎": { m: "every", on: "マイ", kun: "—", look: ["母"], story: "母's shape under a slanted top — a structural fact, not a story about mothers.", w: [["毎日","まいにち","every day"],["毎週","まいしゅう","every week"]] },
   "曜": { m: "day of the week", on: "ヨウ", kun: "—", story: "日 beside feathers over a short-tailed bird 隹. It named the seven luminaries — sun, moon, and the five visible planets — which is exactly how Japanese still names its days.", w: [["月曜日","げつようび","Monday"],["何曜日","なんようび","what day of the week"]] },
+  "名": { m: "name", on: "メイ", kun: "な", story: "An evening 夕 over a mouth 口 — calling out a name in the dark, when a face can't be seen. The story is old and argued over; the shape is easy either way.", w: [["名前","なまえ","name"]] },
+  "前": { m: "before; front", on: "ゼン", kun: "まえ", w: [["名前","なまえ","name"],["前","まえ","front; before"]] },
+  "語": { m: "language; word", on: "ゴ", kun: "かた(る)", story: "言 words, 五 five, 口 a mouth — every stroke already yours. Read it as words traded mouth to mouth.", w: [["日本語","にほんご","Japanese (language)"],["英語","えいご","English (language)"]] },
+  "高": { m: "tall; expensive", on: "コウ", kun: "たか(い)", story: "Usually told as a tall building or watchtower, storey on storey.", sentence: true, w: [["高い","たかい","tall; expensive"]] },
+  "安": { m: "cheap; peaceful", on: "アン", kun: "やす(い)", look: ["好"], story: "女 under a roof 宀. The traditional account is rest and safety — 安 meant peaceful first, and cheap grew out of easy. Hold the story loosely; keep the shape.", sentence: true, w: [["安い","やすい","cheap"]] },
+  "新": { m: "new", on: "シン", kun: "あたら(しい)", story: "The right side 斤 is an axe — fresh-cut wood is the usual telling.", sentence: true, w: [["新しい","あたらしい","new"],["新聞","しんぶん","newspaper"]] },
+  "広": { m: "wide; spacious", on: "コウ", kun: "ひろ(い)", sentence: true, w: [["広い","ひろい","spacious; wide"]] },
+  "思": { m: "think", on: "シ", kun: "おも(う)", story: "A 心 heart under what looks like a field 田 — though the top began as a skull, not a field. In kanji it is the heart, not the head, that does the thinking, and 心 will keep turning up wherever feeling does.", sentence: true, w: [["思う","おもう","to think"]] },
+  "待": { m: "wait", on: "タイ", kun: "ま(つ)", look: ["時"], story: "The step 彳 you know from 行, beside the 寺 you met inside 時 — the temple repays its glance, exactly as promised.", sentence: true, w: [["待つ","まつ","to wait"]] },
+  "始": { m: "begin", on: "シ", kun: "はじ(める)・はじ(まる)", look: ["好"], sentence: true, w: [["始まる","はじまる","to begin (by itself)"],["始める","はじめる","to begin (something)"]] },
+  "終": { m: "end", on: "シュウ", kun: "お(わる)", story: "The left side 糸 is a thread — the first you have seen of a component that runs through a whole family of characters ahead.", sentence: true, w: [["終わる","おわる","to end"],["終わり","おわり","the end"]] },
+  "飲": { m: "drink", on: "イン", kun: "の(む)", story: "The food radical — 食, squashed to stand at the left — beside 欠, a wide-open mouth.", sentence: true, w: [["飲む","のむ","to drink"],["飲み物","のみもの","a drink"]] },
+  "茶": { m: "tea", on: "チャ・サ", kun: "—", story: "The grass crown 艹 on top marks plants — tea is first of many words wearing it.", w: [["お茶","おちゃ","tea"]] },
+  "歩": { m: "walk; step", on: "ホ", kun: "ある(く)", story: "止 began as a footprint. 歩 is two of them, one after the other — walking, drawn directly.", sentence: true, w: [["歩く","あるく","to walk"],["散歩","さんぽ","a walk; a stroll"]] },
 };
 
 // ————— Lessons —————
@@ -224,6 +238,35 @@ const MODULES = [
   { id: "cp-day", kind: "checkpoint", title: "Checkpoint — a readable day",
     chars: ["五","電","開","書","朝","曜"],
     exp: "Six characters, one from each lesson in this group — between them they can write the hour you got up, the train you caught, the door you opened, the page you wrote, and the name of the day itself.\n\nBlank if you can. The hint still gives one stroke and one only." },
+
+  { id: "k-t14", kind: "kanji", title: "Your name, in your language", chars: ["名","前","語"],
+    rule: "名 stacks 夕 over 口 top to bottom; 語 writes its three parts each finished whole, left to right.",
+    exp: "名前 is your name — the word every introduction has run on since your very first lesson — and both halves arrive here together. 前 also works alone: in front of, and before, which is why it turns up in times and places alike.\n\n語 is the group's payoff. 言 words, 五 five, 口 a mouth: fourteen strokes and every one of them already yours, the largest character so far that you can read as an assembly rather than learn as a shape. It closes 日本語 — the name of the thing you are doing.",
+    },
+
+  { id: "k-t15", kind: "kanji", title: "The price of things", chars: ["高","安","新","広"],
+    rule: "高 is stacked boxes: work top to bottom, and every box keeps its floor for last.",
+    exp: "Four adjectives, straight out of Step 9's grammar: 高い, 安い, 新しい, 広い. These are the characters your opinions run on — what things cost, how new they are, how much room they leave you.\n\n高 doubles for tall and expensive, and Japanese sees no difference worth marking. 安 is 女 under a roof 宀 — peaceful first, cheap by extension, the pleasant idea that what costs little leaves you at ease.\n\n新 carries an axe 斤 on the right — fresh-cut — and pairs with 聞 in 新聞, the newspaper: the news. That second character is the gate with an ear in it, still a group or two away; for now the word wears its furigana.\n\n広 is the smallest of the four: a lean-to roof over the same 厶 you met in 私. Five strokes, and your rooms and towns can be described.",
+    },
+
+
+  { id: "k-t16", kind: "kanji", title: "Think, wait, begin, end", chars: ["思","待","始","終"],
+    rule: "思's 心 is four strokes: left dot, the curling hook, then the two dots — in that order.",
+    exp: "The verbs that run under a day, rather than through it. 思う has been carrying your opinions since 〜と思います; here is its character — a heart 心 under what looks like a field. The top began as a skull, whatever it looks like now; the heart below is doing the thinking, and 心 will return wherever feeling does.\n\n待つ puts the step 彳 beside the temple — the next lesson takes the pair apart properly.\n\n始 and 終 are bookends. 始 is 女 with 台 — and it is the 始まる/始める pair from the grammar module's verb-pairs lesson, so its two words mean you choose your particle with your verb: 会議が始まる, 会議を始める. 終 hangs 冬, winter, off a thread 糸 — the end of the year on the end of the line. Between them they can open and close anything you do.",
+    },
+  { id: "sb-tera", kind: "skill", title: "時 and 待 — the temple on the right", chars: ["時","待"],
+    exp: "Two characters share the 寺 you were told to glance at back in 時's lesson. The right side stays put; the LEFT side does the telling: the sun 日 makes it about time, the step 彳 makes it about waiting.\n\nThis is the pattern worth extracting, because it is the pattern most kanji are actually built on: the right side carries a sound, the left side names the topic. You have seen it in 作 and 使, and 寺 will do it again in characters you haven't met. When two characters look like twins, check the left edge first — that is usually where the difference lives.",
+    },
+
+  { id: "k-t17", kind: "kanji", title: "Tea, and the walk after", chars: ["飲","茶","歩"],
+    rule: "The food radical squashes to stand at the left of 飲 — like 亻, a component learns to stand aside.",
+    exp: "お茶を飲む — tea, and the drinking of it. 飲 puts the 食 you already write beside 欠, a mouth open wide, and narrows from eating to drinking. 茶 wears the grass crown 艹 that marks plants; it is the first of many characters that carry it, and お茶 is the word your breaks are made of.\n\n歩 is walking drawn directly: 止 began as a footprint, and 歩 is two footprints, one after the other. It gives you 歩く, and 散歩 — the walk you take for its own sake — keeps its furigana on 散 for now.\n\nSmall reading note: 散歩 is さんぽ, the ほ hardening to ぽ after ん — the same small sound shifts you met all through the kana modules, still at work inside words.",
+    },
+
+  { id: "cp-desc", kind: "checkpoint", title: "Checkpoint — describing your day",
+    chars: ["語","高","思","始","飲","歩"],
+    exp: "Six characters, one from each lesson in this group. Between them: the language you study, the price you thought about, the thing you started, the tea you drank, and the walk after.\n\nBlank if you can. The hint gives one stroke, as always.",
+    },
 ];
 
 // ————— Progress migration: order-v1 → order-v2 lesson ids (Session 10) —————
@@ -280,6 +323,9 @@ const GROUPS = [
   { title: "The shape of a day",
     blurb: "The numbers finished, the week named, and the daily round — meeting, making, writing, getting home — assembled from parts you already own.",
     ids: ["k-t9","k-t10","sb-gate","k-t11","k-t12","k-t13","cp-day"] },
+  { title: "Describing your days",
+    blurb: "Your name and your language, the price of things, and the verbs that run underneath — thinking, waiting, starting, finishing, and the tea in between.",
+    ids: ["k-t14","k-t15","k-t16","sb-tera","k-t17","cp-desc"] },
 ];
 const INTRO = MODULES.find((m) => m.id === "cc-intro");
 const FURIGANA = MODULES.find((m) => m.id === "cc-furigana");
