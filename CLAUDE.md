@@ -125,6 +125,17 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   permission granted, a script that creates and removes its own temp files is cleaner run
   outside the mount. (Session 8 — probe files next to the masters aborted the audio splitter
   on its first clip.)
+- **⚠️ Netlify charges 15 credits per PRODUCTION DEPLOY, and every push to main
+  triggers one.** Ten pushes burned ~150 credits before anyone noticed
+  (Aug 13 2026). **Lloyd's standing rule: at most ONE push per session.**
+  Commits are free — make as many as the work deserves and let them accumulate
+  locally; Lloyd pushes once, at session close. Two duties for the assistant:
+  do NOT write "push when ready" after every commit, and DO remind Lloyd of
+  the single-push rule when the session wraps — he asked to be reminded.
+  netlify.toml now carries a build-ignore rule (`ignore` in [build]) so a push
+  touching nothing under naoshi-app/ skips the build and costs nothing; treat
+  that as a safety net, not a license.
+
 - **GitHub raw is blocked** by the sandbox proxy (HTTP 403 from CONNECT). Anything needing
   `raw.githubusercontent.com` — e.g. the scriptin kanji-frequency corpora — must be fetched by
   Lloyd on his own machine. `github.com`, `codeload`, and the GitHub API are blocked too.

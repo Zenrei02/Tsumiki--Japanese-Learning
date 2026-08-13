@@ -15,6 +15,12 @@
   base = "naoshi-app"
   command = "npm run build"
   publish = "dist"
+  # Skip the production build when the pushed range changed nothing the app
+  # actually ships. $CACHED_COMMIT_REF..$COMMIT_REF is the range Netlify is
+  # deciding about; paths are relative to `base`, so `./` means naoshi-app/.
+  # Exit 0 = skip. Deploys cost 15 credits apiece (noticed Aug 13 2026 after
+  # ~10 pushes), so a docs/tracker-only push now costs zero.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF ./"
 
 [build.environment]
   # Netlify picked Node 24 on its own, but pinning it means a future default
