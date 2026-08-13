@@ -107,6 +107,22 @@ async function go(modId, lessonMatch, tabs, opts = {}) {
   w.eval(fs.readFileSync(BUNDLE, "utf8"));
   await new Promise(r => setTimeout(r, 2200));
 
+  // Session 13: the app now lands on the Home screen rather than teleporting
+  // to naoshi-last-module. Enter the module the way a user does: the hero
+  // card offers the last-visited module (seeded above) — click it, and in
+  // doing so smoke-test Home itself. Fall back to the header tab.
+  {
+    const all = [...w.document.querySelectorAll("button")];
+    const hero = all.find(x => /PICK UP WHERE YOU LEFT OFF/i.test(x.textContent || ""));
+    const label = { hiragana: "Hiragana", katakana: "Katakana", grammar: "Grammar",
+                    kanji: "Kanji", vocabulary: "Vocabulary" }[modId];
+    const tab = all.find(x => (x.textContent || "").startsWith(label));
+    if (!hero && !tab) { fail(`${modId.toUpperCase()}: HOME gave no way into the module`); return; }
+    if (hero) console.log(`  home: continue card ok (${modId})`);
+    (hero || tab).click();
+    await new Promise(r => setTimeout(r, 900));
+  }
+
   const d = w.document;
   const NAME = modId.toUpperCase();
   const btns = () => [...d.querySelectorAll("button")];

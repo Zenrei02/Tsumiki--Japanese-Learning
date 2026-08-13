@@ -373,14 +373,99 @@ const MODULES = [
   ''' + nav + '''
 ];
 
+// ————— Home (Session 13) —————
+// The app used to open straight into a module with nothing explaining what
+// the five doors are for. Home answers three questions, in order: where was
+// I (the continue card), where should a newcomer go first (hiragana — it
+// gates everything), and what is everything else for — one honest line each,
+// stating capability, never workload: no counts anywhere, per the standing
+// rule. Mobile-first: one column, whole cards tappable, thumb-size targets.
+const HOME_WHY = {
+  hiragana: "The script that holds every sentence together. Everything else here assumes it — this is where Japanese starts.",
+  katakana: "The second script: loanwords, menus, signs. Runs alongside hiragana, at whatever pace suits you.",
+  grammar: "The heart of the app — lessons and graded writing practice, from your first sentence upward.",
+  kanji: "Characters in an order that pays for itself: each one unlocks words you already use.",
+  vocabulary: "The words you have met, coming back just before you would forget them.",
+};
+const PROGRESS_KEYS = {
+  hiragana: "hiragana-progress-v2", katakana: "katakana-progress-v1",
+  grammar: "n5-progress-v1", kanji: "kanji-progress-v1", vocabulary: "known-words-v1",
+};
+function started(id) {
+  try {
+    const v = localStorage.getItem(PROGRESS_KEYS[id]);
+    return v != null && v !== "{}" && v !== "[]";
+  } catch (e) { return false; }
+}
+
+function Home({ last, go }) {
+  const lastMod = MODULES.find((m) => m.id === last);
+  const fresh = !MODULES.some((m) => started(m.id));
+  const hero = lastMod || MODULES[0];
+  const heroLabel = lastMod ? "PICK UP WHERE YOU LEFT OFF" : "NEW HERE? START WITH";
+  const heroCta = lastMod ? "Continue ›" : "Start here ›";
+  const cardBase = {
+    display: "block", width: "100%", textAlign: "left", cursor: "pointer",
+    background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 10,
+    padding: "14px 16px", fontFamily: T.uiFont, color: T.ink,
+  };
+  const chip = (text, color) => (
+    <span style={{
+      font: `600 10px ${T.uiFont}`, letterSpacing: ".5px", color: T.paper,
+      background: color, borderRadius: 999, padding: "3px 9px", marginLeft: 8,
+      verticalAlign: "middle",
+    }}>{text}</span>
+  );
+  return (
+    <div style={{ padding: "18px 16px 36px" }}>
+      <button onClick={() => go(hero.id)} style={{
+        ...cardBase, border: `2px solid ${T.ink}`, padding: "18px 18px 16px", marginBottom: 22,
+      }}>
+        <div style={{ font: `600 11px ${T.uiFont}`, letterSpacing: ".7px", color: T.sub }}>
+          {heroLabel}
+        </div>
+        <div style={{ marginTop: 8, display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
+          <span style={{ font: `600 24px ${T.uiFont}` }}>{hero.label}</span>
+          <span style={{ font: `20px ${T.jpFont}`, color: T.sub }}>{hero.jp}</span>
+        </div>
+        <p style={{ font: `14px/1.6 ${T.uiFont}`, color: T.sub, margin: "8px 0 12px" }}>
+          {HOME_WHY[hero.id]}
+        </p>
+        <div style={{ font: `600 15px ${T.uiFont}` }}>{heroCta}</div>
+      </button>
+
+      <div style={{ font: `600 11px ${T.uiFont}`, letterSpacing: ".7px", color: T.sub, marginBottom: 10 }}>
+        EVERYWHERE YOU CAN GO
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {MODULES.map((m) => (
+          <button key={m.id} onClick={() => go(m.id)} style={cardBase}>
+            <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+              <span style={{ font: `600 16px ${T.uiFont}` }}>{m.label}</span>
+              <span style={{ font: `15px ${T.jpFont}`, color: T.sub, marginLeft: 8 }}>{m.jp}</span>
+              {m.id === "hiragana" && fresh && chip("START HERE", T.ok)}
+              {last === m.id && chip("LAST VISITED", T.ink)}
+              {last !== m.id && started(m.id) && chip("IN PROGRESS", T.sub)}
+            </div>
+            <p style={{ font: `13px/1.6 ${T.uiFont}`, color: T.sub, margin: "6px 0 0" }}>
+              {HOME_WHY[m.id]}
+            </p>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
-  // Remember which module they were in. One less thing to re-find each visit.
-  const [active, setActive] = useState(
-    () => localStorage.getItem("naoshi-last-module") || MODULES[0].id);
+  // Land on Home. It remembers where they were (naoshi-last-module) and
+  // offers it as the continue card, rather than teleporting them there —
+  // Session 13: the doors deserve a hallway.
+  const [active, setActive] = useState("home");
   const [msg, setMsg] = useState(null);
   const current = MODULES.find((m) => m.id === active) || MODULES[0];
 
-  const go = (id) => { setActive(id); localStorage.setItem("naoshi-last-module", id); };
+  const go = (id) => { setActive(id); if (id !== "home") localStorage.setItem("naoshi-last-module", id); };
 
   const restore = (e) => {
     const file = e.target.files?.[0];
@@ -406,7 +491,11 @@ export default function App() {
           maxWidth: 900, margin: "0 auto", padding: "10px 16px",
           display: "flex", alignItems: "center", gap: 4, flexWrap: "wrap",
         }}>
-          <span style={{ font: `600 17px ${T.jpFont}`, color: T.ink, marginRight: 14 }}>直</span>
+          <button onClick={() => go("home")} aria-label="Home" style={{
+            background: "none", border: "none", cursor: "pointer", padding: "4px 8px",
+            marginRight: 8, font: `600 17px ${T.jpFont}`, color: T.ink, borderRadius: 8,
+            borderBottom: `2px solid ${active === "home" ? T.ink : "transparent"}`,
+          }}>直</button>
           {MODULES.map((m) => (
             <button key={m.id} onClick={() => go(m.id)} style={{
               ...btn,
@@ -441,11 +530,15 @@ export default function App() {
       </header>
 
       <main style={{ maxWidth: 900, margin: "0 auto" }}>
-        <Suspense fallback={
-          <p style={{ padding: "40px 18px", color: T.sub, font: `14px ${T.uiFont}` }}>Loading…</p>
-        }>
-          <current.Comp />
-        </Suspense>
+        {active === "home" ? (
+          <Home last={localStorage.getItem("naoshi-last-module")} go={go} />
+        ) : (
+          <Suspense fallback={
+            <p style={{ padding: "40px 18px", color: T.sub, font: `14px ${T.uiFont}` }}>Loading…</p>
+          }>
+            <current.Comp />
+          </Suspense>
+        )}
       </main>
     </div>
   );
