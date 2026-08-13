@@ -1,12 +1,12 @@
 {
- "generated": "2026-08-10",
- "kanji_order": "kanji-order-v2.json",
+ "generated": "2026-08-13",
+ "kanji_order": "kanji-order-v3.json",
  "counts": {
-  "total": 301,
+  "total": 322,
   "taught": 110,
-  "enters_module": 31,
-  "visits": 41,
-  "completable": 20,
+  "enters_module": 62,
+  "visits": 82,
+  "completable": 52,
   "taught_with_kanji": 92,
   "ruby_capable": 92,
   "readings_from_patch": 33,
@@ -74,11 +74,10 @@
    "m": "Japanese language",
    "k": [
     "日",
-    "本"
-   ],
-   "u": [
+    "本",
     "語"
    ],
+   "u": [],
    "j": false,
    "s": "Step 3 · Joining, choosing & counting",
    "x": null,
@@ -110,11 +109,10 @@
    "m": "Monday",
    "k": [
     "日",
-    "月"
-   ],
-   "u": [
+    "月",
     "曜"
    ],
+   "u": [],
    "j": false,
    "s": "Step 3 · Joining, choosing & counting",
    "x": null,
@@ -125,11 +123,10 @@
    "r": "まいにち",
    "m": "every day",
    "k": [
-    "日"
-   ],
-   "u": [
+    "日",
     "毎"
    ],
+   "u": [],
    "j": false,
    "s": "Step 4 · Verbs: from dictionary form up",
    "x": null,
@@ -199,11 +196,10 @@
    "r": "でんしゃ",
    "m": "train",
    "k": [
-    "車"
-   ],
-   "u": [
+    "車",
     "電"
    ],
+   "u": [],
    "j": false,
    "s": "Step 2 · Core particles",
    "x": null,
@@ -240,11 +236,10 @@
    "r": "てをあらう",
    "m": "to wash hands",
    "k": [
-    "手"
-   ],
-   "u": [
+    "手",
     "洗"
    ],
+   "u": [],
    "j": false,
    "s": "Step 7 · Linking actions & time",
    "x": {
@@ -343,11 +338,10 @@
    "r": "でんき",
    "m": "electricity; lights",
    "k": [
-    "気"
-   ],
-   "u": [
+    "気",
     "電"
    ],
+   "u": [],
    "j": false,
    "s": "Step 12 · Past N5 · the shape-changers",
    "x": null,
@@ -485,10 +479,152 @@
    "kt": null
   },
   {
-   "w": "いす",
-   "r": null,
-   "m": "chair",
-   "k": [],
+   "w": "会う",
+   "r": "あう",
+   "m": "to meet",
+   "k": [
+    "会"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 6 · Invitations, desire & intention",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "会議",
+   "r": "かいぎ",
+   "m": "meeting",
+   "k": [
+    "会"
+   ],
+   "u": [
+    "議"
+   ],
+   "j": false,
+   "s": "Step 12 · Past N5 · the shape-changers",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "開ける",
+   "r": "あける",
+   "m": "to open",
+   "k": [
+    "開"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 11 · Reasons, contrast & connectors",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "買う",
+   "r": "かう",
+   "m": "to buy",
+   "k": [
+    "買"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 6 · Invitations, desire & intention",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "作る",
+   "r": "つくる",
+   "m": "to make",
+   "k": [
+    "作"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 12 · Past N5 · the shape-changers",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "使う",
+   "r": "つかう",
+   "m": "to use",
+   "k": [
+    "使"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 5 · Requests, permission & obligation",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "図書館",
+   "r": "としょかん",
+   "m": "library",
+   "k": [
+    "書"
+   ],
+   "u": [
+    "図",
+    "館"
+   ],
+   "j": false,
+   "s": "Step 2 · Core particles",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "朝ごはん",
+   "r": "あさごはん",
+   "m": "breakfast",
+   "k": [
+    "朝"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 2 · Core particles",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "起きる",
+   "r": "おきる",
+   "m": "to get up",
+   "k": [
+    "起"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 4 · Verbs: from dictionary form up",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "帰る",
+   "r": "かえる",
+   "m": "to go home",
+   "k": [
+    "帰"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 5 · Requests, permission & obligation",
+   "x": {
+    "what": "To go home, or to return to where you belong. Read かえる.",
+    "build": "Godan despite the -える ending: 帰ります, 帰って, 帰った.",
+    "when": "Going home, going back to your own country.",
+    "watch": "Two traps at once. It is Godan, not Ichidan (see 入る). And it means returning to your own place, so you cannot use it for going back to a shop or a friend's house — that is 戻る."
+   },
+   "kt": null
+  },
+  {
+   "w": "前",
+   "r": "まえ",
+   "m": "front",
+   "k": [
+    "前"
+   ],
    "u": [],
    "j": false,
    "s": "Step 8 · Existence & possession",
@@ -496,15 +632,308 @@
    "kt": null
   },
   {
+   "w": "高い",
+   "r": "たかい",
+   "m": "expensive; tall",
+   "k": [
+    "高"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 9 · Adjectives & adverbs",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "安い",
+   "r": "やすい",
+   "m": "cheap",
+   "k": [
+    "安"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 9 · Adjectives & adverbs",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "新しい",
+   "r": "あたらしい",
+   "m": "new",
+   "k": [
+    "新"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 6 · Invitations, desire & intention",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "広い",
+   "r": "ひろい",
+   "m": "spacious",
+   "k": [
+    "広"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 9 · Adjectives & adverbs",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "思う",
+   "r": "おもう",
+   "m": "to think",
+   "k": [
+    "思"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 12 · Past N5 · the shape-changers",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "待つ",
+   "r": "まつ",
+   "m": "to wait",
+   "k": [
+    "待"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 5 · Requests, permission & obligation",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "終わる",
+   "r": "おわる",
+   "m": "to end",
+   "k": [
+    "終"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 7 · Linking actions & time",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "薬を飲む",
+   "r": "くすりをのむ",
+   "m": "to take medicine",
+   "k": [
+    "飲"
+   ],
+   "u": [
+    "薬"
+   ],
+   "j": false,
+   "s": "Step 5 · Requests, permission & obligation",
+   "x": {
+    "what": "Medicine plus 飲む. Japanese takes medicine by \"drinking\" it, whatever its actual form.",
+    "build": "薬を飲みます.",
+    "when": "Any medicine — tablets, capsules, powder, liquid.",
+    "watch": "English \"take medicine\" tempts 薬を取る, which means physically picking it up. 飲む is the verb even for a tablet you swallow whole."
+   },
+   "kt": null
+  },
+  {
    "w": "お茶",
    "r": "おちゃ",
    "m": "tea",
-   "k": [],
-   "u": [
+   "k": [
     "茶"
    ],
+   "u": [],
    "j": false,
    "s": "Step 6 · Invitations, desire & intention",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "散歩する",
+   "r": "さんぽする",
+   "m": "to take a walk",
+   "k": [
+    "歩",
+    "散"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 7 · Linking actions & time",
+   "x": {
+    "what": "散歩 (a walk, as a noun) plus する.",
+    "build": "散歩します, or 散歩をします. Where you walk takes を in a different sense — 公園を散歩する, where を marks the space moved through.",
+    "when": "A walk taken for its own sake, not walking to get somewhere.",
+    "watch": "公園を散歩する uses を on a place, which contradicts the \"を marks the object\" rule learners have just been taught. It is a real second use of を — the path or space traversed — and it turns up again with 道を歩く and 橋を渡る."
+   },
+   "kt": null
+  },
+  {
+   "w": "果物",
+   "r": "くだもの",
+   "m": "fruit",
+   "k": [
+    "物"
+   ],
+   "u": [
+    "果"
+   ],
+   "j": false,
+   "s": "Step 10 · Comparing & preferring",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "写真",
+   "r": "しゃしん",
+   "m": "photo",
+   "k": [
+    "写",
+    "真"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Checkpoint 2",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "写真を撮る",
+   "r": "しゃしんをとる",
+   "m": "to take a photo",
+   "k": [
+    "写",
+    "真"
+   ],
+   "u": [
+    "撮"
+   ],
+   "j": false,
+   "s": "Step 5 · Requests, permission & obligation",
+   "x": {
+    "what": "Photo plus 撮る, a verb used specifically for capturing images.",
+    "build": "写真を撮ります. The thing photographed takes の — 犬の写真を撮る.",
+    "when": "Taking a picture, filming.",
+    "watch": "取る and 撮る are both とる and learners reach for the common one. 取る is take or pick up; 撮る is reserved for photographing and filming. Same sound, different character, and the checker will notice."
+   },
+   "kt": null
+  },
+  {
+   "w": "勉強する",
+   "r": "べんきょうする",
+   "m": "to study",
+   "k": [
+    "勉",
+    "強"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 4 · Verbs: from dictionary form up",
+   "x": {
+    "what": "勉強 is a noun — \"study.\" する turns nouns into verbs, and a large part of Japanese vocabulary works this way.",
+    "build": "Two patterns are both correct: 日本語を勉強する, or 日本語の勉強をする. The first is more common in speech.",
+    "when": "Any studying. The same する trick makes 散歩する, 電話する, 料理する.",
+    "watch": "Mixing the two patterns produces 日本語を勉強をする, with two を in one clause — a very common early error and one the checker flags. Pick one shape and finish it."
+   },
+   "kt": null
+  },
+  {
+   "w": "寒い",
+   "r": "さむい",
+   "m": "cold",
+   "k": [
+    "寒"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 9 · Adjectives & adverbs",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "暑い",
+   "r": "あつい",
+   "m": "hot",
+   "k": [
+    "暑"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 9 · Adjectives & adverbs",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "忙しい",
+   "r": "いそがしい",
+   "m": "busy",
+   "k": [
+    "忙"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 11 · Reasons, contrast & connectors",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "痛い",
+   "r": "いたい",
+   "m": "painful",
+   "k": [
+    "痛"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 11 · Reasons, contrast & connectors",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "寝る",
+   "r": "ねる",
+   "m": "to sleep",
+   "k": [
+    "寝"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 4 · Verbs: from dictionary form up",
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "歯をみがく",
+   "r": "はをみがく",
+   "m": "to brush teeth",
+   "k": [
+    "歯"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 7 · Linking actions & time",
+   "x": {
+    "what": "Same shape as 手を洗う: 歯 (teeth), を, みがく (polish, scrub).",
+    "build": "歯をみがきます in polite form.",
+    "when": "Daily routine, usually alongside 起きる and 寝る.",
+    "watch": "みがく means polish or scrub, not \"brush\" — it is also what you do to shoes and to a skill. Translating it as \"brush\" hides that, and then 技を磨く looks like a different word."
+   },
+   "kt": null
+  },
+  {
+   "w": "いす",
+   "r": null,
+   "m": "chair",
+   "k": [],
+   "u": [],
+   "j": false,
+   "s": "Step 8 · Existence & possession",
    "x": null,
    "kt": null
   },
@@ -710,59 +1139,6 @@
    "kt": null
   },
   {
-   "w": "会う",
-   "r": "あう",
-   "m": "to meet",
-   "k": [],
-   "u": [
-    "会"
-   ],
-   "j": false,
-   "s": "Step 6 · Invitations, desire & intention",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "会議",
-   "r": "かいぎ",
-   "m": "meeting",
-   "k": [],
-   "u": [
-    "会",
-    "議"
-   ],
-   "j": false,
-   "s": "Step 12 · Past N5 · the shape-changers",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "作る",
-   "r": "つくる",
-   "m": "to make",
-   "k": [],
-   "u": [
-    "作"
-   ],
-   "j": false,
-   "s": "Step 12 · Past N5 · the shape-changers",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "使う",
-   "r": "つかう",
-   "m": "to use",
-   "k": [],
-   "u": [
-    "使"
-   ],
-   "j": false,
-   "s": "Step 5 · Requests, permission & obligation",
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "全部",
    "r": "ぜんぶ",
    "m": "all",
@@ -791,40 +1167,6 @@
    "kt": null
   },
   {
-   "w": "写真",
-   "r": "しゃしん",
-   "m": "photo",
-   "k": [],
-   "u": [
-    "写",
-    "真"
-   ],
-   "j": false,
-   "s": "Checkpoint 2",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "写真を撮る",
-   "r": "しゃしんをとる",
-   "m": "to take a photo",
-   "k": [],
-   "u": [
-    "写",
-    "真",
-    "撮"
-   ],
-   "j": false,
-   "s": "Step 5 · Requests, permission & obligation",
-   "x": {
-    "what": "Photo plus 撮る, a verb used specifically for capturing images.",
-    "build": "写真を撮ります. The thing photographed takes の — 犬の写真を撮る.",
-    "when": "Taking a picture, filming.",
-    "watch": "取る and 撮る are both とる and learners reach for the common one. 取る is take or pick up; 撮る is reserved for photographing and filming. Same sound, different character, and the checker will notice."
-   },
-   "kt": null
-  },
-  {
    "w": "冬",
    "r": "ふゆ",
    "m": "winter",
@@ -838,38 +1180,6 @@
    "kt": null
   },
   {
-   "w": "前",
-   "r": "まえ",
-   "m": "front",
-   "k": [],
-   "u": [
-    "前"
-   ],
-   "j": false,
-   "s": "Step 8 · Existence & possession",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "勉強する",
-   "r": "べんきょうする",
-   "m": "to study",
-   "k": [],
-   "u": [
-    "勉",
-    "強"
-   ],
-   "j": false,
-   "s": "Step 4 · Verbs: from dictionary form up",
-   "x": {
-    "what": "勉強 is a noun — \"study.\" する turns nouns into verbs, and a large part of Japanese vocabulary works this way.",
-    "build": "Two patterns are both correct: 日本語を勉強する, or 日本語の勉強をする. The first is more common in speech.",
-    "when": "Any studying. The same する trick makes 散歩する, 電話する, 料理する.",
-    "watch": "Mixing the two patterns produces 日本語を勉強をする, with two を in one clause — a very common early error and one the checker flags. Pick one shape and finish it."
-   },
-   "kt": null
-  },
-  {
    "w": "友達",
    "r": "ともだち",
    "m": "friend",
@@ -877,21 +1187,6 @@
    "u": [
     "友",
     "達"
-   ],
-   "j": false,
-   "s": "Step 2 · Core particles",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "図書館",
-   "r": "としょかん",
-   "m": "library",
-   "k": [],
-   "u": [
-    "図",
-    "書",
-    "館"
    ],
    "j": false,
    "s": "Step 2 · Core particles",
@@ -925,19 +1220,6 @@
    "kt": null
   },
   {
-   "w": "安い",
-   "r": "やすい",
-   "m": "cheap",
-   "k": [],
-   "u": [
-    "安"
-   ],
-   "j": false,
-   "s": "Step 9 · Adjectives & adverbs",
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "家",
    "r": "いえ",
    "m": "house, home",
@@ -965,63 +1247,6 @@
    "kt": null
   },
   {
-   "w": "寒い",
-   "r": "さむい",
-   "m": "cold",
-   "k": [],
-   "u": [
-    "寒"
-   ],
-   "j": false,
-   "s": "Step 9 · Adjectives & adverbs",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "寝る",
-   "r": "ねる",
-   "m": "to sleep",
-   "k": [],
-   "u": [
-    "寝"
-   ],
-   "j": false,
-   "s": "Step 4 · Verbs: from dictionary form up",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "帰る",
-   "r": "かえる",
-   "m": "to go home",
-   "k": [],
-   "u": [
-    "帰"
-   ],
-   "j": false,
-   "s": "Step 5 · Requests, permission & obligation",
-   "x": {
-    "what": "To go home, or to return to where you belong. Read かえる.",
-    "build": "Godan despite the -える ending: 帰ります, 帰って, 帰った.",
-    "when": "Going home, going back to your own country.",
-    "watch": "Two traps at once. It is Godan, not Ichidan (see 入る). And it means returning to your own place, so you cannot use it for going back to a shop or a friend's house — that is 戻る."
-   },
-   "kt": null
-  },
-  {
-   "w": "広い",
-   "r": "ひろい",
-   "m": "spacious",
-   "k": [],
-   "u": [
-    "広"
-   ],
-   "j": false,
-   "s": "Step 9 · Adjectives & adverbs",
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "座る",
    "r": "すわる",
    "m": "to sit",
@@ -1035,45 +1260,6 @@
    "kt": null
   },
   {
-   "w": "待つ",
-   "r": "まつ",
-   "m": "to wait",
-   "k": [],
-   "u": [
-    "待"
-   ],
-   "j": false,
-   "s": "Step 5 · Requests, permission & obligation",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "忙しい",
-   "r": "いそがしい",
-   "m": "busy",
-   "k": [],
-   "u": [
-    "忙"
-   ],
-   "j": false,
-   "s": "Step 11 · Reasons, contrast & connectors",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "思う",
-   "r": "おもう",
-   "m": "to think",
-   "k": [],
-   "u": [
-    "思"
-   ],
-   "j": false,
-   "s": "Step 12 · Past N5 · the shape-changers",
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "急ぐ",
    "r": "いそぐ",
    "m": "to hurry",
@@ -1083,38 +1269,6 @@
    ],
    "j": false,
    "s": "Step 5 · Requests, permission & obligation",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "散歩する",
-   "r": "さんぽする",
-   "m": "to take a walk",
-   "k": [],
-   "u": [
-    "散",
-    "歩"
-   ],
-   "j": false,
-   "s": "Step 7 · Linking actions & time",
-   "x": {
-    "what": "散歩 (a walk, as a noun) plus する.",
-    "build": "散歩します, or 散歩をします. Where you walk takes を in a different sense — 公園を散歩する, where を marks the space moved through.",
-    "when": "A walk taken for its own sake, not walking to get somewhere.",
-    "watch": "公園を散歩する uses を on a place, which contradicts the \"を marks the object\" rule learners have just been taught. It is a real second use of を — the path or space traversed — and it turns up again with 道を歩く and 橋を渡る."
-   },
-   "kt": null
-  },
-  {
-   "w": "新しい",
-   "r": "あたらしい",
-   "m": "new",
-   "k": [],
-   "u": [
-    "新"
-   ],
-   "j": false,
-   "s": "Step 6 · Invitations, desire & intention",
    "x": null,
    "kt": null
   },
@@ -1146,32 +1300,6 @@
    "kt": null
   },
   {
-   "w": "暑い",
-   "r": "あつい",
-   "m": "hot",
-   "k": [],
-   "u": [
-    "暑"
-   ],
-   "j": false,
-   "s": "Step 9 · Adjectives & adverbs",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "朝ごはん",
-   "r": "あさごはん",
-   "m": "breakfast",
-   "k": [],
-   "u": [
-    "朝"
-   ],
-   "j": false,
-   "s": "Step 2 · Core particles",
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "机",
    "r": "つくえ",
    "m": "desk",
@@ -1181,20 +1309,6 @@
    ],
    "j": false,
    "s": "Step 8 · Existence & possession",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "果物",
-   "r": "くだもの",
-   "m": "fruit",
-   "k": [],
-   "u": [
-    "果",
-    "物"
-   ],
-   "j": false,
-   "s": "Step 10 · Comparing & preferring",
    "x": null,
    "kt": null
   },
@@ -1209,24 +1323,6 @@
    "j": false,
    "s": "Step 10 · Comparing & preferring",
    "x": null,
-   "kt": null
-  },
-  {
-   "w": "歯をみがく",
-   "r": "はをみがく",
-   "m": "to brush teeth",
-   "k": [],
-   "u": [
-    "歯"
-   ],
-   "j": false,
-   "s": "Step 7 · Linking actions & time",
-   "x": {
-    "what": "Same shape as 手を洗う: 歯 (teeth), を, みがく (polish, scrub).",
-    "build": "歯をみがきます in polite form.",
-    "when": "Daily routine, usually alongside 起きる and 寝る.",
-    "watch": "みがく means polish or scrub, not \"brush\" — it is also what you do to shoes and to a skill. Translating it as \"brush\" hides that, and then 技を磨く looks like a different word."
-   },
    "kt": null
   },
   {
@@ -1270,19 +1366,6 @@
    "kt": null
   },
   {
-   "w": "痛い",
-   "r": "いたい",
-   "m": "painful",
-   "k": [],
-   "u": [
-    "痛"
-   ],
-   "j": false,
-   "s": "Step 11 · Reasons, contrast & connectors",
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "窓",
    "r": "まど",
    "m": "window",
@@ -1310,19 +1393,6 @@
    "kt": null
   },
   {
-   "w": "終わる",
-   "r": "おわる",
-   "m": "to end",
-   "k": [],
-   "u": [
-    "終"
-   ],
-   "j": false,
-   "s": "Step 7 · Linking actions & time",
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "肉",
    "r": "にく",
    "m": "meat",
@@ -1336,25 +1406,6 @@
    "kt": null
   },
   {
-   "w": "薬を飲む",
-   "r": "くすりをのむ",
-   "m": "to take medicine",
-   "k": [],
-   "u": [
-    "薬",
-    "飲"
-   ],
-   "j": false,
-   "s": "Step 5 · Requests, permission & obligation",
-   "x": {
-    "what": "Medicine plus 飲む. Japanese takes medicine by \"drinking\" it, whatever its actual form.",
-    "build": "薬を飲みます.",
-    "when": "Any medicine — tablets, capsules, powder, liquid.",
-    "watch": "English \"take medicine\" tempts 薬を取る, which means physically picking it up. 飲む is the verb even for a tablet you swallow whole."
-   },
-   "kt": null
-  },
-  {
    "w": "財布",
    "r": "さいふ",
    "m": "wallet",
@@ -1365,32 +1416,6 @@
    ],
    "j": false,
    "s": "Stress test — first N4 lesson",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "買う",
-   "r": "かう",
-   "m": "to buy",
-   "k": [],
-   "u": [
-    "買"
-   ],
-   "j": false,
-   "s": "Step 6 · Invitations, desire & intention",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "起きる",
-   "r": "おきる",
-   "m": "to get up",
-   "k": [],
-   "u": [
-    "起"
-   ],
-   "j": false,
-   "s": "Step 4 · Verbs: from dictionary form up",
    "x": null,
    "kt": null
   },
@@ -1432,19 +1457,6 @@
    ],
    "j": false,
    "s": "Step 10 · Comparing & preferring",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "開ける",
-   "r": "あける",
-   "m": "to open",
-   "k": [],
-   "u": [
-    "開"
-   ],
-   "j": false,
-   "s": "Step 11 · Reasons, contrast & connectors",
    "x": null,
    "kt": null
   },
@@ -1498,19 +1510,6 @@
    ],
    "j": false,
    "s": "Step 2 · Core particles",
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "高い",
-   "r": "たかい",
-   "m": "expensive; tall",
-   "k": [],
-   "u": [
-    "高"
-   ],
-   "j": false,
-   "s": "Step 9 · Adjectives & adverbs",
    "x": null,
    "kt": null
   },
@@ -1572,11 +1571,10 @@
    "r": "いちぶん",
    "m": "one sentence",
    "k": [
-    "一"
-   ],
-   "u": [
+    "一",
     "文"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -1763,16 +1761,30 @@
    "kt": null
   },
   {
+   "w": "何曜日",
+   "r": "なんようび",
+   "m": "what day of the week",
+   "k": [
+    "日",
+    "何",
+    "曜"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "土曜日",
    "r": "どようび",
    "m": "Saturday",
    "k": [
     "日",
-    "土"
-   ],
-   "u": [
+    "土",
     "曜"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -1825,11 +1837,10 @@
    "m": "Wednesday",
    "k": [
     "日",
-    "水"
-   ],
-   "u": [
+    "水",
     "曜"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -1841,11 +1852,10 @@
    "m": "Tuesday",
    "k": [
     "日",
-    "火"
-   ],
-   "u": [
+    "火",
     "曜"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -2094,6 +2104,20 @@
    "kt": null
   },
   {
+   "w": "真ん中",
+   "r": "まんなか",
+   "m": "the very middle",
+   "k": [
+    "中",
+    "真"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "四つ",
    "r": "よっつ",
    "m": "four things",
@@ -2234,11 +2258,10 @@
    "r": "くじ",
    "m": "nine o'clock",
    "k": [
-    "時"
-   ],
-   "u": [
+    "時",
     "九"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -2249,11 +2272,10 @@
    "r": "ごじ",
    "m": "five o'clock",
    "k": [
-    "時"
-   ],
-   "u": [
+    "時",
     "五"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -2266,6 +2288,20 @@
    "k": [
     "時",
     "何"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "六時",
+   "r": "ろくじ",
+   "m": "six o'clock",
+   "k": [
+    "時",
+    "六"
    ],
    "u": [],
    "j": false,
@@ -2334,11 +2370,10 @@
    "r": "せんしゅう",
    "m": "last week",
    "k": [
-    "先"
-   ],
-   "u": [
+    "先",
     "週"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -2457,11 +2492,10 @@
    "r": "らいしゅう",
    "m": "next week",
    "k": [
-    "来"
-   ],
-   "u": [
+    "来",
     "週"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -2578,11 +2612,10 @@
    "r": "でんわ",
    "m": "telephone",
    "k": [
-    "話"
-   ],
-   "u": [
+    "話",
     "電"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -2680,6 +2713,793 @@
    "kt": null
   },
   {
+   "w": "五つ",
+   "r": "いつつ",
+   "m": "five things",
+   "k": [
+    "五"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "会",
+   "r": "あ",
+   "m": "meet",
+   "k": [
+    "会"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "会社",
+   "r": "かいしゃ",
+   "m": "company",
+   "k": [
+    "会"
+   ],
+   "u": [
+    "社"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "開",
+   "r": "あ",
+   "m": "open",
+   "k": [
+    "開"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "開け",
+   "r": "あけ",
+   "m": "open (something)",
+   "k": [
+    "開"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "買",
+   "r": "か",
+   "m": "buy",
+   "k": [
+    "買"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "買い物",
+   "r": "かいもの",
+   "m": "shopping",
+   "k": [
+    "買",
+    "物"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "作",
+   "r": "つく",
+   "m": "make",
+   "k": [
+    "作"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "作文",
+   "r": "さくぶん",
+   "m": "composition; writing",
+   "k": [
+    "作",
+    "文"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "文",
+   "r": "ぶん",
+   "m": "sentence",
+   "k": [
+    "文"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "使",
+   "r": "つか",
+   "m": "use",
+   "k": [
+    "使"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "書",
+   "r": "か",
+   "m": "write",
+   "k": [
+    "書"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "書く",
+   "r": "かく",
+   "m": "to write",
+   "k": [
+    "書"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "朝",
+   "r": "あさ",
+   "m": "morning",
+   "k": [
+    "朝"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "毎朝",
+   "r": "まいあさ",
+   "m": "every morning",
+   "k": [
+    "朝",
+    "毎"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "起",
+   "r": "お",
+   "m": "get up",
+   "k": [
+    "起"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "帰",
+   "r": "かえ",
+   "m": "return home",
+   "k": [
+    "帰"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "毎週",
+   "r": "まいしゅう",
+   "m": "every week",
+   "k": [
+    "週",
+    "毎"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "週末",
+   "r": "しゅうまつ",
+   "m": "weekend",
+   "k": [
+    "週"
+   ],
+   "u": [
+    "末"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "名前",
+   "r": "なまえ",
+   "m": "name",
+   "k": [
+    "名",
+    "前"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "英語",
+   "r": "えいご",
+   "m": "English (language)",
+   "k": [
+    "語"
+   ],
+   "u": [
+    "英"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "語順",
+   "r": "ごじゅん",
+   "m": "word order",
+   "k": [
+    "語"
+   ],
+   "u": [
+    "順"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "高",
+   "r": "たか",
+   "m": "expensive; tall",
+   "k": [
+    "高"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "安",
+   "r": "やす",
+   "m": "cheap",
+   "k": [
+    "安"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "新し",
+   "r": "あたらし",
+   "m": "new",
+   "k": [
+    "新"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "新聞",
+   "r": "しんぶん",
+   "m": "newspaper",
+   "k": [
+    "新",
+    "聞"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "広",
+   "r": "ひろ",
+   "m": "spacious",
+   "k": [
+    "広"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "思",
+   "r": "おも",
+   "m": "think",
+   "k": [
+    "思"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "待",
+   "r": "ま",
+   "m": "wait",
+   "k": [
+    "待"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "始",
+   "r": "はじ",
+   "m": "begin",
+   "k": [
+    "始"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "始ま",
+   "r": "はじま",
+   "m": "begin (intransitive)",
+   "k": [
+    "始"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "始まる",
+   "r": "はじまる",
+   "m": "to begin (by itself)",
+   "k": [
+    "始"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "始める",
+   "r": "はじめる",
+   "m": "to begin (something)",
+   "k": [
+    "始"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "終わ",
+   "r": "おわ",
+   "m": "end",
+   "k": [
+    "終"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "終わり",
+   "r": "おわり",
+   "m": "the end",
+   "k": [
+    "終"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "飲",
+   "r": "の",
+   "m": "drink",
+   "k": [
+    "飲"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "飲み物",
+   "r": "のみもの",
+   "m": "a drink",
+   "k": [
+    "飲",
+    "物"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "飲む",
+   "r": "のむ",
+   "m": "to drink",
+   "k": [
+    "飲"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "茶",
+   "r": "ちゃ",
+   "m": "tea",
+   "k": [
+    "茶"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "散歩",
+   "r": "さんぽ",
+   "m": "a walk",
+   "k": [
+    "歩",
+    "散"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "歩",
+   "r": "ある",
+   "m": "walk",
+   "k": [
+    "歩"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "歩く",
+   "r": "あるく",
+   "m": "to walk",
+   "k": [
+    "歩"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "聞",
+   "r": "き",
+   "m": "listen; ask",
+   "k": [
+    "聞"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "聞く",
+   "r": "きく",
+   "m": "to hear; to ask",
+   "k": [
+    "聞"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "物",
+   "r": "もの",
+   "m": "thing",
+   "k": [
+    "物"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "勉強",
+   "r": "べんきょう",
+   "m": "study",
+   "k": [
+    "勉",
+    "強"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "強い",
+   "r": "つよい",
+   "m": "strong",
+   "k": [
+    "強"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "得意",
+   "r": "とくい",
+   "m": "good at (about yourself)",
+   "k": [
+    "意"
+   ],
+   "u": [
+    "得"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "意味",
+   "r": "いみ",
+   "m": "meaning",
+   "k": [
+    "意",
+    "味"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "味",
+   "r": "あじ",
+   "m": "taste",
+   "k": [
+    "味"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "寒",
+   "r": "さむ",
+   "m": "cold",
+   "k": [
+    "寒"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "暑",
+   "r": "あつ",
+   "m": "hot",
+   "k": [
+    "暑"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "忙し",
+   "r": "いそがし",
+   "m": "busy",
+   "k": [
+    "忙"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "痛",
+   "r": "いた",
+   "m": "painful",
+   "k": [
+    "痛"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "寝",
+   "r": "ね",
+   "m": "sleep",
+   "k": [
+    "寝"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "洗",
+   "r": "あら",
+   "m": "wash",
+   "k": [
+    "洗"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "洗う",
+   "r": "あらう",
+   "m": "to wash",
+   "k": [
+    "洗"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "歯",
+   "r": "は",
+   "m": "tooth",
+   "k": [
+    "歯"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "散る",
+   "r": "ちる",
+   "m": "to scatter; to fall (petals)",
+   "k": [
+    "散"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "ご飯",
    "r": "ごはん",
    "m": "rice; a meal",
@@ -2721,79 +3541,12 @@
    "kt": null
   },
   {
-   "w": "会",
-   "r": "あ",
-   "m": "meet",
-   "k": [],
-   "u": [
-    "会"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "会社",
-   "r": "かいしゃ",
-   "m": "company",
-   "k": [],
-   "u": [
-    "会",
-    "社"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "住",
    "r": "す",
    "m": "live (reside)",
    "k": [],
    "u": [
     "住"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "作",
-   "r": "つく",
-   "m": "make",
-   "k": [],
-   "u": [
-    "作"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "作文",
-   "r": "さくぶん",
-   "m": "composition; writing",
-   "k": [],
-   "u": [
-    "作",
-    "文"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "使",
-   "r": "つか",
-   "m": "use",
-   "k": [],
-   "u": [
-    "使"
    ],
    "j": false,
    "s": null,
@@ -2880,20 +3633,6 @@
    "kt": null
   },
   {
-   "w": "勉強",
-   "r": "べんきょう",
-   "m": "study",
-   "k": [],
-   "u": [
-    "勉",
-    "強"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "医者",
    "r": "いしゃ",
    "m": "doctor",
@@ -2944,20 +3683,6 @@
    "k": [],
    "u": [
     "合"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "名前",
-   "r": "なまえ",
-   "m": "name",
-   "k": [],
-   "u": [
-    "名",
-    "前"
    ],
    "j": false,
    "s": null,
@@ -3045,103 +3770,12 @@
    "kt": null
   },
   {
-   "w": "始",
-   "r": "はじ",
-   "m": "begin",
-   "k": [],
-   "u": [
-    "始"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "始ま",
-   "r": "はじま",
-   "m": "begin (intransitive)",
-   "k": [],
-   "u": [
-    "始"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "安",
-   "r": "やす",
-   "m": "cheap",
-   "k": [],
-   "u": [
-    "安"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "寒",
-   "r": "さむ",
-   "m": "cold",
-   "k": [],
-   "u": [
-    "寒"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "寝",
-   "r": "ね",
-   "m": "sleep",
-   "k": [],
-   "u": [
-    "寝"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "少",
    "r": "すこ",
    "m": "a little",
    "k": [],
    "u": [
     "少"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "帰",
-   "r": "かえ",
-   "m": "return home",
-   "k": [],
-   "u": [
-    "帰"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "広",
-   "r": "ひろ",
-   "m": "spacious",
-   "k": [],
-   "u": [
-    "広"
    ],
    "j": false,
    "s": null,
@@ -3214,33 +3848,6 @@
    "kt": null
   },
   {
-   "w": "待",
-   "r": "ま",
-   "m": "wait",
-   "k": [],
-   "u": [
-    "待"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "得意",
-   "r": "とくい",
-   "m": "good at (about yourself)",
-   "k": [],
-   "u": [
-    "得",
-    "意"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "忘",
    "r": "わす",
    "m": "forget",
@@ -3254,52 +3861,12 @@
    "kt": null
   },
   {
-   "w": "忙し",
-   "r": "いそがし",
-   "m": "busy",
-   "k": [],
-   "u": [
-    "忙"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "思",
-   "r": "おも",
-   "m": "think",
-   "k": [],
-   "u": [
-    "思"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "急",
    "r": "いそ",
    "m": "hurry",
    "k": [],
    "u": [
     "急"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "意味",
-   "r": "いみ",
-   "m": "meaning",
-   "k": [],
-   "u": [
-    "意",
-    "味"
    ],
    "j": false,
    "s": null,
@@ -3346,33 +3913,6 @@
    "kt": null
   },
   {
-   "w": "散歩",
-   "r": "さんぽ",
-   "m": "a walk",
-   "k": [],
-   "u": [
-    "散",
-    "歩"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "文",
-   "r": "ぶん",
-   "m": "sentence",
-   "k": [],
-   "u": [
-    "文"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "料理",
    "r": "りょうり",
    "m": "cooking; a dish",
@@ -3380,19 +3920,6 @@
    "u": [
     "料",
     "理"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "新し",
-   "r": "あたらし",
-   "m": "new",
-   "k": [],
-   "u": [
-    "新"
    ],
    "j": false,
    "s": null,
@@ -3413,32 +3940,6 @@
    "kt": null
   },
   {
-   "w": "暑",
-   "r": "あつ",
-   "m": "hot",
-   "k": [],
-   "u": [
-    "暑"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "書",
-   "r": "か",
-   "m": "write",
-   "k": [],
-   "u": [
-    "書"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "最後",
    "r": "さいご",
    "m": "the end",
@@ -3446,19 +3947,6 @@
    "u": [
     "最",
     "後"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "朝",
-   "r": "あさ",
-   "m": "morning",
-   "k": [],
-   "u": [
-    "朝"
    ],
    "j": false,
    "s": null,
@@ -3506,51 +3994,12 @@
    "kt": null
   },
   {
-   "w": "歩",
-   "r": "ある",
-   "m": "walk",
-   "k": [],
-   "u": [
-    "歩"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "歯",
-   "r": "は",
-   "m": "tooth",
-   "k": [],
-   "u": [
-    "歯"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "泳",
    "r": "およ",
    "m": "swim",
    "k": [],
    "u": [
     "泳"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "洗",
-   "r": "あら",
-   "m": "wash",
-   "k": [],
-   "u": [
-    "洗"
    ],
    "j": false,
    "s": null,
@@ -3651,19 +4100,6 @@
    "kt": null
   },
   {
-   "w": "痛",
-   "r": "いた",
-   "m": "painful",
-   "k": [],
-   "u": [
-    "痛"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "着",
    "r": "つ",
    "m": "arrive; wear",
@@ -3703,32 +4139,6 @@
    "kt": null
   },
   {
-   "w": "終わ",
-   "r": "おわ",
-   "m": "end",
-   "k": [],
-   "u": [
-    "終"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "終わり",
-   "r": "おわり",
-   "m": "the end",
-   "k": [],
-   "u": [
-    "終"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "結婚",
    "r": "けっこん",
    "m": "marriage",
@@ -3757,19 +4167,6 @@
    "kt": null
   },
   {
-   "w": "聞",
-   "r": "き",
-   "m": "listen; ask",
-   "k": [],
-   "u": [
-    "聞"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "背",
    "r": "せ",
    "m": "height; back",
@@ -3791,19 +4188,6 @@
     "自",
     "動",
     "詞"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "茶",
-   "r": "ちゃ",
-   "m": "tea",
-   "k": [],
-   "u": [
-    "茶"
    ],
    "j": false,
    "s": null,
@@ -3864,20 +4248,6 @@
    "kt": null
   },
   {
-   "w": "語順",
-   "r": "ごじゅん",
-   "m": "word order",
-   "k": [],
-   "u": [
-    "語",
-    "順"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "読",
    "r": "よ",
    "m": "read",
@@ -3904,19 +4274,6 @@
    "kt": null
   },
   {
-   "w": "買",
-   "r": "か",
-   "m": "buy",
-   "k": [],
-   "u": [
-    "買"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "赤",
    "r": "あか",
    "m": "red",
@@ -3936,33 +4293,6 @@
    "k": [],
    "u": [
     "走"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "起",
-   "r": "お",
-   "m": "get up",
-   "k": [],
-   "u": [
-    "起"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "週末",
-   "r": "しゅうまつ",
-   "m": "weekend",
-   "k": [],
-   "u": [
-    "週",
-    "末"
    ],
    "j": false,
    "s": null,
@@ -4009,32 +4339,6 @@
    "kt": null
   },
   {
-   "w": "開",
-   "r": "あ",
-   "m": "open",
-   "k": [],
-   "u": [
-    "開"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "開け",
-   "r": "あけ",
-   "m": "open (something)",
-   "k": [],
-   "u": [
-    "開"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "降",
    "r": "ふ",
    "m": "fall (rain)",
@@ -4068,32 +4372,6 @@
    "k": [],
    "u": [
     "顔"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "飲",
-   "r": "の",
-   "m": "drink",
-   "k": [],
-   "u": [
-    "飲"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "高",
-   "r": "たか",
-   "m": "expensive; tall",
-   "k": [],
-   "u": [
-    "高"
    ],
    "j": false,
    "s": null,

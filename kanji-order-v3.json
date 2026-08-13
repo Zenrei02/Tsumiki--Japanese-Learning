@@ -1,0 +1,1500 @@
+{
+ "generated": "2026-08-13",
+ "version": 3,
+ "method": "locked syllabus order — no derivation",
+ "decision": "Entire taught syllabus locked as prefix (Lloyd, Session 13). Groups 3-5 were authored from ledger demand; reordering them after the fact would repeat v1's Blocker-3 mistake. Derivation resumes only for a future group ordered BEFORE authoring.",
+ "supersedes": "kanji-order-v2.json (64 chars) for every consumer; v2 remains the record of the last true derivation.",
+ "corpora_used": [
+  "kanjidic (newspaper rank)"
+ ],
+ "count": 111,
+ "order": [
+  {
+   "pos": 1,
+   "char": "一",
+   "v2_pos": 1,
+   "demand_words": 9,
+   "strokes": 1,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 2,
+   "char": "二",
+   "v2_pos": 2,
+   "demand_words": 4,
+   "strokes": 2,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 3,
+   "char": "三",
+   "v2_pos": 3,
+   "demand_words": 10,
+   "strokes": 3,
+   "taught_parts": [
+    "一"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 4,
+   "char": "十",
+   "v2_pos": 4,
+   "demand_words": 4,
+   "strokes": 2,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 5,
+   "char": "日",
+   "v2_pos": 5,
+   "demand_words": 34,
+   "strokes": 4,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 6,
+   "char": "月",
+   "v2_pos": 6,
+   "demand_words": 5,
+   "strokes": 4,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 7,
+   "char": "目",
+   "v2_pos": 7,
+   "demand_words": 1,
+   "strokes": 5,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 8,
+   "char": "田",
+   "v2_pos": 8,
+   "demand_words": 2,
+   "strokes": 5,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 9,
+   "char": "口",
+   "v2_pos": 9,
+   "demand_words": 1,
+   "strokes": 3,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 10,
+   "char": "白",
+   "v2_pos": 10,
+   "demand_words": 3,
+   "strokes": 5,
+   "taught_parts": [
+    "日"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 11,
+   "char": "小",
+   "v2_pos": 11,
+   "demand_words": 2,
+   "strokes": 3,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 12,
+   "char": "水",
+   "v2_pos": 12,
+   "demand_words": 4,
+   "strokes": 4,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 13,
+   "char": "川",
+   "v2_pos": 13,
+   "demand_words": 1,
+   "strokes": 3,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 14,
+   "char": "山",
+   "v2_pos": 14,
+   "demand_words": 1,
+   "strokes": 3,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 15,
+   "char": "人",
+   "v2_pos": 15,
+   "demand_words": 11,
+   "strokes": 2,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 16,
+   "char": "入",
+   "v2_pos": 16,
+   "demand_words": 3,
+   "strokes": 2,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 17,
+   "char": "八",
+   "v2_pos": 17,
+   "demand_words": 1,
+   "strokes": 2,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 18,
+   "char": "大",
+   "v2_pos": 18,
+   "demand_words": 3,
+   "strokes": 3,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 19,
+   "char": "中",
+   "v2_pos": 19,
+   "demand_words": 4,
+   "strokes": 4,
+   "taught_parts": [
+    "口"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [
+    "丨"
+   ],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 20,
+   "char": "車",
+   "v2_pos": 20,
+   "demand_words": 7,
+   "strokes": 7,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 21,
+   "char": "女",
+   "v2_pos": 21,
+   "demand_words": 1,
+   "strokes": 3,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 22,
+   "char": "子",
+   "v2_pos": 22,
+   "demand_words": 3,
+   "strokes": 3,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 23,
+   "char": "四",
+   "v2_pos": 23,
+   "demand_words": 1,
+   "strokes": 5,
+   "taught_parts": [
+    "八"
+   ],
+   "named_shapes": [
+    "囗"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 24,
+   "char": "国",
+   "v2_pos": 24,
+   "demand_words": 3,
+   "strokes": 8,
+   "taught_parts": [],
+   "named_shapes": [
+    "囗",
+    "玉"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 25,
+   "char": "円",
+   "v2_pos": 25,
+   "demand_words": 5,
+   "strokes": 4,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [
+    "冂"
+   ],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 26,
+   "char": "今",
+   "v2_pos": 26,
+   "demand_words": 6,
+   "strokes": 4,
+   "taught_parts": [
+    "人"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 27,
+   "char": "分",
+   "v2_pos": 27,
+   "demand_words": 2,
+   "strokes": 4,
+   "taught_parts": [
+    "八"
+   ],
+   "named_shapes": [
+    "刀"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 28,
+   "char": "手",
+   "v2_pos": 28,
+   "demand_words": 9,
+   "strokes": 4,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 29,
+   "char": "時",
+   "v2_pos": 29,
+   "demand_words": 17,
+   "strokes": 10,
+   "taught_parts": [
+    "日"
+   ],
+   "named_shapes": [
+    "寺"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 30,
+   "char": "上",
+   "v2_pos": 30,
+   "demand_words": 5,
+   "strokes": 3,
+   "taught_parts": [
+    "一"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [
+    "卜"
+   ],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 31,
+   "char": "学",
+   "v2_pos": 31,
+   "demand_words": 9,
+   "strokes": 8,
+   "taught_parts": [
+    "子"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 32,
+   "char": "下",
+   "v2_pos": 32,
+   "demand_words": 5,
+   "strokes": 3,
+   "taught_parts": [
+    "一"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [
+    "卜"
+   ],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 33,
+   "char": "生",
+   "v2_pos": 33,
+   "demand_words": 8,
+   "strokes": 5,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 34,
+   "char": "明",
+   "v2_pos": 34,
+   "demand_words": 4,
+   "strokes": 8,
+   "taught_parts": [
+    "日",
+    "月"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 35,
+   "char": "天",
+   "v2_pos": 35,
+   "demand_words": 4,
+   "strokes": 4,
+   "taught_parts": [
+    "一",
+    "大"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 36,
+   "char": "先",
+   "v2_pos": 36,
+   "demand_words": 7,
+   "strokes": 6,
+   "taught_parts": [
+    "八"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 37,
+   "char": "気",
+   "v2_pos": 37,
+   "demand_words": 8,
+   "strokes": 6,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [
+    "气",
+    "乂"
+   ],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 38,
+   "char": "百",
+   "v2_pos": 38,
+   "demand_words": 3,
+   "strokes": 6,
+   "taught_parts": [
+    "一",
+    "白"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 39,
+   "char": "好",
+   "v2_pos": 39,
+   "demand_words": 3,
+   "strokes": 6,
+   "taught_parts": [
+    "女",
+    "子"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 40,
+   "char": "年",
+   "v2_pos": 40,
+   "demand_words": 4,
+   "strokes": 6,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [
+    "丿",
+    "干"
+   ],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 41,
+   "char": "見",
+   "v2_pos": 41,
+   "demand_words": 3,
+   "strokes": 7,
+   "taught_parts": [
+    "目"
+   ],
+   "named_shapes": [
+    "儿"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 42,
+   "char": "行",
+   "v2_pos": 42,
+   "demand_words": 5,
+   "strokes": 6,
+   "taught_parts": [],
+   "named_shapes": [
+    "彳"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 43,
+   "char": "七",
+   "v2_pos": 43,
+   "demand_words": 2,
+   "strokes": 2,
+   "taught_parts": [
+    "一"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [
+    "乙"
+   ],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 44,
+   "char": "千",
+   "v2_pos": 44,
+   "demand_words": 2,
+   "strokes": 3,
+   "taught_parts": [
+    "十"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [
+    "丿"
+   ],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 45,
+   "char": "間",
+   "v2_pos": 45,
+   "demand_words": 6,
+   "strokes": 12,
+   "taught_parts": [
+    "日"
+   ],
+   "named_shapes": [
+    "門"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 46,
+   "char": "雨",
+   "v2_pos": 46,
+   "demand_words": 5,
+   "strokes": 8,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 47,
+   "char": "来",
+   "v2_pos": 47,
+   "demand_words": 5,
+   "strokes": 7,
+   "taught_parts": [],
+   "named_shapes": [
+    "米"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 48,
+   "char": "町",
+   "v2_pos": 48,
+   "demand_words": 2,
+   "strokes": 7,
+   "taught_parts": [
+    "田"
+   ],
+   "named_shapes": [
+    "丁"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 49,
+   "char": "火",
+   "v2_pos": 49,
+   "demand_words": 2,
+   "strokes": 4,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 50,
+   "char": "何",
+   "v2_pos": 50,
+   "demand_words": 4,
+   "strokes": 7,
+   "taught_parts": [
+    "人"
+   ],
+   "named_shapes": [
+    "可"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 51,
+   "char": "母",
+   "v2_pos": 51,
+   "demand_words": 2,
+   "strokes": 5,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [
+    "毋"
+   ],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 52,
+   "char": "力",
+   "v2_pos": 52,
+   "demand_words": 1,
+   "strokes": 2,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 53,
+   "char": "男",
+   "v2_pos": 53,
+   "demand_words": 1,
+   "strokes": 7,
+   "taught_parts": [
+    "田",
+    "力"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 54,
+   "char": "土",
+   "v2_pos": 54,
+   "demand_words": 1,
+   "strokes": 3,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 55,
+   "char": "食",
+   "v2_pos": 55,
+   "demand_words": 3,
+   "strokes": 9,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 56,
+   "char": "言",
+   "v2_pos": 56,
+   "demand_words": 4,
+   "strokes": 7,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 57,
+   "char": "話",
+   "v2_pos": 57,
+   "demand_words": 6,
+   "strokes": 13,
+   "taught_parts": [
+    "言"
+   ],
+   "named_shapes": [
+    "舌"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 58,
+   "char": "私",
+   "v2_pos": 58,
+   "demand_words": 2,
+   "strokes": 7,
+   "taught_parts": [],
+   "named_shapes": [
+    "禾"
+   ],
+   "muted_shapes": [
+    "厶"
+   ],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 59,
+   "char": "木",
+   "v2_pos": 59,
+   "demand_words": 1,
+   "strokes": 4,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 60,
+   "char": "本",
+   "v2_pos": 60,
+   "demand_words": 13,
+   "strokes": 5,
+   "taught_parts": [
+    "木"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 61,
+   "char": "休",
+   "v2_pos": 61,
+   "demand_words": 4,
+   "strokes": 6,
+   "taught_parts": [
+    "人",
+    "木"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 62,
+   "char": "校",
+   "v2_pos": 62,
+   "demand_words": 5,
+   "strokes": 10,
+   "taught_parts": [
+    "木"
+   ],
+   "named_shapes": [
+    "交"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 63,
+   "char": "林",
+   "v2_pos": 63,
+   "demand_words": 1,
+   "strokes": 8,
+   "taught_parts": [
+    "木"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 64,
+   "char": "森",
+   "v2_pos": 64,
+   "demand_words": 1,
+   "strokes": 12,
+   "taught_parts": [
+    "木",
+    "林"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 65,
+   "char": "五",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 4,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 66,
+   "char": "六",
+   "v2_pos": null,
+   "demand_words": 1,
+   "strokes": 4,
+   "taught_parts": [
+    "八"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 67,
+   "char": "九",
+   "v2_pos": null,
+   "demand_words": 2,
+   "strokes": 2,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 68,
+   "char": "会",
+   "v2_pos": null,
+   "demand_words": 7,
+   "strokes": 6,
+   "taught_parts": [
+    "人"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "云"
+   ]
+  },
+  {
+   "pos": 69,
+   "char": "電",
+   "v2_pos": null,
+   "demand_words": 10,
+   "strokes": 13,
+   "taught_parts": [
+    "雨",
+    "田"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 70,
+   "char": "開",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 12,
+   "taught_parts": [],
+   "named_shapes": [
+    "門"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "开"
+   ]
+  },
+  {
+   "pos": 71,
+   "char": "買",
+   "v2_pos": null,
+   "demand_words": 6,
+   "strokes": 12,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "罒",
+    "貝"
+   ]
+  },
+  {
+   "pos": 72,
+   "char": "作",
+   "v2_pos": null,
+   "demand_words": 6,
+   "strokes": 7,
+   "taught_parts": [
+    "人"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "乍"
+   ]
+  },
+  {
+   "pos": 73,
+   "char": "文",
+   "v2_pos": null,
+   "demand_words": 6,
+   "strokes": 4,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 74,
+   "char": "使",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 8,
+   "taught_parts": [
+    "人"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "吏"
+   ]
+  },
+  {
+   "pos": 75,
+   "char": "書",
+   "v2_pos": null,
+   "demand_words": 5,
+   "strokes": 10,
+   "taught_parts": [
+    "日"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "聿"
+   ]
+  },
+  {
+   "pos": 76,
+   "char": "朝",
+   "v2_pos": null,
+   "demand_words": 6,
+   "strokes": 12,
+   "taught_parts": [
+    "十",
+    "日",
+    "月"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 77,
+   "char": "起",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 10,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "走",
+    "己"
+   ]
+  },
+  {
+   "pos": 78,
+   "char": "帰",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 10,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "刂",
+    "帚"
+   ]
+  },
+  {
+   "pos": 79,
+   "char": "週",
+   "v2_pos": null,
+   "demand_words": 9,
+   "strokes": 11,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "辶",
+    "周"
+   ]
+  },
+  {
+   "pos": 80,
+   "char": "毎",
+   "v2_pos": null,
+   "demand_words": 7,
+   "strokes": 6,
+   "taught_parts": [
+    "母"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 81,
+   "char": "曜",
+   "v2_pos": null,
+   "demand_words": 9,
+   "strokes": 18,
+   "taught_parts": [
+    "日"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "羽",
+    "隹"
+   ]
+  },
+  {
+   "pos": 82,
+   "char": "名",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 6,
+   "taught_parts": [
+    "口"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "夕"
+   ]
+  },
+  {
+   "pos": 83,
+   "char": "前",
+   "v2_pos": null,
+   "demand_words": 6,
+   "strokes": 9,
+   "taught_parts": [
+    "月"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "刂"
+   ]
+  },
+  {
+   "pos": 84,
+   "char": "語",
+   "v2_pos": null,
+   "demand_words": 5,
+   "strokes": 14,
+   "taught_parts": [
+    "言",
+    "五",
+    "口"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 85,
+   "char": "高",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 10,
+   "taught_parts": [
+    "口"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [
+    "冂"
+   ],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 86,
+   "char": "安",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 6,
+   "taught_parts": [
+    "女"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "宀"
+   ]
+  },
+  {
+   "pos": 87,
+   "char": "新",
+   "v2_pos": null,
+   "demand_words": 5,
+   "strokes": 13,
+   "taught_parts": [
+    "木"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "斤"
+   ]
+  },
+  {
+   "pos": 88,
+   "char": "広",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 5,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [
+    "厶"
+   ],
+   "unclassified_shapes": [
+    "广"
+   ]
+  },
+  {
+   "pos": 89,
+   "char": "思",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 9,
+   "taught_parts": [
+    "田"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "心"
+   ]
+  },
+  {
+   "pos": 90,
+   "char": "待",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 9,
+   "taught_parts": [],
+   "named_shapes": [
+    "彳",
+    "寺"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 91,
+   "char": "始",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 8,
+   "taught_parts": [
+    "女"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "台"
+   ]
+  },
+  {
+   "pos": 92,
+   "char": "終",
+   "v2_pos": null,
+   "demand_words": 6,
+   "strokes": 11,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "糸",
+    "冬"
+   ]
+  },
+  {
+   "pos": 93,
+   "char": "飲",
+   "v2_pos": null,
+   "demand_words": 5,
+   "strokes": 12,
+   "taught_parts": [
+    "食"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "欠"
+   ]
+  },
+  {
+   "pos": 94,
+   "char": "茶",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 9,
+   "taught_parts": [
+    "木"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "艹"
+   ]
+  },
+  {
+   "pos": 95,
+   "char": "歩",
+   "v2_pos": null,
+   "demand_words": 6,
+   "strokes": 8,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "止",
+    "少"
+   ]
+  },
+  {
+   "pos": 96,
+   "char": "聞",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 14,
+   "taught_parts": [],
+   "named_shapes": [
+    "門"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "耳"
+   ]
+  },
+  {
+   "pos": 97,
+   "char": "物",
+   "v2_pos": null,
+   "demand_words": 8,
+   "strokes": 8,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "牜",
+    "勿"
+   ]
+  },
+  {
+   "pos": 98,
+   "char": "写",
+   "v2_pos": null,
+   "demand_words": 5,
+   "strokes": 5,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "冖",
+    "与"
+   ]
+  },
+  {
+   "pos": 99,
+   "char": "真",
+   "v2_pos": null,
+   "demand_words": 6,
+   "strokes": 10,
+   "taught_parts": [
+    "十",
+    "目"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 100,
+   "char": "勉",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 10,
+   "taught_parts": [
+    "力"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "免"
+   ]
+  },
+  {
+   "pos": 101,
+   "char": "強",
+   "v2_pos": null,
+   "demand_words": 5,
+   "strokes": 11,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "弓",
+    "虫"
+   ]
+  },
+  {
+   "pos": 102,
+   "char": "意",
+   "v2_pos": null,
+   "demand_words": 5,
+   "strokes": 13,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "音",
+    "心"
+   ]
+  },
+  {
+   "pos": 103,
+   "char": "味",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 8,
+   "taught_parts": [
+    "口"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "未"
+   ]
+  },
+  {
+   "pos": 104,
+   "char": "寒",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 12,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "宀"
+   ]
+  },
+  {
+   "pos": 105,
+   "char": "暑",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 12,
+   "taught_parts": [
+    "日"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "者"
+   ]
+  },
+  {
+   "pos": 106,
+   "char": "忙",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 6,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "忄",
+    "亡"
+   ]
+  },
+  {
+   "pos": 107,
+   "char": "痛",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 12,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "疒",
+    "甬"
+   ]
+  },
+  {
+   "pos": 108,
+   "char": "寝",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 13,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "宀",
+    "爿"
+   ]
+  },
+  {
+   "pos": 109,
+   "char": "洗",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 9,
+   "taught_parts": [
+    "水",
+    "先"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 110,
+   "char": "歯",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 12,
+   "taught_parts": [],
+   "named_shapes": [
+    "米"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "止"
+   ]
+  },
+  {
+   "pos": 111,
+   "char": "散",
+   "v2_pos": null,
+   "demand_words": 5,
+   "strokes": 12,
+   "taught_parts": [
+    "月"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "攵"
+   ]
+  }
+ ]
+}

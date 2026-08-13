@@ -29,7 +29,7 @@ import json, pathlib, re, datetime
 
 HERE = pathlib.Path(__file__).parent
 LEDGER = json.loads((HERE / "word-ledger-v1.json").read_text(encoding="utf-8"))
-KO = json.loads((HERE / "kanji-order-v2.json").read_text(encoding="utf-8"))
+KO = json.loads((HERE / "kanji-order-v3.json").read_text(encoding="utf-8"))
 CO = json.loads((HERE / "curriculum-order-v1.json").read_text(encoding="utf-8"))
 
 # Session 10: curated katakana words (Lloyd's decision — kana-only words enter
@@ -121,7 +121,7 @@ def sort_key(x):
 words.sort(key=sort_key)
 
 out = {"generated": datetime.date.today().isoformat(),
-       "kanji_order": "kanji-order-v2.json",
+       "kanji_order": "kanji-order-v3.json",
        "counts": {
            "total": len(words),
            "taught": sum(1 for x in words if x["s"]),
