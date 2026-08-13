@@ -24,7 +24,7 @@ installStorage();
 // Structural, not pedagogical: KanjiVG reports 白 as containing 日, which is true
 // of the shape and misleading about the meaning. Where that matters the lesson's
 // own note overrides it.
-const PARTS = {"一":[],"二":[],"三":[{"e":"一"}],"川":[],"十":[],"七":[{"e":"一"},{"e":"乙"}],"土":[],"小":[],"水":[],"日":[],"月":[],"田":[],"目":[],"口":[],"四":[{"e":"囗"},{"e":"儿","orig":"八"}],"国":[{"e":"囗"},{"e":"玉"}],"人":[],"入":[],"八":[],"大":[],"中":[{"e":"口"},{"e":"丨"}],"車":[],"女":[],"子":[],"母":[{"e":"毋"}],"本":[{"e":"木"}],"木":[],"火":[],"山":[],"上":[{"e":"卜"},{"e":"一"}],"下":[{"e":"一"},{"e":"卜"}],"力":[],"男":[{"e":"田"},{"e":"力"}],"休":[{"e":"亻","orig":"人"},{"e":"木"}],"林":[{"e":"木"}],"森":[{"e":"木"},{"e":"林"}],"好":[{"e":"女"},{"e":"子"}],"明":[{"e":"日"},{"e":"月"}],"町":[{"e":"田"},{"e":"丁"}],"白":[{"e":"日"}],"百":[{"e":"一"},{"e":"白"}],"千":[{"e":"丿"},{"e":"十"}],"円":[{"e":"冂"}],"手":[],"生":[],"先":[{"e":"儿","orig":"八"}],"学":[{"e":"子"}],"校":[{"e":"木"},{"e":"交"}],"年":[{"e":"丿"},{"e":"干"}],"今":[{"e":"人"}],"分":[{"e":"八"},{"e":"刀"}],"見":[{"e":"目"},{"e":"儿"}],"行":[{"e":"彳"}],"来":[{"e":"米"}],"食":[],"気":[{"e":"气"},{"e":"乂"}],"天":[{"e":"一"},{"e":"大"}],"雨":[],"私":[{"e":"禾"},{"e":"厶"}],"何":[{"e":"亻","orig":"人"},{"e":"可"}],"時":[{"e":"日"},{"e":"寺"}],"間":[{"e":"門"},{"e":"日"}],"言":[],"話":[{"e":"言"},{"e":"舌"}]};
+const PARTS = {"一":[],"二":[],"三":[{"e":"一"}],"川":[],"十":[],"七":[{"e":"一"},{"e":"乙"}],"土":[],"小":[],"水":[],"日":[],"月":[],"田":[],"目":[],"口":[],"四":[{"e":"囗"},{"e":"儿","orig":"八"}],"国":[{"e":"囗"},{"e":"玉"}],"人":[],"入":[],"八":[],"大":[],"中":[{"e":"口"},{"e":"丨"}],"車":[],"女":[],"子":[],"母":[{"e":"毋"}],"本":[{"e":"木"}],"木":[],"火":[],"山":[],"上":[{"e":"卜"},{"e":"一"}],"下":[{"e":"一"},{"e":"卜"}],"力":[],"男":[{"e":"田"},{"e":"力"}],"休":[{"e":"亻","orig":"人"},{"e":"木"}],"林":[{"e":"木"}],"森":[{"e":"木"},{"e":"林"}],"好":[{"e":"女"},{"e":"子"}],"明":[{"e":"日"},{"e":"月"}],"町":[{"e":"田"},{"e":"丁"}],"白":[{"e":"日"}],"百":[{"e":"一"},{"e":"白"}],"千":[{"e":"丿"},{"e":"十"}],"円":[{"e":"冂"}],"手":[],"生":[],"先":[{"e":"儿","orig":"八"}],"学":[{"e":"子"}],"校":[{"e":"木"},{"e":"交"}],"年":[{"e":"丿"},{"e":"干"}],"今":[{"e":"人"}],"分":[{"e":"八"},{"e":"刀"}],"見":[{"e":"目"},{"e":"儿"}],"行":[{"e":"彳"}],"来":[{"e":"米"}],"食":[],"気":[{"e":"气"},{"e":"乂"}],"天":[{"e":"一"},{"e":"大"}],"雨":[],"私":[{"e":"禾"},{"e":"厶"}],"何":[{"e":"亻","orig":"人"},{"e":"可"}],"時":[{"e":"日"},{"e":"寺"}],"間":[{"e":"門"},{"e":"日"}],"言":[],"話":[{"e":"言"},{"e":"舌"}],"五":[],"六":[{"e":"八"}],"九":[],"会":[{"e":"人"},{"e":"云"}],"電":[{"e":"雨"},{"e":"田"}],"開":[{"e":"門"},{"e":"开"}],"買":[{"e":"罒"},{"e":"貝"}],"作":[{"e":"亻","orig":"人"},{"e":"乍"}],"文":[],"使":[{"e":"亻","orig":"人"},{"e":"吏"}],"書":[{"e":"聿"},{"e":"日"}],"朝":[{"e":"十"},{"e":"日"},{"e":"月"}],"起":[{"e":"走"},{"e":"己"}],"帰":[{"e":"刂"},{"e":"帚"}],"週":[{"e":"辶"},{"e":"周"}],"毎":[{"e":"母"}],"曜":[{"e":"日"},{"e":"羽"},{"e":"隹"}]};
 
 // ————— Kanji ——————
 // m=meaning, on/kun=readings, story=the hook, w=words, look=confusables
@@ -93,6 +93,23 @@ const K = {
   "何": { m: "what", on: "カ", kun: "なに・なん", sentence: true, w: [["何","なに","what"],["何時","なんじ","what time"]] },
   "時": { m: "time; hour", on: "ジ", kun: "とき", story: "The sun 日 at the temple 寺 — how the hour got told.", w: [["時間","じかん","time"],["三時","さんじ","three o'clock"]] },
   "間": { m: "interval; between", on: "カン", kun: "あいだ", story: "Sun 日 showing through a gate 門 — the gap.", w: [["時間","じかん","time"]] },
+  "五": { m: "five", on: "ゴ", kun: "いつ(つ)", w: [["五時","ごじ","five o'clock"],["五つ","いつつ","five things"]] },
+  "六": { m: "six", on: "ロク", kun: "むっ(つ)", w: [["六時","ろくじ","six o'clock"]] },
+  "九": { m: "nine", on: "キュウ・ク", kun: "ここの(つ)", look: ["力"], w: [["九時","くじ","nine o'clock"]] },
+  "会": { m: "meet; gathering", on: "カイ", kun: "あ(う)", look: ["今","分"], story: "The spreading lid of 今 and 分 again — this time over 云: people drawn together under one roof.", sentence: true, w: [["会う","あう","to meet"],["会社","かいしゃ","company"]] },
+  "電": { m: "electricity", on: "デン", kun: "—", story: "Rain 雨 over a field with a tail of lightning — the character originally meant lightning itself.", w: [["電車","でんしゃ","train"],["電話","でんわ","telephone"],["電気","でんき","electricity; the lights"]] },
+  "開": { m: "open", on: "カイ", kun: "あ(ける)・ひら(く)", look: ["間"], story: "The gate from 間 with a different guest — the bar, and the two hands lifting it.", sentence: true, w: [["開ける","あける","to open"]] },
+  "買": { m: "buy", on: "バイ", kun: "か(う)", look: ["貝"], story: "A net 罒 coming down over 貝, a shell — shells were early money, and the character has been about shopping ever since.", sentence: true, w: [["買う","かう","to buy"],["買い物","かいもの","shopping"]] },
+  "作": { m: "make", on: "サク", kun: "つく(る)", story: "亻 plus a right side carrying sound rather than meaning, the way 何's and 時's do.", sentence: true, w: [["作る","つくる","to make"],["作文","さくぶん","composition"]] },
+  "文": { m: "sentence; writing", on: "ブン", kun: "—", w: [["作文","さくぶん","composition"],["文","ぶん","sentence"]] },
+  "使": { m: "use", on: "シ", kun: "つか(う)", sentence: true, w: [["使う","つかう","to use"]] },
+  "書": { m: "write", on: "ショ", kun: "か(く)", story: "A hand gripping a brush, set down over the page.", sentence: true, w: [["書く","かく","to write"],["図書館","としょかん","library"]] },
+  "朝": { m: "morning", on: "チョウ", kun: "あさ", story: "The moon 月 still in the sky while the sun climbs through the grass. Hold it as a picture, not a history.", w: [["朝","あさ","morning"],["朝ごはん","あさごはん","breakfast"],["毎朝","まいあさ","every morning"]] },
+  "起": { m: "get up; wake", on: "キ", kun: "お(きる)", story: "走, to run, with 己, the self, tucked into its lap — getting yourself moving.", sentence: true, w: [["起きる","おきる","to get up"]] },
+  "帰": { m: "return home", on: "キ", kun: "かえ(る)", story: "The parts — two strokes at the left, a broom shape at the right — do not tell an honest story here. Learn it as a movement.", sentence: true, w: [["帰る","かえる","to go home"]] },
+  "週": { m: "week", on: "シュウ", kun: "—", story: "The road 辶 taken all the way around 周 — a circuit that comes back to its start.", w: [["先週","せんしゅう","last week"],["来週","らいしゅう","next week"],["週末","しゅうまつ","weekend"]] },
+  "毎": { m: "every", on: "マイ", kun: "—", look: ["母"], story: "母's shape under a slanted top — a structural fact, not a story about mothers.", w: [["毎日","まいにち","every day"],["毎週","まいしゅう","every week"]] },
+  "曜": { m: "day of the week", on: "ヨウ", kun: "—", story: "日 beside feathers over a short-tailed bird 隹. It named the seven luminaries — sun, moon, and the five visible planets — which is exactly how Japanese still names its days.", w: [["月曜日","げつようび","Monday"],["何曜日","なんようび","what day of the week"]] },
 };
 
 // ————— Lessons —————
@@ -180,6 +197,33 @@ const MODULES = [
   { id: "cp-parts", kind: "checkpoint", title: "Checkpoint — reading the parts",
     chars: ["休","明","男","好","時"],
     exp: "Five compound characters. Before you write each one, name its parts out loud.\n\nThat step is the point of the checkpoint. Copying a shape is a drawing task; naming the parts first is a reading task, and reading is what you are actually building." },
+
+  { id: "k-t9", kind: "kanji", title: "The numbers nobody taught you", chars: ["五","六","九"],
+    rule: "Nothing new: horizontals go before the verticals that cross them, and 九's bend is one stroke — turn the corner without lifting.",
+    exp: "You have been counting around a gap. 一二三四七八十百千 arrived over the first two groups; these three close the set, and with them every price, every hour and every date is written in characters you can write too.\n\n五 is four strokes of pure Stage 0: the top horizontal, the crossing frame, the floor last. 六 opens with a dot and a lid, then hangs 八 beneath — you have been writing its whole lower half since the sweeps lesson.\n\n九 is the one that needs care. Two strokes only: the left sweep, then a single stroke that runs across, turns the corner, and hooks up at the end. Keep that bend inside one movement. And watch it next to 力 — in 九 the horizontal sticks out past the sweep on the left; in 力 it does not. A reading note while you are here: 九時 is くじ, not きゅうじ — the clock keeps the older reading, just as it does at 七時." },
+
+  { id: "k-t10", kind: "kanji", title: "Out among people", chars: ["会","電","開","買"],
+    rule: "開 works exactly like 間 — the whole gate 門 first, then what it holds.",
+    exp: "会う, to meet — 会 opens with the same spreading lid you drilled on 今 and 分, then tucks 云 beneath it. One more member of a family your eye already knows how to spot.\n\n電 is rain 雨 over a field with a tail of lightning, and it originally meant lightning itself. It arrives this late for how common it is because 雨 had to come first — and the moment it lands, three words you have used for weeks change shape at once: 電車, 電話, 電気.\n\n開 brings the gate back. In 間 the sun stood in the gap; here it is the bar, and the two hands lifting it. 開ける has been on your doorknobs since the て-form lessons.\n\n買 is a net coming down over 貝, a shell — shells were early money, and the character has meant buying ever since. Together the four write an afternoon: take the 電車 into town, 会う a friend, 開ける the shop door, 買う what you came for." },
+
+  { id: "sb-gate", kind: "skill", title: "間 and 開 — same gate, different guest", chars: ["間","開"],
+    exp: "The gate 門 is eight strokes you already own, and it frames a whole family of characters. What stands in the gateway decides the meaning: the sun in the gap makes 間, the interval; the bar and hands make 開, to open.\n\nSay the guest out loud as you write — \"sun\", \"hands\" — because at reading speed the gate is all your eye gets, and the guest is the only difference there is. A third member, 聞 with an ear in the gateway, is waiting a few groups ahead." },
+
+  { id: "k-t11", kind: "kanji", title: "Making and marking", chars: ["作","文","使","書"],
+    rule: "亻 finishes before the right side starts — the same left-then-right that has governed everything since 明.",
+    exp: "作る is making, and 作文 — literally a made sentence — is the word your homework has been hiding under. 文 itself is four strokes and one of the oldest characters in the system: a mark, a pattern, a sentence.\n\n作 and 使 share the squashed person 亻 from 休 and 何. Both right sides are carrying sound rather than meaning — the division of labour you first met in 時, and worth noticing deliberately every time now, because it is how most kanji you will ever meet are built.\n\n書 is a hand gripping a brush, set down over the page: 書く, to write. It also sits inside 図書館 — the library, a building named as the house of books." },
+
+  { id: "k-t12", kind: "kanji", title: "The daily arc", chars: ["朝","起","帰"],
+    rule: "朝's left stack runs top to bottom — 十, 日, 十 — and finishes whole before 月 begins.",
+    exp: "Three characters that bracket a day. 起きる gets you up, 帰る gets you home, and 朝 is what both of them point at.\n\n起 is 走, to run — a character you will meet properly in a later group — with 己, the self, tucked into its lap: getting yourself moving. The run's long final stroke sweeps underneath and carries 己 on its back.\n\n朝 reads as a picture: the moon 月 still in the sky while the sun climbs through the grass on the left. Hold it as a picture rather than a history and it will hold you back.\n\n帰 is the one to respect. Its parts — two strokes standing at the left, a broom shape at the right — do not tell an honest story, so learn it as a movement instead. It is one of the most-written verbs in the language; your hand will know it before your eye does." },
+
+  { id: "k-t13", kind: "kanji", title: "Naming the days", chars: ["週","毎","曜"],
+    rule: "曜 is three columns, each finished whole: 日, then the feathers, then the bird 隹.",
+    exp: "週 is the road radical 辶 — a squashed \"going\", the way 亻 is a squashed person — wrapped around 周: a circuit that comes back to its start. 先週 and 来週 have been in your grammar since the time words arrived; now they are yours to write.\n\n毎 is every: 毎日, 毎週, 毎朝. Its lower half is 母's shape — a structural fact rather than a story — and its readings are blessedly regular.\n\nThen the one you were promised. 曜 is eighteen strokes, the longest character in this course, and it is three shapes rather than eighteen decisions: 日, a pair of feathers, a short-tailed bird 隹. It named the seven luminaries — the sun, the moon, and the five planets you can see — and that is exactly how Japanese names its days: 月曜日 moon-day, 火曜日 fire-day, 水曜日 water-day. One hard character, and every day of the week stops needing furigana. It is the best trade in the syllabus." },
+
+  { id: "cp-day", kind: "checkpoint", title: "Checkpoint — a readable day",
+    chars: ["五","電","開","書","朝","曜"],
+    exp: "Six characters, one from each lesson in this group — between them they can write the hour you got up, the train you caught, the door you opened, the page you wrote, and the name of the day itself.\n\nBlank if you can. The hint still gives one stroke and one only." },
 ];
 
 // ————— Progress migration: order-v1 → order-v2 lesson ids (Session 10) —————
@@ -233,6 +277,9 @@ const GROUPS = [
   { title: "Building from parts",
     blurb: "Characters stop being shapes and start being assemblies. Nothing appears before its own components do.",
     ids: ["k-t1","sb-lid","k-t2","k-t3","k-t4","k-t5","k-t6","k-t7","sb-root","k-t8","cp-parts"] },
+  { title: "The shape of a day",
+    blurb: "The numbers finished, the week named, and the daily round — meeting, making, writing, getting home — assembled from parts you already own.",
+    ids: ["k-t9","k-t10","sb-gate","k-t11","k-t12","k-t13","cp-day"] },
 ];
 const INTRO = MODULES.find((m) => m.id === "cc-intro");
 const FURIGANA = MODULES.find((m) => m.id === "cc-furigana");
