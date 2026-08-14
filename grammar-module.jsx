@@ -120,6 +120,11 @@ const KANJI_DICT = [
   ["空", "そら", "sky", "N4"], ["暗", "くら", "dark", "N4"],
   ["違", "ちが", "differ; be wrong", "N4"], ["落ち", "お", "fall (on its own)", "N3"],
   ["春", "はる", "spring", "N4"],
+  // —— v8 additions: Step 17 (intentions, decisions & change) ——
+  ["来年", "らいねん", "next year", "N5"], ["来月", "らいげつ", "next month", "N5"],
+  ["毎朝", "まいあさ", "every morning", "N5"], ["予定", "よてい", "schedule; plan", "N3"],
+  ["靴", "くつ", "shoes", "N4"], ["脱", "ぬ", "take off (shoes, clothes)", "N3"],
+  ["決", "き", "decide", "N3"],
 ];
 const DICT_SORTED = [...KANJI_DICT].sort((a, b) => b[0].length - a[0].length);
 // Live learner state, shared with the kanji module (known-kanji-v1) and the
@@ -2020,7 +2025,107 @@ const CURRICULUM = [
     cat: "Checkpoint 4",
     level: "N4",
     points: [
-      { id: "rc4", jp: "復習 · Steps 13–16", en: "checkpoint: aspect, kindness, evidence, ifs", kind: "review", covers: ["teshimau", "teoku", "tearu", "sb-aspect", "teageru", "ageru2", "itadaku", "tehoshii", "sb-kuremorau", "kamo", "hazu", "youda", "rashii", "souda-mite", "souda-denbun", "sb-sou", "ba", "nara", "taradou", "sb-if4"], exp: "Stage 2's first checkpoint — the て-form's second wind, the favor triangle in both registers, the whole evidence dial, and all four ifs. These four steps are one arc: what you do, what you owe, what you know, and what would follow.", ex: [] },
+      { id: "rc4", jp: "復習 · Steps 13–16", en: "checkpoint: aspect, kindness, evidence, ifs", kind: "review", covers: ["teshimau", "teoku", "tearu", "sb-aspect", "temiru", "teikutekuru", "teageru", "ageru2", "itadaku", "tehoshii", "sb-kuremorau", "kamo", "hazu", "youda", "rashii", "souda-mite", "souda-denbun", "sb-sou", "ba", "nara", "taradou", "sb-if4"], exp: "Stage 2's first checkpoint — the て-form's second wind, the favor triangle in both registers, the whole evidence dial, and all four ifs. These four steps are one arc: what you do, what you owe, what you know, and what would follow.", ex: [] },
+    ],
+  },
+
+  {
+    cat: "Step 17 · Intentions, decisions & change",
+    level: "N4",
+    bank: [["来年", "next year"], ["会議", "meeting"], ["予定", "schedule"], ["靴", "shoes"], ["来月", "next month"], ["毎朝", "every morning"], ["たばこ", "tobacco"], ["東京", "Tokyo"]],
+    points: [
+      {
+        id: "you-vol", jp: "〜よう（意向形）", en: "the plain let's",
+        exp: {
+          what: "ましょう's plain twin — the volitional: 行こう is \"let's go\" among friends, and \"right, I'll go\" said to yourself. Half of everyday self-talk runs on it.",
+          build: "う-verbs shift the last sound to the お-row + う: 行く→行こう, 飲む→飲もう. る-verbs take よう: 食べよう. する→しよう, 来る→来よう.",
+          when: "Casual proposals (映画を見よう！), and decisions muttered at yourself (そろそろ帰ろう). It's also the base the next lesson builds plans on.",
+          watch: "The register split is the usual one: ましょう for anyone, 〜よう for friends and diaries. Same meaning, different clothes.",
+        },
+        ex: [["そろそろ帰ろう。", "Time to head home — said to yourself."], ["一緒に映画を見よう。", "Let's watch a movie — the casual invitation."], ["今日は早く寝よう。", "Tonight, early to bed — a small resolution."]],
+      },
+      {
+        id: "youtoomou", jp: "〜ようと思っています", en: "a plan you're carrying",
+        exp: {
+          what: "The volitional grows up: よう + と思っています states a plan that's been living in your head — \"I'm thinking I'll…\" Softer than つもり, warmer than a schedule.",
+          build: "Volitional + と思っています: 日本へ行こうと思っています. The と is Step 12's quoting と — you're quoting your own intention, so everything before it stays plain.",
+          when: "Sharing plans without carving them in stone — the default way to say what's next in your life.",
+          watch: "と思います marks a decision forming right now, this second; と思っています means it's been on your mind a while. The ています does its usual state-work.",
+        },
+        ex: [["来年、日本へ行こうと思っています。", "I'm thinking of going to Japan next year."], ["新しい車を買おうと思っています。", "I've been thinking I'll buy a new car."], ["日本語をもっと勉強しようと思っています。", "Planning to study more Japanese."]],
+      },
+      {
+        id: "kotonisuru", jp: "〜ことにする", en: "deciding it — your choice",
+        exp: {
+          what: "The moment of choosing, marked: 行くことにしました — I've decided to go. The decision is yours, and ことにする performs it.",
+          build: "Plain form + ことにする: 行くことにします／しました. Deciding NOT to: 行かないことにしました — the negative lives inside, as usual.",
+          when: "Announcing choices — quitting, starting, going, skipping dessert.",
+          watch: "ことにしている, with ている, is a decision you keep re-making — a personal rule: 毎朝散歩することにしています, I make it a rule to walk every morning.",
+        },
+        ex: [["日本へ行くことにしました。", "I've decided to go to Japan."], ["たばこを吸わないことにしました。", "I've decided to quit smoking."], ["毎朝散歩することにしています。", "I make it a rule to walk every morning."]],
+      },
+      {
+        id: "kotoninaru", jp: "〜ことになる", en: "it's been decided",
+        exp: {
+          what: "The same shape with なる: it has come about — decided by someone else, by circumstances, by the world. 行くことになりました: it's been arranged that I'm going.",
+          build: "Plain form + ことになる. The standing-rule version is ことになっている: ここでは靴を脱ぐことになっています — shoes off here, that's the arrangement.",
+          when: "Transfers, schedules, rules — anything settled above your head, or politely framed as if it were.",
+          watch: "The modesty twist: Japanese often announces even CHOSEN things with なる — 結婚することになりました is the standard wedding announcement, and no one hears an arranged marriage in it. Grammar says arrival; culture says humility.",
+        },
+        ex: [["来月、東京へ行くことになりました。", "It's been decided — I'm off to Tokyo next month."], ["結婚することになりました。", "We're getting married — the standard announcement."], ["ここでは靴を脱ぐことになっています。", "Shoes off here — that's the standing arrangement."]],
+      },
+      {
+        id: "yotei", jp: "〜予定です", en: "on the schedule",
+        exp: {
+          what: "The planner's word: 予定 is neutral, factual, datebook-flavored. No chest, no fate — just the calendar.",
+          build: "Plain form + 予定です: 行く予定です. As a noun it stands alone too: 明日は予定があります — I have plans.",
+          when: "Itineraries, meetings, departures — where つもり would sound personal and ことになりました would sound eventful, 予定 just sounds booked.",
+          watch: "つもり lives in your chest; 予定 lives in the calendar. Both can be true of the same trip — pick by which you're reporting.",
+        },
+        ex: [["明日、京都へ行く予定です。", "Scheduled to go to Kyoto tomorrow."], ["会議は三時に始まる予定です。", "The meeting is set to start at three."], ["来週帰る予定です。", "Due back next week."]],
+      },
+      {
+        id: "youninaru", jp: "〜ようになる", en: "change arrives",
+        exp: {
+          what: "Crossing a line, marked: what you couldn't do, you now can; what you didn't do, you now do. 話せるようになりました — I've become able to speak.",
+          build: "Plain form — very often the potential — + ようになる: 読めるようになる. The reverse change is 〜なくなる: 食べなくなりました, stopped eating it.",
+          when: "Progress reports. This is the sentence shape your own study lives in: 漢字が読めるようになりました.",
+          watch: "ようになる reports the arrival of a change, not a single event. 早く起きました is one morning; 早く起きるようになりました is a new you.",
+        },
+        ex: [["日本語が話せるようになりました。", "I've become able to speak Japanese."], ["毎朝早く起きるようになりました。", "I've started waking early — the habit arrived."], ["妹は野菜を食べるようになりました。", "My sister eats vegetables now — the change happened."]],
+      },
+      {
+        id: "younisuru", jp: "〜ようにする", en: "steering yourself",
+        exp: {
+          what: "The steering wheel: a standing effort to make a behavior true. 毎日話すようにしています — I make a point of speaking daily. Not yet arrival; deliberate motion toward it.",
+          build: "Plain form + ようにする; ようにしています for the ongoing effort; avoiding something: 〜ないようにしています.",
+          when: "Habits under construction, doctor's orders, resolutions that need renewing every morning.",
+          watch: "する steers, なる reports arrival — Step 9's 暖かくする／暖かくなる split, one floor up. The next lesson locks the whole axis in.",
+        },
+        ex: [["毎日日本語を話すようにしています。", "I make a point of speaking Japanese daily."], ["たばこを吸わないようにしています。", "I'm trying to keep off the cigarettes."], ["早く寝るようにします。", "I'll try to get to bed early — the resolution."]],
+      },
+      {
+        id: "sb-suru-naru", jp: "する系 vs なる系", en: "who's driving the change?", kind: "skill",
+        exp: {
+          what: "One axis runs through this whole step: did you choose it, or did it come about? ことにする／ことになる and ようにする／ようになる differ only there — and Step 9's 暖かくする／暖かくなる was the first rung of the same ladder.",
+          build: "する = agency: you decide (ことにする), you steer (ようにする). なる = arrival: it got decided (ことになる), it became true (ようになる). The attach points are identical within each pair; only the driver changes.",
+          when: "Any sentence about change or decision — pick the verb by who's at the wheel.",
+          watch: "Culture bends grammar here: announcements often prefer なる even for chosen things (結婚することになりました). When you hear なる, don't assume nobody chose — assume somebody's being modest.",
+        },
+        ex: [["日本へ行くことにしました。", "I chose it — する."], ["日本へ行くことになりました。", "It came about — なる (perhaps modestly)."], ["早く起きるようにしています。→ 早く起きるようになりました。", "The effort, then the arrival — the full arc of a habit."]],
+      },
+      {
+        id: "b-s17", jp: "作文 · 来年", en: "next year, in four claims", kind: "build",
+        requires: ["youtoomou", "kotonisuru", "yotei", "youninaru"],
+        brief: "Write about next year: one plan on your mind, one decision already made, one thing on the calendar, and one change you want to arrive (〜ようになりたいです works beautifully).",
+        exp: {
+          what: "Four different relationships to the future, one honest paragraph.",
+          build: "One 〜ようと思っています, one 〜ことにしました, one 〜予定です, one 〜ようになりたいです. They are NOT interchangeable — that's the exercise.",
+          when: "New Year's resolutions run on exactly this grammar; you're a few months early or late, which is fine.",
+          watch: "Keep する and なる honest: what you chose gets する-machinery, what you hope arrives gets なる. The composition grader can see the difference.",
+        },
+        ex: [],
+      },
     ],
   },
 ];
@@ -2179,6 +2284,14 @@ const DEEP = {
   "nara": {"seg": [["京都", "Kyoto — their plan, not yours"], ["へ", "destination marker"], ["行くなら", "THE POINT — plain clause + なら: \"if that's the situation…\" — a borrowed topic", 1], ["、", "a breath"], ["電車", "the train"], ["が", "subject marker"], ["いいですよ。", "\"is good\" — advice attached, with よ delivering the news"]], "hl": "なら", "note": "Bare noun + なら — the topic lifted straight out of the other person's sentence.", "wr": [{"t": "なら's superpower: its advice can happen BEFORE its condition. 行くなら、チケットを買っておいてください — the buying comes first. No other if can point backward.", "jp": null}], "drill": {"items": [{"q": "京都へ行く___、電車がいいですよ。", "en": "Responding to THEIR travel plan.", "a": ["なら"], "opts": ["なら", "たら", "ば", "と"], "why": "Borrowed topic + advice → なら."}, {"q": "お茶___、あの店が安いです。", "en": "If it's tea you're after…", "a": ["なら"], "opts": ["なら", "たら", "ば", "と"], "why": "Bare noun topic → なら, no だ."}, {"q": "日本語___、田中さんに聞いてください。", "en": "If it's Japanese you need help with…", "a": ["なら"], "opts": ["なら", "たら", "ば", "と"], "why": "Topic from context → なら."}, {"q": "行く___、チケットを買っておいてください。", "en": "Buy BEFORE going — which if allows that order?", "a": ["なら"], "opts": ["なら", "たら", "と", "ば"], "why": "Only なら points backward; たら would put the buying after the going."}, {"q": "なら borrows its condition from ___.", "a": ["what the other person just said"], "opts": ["what the other person just said", "the laws of nature", "your own receipts"], "why": "That's why it's the advice-if: the topic is already theirs."}]}},
   "taradou": {"seg": [["先生", "the teacher"], ["に", "the one to ask"], ["聞いたら", "\"if you asked\" — the たら form doing its usual work"], ["どうですか。", "THE POINT — たら + どうですか: \"how about…?\" — the decision stays theirs", 1]], "hl": "どうですか", "wr": [{"t": "Tone is the whole game: flat delivery reads as \"why haven't you already?\" Keep it light, cushion it with 少し or でも.", "jp": null}], "drill": {"items": [{"q": "先生に聞いた___どうですか。", "en": "How about asking the teacher?", "a": ["ら"], "opts": ["ら", "り", "れば", "と"], "why": "The たら form carries the suggestion."}, {"q": "少し休んだら___ですか。", "en": "How about a little rest?", "a": ["どう"], "opts": ["どう", "何", "なぜ", "いつ"], "why": "たら + どうですか — the fixed pair."}, {"q": "医者に行く → ___どうですか。", "en": "Maybe see a doctor? — type the たら form.", "a": ["行ったら", "いったら"], "why": "行く → 行ったら (the Step 4 sound change, still paying rent)."}, {"q": "〜たらどうですか, said warmly, is ___.", "a": ["a light suggestion"], "opts": ["a light suggestion", "an order", "a complaint"], "why": "Advice that leaves the choice with them — tone keeps it that way."}, {"q": "休む → 少し___どうですか。", "en": "How about resting a bit? — type it.", "a": ["休んだら", "やすんだら"], "why": "む → んだら."}]}},
   "sb-if4": {"drill": {"note": "Four ifs, four claims — and two hard walls: と never precedes a request, and only なら points backward. Everything else is tuning.", "items": [{"q": "このボタンを押す___、ドアが開きます。", "en": "Every time, automatically.", "a": ["と"], "opts": ["と", "たら", "ば", "なら"], "why": "A law of the machine → と."}, {"q": "時間があっ___、行きます。", "en": "If I happen to have time — one-off.", "a": ["たら"], "opts": ["たら", "と", "ば", "なら"], "why": "One-off possibility → たら."}, {"q": "安けれ___、買います。", "en": "IF cheap — the condition is the open question.", "a": ["ば"], "opts": ["ば", "と", "たら", "なら"], "why": "Focus on what follows from the condition → ば."}, {"q": "京都へ行く___、電車がいいですよ。", "en": "Reacting to their plan.", "a": ["なら"], "opts": ["なら", "と", "ば", "たら"], "why": "Borrowed topic, advice attached → なら."}, {"q": "日本に着い___、電話してください。", "en": "A request follows — which if survives?", "a": ["たら"], "opts": ["たら", "と", "ば", "なら"], "why": "と can't precede a request; たら carries when-then plus your will."}, {"q": "The only if that can point backward in time: ___.", "a": ["なら"], "opts": ["なら", "たら", "と"], "why": "行くなら、買っておいて — advice before the going. なら alone does this."}]}},
+  "you-vol": {"seg": [["そろそろ", "\"about time to…\" — the word that loves this form"], ["帰ろう。", "THE POINT — the volitional: お-row + う, \"let's / I'll\" in plain clothes", 1]], "hl": "見よう", "note": "る-verbs take よう — 見る → 見よう. The casual invitation, ready to go.", "wr": [{"t": "ましょう was this form wearing polite dress all along: 行きましょう／行こう, one meaning, two registers.", "jp": null}], "drill": {"pool": true, "note": "Build the volitional: お-row + う for う-verbs, よう for る-verbs, irregulars memorized whole.", "items": [{"q": "行く → 一緒に___。", "en": "Let's go!", "a": ["行こう", "いこう"], "why": "く → こ + う."}, {"q": "食べる → 昼ごはんを___。", "en": "Let's eat lunch.", "a": ["食べよう", "たべよう"], "why": "る-verb → よう."}, {"q": "飲む → お茶を___。", "en": "Let's have tea.", "a": ["飲もう", "のもう"], "why": "む → も + う."}, {"q": "帰る → そろそろ___。", "en": "Time to head home.", "a": ["帰ろう", "かえろう"], "why": "帰る is う-family: 帰ろう."}, {"q": "する → 勉強___。", "en": "Let's study.", "a": ["しよう"], "why": "する → しよう."}, {"q": "見る → 映画を___。", "en": "Let's watch a movie.", "a": ["見よう", "みよう"], "why": "見る → 見よう."}]}},
+  "youtoomou": {"seg": [["来年", "next year — bare time word"], ["、", "a breath"], ["日本", "Japan"], ["へ", "destination marker"], ["行こう", "the volitional — the intention itself"], ["と思っています。", "THE POINT — quoting your own plan: it's been on your mind", 1]], "hl": "買おう", "note": "買う → 買おう before the quote — the volitional machinery from last lesson, in its day job.", "wr": [{"t": "と思います = deciding this second; と思っています = carrying the plan already. The ています is doing its usual state-work on your own head.", "jp": null}], "drill": {"items": [{"q": "行く → 来年、日本へ___と思っています。", "en": "Thinking of going next year.", "a": ["行こう", "いこう"], "why": "Volitional before the quoting と."}, {"q": "買う → 新しい車を___と思っています。", "en": "Been thinking I'll buy one.", "a": ["買おう", "かおう"], "why": "う → おう: 買おう."}, {"q": "勉強する → もっと___と思っています。", "en": "Planning to study more.", "a": ["勉強しよう", "べんきょうしよう"], "why": "する → しよう + と思っています."}, {"q": "日本へ行こうと___います。", "en": "The plan's been on my mind — close it.", "a": ["思って"], "opts": ["思って", "思い", "思う", "思った"], "why": "と思っています — the carried plan."}, {"q": "と思っています means the plan ___.", "a": ["has been on your mind a while"], "opts": ["has been on your mind a while", "was decided this second", "belongs to someone else"], "why": "The ています marks the standing state of intending."}]}},
+  "kotonisuru": {"seg": [["日本", "Japan"], ["へ", "destination marker"], ["行く", "\"go\" — plain form"], ["ことにしました。", "THE POINT — こと + にする: the choice, performed — and it was YOURS", 1]], "hl": "吸わないことにしました", "note": "Deciding not to: the ない form goes inside, the machinery outside stays identical.", "wr": [{"t": "ことにしている — with ている — is a decision renewed daily, a personal rule: 毎朝散歩することにしています.", "jp": null}], "drill": {"items": [{"q": "日本へ行く___しました。", "en": "I've decided to go.", "a": ["ことに"], "opts": ["ことに", "ことが", "ように", "ことを"], "why": "Decision performed → ことにする."}, {"q": "たばこを___ことにしました。", "en": "Decided to QUIT.", "a": ["吸わない"], "opts": ["吸わない", "吸う", "吸って", "吸った"], "why": "The negative decision lives inside: 吸わないことにする."}, {"q": "毎朝散歩すること___います。", "en": "I make it a RULE — ongoing.", "a": ["にして"], "opts": ["にして", "になって", "にし", "がして"], "why": "ことにしている — the standing personal rule."}, {"q": "買う → 車を___ことにしました。", "en": "Decided to buy — type the plain form.", "a": ["買う", "かう"], "why": "Plain form before ことにする."}, {"q": "ことにする marks ___.", "a": ["your own choosing"], "opts": ["your own choosing", "someone else's decision", "a schedule entry"], "why": "Agency → する. The next lesson takes the other side."}]}},
+  "kotoninaru": {"seg": [["来月", "next month"], ["、", "a breath"], ["東京", "Tokyo"], ["へ", "destination marker"], ["行く", "\"go\" — plain form"], ["ことになりました。", "THE POINT — こと + になる: it came about — decided above your head (or framed that way)", 1]], "hl": "ことになりました", "note": "The standard wedding announcement — and nobody hears an arranged marriage in it. Modesty wears なる.", "wr": [{"t": "ことになっている is the standing arrangement: ここでは靴を脱ぐことになっています — that's just how it is here. Rules love this form.", "jp": "ここでは靴を脱ぐことになっています。", "en": "Shoes off here — the arrangement, stated.", "hl": "ことになっています"}], "drill": {"items": [{"q": "来月、東京へ行く___なりました。", "en": "It's been decided — I'm transferring.", "a": ["ことに"], "opts": ["ことに", "ように", "ことが", "のに"], "why": "Decided by circumstances → ことになる."}, {"q": "結婚する___になりました。", "en": "The standard announcement.", "a": ["こと"], "opts": ["こと", "よう", "の", "もの"], "why": "ことになりました — chosen, but worn modestly."}, {"q": "ここでは靴を脱ぐことになって___。", "en": "The standing rule — close it.", "a": ["います"], "opts": ["います", "あります", "します", "なります"], "why": "ことになっている — arrangement as a state."}, {"q": "自分で決めた (you chose it yourself): ___", "en": "Which machine claims the choice?", "a": ["ことにしました"], "opts": ["ことにしました", "ことになりました", "予定でした"], "why": "Your hand on the wheel → する."}, {"q": "Hearing ことになりました, assume ___.", "a": ["somebody may just be being modest"], "opts": ["somebody may just be being modest", "nobody chose anything", "a machine decided"], "why": "Culture bends the grammar — なる can dress a chosen thing."}]}},
+  "yotei": {"seg": [["明日", "tomorrow — bare"], ["、", "a breath"], ["京都", "Kyoto"], ["へ", "destination marker"], ["行く", "\"go\" — plain form"], ["予定です。", "THE POINT — 予定: the calendar's word — booked, neutral, factual", 1]], "hl": "予定", "wr": [{"t": "つもり lives in your chest; 予定 lives in the calendar. Both can be true of one trip — report whichever you mean.", "jp": null}], "drill": {"items": [{"q": "明日、京都へ行く___です。", "en": "Scheduled — it's in the book.", "a": ["予定"], "opts": ["予定", "つもり", "こと", "はず"], "why": "Datebook-flavored → 予定."}, {"q": "会議は三時に始まる___です。", "en": "The meeting is SET to start at three.", "a": ["予定"], "opts": ["予定", "つもり", "そう", "ため"], "why": "An arrangement, not an intention → 予定."}, {"q": "夏に国へ帰る___です。", "en": "I INTEND to — it's in my chest, not the calendar.", "a": ["つもり"], "opts": ["つもり", "予定", "こと", "はず"], "why": "Personal intention → つもり (Step 6, still alive)."}, {"q": "来週帰る → the neutral, booked version: ___", "a": ["来週帰る予定です"], "opts": ["来週帰る予定です", "来週帰るつもりです", "来週帰ることにしました"], "why": "予定 states the schedule without drama."}, {"q": "予定 reports ___.", "a": ["what's booked"], "opts": ["what's booked", "what you yearn for", "what came about"], "why": "The calendar's voice."}]}},
+  "youninaru": {"seg": [["日本語", "Japanese"], ["が", "the able-to thing keeps its が"], ["話せる", "\"can speak\" — the potential, from Step 10"], ["ようになりました。", "THE POINT — ようになる: the line was crossed; the change ARRIVED", 1]], "hl": "起きるようになりました", "note": "Not one early morning — a new normal. ようになる reports arrivals, not events.", "wr": [{"t": "The reverse change is 〜なくなる: 食べなくなりました — stopped eating it. Arrival works in both directions.", "jp": null}], "drill": {"items": [{"q": "日本語が話せる___なりました。", "en": "I've become able to speak.", "a": ["ように"], "opts": ["ように", "ことに", "そうに", "ために"], "why": "Change arriving → ようになる."}, {"q": "毎朝早く起きる___なりました。", "en": "The habit arrived.", "a": ["ように"], "opts": ["ように", "ことに", "ままに", "ばかりに"], "why": "New normal → ようになる."}, {"q": "妹は野菜を食べ___なりました。", "en": "She STOPPED eating them — the reverse.", "a": ["なく"], "opts": ["なく", "ないように", "ずに", "なくて"], "why": "〜なくなる — arrival of an absence."}, {"q": "読める → 漢字が___ようになりました。", "en": "Type the potential that goes inside.", "a": ["読める", "よめる"], "why": "Potential + ようになる — the app's favorite sentence."}, {"q": "ようになる reports ___.", "a": ["an arrival — a new normal"], "opts": ["an arrival — a new normal", "a single event", "an intention"], "why": "One morning is 起きました; a changed life is 起きるようになりました."}]}},
+  "younisuru": {"seg": [["毎日", "every day"], ["日本語", "Japanese"], ["を", "object marker"], ["話す", "\"speak\" — plain form"], ["ようにしています。", "THE POINT — ようにする: the standing effort — steering, not yet arrived", 1]], "hl": "吸わないようにしています", "note": "Avoidance steers the same wheel: ない form + ようにしています.", "wr": [{"t": "The full arc of a habit: 早く起きるようにしています (the effort) → 早く起きるようになりました (the arrival). Two lessons, one life.", "jp": null}], "drill": {"items": [{"q": "毎日日本語を話す___しています。", "en": "I make a point of it.", "a": ["ように"], "opts": ["ように", "ことに", "そうに", "ために"], "why": "Standing effort → ようにする."}, {"q": "たばこを___ようにしています。", "en": "Trying to keep OFF them.", "a": ["吸わない"], "opts": ["吸わない", "吸う", "吸って", "吸った"], "why": "Avoidance: ない form inside, ようにする outside."}, {"q": "早く寝る___します。", "en": "I'll try to — the resolution.", "a": ["ように"], "opts": ["ように", "ことに", "予定に", "ために"], "why": "Steering toward the habit → ようにする."}, {"q": "The habit's full arc, effort then arrival: 早く起きるように ___.", "en": "Pick the pair, effort → arrival.", "a": ["しています → なりました"], "opts": ["しています → なりました", "なりました → しています", "します → します"], "why": "する steers; なる reports the crossing."}, {"q": "ようにする is ___.", "a": ["deliberate steering"], "opts": ["deliberate steering", "the arrival itself", "a calendar entry"], "why": "Motion toward the habit — arrival is ようになる's news."}]}},
+  "sb-suru-naru": {"drill": {"note": "One question sorts every item: who's driving — you (する), or the world (なる)? Step 9's 暖かくする／なる was rung one of this ladder.", "items": [{"q": "たばこをやめる。自分で決めた。→ 吸わない___しました。", "en": "You chose it.", "a": ["ことに"], "opts": ["ことに", "ように", "ことになり", "予定に"], "why": "Your decision → ことにする."}, {"q": "来月、東京へ行く___なりました。", "en": "The company decided.", "a": ["ことに"], "opts": ["ことに", "ように", "ことにし", "つもりに"], "why": "Decided above your head → ことになる."}, {"q": "毎日走る___しています。", "en": "The standing effort.", "a": ["ように"], "opts": ["ように", "ことに", "そうに", "ままに"], "why": "Steering a habit → ようにする. (ことにしています would mark it as a rule you decreed — close, but the effort-flavor is ようにする's.)"}, {"q": "漢字が読める___なりました。", "en": "The change arrived on its own schedule.", "a": ["ように"], "opts": ["ように", "ことに", "ために", "ばかりに"], "why": "Arrival of ability → ようになる."}, {"q": "部屋を暖かく___ください。", "en": "Rung one of the ladder — someone acts.", "a": ["して"], "opts": ["して", "なって", "し", "なり"], "why": "Step 9's する — the same axis, first floor."}, {"q": "結婚することになりました usually means ___.", "a": ["they chose, and are wearing it modestly"], "opts": ["they chose, and are wearing it modestly", "an arranged marriage", "a scheduling error"], "why": "Culture bends grammar: なる as humility, not passivity."}]}},
   // @@DEEP-END
 };
 const DRILL_DRAW = 5;
