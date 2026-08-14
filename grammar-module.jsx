@@ -23,7 +23,7 @@ const T = {
 const KANJI_DICT = [
   ["ご飯", "ごはん", "rice; a meal", "N4"],
   ["社長", "しゃちょう", "company president", "N3"], ["お客様", "おきゃくさま", "customer; guest (honored)", "N3"], ["席", "せき", "seat", "N3"],
-  ["二階", "にかい", "second floor", "N4"], ["お手洗い", "おてあらい", "restroom", "N4"], ["飲み物", "のみもの", "drink", "N4"], ["教室", "きょうしつ", "classroom", "N4"], ["拝見", "はいけん", "(humbly) looking at", "N3"],
+  ["二階", "にかい", "second floor", "N4"], ["お手洗い", "おてあらい", "restroom", "N4"], ["飲み物", "のみもの", "drink", "N4"], ["教室", "きょうしつ", "classroom", "N4"], ["拝見", "はいけん", "(humbly) looking at", "N3"], ["住所", "じゅうしょ", "address", "N4"], ["荷物", "にもつ", "luggage; bags", "N4"],
   ["日本語", "にほんご", "Japanese language", "N5"], ["日本人", "にほんじん", "Japanese person", "N5"], ["日本", "にほん", "Japan", "N5"],
   ["図書館", "としょかん", "library", "N3"], ["朝ごはん", "あさごはん", "breakfast", "N5"], ["昼ごはん", "ひるごはん", "lunch", "N4"],
   ["学生", "がくせい", "student", "N5"], ["先生", "せんせい", "teacher", "N5"], ["学校", "がっこう", "school", "N5"],
@@ -2649,6 +2649,46 @@ const CURRICULUM = [
       },
     ],
   },
+
+  {
+    cat: "Step 26 · Producing politeness",
+    level: "N3",
+    bank: [["荷物", "luggage, bags"], ["名前", "name"], ["住所", "address"], ["説明", "explanation"], ["お客様", "customer — honored"], ["会社", "company"]],
+    points: [
+      {
+        id: "okeigo", jp: "お〜になる・お〜する", en: "politeness you can build",
+        exp: {
+          what: "Beyond the special verbs, keigo is PRODUCTIVE — two patterns cover every verb the special list skips. お + stem + になる elevates the other person's action: お帰りになりました. お + stem + する lowers yours, done for them: お持ちします. Kanji-compound verbs swap お for ご: ご説明します, ご案内します. And the お/ご you've been hearing on nouns — お名前, ご住所, お手洗い — is the same politeness, worn by things.",
+          build: "The stem is the ます-form minus ます: 帰ります → 帰り → お帰りになる (theirs); 持ちます → 持ち → お持ちする (yours, for them); する-compounds take ご+noun+する: ご説明します.",
+          when: "The moment you need altitude for a verb with no special form — which is most verbs. お待ちください and おかけください reach you daily; お送りします and ご連絡いたします are how offices offer.",
+          watch: "Two traps. A special verb wins: 食べる has 召し上がる, so お食べになる sounds off. And never double-dress: ご覧になられる stacks two elevations — 二重敬語, the classic overreach. One dressing per verb.",
+        },
+        ex: [["社長はもうお帰りになりました。", "The president has already gone home — 帰る, elevated by the pattern."], ["お荷物をお持ちします。", "I'll carry your bags — your action, lowered, offered upward."], ["ご住所とお名前をお願いします。", "Address and name, please — the form-filling pair, politely dressed."]],
+      },
+      {
+        id: "sb-keigo-map", jp: "一つの会話、三つの高さ", en: "one exchange, three altitudes", kind: "skill",
+        exp: {
+          what: "The whole system on one map: plain (friends), です・ます (the default you've lived in since Step 1), and keigo — which splits in two: their verbs up, your verbs down. Three altitudes, one conversation.",
+          build: "いる？ → いますか → いらっしゃいますか (theirs) / おります (yours). 食べる？ → 食べますか → 召し上がりますか / いただきます. Pick the altitude once, then hold it.",
+          when: "Default to です・ます everywhere; hear keigo at counters and offices; produce it in emails, interviews, and first meetings — this step's composition is exactly that.",
+          watch: "Keigo is a costume for the other person's verbs and a bow for your own — never both directions on one verb, and never keigo at a friend, where it lands as comedy or as distance.",
+        },
+        ex: [["先生、コーヒーを召し上がりますか。", "Offering upward — their drinking, elevated."], ["はい、いただきます。", "Accepting — your receiving, lowered. One exchange, both halves."], ["明日、うちに来る？", "And with a friend: plain altitude, no costume at all."]],
+      },
+      {
+        id: "b-keigo", jp: "作文 · メール", en: "one request, properly dressed", kind: "build",
+        requires: ["sonkeigo", "kenjougo", "okeigo"],
+        brief: "A short message to a teacher or a company: open politely, name yourself with 〜と申します, make ONE request dressed in keigo (ご確認いただけますか・お送りいただけますか, or 〜てくださいませんか), and close with よろしくお願いいたします. Four or five sentences — altitude held steady from first line to last.",
+        exp: {
+          what: "The on-ramp's proof: one real message you could actually send — the email to a teacher, the inquiry to a company — with the altitude held all the way through.",
+          build: "Opening (はじめまして, or お世話になっております if there's history) → 〜と申します → the request, once, dressed → よろしくお願いいたします.",
+          when: "This is the keigo you'll produce most in real life: written, short, high-stakes-feeling, and completely formulaic — which is the good news.",
+          watch: "One request, dressed once — a message that elevates every verb reads as nervous. Frame + name + request + bow: the frame carries the politeness so the verbs don't have to carry it all.",
+        },
+        ex: [],
+      },
+    ],
+  },
 ];
 
 const ALL_POINTS = CURRICULUM.flatMap((c) => c.points.map((p) => ({ ...p, cat: c.cat })));
@@ -2847,6 +2887,8 @@ const DEEP = {
   "gozaimasu": {"seg": [["お手洗い", "the restroom — the お is politeness worn by the noun; Step 26 makes it productive"], ["は", "topic marker"], ["二階に", "on the second floor — に marks where it exists"], ["ございます。", "THE POINT — あります in formal dress: existence, announced with a bow", 1]], "hl": "でございます", "note": "です one bow deeper — でございます closes the sentence the way a hotel closes a door.", "wr": [{"t": "The negative is ございません — the shop's gentle no.", "jp": "申し訳ありません、席がございません。", "en": "Our apologies — there are no seats. (ございません bows lower than ありません.)", "hl": "ございません"}, {"t": "This register honors no one in particular — it's politeness toward the listener at large, which is why it belongs to announcements, signs and staff rather than to friends."}], "drill": {"note": "Recognition again: hear the formal floor, know the plain verb under it.", "items": [{"q": "(ホテルで) お手洗いは二階に___。", "en": "Staff telling a guest where the restroom is.", "a": ["ございます"], "opts": ["ございます", "います", "いらっしゃいます", "ございません"], "why": "Things exist with あります; the staff side dresses it as ございます. いらっしゃる is for people."}, {"q": "ございます is ___ in formal dress。", "a": ["あります"], "opts": ["あります", "います", "です", "行きます"], "why": "Existence of things, formally."}, {"q": "お飲み物はこちら___。", "en": "Your drinks are here — です, one bow deeper.", "a": ["でございます"], "opts": ["でございます", "でいらっしゃいます", "でした", "になさいます"], "why": "です → でございます. でいらっしゃいます elevates a person, not a drink."}, {"q": "ありがとう___。", "en": "The thanks you already say.", "a": ["ございます"], "opts": ["ございます", "あります", "なさいます", "おっしゃいます"], "why": "ござる has been inside your daily thanks all along."}, {"q": "すみません、今日は席が___。", "en": "The shop's gentle \"we're full.\"", "a": ["ございません"], "opts": ["ございません", "いません", "いらっしゃいません", "ございます"], "why": "No seats → the formal negative ございません."}]}},
   "kenjougo": {"seg": [["私", "I — the person being lowered"], ["は", "topic marker"], ["田中と", "Tanaka — と marks what's said, exactly as with 言う"], ["申します。", "THE POINT — 言う lowered: naming yourself, humbly", 1]], "hl": "伺います", "note": "Your going, lowered — 伺う also covers asking and visiting, always aimed at someone above.", "wr": [{"t": "The map has two halves now, and every plain verb with an up-form has a down-twin: いる → いらっしゃる↑・おる↓; 言う → おっしゃる↑・申す↓; する → なさる↑・いたす↓; 行く・来る → いらっしゃる↑・参る↓; 見る → ご覧になる↑・拝見する↓."}, {"t": "Step 14's いただく finds its seat: your もらう — and your eating and drinking — lowered. The giving verbs were the map's first corner all along.", "jp": "先生に本をいただきました。", "en": "I received a book from the teacher — もらう, lowered, exactly as Step 14 taught.", "hl": "いただきました"}], "drill": {"note": "Your side goes down. First productions — names, phones, visits.", "items": [{"q": "はじめまして。私は山田と___。", "en": "Introducing yourself.", "a": ["申します", "もうします"], "opts": ["申します", "おっしゃいます", "いたします", "なさいます"], "why": "Your own name goes down — 申す. おっしゃる would elevate you."}, {"q": "申す is the humble twin of ___。", "a": ["言う"], "opts": ["言う", "いる", "する", "行く"], "why": "言う: おっしゃる up, 申す down."}, {"q": "母は今、出かけて___。", "en": "My mother's out — your side, told outward.", "a": ["おります"], "opts": ["おります", "いらっしゃいます", "ございます", "なさいます"], "why": "Your family's いる goes down → おる. (ございます is for things.)"}, {"q": "先生の写真を___しました。", "en": "I (humbly) looked at the teacher's photo.", "a": ["拝見", "はいけん"], "opts": ["拝見", "ご覧", "見学", "けんぶつ"], "why": "Your seeing goes down → 拝見する. ご覧になる elevates the other person's seeing."}, {"q": "明日、そちらに___います。", "en": "I'll come to you tomorrow — visiting someone above.", "a": ["伺", "うかが"], "opts": ["伺", "いらっしゃ", "参", "おっしゃ"], "why": "Visiting upward → 伺います. (参ります is also humble going — 伺う adds the toward-you aim. And 参+います wouldn't even conjugate: 参ります.)"}]}},
   "sb-uchisoto": {"drill": {"note": "Same verb, same person — the axis decides. Read who's inside before you pick.", "items": [{"q": "(会社の電話で) すみません、田中はただいま___。", "en": "About your own coworker, to an outside caller.", "a": ["おりません"], "opts": ["おりません", "いらっしゃいません", "いません"], "why": "The caller is そと — your side's いる goes down, even for a boss. (いません isn't wrong, just underdressed for the company phone.)"}, {"q": "私の___は先生です。", "en": "Introducing your mother to your teacher.", "a": ["母", "はは"], "opts": ["母", "お母さん", "お母様"], "why": "Your own family, spoken outward → bare 母. cc-family's instinct, now grammar."}, {"q": "社長は会議に___か。", "en": "Asking about the OTHER company's president.", "a": ["いらっしゃいます"], "opts": ["いらっしゃいます", "おります", "いたします"], "why": "Their side sits above you — elevate."}, {"q": "社長は今、出かけて___。", "en": "About YOUR OWN president, to an outsider.", "a": ["おります"], "opts": ["おります", "いらっしゃいます", "なさいます"], "why": "Same title as the last drill, your side this time → down. That contrast IS the axis."}, {"q": "Speaking to another company, your own coworkers are ___。", "a": ["うち"], "opts": ["うち", "そと", "either"], "why": "Inside your wall — lowered as one unit when you face out."}]}},
+  "okeigo": {"seg": [["社長", "the president — the honored doer"], ["は", "topic marker"], ["もう", "already"], ["お帰りに", "THE POINT — お + the verb's stem: the elevation begins", 1], ["なりました。", "になる completes the pattern — their returning, raised"]], "hl": "お持ちします", "note": "The mirror pattern: お + stem + する lowers YOUR action, performed for them — offering as grammar.", "wr": [{"t": "A special verb beats the pattern where one exists: 食べる has 召し上がる, so お食べになる sounds off. The patterns are for the verbs the special list skips — which is most of them."}, {"t": "Never double-dress. ご覧になる is already elevated; adding られる makes ご覧になられる — 二重敬語, the classic overreach. One dressing per verb.", "jp": "ご覧になりますか。", "en": "Will you take a look? — one elevation, correctly dressed.", "hl": "ご覧になります"}], "drill": {"note": "Build the altitude: stem + pattern, direction chosen by whose action it is.", "items": [{"q": "先生はもう___になりました。", "en": "Elevate the teacher's going-home.", "a": ["お帰り", "おかえり"], "opts": ["お帰り", "帰り", "ご帰り", "お帰りに"], "why": "お + stem + になる. ご belongs to kanji compounds like ご説明."}, {"q": "お荷物を___します。", "en": "I'll carry your bags — your action, lowered, for them.", "a": ["お持ち", "おもち"], "opts": ["お持ち", "持ち", "お持ちに", "ご持ち"], "why": "お + stem + する lowers your side."}, {"q": "説明する → ___します。", "en": "Explaining, humbly — a kanji compound.", "a": ["ご説明", "ごせつめい"], "opts": ["ご説明", "お説明", "ご説明に"], "why": "Kanji compounds take ご, not お."}, {"q": "The other person's eating needs no pattern — its special verb is ___。", "a": ["召し上がる"], "opts": ["召し上がる", "お食べになる", "いただく"], "why": "Special verb wins; お食べになる sounds off, and いただく points the wrong way — down."}, {"q": "ご覧になる is already elevated — adding られる makes it ___。", "a": ["二重敬語"], "opts": ["二重敬語", "謙譲語", "丁寧語"], "why": "Double-dressing. One elevation per verb is the rule."}]}},
+  "sb-keigo-map": {"drill": {"note": "Pick the altitude, then the direction. The English line tells you where you stand.", "items": [{"q": "先生、コーヒーを___か。", "en": "Offering, full keigo — their drinking.", "a": ["召し上がります", "めしあがります"], "opts": ["召し上がります", "飲みます", "いただきます"], "why": "Their eating and drinking, elevated → 召し上がる."}, {"q": "はい、___。", "en": "Accepting that coffee — your receiving.", "a": ["いただきます"], "opts": ["いただきます", "召し上がります", "くださいます"], "why": "Your side receives, lowered — the mealtime word doing its original job."}, {"q": "(友だちに) 明日、うちに___？", "en": "Inviting a friend over — plain altitude.", "a": ["来る", "くる"], "opts": ["来る", "いらっしゃる", "参る"], "why": "Keigo at a friend lands as comedy — plain 来る."}, {"q": "社長は何と___か。", "en": "What did the president say? — their words.", "a": ["おっしゃいました"], "opts": ["おっしゃいました", "申しました", "言いました"], "why": "Their speaking goes up. 申す would drag the president down."}, {"q": "私は山田と___。", "en": "And your own name, in the same meeting.", "a": ["申します", "もうします"], "opts": ["申します", "おっしゃいます", "なさいます"], "why": "Your name goes down — the map's two halves inside one introduction."}]}},
   // @@DEEP-END
 };
 const DRILL_DRAW = 5;
