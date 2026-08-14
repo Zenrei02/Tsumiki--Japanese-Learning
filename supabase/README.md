@@ -28,19 +28,36 @@ supabase/
 supabase link --project-ref <your-project-ref>
 ```
 
-**2. Apply the migration:**
+**2. Apply the migration.** ✅ **Already done** — applied Aug 15 2026 against
+project `llkazgmhsuonhwrubwjw`, recorded as version `20260814180650`, and the
+local filename was renamed to match. So this is now a no-op and should print
+"Remote database is up to date":
 
 ```
 supabase db push
 ```
 
-**3. Set the secrets.** Do this yourself — none of these values should ever be
-pasted into a chat, an artifact, a commit, or the Notion tracker.
+If it ever offers to apply `check_usage` again, stop and look — the local file
+and the remote record have diverged.
+
+**3. Set the secrets.** Do this yourself. None of these values should be pasted
+into a chat, an artifact, a commit, or the tracker.
+
+**Set `ANTHROPIC_API_KEY` in the dashboard, not the CLI** — Edge Functions →
+Secrets. A `supabase secrets set` with the key inline lands in your shell
+history, which is a file that gets backed up and grepped. The dashboard form
+does not.
+
+The salt has no such problem, because it is generated in place and never
+appears as a literal:
 
 ```
-supabase secrets set ANTHROPIC_API_KEY=sk-ant-...
 supabase secrets set NAOSHI_CAP_SALT="$(openssl rand -hex 32)"
 ```
+
+⚠️ **Set the salt once and leave it.** Changing it re-keys every subject hash,
+so every learner's counter silently resets to zero — the cap stops bounding
+anything for a day and nothing reports it.
 
 `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are injected automatically —
 you do not set those.
@@ -57,20 +74,38 @@ Optional, all with working defaults:
 **4. Deploy:**
 
 ```
-supabase functions deploy check
+supabase functions deploy check --no-verify-jwt
 ```
 
-Deploying the function costs no Netlify credits and is not subject to the
-one-push-per-session rule. Iterate freely here.
+**Why `--no-verify-jwt`.** The default requires every caller to send a valid
+JWT. For a signed-in app that is right. This endpoint is the opposite: an
+anonymous public checker, so the only token the browser could send is the
+publishable anon key — which ships inside the JS bundle and is readable by
+anyone who opens devtools. It would be a lock with the key taped to it, in
+exchange for an extra env var and a 401 the day someone forgets it.
+
+The controls that actually do the work here are server-side and already built:
+the daily cap (a real cost bound, enforced in Postgres) and
+`NAOSHI_ALLOWED_ORIGIN`. **Narrow that origin from `*` to the deployed site
+before the URL is public** — with it wide open, anyone can spend your API
+budget up to ten checks per IP per day.
+
+If accounts land and checks become a signed-in feature, drop the flag and send
+the user's session token. That is a deliberate later change, not a default to
+drift into.
+
+Deploying costs no Netlify credits and is not subject to the one-push-per-session
+rule. Iterate freely here.
 
 ---
 
 ## Checking it works
 
+Deployed with `--no-verify-jwt`, so no auth header is needed:
+
 ```
-curl -i -X POST "https://<project-ref>.supabase.co/functions/v1/check" \
+curl -i -X POST "https://llkazgmhsuonhwrubwjw.supabase.co/functions/v1/check" \
   -H "content-type: application/json" \
-  -H "authorization: Bearer <anon key>" \
   -d '{"text":"私は毎日私の犬と散歩します。","context":"casual"}'
 ```
 
