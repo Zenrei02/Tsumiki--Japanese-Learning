@@ -77,6 +77,12 @@ const RICH_KNOWN = [
 const failures = [];
 function fail(msg) { failures.push(msg); }
 
+// Session 16: the floor a rendered view must clear, measured against <main>
+// rather than #root. See the note above rootText() for why it moved and why
+// this number is much lower than the 200 it replaced — the old figure was
+// partly counting the nav bar's own text.
+const MIN_VIEW = 80;
+
 // SMOKE_ONLY=grammar,vocabulary runs a subset. Added Session 14: the Cowork
 // sandbox caps a single command at 45s and reaps backgrounded processes, so
 // the full five-module run cannot reliably finish in one piece there. Split
@@ -116,29 +122,95 @@ async function go(modId, lessonMatch, tabs, opts = {}) {
   w.eval(fs.readFileSync(BUNDLE, "utf8"));
   await new Promise(r => setTimeout(r, 2200));
 
-  // Session 13: the app now lands on the Home screen rather than teleporting
-  // to naoshi-last-module. Enter the module the way a user does: the hero
-  // card offers the last-visited module (seeded above) — click it, and in
-  // doing so smoke-test Home itself. Fall back to the header tab.
+  // Session 16: the side menu is the only global navigation now, so it is
+  // checked before anything else. If the drawer fails to open, every module is
+  // unreachable for a learner who is not on Home — a failure the old test
+  // could not have seen, because the tab bar was always in the DOM whether it
+  // worked or not. Open it, confirm every module is listed, close it again,
+  // and confirm it actually went away.
   {
-    const all = [...w.document.querySelectorAll("button")];
-    const hero = all.find(x => /PICK UP WHERE YOU LEFT OFF/i.test(x.textContent || ""));
+    const all = () => [...w.document.querySelectorAll("button")];
+    const menuBtn = all().find(x => x.getAttribute("aria-label") === "Menu");
+    if (!menuBtn) {
+      fail(`${modId.toUpperCase()}: no Menu button — the side menu is missing`);
+      return;
+    }
+    menuBtn.click();
+    await new Promise(r => setTimeout(r, 300));
+    const panel = w.document.querySelector('[role="dialog"][aria-modal="true"]');
+    if (!panel) {
+      fail(`${modId.toUpperCase()}: Menu button did not open the drawer`);
+      return;
+    }
+    const listed = [...panel.querySelectorAll("button")].map(b => (b.textContent || "").trim());
+    const missing = ["Hiragana", "Katakana", "Grammar", "Kanji", "Vocabulary", "Home"]
+      .filter(l => !listed.some(t => t.startsWith(l)));
+    if (missing.length) fail(`${modId.toUpperCase()}: drawer is missing ${missing.join(", ")}`);
+    const closeBtn = [...panel.querySelectorAll("button")]
+      .find(b => b.getAttribute("aria-label") === "Close menu");
+    if (!closeBtn) fail(`${modId.toUpperCase()}: drawer has no close control`);
+    else {
+      closeBtn.click();
+      await new Promise(r => setTimeout(r, 300));
+      if (w.document.querySelector('[role="dialog"][aria-modal="true"]')) {
+        fail(`${modId.toUpperCase()}: drawer would not close`);
+      }
+    }
+    console.log(`  side menu: opens, lists ${listed.length} destinations, closes ok`);
+  }
+
+  // Session 13: the app lands on the Home screen rather than teleporting to
+  // naoshi-last-module. Enter the module the way a user does: the hero card
+  // offers the last-visited module (seeded above) — click it, and in doing so
+  // smoke-test Home itself. Fall back to the drawer, which is now the real
+  // alternative route rather than the header tab that used to be here.
+  {
     const label = { hiragana: "Hiragana", katakana: "Katakana", grammar: "Grammar",
                     kanji: "Kanji", vocabulary: "Vocabulary" }[modId];
-    const tab = all.find(x => (x.textContent || "").startsWith(label));
-    if (!hero && !tab) { fail(`${modId.toUpperCase()}: HOME gave no way into the module`); return; }
-    if (hero) console.log(`  home: continue card ok (${modId})`);
-    (hero || tab).click();
+    const all = () => [...w.document.querySelectorAll("button")];
+    const hero = all().find(x => /PICK UP WHERE YOU LEFT OFF/i.test(x.textContent || ""));
+    if (hero) {
+      console.log(`  home: continue card ok (${modId})`);
+      hero.click();
+    } else {
+      all().find(x => x.getAttribute("aria-label") === "Menu")?.click();
+      await new Promise(r => setTimeout(r, 300));
+      const viaMenu = all().find(x => (x.textContent || "").trim().startsWith(label));
+      if (!viaMenu) {
+        fail(`${modId.toUpperCase()}: no way into the module from Home or the drawer`);
+        return;
+      }
+      console.log(`  home: no continue card — entered via the side menu`);
+      viaMenu.click();
+    }
     await new Promise(r => setTimeout(r, 900));
   }
 
   const d = w.document;
   const NAME = modId.toUpperCase();
   const btns = () => [...d.querySelectorAll("button")];
-  const rootText = () => (d.getElementById("root")?.textContent || "").trim();
+
+  // Session 16: measure <main>, not #root. #root includes the app shell, and
+  // until the tab bar became a drawer that shell contributed ~76 characters
+  // to every single measurement — the five module labels with their Japanese
+  // names, plus "Save progress" and "Restore". The 200-char floor below was
+  // calibrated against that padding, so it was partly measuring chrome.
+  //
+  // It showed the moment the drawer landed: Vocabulary's Review view dropped
+  // from 240 chars to 186 and "failed", having lost exactly the 54 characters
+  // of tab labels. The view itself was unchanged and correct — it renders
+  // "Nothing here yet. Words arrive once you have practised them.", a
+  // legitimate empty state that had never independently cleared the bar.
+  //
+  // So: measure what the module actually rendered, and set the floor where it
+  // catches a genuine white screen (a collapsed React tree yields ~0 chars)
+  // without punishing a sparse-but-correct view. Correctness beyond "did it
+  // render" is the job of the specific string assertions further down.
+  const rootText = () =>
+    (d.querySelector("main")?.textContent || d.getElementById("root")?.textContent || "").trim();
 
   // The module must render something before we go looking for a lesson.
-  if (rootText().length < 200) {
+  if (rootText().length < MIN_VIEW) {
     console.log(`\n${NAME} — ❌ module did not render (${rootText().length} chars)`);
     if (errors.length) console.log("     errors:", errors.slice(0, 3));
     fail(`${NAME}: module did not render`);
@@ -173,7 +245,7 @@ async function go(modId, lessonMatch, tabs, opts = {}) {
     b.click();
     await new Promise(r => setTimeout(r, 900));
     const t = rootText();
-    const broke = t.length < 200;
+    const broke = t.length < MIN_VIEW;
     console.log(`  "${tab}" → ${t.length} chars ${broke ? "❌ WHITE SCREEN" : "ok"}`);
     if (broke) fail(`${NAME}: view "${tab}" collapsed`);
     if (errors.length) { console.log("     errors:", errors.slice(0, 2)); errors.length = 0; }
@@ -231,8 +303,8 @@ await go("grammar", null, [], {
       if (!b) { log(`  "${tab}" — ❌ MISSING`); f(`${NAME}: tab "${tab}" missing`); continue; }
       b.click(); await wait(800);
       const t = rootText();
-      log(`"${tab}" → ${t.length} chars ${t.length < 200 ? "❌ WHITE SCREEN" : "ok"}`);
-      if (t.length < 200) f(`${NAME}: view "${tab}" collapsed`);
+      log(`"${tab}" → ${t.length} chars ${t.length < MIN_VIEW ? "❌ WHITE SCREEN" : "ok"}`);
+      if (t.length < MIN_VIEW) f(`${NAME}: view "${tab}" collapsed`);
     }
     // Quiz tab: static stand-in present, grader UI absent
     const quizTab = btns().find(x => (x.textContent || "").trim().startsWith("Quiz"));
@@ -292,8 +364,8 @@ await go("vocabulary", null, ["New", "Review"], {
     card.click();
     await new Promise(r => setTimeout(r, 900));
     const t = rootText();
-    log(`word view → ${t.length} chars ${t.length < 200 ? "❌ WHITE SCREEN" : "ok"}`);
-    if (t.length < 200) f(`${NAME}: word practice view collapsed`);
+    log(`word view → ${t.length} chars ${t.length < MIN_VIEW ? "❌ WHITE SCREEN" : "ok"}`);
+    if (t.length < MIN_VIEW) f(`${NAME}: word practice view collapsed`);
   },
 });
 
