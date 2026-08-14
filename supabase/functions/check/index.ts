@@ -23,7 +23,7 @@
 //      Iterate and collect text blocks.
 
 import { SCHEMA_VERSION, SYSTEM_PROMPT } from "./_prompt.ts";
-import { placeSpans, verdictOf } from "../_shared/spans.ts";
+import { placeSpans, verdictOf } from "./spans.ts";
 
 const ANTHROPIC_API = "https://api.anthropic.com/v1/messages";
 

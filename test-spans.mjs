@@ -1,4 +1,4 @@
-// Tests for span verification — supabase/functions/_shared/spans.ts
+// Tests for span verification — supabase/functions/check/spans.ts
 //
 // WHY THESE EXIST. A wrongly-placed span attaches an explanation to the wrong
 // characters, and the learner cannot catch it — inability to judge the output
@@ -20,7 +20,7 @@ import { join } from "node:path";
 const ESBUILD = "./naoshi-app/node_modules/.bin/esbuild";
 const out = join(mkdtempSync(join(tmpdir(), "naoshi-spans-")), "spans.mjs");
 execFileSync(ESBUILD, [
-  "supabase/functions/_shared/spans.ts",
+  "supabase/functions/check/spans.ts",
   "--bundle", "--format=esm", `--outfile=${out}`,
 ]);
 const { placeSpans, segment, verdictOf } = await import(`file://${out}`);
