@@ -1,6 +1,6 @@
 # Stage 2 skeleton — v1.1 (Session 14, planning pass; nothing authored)
 
-**Status: EXECUTED (Session 14) — every step below is authored and shipped.** Remaining from this document: the Stage 3 keigo on-ramp (when Stage 3 is planned), potential2 (blocked on R6), and the holding pen. Original ruling: His ruling:
+**Status: EXECUTED (Session 14) — every step below is authored and shipped.** Remaining from this document: the Stage 3 keigo on-ramp (when Stage 3 is planned), potential2 (blocked on R6), and the holding pen. Lloyd's original ruling:
 keigo proper moves OUT of Stage 2 to the beginning of Stage 3, spaced across
 several steps — N3 is where it's tested, and it carries the feeling of another
 language, which is daunting at the second stage ("it was for me"). Everything
