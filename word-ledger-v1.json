@@ -1,7 +1,7 @@
 {
  "generated": "2026-08-14",
  "note": "Authoritative word set for the app. Input to the word-driven ordering pipeline. Regenerate with build-word-ledger.py.",
- "count": 342,
+ "count": 351,
  "words": [
   {
    "written": "学生",
@@ -1321,6 +1321,139 @@
    ],
    "meanings": [
     "rice; a meal"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "社長",
+   "readings": [
+    "しゃちょう"
+   ],
+   "meanings": [
+    "company president"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
+  },
+  {
+   "written": "お客様",
+   "readings": [
+    "おきゃくさま"
+   ],
+   "meanings": [
+    "customer; guest (honored)"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
+  },
+  {
+   "written": "席",
+   "readings": [
+    "せき"
+   ],
+   "meanings": [
+    "seat"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
+  },
+  {
+   "written": "二階",
+   "readings": [
+    "にかい"
+   ],
+   "meanings": [
+    "second floor"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "お手洗い",
+   "readings": [
+    "おてあらい"
+   ],
+   "meanings": [
+    "restroom"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "飲み物",
+   "readings": [
+    "のみもの"
+   ],
+   "meanings": [
+    "drink",
+    "a drink"
+   ],
+   "sources": [
+    "KANJI_DICT",
+    "w:飲",
+    "w:物"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "教室",
+   "readings": [
+    "きょうしつ"
+   ],
+   "meanings": [
+    "classroom"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "拝見",
+   "readings": [
+    "はいけん"
+   ],
+   "meanings": [
+    "(humbly) looking at"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
+  },
+  {
+   "written": "住所",
+   "readings": [
+    "じゅうしょ"
+   ],
+   "meanings": [
+    "address"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "荷物",
+   "readings": [
+    "にもつ"
+   ],
+   "meanings": [
+    "luggage; bags"
    ],
    "sources": [
     "KANJI_DICT"
@@ -4433,19 +4566,6 @@
    ],
    "sources": [
     "w:飲"
-   ]
-  },
-  {
-   "written": "飲み物",
-   "readings": [
-    "のみもの"
-   ],
-   "meanings": [
-    "a drink"
-   ],
-   "sources": [
-    "w:飲",
-    "w:物"
    ]
   },
   {
