@@ -127,10 +127,40 @@ def call_model(key, model, system_prompt, sentence):
                  "Nothing was lost — completed calls are in bakeoff-log.jsonl; "
                  "re-run the same command to resume.")
 
+def extract_json(text):
+    """Return the FIRST JSON object in `text`, ignoring anything after it.
+
+    Aug 15 2026 (Session 16), diagnosed by running E20 through Haiku 8 times:
+    4 succeeded, 4 failed, all four the same way. Haiku emits a valid fenced
+    JSON block and then KEEPS TALKING — a paragraph of plain-English commentary
+    after the closing fence, restating the verdict. Output was 112–372 tokens,
+    nowhere near the 8000 cap, so this was never truncation, and the JSON
+    itself was always well-formed.
+
+    The old line stripped fence MARKERS (`^```(json)?|```$`) and handed the
+    whole remainder to json.loads, which then died on "Extra data: line 15
+    column 1" — the trailing prose. Four perfectly good analyses were thrown
+    away and recorded as failures.
+
+    raw_decode is the fix: it parses one JSON value and reports where it
+    ended, ignoring everything after. Robust against trailing prose, a second
+    fence, or a sign-off, from any model.
+
+    Worth stating plainly because it nearly went into the bake-off verdict as a
+    model defect: this was OUR bug. The prompt does say "no markdown fences",
+    and Haiku obeys that less strictly than Sonnet or Opus — a real but minor
+    instruction-following difference. It is not "returns unparseable JSON", and
+    it is not disqualifying.
+    """
+    start = text.find("{")
+    if start == -1:
+        raise ValueError(f"no JSON object in model output: {text[:200]!r}")
+    obj, _end = json.JSONDecoder().raw_decode(text[start:])
+    return obj
+
 def parse_issues(resp):
     text = "".join(b.get("text", "") for b in resp.get("content", []))
-    text = re.sub(r"^```(json)?|```$", "", text.strip(), flags=re.M).strip()
-    data = json.loads(text)
+    data = extract_json(text)
     issues = data.get("issues", [])
     types = [i.get("type") for i in issues]
     verdict = ("FIX" if "fix" in types else

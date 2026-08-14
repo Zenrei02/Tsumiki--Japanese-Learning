@@ -201,11 +201,51 @@ function textOf(resp: { content?: Array<{ type?: string; text?: string }> }): st
     .join("");
 }
 
+/**
+ * Extract the FIRST JSON object and ignore everything after it.
+ *
+ * This replaced a fence-marker strip on Aug 15 2026, after the bake-off
+ * harness — which had the same bug — was diagnosed by running one sentence
+ * through Haiku eight times. Four calls returned a valid fenced JSON block and
+ * then KEPT TALKING: a paragraph of English commentary after the closing
+ * fence. `JSON.parse` on the remainder throws, so four good analyses were
+ * discarded as failures.
+ *
+ * It is worth being clear that this is not a Haiku problem, because it was
+ * nearly recorded as one. The JSON was always well-formed and well under the
+ * token cap. The prompt does ask for no fences, and Haiku honours that less
+ * strictly than Sonnet or Opus — but ANY model can append a stray sentence,
+ * and when it does, this endpoint used to return `unparseable` (502) on a
+ * check that had in fact succeeded. The learner would see an error and be
+ * charged a cap slot for it.
+ *
+ * So: scan for the first `{`, then walk forward tracking depth, skipping over
+ * string contents so a brace inside an explanation cannot end the object
+ * early. Anything past the close is discarded.
+ */
 function parsePayload(raw: string) {
-  // The prompt says no fences; models sometimes add them anyway. Same defensive
-  // strip the harness does.
-  const cleaned = raw.trim().replace(/^```(?:json)?/m, "").replace(/```$/m, "").trim();
-  return JSON.parse(cleaned);
+  const start = raw.indexOf("{");
+  if (start === -1) throw new Error("no JSON object in model output");
+
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+
+  for (let i = start; i < raw.length; i++) {
+    const ch = raw[i];
+
+    if (escaped) { escaped = false; continue; }
+    if (ch === "\\") { escaped = true; continue; }
+    if (ch === '"') { inString = !inString; continue; }
+    if (inString) continue;
+
+    if (ch === "{") depth++;
+    else if (ch === "}") {
+      depth--;
+      if (depth === 0) return JSON.parse(raw.slice(start, i + 1));
+    }
+  }
+  throw new Error("unterminated JSON object in model output");
 }
 
 // ── handler ─────────────────────────────────────────────────────────────────
