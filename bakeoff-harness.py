@@ -90,7 +90,11 @@ NO_TEMPERATURE = set()  # models whose API rejects the `temperature` param
 def call_model(key, model, system_prompt, sentence):
     body = {
         "model": model,
-        "max_tokens": 2048,
+        # 8000, was 2048 (Aug 2). The Claude 5 family spends adaptive-thinking
+        # tokens INSIDE this budget, so 2048 truncated 35/150 calls mid-JSON on
+        # Aug 15 2026 — parse failures, silently skipped by the run loop.
+        # Priced per token actually used, so the headroom costs nothing.
+        "max_tokens": 8000,
         "system": [{"type": "text", "text": system_prompt,
                     "cache_control": {"type": "ephemeral"}}],
         "messages": [{"role": "user", "content": sentence}],
@@ -195,6 +199,7 @@ def main():
 
     usage = {c: [0, 0] for c in models}
     results = {}
+    failed = []
     with LOG.open("a", encoding="utf-8") as log:
         for rowno, oid, eid, code in runnable:
             if oid in done:
@@ -205,6 +210,7 @@ def main():
                 verdict, feedback, data = parse_issues(resp)
             except Exception as e:
                 print(f"  {oid} ({eid}×{code}): FAILED — {e}")
+                failed.append(oid)
                 time.sleep(2)
                 continue
             answered = resp.get("model", "")
@@ -240,10 +246,31 @@ def main():
         bg.cell(row=rowno, column=6, value=feedback)
     wb.save(WB_OUT)
     print(f"\nwrote {WB_OUT.name} ({len(results)} rows filled)")
-    print("Token totals for the Results sheet (input, output):")
-    for code, (tin, tout) in usage.items():
-        print(f"  {code}: {tin:,} in · {tout:,} out (this run only — "
-              f"see bakeoff-log.jsonl for cumulative)")
+    # Completion is judged against the PLAN, not against this run: failed
+    # calls are skipped and unlogged, and on Aug 15 2026 a run with 35 skips
+    # still ended on a message that read as success.
+    missing = [o for _, o, *_ in runnable if o not in results]
+    if missing:
+        print(f"\n⚠️  RUN INCOMPLETE — {len(missing)} of {len(runnable)} rows "
+              f"missing ({len(failed)} failed this run).")
+        print("   Re-run this same command to retry ONLY the missing rows.")
+    else:
+        print(f"\n✅ COMPLETE — all {len(runnable)} rows filled.")
+    # Cumulative totals from the whole log — these are what the Results
+    # sheet's yellow cells want (in = input + cache reads, per model).
+    cum = {c: [0, 0] for c in models}
+    for line in LOG.read_text(encoding="utf-8").splitlines():
+        try:
+            rec = json.loads(line)
+            u = rec.get("usage", {})
+            cum[rec["model_code"]][0] += (u.get("input_tokens", 0)
+                                          + u.get("cache_read_input_tokens", 0) or 0)
+            cum[rec["model_code"]][1] += u.get("output_tokens", 0)
+        except Exception:
+            pass
+    print("Token totals for the Results sheet (input, output) — CUMULATIVE:")
+    for code, (tin, tout) in cum.items():
+        print(f"  {code}: {tin:,} in · {tout:,} out")
 
 if __name__ == "__main__":
     main()
