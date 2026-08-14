@@ -95,3 +95,4 @@ __pycache__/
 *.py[cod]
 OLD/*.scratch*
 ANTHROPIC_API_KEY
+SETUP KEY

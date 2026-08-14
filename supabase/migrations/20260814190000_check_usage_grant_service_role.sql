@@ -1,0 +1,37 @@
+-- Give service_role back EXECUTE on the cap functions.
+--
+-- THE BUG. The check_usage migration ended with:
+--
+--   revoke all on function public.naoshi_reserve_check(text, date)
+--     from public, anon, authenticated;
+--
+-- The intent was right — anon and authenticated must not be able to mint or
+-- burn quota. But `revoke ... from public` removes the DEFAULT grant that every
+-- role inherits, and `service_role` had EXECUTE only through PUBLIC. So the
+-- statement locked out the single caller it was meant to protect.
+--
+-- Live symptom, Aug 15 2026, the first real request through the endpoint:
+--
+--   CAP DISABLED: reserve rpc 403 {"code":"42501",
+--     "message":"permission denied for function naoshi_reserve_check"}
+--
+-- and the response carried "cap": null. The check itself SUCCEEDED — 200, three
+-- correctly located spans, good pedagogy — because the cap is deliberately
+-- fail-open. So the endpoint looked entirely healthy while the one thing
+-- standing between the project and an unbounded API bill was not running.
+--
+-- WHAT MAKES THIS WORTH WRITING DOWN. It was verified, and the verification
+-- passed. After applying check_usage I ran the security advisors and read this
+-- as confirmation: neither naoshi_reserve_check nor naoshi_release_check
+-- appeared in the anon/authenticated SECURITY DEFINER warnings, so the revoke
+-- had "landed". It had. The advisors answer "can the wrong roles call this?" —
+-- they have nothing to say about "can the right role still call this?", and I
+-- treated a green answer to the first question as an answer to both.
+--
+-- That is the same shape as the trashed-forms patch and the B7/B8 rebuild: a
+-- check truthful about what it examined and silent about what it broke. The
+-- only thing that caught it was an actual request producing an actual log line.
+-- Nothing short of exercising the path would have.
+
+grant execute on function public.naoshi_reserve_check(text, date) to service_role;
+grant execute on function public.naoshi_release_check(text, date) to service_role;
