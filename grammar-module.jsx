@@ -131,6 +131,7 @@ const KANJI_DICT = [
   ["授業", "じゅぎょう", "class; lesson", "N4"], ["間", "あいだ", "interval; while", "N4"],
   ["出す", "だす", "submit; put out", "N4"], ["払", "はら", "pay", "N4"],
   ["答", "こた", "answer", "N4"], ["掃除", "そうじ", "cleaning", "N4"], ["山", "やま", "mountain", "N5"],
+  ["今度", "こんど", "next time", "N5"], ["壊", "こわ", "break", "N3"], ["試合", "しあい", "match; game", "N3"],
 ];
 const DICT_SORTED = [...KANJI_DICT].sort((a, b) => b[0].length - a[0].length);
 // Live learner state, shared with the kanji module (known-kanji-v1) and the
@@ -2377,6 +2378,76 @@ const CURRICULUM = [
       { id: "rc5", jp: "復習 · Steps 17–20", en: "checkpoint: plans, ability, time, voices", kind: "review", covers: ["you-vol", "youtoomou", "kotonisuru", "kotoninaru", "yotei", "youninaru", "younisuru", "sb-suru-naru", "kotogadekiru", "takotogaaru", "kotogaaru", "sugiru", "yasui-nikui", "teiru3", "aida", "madeni", "tokoro", "bakari", "naide", "sb-madeni", "saseru", "saserareru", "meirei", "nasai", "sb-rareru"], exp: "The second Stage 2 checkpoint — intentions and the する/なる axis, ability and experience, time's edges, and the voice system from making to being-made. Four steps about will: yours, time's, and other people's.", ex: [] },
     ],
   },
+
+  {
+    cat: "Step 21 · Reasons, concessions & flow",
+    level: "N4",
+    bank: [["雨", "rain"], ["店", "shop"], ["時間", "time"], ["日曜日", "Sunday"], ["会議", "meeting"], ["今度", "next time"], ["家", "home"], ["映画", "movie"]],
+    points: [
+      {
+        id: "shi", jp: "〜し", en: "reasons that stack",
+        exp: {
+          what: "Reasons piled up, with more implied: 安いし、おいしいし、あの店がいいですよ — cheap, AND tasty, AND (the list could go on) — that shop's the one.",
+          build: "Plain form + し, stackable. Nouns and な-adjectives bring だ: 雨だし, 静かだし. The conclusion can follow — or the reasons can simply trail off, carrying it unspoken.",
+          when: "Justifying choices without pinning everything on one cause — the polite pile-up.",
+          watch: "から names THE reason; し offers reasons-among-others. Even one し hints at unnamed more — that hint is the flavor, use it on purpose.",
+        },
+        ex: [["安いし、おいしいし、あの店がいいですよ。", "Cheap, tasty — that place is the one."], ["今日は雨だし、家にいましょう。", "It's raining (among other things) — let's stay in."], ["時間もないし、また今度。", "No time, and so on — next time, then."]],
+      },
+      {
+        id: "noni", jp: "〜のに", en: "although — with feeling",
+        exp: {
+          what: "Expectation betrayed, and the grammar carries the sting: 勉強したのに、忘れました — I studied, AND YET. けど states contrast; のに aches.",
+          build: "Plain form + のに. Nouns and な-adjectives take な: 日曜日なのに, 静かなのに.",
+          when: "Disappointments, surprises, gentle reproaches — anywhere the world broke a promise to you.",
+          watch: "Don't spend のに on neutral contrasts — that's けど's job, and misused のに sounds like sulking. The trailing version is reproach distilled: せっかく作ったのに… — after I went to the trouble…",
+        },
+        ex: [["勉強したのに、忘れてしまいました。", "I studied — and still forgot. The しまう stacks the regret."], ["日曜日なのに、働いています。", "It's SUNDAY, and yet here I am working."], ["高かったのに、おいしくなかったです。", "Expensive — and it wasn't even good."]],
+      },
+      {
+        id: "temo", jp: "〜ても", en: "even if — concede and continue",
+        exp: {
+          what: "The override: 雨が降っても、行きます — even if it rains, I'm going. ても concedes the condition and drives through it.",
+          build: "て-form + も: 降っても. い-adjectives: くても (高くても). Nouns and な-adjectives: でも (雨でも). いくら〜ても turns it universal: いくら勉強しても — no matter how much.",
+          when: "Determination, reassurance, and no-matter-what claims.",
+          watch: "たら cancels, ても overrides: 降ったら行きません / 降っても行きます — same rain, opposite spines. And Step 5's てもいいですか was this ても all along: \"even if I do it, is it fine?\"",
+        },
+        ex: [["雨が降っても、行きます。", "Even if it rains, I'm going."], ["高くても、買います。", "Even if it's pricey, I'm buying it."], ["いくら勉強しても、忘れます。", "No matter how much I study, it slips away. (The next step's grammar can't fix this; spaced review can.)"]],
+      },
+      {
+        id: "sorede", jp: "それで・それに・だから", en: "the paragraph joints, upgraded",
+        exp: {
+          what: "Step 11 gave you でも and それから; here are the working joints of real paragraphs: それで (and so — consequence), それに (and on top of that — addition), だから (that's why — the blunt conclusion).",
+          build: "All three open a new sentence, exactly like でも. それで links a result; それに piles on a point; だから draws the line under the reasons.",
+          when: "Anything longer than two sentences — which is to say, everything from here on.",
+          watch: "だから opening a REPLY can land as impatience — \"like I SAID.\" And bare それで？ with rising pitch is the listener's nudge: \"…and then?\" — half of storytelling is the audience saying it.",
+        },
+        ex: [["雨が降りました。それで、家にいました。", "It rained. So I stayed in."], ["この店は安いです。それに、おいしいです。", "Cheap — and on top of that, good."], ["明日は会議です。だから、早く寝ます。", "Meeting tomorrow. That's why I'm turning in early."]],
+      },
+      {
+        id: "sb-noni", jp: "のに vs ても vs が", en: "three concessions, three temperatures", kind: "skill",
+        exp: {
+          what: "Same facts, different hearts: が/けど states the contrast (cool), ても overrides it (determined), のに aches over it (felt). Choosing is emotional work, not grammar work.",
+          build: "Neutral report → が/けど. Condition conceded, action anyway → ても. Expectation betrayed, feeling on the table → のに.",
+          when: "Every contrast you write from now on — the temperature is always a choice.",
+          watch: "のに is the strong stuff: spent on trivia it reads as sulking, saved for real betrayals it lands perfectly. When unsure, けど is never wrong — just cooler.",
+        },
+        ex: [["高いですが、買います。", "Cool: noted, buying anyway."], ["高くても、買います。", "Determined: price be damned."], ["高かったのに、壊れました。", "Felt: after what I paid — it broke."]],
+      },
+      {
+        id: "b-s21", jp: "作文 · ざんねんな話", en: "a disappointment, told warm", kind: "build",
+        requires: ["shi", "noni", "temo", "sorede"],
+        brief: "Tell a small disappointment: stack two reasons with し, let one のに carry the ache, one ても for what you did (or will do) anyway, and join sentences with それで・それに・だから.",
+        exp: {
+          what: "The step's whole temperature system in one short, human story.",
+          build: "Two 〜し reasons, one 〜のに, one 〜ても, connectors between sentences. Step 15's hedges mix in naturally if the ending is uncertain.",
+          when: "The gently-disappointed story is a Japanese conversational art form — this is its exact toolkit.",
+          watch: "One のに, placed where it hurts — two reads as complaining. And let the ても end on your spine, not the world's: what you'll do anyway.",
+        },
+        ex: [],
+      },
+    ],
+  },
 ];
 
 const ALL_POINTS = CURRICULUM.flatMap((c) => c.points.map((p) => ({ ...p, cat: c.cat })));
@@ -2558,6 +2629,11 @@ const DEEP = {
   "meirei": {"seg": [["がんばれ！", "THE POINT — the bare imperative: え-row command. Cheering suspends the rudeness entirely", 1]], "hl": "入るな", "note": "The mirror: dictionary form + な — the sign's don't.", "wr": [{"t": "Production is rare; recognition is constant — signs, sports, fiction. Anime characters bark 命令形 at each other for dramatic reasons that do not apply to your office.", "jp": null}], "drill": {"items": [{"q": "行く → the bare command: ___！", "a": ["行け", "いけ"], "opts": ["行け", "行こう", "行って", "行きなさい"], "why": "え-row: 行け. (行こう proposes; 行け orders.)"}, {"q": "食べる → the bare command: ___！", "a": ["食べろ", "たべろ"], "opts": ["食べろ", "食べよう", "食べて", "食べれ"], "why": "る-verb → ろ."}, {"q": "ここに___な。", "en": "KEEP OUT — the sign.", "a": ["入る", "はいる"], "opts": ["入る", "入れ", "入って", "入り"], "why": "Prohibitive = dictionary form + な."}, {"q": "する → ___！", "en": "Do it! — fiction only, please.", "a": ["しろ"], "opts": ["しろ", "しよう", "して", "せよ"], "why": "する → しろ (せよ exists in writing — recognize, don't reach for it)."}, {"q": "The one imperative you'll actually say: ___", "a": ["がんばれ"], "opts": ["がんばれ", "早くしろ", "入るな"], "why": "Cheering is the imperative's safe habitat."}]}},
   "nasai": {"seg": [["早く", "\"quickly / early\" — the adverb from 早い"], ["寝なさい。", "THE POINT — stem + なさい: the parent's imperative, downward only", 1]], "hl": "食べなさい", "note": "Every dinner table, every night — なさい is domestic weather.", "wr": [{"t": "Exams speak it too: 答えなさい. From a worksheet it's neutral instruction; from you to a colleague it's parenting them. Downward only.", "jp": null}], "drill": {"items": [{"q": "寝る → 早く___。", "en": "Go to bed — parent voice.", "a": ["寝なさい", "ねなさい"], "why": "Stem 寝 + なさい."}, {"q": "食べる → 野菜も___。", "en": "Eat your vegetables too.", "a": ["食べなさい", "たべなさい"], "why": "Stem + なさい."}, {"q": "答える → よく読んで、___。", "en": "The exam's voice.", "a": ["答えなさい", "こたえなさい"], "why": "答え + なさい — worksheet register."}, {"q": "なさい may travel ___.", "a": ["downward only"], "opts": ["downward only", "in any direction", "upward, politely"], "why": "Parent→child, teacher→student, exam→you. Never at a colleague."}, {"q": "To a colleague, the request form is ___.", "a": ["てください"], "opts": ["てください", "なさい", "命令形"], "why": "Adults ask adults — Step 5's machinery remains the daily driver."}]}},
   "sb-rareru": {"drill": {"note": "One shape, three readings — potential, passive, honorific (that one waits in Stage 3). Particles and context arbitrate; run the check every time.", "items": [{"q": "ここから山が___ます。", "en": "The mountain CAN BE SEEN — potential.", "a": ["見られ", "みられ"], "opts": ["見られ", "見させ", "見せ", "見え"], "why": "Potential られる, thing marked が. (見える exists too — a later nuance.)"}, {"q": "先生に___ました。", "en": "I WAS SEEN — passive, guilt included.", "a": ["見られ", "みられ"], "opts": ["見られ", "見させ", "見せられ", "見え"], "why": "Same shape — the に-marked doer says passive."}, {"q": "見られる could be potential or passive. What arbitrates? ___", "a": ["particles and context"], "opts": ["particles and context", "politeness level", "word order alone"], "why": "が + thing → potential; に + doer → passive."}, {"q": "ら抜き (見れる, 食べれる) is ___.", "a": ["common speech, marked in formal writing"], "opts": ["common speech, marked in formal writing", "always wrong", "the formal standard"], "why": "Speech's own fix for the collision — recognize it, write the full form."}, {"q": "読む escapes the collision because ___.", "a": ["its potential (読める) and passive (読まれる) differ"], "opts": ["its potential (読める) and passive (読まれる) differ", "it has no passive", "it has no potential"], "why": "う-verbs split the two shapes; only る-verbs collide fully."}]}},
+  "shi": {"seg": [["安いし", "\"cheap, and…\" — the first stacked reason"], ["、", "a breath"], ["おいしいし", "THE POINT — し: another reason, with more implied beyond it", 1], ["、", "a breath"], ["あの店", "that shop"], ["が", "subject marker"], ["いいですよ。", "the conclusion the reasons were building toward"]], "hl": "だし", "note": "Nouns and な-adjectives bring だ before し: 雨だし.", "wr": [{"t": "から names THE reason; し offers reasons-among-others, list deliberately unfinished. Even a single し carries that \"and more\" flavor.", "jp": null}], "drill": {"items": [{"q": "安い___、おいしいし、あの店がいいですよ。", "en": "Cheap, and tasty, and…", "a": ["し"], "opts": ["し", "から", "ので", "が"], "why": "Stacked reasons → し."}, {"q": "今日は雨___、家にいましょう。", "en": "It's raining (among other things)…", "a": ["だし"], "opts": ["だし", "し", "から", "なので"], "why": "Nouns take だ before し: 雨だし."}, {"q": "時間もない___、また今度。", "en": "No time, and so on — next time.", "a": ["し"], "opts": ["し", "が", "まで", "けど"], "why": "The trailing し carries the unspoken rest of the list."}, {"q": "静か___、この図書館が好きです。", "en": "Quiet, among other virtues.", "a": ["だし"], "opts": ["だし", "し", "なし", "のに"], "why": "な-adjective + だ + し."}, {"q": "し differs from から because し ___.", "a": ["implies more reasons beyond the ones named"], "opts": ["implies more reasons beyond the ones named", "is more formal", "only works with adjectives"], "why": "The unfinished list is the point."}]}},
+  "noni": {"seg": [["勉強した", "\"studied\" — plain past; the effort"], ["のに", "THE POINT — のに: and yet — expectation betrayed, sting included", 1], ["、", "a breath"], ["忘れてしまいました。", "\"forgot, alas\" — Step 13's regret stacking onto the ache"]], "hl": "なのに", "note": "Nouns take な before のに: 日曜日なのに — it's SUNDAY, and yet.", "wr": [{"t": "The trailing のに is reproach distilled: せっかく作ったのに… — after I went to the trouble… The sentence doesn't need finishing; the ache is complete.", "jp": null}], "drill": {"items": [{"q": "勉強した___、忘れてしまいました。", "en": "Studied — AND YET.", "a": ["のに"], "opts": ["のに", "ので", "から", "けど"], "why": "Betrayed expectation with feeling → のに. けど would state it cool."}, {"q": "日曜日___、働いています。", "en": "It's SUNDAY, and yet…", "a": ["なのに"], "opts": ["なのに", "のに", "だのに", "でも"], "why": "Nouns take な before のに."}, {"q": "高かった___、おいしくなかったです。", "en": "After what I paid — not even good.", "a": ["のに"], "opts": ["のに", "ので", "し", "たら"], "why": "The felt contrast → のに."}, {"q": "Neutral contrast, no ache: 高いです___、買います。", "en": "Just stating it.", "a": ["が"], "opts": ["が", "のに", "し", "ので"], "why": "Cool contrast is が/けど territory — のに here would sulk."}, {"q": "のに carries ___.", "a": ["feeling — expectation betrayed"], "opts": ["feeling — expectation betrayed", "a neutral contrast", "a stacked reason"], "why": "けど states; のに aches."}]}},
+  "temo": {"seg": [["雨", "rain"], ["が", "subject marker"], ["降っても", "THE POINT — て-form + も: even if — conceded, and overridden", 1], ["、", "a breath"], ["行きます。", "\"I'm going\" — the spine of the sentence"]], "hl": "高くても", "note": "い-adjectives: くても. Nouns and な-adjectives: でも — 雨でも行きます.", "wr": [{"t": "たら cancels, ても overrides: 降ったら行きません / 降っても行きます — same rain, opposite spines. And Step 5's てもいいですか was this ても all along.", "jp": null}], "drill": {"items": [{"q": "雨が___、行きます。", "en": "Even if it rains — going.", "a": ["降っても"], "opts": ["降っても", "降ったら", "降ると", "降れば"], "why": "Concede and continue → ても."}, {"q": "___、買います。", "en": "高い — even if pricey.", "a": ["高くても"], "opts": ["高くても", "高いでも", "高くたら", "高ければ"], "why": "い-adjective → くても."}, {"q": "いくら___、忘れます。", "en": "No matter how much I study…", "a": ["勉強しても", "べんきょうしても"], "opts": ["勉強しても", "勉強したら", "勉強すると", "勉強すれば"], "why": "いくら〜ても — the universal concession."}, {"q": "雨___、行きます。", "en": "Even if it's rain (noun) — going.", "a": ["でも"], "opts": ["でも", "ても", "なのに", "だし"], "why": "Nouns take でも."}, {"q": "降ったら行きません vs 降っても行きます: ___", "a": ["たら cancels; ても overrides"], "opts": ["たら cancels; ても overrides", "both cancel", "both override"], "why": "Same rain, opposite spines."}]}},
+  "sorede": {"seg": [["雨が降りました。", "\"It rained.\" — a full sentence, full stop"], ["それで、", "THE POINT — それで: and so — the consequence joint", 1], ["家にいました。", "\"stayed home\" — the result"]], "hl": "それに", "note": "The piling-on joint: cheap — and on top of that, good.", "wr": [{"t": "だから opening a reply can sound like \"like I SAID.\" And bare それで？ with rising pitch is the listener's nudge — \"…and then?\" Half of storytelling is the audience saying it.", "jp": null}], "drill": {"items": [{"q": "雨が降りました。___、家にいました。", "en": "It rained. AND SO…", "a": ["それで"], "opts": ["それで", "それに", "でも", "それから"], "why": "Consequence → それで."}, {"q": "この店は安いです。___、おいしいです。", "en": "Cheap. AND ON TOP OF THAT…", "a": ["それに"], "opts": ["それに", "それで", "だから", "でも"], "why": "Addition → それに."}, {"q": "明日は会議です。___、早く寝ます。", "en": "Meeting tomorrow. THAT'S WHY…", "a": ["だから"], "opts": ["だから", "それに", "でも", "それから"], "why": "The blunt conclusion → だから."}, {"q": "朝ごはんを食べました。___、学校へ行きました。", "en": "Ate. THEN went — plain sequence.", "a": ["それから"], "opts": ["それから", "それで", "だから", "それに"], "why": "Sequence without causation → それから (Step 11's joint, still working)."}, {"q": "それで？, rising, means ___.", "a": ["\"…and then?\" — the listener's nudge"], "opts": ["\"…and then?\" — the listener's nudge", "\"that's why\"", "\"on top of that\""], "why": "The audience's half of every story."}]}},
+  "sb-noni": {"drill": {"note": "Three temperatures for one contrast: が/けど (cool), ても (determined), のに (felt). The facts don't choose — you do.", "items": [{"q": "高いです___、買います。", "en": "COOL: noted, buying anyway.", "a": ["が"], "opts": ["が", "のに", "ても", "し"], "why": "Neutral statement of contrast → が."}, {"q": "高く___、買います。", "en": "DETERMINED: price be damned.", "a": ["ても"], "opts": ["ても", "のに", "が", "たら"], "why": "Concede and override → ても."}, {"q": "高かった___、壊れました。", "en": "FELT: after what I paid — it broke.", "a": ["のに"], "opts": ["のに", "が", "ても", "から"], "why": "Betrayal with feeling → のに."}, {"q": "雨が降っています___、試合があります。", "en": "Flat report: raining, game's on.", "a": ["が"], "opts": ["が", "のに", "だから", "し"], "why": "No ache claimed → が."}, {"q": "せっかく作った___…。", "en": "The trailing reproach.", "a": ["のに"], "opts": ["のに", "ても", "けど", "から"], "why": "のに… left hanging — the ache completes itself."}, {"q": "When unsure of temperature, reach for ___.", "a": ["けど — never wrong, just cooler"], "opts": ["けど — never wrong, just cooler", "のに — maximum feeling", "だから — conclusive"], "why": "のに misspent reads as sulking; けど is the safe cool."}]}},
   // @@DEEP-END
 };
 const DRILL_DRAW = 5;
