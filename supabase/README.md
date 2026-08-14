@@ -48,6 +48,30 @@ supabase login
 supabase link --project-ref llkazgmhsuonhwrubwjw
 ```
 
+⚠️ **The code `supabase login` prints is a MATCH code, not something you type
+back in.** The CLI shows it, opens a browser, and the browser shows the same
+code so you can confirm they are the same session. You approve in the browser
+and the terminal continues by itself. There is no CLI prompt waiting for it —
+looking for one is the trap, and it cost Lloyd a detour on Aug 15 2026.
+
+**If the browser never opens, or the terminal just sits there, skip login.**
+The CLI reads `SUPABASE_ACCESS_TOKEN` instead, and the docs explicitly offer
+this as the alternative. Create a token at
+[supabase.com/dashboard/account/tokens](https://supabase.com/dashboard/account/tokens),
+then:
+
+```
+read -rs SUPABASE_ACCESS_TOKEN && export SUPABASE_ACCESS_TOKEN
+```
+
+`read -rs` prompts with echo off, so the token never appears on screen and
+never enters shell history — unlike `export SUPABASE_ACCESS_TOKEN=sb_pat_…`,
+which does both. It lasts for that terminal window only, which is the right
+lifetime: run the rest of the setup in the same window.
+
+**This token is a real secret** — it is full account access, not a publishable
+key. It does not belong in a chat, a commit, or the tracker.
+
 If `link` complains about a missing config, run `supabase init` first — it only
 adds `supabase/config.toml` and leaves `migrations/` and `functions/` alone.
 
