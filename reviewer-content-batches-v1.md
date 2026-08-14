@@ -190,3 +190,11 @@ By risk, highest first:
    "who is the sentence about"; confirm no drill item admits both answers.
 4. **Drill distractors** — same check as Batch G: no distractor also correct
    in context.
+
+Batch H addendum — Step 15, guessing & hearsay (Session 14, same sitting):
+kamo, hazu, youda, rashii, souda-mite, souda-denbun, sb-sou, cc-hedge,
+b-s15 + DEEP entries (~31 drill items). Closest-read items: cc-hedge's
+cultural framing of hedging and the 違うかもしれませんが… pushback claim;
+the certainty-dial ordering (です > でしょう > かもしれません) stated as
+teaching fact; らしい's two-jobs treatment; every そう drill distractor
+(the triangle is exactly where a defensible-but-different answer hides).

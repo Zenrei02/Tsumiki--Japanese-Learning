@@ -61,11 +61,12 @@ and no composition.
 sb-aspect's covers extend to temiru/teikutekuru? **No** — keep sb-aspect's
 four-way contrast intact; the new pair gets its own watch fields instead.
 
-## Step 14 · Giving, receiving & kindness
+## Step 14 · Giving, receiving & kindness — ✅ SHIPPED (Session 14, `5685f2a`)
 
 The revisit map's R1 obligation. Stage 1's ageru taught the perspective
 triangle on objects; this step runs the same triangle on ACTIONS, then adds
-the up/down forms.
+the up/down forms. Authored deep-from-day-one as planned; reviewer Batch H
+carries its copy.
 
 | id | jp | one line |
 |---|---|---|
@@ -80,9 +81,10 @@ the up/down forms.
 Rationale: early in the stage because favor-language saturates daily speech and
 every later composition wants it. R1's regression note pins to ageru2.
 
-## Step 15 · Guessing, seeming & hearsay
+## Step 15 · Guessing, seeming & hearsay — ✅ SHIPPED (Session 14)
 
-The evidence-marking family — how sure you are, and how you know.
+The evidence-marking family — how sure you are, and how you know. The そう
+triangle shipped with both parents, closing the flag queue's oldest block.
 
 | id | jp | one line |
 |---|---|---|

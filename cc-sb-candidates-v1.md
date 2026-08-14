@@ -21,14 +21,10 @@ three new SBs.
 
 ## Flagged candidates (remaining queue)
 
-1. **〜そう triangle (looks-about-to / hearsay / agreement).** SB. Attach:
-   Stage 2, when 〜そうです lessons are authored. 降りそうです vs
-   降るそうです vs そうですね — three near-identical shapes, three meanings;
-   classic N4 confusion set. Approved by Lloyd with the rest of v1, but
-   BLOCKED until its parent lessons exist — author the 〜そう lessons with
-   this SB slot in mind, then ship both together. Note: the everyday
-   agreement そうです now lives in cc-yes (Step 1), which forward-points
-   here — the triangle SB should link back to it.
+1. ~~〜そう triangle~~ **SHIPPED** as sb-sou (Session 14, Step 15 ·
+   Guessing, seeming & hearsay) — together with its parents souda-mite and
+   souda-denbun, exactly as the flag's condition required. Links back to
+   cc-yes as specified; rc coverage lands with Stage 2's rc4.
 
 2. ~~はい/いいえ under negative questions~~ **SHIPPED** as sb-negq
    (Step 1, after cc-yes) — approved by Lloyd, who reports the wiring has

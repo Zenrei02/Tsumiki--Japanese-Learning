@@ -1,7 +1,7 @@
 {
  "generated": "2026-08-14",
  "note": "Authoritative word set for the app. Input to the word-driven ordering pipeline. Regenerate with build-word-ledger.py.",
- "count": 315,
+ "count": 320,
  "words": [
   {
    "written": "学生",
@@ -3607,6 +3607,71 @@
     "KANJI_DICT"
    ],
    "jlpt": "N2"
+  },
+  {
+   "written": "空",
+   "readings": [
+    "そら"
+   ],
+   "meanings": [
+    "sky"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "暗",
+   "readings": [
+    "くら"
+   ],
+   "meanings": [
+    "dark"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "違",
+   "readings": [
+    "ちが"
+   ],
+   "meanings": [
+    "differ; be wrong"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "落ち",
+   "readings": [
+    "お"
+   ],
+   "meanings": [
+    "fall (on its own)"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
+  },
+  {
+   "written": "春",
+   "readings": [
+    "はる"
+   ],
+   "meanings": [
+    "spring"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
   },
   {
    "written": "川",

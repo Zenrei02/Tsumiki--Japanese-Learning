@@ -109,6 +109,10 @@ const KANJI_DICT = [
   ["手伝", "てつだ", "help", "N4"], ["教", "おし", "teach; tell", "N5"],
   ["お土産", "おみやげ", "souvenir", "N4"], ["直", "なお", "fix; correct", "N3"],
   ["京都", "きょうと", "Kyoto", "N5"], ["動詞", "どうし", "verb", "N2"],
+  // —— v7 additions: Step 15 (guessing, seeming & hearsay) ——
+  ["空", "そら", "sky", "N4"], ["暗", "くら", "dark", "N4"],
+  ["違", "ちが", "differ; be wrong", "N4"], ["落ち", "お", "fall (on its own)", "N3"],
+  ["春", "はる", "spring", "N4"],
 ];
 const DICT_SORTED = [...KANJI_DICT].sort((a, b) => b[0].length - a[0].length);
 // Live learner state, shared with the kanji module (known-kanji-v1) and the
@@ -1817,6 +1821,101 @@ const CURRICULUM = [
       },
     ],
   },
+
+  {
+    cat: "Step 15 · Guessing, seeming & hearsay",
+    level: "N4",
+    bank: [["天気", "weather"], ["ニュース", "news"], ["ケーキ", "cake"], ["結婚", "marriage"], ["忙しい", "busy"], ["閉まる", "to close"], ["落ちる", "to fall"], ["チケット", "ticket"]],
+    points: [
+      {
+        id: "kamo", jp: "〜かもしれません", en: "might be — the honest maybe",
+        exp: {
+          what: "The claim-lowerer: attach it to a finished thought and you're at maybe — fifty-fifty or below, with no embarrassment owed if it turns out wrong.",
+          build: "Plain form + かもしれません: 行くかもしれません, 高かったかもしれません. Nouns and な-adjectives attach bare — 雨かもしれません, no だ. Friends clip it to かも.",
+          when: "Plans not yet firm, guesses you're not ready to defend, the weather, other people's whereabouts.",
+          watch: "でしょう (Step 7) leans probable; かもしれません sits at maybe. Swapping them changes how much you're promising — the certainty dial matters more in Japanese than in English.",
+        },
+        ex: [["明日は雨かもしれません。", "It might rain tomorrow — a real maybe."], ["田中さんは来ないかもしれません。", "Tanaka might not come."], ["もう帰ったかもしれません。", "He may have already gone home."]],
+      },
+      {
+        id: "hazu", jp: "〜はずです", en: "should be — expectation with receipts",
+        exp: {
+          what: "はず says the conclusion FOLLOWS from something you know: he bought a ticket, so he should be coming. Not hope — reasoning, said aloud.",
+          build: "Plain form + はずです: 来るはずです. Nouns take の (学生のはずです); な-adjectives keep な (静かなはずです).",
+          when: "Schedules, logic, vouching: the store should be open (today's no holiday); this answer should be right (I checked twice).",
+          watch: "If nothing backs it, you wanted かもしれません or でしょう instead. And 〜はずがない runs the reasoning in reverse: can't possibly be.",
+        },
+        ex: [["チケットを買いましたから、来るはずです。", "He bought a ticket, so he should be coming."], ["今日は休みじゃないから、店は開いているはずです。", "It's not a holiday — the shop should be open."], ["そんなはずがありません。", "That can't be right."]],
+      },
+      {
+        id: "youda", jp: "〜ようです・みたいです", en: "seems so — judged by eye",
+        exp: {
+          what: "A judgment from evidence in front of you: the lights are off, so nobody's home — it seems. みたいです is the same claim in casual dress.",
+          build: "Plain form + ようです. Nouns take の before よう (雨のようです); な-adjectives keep な. みたい attaches bare to everything: 雨みたいです.",
+          when: "Reading situations aloud — someone seems busy, the shop seems closed, he seems to have caught a cold.",
+          watch: "ようだ judges from YOUR observation; らしい (next) leans on what you heard. The source of the evidence picks the form.",
+        },
+        ex: [["誰もいないようです。", "Seems nobody's home — the lights are off."], ["田中さんは忙しいみたいです。", "Tanaka seems busy — casual dress."], ["雨のようです。", "Seems to be rain — の joins the noun."]],
+      },
+      {
+        id: "rashii", jp: "〜らしい", en: "apparently — seeming at second hand",
+        exp: {
+          what: "A judgment leaning on what you heard or read, your own eyes only half-involved. Rumor absorbed, source blurred: apparently they're getting married.",
+          build: "Plain form + らしい: 結婚するらしいです. Nouns attach bare: 学生らしいです.",
+          when: "Passing on what's circulating without vouching for it — shop closures, engagements, transfers: the natural habitat of らしい.",
+          watch: "らしい has a second job: true-to-type. 春らしい天気 is weather that's properly spring; 学生らしい服 is student-LIKE clothes. Same word, different machine — context decides.",
+        },
+        ex: [["田中さんは結婚するらしいです。", "Apparently Tanaka's getting married."], ["あの店は閉まるらしいです。", "Apparently that shop is closing."], ["彼は学生らしいです。", "Apparently he's a student — or: he's every inch one. Context picks."]],
+      },
+      {
+        id: "souda-mite", jp: "〜そうです（様子）", en: "looks about to",
+        exp: {
+          what: "Read straight off the surface: 降りそう — rain any minute, by the look of the sky; おいしそう — looks delicious, untasted. It claims only what the surface shows.",
+          build: "Verb STEM + そう: 降りそうです, 落ちそうです. い-adjectives drop the い: おいしそう, 高そう. いい is irregular — よさそう; ない → なさそう.",
+          when: "Imminent things and first impressions — food you haven't tried, rain that hasn't landed, a bag about to fall off the desk.",
+          watch: "This そう takes STEMS; the hearsay そう (next lesson) takes finished plain forms. 降りそう (looks like rain) vs 降るそう (I hear it'll rain) — one kana apart. The skill lesson after next drills exactly this.",
+        },
+        ex: [["雨が降りそうです。", "Looks like rain any minute."], ["このケーキはおいしそうです。", "This cake looks delicious."], ["かばんが落ちそうです。", "That bag's about to fall."]],
+      },
+      {
+        id: "souda-denbun", jp: "〜そうです（伝聞）", en: "I hear that…",
+        exp: {
+          what: "Hearsay with a straight face: 降るそうです — I hear it will rain; the forecast said so. Information passed on whole, source implied and standing behind it.",
+          build: "PLAIN FORM + そうです — the finished clause, untouched: 降るそうです, 高いそうです, 学生だそうです (nouns need だ). Tense and negation live INSIDE the clause: 降らないそうです, 降ったそうです.",
+          when: "Relaying news, forecasts, what someone told you — with more confidence than らしい, because the source is nameable.",
+          watch: "Never そうでした, never そうじゃないです — this そう itself won't conjugate. If the news is past or negative, the clause inside carries it.",
+        },
+        ex: [["明日は雨が降るそうです。", "I hear it'll rain tomorrow — the forecast says so."], ["あの店は安いそうです。", "That shop's cheap, I hear."], ["田中さんは学生だそうです。", "I hear Tanaka's a student — だ before hearsay そう."]],
+      },
+      {
+        id: "sb-sou", jp: "降りそう・降るそう・そうですね", en: "one syllable, three machines", kind: "skill",
+        exp: {
+          what: "Three near-identical shapes, three different claims: 降りそうです reads the sky, 降るそうです repeats the forecast, そうですね agrees with your neighbor. English needs three different sentences; Japanese splits them by what そう attaches to.",
+          build: "The attach point is everything. STEM + そう = looks-about-to. PLAIN CLAUSE + そう = hearsay. Bare そうです（ね） standing alone = the everyday agreement — cc-yes, from all the way back in Step 1, finally meeting its relatives.",
+          when: "Weather talk runs on all three at once — which is why this drill exists, and why it waited until both parents were taught.",
+          watch: "One kana decides: 降り (stem) versus 降る (plain). Misread it and you claim sight where you meant rumor. When in doubt, listen for what stands before そう.",
+        },
+        ex: [["雨が降りそうです。", "The sky says so."], ["雨が降るそうです。", "The news says so."], ["いい天気ですね。— そうですね。", "The neighbor says so — and you agree."]],
+      },
+      {
+        id: "cc-hedge", jp: "断定しない", en: "why certainty gets rounded down", kind: "culture",
+        exp: "Listen to a week of Japanese and notice how rarely anyone flatly says that anything IS. The weather might (かもしれません), the train seems (ようです), tomorrow is probably (でしょう), I think (と思います) — hedges stacked even around things the speaker knows perfectly well. This isn't indecision. Rounding certainty down leaves room — for the other person, for new information, for being wrong without anyone losing face. Assertion is a small act of force, and the language prefers to knock before entering.\n\nSo don't read the hedges as weakness, and don't strip them out to sound confident. 明日は雨です where 雨でしょう belongs doesn't sound sure of itself — it sounds like you personally schedule the rain. Even disagreement enters the room hedged: 違うかもしれませんが… (\"I may be wrong, but…\") is how a differing opinion gets a hearing.\n\nFor your own Japanese, one rule of thumb: hedge one notch below what you feel. You will almost never sound underconfident, and you will very often sound exactly right.",
+        ex: [["違うかもしれませんが…。", "\"I may be wrong, but…\" — disagreement, entering politely."], ["明日は雨でしょう。", "Even the forecast hedges — でしょう, not です."]],
+      },
+      {
+        id: "b-s15", jp: "作文 · うわさ", en: "four kinds of knowing", kind: "build",
+        requires: ["souda-denbun", "youda", "kamo", "hazu"],
+        brief: "Pass on one piece of news you heard, read one situation from what you can see, add one honest maybe, and one reasoned should. Four sentences, four kinds of knowing.",
+        exp: {
+          what: "The whole evidence system, pointed at one small story.",
+          build: "One 〜そうです (hearsay), one 〜ようです・みたいです, one 〜かもしれません, one 〜はずです. Watch the joints: の・な before よう, だ before hearsay そう after nouns, nothing before かもしれません.",
+          when: "This is how news actually moves between people — hedged, sourced, reasoned.",
+          watch: "Don't let the four sentences end interchangeably. Each form claims a different kind of knowing; if two could swap endings without changing anything, one of them is dishonest.",
+        },
+        ex: [],
+      },
+    ],
+  },
 ];
 
 const ALL_POINTS = CURRICULUM.flatMap((c) => c.points.map((p) => ({ ...p, cat: c.cat })));
@@ -1960,6 +2059,13 @@ const DEEP = {
   "itadaku": {"seg": [["先生", "the teacher — above me on the politeness axis"], ["に", "the giver of the favor, に as with もらう"], ["漢字", "kanji"], ["を", "object marker"], ["教えて", "\"teach\" — て-form, attached exactly as in the plain triangle"], ["いただきました。", "THE POINT — もらう in formal dress: received, upward, gratefully", 1]], "hl": "くださいました", "note": "くれる's formal twin — the giver stays on stage as subject; the kindness bows.", "wr": [{"t": "The map, whole: もらう→いただく, くれる→くださる, あげる→さしあげる. Directions and particles unchanged — only the altitude of the other party moved.", "jp": null}], "drill": {"items": [{"q": "先生に教えて___。", "en": "Received the favor — from a teacher, so formal.", "a": ["いただきました"], "opts": ["いただきました", "くださいました", "さしあげました"], "why": "Receiving upward → いただく."}, {"q": "先生が本を___。", "en": "The teacher kindly gave me one — teacher as subject.", "a": ["くださいました"], "opts": ["くださいました", "いただきました", "さしあげました"], "why": "Giver-as-subject, upward → くださる."}, {"q": "もらう's formal twin is ___.", "a": ["いただく"], "opts": ["いただく", "くださる", "さしあげる"], "why": "Receive, politely → いただく."}, {"q": "くれる's formal twin is ___.", "a": ["くださる"], "opts": ["くださる", "いただく", "さしあげる"], "why": "Give-to-me, politely → くださる."}, {"q": "食事の前の「___」。", "en": "Before meals — the polite receiving you already say.", "a": ["いただきます"], "opts": ["いただきます", "くださいます", "さしあげます"], "why": "You receive the meal → いただきます. The verb was keigo all along."}]}},
   "tehoshii": {"seg": [["友達", "my friend — the hoped-for doer"], ["に", "the doer takes に"], ["来てほしいです。", "THE POINT — て-form + ほしい: wanting the ACT, from them", 1]], "hl": "手伝ってほしい", "note": "The んですが… trailing setup — Step 3's ん and the soft trailing-off, working together on one small favor.", "wr": [{"t": "Three wants, three machines: 水がほしい (a thing), 飲みたい (my own act), 飲んでほしい (someone else's act). English covers all three with \"want\" — Japanese never does.", "jp": null}], "drill": {"items": [{"q": "友達に来て___です。", "en": "I want my friend to come.", "a": ["ほしい"], "opts": ["ほしい", "たい", "ください"], "why": "Their act, wished for → てほしい."}, {"q": "ちょっと手伝って___んですが…。", "en": "The classic favor opener.", "a": ["ほしい"], "opts": ["ほしい", "たい", "もらう"], "why": "てほしい + ん + trailing が — the full soft ask."}, {"q": "水が___です。", "en": "I want water — the thing itself.", "a": ["ほしい"], "opts": ["ほしい", "飲みたい", "飲んでほしい"], "why": "A thing wanted → plain ほしい (Step 6)."}, {"q": "すしが___です。", "en": "I want to eat it MYSELF.", "a": ["食べたい"], "opts": ["食べたい", "ほしい", "食べてほしい"], "why": "My own act → たい."}, {"q": "母に作って___です。", "en": "I want Mom to make it.", "a": ["ほしい"], "opts": ["ほしい", "たい", "ください"], "why": "Her act, my wish → てほしい, doer に."}, {"q": "ここでたばこを___でほしいです。", "en": "I'd rather you NOT smoke here.", "a": ["吸わない"], "opts": ["吸わない", "吸って", "吸う"], "why": "The negative wish rides the ない form: 吸わないでほしい."}]}},
   "sb-kuremorau": {"drill": {"note": "Pick the frame FIRST — who is this sentence about? — and the verb is forced. The freeze happens when you decide mid-sentence.", "items": [{"q": "友達が手伝って___。", "en": "About my friend's kindness.", "a": ["くれました"], "opts": ["くれました", "もらいました", "あげました"], "why": "Giver's frame, giver が → くれる."}, {"q": "友達に手伝って___。", "en": "About my day — I got help.", "a": ["もらいました"], "opts": ["もらいました", "くれました", "あげました"], "why": "My frame, giver に → もらう."}, {"q": "妹が写真を撮って___。", "en": "My sister kindly took it.", "a": ["くれました"], "opts": ["くれました", "もらいました", "あげました"], "why": "Her kindness on stage → くれる."}, {"q": "先生に直して___。", "en": "I had the teacher fix it.", "a": ["もらいました"], "opts": ["もらいました", "くれました", "あげました"], "why": "Receipt recorded from my side → もらう."}, {"q": "友達___もらいました。", "en": "Mark the giver.", "a": ["に"], "opts": ["に", "が", "を"], "why": "もらう's giver takes に (から also works); が would flip the verb to くれる."}, {"q": "The question to ask first: ___", "a": ["who is this sentence about?"], "opts": ["who is this sentence about?", "which verb sounds politer?", "which particle comes last?"], "why": "Frame first. Then verb and particles fall into place on their own."}]}},
+  "kamo": {"seg": [["明日", "tomorrow — bare"], ["は", "topic marker"], ["雨", "rain — a noun, attaching bare: no だ"], ["かもしれません。", "THE POINT — \"might be\": the claim lowered to an honest maybe", 1]], "hl": "かもしれません", "wr": [{"t": "The certainty dial so far: です (it is) → でしょう (probably) → かもしれません (maybe). This step adds more stops — keep placing each new form on the dial.", "jp": null}], "drill": {"items": [{"q": "明日は雨___。", "en": "MIGHT rain — a real maybe, not a forecast's probably.", "a": ["かもしれません"], "opts": ["かもしれません", "でしょう", "です", "ですか"], "why": "Fifty-fifty or below → かもしれません. でしょう would lean probable."}, {"q": "田中さんは来ない___。", "en": "He might not come.", "a": ["かもしれません"], "opts": ["かもしれません", "でしょう", "です", "はずです"], "why": "A maybe about someone else's plans → かも."}, {"q": "明日は雨___。", "en": "PROBABLY — the forecast's own word.", "a": ["でしょう"], "opts": ["でしょう", "かもしれません", "です", "まで"], "why": "Probable, not merely possible → でしょう."}, {"q": "帰る → もう___かもしれません。", "en": "He may have ALREADY gone home — type it.", "a": ["帰った", "かえった"], "why": "The past lives inside the clause: 帰ったかもしれません."}, {"q": "\"Might be rain\" is ___.", "a": ["雨かもしれません"], "opts": ["雨かもしれません", "雨だかもしれません", "雨ですかもしれません"], "why": "Nouns attach bare — no だ, no です before かもしれません."}]}},
+  "hazu": {"seg": [["チケット", "the ticket — the receipt this reasoning stands on"], ["を", "object marker"], ["買いましたから", "\"because (he) bought it\" — the reason, stated"], ["、", "a breath"], ["来る", "\"come\" — plain form"], ["はずです。", "THE POINT — \"should\": the conclusion that follows from what you know", 1]], "hl": "はずです", "wr": [{"t": "はずがない runs the same reasoning in reverse — \"there's no way.\"", "jp": "そんなはずがありません。", "en": "That can't be right — the receipts don't add up to that.", "hl": "はずがありません"}], "drill": {"items": [{"q": "チケットを買いましたから、来る___です。", "en": "He should be coming — there's a receipt.", "a": ["はず"], "opts": ["はず", "かも", "でしょう", "つもり"], "why": "Reasoned expectation → はず."}, {"q": "今日は休みじゃないから、店は開いている___です。", "en": "Should be open — no holiday today.", "a": ["はず"], "opts": ["はず", "かも", "らしい", "そう"], "why": "Logic with a stated reason → はず."}, {"q": "そんな___がありません。", "en": "No way. Can't possibly be.", "a": ["はず"], "opts": ["はず", "かも", "こと", "よう"], "why": "はずがない — impossibility by reasoning."}, {"q": "静か → 図書館は___はずです。", "en": "The library should be quiet — type the joint.", "a": ["静かな", "しずかな"], "why": "な-adjectives keep な before はず."}, {"q": "はず needs ___.", "a": ["a reason you could point to"], "opts": ["a reason you could point to", "a hope", "a rumor"], "why": "No receipts, no はず — reach for かもしれません or でしょう instead."}]}},
+  "youda": {"seg": [["誰も", "nobody — question word + も under a negative"], ["いない", "\"isn't there\" — plain negative"], ["ようです。", "THE POINT — \"seems\": judged from what's in front of you", 1]], "hl": "みたいです", "note": "Same judgment, casual dress — and みたい attaches bare to nouns where よう wants の.", "wr": [{"t": "The joints differ by family: 雨のようです but 雨みたいです; 静かなようです but 静かみたいです. よう is choosier than みたい.", "jp": null}], "drill": {"items": [{"q": "誰もいない___です。", "en": "Seems nobody's home — the lights are off.", "a": ["よう"], "opts": ["よう", "らしい", "はず", "つもり"], "why": "Your own eyes on the evidence → よう."}, {"q": "田中さんは忙しい___です。", "en": "Seems busy — casual register.", "a": ["みたい"], "opts": ["みたい", "のよう", "はず", "かも"], "why": "みたい is よう in casual dress, attaching bare."}, {"q": "雨___ようです。", "en": "Seems to be rain — pick the joint.", "a": ["の"], "opts": ["の", "な", "だ", "は"], "why": "Nouns join よう with の."}, {"q": "静か___ようです。", "en": "Seems quiet — pick the joint.", "a": ["な"], "opts": ["な", "の", "だ", "い"], "why": "な-adjectives keep な before よう."}, {"q": "ようだ's evidence is ___.", "a": ["what you see in front of you"], "opts": ["what you see in front of you", "what someone told you", "pure hope"], "why": "Secondhand seeming is らしい — the next lesson."}]}},
+  "rashii": {"seg": [["田中さん", "Tanaka"], ["は", "topic marker"], ["結婚する", "\"will marry\" — plain form"], ["らしいです。", "THE POINT — \"apparently\": rumor absorbed, source blurred", 1]], "hl": "らしい", "wr": [{"t": "らしい's second job — true to type: 春らしい天気 is weather being properly spring. Same word, different machine; context decides which is running.", "jp": "彼は学生らしいです。", "en": "Apparently a student — or every inch one. Context picks.", "hl": "らしい"}], "drill": {"items": [{"q": "田中さんは結婚する___です。", "en": "Apparently — you heard it around.", "a": ["らしい"], "opts": ["らしい", "よう", "はず", "たい"], "why": "Absorbed rumor → らしい."}, {"q": "あの店は閉まる___です。", "en": "Apparently that shop's closing.", "a": ["らしい"], "opts": ["らしい", "よう", "はず", "かも"], "why": "Word going around → らしい."}, {"q": "誰もいない___です。", "en": "Judged from the dark windows YOURSELF.", "a": ["よう"], "opts": ["よう", "らしい", "そう", "はず"], "why": "Your own eyes → よう; らしい would blame the rumor mill."}, {"q": "らしい leans on ___.", "a": ["absorbed rumor — the source blurred"], "opts": ["absorbed rumor — the source blurred", "your own eyes", "logic and receipts"], "why": "Eyes → よう; receipts → はず; blur → らしい."}, {"q": "春___天気ですね。", "en": "Properly spring-like weather.", "a": ["らしい"], "opts": ["らしい", "のよう", "みたい", "はず"], "why": "True-to-type らしい — the second job, live."}]}},
+  "souda-mite": {"seg": [["雨", "rain"], ["が", "subject marker"], ["降りそうです。", "THE POINT — verb STEM + そう: about to, by the look of it", 1]], "hl": "おいしそう", "note": "い-adjectives drop the い: おいしい → おいしそう. First impressions, before first bites.", "wr": [{"t": "Two irregulars to memorize whole: いい → よさそう, ない → なさそう.", "jp": null}], "drill": {"items": [{"q": "雨が降り___です。", "en": "Looks like rain any minute.", "a": ["そう"], "opts": ["そう", "らしい", "はず", "よう"], "why": "Read off the sky's surface → stem + そう."}, {"q": "このケーキはおいし___です。", "en": "Looks delicious — untasted.", "a": ["そう"], "opts": ["そう", "いそう", "いだそう", "くそう"], "why": "おいしい drops its い, then そう."}, {"q": "かばんが___そうです。", "en": "落ちる — about to fall.", "a": ["落ち"], "opts": ["落ち", "落ちる", "落ちた", "落ちて"], "why": "This そう takes the STEM: 落ち."}, {"q": "いい → ___そうです。", "en": "Looks good — the irregular.", "a": ["よさ"], "opts": ["よさ", "いい", "よ", "よく"], "why": "いい → よさそう, memorized whole."}, {"q": "始まる → 映画が___です。", "en": "The movie's about to start — type it.", "a": ["始まりそう", "はじまりそう"], "why": "Stem 始まり + そう."}]}},
+  "souda-denbun": {"seg": [["明日", "tomorrow — bare"], ["は", "topic marker"], ["雨", "rain"], ["が", "subject of 降る"], ["降るそうです。", "THE POINT — PLAIN FORM + そうです: heard whole, passed on whole", 1]], "hl": "そうです", "wr": [{"t": "らしい blurs its source; this そう stands on one — the forecast, the friend who told you. Confidence scales with how nameable the source is.", "jp": null}], "drill": {"items": [{"q": "明日は雨が降る___です。", "en": "The forecast SAYS so.", "a": ["そう"], "opts": ["そう", "らしい", "よう", "はず"], "why": "Named-source hearsay → plain form + そう."}, {"q": "あの店は安い___です。", "en": "I hear it's cheap.", "a": ["そう"], "opts": ["そう", "よう", "らしそう", "はず"], "why": "高いようです would claim your own judgment; hearing → そう."}, {"q": "田中さんは学生___そうです。", "en": "I hear he's a student — pick the joint.", "a": ["だ"], "opts": ["だ", "の", "な", "です"], "why": "Nouns need だ before hearsay そう: 学生だそうです."}, {"q": "明日は___そうです。", "en": "I hear it WON'T rain.", "a": ["降らない"], "opts": ["降らない", "降りません", "降りそうもない", "降って"], "why": "Negation lives inside the clause, in plain form: 降らないそうです."}, {"q": "This そう attaches to ___.", "a": ["the finished plain clause"], "opts": ["the finished plain clause", "the verb stem", "the て-form"], "why": "Stem + そう is the OTHER そう — looks-about-to."}]}},
+  "sb-sou": {"drill": {"note": "One syllable, three machines — split entirely by what stands before そう. cc-yes promised this drill back in Step 1; both parents now exist.", "items": [{"q": "空が暗いです。雨が降___そうです。", "en": "The SKY says so.", "a": ["り"], "opts": ["り", "る", "った", "って"], "why": "Your own eyes on the surface → stem: 降りそう."}, {"q": "ニュースでは、雨が降___そうです。", "en": "The NEWS says so.", "a": ["る"], "opts": ["る", "り", "って", "らない"], "why": "Passing on the report whole → plain form: 降るそう."}, {"q": "いい天気ですね。— ___ですね。", "en": "Agree with the neighbor.", "a": ["そう"], "opts": ["そう", "降りそう", "降るそう", "はず"], "why": "Bare そうです（ね） — the everyday agreement from Step 1."}, {"q": "このケーキ、おいし___です。", "en": "Looks tasty — untasted.", "a": ["そう"], "opts": ["そう", "いそう", "いだそう", "くそう"], "why": "い-adjective drops い, stem-style そう."}, {"q": "あの店は高い___です。", "en": "So I HEAR.", "a": ["そう"], "opts": ["そう", "よう", "らしそう", "みたそう"], "why": "Finished clause + そう = hearsay. (高いようです would be your own read.)"}, {"q": "そうですね, standing alone, is ___.", "a": ["agreement — Step 1's everyday yes"], "opts": ["agreement — Step 1's everyday yes", "hearsay", "a weather prediction"], "why": "The triangle closes where cc-yes said it would."}]}},
   // @@DEEP-END
 };
 const DRILL_DRAW = 5;
