@@ -130,6 +130,7 @@ const KANJI_DICT = [
   ["夏休み", "なつやすみ", "summer break", "N4"], ["先月", "せんげつ", "last month", "N5"],
   ["授業", "じゅぎょう", "class; lesson", "N4"], ["間", "あいだ", "interval; while", "N4"],
   ["出す", "だす", "submit; put out", "N4"], ["払", "はら", "pay", "N4"],
+  ["答", "こた", "answer", "N4"], ["掃除", "そうじ", "cleaning", "N4"], ["山", "やま", "mountain", "N5"],
 ];
 const DICT_SORTED = [...KANJI_DICT].sort((a, b) => b[0].length - a[0].length);
 // Live learner state, shared with the kanji module (known-kanji-v1) and the
