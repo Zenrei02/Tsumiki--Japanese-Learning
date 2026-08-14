@@ -191,6 +191,16 @@ over-rewarding failure mode applied to kana. Grammar quizzes, listening, the fre
 nothing. Kana contributes a one-time, bounded pool; the per-stage ~385 from vocabulary
 remains the steady-state rate everything is priced against.
 
+**Amended, Session 14 (Lloyd):** one grammar surface now earns — the **daily review
+challenge** (grammar module + Home card). Two tiers, each paying once per day, resetting at
+midnight Tokyo time: single-mechanic **3**, multi-mechanic **5** (two mechanics, Stage 1) or
+**8** (three–four mechanics once Stage 2 points are learned). Placeholders like all AP
+numbers. Guards that keep this inside the §6 spirit: the daily cap bounds it (≤11/day even
+maxed), the writing itself is unlimited and unpaid past the cap, and payment rides the
+REAL grader only — the static build plays the challenge but pays nothing (Lloyd chose
+deferral over paying on self-report). Wallet is the vocabulary module's
+`achievement-points-v1`.
+
 ## 7. Post-publish: return thanks & the week-in-review (Lloyd, Session 11)
 
 Both need durable per-user data — and the second needs an email address — so they are

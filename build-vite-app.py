@@ -434,6 +434,24 @@ function Home({ last, go }) {
         <div style={{ font: `600 15px ${T.uiFont}` }}>{heroCta}</div>
       </button>
 
+      {started("grammar") && (
+        // Session 14: the daily review challenge gets a front-door card once
+        // grammar has begun — before that it would only point at an empty
+        // pool. The flag routes the grammar module straight to the challenge.
+        <button
+          onClick={() => { try { localStorage.setItem("naoshi-open-challenge", "1"); } catch (e) {} go("grammar"); }}
+          style={{ ...cardBase, border: `1px solid ${T.shu}55`, marginBottom: 22 }}
+        >
+          <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+            <span style={{ font: `600 16px ${T.uiFont}` }}>Review challenge</span>
+            <span style={{ font: `15px ${T.jpFont}`, color: T.shu, marginLeft: 8 }}>腕試し</span>
+          </div>
+          <p style={{ font: `13px/1.6 ${T.uiFont}`, color: T.sub, margin: "6px 0 0" }}>
+            Draw a grammar point you've learned and write with it. A fresh challenge every day — the day turns at midnight, Tokyo time.
+          </p>
+        </button>
+      )}
+
       <div style={{ font: `600 11px ${T.uiFont}`, letterSpacing: ".7px", color: T.sub, marginBottom: 10 }}>
         EVERYWHERE YOU CAN GO
       </div>

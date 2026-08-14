@@ -28,12 +28,12 @@ every other module that reads it. These are the real seams.
 | `n5-progress-v1` | grammar-module.jsx, kanji-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `known-kanji-v1` | grammar-module.jsx, kanji-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `hiragana-progress-v2` | grammar-module.jsx, hiragana-module.jsx ⚠️ shared |
+| `achievement-points-v1` | grammar-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `katakana-progress-v1` | katakana-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `kanji-progress-v1` | kanji-module.jsx |
-| `achievement-points-v1` | vocabulary-module.jsx |
 | `known-words-v1` | vocabulary-module.jsx |
 
-5 of 8 keys are shared across modules.
+6 of 8 keys are shared across modules.
 
 
 ## Kana audio sprite

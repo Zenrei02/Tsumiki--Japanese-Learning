@@ -77,7 +77,16 @@ const RICH_KNOWN = [
 const failures = [];
 function fail(msg) { failures.push(msg); }
 
+// SMOKE_ONLY=grammar,vocabulary runs a subset. Added Session 14: the Cowork
+// sandbox caps a single command at 45s and reaps backgrounded processes, so
+// the full five-module run cannot reliably finish in one piece there. Split
+// runs cover the same ground; omit the variable for the full sweep.
+const ONLY = (process.env.SMOKE_ONLY || "").split(",").map(s => s.trim()).filter(Boolean);
+
+let modulesRun = 0;
 async function go(modId, lessonMatch, tabs, opts = {}) {
+  if (ONLY.length && !ONLY.includes(modId)) return;
+  modulesRun++;
   const errors = [];
   const dom = new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',
     { runScripts: "outside-only", pretendToBeVisual: true, url: "http://localhost/" });
@@ -197,6 +206,17 @@ await go("katakana", /Main Vowel Series/, ["Learn", "Trace", "Drill", "Listen", 
 await go("grammar", null, [], {
   then: async ({ d, btns, rootText, log, fail: f, NAME }) => {
     const wait = (ms = 700) => new Promise(r => setTimeout(r, ms));
+    // Session 14: the review challenge is a new always-available surface on
+    // the stage picker — assert it opens and comes back, don't skip it.
+    const chall = btns().find(b => /Review challenge/.test(b.textContent || ""));
+    if (!chall) { f(`${NAME}: review challenge card missing`); }
+    else {
+      chall.click(); await wait();
+      if (!rootText().includes("腕試し")) f(`${NAME}: challenge screen did not open`);
+      log(`challenge screen: ${rootText().includes("腕試し") ? "ok" : "❌"}`);
+      const back = btns().find(b => (b.textContent || "").includes("All grammar"));
+      if (back) { back.click(); await wait(); } else { f(`${NAME}: challenge has no way back`); return; }
+    }
     const stage = btns().find(b => /Foundations/.test(b.textContent || ""));
     if (!stage) { f(`${NAME}: Stage 1 card not found`); return; }
     stage.click(); await wait();
@@ -231,6 +251,28 @@ await go("grammar", null, [], {
     if (practiceTab) { practiceTab.click(); await wait(); }
     if (rootText().includes("Grade my sentence")) f(`${NAME}: grader practice UI leaked into static build`);
     if (!btns().some(b => (b.textContent || "").includes("log practice"))) f(`${NAME}: practice self-log button missing`);
+    // Session 14: です is a deep lesson now — Learn must be the walkthrough
+    // pager and Drill must present a deterministic item. Assert both.
+    const learnTab = btns().find(x => (x.textContent || "").trim().startsWith("Learn"));
+    if (learnTab) {
+      learnTab.click(); await wait();
+      const pager = btns().some(b => (b.textContent || "").includes("Next →"));
+      log(`walkthrough pager: ${pager ? "ok" : "❌ MISSING"}`);
+      if (!pager) f(`${NAME}: deep lesson Learn is not the walkthrough pager`);
+    }
+    const drillTab = btns().find(x => (x.textContent || "").trim().startsWith("Drill"));
+    if (!drillTab) { f(`${NAME}: Drill tab missing on a deep lesson`); }
+    else {
+      drillTab.click(); await wait();
+      const start = btns().find(b => /^(Start|Another round)$/.test((b.textContent || "").trim()));
+      if (!start) { f(`${NAME}: drill start button missing`); }
+      else {
+        start.click(); await wait();
+        const presented = / of \d/.test(rootText());
+        log(`drill item presented: ${presented ? "ok" : "❌"}`);
+        if (!presented) f(`${NAME}: drill did not present an item`);
+      }
+    }
   },
 });
 
@@ -261,5 +303,5 @@ if (failures.length) {
   for (const f of failures) console.log("  ✗ " + f);
   process.exitCode = 1;
 } else {
-  console.log("PASSED — 5 modules, every required view rendered.");
+  console.log(`PASSED — ${modulesRun} module${modulesRun === 1 ? "" : "s"}${ONLY.length ? " (SMOKE_ONLY subset)" : ""}, every required view rendered.`);
 }
