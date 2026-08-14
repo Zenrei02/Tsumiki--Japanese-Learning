@@ -141,3 +141,32 @@ Where: k-t18…k-t21, sb-gate2, cp-feel + K entries.
 Bookkeeping when a batch comes back: verdicts land on the relevant tracker
 row, edits go into the module masters (whole-file deliverables), and anything
 that changes a story shared between two texts gets both texts in one commit.
+
+## Batch G — the Session 14 deep-lesson pass (largest; sample, don't read all)
+
+Where: grammar-module.jsx, the DEEP block (108 entries: every Stage 1 grammar
+point's walkthrough + drills, every Stage 1 skill builder's drills).
+
+What's in it, by risk:
+
+1. **~560 drill items** — fill-in-the-blank sentences with one keyed answer
+   each. Highest-risk property: a DISTRACTOR that is actually also correct in
+   context (the English context line is meant to force uniqueness — check it
+   does). Mechanically verified already: answers appear among options, blanks
+   present, no verification of *linguistic* correctness.
+2. **~80 example segmentations** — each lesson's first example glossed element
+   by element. Segment boundaries are mechanical (concat equals the sentence);
+   the GLOSSES are AI-authored claims about what each element does.
+3. **Wrinkle examples** — new sentences beyond the reviewed example set
+   (e.g. 毎日七時に起きます, 雨に降られました, 日本に来る前に…勉強しました).
+4. **Two lesson upgrades** — niiku and deshou went from one-line to four-beat
+   this pass; their new prose is unreviewed.
+
+Sampling guidance: the conjugation pools (masu, te, ta-plain, mashita,
+potential, nakereba) are formulaic — spot-check a few per pool. The judgment
+drills (sb-yone, sb-negq, node-vs-kara, sb-register, jouzu's 得意 item,
+cc-adjacent register claims) deserve the closest read; they encode social
+rules, the module's most culture-loaded territory.
+
+Not in this batch: the review-challenge UI copy (English chrome), and
+sb-ganotwo (still no drill — frozen on R6, deliberately).
