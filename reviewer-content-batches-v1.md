@@ -217,3 +217,33 @@ epistemology framing, garu/hoshigaru's particle-swap rule (が→を), teiru3's
 verb-class rule and its 知っています examples, the ら抜き treatment in
 sb-rareru, and every judgment call in sb-noni's temperature system. The
 conjugation pools (volitional, causative, ば) are formulaic — spot-check.
+
+## Batch I — the Stage 3 keigo on-ramp (Session 15)
+
+Steps 24–26: sonkeigo, gozaimasu, cc-baito, kenjougo, sb-uchisoto, okeigo,
+sb-keigo-map, b-keigo + DEEP entries (~30 drill items). AI-authored, native
+eye required — keigo is the register where a small wrongness costs the most.
+
+Closest-read items, in order:
+
+1. **cc-baito** — the most culture-loaded copy in the batch: the four set
+   pieces quoted as counter-standard, the "prescriptively wrong, universally
+   heard" framing, and the footnote claiming linguists dispute the wrongness.
+   Read every sentence; this lesson makes claims about real workplaces.
+2. **sb-uchisoto's receptionist rule** — 田中はただいま外出しております
+   (own boss, no さん, humble verb, to a caller) stated as standard practice;
+   and the 母/お母さん drill claims.
+3. **Register verdicts in drills** — several drills mark a grammatical form
+   as the wrong ANSWER on register grounds alone (いません at the company
+   phone, あります from hotel staff, plain 来る to a friend as the only
+   natural altitude). Confirm each verdict; these are judgment calls, not
+   grammar.
+4. **The maps stated as fact** — いらっしゃる covering 行く・来る・いる;
+   伺う vs 参る's toward-you distinction; 二重敬語 flagged on ご覧になられる;
+   お/ご distribution (お+stem vs ご+kanji-compound) with its exceptions
+   unmentioned at this level.
+5. **b-keigo's email formula** — opening/name/request/bow presented as
+   sufficient; お世話になっております gated on "if there's history."
+
+Recognition-only framing (Step 24 asks no production) is a pedagogy choice,
+not a language claim — flag only if the drills leak production anyway.
