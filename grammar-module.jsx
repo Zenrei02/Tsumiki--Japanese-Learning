@@ -127,6 +127,9 @@ const KANJI_DICT = [
   ["決", "き", "decide", "N3"],
   ["時々", "ときどき", "sometimes", "N5"], ["日曜日", "にちようび", "Sunday", "N5"],
   ["字", "じ", "character; handwriting", "N4"],
+  ["夏休み", "なつやすみ", "summer break", "N4"], ["先月", "せんげつ", "last month", "N5"],
+  ["授業", "じゅぎょう", "class; lesson", "N4"], ["間", "あいだ", "interval; while", "N4"],
+  ["出す", "だす", "submit; put out", "N4"], ["払", "はら", "pay", "N4"],
 ];
 const DICT_SORTED = [...KANJI_DICT].sort((a, b) => b[0].length - a[0].length);
 // Live learner state, shared with the kanji module (known-kanji-v1) and the
@@ -2210,6 +2213,86 @@ const CURRICULUM = [
       },
     ],
   },
+
+  {
+    cat: "Step 19 · Time's edges",
+    level: "N4",
+    bank: [["夏休み", "summer break"], ["電話", "phone call"], ["授業", "class"], ["レポート", "report"], ["先月", "last month"], ["さっき", "just now"], ["会議", "meeting"], ["五時", "five o'clock"]],
+    points: [
+      {
+        id: "aida", jp: "〜間・〜間に", en: "during — whole span, or a point inside",
+        exp: {
+          what: "During, split in two: 間 for something filling the WHOLE span (夏休みの間、働きました — all through it), 間に for something landing at a POINT inside it (夏休みの間に、京都へ行きました — at some point during).",
+          build: "Noun + の間（に）; clause + 間（に）, the clause usually in ている: 寝ている間に. The に is the entire difference — with it, a point inside; without it, the full stretch.",
+          when: "Vacations, absences, while-you-were-out events, and while-you-slept ones.",
+          watch: "The main verb must agree with your choice: span-filling actions ride 間, one-shot actions ride 間に. 寝ている間に電話がありました — the call landed once, inside the sleeping.",
+        },
+        ex: [["寝ている間に、電話がありました。", "While I slept, a call came — one point inside the span."], ["夏休みの間、毎日働きました。", "All through summer break, I worked — the whole span."], ["授業の間、静かにしてください。", "Please keep quiet for the whole class."]],
+      },
+      {
+        id: "madeni", jp: "〜までに", en: "by — the deadline まで isn't",
+        exp: {
+          what: "By, not until. までに sets a deadline — done at or before that time. まで holds a state up to a time. One kana apart, a missed train between them.",
+          build: "Time + までに + a one-shot action: 五時までに帰ります. Time + まで + a continuing state: 五時まで働きます.",
+          when: "Deadlines, submissions, last trains — anywhere lateness has a price.",
+          watch: "The test is the verb: does it CONTINUE up to the time (まで), or COMPLETE by it (までに)? 三時まで会議があります; 三時までにレポートを出します.",
+        },
+        ex: [["五時までに帰ります。", "I'll be home BY five — done by then."], ["五時まで働きます。", "I work UNTIL five — continuing to then."], ["明日までにレポートを書いてください。", "Please write the report by tomorrow."]],
+      },
+      {
+        id: "tokoro", jp: "〜るところ・〜ているところ・〜たところ", en: "where you are in the act",
+        exp: {
+          what: "ところ — \"place\" — turned into time: where you ARE inside an action. 食べるところ (about to), 食べているところ (mid-act), 食べたところ (just did).",
+          build: "Plain non-past + ところ = on the verge. ている + ところ = caught in the middle. Plain past + ところ = fresh off it. Usually closed with です.",
+          when: "The phone-answer sentence: 今、出るところです — just heading out. Timing talk, gentle excuses, doorway conversations.",
+          watch: "たところ is strictly this-moment fresh; たばかり (next lesson) stretches with your FEELING of recency. The next drill splits them.",
+        },
+        ex: [["今、家を出るところです。", "Just about to leave the house."], ["今、昼ごはんを食べているところです。", "In the middle of lunch right now."], ["今、帰ってきたところです。", "Just this minute got home."]],
+      },
+      {
+        id: "bakari", jp: "〜たばかり", en: "just did it — as felt",
+        exp: {
+          what: "Recency by your own clock: 先月日本に来たばかりです — only just arrived. A month ago by the calendar; fresh by feel — and ばかり sides with the feel.",
+          build: "Plain past + ばかりです.",
+          when: "Excusing inexperience and marking new arrivals: 始めたばかりです — I've only just started (so be patient with me).",
+          watch: "たところ is objective this-instant; たばかり is subjective recency — a month can be ばかり if it still feels that way. The elasticity is the point, not a flaw.",
+        },
+        ex: [["先月、日本に来たばかりです。", "I only just came to Japan — last month, but it's fresh."], ["日本語を始めたばかりです。", "I've only just started Japanese."], ["さっき食べたばかりです。", "I literally just ate."]],
+      },
+      {
+        id: "naide", jp: "〜ないで", en: "without doing",
+        exp: {
+          what: "The missing accompaniment: ないで hangs a not-done action off the main one. 朝ごはんを食べないで学校へ行きました — went to school without eating.",
+          build: "ない form + で, then the main clause. The formal written twin is 〜ずに: 食べずに.",
+          when: "Skipped steps, forgotten steps, minimalist mornings, brave attempts (見ないで書く — writing without looking).",
+          watch: "Not the same as なくて, which gives a REASON and pairs with feelings or results. ないで is manner — HOW the main act was done, minus something.",
+        },
+        ex: [["朝ごはんを食べないで学校へ行きました。", "Went to school without breakfast."], ["何も見ないで漢字を書きました。", "Wrote the kanji without looking at anything."], ["寝ないで勉強しました。", "Studied without sleeping — not recommended, grammatically flawless."]],
+      },
+      {
+        id: "sb-madeni", jp: "まで vs までに", en: "until vs by", kind: "skill",
+        exp: {
+          what: "The smallest particle difference with the biggest scheduling consequences. まで rides continuing states; までに rides completions. Get them backward and you've promised to work at the deadline instead of finishing by it.",
+          build: "Ask the verb: still happening at that time → まで. Finished at or before it → までに.",
+          when: "Every deadline, every meeting, every last train.",
+          watch: "英語 speakers lean on \"until\" for both — the trap is real and the fix is the verb-test, every time.",
+        },
+        ex: [["三時まで会議があります。", "The meeting RUNS until three."], ["三時までにレポートを出します。", "The report lands BY three."]],
+      },
+      {
+        id: "b-s19", jp: "作文 · いそがしい日", en: "a busy day, told at its edges", kind: "build",
+        requires: ["aida", "madeni", "tokoro", "naide"],
+        brief: "Tell a busy day: one deadline met (までに), one thing that happened while another went on (間に), one moment you were caught mid-something (ているところ), and one corner you cut (ないで).",
+        exp: {
+          what: "A day with real edges — deadlines, interruptions, and shortcuts, all marked.",
+          build: "One 〜までに, one 〜間（に）, one 〜ているところ, one 〜ないで. Chain with Step 7's machinery where the timeline needs it.",
+          when: "This is how busy days are actually narrated — the grammar was built for complaining gracefully.",
+          watch: "Check each 間 against its verb: whole-span actions without に, one-shot events with. And keep the ないで honest — a skipped step, not a reason.",
+        },
+        ex: [],
+      },
+    ],
+  },
 ];
 
 const ALL_POINTS = CURRICULUM.flatMap((c) => c.points.map((p) => ({ ...p, cat: c.cat })));
@@ -2380,6 +2463,12 @@ const DEEP = {
   "sugiru": {"seg": [["昨日", "yesterday"], ["は", "topic marker"], ["食べすぎました。", "THE POINT — stem + すぎる: past the right amount", 1]], "hl": "高すぎます", "note": "い-adjectives drop the い first: 高い → 高すぎる.", "wr": [{"t": "It chains with Step 13's regret: 食べすぎてしまいました — overate, alas — is practically one word in real life.", "jp": "テレビを見すぎてしまいました。", "en": "Watched too much TV — and regret it.", "hl": "見すぎてしまいました"}], "drill": {"items": [{"q": "昨日は食べ___ました。", "en": "Ate too much.", "a": ["すぎ"], "opts": ["すぎ", "そう", "やす", "にく"], "why": "Stem + すぎる → 食べすぎました."}, {"q": "この店は___すぎます。", "en": "高い — too expensive.", "a": ["高"], "opts": ["高", "高い", "高く", "高さ"], "why": "い-adjective drops its い before すぎる."}, {"q": "飲む → ゆうべ…いや、昨日___ました。", "en": "Drank too much — type it.", "a": ["飲みすぎ", "のみすぎ"], "why": "飲み + すぎ + ました."}, {"q": "静か___すぎます。", "en": "TOO quiet — な-adjective.", "a": ["（なにもなし）"], "opts": ["（なにもなし）", "な", "に", "の"], "why": "な-adjectives attach bare: 静かすぎる."}, {"q": "すぎる is ___.", "a": ["a judgment — too much FOR something"], "opts": ["a judgment — too much FOR something", "a neutral measurement", "always about food"], "why": "The standard lives in the speaker."}]}},
   "yasui-nikui": {"seg": [["この本", "this book"], ["は", "topic marker"], ["読みやすいです。", "THE POINT — stem + やすい: easy-to, built into the verb", 1]], "hl": "書きにくい", "note": "The dark twin: stem + にくい, hard-to. Both conjugate on as い-adjectives.", "wr": [{"t": "About the thing, not your skill: 読みにくい字 blames the handwriting. And this やすい is not 安い — same sound, unrelated word.", "jp": null}], "drill": {"items": [{"q": "この本は読み___です。", "en": "Easy to read.", "a": ["やすい"], "opts": ["やすい", "にくい", "すぎ", "そう"], "why": "Stem + やすい."}, {"q": "このペンは書き___です。", "en": "Hard to write with.", "a": ["にくい"], "opts": ["にくい", "やすい", "すぎ", "たい"], "why": "Stem + にくい."}, {"q": "田中さんの話はわかり___です。", "en": "Easy to follow.", "a": ["やすい"], "opts": ["やすい", "にくい", "すぎ", "らしい"], "why": "わかり + やすい — the reviewer's favorite compliment."}, {"q": "使う → この機械は___です。", "en": "Hard to use — type it.", "a": ["使いにくい", "つかいにくい"], "why": "使い + にくい."}, {"q": "読みやすかったです is possible because the result is ___.", "a": ["an い-adjective"], "opts": ["an い-adjective", "a verb", "a noun"], "why": "The compound conjugates like 高い does — かった and all."}]}},
   "teiru3": {"seg": [["田中さん", "Tanaka"], ["は", "topic marker"], ["東京", "Tokyo"], ["に", "location of the resulting state"], ["行っています。", "THE POINT — change-verb + ている: the state AFTER the change. He's not traveling; he's THERE", 1]], "hl": "起きています", "note": "起きる is an instant — so ている is the awake-state after it, not a slow-motion rising.", "wr": [{"t": "The rule, finally statable: verbs naming an instant change wear ている as result (行っている, 知っている, 住んでいる); verbs naming an activity wear it as the middle (食べている, 読んでいる). Ask the verb which it is.", "jp": null}], "drill": {"items": [{"q": "田中さんは東京に行っています means ___.", "a": ["he's gone — and is there now"], "opts": ["he's gone — and is there now", "he's mid-journey", "he goes there often"], "why": "行く names an instant change; ている is the state after."}, {"q": "弟はもう___います。", "en": "He's UP — the state.", "a": ["起きて"], "opts": ["起きて", "起き", "起きる", "起きた"], "why": "起きて + いる — awake as a result."}, {"q": "今、昼ごはんを___います。", "en": "Mid-meal — a true middle.", "a": ["食べて"], "opts": ["食べて", "食べ", "食べる", "食べた"], "why": "食べる is an activity → in-progress ている."}, {"q": "結婚しています means ___.", "a": ["is married — the state"], "opts": ["is married — the state", "is at a wedding right now", "marries habitually"], "why": "結婚する is an instant change; the state persists."}, {"q": "When a ている surprises you, ask ___.", "a": ["what kind of verb it rides"], "opts": ["what kind of verb it rides", "how polite the sentence is", "where the topic marker went"], "why": "Instant change → result; activity → middle. The verb's nature decides."}]}},
+  "aida": {"seg": [["寝ている", "\"sleeping\" — the span, held open with ている"], ["間に", "THE POINT — 間 + に: at a point INSIDE the span (without に, the whole stretch)", 1], ["、", "a breath"], ["電話", "a phone call"], ["が", "subject marker"], ["ありました。", "\"there was\" — one event, landing once"]], "hl": "の間", "note": "Nouns join with の — and no に here means the working filled the WHOLE break.", "wr": [{"t": "The main verb must agree: one-shot events take 間に; span-filling actions take bare 間. The に is a promise about how the verb behaves.", "jp": null}], "drill": {"items": [{"q": "寝ている___、電話がありました。", "en": "One call, somewhere inside the sleeping.", "a": ["間に"], "opts": ["間に", "間", "までに", "ところに"], "why": "A point inside the span → 間に."}, {"q": "夏休みの___、毎日働きました。", "en": "All through the break.", "a": ["間"], "opts": ["間", "間に", "までに", "まで"], "why": "The action fills the whole span → bare 間."}, {"q": "授業の___、静かにしてください。", "en": "For the whole class.", "a": ["間"], "opts": ["間", "間に", "とき", "までに"], "why": "Continuous quiet → 間 without に."}, {"q": "夏休みの___、京都へ行きました。", "en": "At some point during the break.", "a": ["間に"], "opts": ["間に", "間", "まで", "ながら"], "why": "One trip, inside the span → 間に."}, {"q": "The に in 間に promises ___.", "a": ["a one-shot event inside the span"], "opts": ["a one-shot event inside the span", "extra politeness", "a longer span"], "why": "Without に, the verb must fill the whole stretch."}]}},
+  "madeni": {"seg": [["五時", "five o'clock — the deadline"], ["までに", "THE POINT — までに: BY then, done at or before", 1], ["帰ります。", "\"go home\" — a one-shot completion"]], "hl": "まで", "note": "Without the に: working UNTIL five — the state holds right up to the line.", "wr": [{"t": "The verb-test never fails: continues to the time → まで; completes by the time → までに.", "jp": null}], "drill": {"items": [{"q": "五時___帰ります。", "en": "Home BY five.", "a": ["までに"], "opts": ["までに", "まで", "から", "ごろに"], "why": "A completion with a deadline → までに."}, {"q": "五時___働きます。", "en": "Working UNTIL five.", "a": ["まで"], "opts": ["まで", "までに", "から", "ごろ"], "why": "A continuing state → まで."}, {"q": "明日___レポートを書いてください。", "en": "Report due tomorrow.", "a": ["までに"], "opts": ["までに", "まで", "から", "の間"], "why": "Deadline → までに."}, {"q": "三時___会議があります。", "en": "The meeting runs to three.", "a": ["まで"], "opts": ["まで", "までに", "間に", "から"], "why": "The meeting continues → まで."}, {"q": "書く → 金曜日までに___。", "en": "\"I'll write it by Friday\" — type the verb, polite.", "a": ["書きます", "かきます"], "why": "までに + the completing act."}]}},
+  "tokoro": {"seg": [["今", "now — this form's favorite word"], ["、", "a breath"], ["家", "the house"], ["を", "を with 出る — leaving a place takes を"], ["出るところです。", "THE POINT — plain non-past + ところ: on the verge, caught at the doorway", 1]], "hl": "食べているところ", "note": "ている + ところ — caught mid-act. The three tenses of ところ are three freeze-frames.", "wr": [{"t": "たところ is strictly this-instant; たばかり (next) stretches with felt recency. 今帰ってきたところ can only be now; 先月来たばかり can be a month old.", "jp": null}], "drill": {"items": [{"q": "今、家を出る___です。", "en": "JUST about to leave.", "a": ["ところ"], "opts": ["ところ", "ばかり", "こと", "つもり"], "why": "Non-past + ところ = on the verge."}, {"q": "今、昼ごはんを___ところです。", "en": "Caught mid-lunch.", "a": ["食べている"], "opts": ["食べている", "食べる", "食べた", "食べて"], "why": "ている + ところ = the middle of the act."}, {"q": "今、___ところです。", "en": "帰ってくる — just this minute got back.", "a": ["帰ってきた", "かえってきた"], "opts": ["帰ってきた", "帰ってくる", "帰ってきて", "帰ってきている"], "why": "Plain past + ところ = fresh off it."}, {"q": "電話: 「今、出る___です」", "en": "The phone-answer sentence — heading out the door.", "a": ["ところ"], "opts": ["ところ", "ばかり", "はず", "こと"], "why": "The doorway freeze-frame."}, {"q": "The three ところs are ___.", "a": ["about to / in the middle / just did"], "opts": ["about to / in the middle / just did", "past / present / future", "polite / plain / casual"], "why": "Three freeze-frames of one action — tense picks the frame."}]}},
+  "bakari": {"seg": [["先月", "last month — a real calendar distance"], ["、", "a breath"], ["日本", "Japan"], ["に", "destination"], ["来たばかりです。", "THE POINT — plain past + ばかり: just arrived, by the clock of feeling", 1]], "hl": "始めたばかり", "note": "The learner's shield: I've only just started — so be patient with me.", "wr": [{"t": "ばかり is elastic where ところ is strict: a month can still be ばかり if it feels fresh. Claiming 先月来たところ, though, would be false — the instant is long gone.", "jp": null}], "drill": {"items": [{"q": "先月、日本に来た___です。", "en": "Only just arrived — by feel.", "a": ["ばかり"], "opts": ["ばかり", "ところ", "こと", "はず"], "why": "A month old but felt-fresh → ばかり. ところ would claim this instant."}, {"q": "日本語を___ばかりです。", "en": "I've only just started.", "a": ["始めた", "はじめた"], "opts": ["始めた", "始める", "始めて", "始めます"], "why": "Plain past + ばかり."}, {"q": "さっき食べた___です。", "en": "I literally just ate.", "a": ["ばかり"], "opts": ["ばかり", "ところ", "こと", "まで"], "why": "Recency as excuse → ばかり (ところ would also work here — さっき is fresh enough for both)."}, {"q": "今、帰ってきた___です。", "en": "THIS instant — strict.", "a": ["ところ"], "opts": ["ところ", "ばかり", "こと", "予定"], "why": "今 pins it to the instant — ところ's home ground."}, {"q": "ばかり measures recency by ___.", "a": ["how fresh it feels"], "opts": ["how fresh it feels", "the calendar only", "politeness level"], "why": "Subjective clock — the elasticity is the point."}]}},
+  "naide": {"seg": [["朝ごはん", "breakfast"], ["を", "object marker"], ["食べないで", "THE POINT — ない + で: without doing — the missing accompaniment", 1], ["学校", "school"], ["へ", "destination marker"], ["行きました。", "\"went\" — the main act, minus its usual companion"]], "hl": "見ないで", "note": "The brave version: writing kanji without looking. ないで marks what DIDN'T come along.", "wr": [{"t": "Written Japanese swaps in 〜ずに: 食べずに. Same meaning, formal dress — recognize it now, produce it later.", "jp": null}], "drill": {"items": [{"q": "朝ごはんを___学校へ行きました。", "en": "Went without eating.", "a": ["食べないで"], "opts": ["食べないで", "食べなくて", "食べずで", "食べません"], "why": "Manner-without → ないで. なくて would give a reason instead."}, {"q": "何も___漢字を書きました。", "en": "Wrote without looking at anything.", "a": ["見ないで"], "opts": ["見ないで", "見なくて", "見ずで", "見ないと"], "why": "見ない + で — the skipped companion."}, {"q": "___勉強しました。", "en": "Studied without sleeping.", "a": ["寝ないで"], "opts": ["寝ないで", "寝なくて", "寝ずで", "寝ないので"], "why": "寝ない + で."}, {"q": "The formal written twin of ないで is ___.", "a": ["〜ずに"], "opts": ["〜ずに", "〜なくて", "〜ないと"], "why": "食べずに — same meaning, formal register."}, {"q": "Without-doing rides ___ (because-not rides なくて).", "a": ["ないで"], "opts": ["ないで", "なくて", "ずで"], "why": "ないで is manner — the skipped companion; なくて hands over a reason."}]}},
+  "sb-madeni": {"drill": {"note": "Run the verb-test on every item: still happening at that time → まで; finished by it → までに.", "items": [{"q": "三時___会議があります。", "en": "Runs until three.", "a": ["まで"], "opts": ["まで", "までに", "間に", "から"], "why": "Continuing → まで."}, {"q": "三時___レポートを出します。", "en": "Lands by three.", "a": ["までに"], "opts": ["までに", "まで", "間", "ごろ"], "why": "Completion → までに."}, {"q": "九時___寝ます。", "en": "I'll be asleep BY nine.", "a": ["までに"], "opts": ["までに", "まで", "から", "の間"], "why": "Falling asleep completes → までに."}, {"q": "九時___勉強します。", "en": "Studying UNTIL nine.", "a": ["まで"], "opts": ["まで", "までに", "間に", "ごろに"], "why": "Studying continues → まで."}, {"q": "金曜日___お金を払ってください。", "en": "Payment due Friday.", "a": ["までに"], "opts": ["までに", "まで", "から", "とき"], "why": "One payment, deadline → までに."}, {"q": "The verb-test asks: ___", "a": ["does it continue, or complete?"], "opts": ["does it continue, or complete?", "is it polite enough?", "is the time exact?"], "why": "Continue → まで; complete → までに. Every time."}]}},
   // @@DEEP-END
 };
 const DRILL_DRAW = 5;
