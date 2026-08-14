@@ -1923,6 +1923,74 @@ const CURRICULUM = [
       },
     ],
   },
+
+  {
+    cat: "Step 16 · The four ifs",
+    level: "N4",
+    bank: [["電車", "train"], ["チケット", "ticket"], ["医者", "doctor"], ["薬", "medicine"], ["京都", "Kyoto"], ["天気", "weather"], ["休む", "to rest"], ["ボタン", "button"]],
+    points: [
+      {
+        id: "ba", jp: "〜ば", en: "the logical if",
+        exp: {
+          what: "Condition as equation: if X holds, Y follows. The most neutral of the four ifs — the one proverbs and general advice run on: 聞けば、わかります — ask, and you'll understand.",
+          build: "う-verbs shift the last sound to the え row + ば (行く→行けば, 飲む→飲めば); る-verbs take れば (食べれば); い-adjectives take ければ (安ければ). Negative: なければ. する→すれば, 来る→来れば, いい→よければ.",
+          when: "General truths and conditions where the focus falls on WHAT FOLLOWS: 安ければ、買います — IF it's cheap (that's the open question), I'll buy.",
+          watch: "You've been conjugating ば for months without knowing it: なければなりません is \"if you don't…, it won't do\" — Step 5's obligation was a ば-sentence all along. One care: requests after ば sound stiff unless the condition is a state (時間があれば、来てください is fine); when the condition is an action and the follow-up is your will, たら is safer.",
+        },
+        ex: [["聞けば、わかります。", "Ask, and you'll understand."], ["安ければ、買います。", "If it's cheap, I'll buy it."], ["時間があれば、来てください。", "If you have time, please come — a state, so ば carries the request fine."]],
+      },
+      {
+        id: "nara", jp: "〜なら", en: "the topical if",
+        exp: {
+          what: "\"If that's the situation we're talking about…\" なら takes what the other person said — or what context offers — and builds on it: going to Kyoto? — なら, take the train.",
+          build: "Plain clause or bare noun + なら: 行くなら, 京都なら. No だ after nouns.",
+          when: "Advice and reactions. 京都なら、電車がいいですよ answers someone's plan; お茶なら、あの店 answers someone's craving. The condition is borrowed, not predicted.",
+          watch: "なら is the only if that can point BACKWARD in time: 行くなら、チケットを買っておいてください — the buying happens BEFORE the going. たら's result always follows its condition; なら's advice may precede it. None of the other ifs can do this.",
+        },
+        ex: [["京都へ行くなら、電車がいいですよ。", "If you're going to Kyoto, the train's your friend."], ["お茶なら、あの店が安いです。", "If it's tea you're after, that shop is cheap."], ["行くなら、早く行きましょう。", "If we're going, let's go early."]],
+      },
+      {
+        id: "taradou", jp: "〜たらどうですか", en: "advice wearing an if",
+        exp: {
+          what: "\"How about if you…?\" — a suggestion that leaves the decision entirely with the other person.",
+          build: "たら-form + どうですか: 先生に聞いたらどうですか. Among friends it clips to 〜たらどう？, or even a bare 〜たら？ with rising pitch.",
+          when: "The natural next move after someone tells you a problem — suggesting without pushing.",
+          watch: "Tone matters: said flat, 〜たらどうですか can land as \"why haven't you already?\" Keep it light, or cushion it: 少し休んだらどうですか.",
+        },
+        ex: [["先生に聞いたらどうですか。", "How about asking the teacher?"], ["少し休んだらどうですか。", "How about resting a little?"], ["医者に行ったらどうですか。", "Maybe see a doctor?"]],
+      },
+      {
+        id: "sb-if4", jp: "たら・と・ば・なら", en: "four ifs, four claims", kind: "skill",
+        exp: {
+          what: "The set is complete — the promise Step 12 planted is kept. Four ifs, four claims: たら (one-off, if-or-when), と (every time, automatic), ば (logical equation, focus on the result), なら (borrowed topic, advice attached). Many sentences accept two of them; the choice tunes what you're claiming.",
+          build: "Quick tells: a request or invitation follows → たら (or なら). A law of nature → と. A proverb, or the condition is the open question → ば. Reacting to their plan → なら — and only なら can advise about BEFORE the condition.",
+          when: "Every if-sentence from now on. When two feel right, they often both are — choose by claim, not by fear.",
+          watch: "Two hard walls, everything else is tuning: と never precedes a request or act of will; なら is the only backward-pointing if.",
+        },
+        ex: [["時間があったら、行きます。", "One-off possibility → たら."], ["春になると、暖かくなります。", "Every year, automatically → と."], ["行くなら、早く。", "Their plan, your advice → なら."]],
+      },
+      {
+        id: "b-s16", jp: "作文 · アドバイス", en: "advice that stays gentle", kind: "build",
+        requires: ["tara", "ba", "nara", "taradou"],
+        brief: "A friend tells you a problem. Write the advice: one 〜たらどうですか suggestion, one 〜なら tip that reacts to their situation, and one more condition with ば or たら. Leave the decision with them.",
+        exp: {
+          what: "The step's whole toolkit, pointed at the gentlest real-world job there is: advising a friend without pushing.",
+          build: "One 〜たらどうですか, one 〜なら built on their situation, one ば or たら condition. Close warm — ね still does real work here, all the way from Step 1.",
+          when: "Combine with Step 15's hedges (かもしれませんが…) and this reads like a native message.",
+          watch: "Never と for advice — automatic consequences aren't suggestions. And keep the decision theirs: advice that commands stops being advice.",
+        },
+        ex: [],
+      },
+    ],
+  },
+
+  {
+    cat: "Checkpoint 4",
+    level: "N4",
+    points: [
+      { id: "rc4", jp: "復習 · Steps 13–16", en: "checkpoint: aspect, kindness, evidence, ifs", kind: "review", covers: ["teshimau", "teoku", "tearu", "sb-aspect", "teageru", "ageru2", "itadaku", "tehoshii", "sb-kuremorau", "kamo", "hazu", "youda", "rashii", "souda-mite", "souda-denbun", "sb-sou", "ba", "nara", "taradou", "sb-if4"], exp: "Stage 2's first checkpoint — the て-form's second wind, the favor triangle in both registers, the whole evidence dial, and all four ifs. These four steps are one arc: what you do, what you owe, what you know, and what would follow.", ex: [] },
+    ],
+  },
 ];
 
 const ALL_POINTS = CURRICULUM.flatMap((c) => c.points.map((p) => ({ ...p, cat: c.cat })));
@@ -2073,6 +2141,10 @@ const DEEP = {
   "souda-mite": {"seg": [["雨", "rain"], ["が", "subject marker"], ["降りそうです。", "THE POINT — verb STEM + そう: about to, by the look of it", 1]], "hl": "おいしそう", "note": "い-adjectives drop the い: おいしい → おいしそう. First impressions, before first bites.", "wr": [{"t": "Two irregulars to memorize whole: いい → よさそう, ない → なさそう.", "jp": null}], "drill": {"items": [{"q": "雨が降り___です。", "en": "Looks like rain any minute.", "a": ["そう"], "opts": ["そう", "らしい", "はず", "よう"], "why": "Read off the sky's surface → stem + そう."}, {"q": "このケーキはおいし___です。", "en": "Looks delicious — untasted.", "a": ["そう"], "opts": ["そう", "いそう", "いだそう", "くそう"], "why": "おいしい drops its い, then そう."}, {"q": "かばんが___そうです。", "en": "落ちる — about to fall.", "a": ["落ち"], "opts": ["落ち", "落ちる", "落ちた", "落ちて"], "why": "This そう takes the STEM: 落ち."}, {"q": "いい → ___そうです。", "en": "Looks good — the irregular.", "a": ["よさ"], "opts": ["よさ", "いい", "よ", "よく"], "why": "いい → よさそう, memorized whole."}, {"q": "始まる → 映画が___です。", "en": "The movie's about to start — type it.", "a": ["始まりそう", "はじまりそう"], "why": "Stem 始まり + そう."}]}},
   "souda-denbun": {"seg": [["明日", "tomorrow — bare"], ["は", "topic marker"], ["雨", "rain"], ["が", "subject of 降る"], ["降るそうです。", "THE POINT — PLAIN FORM + そうです: heard whole, passed on whole", 1]], "hl": "そうです", "wr": [{"t": "らしい blurs its source; this そう stands on one — the forecast, the friend who told you. Confidence scales with how nameable the source is.", "jp": null}], "drill": {"items": [{"q": "明日は雨が降る___です。", "en": "The forecast SAYS so.", "a": ["そう"], "opts": ["そう", "らしい", "よう", "はず"], "why": "Named-source hearsay → plain form + そう."}, {"q": "あの店は安い___です。", "en": "I hear it's cheap.", "a": ["そう"], "opts": ["そう", "よう", "らしそう", "はず"], "why": "高いようです would claim your own judgment; hearing → そう."}, {"q": "田中さんは学生___そうです。", "en": "I hear he's a student — pick the joint.", "a": ["だ"], "opts": ["だ", "の", "な", "です"], "why": "Nouns need だ before hearsay そう: 学生だそうです."}, {"q": "明日は___そうです。", "en": "I hear it WON'T rain.", "a": ["降らない"], "opts": ["降らない", "降りません", "降りそうもない", "降って"], "why": "Negation lives inside the clause, in plain form: 降らないそうです."}, {"q": "This そう attaches to ___.", "a": ["the finished plain clause"], "opts": ["the finished plain clause", "the verb stem", "the て-form"], "why": "Stem + そう is the OTHER そう — looks-about-to."}]}},
   "sb-sou": {"drill": {"note": "One syllable, three machines — split entirely by what stands before そう. cc-yes promised this drill back in Step 1; both parents now exist.", "items": [{"q": "空が暗いです。雨が降___そうです。", "en": "The SKY says so.", "a": ["り"], "opts": ["り", "る", "った", "って"], "why": "Your own eyes on the surface → stem: 降りそう."}, {"q": "ニュースでは、雨が降___そうです。", "en": "The NEWS says so.", "a": ["る"], "opts": ["る", "り", "って", "らない"], "why": "Passing on the report whole → plain form: 降るそう."}, {"q": "いい天気ですね。— ___ですね。", "en": "Agree with the neighbor.", "a": ["そう"], "opts": ["そう", "降りそう", "降るそう", "はず"], "why": "Bare そうです（ね） — the everyday agreement from Step 1."}, {"q": "このケーキ、おいし___です。", "en": "Looks tasty — untasted.", "a": ["そう"], "opts": ["そう", "いそう", "いだそう", "くそう"], "why": "い-adjective drops い, stem-style そう."}, {"q": "あの店は高い___です。", "en": "So I HEAR.", "a": ["そう"], "opts": ["そう", "よう", "らしそう", "みたそう"], "why": "Finished clause + そう = hearsay. (高いようです would be your own read.)"}, {"q": "そうですね, standing alone, is ___.", "a": ["agreement — Step 1's everyday yes"], "opts": ["agreement — Step 1's everyday yes", "hearsay", "a weather prediction"], "why": "The triangle closes where cc-yes said it would."}]}},
+  "ba": {"seg": [["聞けば", "THE POINT — え-row + ば: \"if you ask\" — condition as equation", 1], ["、", "a breath"], ["わかります。", "\"you'll understand\" — what follows from the condition"]], "hl": "安ければ", "note": "い-adjectives take ければ — the same machine as なければなりません, now meeting its family.", "wr": [{"t": "Step 5's obligation was a ば-sentence in disguise: 飲まなければなりません — \"if you don't drink it, it won't do.\" You've conjugated ば for months.", "jp": null}], "drill": {"pool": true, "note": "Build the ば-form: え-row for う-verbs, れば for る-verbs, ければ for い-adjectives.", "items": [{"q": "行く → 電車で___、早いです。", "en": "If you go by train, it's fast.", "a": ["行けば", "いけば"], "why": "く → け + ば."}, {"q": "飲む → 薬を___、よくなりますよ。", "en": "Take the medicine and you'll get better.", "a": ["飲めば", "のめば"], "why": "む → め + ば."}, {"q": "安い → ___、買います。", "en": "If it's cheap, I'll buy it.", "a": ["安ければ", "やすければ"], "why": "い-adjective → ければ."}, {"q": "見る → これを___、わかります。", "en": "Look at this and you'll see.", "a": ["見れば", "みれば"], "why": "る-verb → れば."}, {"q": "する → 勉強___、わかります。", "en": "Study and it comes clear.", "a": ["すれば"], "why": "する → すれば."}, {"q": "いい → 天気が___、行きましょう。", "en": "If the weather's good, let's go.", "a": ["よければ"], "why": "いい conjugates on its よ side: よければ."}]}},
+  "nara": {"seg": [["京都", "Kyoto — their plan, not yours"], ["へ", "destination marker"], ["行くなら", "THE POINT — plain clause + なら: \"if that's the situation…\" — a borrowed topic", 1], ["、", "a breath"], ["電車", "the train"], ["が", "subject marker"], ["いいですよ。", "\"is good\" — advice attached, with よ delivering the news"]], "hl": "なら", "note": "Bare noun + なら — the topic lifted straight out of the other person's sentence.", "wr": [{"t": "なら's superpower: its advice can happen BEFORE its condition. 行くなら、チケットを買っておいてください — the buying comes first. No other if can point backward.", "jp": null}], "drill": {"items": [{"q": "京都へ行く___、電車がいいですよ。", "en": "Responding to THEIR travel plan.", "a": ["なら"], "opts": ["なら", "たら", "ば", "と"], "why": "Borrowed topic + advice → なら."}, {"q": "お茶___、あの店が安いです。", "en": "If it's tea you're after…", "a": ["なら"], "opts": ["なら", "たら", "ば", "と"], "why": "Bare noun topic → なら, no だ."}, {"q": "日本語___、田中さんに聞いてください。", "en": "If it's Japanese you need help with…", "a": ["なら"], "opts": ["なら", "たら", "ば", "と"], "why": "Topic from context → なら."}, {"q": "行く___、チケットを買っておいてください。", "en": "Buy BEFORE going — which if allows that order?", "a": ["なら"], "opts": ["なら", "たら", "と", "ば"], "why": "Only なら points backward; たら would put the buying after the going."}, {"q": "なら borrows its condition from ___.", "a": ["what the other person just said"], "opts": ["what the other person just said", "the laws of nature", "your own receipts"], "why": "That's why it's the advice-if: the topic is already theirs."}]}},
+  "taradou": {"seg": [["先生", "the teacher"], ["に", "the one to ask"], ["聞いたら", "\"if you asked\" — the たら form doing its usual work"], ["どうですか。", "THE POINT — たら + どうですか: \"how about…?\" — the decision stays theirs", 1]], "hl": "どうですか", "wr": [{"t": "Tone is the whole game: flat delivery reads as \"why haven't you already?\" Keep it light, cushion it with 少し or でも.", "jp": null}], "drill": {"items": [{"q": "先生に聞いた___どうですか。", "en": "How about asking the teacher?", "a": ["ら"], "opts": ["ら", "り", "れば", "と"], "why": "The たら form carries the suggestion."}, {"q": "少し休んだら___ですか。", "en": "How about a little rest?", "a": ["どう"], "opts": ["どう", "何", "なぜ", "いつ"], "why": "たら + どうですか — the fixed pair."}, {"q": "医者に行く → ___どうですか。", "en": "Maybe see a doctor? — type the たら form.", "a": ["行ったら", "いったら"], "why": "行く → 行ったら (the Step 4 sound change, still paying rent)."}, {"q": "〜たらどうですか, said warmly, is ___.", "a": ["a light suggestion"], "opts": ["a light suggestion", "an order", "a complaint"], "why": "Advice that leaves the choice with them — tone keeps it that way."}, {"q": "休む → 少し___どうですか。", "en": "How about resting a bit? — type it.", "a": ["休んだら", "やすんだら"], "why": "む → んだら."}]}},
+  "sb-if4": {"drill": {"note": "Four ifs, four claims — and two hard walls: と never precedes a request, and only なら points backward. Everything else is tuning.", "items": [{"q": "このボタンを押す___、ドアが開きます。", "en": "Every time, automatically.", "a": ["と"], "opts": ["と", "たら", "ば", "なら"], "why": "A law of the machine → と."}, {"q": "時間があっ___、行きます。", "en": "If I happen to have time — one-off.", "a": ["たら"], "opts": ["たら", "と", "ば", "なら"], "why": "One-off possibility → たら."}, {"q": "安けれ___、買います。", "en": "IF cheap — the condition is the open question.", "a": ["ば"], "opts": ["ば", "と", "たら", "なら"], "why": "Focus on what follows from the condition → ば."}, {"q": "京都へ行く___、電車がいいですよ。", "en": "Reacting to their plan.", "a": ["なら"], "opts": ["なら", "と", "ば", "たら"], "why": "Borrowed topic, advice attached → なら."}, {"q": "日本に着い___、電話してください。", "en": "A request follows — which if survives?", "a": ["たら"], "opts": ["たら", "と", "ば", "なら"], "why": "と can't precede a request; たら carries when-then plus your will."}, {"q": "The only if that can point backward in time: ___.", "a": ["なら"], "opts": ["なら", "たら", "と"], "why": "行くなら、買っておいて — advice before the going. なら alone does this."}]}},
   // @@DEEP-END
 };
 const DRILL_DRAW = 5;

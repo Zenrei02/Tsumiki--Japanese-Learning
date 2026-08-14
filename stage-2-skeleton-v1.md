@@ -101,7 +101,7 @@ triangle shipped with both parents, closing the flag queue's oldest block.
 Rationale: cc-sb-candidates item 1 requires the そう parents and the SB to
 ship together — this step is built around that pairing.
 
-## Step 16 · The four ifs (fulfills tara's promise)
+## Step 16 · The four ifs — ✅ SHIPPED (Session 14; fulfills tara's promise)
 
 Stage 1's tara lesson carries an honesty flag pointing exactly here.
 
