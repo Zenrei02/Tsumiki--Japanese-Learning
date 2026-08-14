@@ -22,11 +22,34 @@ supabase/
 
 ## One-time setup
 
-**1. Link the project** (from this folder, with the Supabase CLI installed):
+**0. Getting the CLI.** You do not have to install anything. `npx` runs it on
+demand, and this repo already has Node for the Vite build:
 
 ```
-supabase link --project-ref <your-project-ref>
+npx supabase@latest --version
 ```
+
+Needs Node 20 or newer. Homebrew (`brew install supabase/tap/supabase`) gives
+you a global `supabase` command instead, but it is optional — and
+`npm install -g supabase` is **explicitly unsupported**, so don't reach for it
+when brew misbehaves.
+
+**Docker is not required for any of this.** It is only needed for
+`supabase start`, which runs the whole stack locally — we are deploying to the
+hosted project instead.
+
+Every command below is written bare (`supabase …`). If you are using npx,
+prefix each one with `npx supabase@latest` instead.
+
+**1. Log in and link** (from the repo root, where the `supabase/` folder lives):
+
+```
+supabase login
+supabase link --project-ref llkazgmhsuonhwrubwjw
+```
+
+If `link` complains about a missing config, run `supabase init` first — it only
+adds `supabase/config.toml` and leaves `migrations/` and `functions/` alone.
 
 **2. Apply the migration.** ✅ **Already done** — applied Aug 15 2026 against
 project `llkazgmhsuonhwrubwjw`, recorded as version `20260814180650`, and the
