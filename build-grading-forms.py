@@ -55,8 +55,8 @@ WB_OUTPUTS = HERE / "naoshi-eval-v1-with-outputs.xlsx"
 GS_STEP2 = HERE / "build-key-check-forms.gs"
 GS_OUT = HERE / "build-grading-forms.gs"
 
-BG_FIRST, BG_LAST = 5, 124       # Blind Grading data rows
-ES_FIRST, ES_LAST = 6, 45        # Eval Set data rows (row 5 is EXAMPLE)
+BG_FIRST, BG_LAST = 5, 154       # Blind Grading data rows
+ES_FIRST, ES_LAST = 6, 55        # Eval Set data rows (row 5 is EXAMPLE)
 AMENDED = {"要修正", "一部修正"}
 
 
