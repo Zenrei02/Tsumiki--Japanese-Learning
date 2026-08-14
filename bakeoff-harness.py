@@ -98,8 +98,17 @@ def call_model(key, model, system_prompt, sentence):
         API, data=json.dumps(body).encode(), method="POST",
         headers={"x-api-key": key, "anthropic-version": "2023-06-01",
                  "content-type": "application/json"})
-    with urllib.request.urlopen(req, timeout=120) as r:
-        return json.load(r)
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            return json.load(r)
+    except urllib.error.HTTPError as e:
+        # Surface the API's own error message — a bare "400 Bad Request"
+        # traceback (smoke, Aug 14 2026) says nothing about WHICH field the
+        # API rejected. The body always does. The key is never in the body.
+        detail = e.read().decode("utf-8", "replace")
+        sys.exit(f"\nAPI error {e.code} from model {model}:\n{detail}\n"
+                 "Nothing was lost — completed calls are in bakeoff-log.jsonl; "
+                 "re-run the same command to resume.")
 
 def parse_issues(resp):
     text = "".join(b.get("text", "") for b in resp.get("content", []))
