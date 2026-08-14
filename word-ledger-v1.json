@@ -1,7 +1,7 @@
 {
  "generated": "2026-08-14",
  "note": "Authoritative word set for the app. Input to the word-driven ordering pipeline. Regenerate with build-word-ledger.py.",
- "count": 320,
+ "count": 342,
  "words": [
   {
    "written": "学生",
@@ -3674,6 +3674,334 @@
    "jlpt": "N4"
   },
   {
+   "written": "来年",
+   "readings": [
+    "らいねん"
+   ],
+   "meanings": [
+    "next year"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "来月",
+   "readings": [
+    "らいげつ"
+   ],
+   "meanings": [
+    "next month"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "毎朝",
+   "readings": [
+    "まいあさ"
+   ],
+   "meanings": [
+    "every morning"
+   ],
+   "sources": [
+    "KANJI_DICT",
+    "w:朝"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "予定",
+   "readings": [
+    "よてい"
+   ],
+   "meanings": [
+    "schedule; plan"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
+  },
+  {
+   "written": "靴",
+   "readings": [
+    "くつ"
+   ],
+   "meanings": [
+    "shoes"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "脱",
+   "readings": [
+    "ぬ"
+   ],
+   "meanings": [
+    "take off (shoes, clothes)"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
+  },
+  {
+   "written": "決",
+   "readings": [
+    "き"
+   ],
+   "meanings": [
+    "decide"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
+  },
+  {
+   "written": "時々",
+   "readings": [
+    "ときどき"
+   ],
+   "meanings": [
+    "sometimes"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "日曜日",
+   "readings": [
+    "にちようび"
+   ],
+   "meanings": [
+    "Sunday"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "字",
+   "readings": [
+    "じ"
+   ],
+   "meanings": [
+    "character; handwriting"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "夏休み",
+   "readings": [
+    "なつやすみ"
+   ],
+   "meanings": [
+    "summer break"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "先月",
+   "readings": [
+    "せんげつ"
+   ],
+   "meanings": [
+    "last month"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "授業",
+   "readings": [
+    "じゅぎょう"
+   ],
+   "meanings": [
+    "class; lesson"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "間",
+   "readings": [
+    "あいだ"
+   ],
+   "meanings": [
+    "interval; while"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "出す",
+   "readings": [
+    "だす"
+   ],
+   "meanings": [
+    "submit; put out"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "払",
+   "readings": [
+    "はら"
+   ],
+   "meanings": [
+    "pay"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "答",
+   "readings": [
+    "こた"
+   ],
+   "meanings": [
+    "answer"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "掃除",
+   "readings": [
+    "そうじ"
+   ],
+   "meanings": [
+    "cleaning"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "山",
+   "readings": [
+    "やま"
+   ],
+   "meanings": [
+    "mountain"
+   ],
+   "sources": [
+    "KANJI_DICT",
+    "w:山"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "今度",
+   "readings": [
+    "こんど"
+   ],
+   "meanings": [
+    "next time"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "壊",
+   "readings": [
+    "こわ"
+   ],
+   "meanings": [
+    "break"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
+  },
+  {
+   "written": "試合",
+   "readings": [
+    "しあい"
+   ],
+   "meanings": [
+    "match; game"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
+  },
+  {
+   "written": "言葉",
+   "readings": [
+    "ことば"
+   ],
+   "meanings": [
+    "word; language"
+   ],
+   "sources": [
+    "KANJI_DICT",
+    "w:言"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "質問",
+   "readings": [
+    "しつもん"
+   ],
+   "meanings": [
+    "question"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
+  },
+  {
+   "written": "飼",
+   "readings": [
+    "か"
+   ],
+   "meanings": [
+    "keep (a pet)"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
+  },
+  {
    "written": "川",
    "readings": [
     "かわ"
@@ -3803,18 +4131,6 @@
    ],
    "sources": [
     "w:女"
-   ]
-  },
-  {
-   "written": "山",
-   "readings": [
-    "やま"
-   ],
-   "meanings": [
-    "mountain"
-   ],
-   "sources": [
-    "w:山"
    ]
   },
   {
@@ -3962,18 +4278,6 @@
    ]
   },
   {
-   "written": "言葉",
-   "readings": [
-    "ことば"
-   ],
-   "meanings": [
-    "word; language"
-   ],
-   "sources": [
-    "w:言"
-   ]
-  },
-  {
    "written": "元気",
    "readings": [
     "げんき"
@@ -4044,18 +4348,6 @@
    ],
    "sources": [
     "w:書"
-   ]
-  },
-  {
-   "written": "毎朝",
-   "readings": [
-    "まいあさ"
-   ],
-   "meanings": [
-    "every morning"
-   ],
-   "sources": [
-    "w:朝"
    ]
   },
   {

@@ -1,6 +1,6 @@
 # Stage 2 skeleton — v1.1 (Session 14, planning pass; nothing authored)
 
-**Status: APPROVED by Lloyd with one amendment (Session 14).** His ruling:
+**Status: EXECUTED (Session 14) — every step below is authored and shipped.** Remaining from this document: the Stage 3 keigo on-ramp (when Stage 3 is planned), potential2 (blocked on R6), and the holding pen. Original ruling: His ruling:
 keigo proper moves OUT of Stage 2 to the beginning of Stage 3, spaced across
 several steps — N3 is where it's tested, and it carries the feeling of another
 language, which is daunting at the second stage ("it was for me"). Everything
@@ -46,7 +46,7 @@ always find room.
 
 ---
 
-## Step 13 · て-form, second wind (LIVE — grows by two)
+## Step 13 · て-form, second wind — ✅ COMPLETED (Session 14, `d742994`)
 
 Has: teshimau, teoku, tearu, cc-chau, sb-aspect, cc-drop, cc-aizuchi,
 cc-ritual. Gaps: the two everyday て-continuations that complete the family,
@@ -117,9 +117,9 @@ Small step on purpose: the four-way SB is the heaviest judgment lesson in the
 stage and deserves undivided attention. The tara spotlight row in the revisit
 map ("〜たら / 〜ば / 〜と / 〜なら") finds its home lesson here.
 
-## — rc4 · 復習 · Steps 13–16 —
+## — rc4 · 復習 · Steps 13–16 — ✅ SHIPPED
 
-## Step 17 · Intentions, decisions & change
+## Step 17 · Intentions, decisions & change — ✅ SHIPPED (Session 14)
 
 | id | jp | one line |
 |---|---|---|
@@ -133,7 +133,7 @@ map ("〜たら / 〜ば / 〜と / 〜なら") finds its home lesson here.
 | `sb-suru-naru` | する系 vs なる系 | the agency thread: ことにする/ことになる, ようにする/ようになる as ONE system (echoes Step 9's く/にする・なる) |
 | `b-s17` | 作文 · 来年 | next year: a decision, a plan, a habit you're building |
 
-## Step 18 · Ability, experience & degrees
+## Step 18 · Ability, experience & degrees — ✅ SHIPPED (Session 14; potential2 still reserved on R6)
 
 | id | jp | one line |
 |---|---|---|
@@ -149,7 +149,7 @@ map ("〜たら / 〜ば / 〜と / 〜なら") finds its home lesson here.
 Rationale: teiru3 sits where verb breadth finally exists; potential2 is the
 sb-ganotwo resolution's home if R6 says the lesson must soften.
 
-## Step 19 · Time's edges
+## Step 19 · Time's edges — ✅ SHIPPED (Session 14)
 
 | id | jp | one line |
 |---|---|---|
@@ -161,7 +161,7 @@ sb-ganotwo resolution's home if R6 says the lesson must soften.
 | `sb-madeni` | まで vs までに | until vs by — small particle, missed deadline |
 | `b-s19` | 作文 · いそがしい日 | a busy day told at its edges: deadlines, durings, just-finisheds |
 
-## Step 20 · Doing to & being done to
+## Step 20 · Doing to & being done to — ✅ SHIPPED (Session 14)
 
 | id | jp | one line |
 |---|---|---|
@@ -177,9 +177,9 @@ Rationale: passive shipped in Stage 1's Step 12, so the causative family
 completes the voice system here; sb-rareru untangles the collision that
 potential (S1) and passive (S1) have been quietly building toward.
 
-## — rc5 · 復習 · Steps 17–20 —
+## — rc5 · 復習 · Steps 17–20 — ✅ SHIPPED
 
-## Step 21 · Reasons, concessions & flow
+## Step 21 · Reasons, concessions & flow — ✅ SHIPPED (Session 14)
 
 | id | jp | one line |
 |---|---|---|
@@ -213,7 +213,7 @@ Stage 2 keeps exactly one taste: Step 14's giving verbs (いただく・くだ�
 さしあげる), which the revisit map's R1 obligation pins there regardless —
 they now double as Stage 3's seed, and Step 14's copy should say so.
 
-## Step 22 · Wrapping thoughts (embedding & nominalizing)
+## Step 22 · Wrapping thoughts — ✅ SHIPPED (Session 14)
 
 | id | jp | one line |
 |---|---|---|
@@ -224,7 +224,7 @@ they now double as Stage 3's seed, and Step 14's copy should say so.
 | `sb-kotono` | ことか、のか | the choice drill: 見ることが好き? 見るのが好き? verbs of sense vs abstraction |
 | `b-s22` | 作文 · わからないこと | write about not-knowing: two embedded questions, one かどうか |
 
-## Step 23 · Other minds
+## Step 23 · Other minds — ✅ SHIPPED (Session 14; Stage 2 complete)
 
 tai's Stage 1 wrinkle ("Japanese marks other minds differently — Stage 2 has
 the machinery") is the doorway.
@@ -241,7 +241,7 @@ Rationale: closes the stage on the theme Stage 2 quietly builds throughout —
 what you can claim about the world versus about other people — so the stage
 review reads as one idea completing.
 
-## — rc6 · 復習 · Stage 2 (the stage review) —
+## — rc6 · 復習 · Stage 2 (the stage review) — ✅ SHIPPED
 
 Covers: every sb- above plus the load-bearing grammar (teageru family, the
 four ifs, causative family, evidence markers, the giving verbs).

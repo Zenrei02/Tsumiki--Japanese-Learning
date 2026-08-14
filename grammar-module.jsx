@@ -2783,7 +2783,7 @@ const DRILL_DRAW = 5;
 
 const LEVELS = [
   { id: "S1", title: "1", subtitle: "Foundations", jlpt: "≈ JLPT N5", markers: "en", tagline: "First sentences to full daily basics — grammar, skill builders, culture stops, and checkpoints along the way.", groups: CURRICULUM.filter((c) => !c.level) },
-  { id: "S2", title: "2", subtitle: "Everyday fluency", jlpt: "≈ JLPT N4", markers: "kana", tagline: "The て-form's second wind, then the language of kindness — favors given, received, and wished for. Growing step by step.", groups: CURRICULUM.filter((c) => c.level === "N4") },
+  { id: "S2", title: "2", subtitle: "Everyday fluency", jlpt: "≈ JLPT N4", markers: "kana", tagline: "Kindness, evidence, ifs, plans, time, voices, and other minds — the grammar that turns sentences into conversation.", groups: CURRICULUM.filter((c) => c.level === "N4") },
   { id: "S3", title: "3", subtitle: "Independence", jlpt: "≈ JLPT N3", markers: "kanji", locked: true },
   { id: "S4", title: "4", subtitle: "Nuance", jlpt: "≈ JLPT N2", markers: "kanji", locked: true },
   { id: "S5", title: "5", subtitle: "Mastery", jlpt: "≈ JLPT N1", markers: "kanji", locked: true },

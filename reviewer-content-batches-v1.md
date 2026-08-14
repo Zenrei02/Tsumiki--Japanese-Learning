@@ -206,3 +206,14 @@ precedes a request" and "only なら points backward" stated as hard walls);
 ば's "requests sound stiff unless the condition is a state" nuance;
 なら-vs-たら in the 京都 drill items, where a defensible-other-answer is
 likeliest.
+
+Batch H addendum 3 — Steps 13 (completion), 17–23 and rc4–rc6 (Session 14,
+the finishing run): ~34 new lessons + DEEP entries (~160 drill items across
+the additions). Closest-read items, in order: cc-honne (本音と建前 — the
+single most culture-loaded lesson in the module; read every sentence),
+cc-meirei (the register claims about commands and anime-Japanese),
+kotoninaru's modesty claim (結婚することになりました as standard), sb-minds'
+epistemology framing, garu/hoshigaru's particle-swap rule (が→を), teiru3's
+verb-class rule and its 知っています examples, the ら抜き treatment in
+sb-rareru, and every judgment call in sb-noni's temperature system. The
+conjugation pools (volitional, causative, ば) are formulaic — spot-check.
