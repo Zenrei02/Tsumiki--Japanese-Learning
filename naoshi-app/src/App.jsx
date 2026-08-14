@@ -7,13 +7,15 @@ const KatakanaModule = lazy(() => import("./modules/Katakana.jsx"));
 const GrammarPractice = lazy(() => import("./modules/Grammar.jsx"));
 const KanjiModule = lazy(() => import("./modules/Kanji.jsx"));
 const VocabularyModule = lazy(() => import("./modules/Vocabulary.jsx"));
+const CheckerModule = lazy(() => import("./modules/Checker.jsx"));
 
 const MODULES = [
   { id: "hiragana", label: "Hiragana", jp: "ひらがな", Comp: HiraganaModule },
   { id: "katakana", label: "Katakana", jp: "カタカナ", Comp: KatakanaModule },
   { id: "grammar", label: "Grammar", jp: "ぶんぽう", Comp: GrammarPractice },
   { id: "kanji", label: "Kanji", jp: "漢字", Comp: KanjiModule },
-  { id: "vocabulary", label: "Vocabulary", jp: "ことば", Comp: VocabularyModule }
+  { id: "vocabulary", label: "Vocabulary", jp: "ことば", Comp: VocabularyModule },
+  { id: "checker", label: "Checker", jp: "直し", Comp: CheckerModule }
 ];
 
 // ————— Home (Session 13) —————
@@ -29,6 +31,7 @@ const HOME_WHY = {
   grammar: "The heart of the app — lessons and graded writing practice, from your first sentence upward.",
   kanji: "Characters in an order that pays for itself: each one unlocks words you already use.",
   vocabulary: "The words you have met, coming back just before you would forget them.",
+  checker: "Write anything in Japanese and find out what is wrong, what merely sounds off, and why.",
 };
 const PROGRESS_KEYS = {
   hiragana: "hiragana-progress-v2", katakana: "katakana-progress-v1",

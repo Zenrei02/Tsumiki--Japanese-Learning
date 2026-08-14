@@ -143,7 +143,7 @@ async function go(modId, lessonMatch, tabs, opts = {}) {
       return;
     }
     const listed = [...panel.querySelectorAll("button")].map(b => (b.textContent || "").trim());
-    const missing = ["Hiragana", "Katakana", "Grammar", "Kanji", "Vocabulary", "Home"]
+    const missing = ["Hiragana", "Katakana", "Grammar", "Kanji", "Vocabulary", "Checker", "Home"]
       .filter(l => !listed.some(t => t.startsWith(l)));
     if (missing.length) fail(`${modId.toUpperCase()}: drawer is missing ${missing.join(", ")}`);
     const closeBtn = [...panel.querySelectorAll("button")]
@@ -166,7 +166,7 @@ async function go(modId, lessonMatch, tabs, opts = {}) {
   // alternative route rather than the header tab that used to be here.
   {
     const label = { hiragana: "Hiragana", katakana: "Katakana", grammar: "Grammar",
-                    kanji: "Kanji", vocabulary: "Vocabulary" }[modId];
+                    kanji: "Kanji", vocabulary: "Vocabulary", checker: "Checker" }[modId];
     const all = () => [...w.document.querySelectorAll("button")];
     const hero = all().find(x => /PICK UP WHERE YOU LEFT OFF/i.test(x.textContent || ""));
     if (hero) {
@@ -366,6 +366,48 @@ await go("vocabulary", null, ["New", "Review"], {
     const t = rootText();
     log(`word view → ${t.length} chars ${t.length < MIN_VIEW ? "❌ WHITE SCREEN" : "ok"}`);
     if (t.length < MIN_VIEW) f(`${NAME}: word practice view collapsed`);
+  },
+});
+
+// Session 16: the checker. Its whole job is a network call, and the smoke test
+// has fetch stubbed to a 404, so what is checked here is the part that must
+// hold WITHOUT a backend: the module renders, the context selector and the
+// input are present, and pressing Check with an unconfigured endpoint produces
+// a stated reason rather than a white screen or a silent nothing.
+//
+// That last one is the real risk. A checker that fails invisibly looks exactly
+// like a checker that found no errors — and "no errors" is a result this
+// product is specifically designed to give. The two must never be confusable.
+await go("checker", null, [], {
+  then: async ({ btns, rootText, log, fail: f, NAME }) => {
+    const t = rootText();
+    for (const needed of ["Casual", "Polite", "Business", "Check"]) {
+      if (!t.includes(needed)) f(`${NAME}: "${needed}" missing from the checker`);
+    }
+    // No bare `document` here — this runs in Node against a jsdom window, so
+    // the only document available is the one the buttons belong to.
+    const box = btns()[0]?.ownerDocument?.querySelector("textarea");
+    if (!box) { f(`${NAME}: no text input`); return; }
+    log("input, context selector and Check button all present");
+
+    // Type, then press Check. CHECKER_URL is empty in this bundle, so the
+    // module should short-circuit to "not-configured" and SAY so.
+    const setter = Object.getOwnPropertyDescriptor(
+      box.ownerDocument.defaultView.HTMLTextAreaElement.prototype, "value").set;
+    setter.call(box, "私は毎日私の犬と散歩します。");
+    box.dispatchEvent(new box.ownerDocument.defaultView.Event("input", { bubbles: true }));
+    await new Promise(r => setTimeout(r, 300));
+
+    const go2 = btns().find(b => (b.textContent || "").trim() === "Check");
+    if (!go2) { f(`${NAME}: Check button vanished after typing`); return; }
+    go2.click();
+    await new Promise(r => setTimeout(r, 900));
+
+    const after = rootText();
+    if (after.length < MIN_VIEW) { f(`${NAME}: checker collapsed after Check`); return; }
+    const explained = /isn't connected|went wrong|could not be reached/i.test(after);
+    log(`unconfigured Check → ${explained ? "explained to the learner ok" : "❌ SILENT"}`);
+    if (!explained) f(`${NAME}: Check failed silently — indistinguishable from "no errors found"`);
   },
 });
 

@@ -48,6 +48,7 @@ MODULES = [
     ("grammar-module.jsx",    "Grammar.jsx",    "GrammarPractice",  "Grammar",    "ぶんぽう"),
     ("kanji-module.jsx",      "Kanji.jsx",      "KanjiModule",      "Kanji",      "漢字"),
     ("vocabulary-module.jsx", "Vocabulary.jsx", "VocabularyModule", "Vocabulary", "ことば"),
+    ("checker-module.jsx",    "Checker.jsx",    "CheckerModule",    "Checker",    "直し"),
 ]
 ENGINE_FNS = ["strokeStart", "StrokeView", "resample", "samplePath", "scoreStroke",
               "tolerancesFor", "thinPoints", "useStrokeData", "StrokePractice"]
@@ -254,6 +255,19 @@ for src_name, out_name, comp, label, jp in MODULES:
                      '  throw new Error("grader-unavailable-in-static-build");\n'
                      "}", src, count=1, flags=re.S)
 
+    # The checker's backend URL comes from the Vite env, so the deployed site
+    # and a local dev server can point at different Supabase projects without a
+    # code change. The source module keeps a bare "" so it stays loadable
+    # outside a bundler, and this is the only place import.meta appears.
+    #
+    # This is a URL, not a secret: the API key lives in the Edge Function's
+    # environment and never reaches the browser. The purity check below still
+    # refuses to build if this file ever mentions Anthropic directly.
+    src = re.sub(r'^const CHECKER_URL = "";',
+                 'const CHECKER_URL = import.meta.env?.VITE_CHECKER_URL || "";'
+                 '  // wired by build-vite-app.py',
+                 src, count=1, flags=re.M)
+
     # flip the static flag: the flag gates the UI (self-mark stand-ins for the
     # quiz and both graders), while the strips above and below keep the BUNDLE
     # clean — the flag is a control-flow promise, the strips are bundle promises,
@@ -386,6 +400,7 @@ const HOME_WHY = {
   grammar: "The heart of the app — lessons and graded writing practice, from your first sentence upward.",
   kanji: "Characters in an order that pays for itself: each one unlocks words you already use.",
   vocabulary: "The words you have met, coming back just before you would forget them.",
+  checker: "Write anything in Japanese and find out what is wrong, what merely sounds off, and why.",
 };
 const PROGRESS_KEYS = {
   hiragana: "hiragana-progress-v2", katakana: "katakana-progress-v1",
