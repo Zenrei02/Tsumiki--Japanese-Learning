@@ -1,6 +1,6 @@
 # Stage 2 skeleton — v1.1 (Session 14, planning pass; nothing authored)
 
-**Status: EXECUTED (Session 14) — every step below is authored and shipped.** Remaining from this document: the Stage 3 keigo on-ramp (when Stage 3 is planned), potential2 (blocked on R6), and the holding pen. Lloyd's original ruling:
+**Status: EXECUTED (Session 14) — every step below is authored and shipped.** The Stage 3 keigo on-ramp was executed in Session 15 (Steps 24–26, deep from day one). Remaining from this document: potential2 (blocked on R6), the holding pen, and the rest of Stage 3's skeleton (steps 27+, still to be drawn). Lloyd's original ruling:
 keigo proper moves OUT of Stage 2 to the beginning of Stage 3, spaced across
 several steps — N3 is where it's tested, and it carries the feeling of another
 language, which is daunting at the second stage ("it was for me"). Everything
@@ -195,8 +195,9 @@ potential (S1) and passive (S1) have been quietly building toward.
 Keigo re-frames everything before it and reads like a second language — too
 much weight for the second stage, and N3 is where it's tested. It opens
 Stage 3 instead, SPACED OUT rather than compressed into one step. The
-reserved ids travel with it. On-ramp sketch (to be properly planned when
-Stage 3's skeleton is drawn — parked here so the shape isn't lost):
+reserved ids travel with it. On-ramp sketch — ✅ **EXECUTED Session 15
+(Aug 14 2026)**: authored as Steps 24–26, deep from day one, every reserved
+id below now live in the module. S3 unlocked in LEVELS (kanji markers):
 
 - **S3 opening step A · Hearing keigo** — recognition only: `sonkeigo`
   (いらっしゃる, おっしゃる, 召し上がる, ご覧になる as things said TO you),
