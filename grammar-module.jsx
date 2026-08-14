@@ -132,6 +132,7 @@ const KANJI_DICT = [
   ["出す", "だす", "submit; put out", "N4"], ["払", "はら", "pay", "N4"],
   ["答", "こた", "answer", "N4"], ["掃除", "そうじ", "cleaning", "N4"], ["山", "やま", "mountain", "N5"],
   ["今度", "こんど", "next time", "N5"], ["壊", "こわ", "break", "N3"], ["試合", "しあい", "match; game", "N3"],
+  ["言葉", "ことば", "word; language", "N4"], ["質問", "しつもん", "question", "N3"],
 ];
 const DICT_SORTED = [...KANJI_DICT].sort((a, b) => b[0].length - a[0].length);
 // Live learner state, shared with the kanji module (known-kanji-v1) and the
@@ -2448,6 +2449,76 @@ const CURRICULUM = [
       },
     ],
   },
+
+  {
+    cat: "Step 22 · Wrapping thoughts",
+    level: "N4",
+    bank: [["意味", "meaning"], ["言葉", "word"], ["歌う", "to sing"], ["決める", "to decide"], ["忘れる", "to forget"], ["質問", "question"], ["漢字", "kanji"], ["誰", "who"]],
+    points: [
+      {
+        id: "kadouka", jp: "〜かどうか", en: "whether or not — a question, boxed",
+        exp: {
+          what: "A yes/no question sealed in a box and set inside another sentence: 行くかどうか、まだ決めていません — whether I'll go, still undecided.",
+          build: "Plain clause + かどうか + the outer verb: わかりません, 決めていません, 聞いてみます. The box carries its own か — the sentence end needs nothing extra.",
+          when: "Undecided plans, unchecked facts, things you mean to ask someone.",
+          watch: "です drops inside the box: 学生かどうか, never 学生ですかどうか. The box takes plain contents only.",
+        },
+        ex: [["行くかどうか、まだ決めていません。", "Whether I'll go — still undecided."], ["おいしいかどうか、食べてみましょう。", "Whether it's good — let's try it and see. (Step 13's てみる, on the case.)"], ["田中さんが来るかどうか、わかりません。", "Whether Tanaka's coming, I can't say."]],
+      },
+      {
+        id: "ka-embed", jp: "疑問詞＋か", en: "the open question, boxed",
+        exp: {
+          what: "Open questions box up too: 誰が来るか、わかりません — who's coming, I don't know. The question word stays in its slot; か seals the box.",
+          build: "Question-word clause + か + the outer verb: 何を食べるか、決めましょう. どこで買ったか、忘れました.",
+          when: "I-don't-know, let's-decide, I-forget — daily sentences all.",
+          watch: "Collision alert: 誰か standing alone is SOMEBODY (Step 11); 誰が来るか is a boxed question. The verb inside the box is the tell — Step 11's 誰か has none.",
+        },
+        ex: [["誰が来るか、わかりません。", "Who's coming — no idea."], ["何を食べるか、決めましょう。", "Let's decide what to eat."], ["どこで買ったか、忘れました。", "Where I bought it — forgotten."]],
+      },
+      {
+        id: "koto-no", jp: "こと vs の", en: "the two nominalizers, side by side",
+        exp: {
+          what: "Both turn actions into things — Step 10's の and this stage's こと finally meet. The split: の stays close to the senses and the live moment; こと steps back into fact and habit.",
+          build: "の for what's witnessed as it happens: 弟が歌うのを聞きました. こと for the abstract: ability (話すことができる), experience (行ったことがある), decisions (行くことにした). Many spots accept both: 読むのが好き／読むことが好き.",
+          when: "Every nominalization from here on — which is to say, constantly.",
+          watch: "Two fixed houses never move: 〜ことができる and 〜たことがある take こと, always. The sensing verbs (見る, 聞く) all but demand の. Where both fit, の runs warmer and more spoken, こと cooler and more written.",
+        },
+        ex: [["弟が歌うのを聞きました。", "I heard my brother singing — live, sensed → の."], ["日本語を話すことができます。", "Ability, abstract → こと (fixed house)."], ["本を読むのが好きです。", "Both would work here — の keeps it warm."]],
+      },
+      {
+        id: "toiuimi", jp: "〜という意味", en: "asking what things mean",
+        exp: {
+          what: "The learner's power tool: どういう意味ですか — what does that mean? — and the answer's shape, 〜という意味です. This is how confusion becomes vocabulary, in real time.",
+          build: "Asking: [expression]はどういう意味ですか. Answering: [expression]は[explanation]という意味です — Step 11's naming という, now working on meanings.",
+          when: "Every conversation in which you are a learner — which is all of them, for a happy long while.",
+          watch: "Two different questions, keep them straight: 何といいますか asks for the WORD (\"what's this called?\"); どういう意味ですか asks for the SENSE (\"what does it mean?\"). One fills your vocabulary forward, the other backward.",
+        },
+        ex: [["すみません、どういう意味ですか。", "Sorry — what does that mean?"], ["「直す」は「もう一度よくする」という意味です。", "\"Naosu\" means \"to make good again.\" (Yes, the app is named after it.)"], ["この漢字はどういう意味ですか。", "What does this kanji mean?"]],
+      },
+      {
+        id: "sb-kotono", jp: "ことが好き？のが好き？", en: "the nominalizer choice drill", kind: "skill",
+        exp: {
+          what: "Where both fit, taste decides — but two houses are fixed and the senses have a favorite. Sorting fast keeps your sentences from stalling mid-thought.",
+          build: "Run the checks in order: ことができる/たことがある construction? → こと, no choice. Sensing verb (見る・聞く) on something live? → の. Neither? → both fine; pick の for warmth, こと for print.",
+          when: "Every time an action needs to become a thing.",
+          watch: "The error that grates most: 話すのができます — の in こと's fixed house. The fixed houses are few; guard them and the rest is taste.",
+        },
+        ex: [["泳ぐことができます。", "Fixed house — こと."], ["妹が泳ぐのを見ました。", "Watched it live — の."]],
+      },
+      {
+        id: "b-s22", jp: "作文 · わからないこと", en: "writing about not-knowing", kind: "build",
+        requires: ["kadouka", "ka-embed", "koto-no", "toiuimi"],
+        brief: "Write about what you don't know: one かどうか uncertainty, one boxed open question (誰・何・どこ…か), one nominalized like or ability (の or こと — chosen on purpose), and one meaning-question you actually want to ask someone.",
+        exp: {
+          what: "Not-knowing, written fluently — the most honest subject a learner has.",
+          build: "One 〜かどうか, one 疑問詞＋か box, one nominalization with の or こと (be ready to say why you picked it), one どういう意味ですか aimed at something real.",
+          when: "This is the composition that turns your actual confusions into Japanese — recycle it forever.",
+          watch: "Keep the boxes plain inside (no です before か), and check any こと/の against the fixed houses before trusting taste.",
+        },
+        ex: [],
+      },
+    ],
+  },
 ];
 
 const ALL_POINTS = CURRICULUM.flatMap((c) => c.points.map((p) => ({ ...p, cat: c.cat })));
@@ -2634,6 +2705,11 @@ const DEEP = {
   "temo": {"seg": [["雨", "rain"], ["が", "subject marker"], ["降っても", "THE POINT — て-form + も: even if — conceded, and overridden", 1], ["、", "a breath"], ["行きます。", "\"I'm going\" — the spine of the sentence"]], "hl": "高くても", "note": "い-adjectives: くても. Nouns and な-adjectives: でも — 雨でも行きます.", "wr": [{"t": "たら cancels, ても overrides: 降ったら行きません / 降っても行きます — same rain, opposite spines. And Step 5's てもいいですか was this ても all along.", "jp": null}], "drill": {"items": [{"q": "雨が___、行きます。", "en": "Even if it rains — going.", "a": ["降っても"], "opts": ["降っても", "降ったら", "降ると", "降れば"], "why": "Concede and continue → ても."}, {"q": "___、買います。", "en": "高い — even if pricey.", "a": ["高くても"], "opts": ["高くても", "高いでも", "高くたら", "高ければ"], "why": "い-adjective → くても."}, {"q": "いくら___、忘れます。", "en": "No matter how much I study…", "a": ["勉強しても", "べんきょうしても"], "opts": ["勉強しても", "勉強したら", "勉強すると", "勉強すれば"], "why": "いくら〜ても — the universal concession."}, {"q": "雨___、行きます。", "en": "Even if it's rain (noun) — going.", "a": ["でも"], "opts": ["でも", "ても", "なのに", "だし"], "why": "Nouns take でも."}, {"q": "降ったら行きません vs 降っても行きます: ___", "a": ["たら cancels; ても overrides"], "opts": ["たら cancels; ても overrides", "both cancel", "both override"], "why": "Same rain, opposite spines."}]}},
   "sorede": {"seg": [["雨が降りました。", "\"It rained.\" — a full sentence, full stop"], ["それで、", "THE POINT — それで: and so — the consequence joint", 1], ["家にいました。", "\"stayed home\" — the result"]], "hl": "それに", "note": "The piling-on joint: cheap — and on top of that, good.", "wr": [{"t": "だから opening a reply can sound like \"like I SAID.\" And bare それで？ with rising pitch is the listener's nudge — \"…and then?\" Half of storytelling is the audience saying it.", "jp": null}], "drill": {"items": [{"q": "雨が降りました。___、家にいました。", "en": "It rained. AND SO…", "a": ["それで"], "opts": ["それで", "それに", "でも", "それから"], "why": "Consequence → それで."}, {"q": "この店は安いです。___、おいしいです。", "en": "Cheap. AND ON TOP OF THAT…", "a": ["それに"], "opts": ["それに", "それで", "だから", "でも"], "why": "Addition → それに."}, {"q": "明日は会議です。___、早く寝ます。", "en": "Meeting tomorrow. THAT'S WHY…", "a": ["だから"], "opts": ["だから", "それに", "でも", "それから"], "why": "The blunt conclusion → だから."}, {"q": "朝ごはんを食べました。___、学校へ行きました。", "en": "Ate. THEN went — plain sequence.", "a": ["それから"], "opts": ["それから", "それで", "だから", "それに"], "why": "Sequence without causation → それから (Step 11's joint, still working)."}, {"q": "それで？, rising, means ___.", "a": ["\"…and then?\" — the listener's nudge"], "opts": ["\"…and then?\" — the listener's nudge", "\"that's why\"", "\"on top of that\""], "why": "The audience's half of every story."}]}},
   "sb-noni": {"drill": {"note": "Three temperatures for one contrast: が/けど (cool), ても (determined), のに (felt). The facts don't choose — you do.", "items": [{"q": "高いです___、買います。", "en": "COOL: noted, buying anyway.", "a": ["が"], "opts": ["が", "のに", "ても", "し"], "why": "Neutral statement of contrast → が."}, {"q": "高く___、買います。", "en": "DETERMINED: price be damned.", "a": ["ても"], "opts": ["ても", "のに", "が", "たら"], "why": "Concede and override → ても."}, {"q": "高かった___、壊れました。", "en": "FELT: after what I paid — it broke.", "a": ["のに"], "opts": ["のに", "が", "ても", "から"], "why": "Betrayal with feeling → のに."}, {"q": "雨が降っています___、試合があります。", "en": "Flat report: raining, game's on.", "a": ["が"], "opts": ["が", "のに", "だから", "し"], "why": "No ache claimed → が."}, {"q": "せっかく作った___…。", "en": "The trailing reproach.", "a": ["のに"], "opts": ["のに", "ても", "けど", "から"], "why": "のに… left hanging — the ache completes itself."}, {"q": "When unsure of temperature, reach for ___.", "a": ["けど — never wrong, just cooler"], "opts": ["けど — never wrong, just cooler", "のに — maximum feeling", "だから — conclusive"], "why": "のに misspent reads as sulking; けど is the safe cool."}]}},
+  "kadouka": {"seg": [["行く", "\"go\" — plain, as the box demands"], ["かどうか", "THE POINT — かどうか: the yes/no question, sealed and embedded", 1], ["、", "a breath"], ["まだ", "\"yet\" — Step 4's door-holder"], ["決めていません。", "\"haven't decided\" — the outer verb the box hands itself to"]], "hl": "かどうか", "wr": [{"t": "です drops inside the box: 学生かどうか, never 学生ですかどうか. Boxes take plain contents.", "jp": null}], "drill": {"items": [{"q": "行く___、まだ決めていません。", "en": "WHETHER I'll go — undecided.", "a": ["かどうか"], "opts": ["かどうか", "かとうか", "かどう", "などか"], "why": "Yes/no box → かどうか."}, {"q": "おいしい___、食べてみましょう。", "en": "Whether it's good — let's find out.", "a": ["かどうか"], "opts": ["かどうか", "かなにか", "かどうも", "そうか"], "why": "The box + てみる — question meets experiment."}, {"q": "田中さんが学生___どうか、わかりません。", "en": "Whether he's a student — pick the joint.", "a": ["か"], "opts": ["か", "ですか", "だか", "なか"], "why": "Plain inside the box: 学生かどうか."}, {"q": "来る → 田中さんが___かどうか、聞いてみます。", "en": "I'll ask whether he's coming — type it.", "a": ["来る", "くる"], "why": "Plain non-past inside the box."}, {"q": "The box needs no second か at sentence end because ___.", "a": ["the box carries its own"], "opts": ["the box carries its own", "embedded sentences ban questions", "です replaces it"], "why": "かどうか is the question, contained."}]}},
+  "ka-embed": {"seg": [["誰", "\"who\" — the question word, staying in its slot"], ["が", "question words keep their が (Step 1's rule survives embedding)"], ["来る", "\"comes\" — plain form"], ["か", "THE POINT — か seals the open question into a box", 1], ["、", "a breath"], ["わかりません。", "\"I don't know\" — the outer verb"]], "hl": "か", "wr": [{"t": "Collision alert: 誰か alone = SOMEBODY (Step 11); 誰が来るか = a boxed question. The verb inside the box is the tell.", "jp": null}], "drill": {"items": [{"q": "誰が来る___、わかりません。", "en": "Who's coming — no idea.", "a": ["か"], "opts": ["か", "かどうか", "の", "こと"], "why": "Open question → 疑問詞…か. (かどうか is for yes/no boxes.)"}, {"q": "何を食べる___、決めましょう。", "en": "Let's decide what to eat.", "a": ["か"], "opts": ["か", "かどうか", "の", "と"], "why": "The open box: 何を食べるか."}, {"q": "どこで___か、忘れました。", "en": "Where I bought it — forgotten.", "a": ["買った", "かった"], "opts": ["買った", "買います", "買って", "買う"], "why": "Plain past inside the box — the buying already happened."}, {"q": "\"SOMEBODY came\" (not a question) is 誰___来ました。", "a": ["か"], "opts": ["か", "が", "は"], "why": "誰か = somebody (Step 11). 誰が来るか, with its own verb inside, is the boxed question."}, {"q": "行くかどうか vs どこへ行くか: the difference is ___.", "a": ["yes/no box vs open-question box"], "opts": ["yes/no box vs open-question box", "politeness", "tense"], "why": "かどうか seals yes/no; 疑問詞+か seals the open kind."}]}},
+  "koto-no": {"seg": [["弟", "my brother"], ["が", "clause-internal subject — が, as Step 11 taught"], ["歌う", "\"sing\" — plain form"], ["のを", "THE POINT — の nominalizes the live, witnessed act; を hands it to the verb", 1], ["聞きました。", "\"heard\" — a sensing verb; の's home ground"]], "hl": "ことができます", "note": "The fixed house: ability always takes こと — no taste involved.", "wr": [{"t": "Where both fit (読むのが好き／読むことが好き), の runs warm and spoken, こと cool and written. Where the houses are fixed, there is no choice at all.", "jp": null}], "drill": {"items": [{"q": "弟が歌う___を聞きました。", "en": "Heard him singing — live.", "a": ["の"], "opts": ["の", "こと", "もの", "ところ"], "why": "Sensing verbs demand の."}, {"q": "日本語を話す___ができます。", "en": "Ability — the fixed house.", "a": ["こと"], "opts": ["こと", "の", "もの", "よう"], "why": "ことができる never takes の."}, {"q": "日本へ行った___があります。", "en": "Experience — the other fixed house.", "a": ["こと"], "opts": ["こと", "の", "とき", "ば"], "why": "たことがある — こと, always."}, {"q": "本を読む___が好きです。", "en": "Both fit — pick the warmer, spoken one.", "a": ["の"], "opts": ["の", "こと", "もの"], "why": "Taste territory: の for warmth (こと wouldn't be wrong)."}, {"q": "妹が泳ぐ___を見ました。", "en": "Watched her swim.", "a": ["の"], "opts": ["の", "こと", "ところ", "そう"], "why": "見る — sensing verb, live scene → の."}]}},
+  "toiuimi": {"seg": [["すみません", "the opener that buys goodwill"], ["、", "a breath"], ["どういう", "\"what kind of\" — こそあど's ど-row, grown up"], ["意味", "meaning"], ["ですか。", "THE POINT — どういう意味ですか: the learner's power question", 1]], "hl": "という意味", "note": "The answer's shape: [expression]は[explanation]という意味です — Step 11's naming という, aimed at meanings.", "wr": [{"t": "Keep the two learner-questions straight: 何といいますか asks for the WORD; どういう意味ですか asks for the SENSE. One grows vocabulary forward, the other backward.", "jp": null}], "drill": {"items": [{"q": "すみません、どういう___ですか。", "en": "What does that mean?", "a": ["意味"], "opts": ["意味", "言葉", "話", "こと"], "why": "The power question: どういう意味ですか."}, {"q": "「直す」は「もう一度よくする」___意味です。", "en": "The answering shape.", "a": ["という"], "opts": ["という", "どういう", "といった", "そういう"], "why": "Explanation + という意味です."}, {"q": "You see a new WORD and want its name in Japanese: ___", "a": ["これは日本語で何といいますか"], "opts": ["これは日本語で何といいますか", "これはどういう意味ですか", "これはいくらですか"], "why": "Asking for the word → 何といいますか."}, {"q": "You hear a word and don't know its SENSE: ___", "a": ["どういう意味ですか"], "opts": ["どういう意味ですか", "何といいますか", "どこですか"], "why": "Asking for the meaning → どういう意味ですか."}, {"q": "この漢字はどういう意味です___。", "en": "Close the question.", "a": ["か"], "opts": ["か", "ね", "よ", "の"], "why": "A real question → か."}]}},
+  "sb-kotono": {"drill": {"note": "Checks in order: fixed house? → こと. Sensing verb, live scene? → の. Neither? → taste (の warm, こと written). The houses are few — guard them.", "items": [{"q": "泳ぐ___ができます。", "en": "Fixed house.", "a": ["こと"], "opts": ["こと", "の", "もの", "よう"], "why": "ことができる — no taste involved."}, {"q": "妹が泳ぐ___を見ました。", "en": "Live, witnessed.", "a": ["の"], "opts": ["の", "こと", "ところ", "そう"], "why": "Sensing verb → の."}, {"q": "すしを食べた___があります。", "en": "Experience.", "a": ["こと"], "opts": ["こと", "の", "とき", "ため"], "why": "たことがある — the second fixed house."}, {"q": "映画を見る___が好きです。", "en": "Both fit — warm and spoken.", "a": ["の"], "opts": ["の", "こと", "もの"], "why": "Taste: の for conversation. こと acceptable, cooler."}, {"q": "話すのができます is wrong because ___.", "a": ["ことができる is a fixed house"], "opts": ["ことができる is a fixed house", "の is always casual", "話す can't nominalize"], "why": "The error that grates: の in こと's house."}, {"q": "弟が帰ってくる___を待っています。", "en": "Waiting for him to come home — live anticipation.", "a": ["の"], "opts": ["の", "こと", "ところ"], "why": "待つ leans sensing-live → の."}]}},
   // @@DEEP-END
 };
 const DRILL_DRAW = 5;
