@@ -198,3 +198,11 @@ cultural framing of hedging and the 違うかもしれませんが… pushback c
 the certainty-dial ordering (です > でしょう > かもしれません) stated as
 teaching fact; らしい's two-jobs treatment; every そう drill distractor
 (the triangle is exactly where a defensible-but-different answer hides).
+
+Batch H addendum 2 — Step 16, the four ifs + rc4 (Session 14, same
+sitting): ba, nara, taradou, sb-if4, b-s16 + DEEP (~22 drill items).
+Closest-read items: the four-way claims in sb-if4 (especially "と never
+precedes a request" and "only なら points backward" stated as hard walls);
+ば's "requests sound stiff unless the condition is a state" nuance;
+なら-vs-たら in the 京都 drill items, where a defensible-other-answer is
+likeliest.
