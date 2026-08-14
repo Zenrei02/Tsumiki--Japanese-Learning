@@ -30,6 +30,17 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
 - `Area` accepts only: `Product`, `Prompt & Eval`, `Content & Community`, `Business & Admin`
 - Batched `create-pages` fails silently when a `Notes` string runs long — keep notes under
   roughly 800 characters, or create one page per call.
+- **THE NORM (Lloyd, Session 16): to append to `Notes`, COPY the original text,
+  ATTACH the update, and PASTE the whole updated string back.** That is the
+  expected move every time — not a fallback, and not something to route around.
+
+  Session 16 fetched a row, judged the escaping in the read-back (`\{`,
+  `\[0\]`) too risky to reproduce, and updated only `Status` instead, leaving
+  the appends undone. That was over-correction: the escaping is just Notion's
+  markdown escaping and survives a round trip fine. Decoding it once is cheaper
+  than deferring the work, and deferring loses the record — which is the thing
+  the field exists for. Verify after the write; do not skip the write.
+
 - **⚠️ `update_properties` REPLACES `Notes`, it does not append.** Tracker rows carry their
   whole history in that one field, session by session. **Always fetch the row and re-send the
   existing text with the new entry appended.** Session 9 destroyed the Session 4 and 6 history
