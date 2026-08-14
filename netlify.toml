@@ -20,7 +20,19 @@
   # deciding about; paths are relative to `base`, so `./` means naoshi-app/.
   # Exit 0 = skip. Deploys cost 15 credits apiece (noticed Aug 13 2026 after
   # ~10 pushes), so a docs/tracker-only push now costs zero.
-  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF ./"
+  #
+  # Session 16: `../netlify.toml` is now watched too. The rule used to name
+  # only `./`, which meant a change to THIS FILE could not trigger a build —
+  # so editing the deploy configuration would appear to deploy and would
+  # actually be skipped, with a green "build ignored" message. That is the
+  # exact shape of failure this project keeps meeting: a truthful log about the
+  # thing it did, silent about the thing it didn't.
+  #
+  # The checker's backend deliberately does NOT appear here. It lives on
+  # Supabase Edge Functions and ships with `supabase functions deploy`, so
+  # backend work costs zero Netlify credits and is not rationed by the
+  # one-push-per-session rule. See backend-host-decision-v1.md.
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF ./ ../netlify.toml"
 
 [build.environment]
   # Netlify picked Node 24 on its own, but pinning it means a future default
