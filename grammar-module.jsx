@@ -2293,6 +2293,89 @@ const CURRICULUM = [
       },
     ],
   },
+
+  {
+    cat: "Step 20 · Doing to & being done to",
+    level: "N4",
+    bank: [["野菜", "vegetables"], ["子ども", "child"], ["宿題", "homework"], ["歌", "song"], ["部屋", "room"], ["答える", "to answer"], ["がんばれ", "hang in there!"], ["漢字", "kanji"]],
+    points: [
+      {
+        id: "saseru", jp: "〜させる", en: "the causative — making and letting",
+        exp: {
+          what: "One form, two forces: 食べさせました can be MADE him eat or LET him eat — coercion and permission share the machinery, and context arbitrates.",
+          build: "う-verbs: あ-row + せる (行く→行かせる, 飲む→飲ませる). る-verbs: させる (食べさせる). する→させる, 来る→来させる. The person caused takes に when there's a を-object, を when there isn't.",
+          when: "Parenting, managing, granting — anywhere one will moves another.",
+          watch: "The politeness lifeline hiding inside: 〜させてください — \"please let me\" — is the causative's most useful everyday shape: 今日は早く帰らせてください.",
+        },
+        ex: [["母は弟に野菜を食べさせました。", "Mom made my brother eat his vegetables."], ["子どもを公園で遊ばせました。", "We let the kids play in the park."], ["すみません、今日は早く帰らせてください。", "Please let me leave early today — the causative asking a favor."]],
+      },
+      {
+        id: "saserareru", jp: "〜させられる", en: "made to do — and feeling it",
+        exp: {
+          what: "The causative-passive: someone made you, and the grammar carries the grudge. 野菜を食べさせられました — I was made to eat them, resentment included.",
+          build: "Two moves, always in order: causative first (食べさせる), then passive (食べさせられる). The maker takes に. Speech often contracts う-verbs: 飲まされる, 行かされる.",
+          when: "Complaints about obligation — school, work, childhood. The natural habitat is the sigh.",
+          watch: "This is the longest everyday conjugation in the language. Build it in two steps every time — trying to jump straight to させられる is where it breaks.",
+        },
+        ex: [["母に野菜を食べさせられました。", "Mom made me eat the vegetables — and I felt it."], ["母に部屋を掃除させられました。", "Got made to clean my room."], ["会議で歌を歌わせられました。", "They made me sing at the meeting. There are no winners."]],
+      },
+      {
+        id: "meirei", jp: "命令形・〜な", en: "the bare command — recognize, rarely produce",
+        exp: {
+          what: "The imperative and its mirror: 行け — go!; 行くな — don't you dare. Real Japanese, rare in polite speech, everywhere in signs, sports, and fiction.",
+          build: "う-verbs: え-row (行け, 飲め). る-verbs: ろ (食べろ). する→しろ, 来る→こい. The prohibitive is dictionary form + な: 入るな.",
+          when: "RECOGNITION is the job: signs (ここに入るな), cheering (がんばれ！), emergencies, and every action scene ever written.",
+          watch: "がんばれ！ is the one command everyone says — cheering suspends the rudeness entirely. Between adults otherwise, a bare imperative reads as aggression; your request form remains てください.",
+        },
+        ex: [["がんばれ！", "Go! You've got this! — the cheering imperative."], ["ここに入るな。", "KEEP OUT — the sign's な."], ["早くしろ！", "Hurry UP! — fiction and emergencies only."]],
+      },
+      {
+        id: "nasai", jp: "〜なさい", en: "the parent-and-teacher imperative",
+        exp: {
+          what: "Softer than the bare command, still an order: 早く寝なさい — go to bed. The register of parents, teachers, and worksheets.",
+          build: "Verb stem + なさい: 食べなさい, 起きなさい. Test papers speak it too: 答えなさい — answer the question.",
+          when: "Downward only — adult to child, teacher to student, exam to examinee.",
+          watch: "Never sideways or up: なさい at a colleague is parenting them, and it lands exactly that way. Adult-to-adult requests stay with てください and its softer cousins.",
+        },
+        ex: [["早く寝なさい。", "Go to bed — every parent, every night."], ["野菜も食べなさい。", "Eat your vegetables too."], ["よく読んで、答えなさい。", "Read carefully and answer — the exam's voice."]],
+      },
+      {
+        id: "sb-rareru", jp: "られる collision", en: "one shape, three readings", kind: "skill",
+        exp: {
+          what: "見られる is can-see (potential), is-seen (passive), or — in keigo, waiting in Stage 3 — an exalted person simply seeing. One shape, three machines; particles and context arbitrate.",
+          build: "Potential: the seeable thing takes が. Passive: a doer stands by with に. Honorific: the subject outranks you and nothing else is odd. る-verbs collide completely; う-verbs split cleanly (読める vs 読まれる) — which is exactly why speech invented ら抜き.",
+          when: "Every られる you meet from now on: run the three-way check before assuming.",
+          watch: "ら抜き — 見れる, 食べれる for the potential — is widespread, genuinely disambiguating, and still marked wrong in formal writing. Recognize both; write the full form.",
+        },
+        ex: [["ここから山が見られます。", "The mountain can be seen from here — potential, が."], ["先生に見られました。", "I was seen by the teacher — passive, に. Guilt sold separately."], ["見れる・食べれる", "ら抜き — speech's own fix for this collision. Recognize; don't write."]],
+      },
+      {
+        id: "cc-meirei", jp: "命令はどこにいる", en: "where commands actually live", kind: "culture",
+        exp: "Learn the imperative, then notice where it actually lives: almost nowhere you talk. Signs use it (入るな), sports arenas run on it (がんばれ！ — the one command everyone, everywhere, says warmly), emergencies permit it, and fiction is soaked in it — heroes and villains bark 命令形 at each other constantly, which is precisely why it can't be your model. Anime-Japanese is a real register; it just isn't the office's.\n\nBetween adults, actual instruction happens on the softness ladder you already own: てください, then てもらえますか, then ていただけますか as the stakes and status rise. A Japanese boss ordering someone around still usually ASKS. The imperative's true daily job in your life will be exactly two words: がんばれ shouted at someone else's effort, and がんばって said gently to a friend's.\n\nSo: recognize the bare commands everywhere they're written, enjoy them in fiction, produce them at sporting events — and let てください keep your actual requests.",
+        ex: [["がんばれ！", "The one imperative everyone says — cheering suspends everything."], ["ここに入るな。", "Signage barks; people don't."]],
+      },
+      {
+        id: "b-s20", jp: "作文 · 子どものとき", en: "childhood, in voices", kind: "build",
+        requires: ["saseru", "saserareru", "nasai", "takotogaaru"],
+        brief: "Childhood: one thing you were made to do (させられました), one thing you were allowed to do (させてくれました — Step 14's kindness meets the causative), one order you heard daily (quote it with なさい), and one thing you had never done back then (たことがありませんでした).",
+        exp: {
+          what: "The step's whole voice-system, pointed at the small tyrannies and freedoms of being a kid.",
+          build: "One 〜させられました, one 〜させてくれました, one quoted 〜なさい (「早く寝なさい」と…), one 〜たことがありませんでした. Past tense throughout — this is memoir.",
+          when: "Everyone has this material. The causative-passive was practically invented for it.",
+          watch: "Build させられる in two moves and check the maker's に. And keep the quoted なさい inside quotes — you're reporting the order, not issuing it.",
+        },
+        ex: [],
+      },
+    ],
+  },
+
+  {
+    cat: "Checkpoint 5",
+    level: "N4",
+    points: [
+      { id: "rc5", jp: "復習 · Steps 17–20", en: "checkpoint: plans, ability, time, voices", kind: "review", covers: ["you-vol", "youtoomou", "kotonisuru", "kotoninaru", "yotei", "youninaru", "younisuru", "sb-suru-naru", "kotogadekiru", "takotogaaru", "kotogaaru", "sugiru", "yasui-nikui", "teiru3", "aida", "madeni", "tokoro", "bakari", "naide", "sb-madeni", "saseru", "saserareru", "meirei", "nasai", "sb-rareru"], exp: "The second Stage 2 checkpoint — intentions and the する/なる axis, ability and experience, time's edges, and the voice system from making to being-made. Four steps about will: yours, time's, and other people's.", ex: [] },
+    ],
+  },
 ];
 
 const ALL_POINTS = CURRICULUM.flatMap((c) => c.points.map((p) => ({ ...p, cat: c.cat })));
@@ -2469,6 +2552,11 @@ const DEEP = {
   "bakari": {"seg": [["先月", "last month — a real calendar distance"], ["、", "a breath"], ["日本", "Japan"], ["に", "destination"], ["来たばかりです。", "THE POINT — plain past + ばかり: just arrived, by the clock of feeling", 1]], "hl": "始めたばかり", "note": "The learner's shield: I've only just started — so be patient with me.", "wr": [{"t": "ばかり is elastic where ところ is strict: a month can still be ばかり if it feels fresh. Claiming 先月来たところ, though, would be false — the instant is long gone.", "jp": null}], "drill": {"items": [{"q": "先月、日本に来た___です。", "en": "Only just arrived — by feel.", "a": ["ばかり"], "opts": ["ばかり", "ところ", "こと", "はず"], "why": "A month old but felt-fresh → ばかり. ところ would claim this instant."}, {"q": "日本語を___ばかりです。", "en": "I've only just started.", "a": ["始めた", "はじめた"], "opts": ["始めた", "始める", "始めて", "始めます"], "why": "Plain past + ばかり."}, {"q": "さっき食べた___です。", "en": "I literally just ate.", "a": ["ばかり"], "opts": ["ばかり", "ところ", "こと", "まで"], "why": "Recency as excuse → ばかり (ところ would also work here — さっき is fresh enough for both)."}, {"q": "今、帰ってきた___です。", "en": "THIS instant — strict.", "a": ["ところ"], "opts": ["ところ", "ばかり", "こと", "予定"], "why": "今 pins it to the instant — ところ's home ground."}, {"q": "ばかり measures recency by ___.", "a": ["how fresh it feels"], "opts": ["how fresh it feels", "the calendar only", "politeness level"], "why": "Subjective clock — the elasticity is the point."}]}},
   "naide": {"seg": [["朝ごはん", "breakfast"], ["を", "object marker"], ["食べないで", "THE POINT — ない + で: without doing — the missing accompaniment", 1], ["学校", "school"], ["へ", "destination marker"], ["行きました。", "\"went\" — the main act, minus its usual companion"]], "hl": "見ないで", "note": "The brave version: writing kanji without looking. ないで marks what DIDN'T come along.", "wr": [{"t": "Written Japanese swaps in 〜ずに: 食べずに. Same meaning, formal dress — recognize it now, produce it later.", "jp": null}], "drill": {"items": [{"q": "朝ごはんを___学校へ行きました。", "en": "Went without eating.", "a": ["食べないで"], "opts": ["食べないで", "食べなくて", "食べずで", "食べません"], "why": "Manner-without → ないで. なくて would give a reason instead."}, {"q": "何も___漢字を書きました。", "en": "Wrote without looking at anything.", "a": ["見ないで"], "opts": ["見ないで", "見なくて", "見ずで", "見ないと"], "why": "見ない + で — the skipped companion."}, {"q": "___勉強しました。", "en": "Studied without sleeping.", "a": ["寝ないで"], "opts": ["寝ないで", "寝なくて", "寝ずで", "寝ないので"], "why": "寝ない + で."}, {"q": "The formal written twin of ないで is ___.", "a": ["〜ずに"], "opts": ["〜ずに", "〜なくて", "〜ないと"], "why": "食べずに — same meaning, formal register."}, {"q": "Without-doing rides ___ (because-not rides なくて).", "a": ["ないで"], "opts": ["ないで", "なくて", "ずで"], "why": "ないで is manner — the skipped companion; なくて hands over a reason."}]}},
   "sb-madeni": {"drill": {"note": "Run the verb-test on every item: still happening at that time → まで; finished by it → までに.", "items": [{"q": "三時___会議があります。", "en": "Runs until three.", "a": ["まで"], "opts": ["まで", "までに", "間に", "から"], "why": "Continuing → まで."}, {"q": "三時___レポートを出します。", "en": "Lands by three.", "a": ["までに"], "opts": ["までに", "まで", "間", "ごろ"], "why": "Completion → までに."}, {"q": "九時___寝ます。", "en": "I'll be asleep BY nine.", "a": ["までに"], "opts": ["までに", "まで", "から", "の間"], "why": "Falling asleep completes → までに."}, {"q": "九時___勉強します。", "en": "Studying UNTIL nine.", "a": ["まで"], "opts": ["まで", "までに", "間に", "ごろに"], "why": "Studying continues → まで."}, {"q": "金曜日___お金を払ってください。", "en": "Payment due Friday.", "a": ["までに"], "opts": ["までに", "まで", "から", "とき"], "why": "One payment, deadline → までに."}, {"q": "The verb-test asks: ___", "a": ["does it continue, or complete?"], "opts": ["does it continue, or complete?", "is it polite enough?", "is the time exact?"], "why": "Continue → まで; complete → までに. Every time."}]}},
+  "saseru": {"seg": [["母", "Mom — the will behind the act"], ["は", "topic marker"], ["弟", "my brother — the one caused"], ["に", "the caused person takes に (a を-object follows)"], ["野菜", "vegetables"], ["を", "object marker"], ["食べさせました。", "THE POINT — the causative: made (or let) him eat", 1]], "hl": "遊ばせました", "note": "The letting side of the same form — permission and coercion share machinery; context arbitrates.", "wr": [{"t": "The everyday gold: 〜させてください — \"please let me.\" 帰らせてください asks a favor with the causative's own grammar.", "jp": "すみません、今日は早く帰らせてください。", "en": "Please let me leave early — the causative, hat in hand.", "hl": "帰らせてください"}], "drill": {"pool": true, "note": "Build the causative: あ-row + せる for う-verbs, させる for る-verbs.", "items": [{"q": "食べる → 弟に野菜を___ました。", "en": "Made him eat them.", "a": ["食べさせ", "たべさせ"], "why": "る-verb → させる."}, {"q": "行く → 子どもを学校へ___ました。", "en": "Sent (made go).", "a": ["行かせ", "いかせ"], "why": "く → か + せる."}, {"q": "飲む → 薬を___ました。", "en": "Made (them) take the medicine.", "a": ["飲ませ", "のませ"], "why": "む → ま + せる."}, {"q": "遊ぶ → 公園で___ました。", "en": "Let them play.", "a": ["遊ばせ", "あそばせ"], "why": "ぶ → ば + せる — same form, kinder force."}, {"q": "する → 宿題を___ました。", "en": "Made them do homework.", "a": ["させ"], "why": "する → させる."}, {"q": "帰る → すみません、早く___てください。", "en": "Please LET me go home early.", "a": ["帰らせ", "かえらせ"], "why": "帰らせて + ください — the causative favor-ask."}]}},
+  "saserareru": {"seg": [["母", "Mom — the maker"], ["に", "the maker takes に in the causative-passive"], ["野菜", "vegetables"], ["を", "object marker"], ["食べさせられました。", "THE POINT — causative then passive: made-to, felt keenly", 1]], "hl": "掃除させられました", "note": "する-verbs stack the same way: 掃除させる → 掃除させられる.", "wr": [{"t": "Two moves, strict order: causative first (食べさせる), passive second (させられる). Speech contracts う-verbs — 飲まされる, 行かされる — recognize the short forms, build the long ones.", "jp": null}], "drill": {"items": [{"q": "母に野菜を___られました。", "en": "Was made to eat them.", "a": ["食べさせ", "たべさせ"], "opts": ["食べさせ", "食べられ", "食べさせられ", "食べさし"], "why": "The causative goes first; られました closes it."}, {"q": "母に部屋を掃除___ました。", "en": "Got made to clean.", "a": ["させられ"], "opts": ["させられ", "されられ", "させ", "られ"], "why": "する → させる → させられる."}, {"q": "会議で歌を___。", "en": "They made me sing (full form, polite past).", "a": ["歌わせられました", "うたわせられました", "歌わされました", "うたわされました"], "why": "歌う → 歌わせる → 歌わせられる (speech: 歌わされる)."}, {"q": "The build order is ___.", "a": ["causative first, then passive"], "opts": ["causative first, then passive", "passive first, then causative", "either order"], "why": "食べさせる → 食べさせられる. Jumping straight to the end is where it breaks."}, {"q": "In 母に食べさせられた, the に marks ___.", "a": ["the maker"], "opts": ["the maker", "the destination", "the time"], "why": "Same に as the passive's doer — the one whose will won."}]}},
+  "meirei": {"seg": [["がんばれ！", "THE POINT — the bare imperative: え-row command. Cheering suspends the rudeness entirely", 1]], "hl": "入るな", "note": "The mirror: dictionary form + な — the sign's don't.", "wr": [{"t": "Production is rare; recognition is constant — signs, sports, fiction. Anime characters bark 命令形 at each other for dramatic reasons that do not apply to your office.", "jp": null}], "drill": {"items": [{"q": "行く → the bare command: ___！", "a": ["行け", "いけ"], "opts": ["行け", "行こう", "行って", "行きなさい"], "why": "え-row: 行け. (行こう proposes; 行け orders.)"}, {"q": "食べる → the bare command: ___！", "a": ["食べろ", "たべろ"], "opts": ["食べろ", "食べよう", "食べて", "食べれ"], "why": "る-verb → ろ."}, {"q": "ここに___な。", "en": "KEEP OUT — the sign.", "a": ["入る", "はいる"], "opts": ["入る", "入れ", "入って", "入り"], "why": "Prohibitive = dictionary form + な."}, {"q": "する → ___！", "en": "Do it! — fiction only, please.", "a": ["しろ"], "opts": ["しろ", "しよう", "して", "せよ"], "why": "する → しろ (せよ exists in writing — recognize, don't reach for it)."}, {"q": "The one imperative you'll actually say: ___", "a": ["がんばれ"], "opts": ["がんばれ", "早くしろ", "入るな"], "why": "Cheering is the imperative's safe habitat."}]}},
+  "nasai": {"seg": [["早く", "\"quickly / early\" — the adverb from 早い"], ["寝なさい。", "THE POINT — stem + なさい: the parent's imperative, downward only", 1]], "hl": "食べなさい", "note": "Every dinner table, every night — なさい is domestic weather.", "wr": [{"t": "Exams speak it too: 答えなさい. From a worksheet it's neutral instruction; from you to a colleague it's parenting them. Downward only.", "jp": null}], "drill": {"items": [{"q": "寝る → 早く___。", "en": "Go to bed — parent voice.", "a": ["寝なさい", "ねなさい"], "why": "Stem 寝 + なさい."}, {"q": "食べる → 野菜も___。", "en": "Eat your vegetables too.", "a": ["食べなさい", "たべなさい"], "why": "Stem + なさい."}, {"q": "答える → よく読んで、___。", "en": "The exam's voice.", "a": ["答えなさい", "こたえなさい"], "why": "答え + なさい — worksheet register."}, {"q": "なさい may travel ___.", "a": ["downward only"], "opts": ["downward only", "in any direction", "upward, politely"], "why": "Parent→child, teacher→student, exam→you. Never at a colleague."}, {"q": "To a colleague, the request form is ___.", "a": ["てください"], "opts": ["てください", "なさい", "命令形"], "why": "Adults ask adults — Step 5's machinery remains the daily driver."}]}},
+  "sb-rareru": {"drill": {"note": "One shape, three readings — potential, passive, honorific (that one waits in Stage 3). Particles and context arbitrate; run the check every time.", "items": [{"q": "ここから山が___ます。", "en": "The mountain CAN BE SEEN — potential.", "a": ["見られ", "みられ"], "opts": ["見られ", "見させ", "見せ", "見え"], "why": "Potential られる, thing marked が. (見える exists too — a later nuance.)"}, {"q": "先生に___ました。", "en": "I WAS SEEN — passive, guilt included.", "a": ["見られ", "みられ"], "opts": ["見られ", "見させ", "見せられ", "見え"], "why": "Same shape — the に-marked doer says passive."}, {"q": "見られる could be potential or passive. What arbitrates? ___", "a": ["particles and context"], "opts": ["particles and context", "politeness level", "word order alone"], "why": "が + thing → potential; に + doer → passive."}, {"q": "ら抜き (見れる, 食べれる) is ___.", "a": ["common speech, marked in formal writing"], "opts": ["common speech, marked in formal writing", "always wrong", "the formal standard"], "why": "Speech's own fix for the collision — recognize it, write the full form."}, {"q": "読む escapes the collision because ___.", "a": ["its potential (読める) and passive (読まれる) differ"], "opts": ["its potential (読める) and passive (読まれる) differ", "it has no passive", "it has no potential"], "why": "う-verbs split the two shapes; only る-verbs collide fully."}]}},
   // @@DEEP-END
 };
 const DRILL_DRAW = 5;
