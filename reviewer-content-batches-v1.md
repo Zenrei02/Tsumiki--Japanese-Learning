@@ -170,3 +170,23 @@ rules, the module's most culture-loaded territory.
 
 Not in this batch: the review-challenge UI copy (English chrome), and
 sb-ganotwo (still no drill — frozen on R6, deliberately).
+
+## Batch H — Stage 2 Step 14, giving & receiving (small; read all of it)
+
+Where: grammar-module.jsx — the "Step 14 · Giving, receiving & kindness"
+group (teageru, ageru2, itadaku, tehoshii, sb-kuremorau, cc-favor, b-s14)
+plus their DEEP walkthroughs and ~28 drill items. Authored Session 14,
+deep-from-day-one — first content produced under the new process.
+
+By risk, highest first:
+
+1. **cc-favor's cultural claims** — favor-accounting, お返し, the two-thanks
+   custom (この間はありがとうございました), お土産 framing, "refusing repayment
+   can be unkind." The most culture-loaded copy since cc-no; closest read.
+2. **Register judgments** — てあげる "sounds like presenting a bill" aimed at
+   the listener; さしあげる "rare and easily servile"; いただきます glossed as
+   the same verb as いただく.
+3. **The frame pedagogy** — ageru2/sb-kuremorau teach くれる vs もらう as
+   "who is the sentence about"; confirm no drill item admits both answers.
+4. **Drill distractors** — same check as Batch G: no distractor also correct
+   in context.

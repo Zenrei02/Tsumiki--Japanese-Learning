@@ -1,7 +1,7 @@
 {
- "generated": "2026-08-13",
+ "generated": "2026-08-14",
  "note": "Authoritative word set for the app. Input to the word-driven ordering pipeline. Regenerate with build-word-ledger.py.",
- "count": 309,
+ "count": 315,
  "words": [
   {
    "written": "学生",
@@ -3529,6 +3529,84 @@
     "KANJI_DICT"
    ],
    "jlpt": "N4"
+  },
+  {
+   "written": "手伝",
+   "readings": [
+    "てつだ"
+   ],
+   "meanings": [
+    "help"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "教",
+   "readings": [
+    "おし"
+   ],
+   "meanings": [
+    "teach; tell"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "お土産",
+   "readings": [
+    "おみやげ"
+   ],
+   "meanings": [
+    "souvenir"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
+  },
+  {
+   "written": "直",
+   "readings": [
+    "なお"
+   ],
+   "meanings": [
+    "fix; correct"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
+  },
+  {
+   "written": "京都",
+   "readings": [
+    "きょうと"
+   ],
+   "meanings": [
+    "Kyoto"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
+  },
+  {
+   "written": "動詞",
+   "readings": [
+    "どうし"
+   ],
+   "meanings": [
+    "verb"
+   ],
+   "sources": [
+    "KANJI_DICT"
+   ],
+   "jlpt": "N2"
   },
   {
    "written": "川",

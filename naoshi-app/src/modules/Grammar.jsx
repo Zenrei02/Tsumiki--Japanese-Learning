@@ -105,6 +105,10 @@ const KANJI_DICT = [
   // AI-authored display data, pending reviewer sign-off like the rest.
   ["一緒", "いっしょ", "together", "N5"], ["前", "まえ", "before; in front", "N5"],
   ["急", "いそ", "hurry", "N4"], ["下", "した", "under; below", "N5"],
+  // —— v6 additions: Step 14 (giving, receiving & kindness) ——
+  ["手伝", "てつだ", "help", "N4"], ["教", "おし", "teach; tell", "N5"],
+  ["お土産", "おみやげ", "souvenir", "N4"], ["直", "なお", "fix; correct", "N3"],
+  ["京都", "きょうと", "Kyoto", "N5"], ["動詞", "どうし", "verb", "N2"],
 ];
 const DICT_SORTED = [...KANJI_DICT].sort((a, b) => b[0].length - a[0].length);
 // Live learner state, shared with the kanji module (known-kanji-v1) and the
@@ -1738,6 +1742,81 @@ const CURRICULUM = [
       },
     ],
   },
+
+  {
+    cat: "Step 14 · Giving, receiving & kindness",
+    level: "N4",
+    bank: [["手伝う", "to help"], ["写真", "photo"], ["先生", "teacher"], ["妹", "younger sister"], ["弟", "younger brother"], ["お土産", "souvenir"], ["宿題", "homework"], ["母", "my mother"]],
+    points: [
+      {
+        id: "teageru", jp: "〜てあげる・〜てくれる・〜てもらう", en: "favors, seen from each end",
+        exp: {
+          what: "Step 8 taught the giving triangle for THINGS. Attach the same three verbs to a て-form and the triangle now moves ACTIONS: help given, help received, help arranged. English says \"for me\" or says nothing at all — Japanese builds the direction of the kindness into the verb itself.",
+          build: "て-form + あげる (I do it for someone), + くれる (someone does it for ME), + もらう (I receive the doing). 手伝ってあげる・手伝ってくれる・手伝ってもらう — one act of helping, three camera angles.",
+          when: "Constantly. Daily Japanese marks who benefited from almost every act; leaving the verb off (母は朝ごはんを作りました) is grammatical but oddly cold — it reports labor without acknowledging the kindness.",
+          watch: "てあげる said TO the person you're helping can sound like presenting a bill — \"I'll do this FOR you.\" Fine in the third person; offering help directly, reach for 手伝いましょうか (Step 6) instead.",
+        },
+        ex: [["友達が宿題を手伝ってくれました。", "My friend helped me with my homework — a kindness toward me."], ["私は妹に本を読んであげました。", "I read my little sister a book — my kindness outward."], ["田中さんに写真を撮ってもらいました。", "I had Tanaka take a photo — the favor, received."]],
+      },
+      {
+        id: "ageru2", jp: "あげる・くれる・もらう · 二回目", en: "the same event, told twice",
+        exp: {
+          what: "Step 8's triangle, second look — because one real event can be told from two corners. 田中さんが本をくれました and 田中さんに本をもらいました describe the SAME gift. What changes is the subject: who your sentence is about.",
+          build: "くれる: the GIVER is the subject, marked が — 田中さんが（私に）くれました. もらう: the RECEIVER is the subject — （私は）田中さんにもらいました, and the giver drops to に. Same event, two frames; the particles swap roles with the verb.",
+          when: "Choose by what the surrounding story is about. Talking about Tanaka's generosity → くれる keeps him on stage. Talking about your day and what came into it → もらう keeps you there.",
+          watch: "The classic wreck is mixing frames: 田中さんがもらいました reads as \"TANAKA received\" — the opposite event. Before anything else, check that verb and particles are telling the same story.",
+        },
+        ex: [["田中さんが本をくれました。", "Tanaka gave me a book — told from his side."], ["田中さんに本をもらいました。", "I got a book from Tanaka — the same gift, told from mine."], ["誰にもらいましたか。— 母にもらいました。", "Who was it from? — From my mom."]],
+      },
+      {
+        id: "itadaku", jp: "いただく・くださる・さしあげる", en: "the giving verbs, dressed up",
+        exp: {
+          what: "The triangle has a formal wardrobe. もらう has いただく, くれる has くださる, あげる has さしあげる — the same three directions, worn when the other party stands above you: teachers, bosses, customers, strangers being kind.",
+          build: "Drop-in replacements, て-forms and all: 先生に教えていただきました, 先生が教えてくださいました. The directions and particles are exactly the plain triangle's — only the altitude changed.",
+          when: "Any favor crossing upward. You already say the most famous one: いただきます before meals is this verb — you have been receiving the meal politely all along.",
+          watch: "さしあげる is rare in speech and easily servile — offers of help upward usually hide in other forms (お手伝いしましょうか). This is your first real taste of keigo; the full system opens Stage 3, spaced out, and these three verbs are its seed.",
+        },
+        ex: [["先生に漢字を教えていただきました。", "The teacher kindly taught me kanji — received, upward."], ["先生が本をくださいました。", "The teacher kindly gave me a book."], ["「いただきます」は、この動詞です。", "The before-meals いただきます is this verb — receiving, politely."]],
+      },
+      {
+        id: "tehoshii", jp: "〜てほしい", en: "wanting someone else to do it",
+        exp: {
+          what: "ほしい (Step 6) wanted things. Attach it to a て-form and you want an ACTION — from someone else. 来てほしい: I want you to come.",
+          build: "[person] に + て-form + ほしい: 友達に来てほしいです. The wanter is you; the hoped-for doer takes に. The negative wish is 〜ないでほしい: 吸わないでほしい — a please-don't, wished rather than requested.",
+          when: "Softer than a request — てください asks; てほしい confesses. Real speech floats it with Step 3's ん: 手伝ってほしいんですが…, the classic favor opener that trails off before even asking.",
+          watch: "It's still YOUR want — same first-person gravity as たい and ほしい. Claiming to know what someone else wants done needs the other-minds machinery at the end of this stage.",
+        },
+        ex: [["友達に来てほしいです。", "I want my friend to come."], ["ちょっと手伝ってほしいんですが…。", "I could use a little help… — the favor opener."], ["ここでたばこを吸わないでほしいです。", "I'd rather you didn't smoke here."]],
+      },
+      {
+        id: "sb-kuremorau", jp: "くれる vs もらう", en: "one kindness, two sentences", kind: "skill",
+        exp: {
+          what: "Learners freeze mid-sentence deciding between these two — because they're deciding in the wrong place. The skill is picking the FRAME first: who is this sentence about? After that the verb is forced and no decision remains.",
+          build: "About the giver → くれる, giver が. About you, the receiver → もらう, giver に. Run the check before you speak, not during.",
+          when: "Every time a favor enters a story — and especially in answers, where the question sets the frame: 誰が手伝ってくれましたか keeps the giver's frame; your own day's story invites もらう.",
+          watch: "The に in a もらう sentence is the GIVER, not a destination — 友達にもらいました is from the friend. English \"from\" tempts から, which also works with people; に is simply the more common choice.",
+        },
+        ex: [["妹が写真を撮ってくれました。", "About my sister's kindness — her frame, が."], ["先生に直してもらいました。", "About my problem getting fixed — my frame, giver に."]],
+      },
+      {
+        id: "cc-favor", jp: "お願いの重さ", en: "the weight of favors", kind: "culture",
+        exp: "Favors weigh more here — not because people are less kind, but because kindness is carefully accounted. A small お願い opens a small account, and the language keeps the books: てくれる acknowledges the credit, てもらう records the receipt, お返し — the return gift — settles the balance. This is why the favor-opener sounds so indirect (手伝ってほしいんですが… trails off before even asking), and why refusing to let someone repay you can, oddly, be unkind: it leaves their account open.\n\nNone of this is cynicism. The accounting is how care circulates. The point of お土産 was never the cookies — it's the message \"you were with me on my trip.\" A borrowed umbrella returns with a small something; a favor received gets mentioned the NEXT time you meet (この間はありがとうございました — thanks for the other day), because a kindness is worth two thanks.\n\nOne habit to start now: thank people with the verb. 手伝ってくれてありがとう lands warmer than a bare ありがとう, because it names the kindness while thanking it.",
+        ex: [["手伝ってくれてありがとう。", "Thanks for helping me — the kindness, named."], ["これ、京都のお土産です。", "A souvenir from Kyoto — the real message: you came along."]],
+      },
+      {
+        id: "b-s14", jp: "作文 · 親切", en: "kindnesses, in both directions", kind: "build",
+        requires: ["teageru", "ageru2", "itadaku", "tehoshii"],
+        brief: "Write about kindness in your week: one favor someone did for you, one you did for someone, and one thing you wish someone would do. Keep the directions honest — every favor carries its verb.",
+        exp: {
+          what: "The step's whole triangle, pointed at your own week.",
+          build: "One てくれました (or てくださいました if it came from above), one てあげました, one てほしいです. The particles carry each frame: giver が with くれる, giver に with もらう・いただく.",
+          when: "This is diary Japanese — exactly the register these verbs live in.",
+          watch: "Check each sentence twice: verb direction first, then particles. A flipped frame (田中さんがもらいました) is the classic wreck — and keep the politeness level steady across all three sentences.",
+        },
+        ex: [],
+      },
+    ],
+  },
 ];
 
 const ALL_POINTS = CURRICULUM.flatMap((c) => c.points.map((p) => ({ ...p, cat: c.cat })));
@@ -1876,13 +1955,18 @@ const DEEP = {
   "sb-omou": {"drill": {"note": "Plain clause + と思います — と quotes your thought. The clause inside stays plain no matter how polite the outside is.", "items": [{"q": "この店は高い___思います。", "en": "I think this place is expensive.", "a": ["と"], "opts": ["と", "を", "が", "か"], "why": "と quotes the thought."}, {"q": "彼は学生___と思います。", "en": "I think he's a student.", "a": ["だ"], "opts": ["だ", "です", "の", "な"], "why": "Nouns need だ before と: 学生だと思います, never 学生ですと."}, {"q": "明日は___と思います。", "en": "I think he WON'T come.", "a": ["来ない"], "opts": ["来ない", "来ません", "来ないです", "来る"], "why": "The negative lives inside the quote, in plain form: 来ないと思います."}, {"q": "おいしい → この料理は___と思います。", "en": "I think it's delicious — type it.", "a": ["おいしい"], "why": "い-adjectives go straight into と, plain."}, {"q": "静か → この町は___と思います。", "en": "I think this town is quiet.", "a": ["静かだ", "しずかだ"], "opts": ["静かだ", "静か", "静かです", "静かな"], "why": "な-adjectives take だ before と, like nouns."}]}},
   "passive": {"seg": [["私", "I — the one it happened to"], ["は", "topic marker"], ["先生", "the teacher — the doer"], ["に", "the doer takes に in a passive"], ["名前", "name"], ["を", "object marker"], ["聞かれました。", "THE POINT — the passive: done-to-me; 聞く → 聞かれる", 1]], "hl": "使われています", "note": "Passives describe things too — the shop is used by many people, as an ongoing state.", "wr": [{"t": "雨に降られました — the \"suffering passive\": it rained ON me. Japanese lets events happen TO you grammatically; English has to paraphrase.", "jp": "雨に降られました。", "en": "I got rained on — the classic suffering passive.", "hl": "降られました"}], "drill": {"items": [{"q": "私は先生___名前を聞かれました。", "en": "I was asked my name by the teacher.", "a": ["に"], "opts": ["に", "が", "を", "で"], "why": "The doer in a passive takes に."}, {"q": "聞く → 名前を___。", "en": "\"was asked\" — passive, polite past.", "a": ["聞かれました", "きかれました"], "why": "聞く → 聞かれる → 聞かれました."}, {"q": "使う → この店は多くの人に___います。", "en": "This shop is used by many people.", "a": ["使われて", "つかわれて"], "why": "使われる in its て-form + います — a standing state."}, {"q": "雨___降られました。", "en": "I got rained on.", "a": ["に"], "opts": ["に", "が", "を", "は"], "why": "Even the rain, as doer, takes に."}, {"q": "話す → the passive is ___.", "a": ["話される"], "opts": ["話される", "話せる", "話しられる"], "why": "あ-row + れる. 話せる is the POTENTIAL — the lookalike that isn't."}]}},
   "tara": {"seg": [["時間", "time"], ["が", "subject of ある"], ["あったら、", "THE POINT — た-form + ら: \"if / when it happens\" — Stage 1's everyday if", 1], ["行きます。", "\"I'll go\""]], "hl": "と", "note": "The other Stage 1 if: 〜と, for machine-like certainty — press it and it opens, every time, no exceptions.", "wr": [{"t": "Japanese has four ifs — たら・と・ば・なら. Stage 1 teaches たら and と; ば and なら arrive in Stage 2. An honest deferral, not an omission.", "jp": "日本に着いたら、電話してください。", "en": "When you arrive, call me — たら covers when-cases too.", "hl": "着いたら"}], "drill": {"items": [{"q": "時間が___、行きます。", "en": "If I have time, I'll go. (ある)", "a": ["あったら"], "opts": ["あったら", "あるたら", "あれたら", "あります"], "why": "た-form + ら: あった → あったら."}, {"q": "このボタンを押す___、ドアが開きます。", "en": "Press it and it opens — every time.", "a": ["と"], "opts": ["と", "から", "まで", "か"], "why": "Machine-like certainty → と."}, {"q": "日本に___、電話してください。", "en": "When you arrive, call me. (着く)", "a": ["着いたら"], "opts": ["着いたら", "着くたら", "着けたら", "着くと"], "why": "着いた + ら. 〜と can't carry a request — that's the tell."}, {"q": "降る → 雨が___、家にいます。", "en": "If it rains, I'm staying in — type it.", "a": ["降ったら", "ふったら"], "why": "降った + ら."}, {"q": "〜と cannot end with ___.", "a": ["a request or invitation"], "opts": ["a request or invitation", "a present-tense fact", "a machine behavior"], "why": "と states automatic results; requests and invitations need たら."}]}},
+  "teageru": {"seg": [["友達", "my friend — the giver of the favor"], ["が", "the giver takes が with くれる"], ["宿題", "homework"], ["を", "object of the helping"], ["手伝ってくれました。", "THE POINT — て-form + くれました: the act flowed toward me, as a kindness", 1]], "hl": "あげました", "note": "Outward now: my act, my kindness — あげる. The receiver takes に.", "wr": [{"t": "Cold report versus kindness: 母は朝ごはんを作りました states labor; adding くれる thanks it. Native ears notice the くれる that isn't there.", "jp": "母が朝ごはんを作ってくれました。", "en": "Mom made me breakfast — the くれる carries the gratitude.", "hl": "作ってくれました"}], "drill": {"items": [{"q": "友達が宿題を手伝って___。", "en": "My friend helped me — kindness toward me.", "a": ["くれました"], "opts": ["くれました", "あげました", "もらいました"], "why": "Toward me, giver as subject → くれる."}, {"q": "私は妹に本を読んで___。", "en": "I read to my little sister — my kindness outward.", "a": ["あげました"], "opts": ["あげました", "くれました", "もらいました"], "why": "Outward from me → あげる."}, {"q": "田中さんに写真を撮って___。", "en": "I had Tanaka take the photo.", "a": ["もらいました"], "opts": ["もらいました", "くれました", "あげました"], "why": "I received the doing → もらう, doer に."}, {"q": "母が朝ごはんを作って___。", "en": "Mom kindly made me breakfast.", "a": ["くれました"], "opts": ["くれました", "あげました", "もらいました"], "why": "Her act, toward me → くれる."}, {"q": "先生に漢字を教えて___。", "en": "I had the teacher teach me kanji.", "a": ["もらいました"], "opts": ["もらいました", "くれました", "あげました"], "why": "Received the teaching → もらう. (いただきました, two lessons on, is its formal twin.)"}, {"q": "私は弟にお茶を買って___。", "en": "I bought my little brother some tea.", "a": ["あげました"], "opts": ["あげました", "くれました", "もらいました"], "why": "My kindness, outward → あげる."}]}},
+  "ageru2": {"seg": [["田中さん", "Tanaka — the giver, and the subject of this telling"], ["が", "くれる puts the giver on stage with が"], ["本", "a book"], ["を", "object marker"], ["くれました。", "THE POINT — the frame: くれる tells the gift from the giver's side; もらう could tell the same gift from mine", 1]], "hl": "もらいました", "note": "The identical event — the subject switched to me, and 田中さん dropped to に.", "wr": [{"t": "Frame-mixing is the wreck: 田中さんがもらいました says TANAKA received something. Verb and particles must tell the same story, always.", "jp": null}], "drill": {"items": [{"q": "田中さん___本をくれました。", "en": "Tanaka gave me a book — his frame.", "a": ["が"], "opts": ["が", "に", "を", "は"], "why": "くれる: the giver is the subject → が."}, {"q": "田中さん___本をもらいました。", "en": "I got a book from Tanaka — my frame.", "a": ["に"], "opts": ["に", "が", "を", "で"], "why": "もらう: the giver drops to に."}, {"q": "You've been talking about your kind friend all paragraph. ___", "a": ["友達がくれました"], "opts": ["友達がくれました", "友達にもらいました", "友達をくれました"], "why": "Keep the friend on stage → くれる keeps the giver as subject."}, {"q": "誰___もらいましたか。", "en": "Who was it from?", "a": ["に"], "opts": ["に", "が", "を", "は"], "why": "Asking after もらう's giver → 誰に."}, {"q": "田中さんがもらいました means ___.", "a": ["Tanaka received it"], "opts": ["Tanaka received it", "Tanaka gave it to me", "I received it from Tanaka"], "why": "Receiver-subject frame. If you meant his gift to you: 田中さんがくれました."}]}},
+  "itadaku": {"seg": [["先生", "the teacher — above me on the politeness axis"], ["に", "the giver of the favor, に as with もらう"], ["漢字", "kanji"], ["を", "object marker"], ["教えて", "\"teach\" — て-form, attached exactly as in the plain triangle"], ["いただきました。", "THE POINT — もらう in formal dress: received, upward, gratefully", 1]], "hl": "くださいました", "note": "くれる's formal twin — the giver stays on stage as subject; the kindness bows.", "wr": [{"t": "The map, whole: もらう→いただく, くれる→くださる, あげる→さしあげる. Directions and particles unchanged — only the altitude of the other party moved.", "jp": null}], "drill": {"items": [{"q": "先生に教えて___。", "en": "Received the favor — from a teacher, so formal.", "a": ["いただきました"], "opts": ["いただきました", "くださいました", "さしあげました"], "why": "Receiving upward → いただく."}, {"q": "先生が本を___。", "en": "The teacher kindly gave me one — teacher as subject.", "a": ["くださいました"], "opts": ["くださいました", "いただきました", "さしあげました"], "why": "Giver-as-subject, upward → くださる."}, {"q": "もらう's formal twin is ___.", "a": ["いただく"], "opts": ["いただく", "くださる", "さしあげる"], "why": "Receive, politely → いただく."}, {"q": "くれる's formal twin is ___.", "a": ["くださる"], "opts": ["くださる", "いただく", "さしあげる"], "why": "Give-to-me, politely → くださる."}, {"q": "食事の前の「___」。", "en": "Before meals — the polite receiving you already say.", "a": ["いただきます"], "opts": ["いただきます", "くださいます", "さしあげます"], "why": "You receive the meal → いただきます. The verb was keigo all along."}]}},
+  "tehoshii": {"seg": [["友達", "my friend — the hoped-for doer"], ["に", "the doer takes に"], ["来てほしいです。", "THE POINT — て-form + ほしい: wanting the ACT, from them", 1]], "hl": "手伝ってほしい", "note": "The んですが… trailing setup — Step 3's ん and the soft trailing-off, working together on one small favor.", "wr": [{"t": "Three wants, three machines: 水がほしい (a thing), 飲みたい (my own act), 飲んでほしい (someone else's act). English covers all three with \"want\" — Japanese never does.", "jp": null}], "drill": {"items": [{"q": "友達に来て___です。", "en": "I want my friend to come.", "a": ["ほしい"], "opts": ["ほしい", "たい", "ください"], "why": "Their act, wished for → てほしい."}, {"q": "ちょっと手伝って___んですが…。", "en": "The classic favor opener.", "a": ["ほしい"], "opts": ["ほしい", "たい", "もらう"], "why": "てほしい + ん + trailing が — the full soft ask."}, {"q": "水が___です。", "en": "I want water — the thing itself.", "a": ["ほしい"], "opts": ["ほしい", "飲みたい", "飲んでほしい"], "why": "A thing wanted → plain ほしい (Step 6)."}, {"q": "すしが___です。", "en": "I want to eat it MYSELF.", "a": ["食べたい"], "opts": ["食べたい", "ほしい", "食べてほしい"], "why": "My own act → たい."}, {"q": "母に作って___です。", "en": "I want Mom to make it.", "a": ["ほしい"], "opts": ["ほしい", "たい", "ください"], "why": "Her act, my wish → てほしい, doer に."}, {"q": "ここでたばこを___でほしいです。", "en": "I'd rather you NOT smoke here.", "a": ["吸わない"], "opts": ["吸わない", "吸って", "吸う"], "why": "The negative wish rides the ない form: 吸わないでほしい."}]}},
+  "sb-kuremorau": {"drill": {"note": "Pick the frame FIRST — who is this sentence about? — and the verb is forced. The freeze happens when you decide mid-sentence.", "items": [{"q": "友達が手伝って___。", "en": "About my friend's kindness.", "a": ["くれました"], "opts": ["くれました", "もらいました", "あげました"], "why": "Giver's frame, giver が → くれる."}, {"q": "友達に手伝って___。", "en": "About my day — I got help.", "a": ["もらいました"], "opts": ["もらいました", "くれました", "あげました"], "why": "My frame, giver に → もらう."}, {"q": "妹が写真を撮って___。", "en": "My sister kindly took it.", "a": ["くれました"], "opts": ["くれました", "もらいました", "あげました"], "why": "Her kindness on stage → くれる."}, {"q": "先生に直して___。", "en": "I had the teacher fix it.", "a": ["もらいました"], "opts": ["もらいました", "くれました", "あげました"], "why": "Receipt recorded from my side → もらう."}, {"q": "友達___もらいました。", "en": "Mark the giver.", "a": ["に"], "opts": ["に", "が", "を"], "why": "もらう's giver takes に (から also works); が would flip the verb to くれる."}, {"q": "The question to ask first: ___", "a": ["who is this sentence about?"], "opts": ["who is this sentence about?", "which verb sounds politer?", "which particle comes last?"], "why": "Frame first. Then verb and particles fall into place on their own."}]}},
   // @@DEEP-END
 };
 const DRILL_DRAW = 5;
 
 const LEVELS = [
   { id: "S1", title: "1", subtitle: "Foundations", jlpt: "≈ JLPT N5", markers: "en", tagline: "First sentences to full daily basics — grammar, skill builders, culture stops, and checkpoints along the way.", groups: CURRICULUM.filter((c) => !c.level) },
-  { id: "S2", title: "2", subtitle: "Everyday fluency", jlpt: "≈ JLPT N4", markers: "kana", tagline: "Opens with the て-form's second wind — aspect, preparation, and the casual forms speech actually uses. Full curriculum coming after Stage 1 validation.", groups: CURRICULUM.filter((c) => c.level === "N4") },
+  { id: "S2", title: "2", subtitle: "Everyday fluency", jlpt: "≈ JLPT N4", markers: "kana", tagline: "The て-form's second wind, then the language of kindness — favors given, received, and wished for. Growing step by step.", groups: CURRICULUM.filter((c) => c.level === "N4") },
   { id: "S3", title: "3", subtitle: "Independence", jlpt: "≈ JLPT N3", markers: "kanji", locked: true },
   { id: "S4", title: "4", subtitle: "Nuance", jlpt: "≈ JLPT N2", markers: "kanji", locked: true },
   { id: "S5", title: "5", subtitle: "Mastery", jlpt: "≈ JLPT N1", markers: "kanji", locked: true },
