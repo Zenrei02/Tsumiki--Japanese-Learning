@@ -37,14 +37,18 @@ def main():
         headers = [c.value for c in ws[1]]
         if not any(isinstance(h, str) and 'キー確認' in h for h in headers):
             continue
-        name_col = next((i for i, h in enumerate(headers)
-                         if isinstance(h, str) and ('お名前' in h or 'name' in h.lower())), None)
+        name_cols = [i for i, h in enumerate(headers)
+                     if isinstance(h, str) and ('お名前' in h or 'name' in h.lower())]
         # Rebuilding a form in place (patch-b7-b8-forms.gs) leaves the old response
-        # columns behind, so an Eval ID can appear twice in one header row. Report
-        # it: the reading rule below is safe, but the sheet still wants tidying.
-        qcols = [h for h in headers
-                 if re.match(r'^E\d{2} ・ (キー確認|修正案|コメント)$', str(h))]
-        dupes = sorted({h for h in qcols if qcols.count(h) > 1})
+        # columns behind, so an Eval ID can appear twice in one header row. In the
+        # web view the duplicates share a name; the .xlsx EXPORT renames them by
+        # appending " 2" (e.g. 'E01 ・ キー確認 2') — so the match below strips an
+        # optional trailing number. Found Aug 14 2026: the strict regex silently
+        # dropped E01/E02, whose real answers live only in the renamed columns.
+        Q_RE = r'^(E\d{2}) ・ (キー確認|修正案|コメント)(?: \d+)?$'
+        qcols = [re.match(Q_RE, str(h)).group(1, 2) for h in headers
+                 if re.match(Q_RE, str(h))]
+        dupes = sorted({' ・ '.join(h) for h in qcols if qcols.count(h) > 1})
         if dupes:
             print(f'  NOTE {ws.title}: {len(dupes)} duplicated question column(s) — '
                   f'{dupes[0]} …. Reading the first non-empty of each; '
@@ -53,10 +57,11 @@ def main():
             if not row[0]:
                 continue
             ts = row[0]
-            name = row[name_col] if name_col is not None else ''
+            # A rebuilt form's stale name column is empty; take the first non-empty.
+            name = next((row[i] for i in name_cols if row[i] not in (None, '')), '')
             per_eid = {}
             for i, h in enumerate(headers):
-                m = re.match(r'^(E\d{2}) ・ (キー確認|修正案|コメント)$', str(h))
+                m = re.match(Q_RE, str(h))
                 if not m:
                     continue
                 eid, field, val = m.group(1), m.group(2), row[i]
@@ -78,7 +83,11 @@ def main():
 
     wb = openpyxl.load_workbook(WORKBOOK)
     ws = wb['Eval Set']
-    id_row = {ws.cell(row=r, column=1).value: r for r in range(6, 46)}
+    # Scan the whole ID column — a fixed range (6..45, the original n=40) silently
+    # skipped E41-E50 when the set grew to 50 on Aug 12 2026.
+    id_row = {ws.cell(row=r, column=1).value: r
+              for r in range(1, ws.max_row + 1)
+              if re.match(r'^E\d{2}$', str(ws.cell(row=r, column=1).value or ''))}
     written, conflicts = 0, 0
     for eid, resp in sorted(answers.items()):
         if eid not in id_row:
