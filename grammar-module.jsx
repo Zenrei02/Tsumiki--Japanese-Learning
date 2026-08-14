@@ -133,6 +133,7 @@ const KANJI_DICT = [
   ["答", "こた", "answer", "N4"], ["掃除", "そうじ", "cleaning", "N4"], ["山", "やま", "mountain", "N5"],
   ["今度", "こんど", "next time", "N5"], ["壊", "こわ", "break", "N3"], ["試合", "しあい", "match; game", "N3"],
   ["言葉", "ことば", "word; language", "N4"], ["質問", "しつもん", "question", "N3"],
+  ["飼", "か", "keep (a pet)", "N3"],
 ];
 const DICT_SORTED = [...KANJI_DICT].sort((a, b) => b[0].length - a[0].length);
 // Live learner state, shared with the kanji module (known-kanji-v1) and the
@@ -2519,6 +2520,69 @@ const CURRICULUM = [
       },
     ],
   },
+
+  {
+    cat: "Step 23 · Other minds",
+    level: "N4",
+    bank: [["公園", "park"], ["犬", "dog"], ["かばん", "bag"], ["野菜", "vegetables"], ["妹", "younger sister"], ["弟", "younger brother"], ["友達", "friend"], ["何でも", "anything"]],
+    points: [
+      {
+        id: "garu", jp: "〜がる・〜たがる", en: "showing signs of wanting",
+        exp: {
+          what: "The machinery tai promised back in Step 6: you cannot FEEL someone else's wanting, so Japanese marks what you can SEE — the signs. 弟は行きたがっています: he's showing every sign of wanting to go.",
+          build: "Drop the い from たい (or from a feeling-adjective) and add がる: 行きたい → 行きたがる, usually worn as ている: 行きたがっています. The がる verb takes を where たい leaned が.",
+          when: "Reporting anyone else's wants and feelings — the honest, native way.",
+          watch: "私は行きたい／弟は行きたがっている — the line English never draws. たい about a third person claims telepathy; がる claims observation, which is all you actually have.",
+        },
+        ex: [["弟は公園へ行きたがっています。", "My brother's dying to go to the park — visibly."], ["子どもは野菜を食べたがりません。", "The kid shows no signs of wanting those vegetables."], ["私は公園へ行きたいです。", "ME, I want to go — first person keeps たい."]],
+      },
+      {
+        id: "hoshigaru", jp: "ほしがる", en: "the noun-want, other-minds edition",
+        exp: {
+          what: "Step 6's ほしい, run through the same machine: 私はほしい, but 妹はほしがっている — she's showing signs of wanting it.",
+          build: "ほしい → ほしがる, usually ほしがっています. And the particle swaps: が with ほしい becomes を with ほしがる — 新しいかばんをほしがっています.",
+          when: "Gifts, kids in shops, anyone whose wanting you can only witness.",
+          watch: "The particle swap IS the grammar: が marks the state's target, を marks the observed behavior's object. If you catch yourself writing 妹はかばんがほしいです, the telepathy alarm should ring.",
+        },
+        ex: [["妹は新しいかばんをほしがっています。", "My sister's got her eye on a new bag — visibly."], ["子どもは何でもほしがります。", "Kids want everything — as behavior, observable daily."], ["私はかばんがほしいです。", "MY want keeps ほしい and が — first person, direct line."]],
+      },
+      {
+        id: "sb-minds", jp: "私は行きたい、彼は行きたがっている", en: "the my-mind/your-mind line", kind: "skill",
+        exp: {
+          what: "One line runs through the whole language: inner states are first-person territory. Everyone else's mind reaches you as signs (がる), appearances (そう・よう — Step 15 was building this all along), or words (と言っています). Claiming direct access to another mind is the L1 error this drill hunts.",
+          build: "Mine → たい・ほしい, stated flat. Theirs, visible → たがる・ほしがる. Theirs, read from looks → 行きたそうです・ほしいようです. Theirs, reported → 行きたいと言っています.",
+          when: "Every sentence about what anyone else feels or wants — which is half of all gossip and most of all kindness.",
+          watch: "Questions are the exception that proves the rule: 行きたいですか asks the person directly, so たい is fine — you're requesting the first-person report, not faking it.",
+        },
+        ex: [["私は行きたいです。", "Mine — direct."], ["弟は行きたがっています。", "His — as signs."], ["田中さんは行きたいと言っています。", "Tanaka's — as reported words."]],
+      },
+      {
+        id: "cc-honne", jp: "本音と建前", en: "the two truths", kind: "culture",
+        exp: "本音 is what's felt; 建前 is what's presented. Named plainly like that, it can sound like a culture of concealment — it isn't. 建前 is the social surface that keeps shared rooms comfortable: the ちょっと… refusal you learned in Step 6's culture stop, the deflected compliment, the また今度、ぜひ that both parties understand completely. Everyone knows both layers exist. Nobody is fooled, and that's the point — it's not deception if it's a shared code.\n\nNotice what your grammar has been telling you all stage: other minds arrive as signs (がる), appearances (よう・そう), hearsay (らしい), or quotes (と言っています) — never directly. 本音と建前 is the same epistemology, grown into manners: the inner truth is the other person's to keep, and the surface is real information generously given. Read the surface well and you rarely need to demand what's under it.\n\nTwo working rules. Don't hunt 本音 aggressively — pressing \"but what do you REALLY think?\" forces a choice between rudeness and a lie, and you'll usually get the lie. And when you're given a warm surface — また今度、ぜひ — take the warmth as real (it is) and the schedule as unwritten (it also is).",
+        ex: [["ちょっと…。", "The soft no — 建前 doing kind work. You met it in Step 6; now you know its family name."], ["また今度、ぜひ。", "\"Next time, definitely\" — the warmth is real; the date is not."]],
+      },
+      {
+        id: "b-s23", jp: "作文 · ともだち", en: "a portrait, honestly marked", kind: "build",
+        requires: ["garu", "hoshigaru", "sb-minds", "youda"],
+        brief: "A portrait of someone you know: what they seem to feel (ようです・そうです), what they're showing signs of wanting (たがっています・ほしがっています), something they've said (と言っています), and one direct line about your own feelings toward them (好き, たい — first person owns them).",
+        exp: {
+          what: "The whole evidence system, pointed at one person you care about — Stage 2's closing argument.",
+          build: "One 〜ようです or 〜そうです, one 〜たがっています／ほしがっています, one 〜と言っています, one first-person feeling stated flat. Four sources of knowing, correctly claimed.",
+          when: "This is what fluent kindness sounds like: precise about what you can know, warm about what you feel.",
+          watch: "The one hard rule: no bare たい・ほしい about them, ever — every claim about their inside marked as sign, seeming, or quote. Your own line is the only unmarked one, and that contrast is the portrait's spine.",
+        },
+        ex: [],
+      },
+    ],
+  },
+
+  {
+    cat: "Checkpoint 6 · Stage review",
+    level: "N4",
+    points: [
+      { id: "rc6", jp: "復習 · Stage 2", en: "checkpoint: the full stage", kind: "review", covers: ["temiru", "teikutekuru", "teageru", "ageru2", "itadaku", "tehoshii", "sb-kuremorau", "kamo", "hazu", "youda", "rashii", "souda-mite", "souda-denbun", "sb-sou", "ba", "nara", "sb-if4", "youtoomou", "kotonisuru", "kotoninaru", "youninaru", "younisuru", "sb-suru-naru", "kotogadekiru", "takotogaaru", "sugiru", "teiru3", "aida", "madeni", "tokoro", "bakari", "naide", "sb-madeni", "saseru", "saserareru", "sb-rareru", "shi", "noni", "temo", "sb-noni", "kadouka", "ka-embed", "koto-no", "toiuimi", "sb-kotono", "garu", "hoshigaru", "sb-minds"], exp: "The full Stage 2 review — aspect and kindness, evidence and ifs, will and time, voices, temperatures, boxes, and other minds. One stage, one long argument: what you do, what you know, and what you can honestly claim about anyone else. Write like you mean it.", ex: [] },
+    ],
+  },
 ];
 
 const ALL_POINTS = CURRICULUM.flatMap((c) => c.points.map((p) => ({ ...p, cat: c.cat })));
@@ -2710,6 +2774,9 @@ const DEEP = {
   "koto-no": {"seg": [["弟", "my brother"], ["が", "clause-internal subject — が, as Step 11 taught"], ["歌う", "\"sing\" — plain form"], ["のを", "THE POINT — の nominalizes the live, witnessed act; を hands it to the verb", 1], ["聞きました。", "\"heard\" — a sensing verb; の's home ground"]], "hl": "ことができます", "note": "The fixed house: ability always takes こと — no taste involved.", "wr": [{"t": "Where both fit (読むのが好き／読むことが好き), の runs warm and spoken, こと cool and written. Where the houses are fixed, there is no choice at all.", "jp": null}], "drill": {"items": [{"q": "弟が歌う___を聞きました。", "en": "Heard him singing — live.", "a": ["の"], "opts": ["の", "こと", "もの", "ところ"], "why": "Sensing verbs demand の."}, {"q": "日本語を話す___ができます。", "en": "Ability — the fixed house.", "a": ["こと"], "opts": ["こと", "の", "もの", "よう"], "why": "ことができる never takes の."}, {"q": "日本へ行った___があります。", "en": "Experience — the other fixed house.", "a": ["こと"], "opts": ["こと", "の", "とき", "ば"], "why": "たことがある — こと, always."}, {"q": "本を読む___が好きです。", "en": "Both fit — pick the warmer, spoken one.", "a": ["の"], "opts": ["の", "こと", "もの"], "why": "Taste territory: の for warmth (こと wouldn't be wrong)."}, {"q": "妹が泳ぐ___を見ました。", "en": "Watched her swim.", "a": ["の"], "opts": ["の", "こと", "ところ", "そう"], "why": "見る — sensing verb, live scene → の."}]}},
   "toiuimi": {"seg": [["すみません", "the opener that buys goodwill"], ["、", "a breath"], ["どういう", "\"what kind of\" — こそあど's ど-row, grown up"], ["意味", "meaning"], ["ですか。", "THE POINT — どういう意味ですか: the learner's power question", 1]], "hl": "という意味", "note": "The answer's shape: [expression]は[explanation]という意味です — Step 11's naming という, aimed at meanings.", "wr": [{"t": "Keep the two learner-questions straight: 何といいますか asks for the WORD; どういう意味ですか asks for the SENSE. One grows vocabulary forward, the other backward.", "jp": null}], "drill": {"items": [{"q": "すみません、どういう___ですか。", "en": "What does that mean?", "a": ["意味"], "opts": ["意味", "言葉", "話", "こと"], "why": "The power question: どういう意味ですか."}, {"q": "「直す」は「もう一度よくする」___意味です。", "en": "The answering shape.", "a": ["という"], "opts": ["という", "どういう", "といった", "そういう"], "why": "Explanation + という意味です."}, {"q": "You see a new WORD and want its name in Japanese: ___", "a": ["これは日本語で何といいますか"], "opts": ["これは日本語で何といいますか", "これはどういう意味ですか", "これはいくらですか"], "why": "Asking for the word → 何といいますか."}, {"q": "You hear a word and don't know its SENSE: ___", "a": ["どういう意味ですか"], "opts": ["どういう意味ですか", "何といいますか", "どこですか"], "why": "Asking for the meaning → どういう意味ですか."}, {"q": "この漢字はどういう意味です___。", "en": "Close the question.", "a": ["か"], "opts": ["か", "ね", "よ", "の"], "why": "A real question → か."}]}},
   "sb-kotono": {"drill": {"note": "Checks in order: fixed house? → こと. Sensing verb, live scene? → の. Neither? → taste (の warm, こと written). The houses are few — guard them.", "items": [{"q": "泳ぐ___ができます。", "en": "Fixed house.", "a": ["こと"], "opts": ["こと", "の", "もの", "よう"], "why": "ことができる — no taste involved."}, {"q": "妹が泳ぐ___を見ました。", "en": "Live, witnessed.", "a": ["の"], "opts": ["の", "こと", "ところ", "そう"], "why": "Sensing verb → の."}, {"q": "すしを食べた___があります。", "en": "Experience.", "a": ["こと"], "opts": ["こと", "の", "とき", "ため"], "why": "たことがある — the second fixed house."}, {"q": "映画を見る___が好きです。", "en": "Both fit — warm and spoken.", "a": ["の"], "opts": ["の", "こと", "もの"], "why": "Taste: の for conversation. こと acceptable, cooler."}, {"q": "話すのができます is wrong because ___.", "a": ["ことができる is a fixed house"], "opts": ["ことができる is a fixed house", "の is always casual", "話す can't nominalize"], "why": "The error that grates: の in こと's house."}, {"q": "弟が帰ってくる___を待っています。", "en": "Waiting for him to come home — live anticipation.", "a": ["の"], "opts": ["の", "こと", "ところ"], "why": "待つ leans sensing-live → の."}]}},
+  "garu": {"seg": [["弟", "my brother — a mind that isn't yours"], ["は", "topic marker"], ["公園", "the park"], ["へ", "destination marker"], ["行きたがっています。", "THE POINT — たい minus い + がる: showing SIGNS of wanting, worn as ている", 1]], "hl": "食べたがりません", "note": "The negative observes an absence of signs — no visible wanting anywhere near those vegetables.", "wr": [{"t": "The particle shifts with the machinery: たい leaned が (水が飲みたい); たがる takes を (水を飲みたがっている). State became behavior; the grammar follows.", "jp": null}], "drill": {"items": [{"q": "弟は公園へ行き___います。", "en": "HE wants to go — visibly.", "a": ["たがって"], "opts": ["たがって", "たくて", "たいで", "たそうで"], "why": "Third person → たがる, worn as ている."}, {"q": "私は公園へ行き___です。", "en": "I want to go — my own mind.", "a": ["たい"], "opts": ["たい", "たがり", "たがる", "たそう"], "why": "First person keeps たい — the direct line is yours alone."}, {"q": "子どもは野菜を食べ___ません。", "en": "No visible wanting.", "a": ["たがり"], "opts": ["たがり", "たく", "たいで", "そうで"], "why": "たがる conjugates as an う-verb: たがりません."}, {"q": "妹は犬を飼い___います。", "en": "She's dying for a dog.", "a": ["たがって"], "opts": ["たがって", "たくて", "ほしくて", "たいと"], "why": "Her want, as signs → 飼いたがっています."}, {"q": "たい about a third person claims ___.", "a": ["telepathy"], "opts": ["telepathy", "politeness", "past tense"], "why": "がる claims observation — which is all you actually have."}]}},
+  "hoshigaru": {"seg": [["妹", "my sister"], ["は", "topic marker"], ["新しい", "new"], ["かばん", "bag"], ["を", "THE PARTICLE TELL — ほしがる takes を where ほしい leaned が"], ["ほしがっています。", "THE POINT — ほしい minus い + がる: her wanting, as visible behavior", 1]], "hl": "ほしがります", "note": "Habitual observation: kids want everything, observably, daily.", "wr": [{"t": "The swap in one line: 私はかばんがほしい／妹はかばんをほしがっている. State keeps が; behavior takes を.", "jp": null}], "drill": {"items": [{"q": "妹は新しいかばん___ほしがっています。", "en": "Her want, observed.", "a": ["を"], "opts": ["を", "が", "は", "に"], "why": "Behavior-machinery takes を."}, {"q": "私は新しいかばん___ほしいです。", "en": "My want, direct.", "a": ["が"], "opts": ["が", "を", "は", "も"], "why": "The state keeps が (Step 6, unchanged)."}, {"q": "子どもは何でも___。", "en": "Kids want everything — observable, habitual.", "a": ["ほしがります"], "opts": ["ほしがります", "ほしいです", "ほしがっています", "ほしいます"], "why": "Habitual behavior → ほしがります. (ほしがっています would spotlight right now.)"}, {"q": "弟は新しいゲームを___います。", "en": "He's got his eye on it.", "a": ["ほしがって"], "opts": ["ほしがって", "ほしくて", "ほしいで", "ほしそうで"], "why": "ほしがっています — the standing display of wanting."}, {"q": "The particle swap (が→を) tracks ___.", "a": ["state becoming observed behavior"], "opts": ["state becoming observed behavior", "politeness rising", "past tense"], "why": "ほしい describes a state; ほしがる narrates conduct."}]}},
+  "sb-minds": {"drill": {"note": "Four channels to another mind: signs (がる), looks (そう・よう), words (と言っています) — and the direct line, which is yours alone. Pick the honest channel every time.", "items": [{"q": "私は日本へ行き___です。", "en": "Your own want.", "a": ["たい"], "opts": ["たい", "たがい", "たがる", "たそう"], "why": "First person — the only unmarked mind."}, {"q": "弟は日本へ行き___います。", "en": "His want, from his behavior.", "a": ["たがって"], "opts": ["たがって", "たくて", "たいで", "ましょう"], "why": "Signs → たがる."}, {"q": "田中さんは行きたい___言っています。", "en": "His want, from his words.", "a": ["と"], "opts": ["と", "を", "か", "も"], "why": "Quoted → と言っています. Inside the quote, his たい is HIS first person."}, {"q": "妹は疲れている___です。", "en": "Her state, read from her face.", "a": ["よう"], "opts": ["よう", "たがる", "たい", "つもり"], "why": "Appearance → ようです (Step 15 was building this all along)."}, {"q": "行きたいですか。— why is たい fine here? ___", "a": ["you're asking for their first-person report"], "opts": ["you're asking for their first-person report", "questions suspend grammar", "たい is always fine"], "why": "The question requests the direct line rather than faking it."}, {"q": "The my-mind/your-mind line exists because ___.", "a": ["you can only observe other minds, never feel them"], "opts": ["you can only observe other minds, never feel them", "politeness demands it", "たい is irregular"], "why": "The grammar encodes the epistemology — and 本音と建前 (next) is its cultural twin."}]}},
   // @@DEEP-END
 };
 const DRILL_DRAW = 5;
