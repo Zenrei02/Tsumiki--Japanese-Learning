@@ -85,15 +85,22 @@ def load_workbook_data():
     return wb, sentences, models, plan
 
 # ---------- api ----------
+NO_TEMPERATURE = set()  # models whose API rejects the `temperature` param
+
 def call_model(key, model, system_prompt, sentence):
     body = {
         "model": model,
         "max_tokens": 2048,
-        "temperature": 0,
         "system": [{"type": "text", "text": system_prompt,
                     "cache_control": {"type": "ephemeral"}}],
         "messages": [{"role": "user", "content": sentence}],
     }
+    # temperature 0 was the Aug 2 2026 determinism choice. The Claude 5 family
+    # rejects the param outright (400: "`temperature` is deprecated for this
+    # model", found in smoke Aug 14 2026), so those models run at their API
+    # default — which is also how production would call them.
+    if model not in NO_TEMPERATURE:
+        body["temperature"] = 0
     req = urllib.request.Request(
         API, data=json.dumps(body).encode(), method="POST",
         headers={"x-api-key": key, "anthropic-version": "2023-06-01",
@@ -106,6 +113,12 @@ def call_model(key, model, system_prompt, sentence):
         # traceback (smoke, Aug 14 2026) says nothing about WHICH field the
         # API rejected. The body always does. The key is never in the body.
         detail = e.read().decode("utf-8", "replace")
+        if (e.code == 400 and "temperature" in detail
+                and model not in NO_TEMPERATURE):
+            NO_TEMPERATURE.add(model)
+            print(f"  note: {model} rejects `temperature` — "
+                  f"retrying without it (model-default sampling)")
+            return call_model(key, model, system_prompt, sentence)
         sys.exit(f"\nAPI error {e.code} from model {model}:\n{detail}\n"
                  "Nothing was lost — completed calls are in bakeoff-log.jsonl; "
                  "re-run the same command to resume.")
