@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-13",
+ "generated": "2026-08-15",
  "version": 3,
  "method": "locked syllabus order — no derivation",
  "decision": "Entire taught syllabus locked as prefix (Lloyd, Session 13). Groups 3-5 were authored from ledger demand; reordering them after the fact would repeat v1's Blocker-3 mistake. Derivation resumes only for a future group ordered BEFORE authoring.",
@@ -7,7 +7,7 @@
  "corpora_used": [
   "kanjidic (newspaper rank)"
  ],
- "count": 111,
+ "count": 128,
  "order": [
   {
    "pos": 1,
@@ -24,7 +24,7 @@
    "pos": 2,
    "char": "二",
    "v2_pos": 2,
-   "demand_words": 4,
+   "demand_words": 5,
    "strokes": 2,
    "taught_parts": [],
    "named_shapes": [],
@@ -59,7 +59,7 @@
    "pos": 5,
    "char": "日",
    "v2_pos": 5,
-   "demand_words": 34,
+   "demand_words": 35,
    "strokes": 4,
    "taught_parts": [],
    "named_shapes": [],
@@ -70,7 +70,7 @@
    "pos": 6,
    "char": "月",
    "v2_pos": 6,
-   "demand_words": 5,
+   "demand_words": 7,
    "strokes": 4,
    "taught_parts": [],
    "named_shapes": [],
@@ -160,7 +160,7 @@
    "pos": 14,
    "char": "山",
    "v2_pos": 14,
-   "demand_words": 1,
+   "demand_words": 2,
    "strokes": 3,
    "taught_parts": [],
    "named_shapes": [],
@@ -305,7 +305,7 @@
    "pos": 26,
    "char": "今",
    "v2_pos": 26,
-   "demand_words": 6,
+   "demand_words": 7,
    "strokes": 4,
    "taught_parts": [
     "人"
@@ -333,7 +333,7 @@
    "pos": 28,
    "char": "手",
    "v2_pos": 28,
-   "demand_words": 9,
+   "demand_words": 11,
    "strokes": 4,
    "taught_parts": [],
    "named_shapes": [],
@@ -344,7 +344,7 @@
    "pos": 29,
    "char": "時",
    "v2_pos": 29,
-   "demand_words": 17,
+   "demand_words": 18,
    "strokes": 10,
    "taught_parts": [
     "日"
@@ -441,7 +441,7 @@
    "pos": 36,
    "char": "先",
    "v2_pos": 36,
-   "demand_words": 7,
+   "demand_words": 8,
    "strokes": 6,
    "taught_parts": [
     "八"
@@ -496,7 +496,7 @@
    "pos": 40,
    "char": "年",
    "v2_pos": 40,
-   "demand_words": 4,
+   "demand_words": 5,
    "strokes": 6,
    "taught_parts": [],
    "named_shapes": [],
@@ -510,7 +510,7 @@
    "pos": 41,
    "char": "見",
    "v2_pos": 41,
-   "demand_words": 3,
+   "demand_words": 4,
    "strokes": 7,
    "taught_parts": [
     "目"
@@ -568,7 +568,7 @@
    "pos": 45,
    "char": "間",
    "v2_pos": 45,
-   "demand_words": 6,
+   "demand_words": 7,
    "strokes": 12,
    "taught_parts": [
     "日"
@@ -594,7 +594,7 @@
    "pos": 47,
    "char": "来",
    "v2_pos": 47,
-   "demand_words": 5,
+   "demand_words": 7,
    "strokes": 7,
    "taught_parts": [],
    "named_shapes": [
@@ -686,7 +686,7 @@
    "pos": 54,
    "char": "土",
    "v2_pos": 54,
-   "demand_words": 1,
+   "demand_words": 2,
    "strokes": 3,
    "taught_parts": [],
    "named_shapes": [],
@@ -708,7 +708,7 @@
    "pos": 56,
    "char": "言",
    "v2_pos": 56,
-   "demand_words": 4,
+   "demand_words": 5,
    "strokes": 7,
    "taught_parts": [],
    "named_shapes": [],
@@ -773,7 +773,7 @@
    "pos": 61,
    "char": "休",
    "v2_pos": 61,
-   "demand_words": 4,
+   "demand_words": 5,
    "strokes": 6,
    "taught_parts": [
     "人",
@@ -978,7 +978,7 @@
    "pos": 76,
    "char": "朝",
    "v2_pos": null,
-   "demand_words": 6,
+   "demand_words": 7,
    "strokes": 12,
    "taught_parts": [
     "十",
@@ -1035,7 +1035,7 @@
    "pos": 80,
    "char": "毎",
    "v2_pos": null,
-   "demand_words": 7,
+   "demand_words": 8,
    "strokes": 6,
    "taught_parts": [
     "母"
@@ -1048,7 +1048,7 @@
    "pos": 81,
    "char": "曜",
    "v2_pos": null,
-   "demand_words": 9,
+   "demand_words": 10,
    "strokes": 18,
    "taught_parts": [
     "日"
@@ -1227,7 +1227,7 @@
    "pos": 93,
    "char": "飲",
    "v2_pos": null,
-   "demand_words": 5,
+   "demand_words": 6,
    "strokes": 12,
    "taught_parts": [
     "食"
@@ -1286,7 +1286,7 @@
    "pos": 97,
    "char": "物",
    "v2_pos": null,
-   "demand_words": 8,
+   "demand_words": 10,
    "strokes": 8,
    "taught_parts": [],
    "named_shapes": [],
@@ -1359,11 +1359,12 @@
    "v2_pos": null,
    "demand_words": 5,
    "strokes": 13,
-   "taught_parts": [],
+   "taught_parts": [
+    "音"
+   ],
    "named_shapes": [],
    "muted_shapes": [],
    "unclassified_shapes": [
-    "音",
     "心"
    ]
   },
@@ -1456,7 +1457,7 @@
    "pos": 109,
    "char": "洗",
    "v2_pos": null,
-   "demand_words": 4,
+   "demand_words": 5,
    "strokes": 9,
    "taught_parts": [
     "水",
@@ -1494,6 +1495,253 @@
    "muted_shapes": [],
    "unclassified_shapes": [
     "攵"
+   ]
+  },
+  {
+   "pos": 112,
+   "char": "友",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 4,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "又"
+   ]
+  },
+  {
+   "pos": 113,
+   "char": "達",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 12,
+   "taught_parts": [
+    "土"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "辶",
+    "羊"
+   ]
+  },
+  {
+   "pos": 114,
+   "char": "昨",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 9,
+   "taught_parts": [
+    "日"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "乍"
+   ]
+  },
+  {
+   "pos": 115,
+   "char": "夏",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 10,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "自",
+    "夂"
+   ]
+  },
+  {
+   "pos": 116,
+   "char": "音",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 9,
+   "taught_parts": [
+    "日"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "立"
+   ]
+  },
+  {
+   "pos": 117,
+   "char": "楽",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 13,
+   "taught_parts": [
+    "白",
+    "木"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 118,
+   "char": "果",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 8,
+   "taught_parts": [
+    "田",
+    "木"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 119,
+   "char": "机",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 6,
+   "taught_parts": [
+    "木"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "几"
+   ]
+  },
+  {
+   "pos": 120,
+   "char": "映",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 9,
+   "taught_parts": [
+    "日"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "央"
+   ]
+  },
+  {
+   "pos": 121,
+   "char": "画",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 8,
+   "taught_parts": [
+    "一",
+    "田"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "凵"
+   ]
+  },
+  {
+   "pos": 122,
+   "char": "部",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 11,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "⻏"
+   ]
+  },
+  {
+   "pos": 123,
+   "char": "屋",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 9,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "尸",
+    "至"
+   ]
+  },
+  {
+   "pos": 124,
+   "char": "問",
+   "v2_pos": null,
+   "demand_words": 2,
+   "strokes": 11,
+   "taught_parts": [
+    "口"
+   ],
+   "named_shapes": [
+    "門"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 125,
+   "char": "宿",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 11,
+   "taught_parts": [
+    "人",
+    "百"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "宀"
+   ]
+  },
+  {
+   "pos": 126,
+   "char": "題",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 18,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "是",
+    "頁"
+   ]
+  },
+  {
+   "pos": 127,
+   "char": "図",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 7,
+   "taught_parts": [],
+   "named_shapes": [
+    "囗"
+   ],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 128,
+   "char": "館",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 16,
+   "taught_parts": [
+    "食"
+   ],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": [
+    "官"
    ]
   }
  ]

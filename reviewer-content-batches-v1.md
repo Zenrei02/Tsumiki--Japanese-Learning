@@ -247,3 +247,27 @@ Closest-read items, in order:
 
 Recognition-only framing (Step 24 asks no production) is a pedagogy choice,
 not a language claim — flag only if the drills leak production anyway.
+
+Batch I addendum — kanji Group 6, School days (Session 15): 17 characters
+(友達昨夏音楽果机映画部屋問宿題図館), four lessons + sb-saku + cp-school.
+Story-field claims by risk, same frame as the Groups 1–5 items on the
+etymology row:
+
+1. **Stated flat and checkable**: 音 as tongue-with-a-mark; 楽 as drum with
+   bells on a stand; 画 as bounded drawing / hand drawing a boundary;
+   部's ⻏ glossed as "a town squeezed to a ribbon"; 館's 官 as "official
+   hall that fed its guests."
+2. **Whole-word readings named in lessons**: 昨日=きのう and 果物=くだもの
+   (both routed toward the jukujikun exception-list row), 部屋=へや with
+   the claim "the や is 屋's own; the へ is the word's" — verify that
+   framing is defensible.
+3. **sb-saku's phonetic claim**: 乍 as a さく sound-carrier across 作/昨,
+   presented as reliable; and the promise "unread characters start
+   half-pronouncing themselves."
+4. **Deliberately loose, framed as such**: 夏 (picture-not-history), 達's
+   delivery stack, 友's two hands, 宿's hundred travelers, 図's sealed
+   territory. Confirm the looseness reads as honest, not sloppy.
+5. **Readings**: 楽's ガク/ラク split tied to meaning; 図's ズ・ト; 問題/質問
+   glosses. The reverse-payoff teaching order (音 taught after its user 意)
+   is a sequencing choice, not a claim — flag only if the lesson copy
+   confuses.

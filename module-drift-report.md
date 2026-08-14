@@ -25,8 +25,8 @@ every other module that reads it. These are the real seams.
 | Key | Modules |
 |---|---|
 | `stroke-data-v1` | hiragana-module.jsx, kanji-module.jsx, katakana-module.jsx, vocabulary-module.jsx ⚠️ shared |
-| `n5-progress-v1` | grammar-module.jsx, kanji-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `known-kanji-v1` | grammar-module.jsx, kanji-module.jsx, vocabulary-module.jsx ⚠️ shared |
+| `n5-progress-v1` | grammar-module.jsx, kanji-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `achievement-points-v1` | grammar-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `hiragana-progress-v2` | grammar-module.jsx, hiragana-module.jsx ⚠️ shared |
 | `katakana-progress-v1` | katakana-module.jsx, vocabulary-module.jsx ⚠️ shared |
