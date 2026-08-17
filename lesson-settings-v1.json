@@ -1,0 +1,110 @@
+{
+  "_": "Lesson settings — FOUR WORKED EXAMPLES, not a wave. The situation a lesson opens on, carrying a verified fact about Japan and producing the sentence the moment demands. Merges the two Session 17 primitives: micro-anecdotes-v1.json (facts, anchored to words) and grammar-scenes-v1.json (situations, anchored to points).",
+  "_design": "lesson-setting-design-v1.md. Block order: setting → line → what → build → when → watch. The setting is the spine, not an insert.",
+  "_scope": "These four exist so Lloyd can react to a real merged lesson before the other 38 are authored. Chosen to span the range: a natural merge, a fact-led lesson, a pattern-choice lesson, and one where the fact corrects a myth. The full mapping and the parked items are in lesson-settings-map-v1.md.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. One batch per lesson now, replacing the split J/K batches — the reviewer sees the fact and the sentence together and can answer the question that spans them: would a person in this situation say this?",
+  "_carried": "claims[]/sources[]/flags[] carried over intact from the micro-anecdote entries they merge, so no verification work is lost in the restructure.",
+
+  "items": [
+    {
+      "id": "ls-shika",
+      "point": "shika",
+      "step": "Step 3 · Joining, choosing & counting",
+      "merged_from": ["sc-shika", "mca-ginkou"],
+      "why_this_lesson": "NATURAL MERGE. The scene invented a rural station at night with no cash; the anecdote had already established with a METI figure why that situation is real rather than picturesque. Neither half knew about the other.",
+      "setting": "The last bus has gone. There is a taxi rank with no taxi on it and one shop still lit. Japan is going cashless slowly — 42.8% of consumer spending in 2024, against a government target of 80% — and out here that average means nothing: the shop takes cash, the taxi firm takes cash, and you are counting what is in your wallet before you go in.",
+      "line": { "jp": "千円しかありません。", "en": "I've only got a thousand yen." },
+      "contrast": null,
+      "pattern": "しか",
+      "turn": "しか forces the verb negative and the sentence still means you have money — just not enough of it. English \"only\" sits happily beside a positive verb, which is why the reflex to reach for だけ outlives the rule. だけ counts what is there; しか complains about it.",
+      "claims": [
+        "Cashless payments reached 42.8% of consumer spending in 2024 (METI)",
+        "Japan's long-term cashless target is 80%, with 65% by 2030",
+        "Cash acceptance remains the norm in rural businesses and small operators"
+      ],
+      "sources": [
+        "https://www.meti.go.jp/english/press/2025/0331_001.html",
+        "https://www.fintechobserver.com/japans-cashless-transition-surges-to-58-meti-overhauls-metrics-to-target-80-long-term-goal/"
+      ],
+      "flags": ["The rural cash-only detail is resident experience rather than a sourced statistic; the national figure is sourced, the local inference is not."],
+      "tags": ["countryside", "money", "natural-merge"],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "id": "ls-teikutekuru",
+      "point": "teikutekuru",
+      "step": "Step 13 · て-form, second wind",
+      "merged_from": ["sc-teikutekuru", "mca-kusuri"],
+      "why_this_lesson": "THE PATTERN-CHOICE CASE, and the clearest evidence for the principle in the spec. 'Bring your medicine booklet every time' READS like an obligation fact and maps mechanically to なければなりません. What the pharmacist actually says is 持ってきてください — the sentence is about carrying something toward the speaker, and is not about duty at all. The scene's original setting was the weather, which is a weaker 持ってくる than this in every way.",
+      "setting": "You leave the clinic holding a prescription rather than any medicine — the doctor here does not dispense. The pharmacy is the one immediately outside. The pharmacist fills it, explains it, writes it into a small booklet she hands back to you, and then asks for something before you go: the booklet only works if it comes back with you next time.",
+      "line": { "jp": "お薬手帳を持ってきてください。", "en": "Please bring your medicine booklet with you." },
+      "contrast": { "kind": "alt", "jp": "お薬手帳を持っていきます。", "en": "I'll take it with me — the same booklet, told from your end, moving away." },
+      "pattern": "持ってきて",
+      "turn": "Same booklet, two verbs, and the difference is only where the speaker is standing. English uses \"bring\" and \"take\" for this and gets it wrong constantly; Japanese hangs it on 来る and 行く, which is why 行ってきます — off I go and I'll be back — has been this pattern since your first week.",
+      "claims": [
+        "Japan operates 医薬分業: prescribing and dispensing are separated, so clinics do not hand out medicine",
+        "The お薬手帳 is a patient-held record used to check for interactions across pharmacies",
+        "Pharmacies are commonly sited immediately adjacent to clinics"
+      ],
+      "sources": [
+        "https://www.pmda.go.jp/files/000151977.pdf",
+        "https://japanlivinglife.com/articles/prescription-medicine-japan-guide",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11129530/"
+      ],
+      "flags": ["Whether a pharmacist would phrase the request exactly as 持ってきてください is precisely the reviewer's third question.", "お薬手帳 uses 帳, outside KANJI_DICT — furigana needed. Keeping the real word rather than substituting one: it is printed on the cover of the booklet the learner will be handed, so recognising it is the point."],
+      "tags": ["city", "countryside", "health", "pattern-choice"],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "id": "ls-nara",
+      "point": "nara",
+      "step": "Step 16 · The four ifs",
+      "merged_from": ["mca-denki"],
+      "why_this_lesson": "FACT-LED. There was no scene here — the fact came first and produced the situation. なら is the topical if: it picks up what the other person has just raised and hangs advice on it, which is exactly what someone does when you mention which city you are moving to.",
+      "setting": "You are moving west and you mention it in the staffroom, and someone asks what you are taking with you. Japan runs on two mains frequencies — Tokyo and everything east of it on 50 Hz, Osaka and everything west on 60 Hz — because in the 1890s the Tokyo company bought German generators and the Osaka company bought American ones, and nobody ever unified them. Most modern appliances cope. Yours is fifteen years old.",
+      "line": { "jp": "大阪なら、その電子レンジは使えません。", "en": "If it's Osaka — that microwave won't work." },
+      "contrast": { "kind": "alt", "jp": "大阪に行くと、その電子レンジは使えません。", "en": "と claims it happens automatically on arrival, as if the journey broke it." },
+      "pattern": "なら",
+      "turn": "なら takes what the other person just said and makes it the topic: if Osaka is what we're discussing, here is what follows. It is also the only one of the four ifs that can advise about before the condition — the pattern for reacting to a plan rather than stating a rule.",
+      "claims": [
+        "Eastern Honshu and Hokkaido run at 50 Hz; western Honshu, Kyushu, Shikoku and Okinawa at 60 Hz",
+        "Tokyo Electric Light bought 50 Hz AEG generators around 1895-96; Osaka Electric Light bought 60 Hz generators from GE's predecessor shortly after",
+        "No regulation required a single frequency at the time, and later unification was judged too costly",
+        "Some older motor-driven and clock appliances are frequency-dependent; most modern equipment is not"
+      ],
+      "sources": [
+        "https://www.japantimes.co.jp/news/2011/07/19/reference/japans-incompatible-power-grids/",
+        "https://shulman-advisory.com/everything-you-need-to-know-about-the-japanese-electricity-grid/",
+        "https://arun.is/blog/japan-electric-wall/"
+      ],
+      "flags": ["Which specific appliances still fail across the line is stated loosely on purpose — the sourced claim is the split and its history, not an appliance list.", "大阪 uses 阪, outside KANJI_DICT — furigana decision needed."],
+      "tags": ["city", "history", "housing", "fact-led"],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "id": "ls-saserareru",
+      "point": "saserareru",
+      "step": "Step 20 · Doing to & being done to",
+      "merged_from": ["sc-saserareru", "mca-jugyou"],
+      "why_this_lesson": "NATURAL MERGE, and it carries a myth correction. The scene had invented 毎日そうじをさせられました for a story about a first year at a company. The anecdote was about 掃除の時間 sitting in the national curriculum. They were the same lesson, written twice, from opposite ends of the folder.",
+      "setting": "Half past one, and your class is cleaning the corridor they walk down every day — brooms, cloths, fifteen minutes of it, in the timetable rather than beside it. You say something about it to the teacher next to you, who is old enough to have done it himself for twelve years, and he laughs before he answers.",
+      "line": { "jp": "毎日、そうじをさせられました。", "en": "I was made to do the cleaning every day." },
+      "contrast": { "kind": "misfit", "jp": "毎日、そうじをしました。", "en": "Grammatical, and it drops the whole point — that nobody asked him." },
+      "pattern": "させられました",
+      "turn": "Causative first, passive second, and the grudge rides along inside the ending — English needs \"was made to\" plus a tone of voice to do the same work. Build it in two moves every time; jumping straight to させられる is where the longest conjugation in the language breaks.",
+      "claims": [
+        "A daily cleaning slot of roughly 15-30 minutes, usually after lunch, is standard in Japanese schools",
+        "Cleaning appears in the national curriculum standards (学習指導要領), not as an extracurricular add-on",
+        "CORRECTS A COMMON CLAIM: Japanese schools do employ caretaking staff (用務員) for maintenance and work beyond the students' reach — 'Japanese schools have no janitors' is wrong"
+      ],
+      "sources": [
+        "https://omakase-tokyo.com/blogs/news/no-janitors-heres-why-japanese-kids-clean-their-own-schools",
+        "https://web-japan.org/kidsweb/cool/21/202101_on-duty-activity_en.html",
+        "https://www.gov-online.go.jp/hlj/en/december_2025/december_2025-03.html"
+      ],
+      "flags": ["Lloyd teaches in a Japanese school and is the best available check on this one.", "The 用務員 correction did not fit the setting at 45-80 words and lives only in claims[]. If it should be visible to the learner it needs its own sentence — a real cost of the merge, and worth deciding on."],
+      "tags": ["school", "corrects-a-myth", "natural-merge"],
+      "review": { "status": "unreviewed" }
+    }
+  ]
+}
