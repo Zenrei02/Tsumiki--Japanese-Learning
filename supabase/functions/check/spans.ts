@@ -41,7 +41,8 @@ export type SpanReport = {
 };
 
 /**
- * Place each issue's span in `text`.
+ * Place each issue's span in `text` — the claiming state machine, as an object
+ * you can feed one issue at a time.
  *
  * Occurrences are claimed greedily in the order the model returned them, and a
  * claimed stretch is never reused. That matters because a span like "は" occurs
@@ -54,12 +55,9 @@ export type SpanReport = {
  * to an unhighlighted card rather than dropping it — it may still be correct
  * advice, and silently discarding model output is how a checker starts missing
  * real errors without anyone noticing.
- */
-/**
- * The claiming state machine, as an object you can feed one issue at a time.
  *
- * WHY THIS IS A CLASS NOW. The streaming endpoint places each issue the moment
- * it arrives, while the buffered endpoint places them all at once. The design's
+ * WHY IT IS A CLASS. The streaming endpoint places each issue the moment it
+ * arrives, while the buffered endpoint places them all at once. The design's
  * central assumption is that those two produce identical placements — "placing
  * issues one at a time as they arrive gives byte-identical results to placing
  * them in a batch".
