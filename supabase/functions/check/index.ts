@@ -23,7 +23,13 @@
 //      Iterate and collect text blocks.
 
 import { SCHEMA_VERSION, SYSTEM_PROMPT } from "./_prompt.ts";
-import { placeSpans, verdictOf } from "./spans.ts";
+import { placeSpans, type RawIssue, SpanPlacer, verdictOf } from "./spans.ts";
+import {
+  envelopeOf,
+  JsonStreamExtractor,
+  SseDecoder,
+  textDeltaOf,
+} from "./stream-extract.ts";
 
 const ANTHROPIC_API = "https://api.anthropic.com/v1/messages";
 
@@ -142,7 +148,21 @@ async function release(subject: string, day: string): Promise<void> {
 /** Models whose API rejects `temperature`, learned at runtime like the harness. */
 const NO_TEMPERATURE = new Set<string>();
 
-async function callModel(key: string, model: string, userText: string) {
+/**
+ * The request body, built in ONE place for both paths.
+ *
+ * This matters more than it looks. The bake-off's verdict is only about the
+ * request that was measured, and the streaming design is safe to ship before
+ * that verdict lands precisely because it changes delivery and not generation:
+ * same model, same prompt, same max_tokens, same everything, plus `stream`.
+ * Two separately-maintained body builders would make that a claim nobody could
+ * check; here the difference is one line and it is visible.
+ */
+function requestBody(
+  model: string,
+  userText: string,
+  stream: boolean,
+): Record<string, unknown> {
   const body: Record<string, unknown> = {
     model,
     max_tokens: 8000,
@@ -158,6 +178,12 @@ async function callModel(key: string, model: string, userText: string) {
     messages: [{ role: "user", content: userText }],
   };
   if (!NO_TEMPERATURE.has(model)) body.temperature = 0;
+  if (stream) body.stream = true;
+  return body;
+}
+
+async function callModel(key: string, model: string, userText: string) {
+  const body = requestBody(model, userText, false);
 
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
@@ -248,6 +274,229 @@ function parsePayload(raw: string) {
   throw new Error("unterminated JSON object in model output");
 }
 
+// ── the streaming path ──────────────────────────────────────────────────────
+//
+// OPT-IN, via `"stream": true` in the request body. The buffered path above is
+// untouched and stays the default, because:
+//   * bakeoff-harness.py must keep making the request that was measured;
+//   * it is the fallback if streaming misbehaves in a browser we cannot test;
+//   * it is far easier to curl when debugging.
+// Two code paths is a real cost, accepted while the eval is still open.
+//
+// WE EMIT OUR OWN EVENTS AND NEVER PROXY ANTHROPIC'S. Two reasons, the first
+// non-negotiable:
+//   1. Span verification must stay server-side. The guarantee this endpoint
+//      makes is that every start/end was checked character-for-character
+//      against the submitted text. Forwarding raw model output would move that
+//      into the browser, or drop it.
+//   2. Thinking deltas would leak reasoning to the client. Not for the learner,
+//      and not the product.
+
+/** Open the upstream stream. Same shape as callModel, including the retry. */
+async function openModelStream(
+  key: string,
+  model: string,
+  userText: string,
+  signal: AbortSignal,
+): Promise<Response> {
+  const res = await fetch(ANTHROPIC_API, {
+    method: "POST",
+    headers: {
+      "x-api-key": key,
+      "anthropic-version": "2023-06-01",
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(requestBody(model, userText, true)),
+    signal,
+  });
+
+  if (!res.ok) {
+    const detail = await res.text();
+    if (
+      res.status === 400 && detail.includes("temperature") &&
+      !NO_TEMPERATURE.has(model)
+    ) {
+      NO_TEMPERATURE.add(model);
+      console.log(`note: ${model} rejects temperature — retrying without it`);
+      return await openModelStream(key, model, userText, signal);
+    }
+    throw new Error(`anthropic ${res.status}: ${detail.slice(0, 600)}`);
+  }
+  return res;
+}
+
+type StreamCtx = {
+  text: string;
+  subject: string;
+  day: string;
+  used: number | null;
+  clearTimer: () => void;
+  abortUpstream: () => void;
+};
+
+/**
+ * Consume the upstream stream and emit our own.
+ *
+ * ⚠️ ONCE HEADERS ARE SENT THE STATUS IS FIXED AT 200, so every failure past
+ * this point has to travel in-band as `event: error`. The corollary is a
+ * contract on the client: a stream that ends WITHOUT `done` is a failure, not a
+ * short result. Getting that wrong would make a dropped connection render as
+ * "no issues found" — the exact confusion this product exists to prevent, and
+ * the reason `done` is only ever sent on a genuinely complete parse.
+ */
+function streamingResponse(upstream: Response, ctx: StreamCtx): Response {
+  const enc = new TextEncoder();
+
+  const body = new ReadableStream<Uint8Array>({
+    async start(controller) {
+      const frames = new SseDecoder();
+      const extractor = new JsonStreamExtractor();
+      const placer = new SpanPlacer(ctx.text);
+      const rawIssues: RawIssue[] = [];
+
+      // Has the learner received anything yet? This is the ONLY input to the
+      // cap decision below, so it is set for content events and nothing else.
+      let emitted = false;
+      let usage: Record<string, unknown> | null = null;
+      let modelName = MODEL;
+      let failure: string | null = null;
+
+      const send = (event: string, data: unknown) =>
+        controller.enqueue(enc.encode(
+          `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`,
+        ));
+
+      try {
+        const reader = upstream.body!.getReader();
+
+        const handle = (frame: { event: string; data: string }) => {
+          if (frame.event === "error") {
+            failure = `upstream event: ${frame.data.slice(0, 300)}`;
+            return;
+          }
+          const env = envelopeOf(frame);
+          if (env) {
+            if (env.model) modelName = env.model;
+            if (env.usage) {
+              usage = { ...(usage ?? {}), ...(env.usage as object) };
+            }
+          }
+          const delta = textDeltaOf(frame);
+          if (delta === null) return;
+
+          for (const ev of extractor.push(delta)) {
+            switch (ev.type) {
+              case "overall":
+                send("overall", ev.value);
+                break;
+              case "issue": {
+                // Placement happens HERE, server-side, one issue at a time.
+                // Greedy claiming in model order means this is identical to
+                // placing the whole list at once — see SpanPlacer, and the
+                // equality test in test-stream-extract.mjs.
+                const raw = ev.value as RawIssue;
+                rawIssues.push(raw);
+                send("issue", placer.place(raw));
+                break;
+              }
+              case "model_rewrite":
+                send("rewrite", { model_rewrite: ev.value ?? "" });
+                break;
+              case "readings":
+                send("readings", {
+                  readings: Array.isArray(ev.value) ? ev.value : [],
+                });
+                break;
+            }
+            emitted = true;
+          }
+        };
+
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          for (const frame of frames.push(value)) handle(frame);
+        }
+        for (const frame of frames.flush()) handle(frame);
+      } catch (e) {
+        failure = String(e);
+      }
+
+      ctx.clearTimer();
+
+      // `complete` is the guard that stops a truncated stream from looking like
+      // a finished one: the root object has to have actually closed.
+      const incomplete = !failure && !extractor.complete;
+      if (incomplete) {
+        console.error(
+          `stream ended mid-object after ${extractor.raw.length} chars · ` +
+            `usage=${JSON.stringify(usage)}`,
+        );
+      }
+      if (failure) console.error(`stream failed: ${failure}`);
+
+      try {
+        if (failure) {
+          const timedOut = failure.includes("aborted") ||
+            failure.includes("AbortError");
+          send("error", { error: timedOut ? "upstream-timeout" : "upstream-error" });
+        } else if (incomplete) {
+          send("error", { error: "unparseable" });
+        } else {
+          const stats = placer.stats;
+          if (stats.notFound || stats.overlapped) {
+            console.log(
+              `spans: ${stats.located}/${stats.total} located · ` +
+                `${stats.notFound} not-found · ${stats.overlapped} overlapping · ` +
+                `schema ${SCHEMA_VERSION}`,
+            );
+          }
+          send("done", {
+            schema: SCHEMA_VERSION,
+            model: modelName,
+            verdict: verdictOf(rawIssues),
+            spans: stats,
+            usage,
+            cap: ctx.used === null ? null : { used: ctx.used, limit: DAILY_CAP },
+          });
+        }
+      } catch {
+        // The client hung up. Nothing to say to it; the cap rule below still
+        // applies, because the tokens were still spent.
+      }
+
+      // THE CAP RULE. Released only when the learner got NOTHING — a failure
+      // after content was emitted has already delivered value and already cost
+      // tokens, so counting it is correct.
+      if ((failure || incomplete) && !emitted && ctx.used !== null) {
+        await release(ctx.subject, ctx.day);
+      }
+
+      try {
+        controller.close();
+      } catch { /* already closed by a disconnect */ }
+    },
+
+    cancel() {
+      // The learner navigated away. Stop paying for tokens nobody will read.
+      ctx.clearTimer();
+      ctx.abortUpstream();
+    },
+  });
+
+  return new Response(body, {
+    headers: {
+      ...CORS,
+      "content-type": "text/event-stream; charset=utf-8",
+      "cache-control": "no-cache, no-transform",
+      // Without this some proxies buffer the whole response and hand it over at
+      // the end, which would produce a slower version of the buffered path
+      // while looking like it worked.
+      "x-accel-buffering": "no",
+    },
+  });
+}
+
 // ── handler ─────────────────────────────────────────────────────────────────
 
 Deno.serve(async (req: Request) => {
@@ -260,12 +509,13 @@ Deno.serve(async (req: Request) => {
     return json({ error: "server-misconfigured" }, 500);
   }
 
-  let payload: { text?: string; context?: string };
+  let payload: { text?: string; context?: string; stream?: boolean };
   try {
     payload = await req.json();
   } catch {
     return json({ error: "body must be JSON" }, 400);
   }
+  const wantsStream = payload.stream === true;
 
   const text = (payload.text ?? "").trim();
   const context = payload.context && context_ok(payload.context) ? payload.context : "polite";
@@ -285,6 +535,35 @@ Deno.serve(async (req: Request) => {
 
   const userText =
     `Context: the writer intends this as ${CONTEXTS[context]}.\n\n${text}`;
+
+  if (wantsStream) {
+    // The upstream connection is opened BEFORE any response headers go out, so
+    // an upstream refusal (400/401/429, or a timeout on the handshake) can
+    // still be answered with a real HTTP status and a released cap slot,
+    // exactly as the buffered path does. Only failures after this point have to
+    // be in-band, which keeps the awkward case as small as possible.
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
+    let upstream: Response;
+    try {
+      upstream = await openModelStream(key, MODEL, userText, controller.signal);
+    } catch (e) {
+      clearTimeout(timer);
+      if (used !== null) await release(subject, day);
+      const msg = String(e);
+      console.error(`upstream failed (stream): ${msg}`);
+      const timedOut = msg.includes("aborted") || msg.includes("AbortError");
+      return json({ error: timedOut ? "upstream-timeout" : "upstream-error" }, 502);
+    }
+    return streamingResponse(upstream, {
+      text,
+      subject,
+      day,
+      used,
+      clearTimer: () => clearTimeout(timer),
+      abortUpstream: () => controller.abort(),
+    });
+  }
 
   let resp: { content?: unknown; usage?: unknown; model?: string };
   try {
