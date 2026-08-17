@@ -88,8 +88,28 @@ PROBES = [
     # something adjacent is worse than no probe, because it certifies the gap
     # shut. Tightened to require an actual INTRODUCTION, and confirmed to report
     # GAP against the current file before being trusted.
+    # RETUNED Aug 15 2026 (weekly audit). This probe reported GAP for a week
+    # after the defect it was written for had been FIXED. sb-verbtypes now reads
+    # "one of two families — plus exactly two exceptions, する and 来る, and that
+    # is the whole system", and its `when` field puts する/来る outside the
+    # sorting test explicitly. The old regex wanted `third|own|separate` within
+    # 60 chars of する; the text has "its own forms" at ~90 — and, the actual
+    # reason widening the window did not help, `.` does not cross newlines, so
+    # the two halves of the claim sit in different `exp` fields and could never
+    # match in one pass. The window was never the bug.
+    #
+    # Now anchored to ONE LINE on purpose (`[^\n]`, not `.`): the families
+    # framing, then する/来る, then the words that put them outside it. Verified
+    # against three negative fixtures before being trusted — exception framing
+    # stripped, する/来る removed entirely (the original Session-9 defect), and
+    # the lesson deleted. All three report GAP; the live file reports covered by
+    # sb-verbtypes alone, with no false positive on ta-plain or potential, both
+    # of which mention する and "irregular" for conjugation reasons.
+    #
+    # A permanently-red check stops being read, and this one shares its exit
+    # code with the noun+する gap below, which is real.
     ("verb class: three families, not two (する/来る introduced as a class)",
-     [r"three (verb )?(famil|class|group)|two.{0,20}famil.{0,400}(する|来る).{0,60}(third|own|separate)"],
+     [r"(Go|Ichi|godan|ichidan|famil)[^\n]{0,400}(する|来る)[^\n]{0,160}(irregular|exception|own forms|third)"],
      "required"),
     ("word formation: noun + する",
      [r"(noun|名詞).{0,60}する.{0,60}(verb|動詞)|する.{0,60}(turns|makes|verbali[sz]).{0,40}(noun|名詞)|サ変"],

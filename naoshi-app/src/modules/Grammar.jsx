@@ -755,6 +755,17 @@ const CURRICULUM = [
         ex: [["食べる → 食べます", "Ichi: drop る, add ます."], ["飲む → 飲みます", "Go: む → み, add ます."], ["帰る → 帰ります", "Looks Ichi, behaves Go."], ["する → します・来る → 来ます", "The two exceptions — small enough to just memorise."]],
       },
       {
+        id: "sb-suruverbs", jp: "する と 来る", en: "the two exceptions, and the one that builds new verbs", kind: "skill",
+        quizHint: "Test する-verb formation and the irregular stems. Use sorting traps as distractors — 勉強する conjugated as if it were Go (勉強しります) or Ichi (勉強しる) — and the 来る reading shifts (きます / こない / きて), where the kanji stays 来 and the sound does not.",
+        exp: {
+          what: "The last lesson promised these two their own forms; this is it. する and 来る are the only irregular verbs in the language — but する is not just an exception to memorise. It is the machine Japanese uses to turn nouns into verbs, which makes it the single most productive verb you will meet.",
+          build: "Noun + する makes a verb — textbooks call these サ変動詞, or just する-verbs. Put する directly after the noun: 勉強 (study) → 勉強する, 電話 (telephone) → 電話する, 掃除 (cleaning) → 掃除する, 予約 (reservation) → 予約する. It works on borrowed words too — コピーする, チェックする, メールする. The compound then conjugates exactly as する does: 勉強します, 勉強した, 勉強して, 勉強しない. Learn する's forms once and you have conjugated every one of these at the same time.\n\nする: します・した・して・しない, and the potential is できる, not される. 来る: きます・きた・きて・こない — the kanji stays 来 while the sound moves く → き → こ, which is the part that actually catches people.",
+          when: "Constantly, and more often as your vocabulary grows — most two-kanji activity words work this way, so every noun of that shape you learn is quietly also a verb. 日本語を勉強しています。明日、予約します。",
+          watch: "The sorting test from the last lesson does not apply to these, and trying to apply it is the classic accident: 勉強する is neither Go nor Ichi, so 勉強しります and 勉強しる are both wrong — it is します, full stop.\n\nYou may also meet 勉強をする, with を. It is not an error; it loosens the compound back into 'do studying', and it is slightly heavier. The catch is that you cannot then stack another を — 日本語を勉強する is fine, 日本語を勉強をする is not, because a clause takes one を.",
+        },
+        ex: [["毎晩、日本語を勉強します。", "The noun 勉強 plus する. One を, on 日本語."], ["友達に電話しました。", "電話 is a telephone; 電話する is to make a call."], ["明日、友達が来ます。", "来る → きます. The reading moves, the kanji doesn't."], ["昨日は来ませんでした。", "And the negative stem is こ — 来ない, 来ません."]],
+      },
+      {
         id: "ta-plain", jp: "〜た / 〜ない (plain past & negative)", en: "the sound changes everything else depends on",
         exp: {
           what: "The casual past and casual negative. They matter beyond casual speech: several later patterns (〜たあとで, 〜たり, 〜ないでください) attach to these forms, so the sound changes here get reused constantly.",
@@ -934,7 +945,7 @@ const CURRICULUM = [
         },
         ex: [],
       },
-      { id: "rc1", jp: "復習 · Steps 1–3", en: "checkpoint: basics, particles & tense", kind: "review", covers: ["desu", "ka", "wa", "ga", "o", "ni-time", "de-place", "mo", "no", "masu", "mashita", "teiru", "mada", "sb-no", "sb-kosoado", "sb-yone", "sb-counters", "sb-negq"], exp: "Mixed review of everything so far: the copula, core particles, and polite tense. The quiz pulls from all of it. In practice, try combining at least two patterns in one sentence.", ex: [] },
+      { id: "rc1", jp: "復習 · Steps 1–3", en: "checkpoint: basics, particles & tense", kind: "review", covers: ["desu", "ka", "wa", "ga", "o", "ni-time", "de-place", "mo", "no", "masu", "mashita", "teiru", "mada", "sb-no", "sb-kosoado", "sb-yone", "sb-counters", "sb-negq", "sb-suruverbs"], exp: "Mixed review of everything so far: the copula, core particles, and polite tense. The quiz pulls from all of it. In practice, try combining at least two patterns in one sentence.", ex: [] },
     ],
   },
   {

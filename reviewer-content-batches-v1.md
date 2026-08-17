@@ -69,6 +69,26 @@ sb-kanaparticles, plus the tara watch addition.
    refusals — the register judgments here are the most culture-loaded
    claims in the module and deserve the reviewer's closest read; also the
    recommended response そうですか、また今度ぜひ.
+10. **sb-suruverbs** (Step 4, added Aug 15 2026 by the weekly audit — the
+    noun+する gap `curriculum-gap-audit.py` had reported since Session 9).
+    Four claims worth a native read, in descending risk:
+    - **The を alternation.** The lesson says 勉強をする is *not an error* —
+      it "loosens the compound back into 'do studying', and it is slightly
+      heavier" — but that 日本語を勉強をする is wrong "because a clause takes
+      one を". Is the double-を rule safe to state that hard, and is the
+      register/nuance description of 勉強をする right?
+    - **The potential.** States する's potential is できる, "not される".
+      Confirm there is no context at N5–N4 where a learner would meet
+      される as the potential rather than the passive.
+    - **Productivity.** "Most two-kanji activity words work this way, so
+      every noun of that shape you learn is quietly also a verb" — this is
+      deliberately a generalisation. How should it hedge? Counterexamples
+      a beginner would actually hit are the useful answer.
+    - **来る's stems.** きます/きた/きて/こない presented as the trap being
+      the sound moving under a fixed kanji. Accurate and worth the emphasis?
+    Also: the lesson is in **rc1's `covers`**, so its claims can surface in
+    Checkpoint 1 quiz generation — a wrong claim here reaches further than
+    a lesson body alone.
 
 ## Batch F — the Steps 5–11 scaffolding pass (44 lessons, one sitting if skimmed)
 

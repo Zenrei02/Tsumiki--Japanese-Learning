@@ -1,44 +1,59 @@
 # Revisit map — what the grammar module cannot teach in one pass
 
-**Read this before the next authoring pass on `grammar-module.jsx`.**
+**Status as of Aug 15 2026: six of the seven mapped points have shipped.**
+This file is now mostly a record of a completed idea. Two things are still
+live — read those and skip the rest:
+
+- **`sb-ganotwo` still needs the reviewer's R6 ruling** (§ "Immediate
+  consequence" below). It is the only mapped point with no revisit and no
+  plan, because the decision isn't ours.
+- **〜ています may want a third pass in Stage 2.** Never more than a "watch
+  this"; still just a watch.
+
+Everything else below is history, kept because the reasoning is worth having
+when the same problem turns up in Stage 3+.
+
+*Updated by the Aug 15 2026 weekly audit, which found the map still presenting
+shipped work as a to-do list while its own header told the next session to
+follow it. The risk was concrete: re-authoring Step 14 and Step 16.*
+
+---
 
 A linear syllabus teaches each point once, at one place. Some points cannot be
 finished there — not because the explanation is weak, but because the learner
 lacks the grammar needed to see the whole shape. Teaching them once and moving on
 produces a learner who "did" は/が in Step 2 and still cannot use it in Step 11.
 
-## The pattern already exists — it just isn't named
+## The pattern, now named
 
-Two lessons already do this:
+Two lessons did this before it was deliberate:
 
 - `sb-waga` (Step 2 · Core particles) → `sb-waga2` (Step 11) — literally titled
   **「は vs が · second look」**
 - `teiru` → `teiru2` (both Step 4) — 〜ています split into *ongoing* and
   *habit / state*
 
-So the architecture is proven and the naming convention is half-invented. What is
-missing is doing it deliberately, on the points that need it, rather than
-wherever it happened to occur to us.
-
-**Proposal:** make the revisit a first-class lesson kind alongside the existing
-prefixes — `sb-` skill builder, `cc-` culture connection, `b-` composition,
-`rc-` review. A revisit is not a review: `rc-` re-tests what was taught, a revisit
-teaches something *new* about a point the learner already met.
+The convention that came out of it, and that Sessions 13–15 followed: a revisit
+is `kind: "skill"`, takes a **new id with a `2` suffix**, is optional, and is
+placed at the step where the missing grammar has just arrived. A revisit is not
+a review: `rc-` re-tests what was taught, a revisit teaches something *new*
+about a point the learner already met.
 
 ## The map
 
-| Point | First contact | Why it can't finish there | Revisit belongs |
-|---|---|---|---|
-| は / が | `sb-waga` — Step 2 | Contrast, scope, and が in subordinate clauses all need clause embedding | ✅ `sb-waga2` — Step 11. Done. Use as the template. |
-| Pronoun omission | `sb-pronouns` — Step 3 (私・あなたを省く) | Step 3 teaches *drop it*. It cannot teach **when 私 is required**, because that case is mostly relative clauses — 名詞修飾 arrives in Step 4 | After `sb-nounmod` (Step 4), or Step 11. **Eval row E12** (`私が好きなスポーツは…`) is exactly this and is keyed CORRECT — a checker that "fixes" it is inventing an error |
-| が vs を | `sb-ganotwo` — Step 10 (を じゃなくて が) | ⚠️ See below — the lesson conflates a hard rule with a soft preference | Same step; needs splitting, not a revisit |
-| あげる / くれる / もらう | `ageru` — Step 8 | Perspective is learnable there; the keigo layer (いただく・くださる) and the が…くれる ↔ に…もらう choice are not | Stage 2, with keigo. **Regression R1 lives here** |
-| Conditionals | `tara` — Step 12 (〜たら / 〜と) | 〜ば and 〜なら are not in Stage 1 at all, so the four-way contrast is structurally impossible | Stage 2, once all four exist. Unavoidable — flag it in Step 12 so the learner knows the set is incomplete |
-| 自動詞 / 他動詞 | `sb-transitive` — Step 4 | Pairs are teachable early; the particle consequence (を with transitive, が with intransitive) keeps resurfacing, and it is one of the highest-frequency real error families in the chat logs | Light revisit in Step 10 alongside `sb-ganotwo` — both are "the particle follows the verb's nature" |
-| に vs で | `sb-nide` — Step 2 | Extended by あります/います (Step 8) and 〜に行きます (Step 6), both after | Step 8, attached to `location` |
-| 〜ています | `teiru` / `teiru2` — Step 4 | ✅ Already split. But state-vs-progressive depends on verb class, which needs vocabulary breadth | Watch in Stage 2; may need a third pass |
+| Point | First contact | Why it can't finish there | Revisit | Status |
+|---|---|---|---|---|
+| は / が | `sb-waga` — Step 2 | Contrast, scope, and が in subordinate clauses all need clause embedding | `sb-waga2` — Step 11 | ✅ **Done** — the template |
+| Pronoun omission | `sb-pronouns` — Step 3 | Step 3 teaches *drop it*. It cannot teach **when 私 is required**, because that case is mostly relative clauses — 名詞修飾 arrives in Step 4 | `sb-pronouns2` — Step 11, after `sb-waga2` | ✅ **Done** (Session 13) — aligned with eval row E12 (`私が好きなスポーツは…`, keyed CORRECT) |
+| に vs で | `sb-nide` — Step 2 | Extended by あります/います (Step 8) and 〜に行きます (Step 6), both after | `sb-nide2` — Step 8, after `location` | ✅ **Done** (Session 13) — new rule: event-あります takes で |
+| 自動詞 / 他動詞 | `sb-transitive` — Step 4 | Pairs are teachable early; the particle consequence keeps resurfacing, and it is one of the highest-frequency real error families in the chat logs | `sb-transitive2` — Step 10, before `sb-ganotwo` | ✅ **Done** (Session 13) — separates the two unrelated が, not a re-teach |
+| は・へ・を pronunciation | `particles` — **hiragana module** | Kana plants it before the learner knows what a particle *is* | `sb-kanaparticles` — Step 2 | ✅ **Done** (Session 13) — the first deliberate **cross-module** revisit; precedent set that revisits may span modules |
+| あげる / くれる / もらう | `ageru` — Step 8 | Perspective is learnable there; the keigo layer (いただく・くださる) and the が…くれる ↔ に…もらう choice are not | `ageru2`, `sb-kuremorau`, `itadaku` — Step 14; keigo layer in Steps 24–26 | ✅ **Done** (Sessions 14–15) — regression R1 lives here |
+| Conditionals | `tara` — Step 12 (〜たら / 〜と) | 〜ば and 〜なら were not in Stage 1 at all, so the four-way contrast was structurally impossible | `ba`, `nara`, **`sb-if4`** — Step 16 · The four ifs | ✅ **Done** (Session 14) — `tara` carries an honesty flag that the set is completed later |
+| が vs を | `sb-ganotwo` — Step 10 | ⚠️ See below — the lesson conflates a hard rule with a soft preference | Same step; needs **splitting**, not a revisit | 🔴 **Blocked on the reviewer (R6)** |
+| 〜ています | `teiru` / `teiru2` — Step 4 | Already split. But state-vs-progressive depends on verb class, which needs vocabulary breadth | Possible third pass | 🟡 **Watch in Stage 2** |
 
-## ⚠️ Immediate consequence — `sb-ganotwo` needs a decision
+## ⚠️ Still live — `sb-ganotwo` needs a decision that is not ours
 
 Regression R6 (Aug 6 2026) found the checker flags `を好き` but **not**
 `日本語を話せます`, and keeps `を` in its rewrite.
@@ -53,13 +68,14 @@ watchlist bullet, and with the same problem:
 Teaching them as one rule means the curriculum asserts something the checker
 declined to assert. One of the two is wrong and they should agree.
 
-**This is a reviewer question, not ours** — see the R6 write-up in
+**This is a reviewer question** — see the R6 write-up in
 `prompt-regressions.md`. If they confirm `日本語を話せます` is natural, then
 `sb-ganotwo` splits (or gains a caveat) **and** the watchlist bullet in
 `SYSTEM_PROMPT` narrows — its own example currently asserts `日本語が話せる`.
 
 Note this is also the module's best candidate for the **first spotlight**: the
 lesson and the checker would then teach the same nuance from both directions.
+`potential2` is the placeholder id if the split goes that way.
 
 ## Where spotlights attach
 
@@ -71,88 +87,52 @@ in-context teaser, the lesson is the full treatment, and they should deep-link.
 |---|---|
 | が/を with potentials | `sb-ganotwo` / `potential` — Step 10 |
 | は vs が under contrast | `sb-waga2` — Step 11 |
-| 〜てもらう vs 〜てくれる | `ageru` — Step 8 |
-| 〜たら / 〜ば / 〜と / 〜なら | `tara` — Step 12 → Stage 2 |
-| に vs で | `sb-nide` — Step 2 → Step 8 |
+| 〜てもらう vs 〜てくれる | `ageru` — Step 8 → `sb-kuremorau` — Step 14 |
+| 〜たら / 〜ば / 〜と / 〜なら | `sb-if4` — Step 16 |
+| に vs で | `sb-nide` — Step 2 → `sb-nide2` — Step 8 |
 | 〜ている state vs progressive | `teiru2` — Step 4 |
-| Pronoun kept vs dropped | `sb-pronouns` — Step 3 → Step 11 |
+| Pronoun kept vs dropped | `sb-pronouns` — Step 3 → `sb-pronouns2` — Step 11 |
 
 Every entry maps to a lesson that already exists. Spotlights need no new
 curriculum — they need links into the curriculum we have.
 
-## ⚠️ Naming collision
+**The "Spotlight" naming collision is resolved** (Aug 8 2026). The feature keeps
+the name; the `wa` lesson was reworded and now opens **"は sets the stage."**
 
-`wa` (Step 2) currently opens: **"は is a spotlight."**
+## Open questions — all three answered
 
-If the feature ships as "Spotlight," the learner-facing word means two things in
-the same product — one of them in the very first particle lesson. Rename one.
-The lesson metaphor is good and load-bearing; the feature name is not yet
-committed to anything.
+Kept because the answers are the precedent, not because anything is pending.
 
-## 📋 Audit queue — Saturday Aug 8 2026
-
-Three items, found Aug 6–7 while mapping spotlights to lessons.
-
-### 1. Factual error — `hiragana-module.jsx`, H-Series `exp` (~line 166)
-
-> "This row matters again later, because **three of its kana** take on second jobs
-> as particles — and **one of them** changes how it is read."
-
-The H-series is は ひ ふ へ ほ. **Two** of its kana do particle duty — は and へ —
-and **both** change reading (は→wa, へ→e). を is W-series, not this row.
-
-The "three" almost certainly leaked from the note directly below it, which is
-correct: *"は, へ and を get a lesson of their own once you finish the chart."*
-Three particle kana in total; two of them in this row.
-
-Suggested: *"two of its kana take on second jobs as particles — and both change
-how they are read."*
-
-AI-authored, so it belongs in the reviewer queue rather than being silently fixed.
-
-### 2. Missing half of a cross-module lesson
-
-`hiragana-module.jsx` has `{ id: "particles", kind: "skill" }` — 「は・へ・を」
-*"when a kana stops sounding like itself"* — with four judge items, including
-`はな は きれいです`, where は appears twice in one sentence read two ways. Good
-lesson, and the H-series plants it in advance.
-
-**The grammar module has no counterpart.** None of its thirteen `sb-` lessons
-covers particle pronunciation; the quirk sits in one clause of `wa`'s `build`
-field. Step 2 · Core particles is where all three characters land as grammar
-(`wa`, `o`, and `ni-dest` covering に/へ).
-
-This is the revisit pattern in its purest form: kana plants it before the learner
-knows what a particle *is*, grammar completes it once they do. It also crosses
-modules, which nothing else in this map does — worth deciding whether revisits
-may span modules at all, since the kana modules gate Stage 1 but run separately.
-
-### 3. Naming collision — `grammar-module.jsx`, `wa` lesson (~lines 373–374)
-
-"は is a spotlight" appears twice, in `what` and `build`. Those are the only two
-occurrences of the word in the entire project — kana, kanji and checker are all
-clean. So this is a two-line fix if the Spotlight feature keeps its name.
-
-### Where the audit does *not* need to spend time
-
-Every numeric claim in both kana modules was checked — roughly forty across `exp`,
-`why` and `en` fields. Only the H-series line above is wrong. The irregular-kana
-count is internally consistent across three lessons (し・ち・つ・ふ, four, and the
-"fourth and final" flag lands on ふ); 二十五 voiced sounds is right; the Y-series
-"only three, i and e genuinely empty" is right; the ぢ/づ "two situations" is
-right; the katakana シ・ツ・ソ・ン sequence correctly says three then four.
-
-Counting claims are in good shape. Spend the audit elsewhere.
-
-## Open, for the authoring pass
-
-- **Does a revisit gate progression, or is it optional?** `rc-` checkpoints are
-  currently ungated by design so testing stays friction-free. A revisit that can
-  be skipped by the learner who most needs it is worth little.
-- **Does the module surface "you'll see this again"?** A learner who knows は/が
-  returns in Step 11 tolerates an incomplete Step 2 explanation. One who doesn't,
+- **Does a revisit gate progression?** **No.** Consistent with `rc-`
+  checkpoints, which are ungated by design so testing stays friction-free.
+  Gating remains its own Phase 2 tracker row, covering both at once.
+- **Does the module surface "you'll see this again"?** **Yes** — Session 13 put
+  forward pointers in the `watch` field of each first-contact lesson
+  (`sb-nide`, `sb-pronouns`, `sb-transitive`). A learner who knows は/が returns
+  in Step 11 tolerates an incomplete Step 2 explanation; one who doesn't
   concludes they failed to understand it.
-- **Does the revisit re-use `point.id` or take a new one?** Progress keys on
-  `point.id` (Session 5), so `sb-waga2` being a separate id means the two track
-  independently — probably right, but it should be a decision rather than an
-  accident.
+- **Does the revisit re-use `point.id` or take a new one?** **A new one.**
+  Progress keys on `point.id` (Session 5), so the two track independently. This
+  is now a deliberate convention rather than an accident.
+
+## 📋 Audit queue
+
+**Empty.** The three items filed here on Aug 8 2026 were all closed the same
+morning and the section is retired rather than carried:
+
+1. **H-Series factual error** (`hiragana-module.jsx`) — fixed; the line now
+   reads *"two of its kana take on second jobs as particles — and both change
+   how they are read."*
+2. **Missing grammar-side counterpart to the kana `particles` lesson** — shipped
+   as `sb-kanaparticles` (Step 2), which also settled the prior question:
+   revisits **may** span modules.
+3. **"Spotlight" naming collision** — resolved; the feature keeps the name and
+   the `wa` lesson was reworded.
+
+Kana numeric claims were verified exhaustively on Aug 6–7 (~40 across `exp`,
+`why` and `en` in both modules) and re-checked on Aug 15 after Sessions 11 and
+13 added 856 lines: still clean. **Counting claims are in good shape — spend the
+audit elsewhere.**
+
+New items go to the weekly audit (`audit-YYYY-MM-DD.md` + the Notion 🔍 Audit
+log), not back into this file.
