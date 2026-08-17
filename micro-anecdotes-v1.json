@@ -1,0 +1,664 @@
+{
+  "_": "Micro cultural anecdotes — first wave. HAND-AUTHORED, like vocab-notes-v1.json. Never regenerate; a build step merges by anchor word into the grammar module's word popups and the vocabulary module's word cards.",
+  "_design": "mca-design-v1.md (Session 17). 45-90 words, hard cap 110. Attaches to a word, not a grammar point. Max 2 per step.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Every claim is about Japan and none has been checked by a native reader. Reviewer batch J. The claims[] array is the review unit — check the claims, not the prose.",
+  "_brief": "Lloyd, Session 17: generalisations and simple daily-life things, from the point of view of someone moving to or travelling in Japan — what they would see or run into. City and countryside. History preferred over stereotype because a date can be checked.",
+
+  "items": [
+    {
+      "id": "mca-mizu",
+      "anchor": { "word": "水", "step": "Step 1 · Your first sentences" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Tap water is drinkable across Japan, and the standard it has to meet regulates 51 separate substances. Sit down in a restaurant and a glass of it arrives before you order, free. Buying bottled water at home is a preference here, not a necessity — which is why you will see people filling bottles at the kitchen sink. Edo was doing a version of this in the 1600s: the Kanda aqueduct carried water into the city for 271 years, until 1900.",
+      "claims": [
+        "Japanese drinking water standards regulate 51 items",
+        "Tap water is potable nationwide",
+        "Restaurants serve water free and unasked",
+        "The Kanda aqueduct supplied Edo/Tokyo 1629-1900, 271 years",
+        "The Kanda aqueduct is generally called Japan's first true aqueduct system"
+      ],
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11187173/",
+        "https://www.niph.go.jp/soshiki/suido/pdf/h19JPUS/abstract/r01.pdf",
+        "https://www.library.metro.tokyo.lg.jp/portals/0/edo/tokyo_library/english/modal/index.html?d=5404"
+      ],
+      "flags": ["Construction date of the Kanda aqueduct is disputed in the sources (Tenshō 1573-92 vs Kanei 1624-45); the text avoids a start date and gives only the 271-year span ending 1900."],
+      "tags": ["city", "countryside", "history", "daily"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-eki",
+      "anchor": { "word": "駅", "step": "Step 2 · Core particles" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Ask where something is and you will often be told how far it is from the station. The station is the centre of the town — shops beneath it, buses in front of it, apartments advertised in walking minutes from it. That is the city version. Of Japan's railway stations, 4,776 of them, around 50.9% in FY2022, have no staff at all: a rural platform is a ticket machine, a timetable and nobody. The first line opened in 1872, Shimbashi to Yokohama.",
+      "claims": [
+        "4,776 stations, about 50.9%, were unstaffed as of FY2022 (MLIT)",
+        "Apartment listings advertise distance to the station in walking minutes",
+        "Japan's first railway opened 1872 between Shimbashi and Yokohama"
+      ],
+      "sources": [
+        "https://www.travelandtourworld.com/news/article/japans-unstaffed-train-stations-transformed-into-unique-travel-destinations/",
+        "https://www.nippon.com/en/japan-topics/b06911/",
+        "https://www.japanrailclub.com/railway-150th-anniversary-shimbashi-yokohama/"
+      ],
+      "flags": [],
+      "tags": ["city", "countryside", "history", "transport"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-kouen",
+      "anchor": { "word": "公園", "step": "Step 2 · Core particles" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Read the sign at the entrance of your nearest park and you may find it is also an evacuation site — a green figure stepping into a circle means open-air refuge, a figure entering a building means an indoor shelter. Tokyo's larger parks are equipped for it: wells, solar lamps, benches whose seats lift off to become cooking stoves. The idea is old. Edo kept 火除地, ground deliberately left empty, so that fires had somewhere to stop.",
+      "claims": [
+        "Large parks and open spaces are formally designated evacuation areas",
+        "Green evacuation signage distinguishes outdoor sites from indoor shelters",
+        "Tokyo disaster-prevention parks include kamado benches, wells and solar lighting",
+        "Edo-era hiyokechi were deliberately unbuilt firebreak plazas, some of which became parks"
+      ],
+      "sources": [
+        "https://www.tokyo-park.or.jp/special/bousai/english/basyo.html",
+        "https://www.tokyo-park.or.jp/special/bousai/english/sisetsu.html",
+        "https://reasonstobecheerful.world/japans-disaster-parks-help-explain-its-coronavirus-response/",
+        "https://japanprepkit.com/blog/evacuation-shelter-guide"
+      ],
+      "flags": [],
+      "tags": ["city", "history", "safety"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-getsuyoubi",
+      "anchor": { "word": "月曜日", "step": "Step 3 · Joining, choosing & counting" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "The first thing your neighbours will notice about you is your rubbish. There is no national rule — every municipality writes its own, and they differ enough to matter. Tokyo's 23 wards take ordinary clear bags; other cities sell designated bags at roughly ¥10-80 each; Kamikatsu in Tokushima sorts into 45 categories. Your city office hands out the calendar, usually in English. Put it on the fridge: burnables and plastics are not collected on the same day.",
+      "claims": [
+        "Japan has no single national sorting standard; rules are municipal",
+        "Tokyo's 23 wards do not require paid designated bags; many other municipalities do",
+        "Designated bags typically cost about ¥10-80 each",
+        "Kamikatsu, Tokushima sorts household waste into 45 categories",
+        "Municipal offices issue multilingual garbage guides"
+      ],
+      "sources": [
+        "https://japanlivinglife.com/articles/garbage-sorting-rules-japan-explained",
+        "https://kawaraban.jp/en/living-en/50022.html",
+        "https://www.nippon.com/en/guide-to-japan/gu900038/",
+        "https://www.core77.com/posts/125980/This-Japanese-Town-Sorts-Their-Waste-Into-These-45-Categories"
+      ],
+      "flags": [],
+      "tags": ["city", "countryside", "admin", "daily"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-ie",
+      "anchor": { "word": "家", "step": "Step 3 · Joining, choosing & counting" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "A house here is usually not an investment. The building loses value while the land keeps it, so old houses tend to be cleared rather than restored — and where the population has fallen, they are simply left. The 2023 Housing and Land Survey counted 9.0 million vacant homes, 13.8% of the housing stock and double the 1993 figure. In the countryside you pass them on any walk: 空き家, shutters closed, the garden still cut by somebody.",
+      "claims": [
+        "2023 Housing and Land Survey: 9.0 million vacant homes, 13.8% of stock",
+        "That figure is double the 4.5 million recorded in 1993",
+        "Roughly 3.85 million of them are long-term abandoned",
+        "Japanese buildings depreciate while land holds value"
+      ],
+      "sources": [
+        "https://www.nippon.com/en/japan-data/h01987/",
+        "https://www.cnn.com/2024/05/07/asia/akiya-homes-problem-japan-intl-hnk"
+      ],
+      "flags": ["'the garden still cut by somebody' is an observation, not a sourced claim."],
+      "tags": ["countryside", "housing", "daily"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-mainichi",
+      "anchor": { "word": "毎日", "step": "Step 4 · Verbs: from dictionary form up" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "At 6:30 in the morning NHK broadcasts ラジオ体操 — a few minutes of calisthenics to piano, the same routine your neighbours learned in primary school. It started in 1928, run by the Postal Life Insurance Bureau, which had visited Metropolitan Life in New York, seen exercise broadcast on the radio to reduce claims, and brought the idea home. A century later you will still find groups doing it in parks at dawn, and children collecting stamps for it through the summer.",
+      "claims": [
+        "Radio taiso was first broadcast 1 November 1928 by the Postal Life Insurance Bureau on NHK",
+        "The idea came from a Japanese official's visit to Metropolitan Life in New York in the early 1920s",
+        "MetLife's motive was reducing claims by improving policyholder health",
+        "The music was composed by Kōsaku Yamada"
+      ],
+      "sources": [
+        "https://www.jas-hou.org/radio-taiso-a-storied-history",
+        "https://unseen-japan.com/radio-taiso-japan-history/",
+        "https://en.wikipedia.org/wiki/Radio_calisthenics"
+      ],
+      "flags": ["The 6:30 broadcast time and the summer stamp cards are widely reported but not sourced here — confirm with the reviewer."],
+      "tags": ["city", "countryside", "history", "daily"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-kaeru",
+      "anchor": { "word": "帰る", "step": "Step 5 · Requests, permission & obligation" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Some time in the late afternoon a loudspeaker on a pole plays a slow melody across the whole neighbourhood — often 夕焼け小焼け, a children's song from 1919. It is a test. The same speakers carry disaster warnings, so the town proves daily that they work, and the tune doubles as the signal for children to head home before dark. The hour shifts with the season and the song is chosen locally, so the one you hear belongs to where you live.",
+      "claims": [
+        "The daily chime tests the 防災行政無線 disaster-warning loudspeaker network",
+        "Yūyake Koyake dates from 1919",
+        "Timing varies by season and municipality, generally between 4 and 6pm",
+        "It also functions as a signal for children to go home"
+      ],
+      "sources": [
+        "https://www.atlasobscura.com/articles/japan-5-pm-chime",
+        "https://blog.gaijinpot.com/tokyo-5pm-song/",
+        "https://www.city.katsushika.lg.jp/kurashi/1004028/1000063/1004029/1004793/1004818.html"
+      ],
+      "flags": ["Song choice varying by municipality is reported but not confirmed by a government source."],
+      "tags": ["city", "countryside", "history", "daily", "safety"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-kusuri",
+      "anchor": { "word": "薬を飲む", "step": "Step 5 · Requests, permission & obligation" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "The doctor here does not hand you the medicine. You leave the clinic with a prescription and walk to a 調剤薬局 — often the one immediately outside — where a pharmacist fills it, explains it, and records it in your お薬手帳, a small booklet you keep and bring back each time. The split is deliberate: it removes the incentive to over-prescribe, and the booklet lets any pharmacist see everything you are taking. Bring it to the dentist too.",
+      "claims": [
+        "Japan operates 医薬分業, separation of prescribing and dispensing",
+        "Patients take prescriptions to a dispensing pharmacy rather than receiving drugs at the clinic",
+        "The stated rationale includes removing the economic incentive to over-prescribe",
+        "The お薬手帳 medication record booklet is used to check interactions"
+      ],
+      "sources": [
+        "https://www.pmda.go.jp/files/000151977.pdf",
+        "https://japanlivinglife.com/articles/prescription-medicine-japan-guide",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11129530/"
+      ],
+      "flags": ["'often the one immediately outside' is an observation about clinic-adjacent pharmacies, not a sourced claim."],
+      "tags": ["city", "countryside", "admin", "health"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-ocha",
+      "anchor": { "word": "お茶", "step": "Step 6 · Invitations, desire & intention" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Sit down in almost any restaurant and two things arrive before you have ordered: water or tea, and an おしぼり — a rolled damp towel, warm in winter and cold in summer. Neither appears on the bill and neither has to be asked for. The towel goes back to Edo-period inns, where a traveller arriving on foot was handed a wet cloth to get the road off their hands. It is for your hands. Not your face.",
+      "claims": [
+        "Water or tea is served free and unrequested in sit-down restaurants",
+        "Oshibori are provided free, warm in winter and cold in summer",
+        "The custom traces to 1600s tea houses and inns serving travellers"
+      ],
+      "sources": [
+        "https://tabimaniajapan.com/culture/food-culture/is-the-water-in-japanese-restaurants-really-free-no-its-not-a-scam",
+        "https://www.gltjp.com/en/article/item/21502/",
+        "https://cocoro.faag.co.jp/en/japanese-oshibori-culture-history-etiquette-modern-trends-and-the-freedom-to-enjoy/"
+      ],
+      "flags": ["'not your face' is presented as advice; it is a widely stated norm rather than a rule. Worth the reviewer's opinion on how firmly to put it."],
+      "tags": ["city", "countryside", "history", "food"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-kuruma",
+      "anchor": { "word": "車", "step": "Step 6 · Invitations, desire & intention" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Before you can register a car you have to show the police a 車庫証明 — proof that you have somewhere off-street to keep it. The rule comes from the Garage Act of 1962, and it is a large part of why Japanese streets are not lined with parked cars. It also explains the 軽 car: yellow plates, 660cc, 38% of new sales in 2024, cheap to tax, and in much of the countryside exempt from the parking proof altogether.",
+      "claims": [
+        "Car registration requires a police-issued parking certificate under the 1962 Garage Act",
+        "The rule initially applied to large cities and was extended more widely",
+        "Kei cars were 38% of new car sales in 2024 (1.56 million units)",
+        "Kei cars are exempt from the parking-proof requirement in many rural areas"
+      ],
+      "sources": [
+        "https://www.parkingreformatlas.org/parking-reform-cases-1/japan's-proof-of-parking-rule-(shako-shomeisho)",
+        "https://www.reinventingparking.org/2014/06/japans-proof-of-parking-rule-has.html",
+        "https://www.autonergy.co/articles/japan-kei-car-segment-explained",
+        "https://www.best-selling-cars.com/japan/2024-full-year-japan-best-selling-minicar-kei-brands-and-models/"
+      ],
+      "flags": ["Exemption geography varies by municipality; the text says 'much of the countryside' rather than naming a rule."],
+      "tags": ["city", "countryside", "history", "transport", "admin"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-ginkou",
+      "anchor": { "word": "銀行", "step": "Step 8 · Existence & possession" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Japan is going cashless slowly. Cashless payments were 42.8% of consumer spending in 2024, against a long-term government target of 80%, so you carry notes anyway — for the clinic, the school envelope, the small restaurant, the festival stall. Opening an account, expect to be asked for a 銀行印, a seal registered to the account, even though a 2020-21 government push cut seal requirements out of nearly all administrative paperwork. Banks move slower than ministries.",
+      "claims": [
+        "Cashless payments reached 42.8% of consumer spending in 2024 (METI)",
+        "Japan's long-term cashless target is 80%, with 65% by 2030",
+        "Many traditional banks still require a registered bank seal to open an account",
+        "The 2020-21 reform cut hanko requirements from 14,747 administrative procedures to 83"
+      ],
+      "sources": [
+        "https://www.meti.go.jp/english/press/2025/0331_001.html",
+        "https://www.fintechobserver.com/japans-cashless-transition-surges-to-58-meti-overhauls-metrics-to-target-80-long-term-goal/",
+        "https://mailmate.jp/blog/hank-abolishment",
+        "https://hankohub.com/hanko-for-working-holiday-a-foreigners-guide-to-using-seals-in-bank-account-setup/"
+      ],
+      "flags": ["Seal requirements vary by bank — online banks and some major banks now accept a signature. The text says 'expect to be asked', not 'you must'."],
+      "tags": ["city", "countryside", "admin", "money"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-heya",
+      "anchor": { "word": "部屋", "step": "Step 8 · Existence & possession" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Apartment listings measure rooms in 帖 or 畳 — tatami mats — and label the whole place 1K or 2LDK, rooms plus kitchen and living space. A mat is not one size. 京間, the Kansai standard, runs about 0.95 × 1.91 m; 江戸間 around Tokyo about 0.88 × 1.76 m. So a six-mat room in Osaka is genuinely larger than a six-mat room in Tokyo, and the same number on two listings is not the same floor.",
+      "claims": [
+        "Room size in listings is given in 帖/畳 (jō), both pronounced the same",
+        "京間 ≈ 0.95 × 1.91 m (Kansai), 中京間 ≈ 0.91 × 1.82 m (Nagoya), 江戸間 ≈ 0.88 × 1.76 m (Kanto)",
+        "帖 has become the more common written form in listings, including for Western-style rooms"
+      ],
+      "sources": [
+        "https://rise-corp.tokyo/pages/washitsu-and-room-size-measurement",
+        "https://www.akiyajapan.com/articles/tatami-mats-japanese-room-sizes-explained",
+        "https://japanobjects.com/features/tatami"
+      ],
+      "flags": [],
+      "tags": ["city", "housing", "history"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-atsui",
+      "anchor": { "word": "暑い", "step": "Step 9 · Adjectives & adverbs" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "In summer, offices are set to 28°C and men come to work without a jacket or tie. That is クールビズ, launched by the Environment Ministry in 2005 to cut air-conditioning demand; the prime minister appeared tieless on television and the private sector followed. It now runs May to October. The practical consequence for anyone arriving to work here is that the formal summer wardrobe you packed is both too warm and slightly overdressed.",
+      "claims": [
+        "Cool Biz launched summer 2005, proposed by Environment Minister Yuriko Koike under PM Koizumi",
+        "The campaign set the office air-conditioning standard to 28°C",
+        "Koizumi appeared publicly without a tie or jacket to promote it",
+        "The campaign period now runs May to October, extended after 2011"
+      ],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Cool_Biz_campaign",
+        "https://www.japantimes.co.jp/news/2005/07/09/national/cool-biz-dress-code-spreads-through-halls-of-promotion/",
+        "https://knowledgelibrary.ifma.org/cool-biz-energy-conservation-efforts-in-japan/"
+      ],
+      "flags": [],
+      "tags": ["city", "history", "work", "daily"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-samui",
+      "anchor": { "word": "寒い", "step": "Step 9 · Adjectives & adverbs" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Outside Hokkaido, houses are heated one room at a time — an air conditioner running in reverse, a kerosene heater, a こたつ with a quilt over it that warms your legs and nothing above them. The hallway stays cold, and so does the bathroom. This is building stock rather than stoicism: insulation performance only became mandatory for new homes in April 2025. Indoors in winter is warmer where you are sitting than where you are walking.",
+      "claims": [
+        "Central heating is uncommon outside Hokkaido; rooms are heated individually",
+        "Insulation Grade 4 and primary energy Grade 4 became mandatory for new housing in April 2025",
+        "The kotatsu descends from the irori hearth, with the covered form dating to the Muromachi period"
+      ],
+      "sources": [
+        "https://www.remitly.com/blog/lifestyle-culture/why-japanese-homes-dont-usually-have-central-heating/",
+        "https://www.realestate-tokyo.com/news/energy-compliance-2025/",
+        "https://kotatsu-tokyo.com/blogs/japan-blog/history-of-the-kotatsu"
+      ],
+      "flags": [],
+      "tags": ["city", "countryside", "housing", "history"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-basu",
+      "anchor": { "word": "バス", "step": "Step 10 · Comparing & preferring" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "On a city bus you usually pay a flat fare as you board. On a country bus you board at the middle door, take a numbered 整理券 from the machine, and watch a board at the front where the fare beside your number climbs as the bus goes. You pay it into the box on your way out, ticket and all. If you have no coins the box has a changer — use it before your stop rather than at it.",
+      "claims": [
+        "Urban buses commonly use flat-fare pay-on-boarding; rural buses use distance-based pay-on-exit",
+        "The 整理券 records the boarding point so distance fare can be calculated",
+        "A display at the front shows the fare owed for each ticket number",
+        "Fare boxes include a change machine"
+      ],
+      "sources": [
+        "https://japantravel.navitime.com/en/area/jp/guide/NTJarticle0015-en/",
+        "https://livejapan.com/en/article-a0000196/",
+        "https://japan-dev.com/blog/how-to-pay-for-bus-in-japan"
+      ],
+      "flags": [],
+      "tags": ["city", "countryside", "transport", "daily"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-ame",
+      "anchor": { "word": "雨", "step": "Step 11 · Reasons, contrast & connectors" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "梅雨, the rainy season, is declared: the Meteorological Agency announces its start and end region by region. It reaches Okinawa around early May, Tokyo in early June and northern Tōhoku around mid-June, then lifts through July. Hokkaido is generally said not to have one. It is not a monsoon — it is weeks of warm grey damp, which is why dehumidifiers sell out, laundry stops drying, and anything leather left in a closed cupboard comes out spotted.",
+      "claims": [
+        "The JMA declares the start and end of the rainy season by region",
+        "Okinawa enters around early May, Tokyo around early June, northern Tōhoku around mid-June",
+        "The season generally ends mid-to-late July on the mainland",
+        "Hokkaido is described as having no typical rainy season"
+      ],
+      "sources": [
+        "https://www.japan-guide.com/e/e2277.html",
+        "https://www.tokyoweekender.com/travel/tsuyu-japan-rainy-season-guide/",
+        "https://matcha-jp.com/en/4363"
+      ],
+      "flags": ["Mould on leather and laundry failing to dry are common resident experience, not sourced claims."],
+      "tags": ["city", "countryside", "weather", "daily"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-okureru",
+      "anchor": { "word": "遅れる", "step": "Step 11 · Reasons, contrast & connectors" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "When a train runs late the railway issues a 遅延証明書, a delay certificate — handed out at the gate or downloadable from the operator's website — and schools and employers accept it. The logic is worth noticing: lateness is treated as something the railway documents, not something you explain. Which is also the reason a delay of a few minutes gets an announcement and an apology that sounds, to a newcomer, wildly out of proportion to the delay.",
+      "claims": [
+        "Railway operators issue delay certificates on paper at the gates and as downloads on their websites",
+        "They exist as documentation for employers and schools, not as compensation",
+        "Certificates are commonly issued from around five minutes of delay",
+        "JR East certifies the maximum delay on a route, not an individual train, and is not proof you boarded",
+        "They are issued even when the cause is outside the railway's control"
+      ],
+      "sources": [
+        "https://traininfo.jreast.co.jp/delay_certificate/e/",
+        "https://en.wikipedia.org/wiki/Delay_certificate",
+        "https://www.jrpass.com/blog/japan-s-train-delay-certificate-chien-shomeisho-explained"
+      ],
+      "flags": ["The five-minute threshold varies by operator; the text deliberately says 'a delay of a few minutes' rather than naming a number."],
+      "tags": ["city", "transport", "work"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-natsu",
+      "anchor": { "word": "夏", "step": "Checkpoint 3 · Stage review" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "From July the neighbourhood 夏祭り start appearing — a shrine's grounds or a supermarket car park, food stalls, a wooden tower with a drum on top, and 盆踊り circling it. The steps repeat, which is the point: anyone can join halfway through. They are run by the local association rather than the city, so the same festival is four stalls in a village and a closed street in a city. 浴衣 are normal and entirely optional.",
+      "claims": [
+        "Summer festivals and bon dances cluster in July and August",
+        "Bon odori is danced in a circle around a raised yagura",
+        "Local organisation means scale varies enormously between neighbourhoods"
+      ],
+      "sources": [
+        "https://matsurimap.app/en/guides/obon-festival-japan-ancestral-homecoming-bon-odori-lantern-nights-july-august-2026",
+        "https://www.fun-japan.jp/en/articles/14108"
+      ],
+      "flags": ["'run by the local association rather than the city' is generally true but organisation varies; treat as a soft claim."],
+      "tags": ["city", "countryside", "seasonal"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-denki",
+      "anchor": { "word": "電気", "step": "Step 13 · て-form, second wind" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Japan runs on two mains frequencies. Tokyo and everything east of it, plus Hokkaido, is 50 Hz; Nagoya, Osaka and everything west is 60 Hz. The reason is that in the 1890s the Tokyo company bought German generators and the Osaka company bought American ones, at a time when no regulation required them to agree, and it was never worth unpicking afterwards. Modern appliances mostly cope. Some older motors and clocks do not — which matters if you move across the line.",
+      "claims": [
+        "Eastern Honshu and Hokkaido use 50 Hz; western Honshu, Kyushu, Shikoku and Okinawa use 60 Hz",
+        "Tokyo Electric Light bought 50 Hz AEG generators around 1895-96",
+        "Osaka Electric Light bought 60 Hz generators from GE's predecessor shortly after",
+        "No regulation required a single frequency at the time, and unification was later judged too costly"
+      ],
+      "sources": [
+        "https://www.japantimes.co.jp/news/2011/07/19/reference/japans-incompatible-power-grids/",
+        "https://shulman-advisory.com/everything-you-need-to-know-about-the-japanese-electricity-grid/",
+        "https://arun.is/blog/japan-electric-wall/"
+      ],
+      "flags": [],
+      "tags": ["city", "countryside", "history", "daily"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-shashin",
+      "anchor": { "word": "写真", "step": "Step 14 · Giving, receiving & kindness" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Phones sold in Japan make a shutter noise you cannot switch off, even on silent — and it is worth being precise about what that is. Not a law: an agreement among the Japanese carriers and handset makers, made in the early 2000s in response to covert photography in crowded public places. Phones bought abroad are silent. The thing that does bind everyone is the signage — 撮影禁止, no photography, in shops, museums and many temple interiors.",
+      "claims": [
+        "The non-disableable shutter sound is industry self-regulation, not statute",
+        "It was adopted by Japanese carriers and manufacturers in the early 2000s over covert photography",
+        "It sounds regardless of silent mode on domestically sold handsets",
+        "Imported handsets are not bound by it"
+      ],
+      "sources": [
+        "https://www.tokyoweekender.com/japan-life/news-and-opinion/why-you-cant-disable-the-shutter-sound-on-japanese-phones/",
+        "https://japanmanners.com/rules/shutter-sound-japan/",
+        "https://ktla.com/news/nationworld/do-phone-cameras-in-japan-really-make-shutter-sounds-you-cant-disable/"
+      ],
+      "flags": [],
+      "tags": ["city", "daily", "corrects-a-myth"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-omiyage",
+      "anchor": { "word": "お土産", "step": "Step 14 · Giving, receiving & kindness" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Come back from a trip and you are expected to bring something for the office or the neighbours — usually a box of individually wrapped regional sweets, bought at the station on the way home. The habit was once literal. In the Edo period a village would collect money to send one representative on the pilgrimage to Ise, and he came back carrying charms and goods for everyone who had paid in. Every station still sells exactly that box.",
+      "claims": [
+        "Omiyage practice traces to Edo-period pilgrimage, notably to Ise",
+        "Villages funded a representative traveller with 餞別 (senbetsu) collected contributions",
+        "The traveller returned with amulets and goods distributed to contributors",
+        "Shops selling regional specialities grew up along the approaches to shrines and temples"
+      ],
+      "sources": [
+        "https://www.deeperjapan.com/deeper-views/the-origins-of-omiyage",
+        "https://www.tofugu.com/japan/omiyage/",
+        "https://japantoday.com/category/features/japans-omiyage-culture"
+      ],
+      "flags": ["'expected' overstates for some workplaces — the reviewer should judge how strongly to put the obligation."],
+      "tags": ["city", "countryside", "history", "work"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-tenki",
+      "anchor": { "word": "天気", "step": "Step 15 · Guessing, seeming & hearsay" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "The forecast here is a seasonal event as much as a daily one. Through spring the news carries the 桜前線, the cherry-blossom front, tracking the bloom northwards across the country. The Meteorological Agency forecast it from 1951 until 2010, when it handed prediction to private weather companies and kept for itself the job of declaring the season open. Expect the rainy season and the first snow to be announced the same way — weather here is declared, not only reported.",
+      "claims": [
+        "The JMA forecast cherry blossom dates from 1951 (Kantō) and 1955 (nationwide except Okinawa/Amami)",
+        "It stopped forecasting in 2010, leaving prediction to private companies",
+        "The JMA still observes and announces the start of the season"
+      ],
+      "sources": [
+        "https://en.wikipedia.org/wiki/Cherry_blossom_front",
+        "https://www.japantimes.co.jp/news/2023/03/23/national/cherry-blossom-forecasting/"
+      ],
+      "flags": [],
+      "tags": ["city", "countryside", "history", "weather"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-isha",
+      "anchor": { "word": "医者", "step": "Step 16 · The four ifs" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Everyone living in Japan has to be in a health insurance scheme; if you are not covered through an employer you enrol in 国民健康保険 at the city office. Universal coverage was reached in 1961, though not on today's terms — the shared 30% counter payment for working-age patients came through later reform, and in 1961 many people paid half. There is no referral system: a small local clinic, not a hospital, is the normal first stop.",
+      "claims": [
+        "Universal health coverage was achieved in 1961 by mandating enrolment",
+        "Co-payment rates in 1961 differed sharply by scheme; many paid 50%",
+        "The uniform 30% working-age co-payment came from later reform, not 1961",
+        "Residents not covered by an employer scheme enrol in National Health Insurance at the municipality"
+      ],
+      "sources": [
+        "https://japanhpn.org/en/section-3-1/",
+        "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6882306/",
+        "https://www.med.or.jp/english/activities/pdf/2009_04/263_268.pdf"
+      ],
+      "flags": ["'no referral system' is broadly true for clinics but large hospitals charge a surcharge for unreferred patients — the reviewer may want that nuance added."],
+      "tags": ["city", "countryside", "admin", "health", "history", "corrects-a-myth"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-toukyou",
+      "anchor": { "word": "東京", "step": "Step 17 · Intentions, decisions & change" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Japanese addresses do not name streets. They name a ward, a district, then 丁目-番-号: a numbered area, a numbered block inside it, a numbered building inside that — standardised by the Act on Indication of Residential Address in 1962. So the skill is not reading a street sign but finding the small blue plate on a building corner, and everyone navigates by landmark and map app, taxi drivers included. Kyoto, laid out on a grid, is the famous exception.",
+      "claims": [
+        "Japanese addresses are block-based rather than street-based",
+        "The Act on Indication of Residential Address (1962) introduced the chōme-ban-gō system",
+        "The earlier banchi lot numbers date from the 1873 land tax reform and were assigned in registration order",
+        "Kyoto is commonly cited as an exception, addressed by street intersections"
+      ],
+      "sources": [
+        "https://japanhandbook.com/understanding-japanese-addresses-navigating-the-chome-system/",
+        "https://business.mapfan.com/en/blog/detail/2254",
+        "https://resources.realestate.co.jp/living/how-to-read-a-japanese-address/"
+      ],
+      "flags": ["The Kyoto exception is not sourced in this pass beyond general reference. Confirm before shipping."],
+      "tags": ["city", "history", "admin", "daily"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-tabako",
+      "anchor": { "word": "たばこ", "step": "Step 17 · Intentions, decisions & change" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Indoor smoking was restricted nationally in April 2020: restaurants, offices and hotels went non-smoking inside, with sealed smoking rooms allowed and small existing bars temporarily exempt. Outdoors the rule runs the other way — many city centres ban smoking on the street and fine for it, which is why you will see glass booths beside stations with people standing in them. Schools, hospitals and government buildings are smoke-free including their grounds.",
+      "claims": [
+        "The revised Health Promotion Act took full effect April 2020",
+        "Category I facilities (schools, hospitals, government) must be entirely smoke-free including outdoor areas they own",
+        "Category II (most restaurants, offices, hotels) must be smoke-free indoors, with sealed smoking rooms permitted",
+        "Small pre-existing establishments below capital and floor-area thresholds are temporarily exempt"
+      ],
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12003691/",
+        "https://www.tsunagujapan.com/banning-smoking-indoors-japan-april-2020/",
+        "https://link.springer.com/article/10.1186/s12889-024-20765-6"
+      ],
+      "flags": ["Street-smoking bans are municipal ordinances, not national law; the text says 'many city centres' rather than generalising."],
+      "tags": ["city", "admin", "daily"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-kanji",
+      "anchor": { "word": "漢字", "step": "Step 18 · Ability, experience & degrees" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "There is an official list of characters for everyday public use — 常用漢字, currently 2,136, set in 2010. Its ancestor was blunter: the 1946 当用漢字 list of 1,850 was a postwar attempt to cap the character set outright. Newspapers, public signage and government documents stay inside the list and add furigana when they step outside it. That is why a station sign becomes readable long before a novel does.",
+      "claims": [
+        "The jōyō kanji list currently holds 2,136 characters, set in the 2010 revision",
+        "The 2010 revision added 196 and removed 5 from the 1,945-character 1981 list",
+        "The tōyō kanji list of 1946 held 1,850 characters and governed official documents",
+        "Public documents and newspapers work within the list"
+      ],
+      "sources": [
+        "https://en.wikipedia.org/wiki/J%C5%8Dy%C5%8D_kanji",
+        "https://blog.typekit.com/2010/12/05/joyo-kanji-revision/",
+        "https://www.sljfaq.org/afaq/jouyou-kanji.html"
+      ],
+      "flags": ["The furigana-outside-the-list convention is a newspaper style rule rather than a legal requirement."],
+      "tags": ["city", "countryside", "history", "literacy"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-sushi",
+      "anchor": { "word": "すし", "step": "Step 18 · Ability, experience & degrees" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Revolving sushi is an Osaka invention. Yoshiaki Shiraishi, short of staff at his standing sushi shop, watched bottles travelling along a conveyor at a brewery, spent five years on the idea, and opened 廻る元禄寿司 in 1958; he showed it to the whole country at the 1970 Osaka Expo. That lineage is why 回転寿司 is family food rather than a novelty — a roadside chain with a car park, plates priced by colour, and a bill your children can run up cheerfully.",
+      "claims": [
+        "Conveyor-belt sushi was invented by Yoshiaki Shiraishi in Osaka",
+        "The idea came from observing a brewery conveyor; he developed it over about five years",
+        "Mawaru Genroku Sushi opened in 1958",
+        "The format was shown at the 1970 Osaka World Expo, driving national adoption"
+      ],
+      "sources": [
+        "https://www.tsunagujapan.com/japan-oldest-conveyor-belt-sushi-restaurant-birthplace-kaitenzushi/",
+        "https://www.saveur.com/conveyor-belt-kaiten-sushi/",
+        "https://www.foodrepublic.com/1550022/conveyor-belt-sushi-origin/"
+      ],
+      "flags": [],
+      "tags": ["city", "countryside", "history", "food"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-natsuyasumi",
+      "anchor": { "word": "夏休み", "step": "Step 19 · Time's edges" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Around 13-16 August the country moves. お盆 is when ancestors are held to return home, so the living travel home too, and the traffic reports name the two waves: 帰省ラッシュ out of the cities and U-ターンラッシュ back into them. Trains sell out weeks ahead, expressways stop, and small towns fill up for four days. If you are travelling in August, book early or wait a week. If you are staying put, the cities go quiet.",
+      "claims": [
+        "Obon is generally observed 13-16 August",
+        "It is one of Japan's three peak domestic travel seasons",
+        "The outbound and return waves are named 帰省ラッシュ and U-ターンラッシュ",
+        "The observance blends the Buddhist Ullambana festival with ancestor veneration"
+      ],
+      "sources": [
+        "https://www.fun-japan.jp/en/articles/14108",
+        "https://japantravel.navitime.com/en/area/jp/guide/NTJarticle0135-en/",
+        "https://japanwebmagazine.substack.com/p/the-mystique-and-mass-migration-of"
+      ],
+      "flags": ["Obon dates vary regionally — parts of Tokyo observe it in July. Not stated in the text; the reviewer may want it added."],
+      "tags": ["city", "countryside", "seasonal", "history", "transport"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-jugyou",
+      "anchor": { "word": "授業", "step": "Step 19 · Time's edges" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "The school day has a cleaning slot — 掃除の時間, usually after lunch, fifteen to thirty minutes in which students sweep the classrooms, corridors and toilets they use. It sits in the national curriculum rather than beside it. One correction to the version of this story that travels abroad: Japanese schools do employ caretakers, 用務員, for maintenance and the work children cannot do. The children clean. They are not the only ones cleaning.",
+      "claims": [
+        "Daily cleaning time of roughly 15-30 minutes, usually after lunch, is standard",
+        "Cleaning appears in the national curriculum standards (学習指導要領)",
+        "Japanese schools employ non-teaching caretaking staff (用務員) despite the common claim that they have no janitors"
+      ],
+      "sources": [
+        "https://omakase-tokyo.com/blogs/news/no-janitors-heres-why-japanese-kids-clean-their-own-schools",
+        "https://web-japan.org/kidsweb/cool/21/202101_on-duty-activity_en.html",
+        "https://www.gov-online.go.jp/hlj/en/december_2025/december_2025-03.html"
+      ],
+      "flags": ["Lloyd teaches in a Japanese school and is the best available check on this one."],
+      "tags": ["city", "countryside", "school", "corrects-a-myth"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-mise",
+      "anchor": { "word": "店", "step": "Step 21 · Reasons, concessions & flow" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Two retail landscapes sit side by side. The 商店街 is the arcaded shopping street by the station — fishmonger, tofu shop, sweet shop, all family-run. There are roughly 13,000 of them nationally, and enough are shuttered that the phrase シャッター通り, shutter street, is ordinary language. The trade went to roadside chains with car parks, and the owners' children did not take over the shops. Which of the two you live near depends entirely on the town.",
+      "claims": [
+        "There are about 13,000 shopping streets nationally",
+        "シャッター通り is an established term for arcades with widespread closures",
+        "Decline is attributed to motorisation, suburban malls, online shopping and ageing owners without successors"
+      ],
+      "sources": [
+        "https://www.japanfs.org/en/news/archives/news_id035142.html",
+        "https://shotengai.com/pages/story-of-shotengai",
+        "https://www.researchgate.net/figure/Japans-shutter-streets_fig4_353561108"
+      ],
+      "flags": ["The 13,000 figure is quoted from a secondary source without a year attached — worth pinning down."],
+      "tags": ["city", "countryside", "daily"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-inu",
+      "anchor": { "word": "犬", "step": "Step 23 · Other minds" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "A dog here is a registered animal. Under the Rabies Prevention Act of 1950 every dog over 91 days old is registered once with the municipality and vaccinated every year, and the metal tag on the collar is the proof — part of why Japan has stayed rabies-free. On the street you will notice owners carrying a small water bottle to rinse where the dog has been, along with the bags. The bottle is courtesy, not law.",
+      "claims": [
+        "The Rabies Prevention Act dates from 1950",
+        "Dogs aged 91 days and over must be registered once with the municipality",
+        "Annual rabies vaccination is a legal obligation, evidenced by a tag",
+        "Japan is rabies-free, attributed partly to registration and vaccination"
+      ],
+      "sources": [
+        "https://wwwnc.cdc.gov/eid/article/14/9/07-0845_article",
+        "https://tokyodoglife.com/rabies-vaccination-rules-for-dogs-in-japan/",
+        "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0206717"
+      ],
+      "flags": ["The water bottle is an observation, explicitly marked in the text as courtesy rather than rule."],
+      "tags": ["city", "countryside", "history", "daily", "admin"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-namae",
+      "anchor": { "word": "名前", "step": "Step 26 · Producing politeness" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "You will be asked for a 印鑑, a name seal, more often than for a signature, and if you stay you will end up with two — a cheap one for parcels and a registered 実印 for contracts. This is changing: in 2020-21 the government cut the seal requirement from 14,747 administrative procedures down to 83. Banks and landlords move slower than ministries, so have one made early. A katakana version of a foreign name is normal and accepted.",
+      "claims": [
+        "Of 14,747 procedure types that required a seal, only 83 were to remain after the 2020-21 reform",
+        "97% of hanko requirements had been removed by the end of FY2020",
+        "Seals remain in common private-sector use, including at many banks"
+      ],
+      "sources": [
+        "https://mailmate.jp/blog/hank-abolishment",
+        "https://asia.nikkei.com/politics/japan-to-drop-seal-requirement-in-99-of-administrative-procedures",
+        "https://blogs.loc.gov/law/2020/10/tradition-vs-efficiency-hanko-affects-workplace-efficiency-and-telework-in-japan/"
+      ],
+      "flags": ["'a katakana version of a foreign name is normal and accepted' is standard practice but not sourced here."],
+      "tags": ["city", "countryside", "admin", "history"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    },
+    {
+      "id": "mca-juusho",
+      "anchor": { "word": "住所", "step": "Step 26 · Producing politeness" },
+      "surfaces": ["grammar-bank", "vocab-card"],
+      "text": "Moving here comes with a deadline. Within 14 days of taking up an address you register it at the city or ward office, and that produces your 住民票 — the record everything else hangs off: health insurance, a bank account, a phone contract, tax. Leaving that city, you file the other half of the form and carry the certificate to the next one. It is the most useful hour you will spend in your first fortnight.",
+      "claims": [
+        "Address registration is legally required within 14 days of moving in",
+        "The 転入届 produces or updates the 住民票 resident record",
+        "The 住民票 is required for bank accounts, insurance and other services",
+        "Moving out requires a moving-out certificate to present at the new municipality"
+      ],
+      "sources": [
+        "https://life.m-ri.co.jp/en/jyumin-toroku.html",
+        "https://en.wikipedia.org/wiki/J%C5%ABminhy%C5%8D",
+        "https://wise.com/en-jp/blog/register-change-address-japan"
+      ],
+      "flags": [],
+      "tags": ["city", "countryside", "admin"],
+      "review": { "batch": "J", "status": "unreviewed" }
+    }
+  ]
+}
