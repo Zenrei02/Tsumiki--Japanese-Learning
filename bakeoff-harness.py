@@ -22,7 +22,9 @@ What it does:
      calls hit the prompt cache.
   5. Appends every raw response to bakeoff-log.jsonl AS IT ARRIVES (durable
      artifacts logged immediately — the Apps Script lesson). Re-running skips
-     already-logged pairs, so a crash costs nothing.
+     already-logged pairs, so a crash costs nothing. A response that cannot be
+     parsed goes to bakeoff-parse-failures.jsonl instead, WITH the raw body —
+     it must not go in the resume log, where its output_id would read as done.
   6. Writes naoshi-eval-v1-with-outputs.xlsx (a copy — the original is never
      touched) with Tool verdict + Tool feedback filled, and prints per-model
      token totals for the Results sheet's yellow cells.
@@ -50,6 +52,12 @@ HERE = pathlib.Path(__file__).parent
 WB_IN = HERE / "naoshi-eval-v1.xlsx"
 WB_OUT = HERE / "naoshi-eval-v1-with-outputs.xlsx"
 LOG = HERE / "bakeoff-log.jsonl"
+# Unparseable responses go HERE and never into bakeoff-log.jsonl. The resume
+# logic builds its `done` set from every output_id in that file, so a failure
+# record written there would mark the row complete and every later re-run would
+# skip it — the row would be permanently missing and the log would say it was
+# handled.
+FAIL_LOG = HERE / "bakeoff-parse-failures.jsonl"
 API = "https://api.anthropic.com/v1/messages"
 
 # ---------- prompt, straight from the checker file ----------
@@ -158,6 +166,61 @@ def extract_json(text):
     obj, _end = json.JSONDecoder().raw_decode(text[start:])
     return obj
 
+def log_parse_failure(exc, resp, **ident):
+    """Persist the RAW response body when parsing it fails, and say so loudly.
+
+    WHY THIS EXISTS. Session 16 burned four retry rounds on E20×M1 with nothing
+    to look at. The run loop printed `FAILED — Extra data: line 15 column 1` and
+    dropped the response on the floor, so each retry was blind: the same call,
+    the same useless message, no way to tell truncation from trailing prose from
+    a refusal. The cause (Haiku emitting valid fenced JSON and then a paragraph
+    of English commentary) was only found by calling the API by hand, eight
+    times, OUTSIDE the harness — reproducing from scratch what the harness had
+    held in memory and discarded on every one of those rounds.
+
+    A repeated failure that produces no diagnostic is itself a defect, separate
+    from whatever caused it. So the body is now durable BEFORE anything is
+    printed, and the whole body is kept, not an excerpt: the interesting part of
+    "Extra data: line 15" is what sits AFTER the JSON ends, and the interesting
+    part of a truncation is where it stopped. An excerpt from the head would
+    have hidden the Session 16 bug specifically.
+
+    `stop_reason` is the one field that separates the two big causes at a
+    glance — `max_tokens` means truncation, `end_turn` means the model finished
+    and said something extra — so it is printed as well as stored.
+
+    The key cannot appear here: it is a request header and is never echoed in a
+    response body.
+    """
+    text = "".join(b.get("text", "") for b in (resp or {}).get("content", []))
+    rec = {
+        "ts": time.strftime("%Y-%m-%dT%H:%M:%S"),
+        **ident,
+        "error": str(exc),
+        "error_type": type(exc).__name__,
+        "model_answered": (resp or {}).get("model", ""),
+        "stop_reason": (resp or {}).get("stop_reason"),
+        "usage": (resp or {}).get("usage", {}),
+        "text": text,          # concatenated text blocks — what the parser saw
+        "response": resp,      # the entire envelope, thinking blocks included
+    }
+    try:
+        with FAIL_LOG.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+            f.flush()
+        where = f"raw body appended to {FAIL_LOG.name}"
+    except Exception as e:  # never let diagnostics be the thing that kills a run
+        where = f"COULD NOT WRITE {FAIL_LOG.name} ({e}) — body below is all there is"
+
+    u = rec["usage"] or {}
+    head, tail = text[:300], text[-300:] if len(text) > 600 else ""
+    print(f"      stop_reason={rec['stop_reason']} · "
+          f"out {u.get('output_tokens')} tok · {len(text)} chars · {where}")
+    print(f"      head: {head!r}")
+    if tail:
+        print(f"      tail: {tail!r}")
+
+
 def parse_issues(resp):
     text = "".join(b.get("text", "") for b in resp.get("content", []))
     data = extract_json(text)
@@ -201,13 +264,30 @@ def main():
 
     if mode == "--smoke":
         sent = next(iter(sentences.values()), "私は毎日私の犬と散歩します。")
+        smoke_unparseable = []
         for code, (mstr, *_ ) in models.items():
             resp = call_model(key, mstr, system_prompt, sent)
-            verdict, _, _ = parse_issues(resp)
             u = resp.get("usage", {})
+            try:
+                verdict, _, _ = parse_issues(resp)
+            except Exception as e:
+                # Smoke is where an unparseable response is CHEAPEST to
+                # diagnose — one sentence, three calls. It used to die here on a
+                # bare traceback with the body discarded, same as the run loop.
+                print(f"  {code} {mstr}: UNPARSEABLE — {e}")
+                log_parse_failure(e, resp, output_id=f"SMOKE-{code}",
+                                  eval_id="SMOKE", model_code=code,
+                                  model_requested=mstr)
+                smoke_unparseable.append(code)
+                continue
             print(f"  {code} {mstr}: {verdict} "
                   f"(in {u.get('input_tokens')}, out {u.get('output_tokens')}, "
                   f"cache-read {u.get('cache_read_input_tokens', 0)})")
+        if smoke_unparseable:
+            sys.exit(f"smoke FAILED — {', '.join(smoke_unparseable)} returned output "
+                     f"this harness cannot parse. The raw bodies are in "
+                     f"{FAIL_LOG.name}; read them before retrying, a blind retry "
+                     f"tells you nothing new.")
         print("smoke OK — models answered under their own names.")
         return
 
@@ -230,17 +310,32 @@ def main():
     usage = {c: [0, 0] for c in models}
     results = {}
     failed = []
+    parse_failed = []
     with LOG.open("a", encoding="utf-8") as log:
         for rowno, oid, eid, code in runnable:
             if oid in done:
                 continue
             mstr = models[code][0]
+            # The call and the parse are caught SEPARATELY. They fail for
+            # unrelated reasons and need different evidence: a call failure is
+            # fully described by its exception, while a parse failure is not
+            # described by its exception at all — the useful evidence is the
+            # body, which is why it is written out below.
             try:
                 resp = call_model(key, mstr, system_prompt, sentences[eid])
+            except Exception as e:
+                print(f"  {oid} ({eid}×{code}): CALL FAILED — {e}")
+                failed.append(oid)
+                time.sleep(2)
+                continue
+            try:
                 verdict, feedback, data = parse_issues(resp)
             except Exception as e:
-                print(f"  {oid} ({eid}×{code}): FAILED — {e}")
+                print(f"  {oid} ({eid}×{code}): UNPARSEABLE — {e}")
+                log_parse_failure(e, resp, output_id=oid, eval_id=eid,
+                                  model_code=code, model_requested=mstr)
                 failed.append(oid)
+                parse_failed.append(oid)
                 time.sleep(2)
                 continue
             answered = resp.get("model", "")
@@ -284,6 +379,15 @@ def main():
         print(f"\n⚠️  RUN INCOMPLETE — {len(missing)} of {len(runnable)} rows "
               f"missing ({len(failed)} failed this run).")
         print("   Re-run this same command to retry ONLY the missing rows.")
+        if parse_failed:
+            # Say this here rather than only at the failure site: after 150 rows
+            # of output the per-row line has scrolled away, and "re-run to
+            # retry" on its own is what turned one parse bug into four blind
+            # rounds.
+            print(f"   {len(parse_failed)} of them returned output this harness "
+                  f"could not parse: {', '.join(parse_failed)}.")
+            print(f"   READ THE RAW BODIES FIRST — {FAIL_LOG.name}. Retrying an "
+                  f"unparseable response without looking at it learns nothing.")
     else:
         print(f"\n✅ COMPLETE — all {len(runnable)} rows filled.")
     # Cumulative totals from the whole log — these are what the Results

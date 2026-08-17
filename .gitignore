@@ -75,6 +75,9 @@ Audio/Kana.bak-*/
 naoshi-eval-v1.xlsx
 naoshi-eval-v1-with-outputs.xlsx
 bakeoff-log.jsonl
+# Same rule: this holds the raw body of every response the harness could not
+# parse, which is model output on eval sentences — the blind material again.
+bakeoff-parse-failures.jsonl
 
 # Same rule, same reason: the Step 2 response files carry the reviewer's verdicts
 # and their proposed corrections, which IS key material. Added Aug 12 2026 after a
