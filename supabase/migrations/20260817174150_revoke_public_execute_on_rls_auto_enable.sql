@@ -1,0 +1,86 @@
+-- Take EXECUTE on public.rls_auto_enable() away from the API roles.
+--
+-- NOT OURS. This function and its `ensure_rls` event trigger were already in the
+-- database; both are owned by `postgres`, not by any migration in this repo. It
+-- is flagged by two Supabase security advisors (0028 anon / 0029 authenticated,
+-- "Public Can Execute SECURITY DEFINER Function") because it is reachable at
+-- /rest/v1/rpc/rls_auto_enable. Cleared now that the project has real traffic.
+--
+-- WHAT IT DOES, so the next person does not have to guess: it is the function
+-- behind the `ensure_rls` event trigger (ddl_command_end on CREATE TABLE /
+-- CREATE TABLE AS / SELECT INTO). It runs `alter table ... enable row level
+-- security` on every new table in `public`. It is a security GUARDRAIL, and
+-- breaking it would mean future tables silently ship without RLS. That is the
+-- thing this migration must not do.
+--
+-- ACTUAL SEVERITY, measured rather than assumed: the function returns
+-- `event_trigger`, so a direct call is refused by Postgres itself before the
+-- body runs —
+--
+--   0A000 trigger functions can only be called as triggers
+--
+-- So an anon POST to the RPC got an error, not an RLS bypass. The advisor is
+-- still right that the grant is wrong; it was defence in depth that was
+-- missing, not an open door. Recorded because "flagged by the linter" and
+-- "exploitable" are different claims and the difference is worth having on file.
+--
+-- ⚠️ WHY THIS REVOKES FROM `public` AND NOT JUST FROM anon/authenticated.
+-- `pg_proc.proacl` for this function was NULL — the default ACL — which means
+-- EXECUTE was held through the PUBLIC grant and NOT through any per-role grant.
+-- `revoke execute ... from anon, authenticated` against a NULL acl is a SILENT
+-- NO-OP: it materialises the default ACL, finds no anon entry to remove, and
+-- leaves `=X/postgres` (PUBLIC) in place, so anon can still call the function.
+-- Postgres does not warn when you revoke a privilege that was never granted
+-- directly. The advisor would have kept firing and the obvious reading would
+-- have been that the advisor was stale.
+--
+-- ⚠️ AND WHY THAT IS THE DANGEROUS DIRECTION — see
+-- 20260814190000_check_usage_grant_service_role.sql. That is this exact
+-- statement shape causing an outage: `revoke ... from public` on the cap
+-- functions removed the grant `service_role` held only through PUBLIC, and the
+-- cap silently stopped running while every check still returned 200. So
+-- revoking from PUBLIC is correct here ONLY because the caller set was checked
+-- first:
+--
+--   * Only `postgres` and `supabase_admin` hold CREATE on schema `public`, so
+--     they are the only roles that can fire the event trigger at all.
+--   * `postgres` OWNS the function and keeps EXECUTE implicitly; `supabase_admin`
+--     is superuser and bypasses ACL checks.
+--   * anon / authenticated / authenticator / service_role cannot create tables,
+--     so none of them has any reason to reach this function.
+--
+-- The two grants below are therefore belt-and-braces, and deliberate: they put
+-- the guardrail's real caller set in the ACL where it can be read, instead of
+-- leaving it resting on ownership and superuser implicitness. Session 16's
+-- lesson was that the roles which must KEEP a privilege should be named
+-- explicitly in the same migration that takes it away from everyone else.
+
+revoke execute on function public.rls_auto_enable() from public, anon, authenticated;
+
+grant execute on function public.rls_auto_enable() to postgres;
+grant execute on function public.rls_auto_enable() to supabase_admin;
+
+-- VERIFICATION IS NOT THE ADVISORS. They answer "can the wrong roles call
+-- this?" and have nothing to say about "can the right one still?" — treating a
+-- green answer to the first as an answer to both is precisely what caused the
+-- Aug 15 cap outage. So after this migration: confirm anon/authenticated lost
+-- EXECUTE, AND confirm a freshly created public table still comes out with
+-- relrowsecurity = true. Only the second one exercises the guardrail.
+--
+-- BOTH WERE RUN, Aug 17 2026, against the live project:
+--
+--   proacl before : NULL                    (EXECUTE held via PUBLIC)
+--   proacl after  : {postgres=X/postgres,supabase_admin=X/postgres}
+--
+--   has_function_privilege after —
+--     anon false · authenticated false · authenticator false · service_role false
+--     postgres true · supabase_admin true
+--
+--   guardrail exercised: `create table public.zz_rls_guardrail_probe (id int)`
+--     came out with relrowsecurity = TRUE, so `ensure_rls` still fires after the
+--     revoke. Probe table dropped; verified gone from pg_class.
+--
+--   advisors after: both the 0028 and 0029 WARNs for rls_auto_enable are gone.
+--     The remaining INFO (naoshi_check_usage "RLS enabled, no policies") is
+--     intentional and documented in 20260814180650_check_usage.sql — that table
+--     is reached only by service_role through SECURITY DEFINER functions.
