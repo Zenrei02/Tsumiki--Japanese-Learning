@@ -1,0 +1,619 @@
+{
+  "_": "Grammar scenes — first wave. HAND-AUTHORED. A short situation that creates the need for a pattern, for grammar points with no English equivalent. Sibling to micro-anecdotes-v1.json; that one anchors to WORDS, this one to GRAMMAR POINTS.",
+  "_design": "scene-design-v1.md (Session 17). English setup, Japanese at the moment of use, then the turn. Renders inside the four-beat block between `when` and `watch`.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch K. Three questions per item: is the line natural for THIS situation; is the contrast labelled correctly; would a Japanese speaker actually reach for this pattern here, or is it a textbook choice the situation doesn't call for. The third is the one only the reviewer can answer.",
+  "_contrast": "Three kinds, deliberately mirroring the checker's own tiers. 'alt' = also correct, different meaning (neutral styling). 'misfit' = grammatical Japanese that is wrong FOR THIS SITUATION — the CORRECT-BUT-UNNATURAL tier; render in indigo, not red. 'error' = wrong Japanese — the FIX tier; MUST render marked as wrong (FIX red or struck through), never neutral.",
+  "items": [
+    {
+      "id": "sc-drop",
+      "point": "prim-drop",
+      "step": "Step 0 · Before any Japanese",
+      "setup": "Your neighbour leaves a bag of tomatoes from her garden by your door. You eat two at dinner and message her a photo of the plate. In English you would write \"They were delicious\" — and that \"they\" is doing no work at all, because she is the one who grew them and handed them over.",
+      "line": {
+        "jp": "おいしかったです。",
+        "en": "Was delicious."
+      },
+      "contrast": null,
+      "pattern": null,
+      "turn": "Nothing is missing. Japanese stops the sentence where the information stops, and anything already shared falls away. The English habit of naming the tomatoes again is what makes learner Japanese read as though it is being explained to a stranger.",
+      "tags": [
+        "no-english-equivalent",
+        "invisible-error"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-yone",
+      "point": "sb-yone",
+      "step": "Step 1 · Your first sentences",
+      "setup": "August, and you meet a colleague at the station entrance. You have walked twenty minutes in it. He has come straight from an air-conditioned office and is about to step outside for the first time since eight. You both say something about the heat, and you are not saying the same thing.",
+      "line": {
+        "jp": "暑いですね。",
+        "en": "Hot, isn't it — you feel it too."
+      },
+      "contrast": {
+        "kind": "alt",
+        "jp": "暑いですよ。",
+        "en": "It's hot out there — I've been in it, you haven't."
+      },
+      "pattern": "ですね",
+      "turn": "English does all of this with tone of voice, so nothing in your first language tells you which one you need. ね hands the thought over; よ delivers news. The one that lands badly is よ aimed at what the listener already knows — 疲れていますよ tells someone how tired they are.",
+      "tags": [
+        "no-english-equivalent",
+        "social"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-negq",
+      "point": "sb-negq",
+      "step": "Step 1 · Your first sentences",
+      "setup": "A pharmacist has your prescription in one hand and your medicine booklet in the other. Before she fills it she checks: 「アレルギーはないですか」— you don't have any allergies, do you? You don't. Your English instinct answers the fact, and the fact is no.",
+      "line": {
+        "jp": "はい、ありません。",
+        "en": "That's right — I don't have any."
+      },
+      "contrast": {
+        "kind": "alt",
+        "jp": "いいえ。",
+        "en": "What you said is wrong — meaning: I do have allergies."
+      },
+      "pattern": "はい、",
+      "turn": "はい agrees with the statement, not with the fact, so a negative question puts the two systems in opposite corners. Negative questions are everywhere in polite speech precisely because they soften — which is why the safe move, and a normal one for native speakers, is to skip the particle and answer with the predicate.",
+      "tags": [
+        "no-english-equivalent",
+        "invisible-error",
+        "high-stakes"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-waga",
+      "point": "sb-waga",
+      "step": "Step 2 · Core particles",
+      "setup": "You are in the staffroom when someone puts their head round the door looking for you. A colleague announces the arrival; a moment later, the two of you are talking about whoever it was, and he has stopped being news.",
+      "line": {
+        "jp": "山田さんが来ました。山田さんは友達です。",
+        "en": "Yamada came. Yamada is a friend."
+      },
+      "contrast": null,
+      "pattern": "が来ました",
+      "turn": "が put him on the table, は picked him up once he was on it. English marks the same difference with \"a\" and \"the\" and with stress, which is why translating either particle gives you nothing usable. The handoff between the two sentences is the whole pattern.",
+      "tags": [
+        "no-english-equivalent"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-shika",
+      "point": "shika",
+      "step": "Step 3 · Joining, choosing & counting",
+      "setup": "The last bus has gone. The station has a taxi rank with no taxi on it, one shop still lit, and a sign on that shop's door about card payments that you cannot yet read. You check your wallet before you go in and ask.",
+      "line": {
+        "jp": "千円しかありません。",
+        "en": "I've only got a thousand yen."
+      },
+      "contrast": null,
+      "pattern": "しか",
+      "turn": "しか forces the verb negative and the sentence still means you have money — just not enough of it. English \"only\" sits happily beside a positive verb, which is why the reflex to reach for だけ outlives the rule. だけ counts what is there; しか complains about it.",
+      "tags": [
+        "no-english-equivalent",
+        "countryside"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-counters",
+      "point": "sb-counters",
+      "step": "Step 3 · Joining, choosing & counting",
+      "setup": "A bakery at half past seven: tray, tongs, four people behind you, and the woman at the till already reaching for a bag. You want three of the melon breads. You know the number and you do not know the counter for bread, and the queue is not going to wait while you work it out.",
+      "line": {
+        "jp": "三つください。",
+        "en": "Three, please."
+      },
+      "contrast": {
+        "kind": "error",
+        "jp": "三ください。",
+        "en": "Not a request — a number said out loud."
+      },
+      "pattern": "三つ",
+      "turn": "〜つ covers almost anything up to nine and rescues the sentence. A wrong counter is understood and quietly corrected; a missing one leaves the sentence unfinished. English asks none of this — you say \"three\" and the transaction proceeds.",
+      "tags": [
+        "no-english-equivalent",
+        "daily"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-teiru2",
+      "point": "teiru2",
+      "step": "Step 4 · Verbs: from dictionary form up",
+      "setup": "First week at a new school and a class has decided to find out everything about you at once. Where do you live, do you have children, are you married. All three answers are about states you are in now, and every one of them arrived by something that happened in the past.",
+      "line": {
+        "jp": "日本に住んでいます。結婚しています。",
+        "en": "I live in Japan. I'm married."
+      },
+      "contrast": {
+        "kind": "error",
+        "jp": "日本に住みます。",
+        "en": "Describes a move you have not made yet."
+      },
+      "pattern": "住んでいます",
+      "turn": "English uses a plain present for these — I live, I am married — so nothing signals that Japanese is describing a result that is still standing. You moved in and you are still there. It is the same 〜ています you met for actions in progress, doing a different job.",
+      "tags": [
+        "no-english-equivalent",
+        "invisible-error"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-transitive",
+      "point": "sb-transitive",
+      "step": "Step 4 · Verbs: from dictionary form up",
+      "setup": "You come back to the staffroom after lunch and the window is open. It was shut when you left. Nobody is standing anywhere near it. What you want to say is a description of the room, not a report of anybody's action — and English gives you one verb for both.",
+      "line": {
+        "jp": "窓が開いています。",
+        "en": "The window is open."
+      },
+      "contrast": {
+        "kind": "alt",
+        "jp": "窓を開けています。",
+        "en": "I am in the middle of opening the window — rarely the point."
+      },
+      "pattern": "開いています",
+      "turn": "Japanese splits what English joins: 開ける is what a person does to a window, 開く is what the window does. Choose the verb and the particle follows. The self-check that catches it: if you find を sitting in front of an it-just-happens verb, one of the two is wrong.",
+      "tags": [
+        "no-english-equivalent",
+        "invisible-error"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-must",
+      "point": "sb-must",
+      "step": "Step 5 · Requests, permission & obligation",
+      "setup": "Parents' evening. A family is asking whether their son has to be at Saturday's practice. He doesn't — it is optional, and turning up is welcome. You have one sentence in which to say so, and the wrong one bans him from the school on Saturday.",
+      "line": {
+        "jp": "来なくてもいいです。",
+        "en": "You don't have to come."
+      },
+      "contrast": {
+        "kind": "alt",
+        "jp": "来てはいけません。",
+        "en": "You must not come."
+      },
+      "pattern": "なくてもいいです",
+      "turn": "English builds \"must not\" and \"don't have to\" out of the same words, so the instinct is to negate \"must\" and hope. Japanese builds them from different material and they share nothing. Both sentences are perfectly grammatical, which is exactly why nothing warns you that the message inverted.",
+      "tags": [
+        "no-english-equivalent",
+        "invisible-error",
+        "high-stakes"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-masenka",
+      "point": "masenka",
+      "step": "Step 6 · Invitations, desire & intention",
+      "setup": "A month in. The teacher at the next desk has stayed late twice this week and you would like to suggest lunch — without putting her in the position of having to turn you down to your face, which she would find harder than you would.",
+      "line": {
+        "jp": "一緒に昼ごはんを食べませんか。",
+        "en": "Won't you have lunch with me?"
+      },
+      "contrast": null,
+      "pattern": "ませんか",
+      "turn": "The negative question builds the exit into the grammar: declining something already phrased as a doubt costs nothing. Which is also why the refusal you should listen for is not いいえ but ちょっと…, trailing off — and why accepting is ぜひ or いいですね rather than a bare はい.",
+      "tags": [
+        "no-english-equivalent",
+        "social"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-toki",
+      "point": "toki",
+      "step": "Step 7 · Linking actions & time",
+      "setup": "You bought a suitcase for the move to Japan. Whether you bought it at home, in the week you were packing, or in a department store in Tokyo three days after you landed, is a difference every listener will hear — and it turns on one character in the sentence you tell it with.",
+      "line": {
+        "jp": "日本に行くとき、かばんを買いました。",
+        "en": "Bought before going — still at home."
+      },
+      "contrast": {
+        "kind": "alt",
+        "jp": "日本に行ったとき、かばんを買いました。",
+        "en": "Bought after arriving — in Japan."
+      },
+      "pattern": "とき",
+      "turn": "The tense before とき is measured against the main clause, not against now. English \"when\" cannot carry this at all: \"when I went to Japan, I bought a bag\" leaves the shop unlocated and lets the listener put it in the wrong country.",
+      "tags": [
+        "no-english-equivalent",
+        "invisible-error"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-taritari",
+      "point": "taritari",
+      "step": "Step 7 · Linking actions & time",
+      "setup": "Monday morning and the small talk is about the weekend. You did five or six things, none of them in an order anyone needs, and two of them you would rather not go into. You are giving a flavour of two days, not a timetable of them.",
+      "line": {
+        "jp": "本を読んだり、散歩したりしました。",
+        "en": "I read, went for a walk, that sort of thing."
+      },
+      "contrast": null,
+      "pattern": "たり",
+      "turn": "The list is explicitly a sample — there were other things and you are not listing them — and the final しました carries the tense for all of it. English has no grammar for \"and things like that\", only a phrase tacked on the end, which always sounds tacked on.",
+      "tags": [
+        "no-english-equivalent",
+        "social"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-ganotwo",
+      "point": "sb-ganotwo",
+      "step": "Step 10 · Comparing & preferring",
+      "setup": "Someone at a welcome dinner asks what music you listen to. The sentence you are about to build has a thing you like sitting in the middle of it, and every instinct you own says that thing is the object — the thing the liking is done to.",
+      "line": {
+        "jp": "音楽が好きです。",
+        "en": "I like music."
+      },
+      "contrast": {
+        "kind": "error",
+        "jp": "音楽を好きです。",
+        "en": "Wrong — and it survives a year if nobody says so."
+      },
+      "pattern": "が好きです",
+      "turn": "好き is not a verb here, it is an adjective, and the thing you like is grammatically the thing doing the pleasing. Bizarre for about a month, then permanent. The same trap sits under 上手, 下手 and わかる — and 上手 is not used about yourself.",
+      "tags": [
+        "no-english-equivalent",
+        "invisible-error"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-omou",
+      "point": "sb-omou",
+      "step": "Step 12 · Past N5 · the shape-changers",
+      "setup": "A meeting, and somebody asks whether the new place by the station is expensive. You have been once. You have an opinion rather than a price list, and you want the sentence to sound like an opinion — because the person asking is deciding where to take a visitor.",
+      "line": {
+        "jp": "あの店は高いと思います。",
+        "en": "I think that shop is expensive."
+      },
+      "contrast": {
+        "kind": "error",
+        "jp": "高いですと思います。",
+        "en": "です cannot stand in front of と思います."
+      },
+      "pattern": "と思います",
+      "turn": "The thought comes first and the reporting verb last — the same back-to-front shape as noun modification. And the negative moves to the other clause: 来ないと思います, I think he won't come, is what gets said, not 来ると思いません.",
+      "tags": [
+        "no-english-equivalent",
+        "invisible-error"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-teshimau",
+      "point": "teshimau",
+      "step": "Step 13 · て-form, second wind",
+      "setup": "You get to the ticket gate and your wallet is not in your bag. You stand still and retrace the morning — the bakery, the bus, the bench outside the station where you sat to answer a message. Someone you half know stops and asks what's wrong.",
+      "line": {
+        "jp": "財布を落としてしまいました。",
+        "en": "I've gone and dropped my wallet."
+      },
+      "contrast": null,
+      "pattern": "てしまいました",
+      "turn": "The regret lives inside the verb. English has to build it out of extra words — \"went and lost it\", \"ended up losing it\" — while Japanese folds it into the ending. Which is also why it does not belong on good news: 合格してしまいました reads as \"I regrettably passed.\"",
+      "tags": [
+        "no-english-equivalent"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-teikutekuru",
+      "point": "teikutekuru",
+      "step": "Step 13 · て-form, second wind",
+      "setup": "Late November. Someone comes into the staffroom rubbing their hands and says what everybody has been thinking for a fortnight. That evening the forecast says the other thing — not what has been happening, but what the next three months are going to keep doing.",
+      "line": {
+        "jp": "寒くなってきました。",
+        "en": "It's been getting cold — change arriving toward now."
+      },
+      "contrast": {
+        "kind": "alt",
+        "jp": "これから寒くなっていきます。",
+        "en": "It'll go on getting colder — change heading away from now."
+      },
+      "pattern": "なってきました",
+      "turn": "行く and 来る stop being about walking and start pointing time. English has no grammatical direction for change; it uses \"has been\" and \"will keep\". You have been saying this pattern since your first week without knowing — いってきます is off I go, and I'll be back.",
+      "tags": [
+        "no-english-equivalent"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-kuremorau",
+      "point": "sb-kuremorau",
+      "step": "Step 14 · Giving, receiving & kindness",
+      "setup": "You were carrying a wardrobe up a stairwell alone and a neighbour appeared, took the bottom end, and stayed two hours. That evening you tell it twice — once to someone who asks how the move went, and once to someone who asks who that man on the stairs was.",
+      "line": {
+        "jp": "田中さんが手伝ってくれました。",
+        "en": "Tanaka helped me — the sentence is about him."
+      },
+      "contrast": {
+        "kind": "alt",
+        "jp": "田中さんに手伝ってもらいました。",
+        "en": "I got help from Tanaka — the sentence is about you."
+      },
+      "pattern": "てくれました",
+      "turn": "Both are true, and neither is more polite than the other. Pick the frame first — whose story is this — and the verb is forced, which is the whole trick. Note that に marks the giver here, not a destination: 田中さんに is from him.",
+      "tags": [
+        "no-english-equivalent"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-rashii",
+      "point": "rashii",
+      "step": "Step 15 · Guessing, seeming & hearsay",
+      "setup": "The bakery by the station has been shut a week with nothing on the door. Three people have given you three reasons — the owner's health, the rent, a daughter in Osaka — and not one of them has spoken to the owner. Someone asks you what you have heard.",
+      "line": {
+        "jp": "閉まるらしいです。",
+        "en": "Apparently it's closing."
+      },
+      "contrast": null,
+      "pattern": "らしい",
+      "turn": "らしい passes the rumour on without vouching for it, which is the honest shape for what you actually know. Watch its second job, though: 春らしい天気 is not \"apparently spring weather\" but weather that is properly spring-like. Same word, different machine, and only context separates them.",
+      "tags": [
+        "no-english-equivalent"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-if4",
+      "point": "sb-if4",
+      "step": "Step 16 · The four ifs",
+      "setup": "Two conversations in one afternoon. In the first you are explaining to a class what happens to the pond behind the school every year without fail. In the second a colleague mentions she is going to Kyoto at the weekend, and waits, clearly hoping you will say something useful.",
+      "line": {
+        "jp": "京都に行くなら、朝がいいですよ。",
+        "en": "If Kyoto's the plan — mornings are better."
+      },
+      "contrast": {
+        "kind": "alt",
+        "jp": "冬になると、寒くなります。",
+        "en": "When winter comes, it gets cold — automatic, every time."
+      },
+      "pattern": "なら",
+      "turn": "English has one \"if\" and leaves the rest to context. Japanese makes you commit: と for what follows automatically, なら for advice hung on the plan someone has just told you. なら is also the only one that can advise about before the condition — go in the morning, and then Kyoto.",
+      "tags": [
+        "no-english-equivalent"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-bakari",
+      "point": "bakari",
+      "step": "Step 19 · Time's edges",
+      "setup": "Six weeks into the job, at a dinner, someone asks how the Japanese is coming along. Six weeks is not new by the calendar — it is two pay slips and a haircut — but from the inside it is still the first week, and the question deserves the inside answer.",
+      "line": {
+        "jp": "始めたばかりです。",
+        "en": "I've only just started."
+      },
+      "contrast": null,
+      "pattern": "ばかり",
+      "turn": "ばかり measures by feel rather than by clock, and a month can still be ばかり if it still feels like one. たところ is the objective this-instant version and would be a lie here. Said this way the phrase is also a small request: be patient with me.",
+      "tags": [
+        "no-english-equivalent",
+        "social"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-saserareru",
+      "point": "saserareru",
+      "step": "Step 20 · Doing to & being done to",
+      "setup": "A staff drinking party, an hour in. Someone is describing their first year at the company and the story is not about what they did — it is about what was done to them, every day, by people who did not ask. The tone is somewhere between complaint and comedy.",
+      "line": {
+        "jp": "毎日、そうじをさせられました。",
+        "en": "I was made to do the cleaning every day."
+      },
+      "contrast": null,
+      "pattern": "させられました",
+      "turn": "Causative first, passive second, and the grudge rides along inside the ending. English needs \"was made to\" plus a tone of voice to do the same work. Build it in two moves every time — trying to jump straight to させられる is where the longest conjugation in the language breaks.",
+      "tags": [
+        "no-english-equivalent",
+        "work"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-noni",
+      "point": "noni",
+      "step": "Step 21 · Reasons, concessions & flow",
+      "setup": "You spent Saturday morning making something to take to a barbecue — the four-hour version, from scratch, because you wanted to turn up with something real. You arrive and there are three of the same thing already on the table, all shop-bought. Yours goes home again, untouched.",
+      "line": {
+        "jp": "せっかく作ったのに…",
+        "en": "After I went to all that trouble…"
+      },
+      "contrast": {
+        "kind": "alt",
+        "jp": "作りましたけど、みんな買ってきました。",
+        "en": "I made some, but everyone brought some — flat contrast, no ache."
+      },
+      "pattern": "のに",
+      "turn": "けど states the contrast and leaves it there. のに aches, and the trailing version is reproach distilled — which is also why it should not be spent on neutral contrasts, where it comes out as sulking rather than as feeling.",
+      "tags": [
+        "no-english-equivalent",
+        "emotional"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-kotono",
+      "point": "koto-no",
+      "step": "Step 22 · Wrapping thoughts",
+      "setup": "Two sentences about your younger brother, five minutes apart. In the first you are reporting something you heard through the wall at eleven last night. In the second you are telling someone what he is like — a standing fact about him, true whether or not anyone is listening.",
+      "line": {
+        "jp": "弟が歌うのを聞きました。",
+        "en": "I heard him singing — witnessed, live."
+      },
+      "contrast": {
+        "kind": "alt",
+        "jp": "弟は歌うことが好きです。",
+        "en": "He likes singing — a fact about him."
+      },
+      "pattern": "のを",
+      "turn": "English uses \"-ing\" for both and never makes you choose. の stays close to the senses and the moment; こと steps back into fact and habit. Two houses never move: 〜ことができる and 〜たことがある are always こと, whatever the sentence around them is doing.",
+      "tags": [
+        "no-english-equivalent"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-minds",
+      "point": "sb-minds",
+      "step": "Step 23 · Other minds",
+      "setup": "A boy in your class has been at the window for ten minutes while the rest are outside. He has not said anything and you have not asked. You mention it to the teacher next to you, and what you have is what you can see — not what he told you and not what you know.",
+      "line": {
+        "jp": "外に行きたがっています。",
+        "en": "He looks like he wants to go outside."
+      },
+      "contrast": {
+        "kind": "misfit",
+        "jp": "外に行きたいです。",
+        "en": "A perfectly good sentence that means YOU want to go outside — it claims his mind as your own."
+      },
+      "pattern": "たがっています",
+      "turn": "Inner states are first-person territory. Your own wants go flat as たい; everyone else's arrive as signs, appearances or words. English lets you say \"he wants to go outside\" with no hedge whatsoever, which is exactly the habit this hunts.",
+      "tags": [
+        "no-english-equivalent",
+        "invisible-error"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-uchisoto",
+      "point": "sb-uchisoto",
+      "step": "Step 25 · Lowering yourself",
+      "setup": "You pick up the office phone. It is a customer, asking for your section head — the man you would never mention without さん inside these walls, who signs your leave and sits four desks away. He is out until three. You have to say so, to somebody outside the company.",
+      "line": {
+        "jp": "田中はただいま外出しております。",
+        "en": "Tanaka is out at the moment."
+      },
+      "contrast": {
+        "kind": "misfit",
+        "jp": "田中さんは出かけています。",
+        "en": "Correct Japanese, and correct inside the office — to an outside caller it puts your own side above theirs."
+      },
+      "pattern": "おります",
+      "turn": "No さん on your own boss, and a humble verb for his absence. To an English speaker this feels like betrayal; it is the opposite — you lower your whole side as one body, and the unity is the respect. The axis moves, too: the same man is うち at work and そと at dinner.",
+      "tags": [
+        "no-english-equivalent",
+        "work",
+        "high-stakes"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    },
+    {
+      "id": "sc-keigomap",
+      "point": "sb-keigo-map",
+      "step": "Step 26 · Producing politeness",
+      "setup": "The same question — is she in? — three times in one day. To a friend, about a mutual friend. To the colleague across the desk, about someone in the next office. And on the phone to a client's receptionist, about their director, in the first thirty seconds of a call that matters.",
+      "line": {
+        "jp": "社長はいらっしゃいますか。",
+        "en": "Is your president in? — their verb, raised."
+      },
+      "contrast": {
+        "kind": "alt",
+        "jp": "私は会社におります。",
+        "en": "I'm at the office — your verb, lowered."
+      },
+      "pattern": "いらっしゃいますか",
+      "turn": "Three altitudes, one rule for choosing: raise their verbs, lower your own, never both directions on a single verb. Then hold the altitude you picked — a plain form dropped into the middle of an elevated sentence is the tell, and it is the one everybody hears.",
+      "tags": [
+        "no-english-equivalent",
+        "work"
+      ],
+      "review": {
+        "batch": "K",
+        "status": "unreviewed"
+      }
+    }
+  ],
+  "_pattern": "Each item names the `pattern` fragment that must appear in line.jp or contrast.jp. It exists because the module's `jp` field is sometimes a lesson TITLE (「must」の三すくみ, うちとそと) and sometimes a conjugated-away pattern (〜てくる appears as てきました), so no automatic derivation is honest. check-scenes.py verifies the named fragment is actually there, which catches a later edit that drifts the line off its own point. null means the pattern is an ABSENCE and there is nothing to match — sc-drop only."
+}
