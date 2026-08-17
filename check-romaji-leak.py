@@ -31,10 +31,19 @@ from pathlib import Path
 
 import openpyxl
 
-# OPTIONAL. Japanese words romanised sit low in English frequency (tomodachi 2.0,
+# STRONGLY RECOMMENDED, and now documented in RUNNING-THE-BAKEOFF.md (Aug 17
+# 2026). Japanese words romanised sit low in English frequency (tomodachi 2.0,
 # desu 2.3) while ordinary English sits high (seen 5.5, usage 4.2), so one lookup
-# removes almost every false positive. Deliberately optional: RUNNING-THE-BAKEOFF
-# tells Lloyd to install openpyxl and nothing else, and this must not change that.
+# removes almost every false positive.
+#
+# It was previously left OUT of the setup doc on the reasoning that the doc asks
+# for openpyxl and nothing else. That was the wrong trade: measured on the real
+# 150-row run, the filter is the difference between 91 flagged rows and 15, and
+# 76 rows of false positives is not a "sharper" check, it is a check nobody will
+# finish reading. Documenting the install costs one line.
+#
+# Still OPTIONAL IN CODE on purpose — a missing library degrades the check and
+# says so, rather than stopping the run.
 #   pip3 install --break-system-packages wordfreq
 try:
     from wordfreq import zipf_frequency
@@ -69,7 +78,32 @@ STOP = {
     'manga', 'samurai', 'tsunami', 'karaoke', 'sudoku', 'japanese', 'japan',
     'tokyo', 'kyoto', 'osaka', 'sensei', 'san', 'chan', 'kun',
     'na', 'ni', 'te', 'ta', 'ga', 'wa', 'ha', 'de', 'ka', 'mo', 'ne', 'yo',
+    # ── grammatical categories, NOT leaks (added Aug 17 2026) ──────────────
+    # These are the established English-language terms for Japanese grammar:
+    # "a godan verb", "sonkeigo" and the like are how the grammar is named IN
+    # English, the same class as kanji/kana above. The containment rule bans
+    # romaji READINGS of Japanese words, and a category name is not a reading of
+    # anything — there is no 食べます being spelled out here.
+    #
+    # They were 12 of the 24 token hits and 6 of the 15 flagged rows in the
+    # Session 16 pass (15 rows → 9 with these four listed), all of it pure
+    # eyeball work on the same handful of terms across all three models.
+    #
+    # The frequency filter cannot reach them, which is why STOP is the only
+    # instrument: wordfreq scores ichidan and sonkeigo at 0.00 and godan at 1.33,
+    # because English corpora barely contain them. High-frequency English is what
+    # ENGLISH_ZIPF removes; specialist English is invisible to it.
+    'godan', 'ichidan', 'suru', 'sonkeigo',
 }
+
+# KNOWN REMAINING FALSE POSITIVES, measured Aug 17 2026 — not added to STOP
+# because they are ordinary English and the right fix, if one is ever wanted, is
+# the threshold rather than a word list:
+#   negation 2.84 · negate 2.98   (ENGLISH_ZIPF is 3.0, so both just miss)
+# Left in deliberately. The check is tuned for recall and 3.0 is finely
+# balanced — `kanji` itself sits at 3.01, and `shiite` (a REAL leak, 強いて)
+# scores 2.84 only because English has the unrelated word "Shiite". Moving the
+# bar to clear `negation` would start dropping real leaks.
 
 
 def decomposes(word):
