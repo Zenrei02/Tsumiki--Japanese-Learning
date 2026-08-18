@@ -66,9 +66,10 @@ for it in items:
         fail.append(f"{i}: pattern {it['pattern']!r} does not appear in the Japanese")
 
     # the merge must not lose the verification work
-    if not it['claims']: fail.append(f"{i}: no claims -- the reviewer's unit is missing")
-    if not it['sources'] and not it['flags']:
-        fail.append(f"{i}: no sources and no flag explaining why")
+    if not it['claims'] and not any('No factual claims' in f for f in it['flags']):
+        fail.append(f"{i}: no claims and no flag saying the situation asserts none")
+    if it['claims'] and not it['sources'] and not it['flags']:
+        fail.append(f"{i}: claims made with no source and no flag explaining why")
 
     for f in ('line', 'contrast'):
         blk = it.get(f)
@@ -81,11 +82,27 @@ for it in items:
 
     ROMAJI = (r'\b(desu|masu|kudasai|arigatou|sensei|senpai|teineigo|sonkeigo|kenjougo'
               r'|omiyage|hanko|konbini|shitsurei|sumimasen)\b')
-    hits = set(m.group(0).lower() for m in re.finditer(ROMAJI, it['setting'] + it['turn'], re.I))
-    if hits: fail.append(f"{i}: romaji leak in rendered English: {sorted(hits)}")
+    hits = set(m.group(0).lower() for m in re.finditer(
+        ROMAJI, it['setting'] + it['turn'] + it['line']['en'], re.I))
+    if hits:
+        excused = any('romaji' in f.lower() for f in it['flags'])
+        (warn if excused else fail).append(
+            f"{i}: romaji in rendered text {sorted(hits)}" + (" (flagged as deliberate)" if excused else ""))
 
-for st, c in per_step.items():
-    if c > 2: fail.append(f"density: {st} has {c} settings (cap 2)")
+# Coverage, not density. cc-* lessons are already situations and b-*/rc* are composition
+# tasks, so neither needs a setting; everything else in a started step does.
+covered = {x['point'] for x in items}
+started = {x['step'] for x in items}
+step_points = collections.defaultdict(list)
+for b in re.split(r'\n  \{\n    cat: "', src)[1:]:
+    cat = b.split('"')[0]
+    for pid, jp, en in re.findall(r'id: "([a-z0-9-]+)", jp: "([^"]*)", en: "([^"]*)"', b):
+        if pid.startswith(('cc-', 'b-', 'b1', 'b2', 'b3', 'rc')): continue
+        step_points[cat].append(pid)
+gaps = {}
+for st in started:
+    missing = [p for p in step_points.get(st, []) if p not in covered]
+    if missing: gaps[st] = missing
 
 print(f"lessons authored: {len(items)}   steps touched: {len(per_step)}")
 merged = sum(1 for x in items if len(x['merged_from']) > 1)
@@ -93,6 +110,11 @@ print(f"natural merges (scene + anecdote on one point): {merged}")
 print(f"claims carried: {sum(len(x['claims']) for x in items)}   sources: {sum(len(x['sources']) for x in items)}")
 sw = [len(x['setting'].split()) for x in items]
 print(f"setting words: min {min(sw)} max {max(sw)}")
+print("\n-- coverage of started steps --")
+for st in sorted(started, key=lambda s: list(point_step.values()).index(s)):
+    tot = len(step_points.get(st, []))
+    print(f"  {tot - len(gaps.get(st, [])):2}/{tot:2}  {st}" + ("   MISSING: " + ", ".join(gaps[st]) if st in gaps else ""))
+
 print("\nWARN:" if warn else "\nWARN: none")
 for x in warn: print("  -", x)
 print("\nFAIL:" if fail else "\nFAIL: none — all checks passed")

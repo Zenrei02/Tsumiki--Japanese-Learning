@@ -68,6 +68,44 @@ medicine booklet every time" looks like an obligation fact and maps mechanically
 なければなりません. What a pharmacist actually says is 持ってきてください — the sentence is
 about carrying something *toward* the speaker, not about duty at all.
 
+## The register: required, not merely observed
+
+Lloyd, on the first worked lesson: the medicine booklet was relatable but **optional**, and
+the situations should be *required* — the business a learner cannot avoid. Getting the
+visa. Carrying the card. Registering the address inside fourteen days.
+
+This is a sharper brief than "daily life in Japan" and it is right, for a reason worth
+writing down: **a learner's first months are not made of pleasant observations, they are
+made of errands with deadlines.** A scenario about noticing something charming asks the
+learner to imagine being a tourist. A scenario about a counter that closes at five asks
+them to imagine being themselves.
+
+It also fixes the stakes problem for free. `です` taught at a police stop, where not
+having the card is a ¥200,000 fine, needs no manufactured drama — the situation supplies
+it.
+
+Not every lesson can be required, and forcing it would be its own distortion: ね belongs
+in a waiting room, not at a checkpoint. The rule is that the *spine* of the early steps is
+the required business of arriving, and the social lessons hang off the waiting it
+generates.
+
+## One setting per lesson
+
+**Every teaching point gets a setting.** The earlier 2-per-step cap is gone — it belonged
+to the enrichment model, where settings were special. If the situation is the spine, a
+lesson without one is a lesson that opens on a definition.
+
+Two exclusions: `cc-*` lessons already *are* situations, and `b-*` compositions are
+exercises rather than explanations.
+
+The consequence for authoring is a change of method, also Lloyd's: **work step by step, in
+order, reading each lesson's own four beats before writing its situation.** The situation
+has to fit the point. The reverse — a good situation looking for a point to attach to — is
+what produced the Step 5 pile-up below.
+
+`check-settings.py` reports **coverage** rather than density: for any step that has been
+started, it names the points that still have no setting.
+
 ## Density, and the finding that forced this section
 
 Cap stays at **2 settings per step**. Applying it to the mapped 59 items produced a
