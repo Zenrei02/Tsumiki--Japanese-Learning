@@ -1,8 +1,7 @@
-# Stage 3 skeleton — v1 (Session 17, planning pass; nothing authored)
+# Stage 3 skeleton — v2 (Session 17; Lloyd's five rulings applied)
 
-*Follows `stage-2-skeleton-v1.md`. This is a plan for Lloyd to rule on, not content.
-Existing Steps 24–26 are already authored and shipped; what is proposed here is
-**additions and one restructure**, marked ➕ NEW and ⚠️ DECISION throughout.*
+*v1 was the proposal; this is the plan. All five open questions answered — see
+"Lloyd's rulings" at the foot. Nothing authored yet.*
 
 ## Lloyd's brief (Session 17)
 
@@ -11,111 +10,95 @@ Existing Steps 24–26 are already authored and shipped; what is proposed here i
 > Phone calls, shops, doctor's offices — it needs a lesson for each part. First showing
 > what they assumed they would hear, and then showing them what they will actually hear
 > (行きます vs 参ります). This is especially important for the replacement words for go and
-> come, which are now the same word. After the いただく lesson, put a CC in where that's
-> what いただきます comes from. For the SB, make sure they understand the difference between
-> when 敬語 are and when 謙譲語 or 尊敬語 are used.
+> come, which are now the same word.
 
-Four asks: **situations**, **hear-first**, **the go/come collapse**, and **the taxonomy**.
-Plus one Stage 2 insert.
+Plus, on the venues: *"feel free to add places that make sense to a daily life encounter.
+Include more social encounters as well, such as at a bar — this is where CC is really
+good, because we can explain where they will encounter casual slang and shortcuts."*
 
-## The thing that makes Stage 3 different
+## The two ideas the stage runs on
 
-Stages 1 and 2 taught production. Keigo is **received long before it is produced** — a
-learner will hear a thousand 参ります before they ever say one — and the existing Step 24
-already says so (*"This step asks you to RECOGNIZE, not produce"*).
+**One — they have been speaking keigo since Step 1.** です・ます *is* 丁寧語, a category of
+敬語. Stage 3 is not a new subject; it is the name for something they have done for
+twenty-three steps, plus two directions they have not met. This now **opens the stage**
+(ruling 4), because it reframes everything after it.
 
-Lloyd's point sharpens that: the reason to teach it early is not politeness, it is
-**comprehension**. A learner who knows 来ます and not 参ります does not hear a polite train
-announcement. They hear an announcement they cannot parse, twice a day, for a year.
+**Two — the reason to teach it is comprehension, not politeness.** A learner who knows
+来ます and not 参ります does not hear a polite train announcement. They hear an announcement
+they cannot parse, twice a day, for a year. That is what "invades their lives" means in
+practice, and it is why the stage's checkpoint is a **comprehension** check (ruling 3).
 
-And the fact that reframes the whole stage:
-
-> **The learner has been speaking keigo since Step 1.** です・ます *is* 丁寧語, which is one
-> of the categories of 敬語. Stage 3 is not a new subject. It is the name for something
-> they have been doing for twenty-three steps, plus two directions they have not met.
-
-That belongs on the first page of the stage, because it converts keigo from a mountain
-into a map — which is also the Session 17 tracker row on not discouraging new learners.
-
-## ➕ The new lesson shape: HEAR-FIRST
+## The HEAR-FIRST lesson shape
 
 Lloyd's *"what they assumed, then what they'll actually hear"* is a new arrangement of the
-existing arc, not a new primitive. Mapped onto `lesson-arc-design-v1.md`:
+existing arc, not a new primitive:
 
 | arc page | hear-first content |
 |---|---|
-| `setting` | the situation, and **the sentence the learner expects** — built from grammar they own |
-| `ext₀` (flip) | **what is actually said**, same meaning, unrecognisable |
-| `ext₁` (wrinkle) | why: which direction it is pointing, and who is being raised or lowered |
+| `setting` | the situation, and **the sentence the learner expects** — from grammar they own |
+| `ext₀` (flip) | **what is actually said** — same meaning, unrecognisable |
+| `ext₁` (wrinkle) | which direction it points, and who got raised or lowered |
 
-Worked, for the station:
+`contrast.kind` is **`misfit`** for the expected form — perfectly good Japanese, wrong
+mouth — and never `error`. No schema change needed.
 
-> **setting** — You are on the platform and the announcement starts. You know this
-> sentence. 電車が来ます. You have known it since Step 4.
-> **ext₀** — What comes out of the speaker is 「まもなく電車が**参ります**」. Same train,
-> same arriving, and not one word you were listening for.
-> **ext₁** — 参る is the humble verb. The railway is lowering **its own train**, because
-> the company is うち and you are the customer. The train is not being modest; the
-> announcer is.
+---
 
-The `contrast` field already supports this — the expected form is `kind: "misfit"`
-(perfectly good Japanese, wrong for this mouth), never `error`.
+## ➕ Stage opener · `sb-keigo-what` — 敬語の地図
 
-## ⚠️ DECISION 1 — where the situation lessons live
+**Ruling 4: this opens the stage, before Step 24.** It is the first screen of Stage 3.
 
-Lloyd wants a lesson per venue. Two ways to place them:
+**敬語 is the umbrella, not a third sibling.** The confusion to kill on sight:
 
-**Option A — a new step, `Step 26 · Keigo in the wild`**, pushing the existing Step 26 to
-27. Cleanest pedagogically: hearing (24) → lowering (25) → **hearing it for real (26)** →
-producing (27). Cost: renumbering touches `curriculum-order-v1.json`,
-`curriculum-revisit-map-v1.md`, the arcs file, and any tracker row citing "Step 26".
+- **丁寧語** — です・ます. Politeness aimed at the *listener*. **Step 1. Already owned.**
+- **尊敬語** — raises the *other person's* action. Step 24.
+- **謙譲語** — lowers *your own*. Step 25.
+- **美化語** — お/ご on the noun itself. Step 5's `cc-ogo`, unnamed until now.
 
-**Option B — distribute them as `cc-*` lessons inside Steps 24 and 25.** No renumbering,
-no downstream churn. Cost: five culture lessons inside two steps is a heavy load, and
-Step 24 already carries `cc-baito`.
+The question is never "keigo or not". It is **which direction**, decided by *whose action
+the verb describes* — not by how formal the room feels.
 
-**Recommendation: A.** The situations are the point of the stage, not a garnish on it, and
-burying them as culture stops inside a step called "Hearing keigo" understates exactly what
-Lloyd is trying to correct. But the renumbering is real work and it is his call.
+**Sourced footnote:** the Agency for Cultural Affairs' 敬語の指針 (2 February **2007**,
+平成19年) officially splits keigo into **five**: 尊敬語, 謙譲語Ⅰ, 謙譲語Ⅱ (丁重語), 丁寧語,
+美化語. The map this app teaches is the practical simplification, and saying so is more
+honest than implying four is the whole truth.
+⚠️ A search result mis-dated this to 2019. 平成19年 = **2007**. Do not propagate.
 
-*The rest of this document assumes A, with new numbers in brackets.*
+### ➕ The 美化語 retro-fit (ruling 5)
+
+Lloyd: *"Explain the new ones and show how the ones already encountered are common phrases
+that found a life outside of keigo."* That is exactly right, and the sources make it **three
+tiers rather than two**:
+
+| tier | examples | can you strip the prefix? |
+|---|---|---|
+| **frozen** — it is just the word now | ご飯, お腹, お菓子 | no. 飯 is a different, rougher word |
+| **live dial** — a real register choice | お水, お花, お名前, お荷物 | yes, and the register moves when you do |
+| **marked** — reads as service-counter or affected | おビール, おソース | technically possible, not neutral |
+
+The teaching line: **`cc-ogo` in Step 5 taught these as "the polish prefixes" without
+naming them.** They were 美化語 all along — and the frozen tier is the interesting half,
+because those words *escaped*. Nobody hears politeness in ご飯 any more; it stopped being
+a dial and became vocabulary.
+
+One clean rule worth carrying: **お goes on 和語, ご on 漢語, and loanwords take neither** —
+×おコーヒー. Testable, and it explains the おビール oddity in one move.
 
 ---
 
 ## Step 24 · Keigo is already everywhere *(retitled from "Hearing keigo")*
 
-Bank unchanged: 先生, 社長, お客様, 店, 二階, お手洗い, 飲み物, 会議
-
 | id | | status |
 |---|---|---|
-| ➕ `sb-keigo-what` | 敬語の地図 — what the word covers | **NEW — Lloyd's taxonomy ask** |
 | `sonkeigo` | いらっしゃる・おっしゃる・召し上がる | shipped |
 | ➕ `sb-ikukuru` | 行く・来る・いる → 一つ | **NEW — the collapse** |
 | `gozaimasu` | ございます・〜でございます | shipped |
 | `cc-baito` | バイト敬語 | shipped |
 
-### ➕ `sb-keigo-what` — the taxonomy Lloyd asked for
+### ➕ `sb-ikukuru` — the collapse
 
-**敬語 is the umbrella, not a third sibling.** This is the confusion to kill on sight:
-
-- **丁寧語** — です・ます. Politeness aimed at the *listener*. **Step 1. You already own it.**
-- **尊敬語** — raises the *other person's* action. Step 24.
-- **謙譲語** — lowers *your own*. Step 25.
-
-All three are 敬語. So the question is never "keigo or not" — it is **which direction**,
-and the answer is decided by *whose action the verb describes*, not by how formal the room
-feels.
-
-**Sourced footnote worth carrying:** the Agency for Cultural Affairs' 敬語の指針
-(Feb 2 2007, 平成19年) officially splits keigo into **five**: 尊敬語, 謙譲語Ⅰ, 謙譲語Ⅱ
-(丁重語), 丁寧語, 美化語. The three-way split this app teaches is the practical
-simplification, and saying so is more honest than pretending three is the whole truth.
-⚠️ One search result mis-dated this as 2019 — it is 平成19年 = **2007**. Do not propagate.
-
-### ➕ `sb-ikukuru` — the collapse (Lloyd flagged this specifically)
-
-The single hardest recognition problem in the stage, because it runs **both directions at
-once and merges verbs the learner has kept apart since Step 4**:
+The hardest recognition problem in the stage, because it runs **both directions at once**
+and merges verbs kept apart since Step 4:
 
 | plain | 尊敬語 (them, up) | 謙譲語 (you, down) |
 |---|---|---|
@@ -123,116 +106,181 @@ once and merges verbs the learner has kept apart since Step 4**:
 | 行く | **いらっしゃる** | **参る** / 伺う |
 | 来る | **いらっしゃる** | **参る** |
 
-Three verbs → one going up. Two verbs → one coming down. So 先生はいらっしゃいますか is
-*is the teacher in?* **or** *is the teacher coming?* — and only context separates them.
+Three verbs → one going up. Two → one coming down. 先生はいらっしゃいますか is *is the
+teacher in?* **or** *is the teacher coming?* — context alone separates them.
 
-The learner's instinct will be that this is ambiguity to be fixed. It is not; it is
-ambiguity native speakers live in comfortably, and the lesson has to say so rather than
-imply a rule is missing.
+The learner's instinct is that this is ambiguity to be fixed. It is not. It is ambiguity
+native speakers live in comfortably, and the lesson must say so rather than imply a missing
+rule.
 
 ---
 
 ## Step 25 · Lowering yourself — unchanged
 
-`kenjougo`, `sb-uchisoto`. Both shipped. `sb-uchisoto` becomes load-bearing for the new
-Step 26 — the train announcement, the phone call and the shop counter are all the same
-うち/そと mechanism seen from three angles, and the situation lessons should point back at
-it explicitly rather than re-teaching it.
+`kenjougo`, `sb-uchisoto`. Both shipped. `sb-uchisoto` is now **load-bearing for Step 26** —
+the train, the phone and the counter are one mechanism in three rooms, and each situation
+lesson should point back at it rather than re-teach it.
 
 ---
 
-## ➕ Step 26 · Keigo in the wild *(NEW — the situation breakdown)*
+## ➕ Step 26 · Keigo in the wild — the situation breakdown
 
-Every lesson here is **hear-first**. Each opens on the sentence the learner expects.
+**Eight lessons, all hear-first, ordered by how often the learner meets them.** Ruling 2:
+five was the floor, not the ceiling.
 
-| id | venue | expected → actual | the point |
-|---|---|---|---|
-| `cc-densha` | station, train | 電車が来ます → **まもなく電車が参ります** | the company lowers its own train; うち includes the rolling stock |
-| `cc-denwa` | the phone | 田中さんはいますか → **田中はおりません** | your own boss goes down, no さん — the うち freeze |
-| `cc-mise2` | shop counter | いくらですか → **〜円でございます / 少々お待ちください** | the announcement register; distinct from `cc-konbini` (survival) and `cc-baito` (the wrong-but-universal) |
-| `cc-byouin` | clinic | 名前を呼びます → **お名前をお呼びします / どうなさいましたか** | the productive お〜する pattern, met before Step 27 teaches it |
-| `cc-yakusho` | city office | 書いてください → **お書きください / こちらにご記入ください** | closes the Stage 1 arc spine — the counter the learner has stood at since Step 0 |
+### Daily
 
-**Five lessons, and that is deliberate breadth.** The brief is that keigo *invades* — one
-example does not demonstrate invasion, five in five different rooms does.
+| id | venue | expected → actual |
+|---|---|---|
+| `cc-densha` | station, train | 電車が来ます → **まもなく電車が参ります** |
+| `cc-mise2` | shop floor, department store | いくらですか → **〜円でございます / 少々お待ちください** |
 
-⚠️ **Overlap to police:** `cc-konbini` (Step 8) and `cc-baito` (Step 24) already exist.
-`cc-mise2` must be the *correct* department-store register, explicitly contrasted with
-バイト敬語's contested forms — otherwise it repeats a lesson the learner has had twice.
+`cc-densha` is the flagship. The railway lowers **its own train**, because the company is
+うち and the passenger is そと — the train is not being modest, the announcer is. And the
+department-store lift says **上へ参ります**, which is the same verb again before the learner
+has left the building.
+
+### Weekly
+
+| id | venue | expected → actual |
+|---|---|---|
+| `cc-denwa` | the telephone | 田中さんはいますか → **田中はおりません** |
+| `cc-takuhai` | delivery, redelivery | 荷物が来ます → **お届けにあがりました / ご不在のため** |
+
+`cc-denwa` is the うち freeze made concrete: your own boss goes down, loses his さん, and
+the learner's instinct that this is rude is the lesson.
+
+### Monthly, or when life requires it
+
+| id | venue | expected → actual |
+|---|---|---|
+| `cc-byouin` | clinic, hospital | 名前を呼びます → **お名前をお呼びします / どうなさいましたか** |
+| `cc-yakusho` | city office counter | 書いてください → **ご記入ください / お書きください** |
+| `cc-ginkou` | bank, post office | 待ってください → **恐れ入りますが、少々お待ちください** |
+
+`cc-yakusho` closes the Stage 1 arc spine — the counter the learner has stood at since
+Step 0, now heard properly for the first time.
+
+### ➕ Social — and the mirror of the whole stage
+
+| id | venue | the point |
+|---|---|---|
+| `cc-nomikai` | izakaya, bar, the work drink | **keigo arrives from the staff and evaporates at the table** |
+
+This is Lloyd's ask and it is the most valuable lesson in the step, because it is the only
+one where the register **drops**. In one evening the learner has to run two registers at
+once: いらっしゃいませ / お決まりでしょうか coming at them from the floor, and 〜っす,
+とりあえず生, contractions and dropped particles across the table.
+
+Content it should carry: **とりあえず生** (the opening move), **お通し** (the seated charge
+that surprises every newcomer), **〜っす** as the compressed です, and the fact that the
+person who was your section head at 六時 is on plain forms by 八時 and back to keigo on
+Monday morning.
+
+⚠️ **Overlap to police.** `cc-slang` (Step 9) already covers すごい → すげー and `cc-chau`
+(Step 13) the て-form contractions. `cc-nomikai` must be about **the setting and the
+switch**, not a second slang list — where those forms live, and how fast the altitude
+changes in one room.
+
+⚠️ **Also police:** `cc-konbini` (Step 8, survival) and `cc-baito` (Step 24, the
+contested-but-universal forms). `cc-mise2` is the *correct* department-store register and
+must be explicitly contrasted with both, or it is the third shop lesson in the course.
+
+### Optional ninth, flagged not scheduled
+
+`cc-hogosha` — parents' evening and school notices (ご父兄, お子さま, 保護者). Lloyd
+teaches; this is either the most authentic lesson in the step or the one he is too close
+to. **His call, not scheduled.**
 
 ---
 
-## Step 27 · Producing politeness *(renumbered from 26)*
+## ➕ Checkpoint 7 · 聞き取り — the comprehension check (ruling 3)
 
-`okeigo`, `sb-keigo-map`, `b-keigo`. All shipped, all unchanged.
+**A new kind of checkpoint, and the reason it has to be new:** every previous checkpoint is
+production — `b-*` compositions and `rc*` review challenges. Stage 3 is explicitly a
+recognition stage, so a composition checkpoint would test the one thing the stage does not
+claim to teach.
 
-⚠️ **Note:** `cc-byouin` and `cc-yakusho` expose お〜する before this step formally teaches
-it. That is correct for a recognition-first stage — but the Step 27 lesson should say
-*"you have already heard this five times"* rather than introducing it cold.
+**Format — reuse the existing `drill` machinery** (`DEEP[id].drill`, with `q` / `a` /
+`opts` / `why`). No new component required. Item types:
 
-## ⚠️ There is no Stage 3 checkpoint
+1. **Decode** — 「先生はいらっしゃいますか」 → which plain sentence? *(いますか / 行きますか
+   / 来ますか — and the honest answer is that more than one fits, which is the point)*
+2. **Direction** — 「田中はおりません」 → who is being lowered? *(the speaker's own side)*
+3. **Aim check** — 「先生はおりますか」 → what is wrong here? *(a humble verb pointed at
+   the teacher demotes them)*
+4. **In the wild** — a real announcement or counter line, and: where would you hear this?
+5. **Register switch** — the same request at three altitudes; place each one.
 
-Stage 1 closes on Checkpoint 3, Stage 2 on Checkpoint 6. **Stage 3 currently ends on
-`b-keigo` with no review.** Either add `rc7` / Checkpoint 7, or decide deliberately that
-the composition is the review. Flagging rather than deciding.
-
----
-
-## ➕ Stage 2 insert — `cc-itadakimasu`
-
-**⚠️ This is NOT a Stage 3 lesson.** `itadaku` lives in **Step 14** (Stage 2), so the CC
-Lloyd asked for belongs there, immediately after it.
-
-The grammar is uncontested and is the whole point: **いただきます is the ます-form of
-いただく**, the humble verb for もらう — and the module's `itadaku` lesson already gestures
-at this (*"you have been receiving the meal politely all along"*). The CC makes it a lesson.
-
-### ⚠️ And the received explanation is contested — which is the best thing about it
-
-The version that circulates in English — and in a lot of Japanese material — is that
-いただきます thanks the *life of the ingredients*, or the farmer, or the cook. That is a
-**modern gloss, not an etymology**, and it is publicly disputed by Japanese linguists;
-Kondō Yasuhiro (近藤泰弘) has called the life-of-the-food and thanks-to-the-cook accounts
-*かなり疑わしい* — quite doubtful.
-
-The documented history is also messier and more interesting than the tidy story:
-
-- the **verb** いただく is ancient — to receive something raised above the head
-- as a **mealtime greeting**, the earliest citations are disputed: 1812 (*孝行導草*) in one
-  source, **1934** per Japanese Wikipedia, and Kondō reports finding a **1917** (大正6年)
-  primary-school text — which points at **schools spreading it in the modern era**, not at
-  an ancient rite
-
-This is the `cc-baito` shape exactly, and this project's best-performing move: state the
-verifiable thing (it is the humble verb), and say plainly that the pretty story is a later
-gloss whose dates do not agree.
-
-**Reviewer note:** the dates conflict across sources and one of them is a linguist's post
-rather than a paper. Do not assert a single first-attestation. The CC should say *the
-citations disagree*, which is both true and more interesting than picking one.
+Placement: after Step 27, closing the stage. Item 1 is the one to author carefully —
+`sb-ikukuru`'s ambiguity means several options are defensible, and the `why` must say so
+rather than pretending one is uniquely right.
 
 ---
 
-## Open questions for Lloyd
+## Step 27 · Producing politeness *(renumbered from 26 — ruling 1)*
 
-1. **DECISION 1** — new Step 26 with renumbering (recommended), or `cc-*` inside 24/25?
-2. **Five situations, or fewer?** Station and phone are non-negotiable; clinic, shop and
-   city office are the ones to cut if five is too many.
-3. **Stage 3 checkpoint** — add `rc7`, or let `b-keigo` close the stage?
-4. **Does `sb-keigo-what` open the stage or open Step 24?** It reframes everything after
-   it, which argues for making it the stage's first screen rather than a lesson inside it.
-5. **美化語** (お茶, ご飯) — `cc-ogo` in Step 5 already teaches the polish prefixes without
-   naming them as keigo. Retro-fit the name in `sb-keigo-what`, or leave it?
+`okeigo`, `sb-keigo-map`, `b-keigo`. All shipped, all unchanged in content.
+
+⚠️ Step 26's clinic, city-office and bank lessons expose お〜する **before** this step
+teaches it. Correct for a recognition-first stage — but `okeigo` should open with *"you
+have already heard this seven times"* rather than introducing it cold.
+
+### ⚠️ The renumbering checklist (ruling 1 accepted, so this is real work)
+
+Every place "Step 26" is asserted has to move:
+
+- `grammar-module.jsx` — the `cat:` string on the step block
+- `curriculum-order-v1.json` and `curriculum-order-report-v1.md`
+- `curriculum-revisit-map-v1.md`
+- `lesson-arcs-v1.json` — the `step` field on `okeigo`, `sb-keigo-map` *(check-arcs.py will
+  FAIL on the mismatch, which is the safety net working)*
+- `stage-2-skeleton-v1.md` — its "moved to open Stage 3" note
+- any tracker row citing Step 26
+
+**Do the renumber in one commit, alone, with `check-arcs.py` green before and after.**
+Mixing it with content authoring is how a step number goes missing.
+
+---
+
+## Lloyd's rulings (Session 17 — all five answered)
+
+1. **New Step 26, renumber Producing politeness to 27.** Agreed. Checklist above.
+2. **Five was the floor.** Eight scheduled, spread across daily / weekly / monthly, plus
+   the social one. `cc-hogosha` flagged as an optional ninth.
+3. **Comprehension checkpoint — yes, definitely.** Checkpoint 7 · 聞き取り, spec above,
+   reusing the drill machinery.
+4. **`sb-keigo-what` opens the stage**, not Step 24.
+5. **Retro-fit 美化語.** Name the new ones, and show that the already-met ones —
+   ご飯, お腹, お菓子 — are phrases that found a life outside keigo and stopped being a dial.
 
 ## Dependencies
 
-- `sb-uchisoto` (Step 25) must precede all five situation lessons — every one of them is
-  that axis in a different room.
-- `cc-itadakimasu` depends only on `itadaku` (Step 14) and can be authored immediately.
-- The arcs framework already supports hear-first with no schema change; `contrast.kind`
-  is `misfit` for the expected-but-wrong-mouth form, never `error`.
+- `sb-keigo-what` before everything — it is the stage's opening screen.
+- `sb-uchisoto` (Step 25) before all eight situation lessons.
+- `cc-itadakimasu` → **Step 14, Stage 2** (see below); independent of this stage.
+- Arcs framework needs no schema change for hear-first.
+
+## ➕ Stage 2 insert — `cc-itadakimasu`
+
+**Not a Stage 3 lesson.** `itadaku` is **Step 14**, so the CC belongs immediately after it.
+
+The grammar is uncontested: **いただきます is the ます-form of いただく**, the humble verb
+for もらう — and `itadaku` already gestures at it (*"you have been receiving the meal
+politely all along"*).
+
+**The received explanation is contested, which is the best thing about it.** The story that
+circulates — that it thanks the *life* of the ingredients, or the farmer, or the cook — is
+a **modern gloss, not an etymology**. Kondō Yasuhiro (近藤泰弘) has publicly called those
+accounts *かなり疑わしい*. And the first-attestation dates disagree: **1812** (*孝行導草*)
+in one source, **1934** per Japanese Wikipedia, and Kondō reports a **1917** (大正6年)
+primary-school text — which points at schools spreading it in the modern era rather than at
+an ancient rite.
+
+`cc-baito` shape exactly. **Reviewer note: do not assert a single first attestation.** The
+CC should say the citations disagree, which is true and more interesting than picking one.
 
 ## What is NOT in this plan
 
-No new grammar. Every pattern Stage 3 needs is already authored — this is a plan about
-**arrangement, recognition and coverage**, which is what Lloyd's brief actually asked for.
+No new grammar. Every pattern Stage 3 needs is already authored. This is a plan about
+**arrangement, recognition and coverage** — which is what the brief asked for.
