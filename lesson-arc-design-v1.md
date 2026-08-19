@@ -143,6 +143,47 @@ The test for a finished lesson: read only the Japanese lines in order and ask wh
 are a set of sentences worth owning. If they are, the prose earned its place. If the
 Japanese is thin and the prose is doing the work, the lesson is a story with grammar in it.
 
+## Which lessons get `seg`, and which should not
+
+26 of Stage 1's 112 points have no `DEEP.seg`, so the `apart` page has nothing to show.
+Asked whether `seg` could simply be authored for them, the answer is **only for about a
+third, and forcing the rest would damage them.**
+
+`seg` dissects **one sentence** into per-token cards with `THE POINT` marked. That is the
+right instrument when the lesson lives *inside* a single sentence, and the wrong one when
+the lesson **is a comparison between sentences**.
+
+**Worth authoring (8)** — one sentence, and taking it apart is the teaching:
+
+`sb-nounmod` (離婚した人は… — the clause sitting in front of the noun with no joiner is
+visible only in the parts) · `sb-no` (私の日本語の先生の本です — a chain that unwinds from
+the right) · `sb-slots` (昨日、図書館で本を読みました — time, place, object, verb, which is
+literally a segmentation) · `sb-kanaparticles` (私は学校へ行きます — per-token gloss is the
+only way to show which kana is a particle) · `sb-omou` · `sb-pronouns2` · `sb-nide2` ·
+`sb-suruverbs`
+
+**Would be misrepresented (13)** — the lesson is the contrast, and dissecting one of the
+sentences hides the system: `sb-yone` (ね/よ/よね, three settings of one sentence) ·
+`sb-negq` (the はい/いいえ pair) · `sb-waga` and `sb-waga2` (the が→は handoff *between*
+two sentences) · `sb-nide` · `sb-transitive` · `sb-transitive2` · `sb-kosoado` ·
+`sb-counters` (a sound shift across いっぽん・にほん・さんぼん) · `sb-verbtypes` (a
+transformation, not a sentence) · `sb-register` · `sb-future` (the point is an absent
+form) · `sb-orthography` (script choice, not structure)
+
+**Nothing to dissect (5)** — no example sentences at all: `prim-shape`, `prim-drop`,
+`sb-must`, `sb-ganotwo`
+
+These are not gaps. A contrastive lesson already has the right affordances: `again` shows
+the remaining examples side by side, and the arc's extensions carry the comparison a page
+at a time. `sb-pronouns` is the clearest case — its example is *昨日映画を見ました。とても
+面白かったです。* and the entire point is that no 私 appears anywhere. There is nothing to
+put a card around.
+
+**⚠️ Do not author `seg` to make an arc render.** Twenty-six arcs are currently invisible
+because the Learn tab gates `Walkthrough` on `deep.seg` — that is a three-line renderer
+fix (`HANDOVER-lesson-arcs-buildout.md`), and reaching for content work to route around it
+would both cost days and wreck half the lessons it touched.
+
 ## Scope of this pass
 
 Stage 1 is **112 teaching points** across Steps 0–12, with **83 existing wrinkles**.
