@@ -39,9 +39,9 @@ DEEP = load_deep()
 
 # ---- the four beats + examples, per point ----------------------------------
 def beats(pid):
-    m = re.search(r'id: "%s", jp: "([^"]*)", en: "([^"]*)",(.{0,3000}?)(?=\n      \{\n        id:|\n    \],)'
+    m = re.search(r'id: "%s", jp: "([^"]*)", en: "([^"]*)",(.{0,12000}?)(?=\n      \{\n        id:|\n    \],)'
                   % re.escape(pid), src, re.S)
-    if not m: return None
+    if not m: return None   # anchored on id/jp/en only; extra fields (n4: true) may follow
     out = {'jp': m.group(1), 'en': m.group(2)}
     blk = m.group(3)
     for f in ('what', 'build', 'when', 'watch'):
@@ -61,7 +61,7 @@ for it in arcs['items']:
     pid = it['point']
     bt = beats(pid)
     if not bt:
-        print(f"  ! no module beats for {pid}", file=sys.stderr); continue
+        print(f"  ! NO MODULE BEATS for {pid} — lesson DROPPED from preview", file=sys.stderr); continue
     wr = (DEEP.get(pid) or {}).get('wr') or []
     exts = []
     for e in it['extensions']:
