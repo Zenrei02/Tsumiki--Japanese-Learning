@@ -121,15 +121,31 @@ print(f"arcs: {len(items)}   pages authored: {len(items) * 1 + sum(len(x['extens
       f" (setting + extensions)   extensions: {sum(len(x['extensions']) for x in items)}")
 kinds = collections.Counter(e['kind'] for x in items for e in x['extensions'])
 print("extension kinds:", dict(kinds))
-print("\n-- Stage 1 coverage --")
-stage1 = [c for c in order if re.match(r'Step ([0-9]|1[0-2])\b', c)]
-done = tot = 0
-for c in stage1:
-    pts = step_points[c]; have = [q for q in pts if q in covered]
-    done += len(have); tot += len(pts)
-    mark = "" if len(have) == len(pts) else ("   MISSING: " + ", ".join(q for q in pts if q not in covered))
-    print(f"  {len(have):2}/{len(pts):2}  {c}{mark[:96]}")
-print(f"\n  Stage 1: {done}/{tot} teaching points ({done*100//tot}%)")
+# Coverage across every stage the module has, not a hardcoded range -- a stage added
+# later must not silently report as complete because the loop never looked at it.
+def stage_of(cat):
+    m = re.match(r"Step (\d+)", cat)
+    if not m: return None
+    n = int(m.group(1))
+    return 1 if n <= 12 else (2 if n <= 23 else 3)
+
+print("\n-- coverage by stage --")
+grand_done = grand_tot = 0
+for stage in (1, 2, 3):
+    cats = [c for c in order if stage_of(c) == stage]
+    if not cats: continue
+    done = tot = 0
+    lines = []
+    for c in cats:
+        pts = step_points[c]; have = [q for q in pts if q in covered]
+        done += len(have); tot += len(pts)
+        miss = [q for q in pts if q not in covered]
+        lines.append(f"  {len(have):2}/{len(pts):2}  {c}" + ("   MISSING: " + ", ".join(miss))[:96] if miss else f"  {len(have):2}/{len(pts):2}  {c}")
+    pct = done * 100 // tot if tot else 0
+    print(f"\n  STAGE {stage}: {done}/{tot} teaching points ({pct}%)")
+    for l in lines: print(l)
+    grand_done += done; grand_tot += tot
+print(f"\n  ALL STAGES: {grand_done}/{grand_tot} ({grand_done*100//grand_tot}%)")
 
 print("\nWARN:" if warn else "\nWARN: none")
 for x in warn: print("  -", x)
