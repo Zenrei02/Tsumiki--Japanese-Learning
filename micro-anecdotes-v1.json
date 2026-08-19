@@ -623,7 +623,7 @@
     },
     {
       "id": "mca-namae",
-      "anchor": { "word": "名前", "step": "Step 26 · Producing politeness" },
+      "anchor": { "word": "名前", "step": "Step 27 · Producing politeness" },
       "surfaces": ["grammar-bank", "vocab-card"],
       "text": "You will be asked for a 印鑑, a name seal, more often than for a signature, and if you stay you will end up with two — a cheap one for parcels and a registered 実印 for contracts. This is changing: in 2020-21 the government cut the seal requirement from 14,747 administrative procedures down to 83. Banks and landlords move slower than ministries, so have one made early. A katakana version of a foreign name is normal and accepted.",
       "claims": [
@@ -642,7 +642,7 @@
     },
     {
       "id": "mca-juusho",
-      "anchor": { "word": "住所", "step": "Step 26 · Producing politeness" },
+      "anchor": { "word": "住所", "step": "Step 27 · Producing politeness" },
       "surfaces": ["grammar-bank", "vocab-card"],
       "text": "Moving here comes with a deadline. Within 14 days of taking up an address you register it at the city or ward office, and that produces your 住民票 — the record everything else hangs off: health insurance, a bank account, a phone contract, tax. Leaving that city, you file the other half of the form and carry the certificate to the next one. It is the most useful hour you will spend in your first fortnight.",
       "claims": [
