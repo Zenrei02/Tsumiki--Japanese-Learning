@@ -1,0 +1,30 @@
+{
+  "_": "JLPT milestone lessons — Lloyd's idea, Session 17. Spliced by build-stage3.py alongside stage-3-content-v1.json.",
+  "_why": "Once stages stop equalling JLPT levels, a learner loses the one thing the old architecture gave them for free: knowing where they stand against the test. These hand it back, and hand it back better — as an achievement at the end of a stage rather than as a label on a locked door.",
+  "_rule": "They state CAPABILITY, never workload. That is the standing no-lesson-counts rule ('the kanji coverage percentage is the one permitted number, because it states capability not workload') applied to a milestone. No counts, no percentages, no 'X of Y'.",
+  "_division": "The checkpoint in the same block does the grammar review. The milestone does the framing. Two jobs, two lessons, per Lloyd's ruling — and the milestone is skippable without losing the review.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch L.",
+  "insert": [
+    {
+      "step": "Checkpoint 3 · Stage review",
+      "after": "rc3",
+      "review": {"batch": "L", "status": "unreviewed"},
+      "point": {
+        "id": "ms-n5", "jp": "N5の範囲、ぜんぶ", "en": "everything the N5 syllabus expects", "kind": "review",
+        "exp": "Everything the N5 syllabus expects of you is now behind you.\n\nNot most of it, and not the important parts. The particles, both verb families, the て-form, the plain past, existence, adjectives, comparison, reasons, and the shape-changers. That is the list. You have walked through all of it.\n\nWhat it means in practice is more useful than the label. You can say what something is and what it is not, now and in the past. You can ask where, when, who, what and why, and understand the answer's shape even when its words are new. You can chain two actions, put one before the other, and give a reason for either. You can describe a room, compare two things, and turn down an invitation without giving offence.\n\nThe test is a reference point rather than a finish line, which is why it is named here and almost nowhere else in this app. What comes next is not harder grammar so much as more of it at once — the same sentences, carrying more.",
+        "ex": []
+      }
+    },
+    {
+      "step": "Checkpoint 6 · Stage review",
+      "after": "rc6",
+      "review": {"batch": "L", "status": "unreviewed"},
+      "point": {
+        "id": "ms-n4", "jp": "N4の範囲、ぜんぶ", "en": "everything the N4 syllabus expects", "kind": "review",
+        "exp": "Everything the N4 syllabus expects of you is now behind you as well.\n\nThe て-form's second life, kindness travelling in three directions, evidence sorted by where you got it, all four ifs, intentions against schedules, ability and experience, the edges of time, things done to you and things you were made to do, concessions at three temperatures, thoughts packed into boxes, and the line between your own mind and everybody else's.\n\nThe practical difference from where you stood at N5 is not vocabulary. It is that you can now say things about things — hold a clause inside a sentence, report what somebody else said without claiming it, hedge a guess to exactly the confidence you actually have, and complain about the weather in a grammar that carries the complaint for you.\n\nFrom here the syllabus stops being a list of forms and starts being a question of register: who you are speaking to, and how far up or down the sentence has to reach. That is what the next stages are about.",
+        "ex": []
+      }
+    }
+  ],
+  "new_steps": []
+}

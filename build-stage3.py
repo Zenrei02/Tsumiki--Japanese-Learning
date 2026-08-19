@@ -30,7 +30,10 @@ import json, pathlib, re, sys
 
 HERE = pathlib.Path(__file__).parent
 MODULE = HERE / "grammar-module.jsx"
-CONTENT = HERE / "stage-3-content-v1.json"
+# More than one content file now: Stage 3's lessons, and the JLPT milestone lessons the
+# Session 17 re-staging needed. Listed explicitly rather than globbed — a glob would pick
+# up whatever else ends up matching, which is not a thing to discover at splice time.
+CONTENT = [HERE / "stage-3-content-v1.json", HERE / "milestone-content-v1.json"]
 
 # ————— emit JS in the module's own house style —————
 def js_str(s):
@@ -160,7 +163,11 @@ def main():
     check = "--check" in sys.argv
     update = "--update" in sys.argv
     src = MODULE.read_text(encoding="utf-8")
-    data = json.loads(CONTENT.read_text(encoding="utf-8"))
+    data = {"insert": [], "new_steps": []}
+    for f in CONTENT:
+        part = json.loads(f.read_text(encoding="utf-8"))
+        data["insert"] += part.get("insert", [])
+        data["new_steps"] += part.get("new_steps", [])
     before = src
     added, skipped, rewritten = [], [], []
     # A retitle changes the key later inserts look the step up by, so remember it.

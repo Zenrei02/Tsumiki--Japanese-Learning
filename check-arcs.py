@@ -17,7 +17,7 @@ for b in re.split(r'\n  \{\n    cat: "', src)[1:]:
     cat = b.split('"')[0]; order.append(cat)
     for pid, jp, en in re.findall(r'id: "([a-z0-9-]+)", jp: "([^"]*)", en: "([^"]*)"', b):
         point_step[pid] = cat
-        if not pid.startswith(('b-', 'b1', 'b2', 'b3', 'rc', 'cc-')):
+        if not pid.startswith(('b-', 'b1', 'b2', 'b3', 'rc', 'cc-', 'ms-')):
             step_points[cat].append(pid)
 
 def load_deep():
@@ -123,15 +123,22 @@ kinds = collections.Counter(e['kind'] for x in items for e in x['extensions'])
 print("extension kinds:", dict(kinds))
 # Coverage across every stage the module has, not a hardcoded range -- a stage added
 # later must not silently report as complete because the loop never looked at it.
+# The module states the stage on every step block (LEVELS filters on it), so read it
+# from there rather than inferring from step numbers. Session 17 re-staged 3 stages into
+# 9 without moving a single step number — an inferring checker would have reported the
+# old shape forever and been confidently wrong.
+step_stage = {}
+for b in re.split(r'\n  \{\n    cat: "', src)[1:]:
+    cat = b.split('"')[0]
+    lv = re.search(r'level: "([^"]*)"', b)
+    step_stage[cat] = lv.group(1) if lv else "?"
+
 def stage_of(cat):
-    m = re.match(r"Step (\d+)", cat)
-    if not m: return None
-    n = int(m.group(1))
-    return 1 if n <= 12 else (2 if n <= 23 else 3)
+    return step_stage.get(cat, "?")
 
 print("\n-- coverage by stage --")
 grand_done = grand_tot = 0
-for stage in (1, 2, 3):
+for stage in sorted(set(step_stage.values()), key=lambda x: (len(x), x)):
     cats = [c for c in order if stage_of(c) == stage]
     if not cats: continue
     done = tot = 0
@@ -142,7 +149,7 @@ for stage in (1, 2, 3):
         miss = [q for q in pts if q not in covered]
         lines.append(f"  {len(have):2}/{len(pts):2}  {c}" + ("   MISSING: " + ", ".join(miss))[:96] if miss else f"  {len(have):2}/{len(pts):2}  {c}")
     pct = done * 100 // tot if tot else 0
-    print(f"\n  STAGE {stage}: {done}/{tot} teaching points ({pct}%)")
+    print(f"\n  {stage}: {done}/{tot} teaching points ({pct}%)")
     for l in lines: print(l)
     grand_done += done; grand_tot += tot
 print(f"\n  ALL STAGES: {grand_done}/{grand_tot} ({grand_done*100//grand_tot}%)")

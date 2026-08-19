@@ -237,6 +237,7 @@ function JPText({ text, mode, onTap }) {
 const CURRICULUM = [
   {
     cat: "Step 0 · Before any Japanese",
+    level: "S1",
     bank: [],
     points: [
       {
@@ -274,6 +275,7 @@ const CURRICULUM = [
   },
   {
     cat: "Step 1 · Your first sentences",
+    level: "S1",
     bank: [["学生", "student"], ["先生", "teacher"], ["本", "book"], ["水", "water"], ["今日", "today"], ["天気", "weather"], ["犬", "dog"], ["日本人", "Japanese person"]],
     points: [
       {
@@ -416,6 +418,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 2 · Core particles",
+    level: "S1",
     bank: [["学校", "school"], ["駅", "station"], ["友達", "friend"], ["電車", "train"], ["映画", "movie"], ["公園", "park"], ["朝ごはん", "breakfast"], ["図書館", "library"]],
     points: [
       {
@@ -534,6 +537,7 @@ const CURRICULUM = [
   },
   {
     cat: "Step 3 · Joining, choosing & counting",
+    level: "S2",
     bank: [["パン", "bread"], ["牛乳", "milk"], ["肉", "meat"], ["魚", "fish"], ["妹", "younger sister"], ["家", "house, home"], ["日本語", "Japanese language"], ["月曜日", "Monday"]],
     points: [
       {
@@ -721,6 +725,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 4 · Verbs: from dictionary form up",
+    level: "S2",
     bank: [["勉強する", "to study"], ["食べる", "to eat"], ["見る", "to see"], ["行く", "to go"], ["起きる", "to get up"], ["寝る", "to sleep"], ["毎日", "every day"], ["昨日", "yesterday"]],
     points: [
       {
@@ -931,6 +936,7 @@ const CURRICULUM = [
   },
   {
     cat: "Checkpoint 1",
+    level: "S2",
     bank: [["学校", "school"], ["友達", "friend"], ["映画", "movie"], ["毎日", "every day"], ["昨日", "yesterday"], ["本", "book"]],
     points: [
       {
@@ -950,6 +956,7 @@ const CURRICULUM = [
   },
   {
     cat: "Step 5 · Requests, permission & obligation",
+    level: "S3",
     bank: [["待つ", "to wait"], ["座る", "to sit"], ["写真を撮る", "to take a photo"], ["薬を飲む", "to take medicine"], ["帰る", "to go home"], ["入る", "to enter"], ["使う", "to use"], ["急ぐ", "to hurry"]],
     points: [
       {
@@ -1046,6 +1053,7 @@ const CURRICULUM = [
   },
   {
     cat: "Step 6 · Invitations, desire & intention",
+    level: "S3",
     bank: [["一緒に", "together"], ["昼ごはん", "lunch"], ["お茶", "tea"], ["買う", "to buy"], ["会う", "to meet"], ["新しい", "new"], ["車", "car"], ["国", "country"]],
     points: [
       {
@@ -1138,6 +1146,7 @@ const CURRICULUM = [
   },
   {
     cat: "Step 7 · Linking actions & time",
+    level: "S3",
     bank: [["手を洗う", "to wash hands"], ["歯をみがく", "to brush teeth"], ["音楽", "music"], ["散歩する", "to take a walk"], ["宿題", "homework"], ["仕事", "work"], ["終わる", "to end"], ["話す", "to speak"]],
     points: [
       {
@@ -1236,6 +1245,7 @@ const CURRICULUM = [
   },
   {
     cat: "Checkpoint 2",
+    level: "S3",
     bank: [["一緒に", "together"], ["写真", "photo"], ["音楽", "music"], ["宿題", "homework"], ["買う", "to buy"], ["帰る", "to go home"]],
     points: [
       {
@@ -1255,6 +1265,7 @@ const CURRICULUM = [
   },
   {
     cat: "Step 8 · Existence & possession",
+    level: "S4",
     bank: [["机", "desk"], ["いす", "chair"], ["猫", "cat"], ["子ども", "child"], ["銀行", "bank"], ["前", "front"], ["下", "under"], ["部屋", "room"]],
     points: [
       {
@@ -1324,6 +1335,7 @@ const CURRICULUM = [
   },
   {
     cat: "Step 9 · Adjectives & adverbs",
+    level: "S4",
     bank: [["高い", "expensive; tall"], ["安い", "cheap"], ["寒い", "cold"], ["暑い", "hot"], ["静か", "quiet"], ["簡単", "easy"], ["面白い", "interesting"], ["広い", "spacious"]],
     points: [
       {
@@ -1433,6 +1445,7 @@ const CURRICULUM = [
   },
   {
     cat: "Step 10 · Comparing & preferring",
+    level: "S4",
     bank: [["夏", "summer"], ["冬", "winter"], ["果物", "fruit"], ["りんご", "apple"], ["歌", "song"], ["ピアノ", "piano"], ["野菜", "vegetables"], ["バス", "bus"]],
     points: [
       {
@@ -1532,6 +1545,7 @@ const CURRICULUM = [
   },
   {
     cat: "Step 11 · Reasons, contrast & connectors",
+    level: "S4",
     bank: [["頭", "head"], ["雨", "rain"], ["時間", "time"], ["遅れる", "to be late"], ["窓", "window"], ["開ける", "to open"], ["忙しい", "busy"], ["痛い", "painful"]],
     points: [
       {
@@ -1645,6 +1659,7 @@ const CURRICULUM = [
   },
   {
     cat: "Step 12 · Past N5 · the shape-changers",
+    level: "S4",
     bank: [["思う", "to think"], ["言う", "to say"], ["雨が降る", "to rain"], ["作る", "to make"], ["時間", "time"], ["会議", "meeting"], ["電気", "electricity; lights"], ["終わる", "to end"]],
     points: [
       {
@@ -1693,6 +1708,7 @@ const CURRICULUM = [
   },
   {
     cat: "Checkpoint 3 · Stage review",
+    level: "S4",
     bank: [["部屋", "room"], ["猫", "cat"], ["夏", "summer"], ["果物", "fruit"], ["時間", "time"], ["雨", "rain"]],
     points: [
       {
@@ -1708,11 +1724,16 @@ const CURRICULUM = [
         ex: [],
       },
       { id: "rc3", jp: "復習 · Stage 1", en: "checkpoint: the full stage", kind: "review", covers: ["arimasu", "location", "ageru", "iadj", "naadj", "kute", "narimasu", "amari", "hou", "ichiban", "suki", "potential", "wakaru", "nogasuki", "kara-because", "node", "ga-but", "toiu", "sb-pronouns", "sb-waga", "sb-ganotwo", "sb-transitive", "sb-orthography", "sb-omou", "sb-nide2", "sb-transitive2", "sb-pronouns2"], exp: "The full Stage 1 review — existence, adjectives, comparisons, and connectors, plus the skill-builder judgments (pronouns, は/が, が-not-を). Write like you mean it.", ex: [] },
+      {
+        id: "ms-n5", jp: "N5の範囲、ぜんぶ", en: "everything the N5 syllabus expects", kind: "review",
+        exp: "Everything the N5 syllabus expects of you is now behind you.\n\nNot most of it, and not the important parts. The particles, both verb families, the て-form, the plain past, existence, adjectives, comparison, reasons, and the shape-changers. That is the list. You have walked through all of it.\n\nWhat it means in practice is more useful than the label. You can say what something is and what it is not, now and in the past. You can ask where, when, who, what and why, and understand the answer's shape even when its words are new. You can chain two actions, put one before the other, and give a reason for either. You can describe a room, compare two things, and turn down an invitation without giving offence.\n\nThe test is a reference point rather than a finish line, which is why it is named here and almost nowhere else in this app. What comes next is not harder grammar so much as more of it at once — the same sentences, carrying more.",
+        ex: [],
+      },
     ],
   },
   {
     cat: "Step 13 · て-form, second wind",
-    level: "N4",
+    level: "S5",
     bank: [["全部", "all"], ["忘れる", "to forget"], ["かさ", "umbrella"], ["財布", "wallet"], ["落とす", "to drop"], ["最後まで", "to the end"], ["予約", "reservation"], ["窓", "window"], ["電気", "electricity; lights"], ["晩ご飯", "dinner"]],
     points: [
       {
@@ -1808,7 +1829,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 14 · Giving, receiving & kindness",
-    level: "N4",
+    level: "S5",
     bank: [["手伝う", "to help"], ["写真", "photo"], ["先生", "teacher"], ["妹", "younger sister"], ["弟", "younger brother"], ["お土産", "souvenir"], ["宿題", "homework"], ["母", "my mother"]],
     points: [
       {
@@ -1888,7 +1909,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 15 · Guessing, seeming & hearsay",
-    level: "N4",
+    level: "S5",
     bank: [["天気", "weather"], ["ニュース", "news"], ["ケーキ", "cake"], ["結婚", "marriage"], ["忙しい", "busy"], ["閉まる", "to close"], ["落ちる", "to fall"], ["チケット", "ticket"]],
     points: [
       {
@@ -1983,7 +2004,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 16 · The four ifs",
-    level: "N4",
+    level: "S5",
     bank: [["電車", "train"], ["チケット", "ticket"], ["医者", "doctor"], ["薬", "medicine"], ["京都", "Kyoto"], ["天気", "weather"], ["休む", "to rest"], ["ボタン", "button"]],
     points: [
       {
@@ -2043,7 +2064,7 @@ const CURRICULUM = [
 
   {
     cat: "Checkpoint 4",
-    level: "N4",
+    level: "S5",
     points: [
       { id: "rc4", jp: "復習 · Steps 13–16", en: "checkpoint: aspect, kindness, evidence, ifs", kind: "review", covers: ["teshimau", "teoku", "tearu", "sb-aspect", "temiru", "teikutekuru", "teageru", "ageru2", "itadaku", "tehoshii", "sb-kuremorau", "kamo", "hazu", "youda", "rashii", "souda-mite", "souda-denbun", "sb-sou", "ba", "nara", "taradou", "sb-if4"], exp: "Stage 2's first checkpoint — the て-form's second wind, the favor triangle in both registers, the whole evidence dial, and all four ifs. These four steps are one arc: what you do, what you owe, what you know, and what would follow.", ex: [] },
     ],
@@ -2051,7 +2072,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 17 · Intentions, decisions & change",
-    level: "N4",
+    level: "S6",
     bank: [["来年", "next year"], ["会議", "meeting"], ["予定", "schedule"], ["靴", "shoes"], ["来月", "next month"], ["毎朝", "every morning"], ["たばこ", "tobacco"], ["東京", "Tokyo"]],
     points: [
       {
@@ -2151,7 +2172,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 18 · Ability, experience & degrees",
-    level: "N4",
+    level: "S6",
     bank: [["すし", "sushi"], ["時々", "sometimes"], ["日曜日", "Sunday"], ["ペン", "pen"], ["漢字", "kanji"], ["チケット", "ticket"], ["話", "talk; story"], ["字", "handwriting"]],
     points: [
       {
@@ -2231,7 +2252,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 19 · Time's edges",
-    level: "N4",
+    level: "S6",
     bank: [["夏休み", "summer break"], ["電話", "phone call"], ["授業", "class"], ["レポート", "report"], ["先月", "last month"], ["さっき", "just now"], ["会議", "meeting"], ["五時", "five o'clock"]],
     points: [
       {
@@ -2311,7 +2332,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 20 · Doing to & being done to",
-    level: "N4",
+    level: "S6",
     bank: [["野菜", "vegetables"], ["子ども", "child"], ["宿題", "homework"], ["歌", "song"], ["部屋", "room"], ["答える", "to answer"], ["がんばれ", "hang in there!"], ["漢字", "kanji"]],
     points: [
       {
@@ -2386,7 +2407,7 @@ const CURRICULUM = [
 
   {
     cat: "Checkpoint 5",
-    level: "N4",
+    level: "S6",
     points: [
       { id: "rc5", jp: "復習 · Steps 17–20", en: "checkpoint: plans, ability, time, voices", kind: "review", covers: ["you-vol", "youtoomou", "kotonisuru", "kotoninaru", "yotei", "youninaru", "younisuru", "sb-suru-naru", "kotogadekiru", "takotogaaru", "kotogaaru", "sugiru", "yasui-nikui", "teiru3", "aida", "madeni", "tokoro", "bakari", "naide", "sb-madeni", "saseru", "saserareru", "meirei", "nasai", "sb-rareru"], exp: "The second Stage 2 checkpoint — intentions and the する/なる axis, ability and experience, time's edges, and the voice system from making to being-made. Four steps about will: yours, time's, and other people's.", ex: [] },
     ],
@@ -2394,7 +2415,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 21 · Reasons, concessions & flow",
-    level: "N4",
+    level: "S7",
     bank: [["雨", "rain"], ["店", "shop"], ["時間", "time"], ["日曜日", "Sunday"], ["会議", "meeting"], ["今度", "next time"], ["家", "home"], ["映画", "movie"]],
     points: [
       {
@@ -2464,7 +2485,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 22 · Wrapping thoughts",
-    level: "N4",
+    level: "S7",
     bank: [["意味", "meaning"], ["言葉", "word"], ["歌う", "to sing"], ["決める", "to decide"], ["忘れる", "to forget"], ["質問", "question"], ["漢字", "kanji"], ["誰", "who"]],
     points: [
       {
@@ -2534,7 +2555,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 23 · Other minds",
-    level: "N4",
+    level: "S7",
     bank: [["公園", "park"], ["犬", "dog"], ["かばん", "bag"], ["野菜", "vegetables"], ["妹", "younger sister"], ["弟", "younger brother"], ["友達", "friend"], ["何でも", "anything"]],
     points: [
       {
@@ -2589,9 +2610,14 @@ const CURRICULUM = [
 
   {
     cat: "Checkpoint 6 · Stage review",
-    level: "N4",
+    level: "S7",
     points: [
       { id: "rc6", jp: "復習 · Stage 2", en: "checkpoint: the full stage", kind: "review", covers: ["temiru", "teikutekuru", "teageru", "ageru2", "itadaku", "tehoshii", "sb-kuremorau", "kamo", "hazu", "youda", "rashii", "souda-mite", "souda-denbun", "sb-sou", "ba", "nara", "sb-if4", "youtoomou", "kotonisuru", "kotoninaru", "youninaru", "younisuru", "sb-suru-naru", "kotogadekiru", "takotogaaru", "sugiru", "teiru3", "aida", "madeni", "tokoro", "bakari", "naide", "sb-madeni", "saseru", "saserareru", "sb-rareru", "shi", "noni", "temo", "sb-noni", "kadouka", "ka-embed", "koto-no", "toiuimi", "sb-kotono", "garu", "hoshigaru", "sb-minds"], exp: "The full Stage 2 review — aspect and kindness, evidence and ifs, will and time, voices, temperatures, boxes, and other minds. One stage, one long argument: what you do, what you know, and what you can honestly claim about anyone else. Write like you mean it.", ex: [] },
+      {
+        id: "ms-n4", jp: "N4の範囲、ぜんぶ", en: "everything the N4 syllabus expects", kind: "review",
+        exp: "Everything the N4 syllabus expects of you is now behind you as well.\n\nThe て-form's second life, kindness travelling in three directions, evidence sorted by where you got it, all four ifs, intentions against schedules, ability and experience, the edges of time, things done to you and things you were made to do, concessions at three temperatures, thoughts packed into boxes, and the line between your own mind and everybody else's.\n\nThe practical difference from where you stood at N5 is not vocabulary. It is that you can now say things about things — hold a clause inside a sentence, report what somebody else said without claiming it, hedge a guess to exactly the confidence you actually have, and complain about the weather in a grammar that carries the complaint for you.\n\nFrom here the syllabus stops being a list of forms and starts being a question of register: who you are speaking to, and how far up or down the sentence has to reach. That is what the next stages are about.",
+        ex: [],
+      },
     ],
   },
 
@@ -2601,7 +2627,7 @@ const CURRICULUM = [
   // giving verbs (いただく・くださる・さしあげる) are the seed this arc grows from.
   {
     cat: "Step 24 · Keigo is already everywhere",
-    level: "N3",
+    level: "S8",
     bank: [["先生", "teacher"], ["社長", "company president"], ["お客様", "customer — honored"], ["店", "shop"], ["二階", "second floor"], ["お手洗い", "restroom"], ["飲み物", "drink"], ["会議", "meeting"]],
     points: [
       {
@@ -2653,7 +2679,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 25 · Lowering yourself",
-    level: "N3",
+    level: "S8",
     bank: [["母", "my mother — outward"], ["兄", "my older brother — outward"], ["会社", "company"], ["電話", "telephone"], ["写真", "photo"], ["会議", "meeting"]],
     points: [
       {
@@ -2685,7 +2711,7 @@ const CURRICULUM = [
   // they expect, then the sentence they will meet.
   {
     cat: "Step 26 · Keigo in the wild",
-    level: "N3",
+    level: "S8",
     bank: [["電車", "train"], ["荷物", "luggage; a parcel"], ["予約", "a booking"], ["保険証", "insurance card"], ["番号", "number"], ["生", "draught beer"], ["会計", "the bill"], ["窓口", "the counter"]],
     points: [
       {
@@ -2738,7 +2764,7 @@ const CURRICULUM = [
 
   {
     cat: "Step 27 · Producing politeness",
-    level: "N3",
+    level: "S8",
     bank: [["荷物", "luggage, bags"], ["名前", "name"], ["住所", "address"], ["説明", "explanation"], ["お客様", "customer — honored"], ["会社", "company"]],
     points: [
       {
@@ -2781,7 +2807,7 @@ const CURRICULUM = [
   // recognition stage does not claim to teach.
   {
     cat: "Checkpoint 7 · 聞き取り",
-    level: "N3",
+    level: "S8",
     points: [
       {
         id: "rc7", jp: "復習 · 聞き取り", en: "checkpoint: hear it, place it", kind: "review",
@@ -3206,11 +3232,22 @@ const ARCS = {
 };
 
 const LEVELS = [
-  { id: "S1", title: "1", subtitle: "Foundations", jlpt: "≈ JLPT N5", markers: "en", tagline: "First sentences to full daily basics — grammar, skill builders, culture stops, and checkpoints along the way.", groups: CURRICULUM.filter((c) => !c.level) },
-  { id: "S2", title: "2", subtitle: "Everyday fluency", jlpt: "≈ JLPT N4", markers: "kana", tagline: "Kindness, evidence, ifs, plans, time, voices, and other minds — the grammar that turns sentences into conversation.", groups: CURRICULUM.filter((c) => c.level === "N4") },
-  { id: "S3", title: "3", subtitle: "Independence", jlpt: "≈ JLPT N3", markers: "kanji", tagline: "It opens with keigo — hearing it, lowering yourself, building politeness you can send. The rest of Independence is on its way.", groups: CURRICULUM.filter((c) => c.level === "N3") },
-  { id: "S4", title: "4", subtitle: "Nuance", jlpt: "≈ JLPT N2", markers: "kanji", locked: true },
-  { id: "S5", title: "5", subtitle: "Mastery", jlpt: "≈ JLPT N1", markers: "kanji", locked: true },
+  // Session 17: stages decoupled from JLPT levels, on Lloyd's ruling. Stage used to EQUAL
+  // JLPT level exactly, which is why the old Stage 1 carried 143 lessons — N5 is simply a
+  // big level and the architecture inherited that shape. The project line has always been
+  // "JLPT shown as reference only, not identity"; this is that decision, reasserted.
+  // Every boundary below is an existing checkpoint. No step numbers moved.
+  { id: "S1", title: "1", subtitle: "First sentences", jlpt: "≈ JLPT N5", markers: "en", tagline: "Saying what things are, pointing at them, asking about them — and not a single verb yet.", groups: CURRICULUM.filter((c) => c.level === "S1") },
+  { id: "S2", title: "2", subtitle: "Verbs arrive", jlpt: "≈ JLPT N5", markers: "en", tagline: "Joining, choosing and counting, and then the machine everything else bends from: the verb.", groups: CURRICULUM.filter((c) => c.level === "S2") },
+  { id: "S3", title: "3", subtitle: "Asking and wanting", jlpt: "≈ JLPT N5", markers: "en", tagline: "Requests, permission, obligation, invitations and the shapes that chain one action to the next.", groups: CURRICULUM.filter((c) => c.level === "S3") },
+  { id: "S4", title: "4", subtitle: "Describing the world", jlpt: "≈ JLPT N5", markers: "en", tagline: "Existence, adjectives, comparison and reasons — everything the N5 syllabus expects, finished.", groups: CURRICULUM.filter((c) => c.level === "S4") },
+  { id: "S5", title: "5", subtitle: "Conversation", jlpt: "≈ JLPT N4", markers: "kana", tagline: "The て-form's second wind, kindness in both directions, evidence, and the four ifs.", groups: CURRICULUM.filter((c) => c.level === "S5") },
+  { id: "S6", title: "6", subtitle: "Plans, time and voice", jlpt: "≈ JLPT N4", markers: "kana", tagline: "Intentions and decisions, ability and experience, time's edges, and things done to you.", groups: CURRICULUM.filter((c) => c.level === "S6") },
+  { id: "S7", title: "7", subtitle: "Nuance and other minds", jlpt: "≈ JLPT N4", markers: "kana", tagline: "Concessions with temperature, thoughts in boxes, and the line between your mind and everyone else's.", groups: CURRICULUM.filter((c) => c.level === "S7") },
+  { id: "S8", title: "8", subtitle: "Politeness", jlpt: "≈ JLPT N3", markers: "kanji", tagline: "Keigo — hearing it, lowering yourself, and the nine rooms it will reach you in.", groups: CURRICULUM.filter((c) => c.level === "S8") },
+  { id: "S9", title: "9", subtitle: "Independence", jlpt: "≈ JLPT N3", markers: "kanji", tagline: "Cause and blame, the compound particles, aspect verbs, and the grammar that carries an argument. Being written.", groups: CURRICULUM.filter((c) => c.level === "S9"), locked: true },
+  { id: "S10", title: "10", subtitle: "Nuance", jlpt: "≈ JLPT N2", markers: "kanji", locked: true },
+  { id: "S11", title: "11", subtitle: "Mastery", jlpt: "≈ JLPT N1", markers: "kanji", locked: true },
 ];
 
 // Lesson types. GATING: intentionally none yet — later, skill builders and
@@ -4289,8 +4326,14 @@ function ReviewChallenge({ progress, onProgress, isDone, mode, onTapWord, onBack
   const gradingMsg = useRotating(GRADING_MESSAGES, loading);
 
   const pool = ALL_POINTS.filter((pt) => (!pt.kind || pt.kind === "grammar" || pt.kind === "skill") && isDone(pt));
-  const s2ids = new Set(((LEVELS.find((l) => l.id === "S2") || {}).groups || []).flatMap((g) => g.points.map((p) => p.id)));
-  const s2live = pool.some((pt) => s2ids.has(pt.id));
+  // Was: LEVELS.find(l => l.id === "S2"). That hard-coded the OLD stage numbering, where
+  // S2 was the whole N4 set. After the Session 17 re-staging S2 is "Verbs arrive" (Steps
+  // 3-4), which a learner reaches in their first week — the challenge would have jumped to
+  // four patterns and the higher payout almost immediately. The concept was never about a
+  // stage number; it is "has this learner got past N5 material", so derive it from the
+  // JLPT reference and let it survive any future re-staging.
+  const beyondN5ids = new Set(LEVELS.filter((l) => !/N5/.test(l.jlpt || "")).flatMap((l) => (l.groups || []).flatMap((g) => g.points.map((p) => p.id))));
+  const s2live = pool.some((pt) => beyondN5ids.has(pt.id));
   const today = tokyoToday();
   const claimed = (t) => ((progress._challenge || {})[t] === today);
 

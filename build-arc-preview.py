@@ -82,16 +82,17 @@ def parse_points(block):
     return out
 
 
+# Read the stage off the module's own `level` field. Inferring it from step numbers
+# broke the moment Session 17 re-staged 3 stages into 9 without moving a step number.
+STEP_STAGE = {}
+for _b in re.split(r'\n  \{\n    cat: "', src)[1:]:
+    _cat = _b.split('"')[0]
+    _lv = re.search(r'level: "([^"]*)"', _b)
+    STEP_STAGE[_cat] = _lv.group(1) if _lv else "?"
+
+
 def stage_of(cat):
-    m = re.match(r"Step (\d+)", cat)
-    if m:
-        n = int(m.group(1))
-        return 1 if n <= 12 else (2 if n <= 23 else 3)
-    m = re.match(r"Checkpoint (\d+)", cat)
-    if m:
-        n = int(m.group(1))
-        return 1 if n <= 3 else (2 if n <= 6 else 3)
-    return 1
+    return STEP_STAGE.get(cat, "?")
 
 
 steps, lessons = [], []
@@ -128,8 +129,8 @@ HTML = r"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 --ui:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);display:flex;min-height:100vh}
 #side{width:300px;flex:none;border-right:1px solid var(--hair);height:100vh;background:#fff;display:flex;flex-direction:column}
-#stagebar{display:flex;gap:4px;padding:12px 12px 8px;border-bottom:1px solid var(--hair);flex:none}
-#stagebar button{flex:1;border:1px solid var(--hair);background:#fff;border-radius:7px;padding:7px 4px;cursor:pointer;
+#stagebar{display:flex;gap:3px;flex-wrap:wrap;padding:12px 12px 8px;border-bottom:1px solid var(--hair);flex:none}
+#stagebar button{flex:1 1 22%;border:1px solid var(--hair);background:#fff;border-radius:7px;padding:7px 4px;cursor:pointer;
 font-family:var(--ui);font-size:12px;font-weight:600;color:var(--sub)}
 #stagebar button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
 #filter{flex:none;padding:8px 12px;border-bottom:1px solid var(--hair)}
@@ -195,7 +196,7 @@ kbd{background:#fff;border:1px solid var(--hair);border-bottom-width:2px;border-
 </div>
 <script>
 const D = __DATA__;
-let li = 0, pi = 0, showMeta = false, stage = 1, filter = "";
+let li = 0, pi = 0, showMeta = false, stage = null, filter = "";
 const esc = s => (s||"").replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 function hl(t,p){ t=esc(t); if(!p) return t; const i=t.indexOf(esc(p));
   return i<0?t:t.slice(0,i)+'<span class="hl">'+esc(p)+'</span>'+t.slice(i+esc(p).length); }
@@ -293,15 +294,17 @@ function buildList(){
       +esc(L.jp)+'<small>'+esc(L.en)+'</small></button>'; n++;
   });
   document.getElementById('list').innerHTML = h || '<div class="stephead">no matches</div>';
-  document.querySelectorAll('#stagebar button').forEach(b=>b.classList.toggle('on',+b.dataset.s===stage));
+  document.querySelectorAll('#stagebar button').forEach(b=>b.classList.toggle('on',b.dataset.s===stage));
   document.querySelectorAll('.pt').forEach(b=>b.classList.toggle('on', +b.dataset.i===li));
 }
 function setStage(s){ stage=s; buildList();
   const first=document.querySelector('.pt'); if(first) pick(+first.dataset.i); }
 (function(){
-  const counts={1:0,2:0,3:0}; D.lessons.forEach(L=>counts[L.stage]++);
-  document.getElementById('stagebar').innerHTML=[1,2,3].map(s=>
-    '<button data-s="'+s+'" onclick="setStage('+s+')">Stage '+s+'<br><span style="font-weight:400;font-size:10px">'+counts[s]+' lessons</span></button>').join('');
+  const counts={}, order=[];
+  D.lessons.forEach(L=>{ if(!(L.stage in counts)){counts[L.stage]=0; order.push(L.stage);} counts[L.stage]++; });
+  stage = order[0];
+  document.getElementById('stagebar').innerHTML=order.map(s=>
+    '<button data-s="'+s+'" onclick="setStage(\''+s+'\')">'+s+'<br><span style="font-weight:400;font-size:10px">'+counts[s]+'</span></button>').join('');
   document.getElementById('q').addEventListener('input',e=>{ filter=e.target.value; buildList(); });
   buildList(); render();
 })();
@@ -309,10 +312,11 @@ function setStage(s){ stage=s; buildList();
 
 out = ROOT / "lesson-arc-preview.html"
 out.write_text(HTML.replace("__DATA__", DATA), encoding="utf-8")
-by_stage = {1: 0, 2: 0, 3: 0}
-for l in lessons: by_stage[l["stage"]] += 1
+by_stage = {}
+for l in lessons: by_stage[l["stage"]] = by_stage.get(l["stage"], 0) + 1
 arced = sum(1 for l in lessons if l["setting"])
+order = sorted(by_stage, key=lambda k: (len(k), k))
 print(f"wrote {out.name}  ({out.stat().st_size // 1024} KB, zero network requests)")
-print(f"  {len(lessons)} lessons across {len(steps)} steps — "
-      f"Stage 1: {by_stage[1]}, Stage 2: {by_stage[2]}, Stage 3: {by_stage[3]}")
+print(f"  {len(lessons)} lessons across {len(steps)} steps")
+print("  " + "  ".join(f"{k}:{by_stage[k]}" for k in order))
 print(f"  {arced} carry an arc; the rest render in their own shape rather than vanishing")
