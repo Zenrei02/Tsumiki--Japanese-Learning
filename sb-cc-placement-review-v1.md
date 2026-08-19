@@ -87,6 +87,23 @@ Step 8 is short by design. Two are worth acting on:
 The rest — Steps 2, 10, 17, 18, 19 — are worth one CC between them at most, and Step 19
 (time's edges) is the best candidate if only one gets written.
 
+### ✅ BOTH BUILT — same session
+
+`sb-junjo` (Step 7) and `sb-keiyoushi` (Step 9), authored with DEEP walkthroughs, wrinkles
+and drills to match their neighbours rather than to the arcs-only standard Stages 9 and 10
+shipped in. Source `early-builders-v1.json`; reviewer scoping is **Batch P**. `rc2` and
+`rc3` covers extended so the checkpoints still match their steps.
+
+⚠️ **Step 7's builder closes `cc-sb-candidates-v1.md` item 3, and the scope changed in the
+making.** The flag had asked since Session 13 for a 行くとき／行ったとき tense drill. Reading
+the live lesson first showed that `toki`'s own `watch` beat already teaches that relativity,
+with both example sentences present — a builder repeating it would have duplicated shipped
+work. The actual gap was wider: five ways to relate two actions in time and nothing sorting
+them. `sb-junjo` sorts the five and points at the とき rule as the sharpest edge in the set.
+Recorded on the flag itself so the change of scope is not lost.
+
+Step 2, 10, 17, 18 and 19 remain open.
+
 ## ✅ BUILT — all seven, same session
 
 Lloyd ruled them in and they are authored, spliced and arced: `cc-aimai` (31),

@@ -1,0 +1,102 @@
+{
+  "_": "Two skill builders closing the early-stage gaps in sb-cc-placement-review-v1.md. Spliced by build-stage3.py, which refuses to overwrite an existing id.",
+  "_why": "Step 7 · Linking actions & time had 8 teaching points and NEITHER a skill builder nor a culture connection — the only step in Stages 1-4 with neither. Step 9 · Adjectives & adverbs had 9 teaching points and no builder, the largest builder-free step in the course. Both are places where the individual lessons are fine and nothing ever states the SYSTEM they belong to, which is exactly what a skill builder is for.",
+  "_flag": "Step 7's builder closes cc-sb-candidates-v1.md item 3, on hold since Session 13 pending Lloyd's call on whether the sc-toki scene made it unnecessary. Lloyd made the call this session by instructing the gap be closed. NOTE the scope changed in the making: the flag asked for a 行くとき／行ったとき TENSE DRILL, and that rule is already taught in toki's own watch beat with both example sentences. Re-teaching it would have duplicated a live lesson. The builder sorts the five ORDERING shapes instead and points at the tense rule as the sharpest edge in the set.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch P. Lower risk than the culture batches — these are grammar claims rather than claims about rooms — but three items want a native eye: the まえに-never-takes-past rule as stated absolutely, the ながら one-subject constraint, and the な-adjective exception list.",
+  "insert": [
+    {
+      "step": "Step 7 · Linking actions & time",
+      "after": "toki",
+      "point": {
+        "id": "sb-junjo",
+        "jp": "前か、後か、同時か",
+        "en": "five ways to place two actions in time",
+        "kind": "skill",
+        "exp": {
+          "what": "This step handed you five ways to say that one thing happened around another, and English covers all five with after, before and while. Japanese picks the form from where the join sits and from what shape the verb in front of it takes — so the choice has to be made before you can build the sentence, not after.",
+          "build": "〜てから: after, and the second thing WAITS for the first. 〜たあとで: after, neutral about waiting. 〜まえに: before, and the verb in front is always dictionary form. 〜ながら: at the same time, one person, and the ながら half is the background action. 〜とき: the general wrapper — when, at the time of.",
+          "when": "Every account of a routine, a recipe, a journey or a day, which is exactly what this step's composition asks you for. It is also the machinery of every set of instructions you will ever read.",
+          "watch": "Two hard edges. まえに NEVER takes past tense — 寝るまえに, however long ago the sleeping was — because the まえ clause is measured against the main verb rather than against now. And ながら needs ONE person doing both actions; for two people the shape is 〜ている間に."
+        },
+        "ex": [
+          ["ご飯を食べてから、出かけます。", "After eating — and nothing happens until it's done."],
+          ["寝るまえに、歯を磨きます。", "Before sleeping — dictionary form, always."],
+          ["音楽を聞きながら、勉強します。", "While listening — one person, both actions."]
+        ]
+      },
+      "deep": {
+        "seg": [
+          ["ご飯を", "the meal — the object"],
+          ["食べて", "て-form: the first action"],
+          ["から、", "THE POINT — から makes it 'and only then'", 1],
+          ["出かけます。", "the second action, which waits for the first"]
+        ],
+        "hl": "寝るまえに",
+        "note": "まえに takes the DICTIONARY form no matter when it happened. The tense lives in the main clause, never in the まえ clause.",
+        "wr": [
+          {"t": "まえに never takes the past. 寝たまえに is wrong however long ago the sleeping was, because the まえ clause is measured against the main verb rather than against now — the same relativity that puts the bag in a different city in 行くとき and 行ったとき.",
+           "jp": "寝るまえに、歯を磨きました。", "en": "I brushed my teeth before bed — past in the MAIN clause only.", "hl": "寝るまえに"},
+          {"t": "ながら needs one subject doing both actions. 音楽を聞きながら勉強します is you, twice over. Two different people take 〜ている間に instead, and using ながら there quietly claims you did both things yourself.",
+           "jp": "母が寝ている間に、掃除しました。", "en": "I cleaned while my mother slept — two people, so 間に.", "hl": "間に"}
+        ],
+        "drill": {
+          "note": "Pick the join from the relation: waiting, neutral order, before, simultaneous, or a general when.",
+          "items": [
+            {"q": "ご飯を食べ___、出かけます。", "en": "Nothing happens until the eating is finished.", "a": ["てから"], "opts": ["てから", "たあとで", "るまえに", "ながら"], "why": "てから is the one that makes the second action wait."},
+            {"q": "___まえに、歯を磨きます。", "en": "Before sleeping.", "a": ["寝る", "ねる"], "opts": ["寝る", "寝た", "寝て"], "why": "まえに always takes the dictionary form."},
+            {"q": "音楽を聞き___、勉強します。", "en": "Both at once, and both by you.", "a": ["ながら"], "opts": ["ながら", "てから", "たあとで"], "why": "ながら — one person, two simultaneous actions."},
+            {"q": "母が寝ている___、掃除しました。", "en": "Two different people.", "a": ["間に", "あいだに"], "opts": ["間に", "ながら", "てから"], "why": "ながら needs one subject; two people take 間に."},
+            {"q": "日本に___とき、京都でかばんを買いました。", "en": "The bag came from Kyoto — so you had already arrived.", "a": ["行った", "いった"], "opts": ["行った", "行く"], "why": "た + とき means after arriving. 行くとき would put the bag at the airport at home."}
+          ]
+        }
+      }
+    },
+    {
+      "step": "Step 9 · Adjectives & adverbs",
+      "after": "nisuru",
+      "point": {
+        "id": "sb-keiyoushi",
+        "jp": "二つの形容詞",
+        "en": "one word, two machines",
+        "kind": "skill",
+        "exp": {
+          "what": "Six lessons in this step rest on one fact nobody has stated as a system: every Japanese adjective belongs to one of two families, and which family it is in decides its past, its negative, its て-form, its adverb and its なる. This is not a spelling detail. They are two different machines wearing the same job.",
+          "build": "い-adjectives conjugate THEMSELVES: 高い → 高かった → 高くない → 高くて → 高く → 高くなる. な-adjectives never conjugate at all and です does the work: 静か → 静かでした → 静かではない → 静かで → 静かに → 静かになる. The な itself only surfaces in front of a noun — 静かな部屋.",
+          "when": "Every sentence with a description in it, which is most sentences you will ever build. Getting the family right is upstream of six separate patterns.",
+          "watch": "The commonest early error in the whole course is 高いでした. An い-adjective carries its own past, so です stays flat behind it: 高かったです. And きれい, 嫌い, 有名, 元気 all END in い and are な-adjectives — the い belongs to the root, not to the ending."
+        },
+        "ex": [
+          ["この部屋は高かったです。", "い-adjective: the word carries its own past, です stays flat."],
+          ["この部屋は静かでした。", "な-adjective: the word never moves, です carries everything."],
+          ["きれいな部屋ですね。", "きれい ends in い and takes な — the classic trap."]
+        ]
+      },
+      "deep": {
+        "seg": [
+          ["この部屋は", "topic — the room"],
+          ["高かった", "THE POINT — the adjective conjugated ITSELF into the past", 1],
+          ["です。", "…and です stays flat. 高いでした is the error this prevents"]
+        ],
+        "hl": "静かでした",
+        "note": "The な family is the exact mirror: the word never changes and です does all of the work.",
+        "wr": [
+          {"t": "きれい, 嫌い, 有名, 元気 all end in い and are な-adjectives. The い belongs to the root rather than to the ending, which is why きれくない is broken and きれいではない is right. No rule predicts these — they are a short list, learned.",
+           "jp": "きれいな部屋ですね。", "en": "A lovely room — な, in spite of the い.", "hl": "きれいな"},
+          {"t": "The adverb forms split the same way, and this is where the two machines are easiest to see side by side: い becomes く, な becomes に. Same job, different join, and the join is decided entirely by which family the word was in all along.",
+           "jp": "静かに歩いてください。", "en": "Please walk quietly — な takes に.", "hl": "静かに"}
+        ],
+        "drill": {
+          "note": "Decide the family first. Everything else follows from it without a further choice.",
+          "items": [
+            {"q": "この部屋は___です。", "en": "It WAS expensive — past, い-adjective.", "a": ["高かった", "たかかった"], "opts": ["高かった", "高い", "高いでした"], "why": "い-adjectives carry their own past and です stays flat."},
+            {"q": "この部屋は静か___。", "en": "It WAS quiet — past, な-adjective.", "a": ["でした"], "opts": ["でした", "かったです", "くでした"], "why": "な-adjectives never conjugate; です does the tense."},
+            {"q": "___部屋ですね。", "en": "A lovely room.", "a": ["きれいな"], "opts": ["きれいな", "きれい", "きれいい"], "why": "きれい ends in い and is a な-adjective."},
+            {"q": "静か___歩いてください。", "en": "Walk quietly — the adverb.", "a": ["に"], "opts": ["に", "く", "で"], "why": "な-adjectives take に; い-adjectives take く."},
+            {"q": "Which is the broken sentence?", "a": ["高いでした"], "opts": ["高いでした", "高かったです", "静かでした"], "why": "An い-adjective already holds the past; です cannot hold it as well."}
+          ]
+        }
+      }
+    }
+  ],
+  "new_steps": []
+}

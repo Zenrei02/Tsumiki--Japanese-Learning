@@ -30,13 +30,27 @@ three new SBs.
    (Step 1, after cc-yes) — approved by Lloyd, who reports the wiring has
    flipped his English. cc-yes's promise line updated to point at it.
 
-3. **行くとき / 行ったとき — the とき tense drill.** SB. Attach: after
-   toki (Step 7). The scaffolded toki lesson now teaches that the tense
-   before とき is relative to the main clause; the pair 日本に行くとき／
-   行ったとき、かばんを買いました puts the bag in two different cities.
-   Drillable as a two-option judgment; no English equivalent (English
-   'when' never carries this) — auto-qualifies. Surfaced during the
-   Session 13 scaffolding pass.
+3. ~~行くとき / 行ったとき — the とき tense drill~~ **SHIPPED, WITH A CHANGED
+   SCOPE** as `sb-junjo` (Session 17, Step 7, after toki). Lloyd made the
+   held call by instructing that Step 7's builder gap be closed.
+
+   ⚠️ THE SCOPE CHANGED IN THE MAKING, AND THAT IS THE POINT WORTH KEEPING.
+   The flag asked for a とき tense drill. Reading the live lesson first —
+   the standing rule — showed that toki's own `watch` beat ALREADY teaches
+   the relativity, with both 日本に行くとき／行ったとき example sentences
+   present. A builder re-teaching it would have duplicated a shipped
+   lesson rather than added anything.
+
+   The real gap in Step 7 was wider and nobody had named it: EIGHT teaching
+   points, no builder and no culture stop — the only step in Stages 1-4
+   with neither — and five different ways to relate two actions in time
+   (てから・たあとで・まえに・ながら・とき) with nothing anywhere sorting
+   them. `sb-junjo` sorts the five and points at the とき tense rule as the
+   sharpest edge in the set, which is what the flag was really reaching for.
+
+   Two hard edges it now carries: まえに never takes past tense, and ながら
+   requires one subject for both actions (two people take 〜ている間に).
+   Both are flagged for the reviewer in batch P.
 
 4. **The compliment deflection — 日本語が上手ですね → いえいえ、まだまだです.**
    CC. Attach: after jouzu (Step 10). English accepts compliments;

@@ -10399,6 +10399,92 @@
       "review": {
         "status": "unreviewed"
       }
+    },
+    {
+      "point": "sb-junjo",
+      "step": "Step 7 · Linking actions & time",
+      "setting": {
+        "scene": "A colleague asks what your mornings look like, and five different ways of joining two actions are sitting in your head at once. You want to say that you eat and then leave, and you stall in the middle of the sentence working out whether the eating is a てから, an あとで or a まえに — long enough that she starts answering for you.",
+        "jp": "ご飯を食べます。出かけます。",
+        "en": "I eat. I leave. — two sentences with no relation between them.",
+        "pattern": "食べます"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "The join is picked by where the weight sits. てから says the second thing WAITS for the first, which is what a routine actually is — nothing happens until the previous thing is finished and out of the way.",
+          "jp": "ご飯を食べてから、出かけます。",
+          "en": "I leave after eating — and not before."
+        },
+        {
+          "kind": "wrinkle",
+          "wr": 0,
+          "scene": "Reach for the past tense in the まえ clause and it breaks, which surprises everybody, because the sleeping plainly did happen. The clause is measured against the main verb rather than against now, so it stays in dictionary form however long ago it was.",
+          "jp": "寝るまえに、歯を磨きました。",
+          "en": "I brushed my teeth before bed — past in the main clause only."
+        },
+        {
+          "kind": "wrinkle",
+          "wr": 1,
+          "scene": "And ながら quietly claims one person did both halves. Use it for two people and the sentence now reports that you were asleep and cleaning simultaneously, which is not what happened and is not a thing anybody will ask you to clarify.",
+          "jp": "母が寝ている間に、掃除しました。",
+          "en": "I cleaned while my mother slept — two people, so 間に."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 1 arc using kanji outside KANJI_DICT at this point (磨・掃除・間). Furigana needed — flagged once for the lesson rather than per line.",
+        "Two grammar claims stated absolutely and worth a native check: that まえに NEVER takes past tense, and that ながら requires a single subject for both actions."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "sb-keiyoushi",
+      "step": "Step 9 · Adjectives & adverbs",
+      "setting": {
+        "scene": "You are describing a flat you looked at to somebody who might take it, and you have two things to say about it: it was quiet, and it was expensive. Both come out of your mouth built the same way, one of them is wrong, and you can tell from a very small pause that it was wrong without being able to tell which one.",
+        "jp": "この部屋は高いでした。",
+        "en": "This room was expensive — and the sentence is broken.",
+        "pattern": "高い"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "い-adjectives carry their own past. 高かった already IS the past, so です stays flat behind it — and the な family does precisely the opposite, never moving at all while です carries everything for it.",
+          "jp": "この部屋は高かったです。",
+          "en": "This room was expensive."
+        },
+        {
+          "kind": "wrinkle",
+          "wr": 0,
+          "scene": "Which makes the family the only thing you actually have to know, and the family is not always visible from the word. きれい ends in い and behaves as な, and so do 嫌い, 有名 and 元気 — the い belongs to the root, and no rule predicts it.",
+          "jp": "きれいな部屋ですね。",
+          "en": "A lovely room — な, in spite of the い."
+        },
+        {
+          "kind": "wrinkle",
+          "wr": 1,
+          "scene": "The adverbs split on exactly the same line, which is where the two machines are easiest to see side by side. い becomes く and な becomes に, and the join is decided by a property of the word rather than by anything happening in the sentence.",
+          "jp": "静かに歩いてください。",
+          "en": "Please walk quietly — な takes に."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 1 arc using kanji outside KANJI_DICT at this point (静・部屋・歩). Furigana needed — flagged once for the lesson rather than per line.",
+        "The な-adjective exception list (きれい・嫌い・有名・元気) is stated as a short learned set with no predictive rule. A reviewer should confirm the list is the right one to give a learner here."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
     }
   ]
 }

@@ -39,7 +39,8 @@ CONTENT = [HERE / "stage-3-content-v1.json", HERE / "milestone-content-v1.json",
            # each step names the previous one in after_step, so b must follow a.
            HERE / "stage-10-content-v1.json", HERE / "stage-10-content-b-v1.json",
            HERE / "stage-10-content-c-v1.json",
-           HERE / "stage-9-10-culture-v1.json"]
+           HERE / "stage-9-10-culture-v1.json",
+           HERE / "early-builders-v1.json"]
 
 # ————— emit JS in the module's own house style —————
 def js_str(s):

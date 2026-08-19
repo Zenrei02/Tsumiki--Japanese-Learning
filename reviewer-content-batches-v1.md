@@ -349,3 +349,36 @@ outside the keigo stage.
 
 7. **Register throughout.** These are culture lessons, so several of them quote speech.
    Anything that sounds like a textbook rather than a person is worth marking.
+
+## Batch P — the two early-stage skill builders (Session 17)
+
+Small, and lower risk than the culture batches — these are grammar claims rather than
+claims about what a room sounds like. Two lessons, both closing gaps named in
+`sb-cc-placement-review-v1.md`.
+
+| id | step | gap it closes |
+|---|---|---|
+| `sb-junjo` | 7 · Linking actions & time | 8 teaching points, no builder and no culture stop — the only step in Stages 1–4 with neither. Five ways to relate two actions in time and nothing sorting them. |
+| `sb-keiyoushi` | 9 · Adjectives & adverbs | 9 teaching points and no builder, the largest builder-free step in the course. Six of those lessons depend on the い/な split and nothing states it as a system. |
+
+### What to check
+
+1. **`sb-junjo` — two rules stated absolutely.** The lesson says まえに **never** takes
+   past tense (寝るまえに, however long ago), and that ながら requires a **single subject**
+   for both actions, with 〜ている間に for two people. Both are put as hard rules rather
+   than tendencies. Confirm that is fair, or tell us where the edges are.
+
+2. **`sb-keiyoushi` — the exception list.** きれい, 嫌い, 有名, 元気 are given as
+   な-adjectives that end in い, presented as a short learned set with no predictive rule.
+   Is that the right list to hand a learner at this point? Is anything important missing,
+   or anything in it that would be better left until later?
+
+3. **`sb-keiyoushi` — the error it targets.** 高いでした is called the commonest early
+   error in the course. Worth a sanity check that it is the one to lead with rather than,
+   say, the negative forms.
+
+4. **Both — the drills.** Same check as batches G and H: no distractor should also be
+   correct, and the `why` line should explain rather than restate.
+
+5. **Register.** Both are Stage 1–4 lessons, so everything should be plain です・ます and
+   the examples should be things a learner at that point could actually say.
