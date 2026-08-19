@@ -289,8 +289,15 @@ await go("grammar", null, [], {
       const back = btns().find(b => (b.textContent || "").includes("All grammar"));
       if (back) { back.click(); await wait(); } else { f(`${NAME}: challenge has no way back`); return; }
     }
-    const stage = btns().find(b => /Foundations/.test(b.textContent || ""));
+    // Session 17: this used to match /Foundations/, which was Stage 1's SUBTITLE. The
+    // re-staging renamed it and the test failed on a rename rather than on a regression —
+    // a stale literal asserting nothing about whether the app works. Match the card
+    // structurally instead: the first enabled .level-card that is not the challenge card.
+    const stage = btns().find(b =>
+      (b.className || "").includes("level-card") && !b.disabled &&
+      !/Review challenge/.test(b.textContent || ""));
     if (!stage) { f(`${NAME}: Stage 1 card not found`); return; }
+    log(`stage card: ${JSON.stringify((stage.textContent || "").trim().slice(0, 40))}`);
     stage.click(); await wait();
     const step1 = btns().find(b => /Your first sentences/.test(b.textContent || ""));
     if (step1) { step1.click(); await wait(); }

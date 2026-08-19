@@ -19,12 +19,12 @@ The through-line, and the thing that makes it a stage rather than a list:
 
 | step | theme | teaching points |
 |---|---|---|
-| **28** | Cause, blame and credit | `okage`, `seide`, `bakarini`, `sb-riyuu` |
-| **29** | The compound particles | `nitsuite`, `nitaishite`, `niyotte`, `nioite`, `nitotte`, `sb-fukugou` |
-| **30** | Conclusions | `wakeda`, `wakedewanai`, `beki`, `nichigainai`, `monoda`, `sb-kakushin` |
-| **31** | Verbs that carry more | `hajimeru`, `owaru`, `kakeru`, `nuku`, `ppanashi`, `sb-aspect2` |
-| **32** | Degrees and tendencies | `gachi`, `gimi`, `warini`, `bahodo`, `dokoroka`, `sb-doai` |
-| **33** | Manner, pretence and timing | `toori`, `furi`, `nagaramo`, `kuseni`, `totan`, `saichuu`, `shidai` |
+| **29** | Cause, blame and credit | `okage`, `seide`, `bakarini`, `sb-riyuu` |
+| **30** | The compound particles | `nitsuite`, `nitaishite`, `niyotte`, `nioite`, `nitotte`, `sb-fukugou` |
+| **31** | Conclusions | `wakeda`, `wakedewanai`, `beki`, `nichigainai`, `monoda`, `sb-kakushin` |
+| **32** | Verbs that carry more | `hajimeru`, `owaru`, `kakeru`, `nuku`, `ppanashi`, `sb-aspect2` |
+| **33** | Degrees and tendencies | `gachi`, `gimi`, `warini`, `bahodo`, `dokoroka`, `sb-doai` |
+| **34** | Manner, pretence and timing | `toori`, `furi`, `nagaramo`, `kuseni`, `totan`, `saichuu`, `shidai` |
 | **CP 8** | Stage review + milestone | `rc8`, `ms-n3` |
 
 **35 teaching points**, plus skill builders, culture stops and one composition per step —
@@ -32,37 +32,37 @@ roughly 55–60 lesson objects, which puts Stage 9 at the size of Stage 4.
 
 ## Step notes
 
-### Step 28 · Cause, blame and credit
+### Step 29 · Cause, blame and credit
 から and ので (Step 11) said *because*. These three say **who it reflects on**. おかげで
 credits, せいで blames, ばかりに blames a single small cause for an outsized result. English
 does this with tone; Japanese does it with the word, which means picking wrong is audible.
 `sb-riyuu` is the four-way drill against から/ので.
 
-### Step 29 · The compound particles
+### Step 30 · The compound particles
 The step that makes writing possible. Every one of these takes a noun and turns it into a
 topic held at a distance — about, toward, by means of, in, for. They are the difference
 between speaking and writing, and they are why an N3 reading passage looks impenetrable to
 an N4 learner. `として` is already taught; it anchors the set.
 
-### Step 30 · Conclusions
+### Step 31 · Conclusions
 わけ is the hard one and worth the room: **it does not mean *reason***, it means *that
 follows*. わけだ draws a conclusion the listener can now see; わけではない denies one they
 might have drawn. Together with べき, に違いない and ものだ this is the stage's argumentative
 core.
 
-### Step 31 · Verbs that carry more
+### Step 32 · Verbs that carry more
 Compound verbs — the productive machinery that lets a known verb say something new.
 はじめる/おわる are easy; かける (started and stopped partway) and ぬく (did it all the way
 through, against resistance) are the ones with no English equivalent, so both qualify for
 the auto-qualifier treatment. っぱなし is the one that carries judgement — *left on*, and
 you shouldn't have.
 
-### Step 32 · Degrees and tendencies
+### Step 33 · Degrees and tendencies
 がち and 気味 grade a tendency; わりに sets an expectation and undercuts it; ば〜ほど scales
 one thing against another; どころか overturns. This is where a learner stops saying *very*
 and starts saying *more than you'd think*.
 
-### Step 33 · Manner, pretence and timing
+### Step 34 · Manner, pretence and timing
 とおり (exactly as), ふりをする (pretending), ながらも and くせに (concessive, and くせに is
 rude in a way that has to be flagged), then the three timing patterns — たとたん, 最中に,
 次第 — which are the same idea at three grains: the instant, the middle, and the moment

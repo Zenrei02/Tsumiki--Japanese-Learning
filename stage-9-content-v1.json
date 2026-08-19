@@ -5,7 +5,7 @@
   "insert": [],
   "new_steps": [
     {
-      "cat": "Step 28 · Cause, blame and credit",
+      "cat": "Step 29 · Cause, blame and credit",
       "level": "S9",
       "after_step": "Checkpoint 7 · 聞き取り",
       "note": "Stage 9 opens. から and ので said WHY. These say who it reflects on — English does that with tone, Japanese does it with the word, so picking wrong is audible.",
@@ -137,8 +137,8 @@
           ]
         },
         {
-          "id": "b-s28",
-          "jp": "作文 · うまくいかなかった日",
+          "id": "b-s29",
+          "jp": "Composition · うまくいかなかった日",
           "en": "a day that went wrong",
           "kind": "build",
           "requires": [
@@ -158,9 +158,9 @@
       ]
     },
     {
-      "cat": "Step 29 · The compound particles",
+      "cat": "Step 30 · The compound particles",
       "level": "S9",
-      "after_step": "Step 28 · Cause, blame and credit",
+      "after_step": "Step 29 · Cause, blame and credit",
       "note": "The step that makes writing possible. Each of these takes a noun and holds it at a distance — about, toward, by means of, in, for. It is why an N3 reading passage looks impenetrable to an N4 learner.",
       "bank": [
         [
@@ -334,8 +334,8 @@
           ]
         },
         {
-          "id": "b-s29",
-          "jp": "作文 · 意見文",
+          "id": "b-s30",
+          "jp": "Composition · 意見文",
           "en": "a short opinion",
           "kind": "build",
           "requires": [
@@ -355,9 +355,9 @@
       ]
     },
     {
-      "cat": "Step 30 · Conclusions",
+      "cat": "Step 31 · Conclusions",
       "level": "S9",
-      "after_step": "Step 29 · The compound particles",
+      "after_step": "Step 30 · The compound particles",
       "note": "The stage's argumentative core. わけ is the hard one and worth the room: it does NOT mean reason — it means that follows.",
       "bank": [
         [
@@ -535,8 +535,8 @@
           ]
         },
         {
-          "id": "b-s30",
-          "jp": "作文 · 推理",
+          "id": "b-s31",
+          "jp": "Composition · 推理",
           "en": "reason it out",
           "kind": "build",
           "requires": [
@@ -556,9 +556,9 @@
       ]
     },
     {
-      "cat": "Step 31 · Verbs that carry more",
+      "cat": "Step 32 · Verbs that carry more",
       "level": "S9",
-      "after_step": "Step 30 · Conclusions",
+      "after_step": "Step 31 · Conclusions",
       "note": "Compound verbs — the productive machinery that lets a verb you already know say something new. かける and ぬく have no English equivalent and qualify for the auto-qualifier treatment.",
       "bank": [
         [
@@ -732,8 +732,8 @@
           ]
         },
         {
-          "id": "b-s31",
-          "jp": "作文 · 机の上",
+          "id": "b-s32",
+          "jp": "Composition · 机の上",
           "en": "the state of your desk",
           "kind": "build",
           "requires": [
@@ -753,9 +753,9 @@
       ]
     },
     {
-      "cat": "Step 32 · Degrees and tendencies",
+      "cat": "Step 33 · Degrees and tendencies",
       "level": "S9",
-      "after_step": "Step 31 · Verbs that carry more",
+      "after_step": "Step 32 · Verbs that carry more",
       "note": "Where a learner stops saying very and starts saying more than you'd think. Every pattern here grades a claim rather than stating one.",
       "bank": [
         [
@@ -929,8 +929,8 @@
           ]
         },
         {
-          "id": "b-s32",
-          "jp": "作文 · レビュー",
+          "id": "b-s33",
+          "jp": "Composition · レビュー",
           "en": "write a review",
           "kind": "build",
           "requires": [
@@ -950,9 +950,9 @@
       ]
     },
     {
-      "cat": "Step 33 · Manner, pretence and timing",
+      "cat": "Step 34 · Manner, pretence and timing",
       "level": "S9",
-      "after_step": "Step 32 · Degrees and tendencies",
+      "after_step": "Step 33 · Degrees and tendencies",
       "note": "The stage closes on three families: exactly-as, pretending, and three grains of timing — the instant, the middle, and the moment after. くせに carries real rudeness and is flagged as such.",
       "bank": [
         [
@@ -1170,8 +1170,8 @@
           ]
         },
         {
-          "id": "b-s33",
-          "jp": "作文 · あの日のこと",
+          "id": "b-s34",
+          "jp": "Composition · あの日のこと",
           "en": "the day it all happened at once",
           "kind": "build",
           "requires": [
@@ -1193,7 +1193,7 @@
     {
       "cat": "Checkpoint 8 · Stage review",
       "level": "S9",
-      "after_step": "Step 33 · Manner, pretence and timing",
+      "after_step": "Step 34 · Manner, pretence and timing",
       "note": "Stage 9's review, and the milestone that closes the JLPT ladder this app teaches.",
       "points": [
         {

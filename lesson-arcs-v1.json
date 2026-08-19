@@ -6382,7 +6382,7 @@
     },
     {
       "point": "okage",
-      "step": "Step 28 · Cause, blame and credit",
+      "step": "Step 29 · Cause, blame and credit",
       "setting": {
         "scene": "The visa renewal came back approved, and it came back approved because somebody in the office spent forty minutes checking your paperwork line by line before you submitted it. Telling people it went through is easy. Telling them in a way that puts the credit where it belongs needs a word that から does not have.",
         "jp": "先生のおかげで、合格しました。",
@@ -6418,7 +6418,7 @@
     },
     {
       "point": "seide",
-      "step": "Step 28 · Cause, blame and credit",
+      "step": "Step 29 · Cause, blame and credit",
       "setting": {
         "scene": "The form came back rejected over a date written in the wrong order, and the twenty minutes you now have to spend fixing it are not really yours to be annoyed about — you filled it in. Explaining what happened needs a word that says where the fault sits, and Japanese will not let you leave that unsaid.",
         "jp": "寝坊したせいで、遅刻しました。",
@@ -6454,7 +6454,7 @@
     },
     {
       "point": "bakarini",
-      "step": "Step 28 · Cause, blame and credit",
+      "step": "Step 29 · Cause, blame and credit",
       "setting": {
         "scene": "One box on the residence application, left blank because you were not sure whether it applied to you, and the whole thing has come back. Not the difficult parts — those were fine. One box. The sentence for this is not the same as the sentence for an ordinary mistake, because the size of the cause and the size of the result do not match.",
         "jp": "一言言わなかったばかりに、大きな問題になりました。",
@@ -6490,7 +6490,7 @@
     },
     {
       "point": "sb-riyuu",
-      "step": "Step 28 · Cause, blame and credit",
+      "step": "Step 29 · Cause, blame and credit",
       "setting": {
         "scene": "Four ways to say because, and you now have all of them. The difference between them is not politeness and it is not formality — it is whether the reason has an owner, and if so, whether that owner comes out of the sentence looking good or bad.",
         "jp": "雨だから、行きません。",
@@ -6526,7 +6526,7 @@
     },
     {
       "point": "nitsuite",
-      "step": "Step 29 · The compound particles",
+      "step": "Step 30 · The compound particles",
       "setting": {
         "scene": "Your first real email in Japanese that is not a request — a short note to the section about a change to the timetable. You know how to say the timetable and you know how to say changed, and you do not know how to say the sentence is ABOUT the timetable, which turns out to be the thing the whole email hangs on.",
         "jp": "この問題について話しましょう。",
@@ -6562,7 +6562,7 @@
     },
     {
       "point": "nitaishite",
-      "step": "Step 29 · The compound particles",
+      "step": "Step 30 · The compound particles",
       "setting": {
         "scene": "A parent has written in with a complaint, and you have been asked to draft the reply. The complaint is the thing you are answering — not the thing you are discussing — and Japanese keeps those two apart with two different particles that English blurs into one word.",
         "jp": "質問に対して、はっきり答えました。",
@@ -6598,7 +6598,7 @@
     },
     {
       "point": "niyotte",
-      "step": "Step 29 · The compound particles",
+      "step": "Step 30 · The compound particles",
       "setting": {
         "scene": "A form asking how you would like to be contacted, with a note underneath explaining that the answer varies depending on which office you are dealing with. Three separate uses of one particle on a single sheet of paper, and none of them is the one you learned first.",
         "jp": "人によって、意見が違います。",
@@ -6636,7 +6636,7 @@
     },
     {
       "point": "nioite",
-      "step": "Step 29 · The compound particles",
+      "step": "Step 30 · The compound particles",
       "setting": {
         "scene": "The letter confirming your contract renewal, which is one page long and contains no sentence you would ever say out loud. Halfway down is a word doing the job で does, in clothes で never wears, and recognising it is the difference between reading the letter and guessing at it.",
         "jp": "会議において、その問題が話し合われました。",
@@ -6672,7 +6672,7 @@
     },
     {
       "point": "nitotte",
-      "step": "Step 29 · The compound particles",
+      "step": "Step 30 · The compound particles",
       "setting": {
         "scene": "A reference letter you have been asked to write for a colleague who is moving on, and the sentence that matters is the one about what the work meant to her. Not what it was — what it was to her, which is a different claim and needs a word that marks whose view it is.",
         "jp": "私にとって、この経験はとても大切です。",
@@ -6708,7 +6708,7 @@
     },
     {
       "point": "sb-fukugou",
-      "step": "Step 29 · The compound particles",
+      "step": "Step 30 · The compound particles",
       "setting": {
         "scene": "Five shapes that all start with に, all take a noun, and all get translated as about or for at some point — which is exactly why meeting them one at a time is the slowest possible way to learn them. Laid out together they stop overlapping.",
         "jp": "問題について話す",
@@ -6744,7 +6744,7 @@
     },
     {
       "point": "wakeda",
-      "step": "Step 30 · Conclusions",
+      "step": "Step 31 · Conclusions",
       "setting": {
         "scene": "Somebody in the staffroom mentions, in passing, that you have been here eleven years. The person they are telling had assumed two or three, and you watch the arithmetic happen on their face. What they say next is not a question and not a new fact — it is the sound of something clicking into place.",
         "jp": "十年住んでいるんですか。道理で日本語が上手なわけですね。",
@@ -6780,7 +6780,7 @@
     },
     {
       "point": "wakedewanai",
-      "step": "Step 30 · Conclusions",
+      "step": "Step 31 · Conclusions",
       "setting": {
         "scene": "You have said, honestly, that you do not eat much natto — and you can see the conclusion forming on the other side of the table, which is that you hate it. You do not hate it. Denying that flatly would deny the thing you actually said, so what you need is a way to deny the inference and keep the fact.",
         "jp": "嫌いなわけではありませんが、あまり食べません。",
@@ -6816,7 +6816,7 @@
     },
     {
       "point": "beki",
-      "step": "Step 30 · Conclusions",
+      "step": "Step 31 · Conclusions",
       "setting": {
         "scene": "A colleague has been covering for somebody who has not asked and has not thanked her, and she has not said anything about it for three weeks. You are about to give an opinion that is not advice and not a rule — it is a judgement about what a person ought to do, and Japanese has a word that carries exactly that weight.",
         "jp": "もっと早く言うべきでした。",
@@ -6852,7 +6852,7 @@
     },
     {
       "point": "nichigainai",
-      "step": "Step 30 · Conclusions",
+      "step": "Step 31 · Conclusions",
       "setting": {
         "scene": "The office is dark, the section head's coat is gone from the hook, and the meeting she called for four o'clock is nine minutes from starting. You did not see her leave. Everything you have is evidence, and the sentence you want is the strongest thing you can say that is still, honestly, a guess.",
         "jp": "電気が消えている。もう帰ったに違いない。",
@@ -6888,7 +6888,7 @@
     },
     {
       "point": "monoda",
-      "step": "Step 30 · Conclusions",
+      "step": "Step 31 · Conclusions",
       "setting": {
         "scene": "A first-year teacher has made the same mistake you made in your first year, and is taking it considerably harder than it deserves. What you want to say is not about this mistake — it is about how the world generally goes, which is a different kind of claim and needs a different ending.",
         "jp": "若い時は、失敗するものです。",
@@ -6924,7 +6924,7 @@
     },
     {
       "point": "sb-kakushin",
-      "step": "Step 30 · Conclusions",
+      "step": "Step 31 · Conclusions",
       "setting": {
         "scene": "Six ways to say how sure you are, built across three stages, and this is the first time they sit on one line. The gap between neighbouring stops is not decorative — each one commits you to a different amount, and English collapses the middle four into might and probably.",
         "jp": "明日は雨でしょう。",
@@ -6960,7 +6960,7 @@
     },
     {
       "point": "hajimeru",
-      "step": "Step 31 · Verbs that carry more",
+      "step": "Step 32 · Verbs that carry more",
       "setting": {
         "scene": "A reading habit you have been meaning to build for two years finally starts on a Tuesday, with a book you will take four months to finish. Reporting that it has begun needs a shape that bolts one verb onto another — and it is the easiest member of a family you will use constantly.",
         "jp": "八時に読みはじめました。",
@@ -6996,7 +6996,7 @@
     },
     {
       "point": "owaru",
-      "step": "Step 31 · Verbs that carry more",
+      "step": "Step 32 · Verbs that carry more",
       "setting": {
         "scene": "Four months later, the last page. The book has been on the desk long enough that finishing it is genuinely an event, and the sentence for it closes an action that had a length — which is what separates this from the ending you learned in Step 13.",
         "jp": "この本を読みおわりました。",
@@ -7032,7 +7032,7 @@
     },
     {
       "point": "kakeru",
-      "step": "Step 31 · Verbs that carry more",
+      "step": "Step 32 · Verbs that carry more",
       "setting": {
         "scene": "Your desk, honestly described: three books with markers in them, a form filled in as far as the third box, and a message to the landlord that has been sitting half-typed since Thursday. English needs a whole phrase for each of those. Japanese puts it inside the verb.",
         "jp": "読みかけの本が三冊あります。",
@@ -7068,7 +7068,7 @@
     },
     {
       "point": "nuku",
-      "step": "Step 31 · Verbs that carry more",
+      "step": "Step 32 · Verbs that carry more",
       "setting": {
         "scene": "The application you have been assembling for five weeks, with the certified translations and the two documents that had to come from another country, finally goes in. Saying you completed it is true and thin. There is a verb ending that says you completed it and that completing it cost something.",
         "jp": "最後まで走りぬきました。",
@@ -7104,7 +7104,7 @@
     },
     {
       "point": "ppanashi",
-      "step": "Step 31 · Verbs that carry more",
+      "step": "Step 32 · Verbs that carry more",
       "setting": {
         "scene": "The staffroom heater has been running since Friday, the window beside it has been open the same length of time, and it is Monday morning. Somebody is going to say something about it, and the word they use will contain the complaint so their voice does not have to.",
         "jp": "電気がつけっぱなしでした。",
@@ -7140,7 +7140,7 @@
     },
     {
       "point": "sb-aspect2",
-      "step": "Step 31 · Verbs that carry more",
+      "step": "Step 32 · Verbs that carry more",
       "setting": {
         "scene": "Five endings that all bolt onto a ます-stem and all change what the verb claims about its own completeness. Met one at a time they look like vocabulary; laid out together they are a system with two axes — how far the action got, and how you feel about that.",
         "jp": "読みかけの本",
@@ -7176,7 +7176,7 @@
     },
     {
       "point": "gachi",
-      "step": "Step 32 · Degrees and tendencies",
+      "step": "Step 33 · Degrees and tendencies",
       "setting": {
         "scene": "A health check questionnaire with a column that is not asking whether you have been ill but whether you tend to be. One is an event and the other is a pattern, and the form wants the pattern — which needs a word that grades a tendency rather than reporting an occasion.",
         "jp": "最近、忘れがちです。",
@@ -7212,7 +7212,7 @@
     },
     {
       "point": "gimi",
-      "step": "Step 32 · Degrees and tendencies",
+      "step": "Step 33 · Degrees and tendencies",
       "setting": {
         "scene": "Half past eight, and you are not ill enough to stay home and not well enough to pretend nothing is happening. Somebody asks how you are. The honest answer is a degree rather than a state, and reporting it without asking anybody to do something about it is exactly what this word is for.",
         "jp": "ちょっと風邪気味です。",
@@ -7248,7 +7248,7 @@
     },
     {
       "point": "warini",
-      "step": "Step 32 · Degrees and tendencies",
+      "step": "Step 33 · Degrees and tendencies",
       "setting": {
         "scene": "The flat is small, it is above a bakery, and the rent is a third less than the one you looked at on Tuesday. Somebody asks whether it is any good, and the honest answer is not good or bad — it is good for what it costs, which needs a benchmark inside the sentence.",
         "jp": "値段のわりに、おいしいです。",
@@ -7284,7 +7284,7 @@
     },
     {
       "point": "bahodo",
-      "step": "Step 32 · Degrees and tendencies",
+      "step": "Step 33 · Degrees and tendencies",
       "setting": {
         "scene": "Four months into a study habit and the odd thing has started happening: the more you read, the less certain you feel, because every page shows you two more things you did not know. Saying that needs a frame that scales one thing against another, and both halves use the same verb.",
         "jp": "練習すればするほど、上手になります。",
@@ -7320,7 +7320,7 @@
     },
     {
       "point": "dokoroka",
-      "step": "Step 32 · Degrees and tendencies",
+      "step": "Step 33 · Degrees and tendencies",
       "setting": {
         "scene": "Somebody says your Japanese must be almost fluent by now. They mean it kindly, they have heard you order lunch, and it is not remotely close to true. A polite correction would understate how far off it is — and there is a word for overturning an assumption rather than gently adjusting it.",
         "jp": "安いどころか、とても高かったです。",
@@ -7356,7 +7356,7 @@
     },
     {
       "point": "sb-doai",
-      "step": "Step 32 · Degrees and tendencies",
+      "step": "Step 33 · Degrees and tendencies",
       "setting": {
         "scene": "Six words that all do something English handles with adverbs and a raised eyebrow: they grade a claim instead of stating one. Met separately they look like vocabulary and get used interchangeably. Together they are the difference between a sentence that reports something and a sentence that takes a position on it.",
         "jp": "忘れがち",
@@ -7392,7 +7392,7 @@
     },
     {
       "point": "toori",
-      "step": "Step 33 · Manner, pretence and timing",
+      "step": "Step 34 · Manner, pretence and timing",
       "setting": {
         "scene": "A handover note from somebody who has left, with six steps on it, and a system that will do something expensive if the steps happen in the wrong order. When you report back that it is done, the word you want claims precision rather than approximation.",
         "jp": "言ったとおりにやりました。",
@@ -7428,7 +7428,7 @@
     },
     {
       "point": "furi",
-      "step": "Step 33 · Manner, pretence and timing",
+      "step": "Step 34 · Manner, pretence and timing",
       "setting": {
         "scene": "On the train, somebody two seats down is having a phone conversation that everybody can hear and nobody wants to be part of. The entire carriage is doing the same thing, and there is a word for it that makes the pretending itself the action.",
         "jp": "彼は知らないふりをしました。",
@@ -7464,7 +7464,7 @@
     },
     {
       "point": "nagaramo",
-      "step": "Step 33 · Manner, pretence and timing",
+      "step": "Step 34 · Manner, pretence and timing",
       "setting": {
         "scene": "A reflective paragraph in a year-end report, about a decision you knew at the time was the wrong one and made anyway. Two things true of the same person at the same moment, and they contradict each other — which is a shape Step 7's ながら could hold the timing of but not the contradiction.",
         "jp": "知っていながらも、何も言いませんでした。",
@@ -7500,7 +7500,7 @@
     },
     {
       "point": "kuseni",
-      "step": "Step 33 · Manner, pretence and timing",
+      "step": "Step 34 · Manner, pretence and timing",
       "setting": {
         "scene": "A line in a drama that the subtitles render as even though, said by one character to another, and the temperature of the room changes. The subtitle is not wrong and it is not close to enough — the word carries contempt, and a learner who files it beside のに will one day use it and not understand what happened.",
         "jp": "知っているくせに、教えてくれませんでした。",
@@ -7537,7 +7537,7 @@
     },
     {
       "point": "totan",
-      "step": "Step 33 · Manner, pretence and timing",
+      "step": "Step 34 · Manner, pretence and timing",
       "setting": {
         "scene": "You sit down for the first time since seven in the morning, and the phone rings. Not a minute later — at the exact moment your weight reaches the chair, as though the two events were connected, which they were not. There is a pattern for that seam and the surprise is built into it.",
         "jp": "座ったとたん、電話が鳴りました。",
@@ -7573,7 +7573,7 @@
     },
     {
       "point": "saichuu",
-      "step": "Step 33 · Manner, pretence and timing",
+      "step": "Step 34 · Manner, pretence and timing",
       "setting": {
         "scene": "Nine minutes into a meeting that took three weeks to arrange, with everybody finally in the room, a phone goes off. Not during the meeting in the general sense — in the thick of it, at the worst available moment, which is a finer claim than Step 19's neutral window.",
         "jp": "会議の最中に、電話が鳴りました。",
@@ -7609,7 +7609,7 @@
     },
     {
       "point": "shidai",
-      "step": "Step 33 · Manner, pretence and timing",
+      "step": "Step 34 · Manner, pretence and timing",
       "setting": {
         "scene": "An email you have to send before you leave, about a decision that has not been made yet, to somebody who needs to know the moment it is. Not when it is decided, not after — as soon as, and the sentence is a promise rather than a description.",
         "jp": "決まり次第、ご連絡します。",
@@ -7645,7 +7645,7 @@
     },
     {
       "point": "sb-timing",
-      "step": "Step 33 · Manner, pretence and timing",
+      "step": "Step 34 · Manner, pretence and timing",
       "setting": {
         "scene": "Three patterns that all come out in English as when or as soon as, and all mean something different about where in an event you are standing. Side by side the difference stops being subtle, and the tense restrictions do most of the work of telling them apart.",
         "jp": "座ったとたん、電話が鳴りました。",
@@ -7674,6 +7674,179 @@
       "flags": [
         "No factual claims — an ordinary situation.",
         "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "teitadakeru",
+      "step": "Step 28 · Asking, and being allowed",
+      "setting": {
+        "scene": "Your residence card renewal is finally in, and the clerk has just talked you through three forms at a speed built for people who grew up here. You need all of it again. Every request you own ends in てください, and in the half-second before you speak you can feel that telling this man to explain it a second time is not the thing you want to be doing.",
+        "jp": "もう一度説明してください。",
+        "en": "Please explain that once more — correct, and still an instruction.",
+        "pattern": "してください"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "Pointed upward, a request stops being an instruction and becomes a question about what you might receive. The verb is Step 14's いただく, moved into the potential: could I receive the favour of your explaining it. Nothing in the content changed. The sentence simply stopped telling him anything.",
+          "jp": "もう一度説明していただけますか。",
+          "en": "Could you explain that once more?"
+        },
+        {
+          "kind": "wrinkle",
+          "wr": 0,
+          "scene": "The potential is not decoration. Take it out and the sentence announces that you are about to receive an explanation, which is an odd thing to say to a man who has not offered one yet, and he will hear the difference before you finish saying it.",
+          "jp": "説明していただきますか",
+          "en": "Not a request — an announcement with a question mark on it."
+        },
+        {
+          "kind": "wrinkle",
+          "wr": 1,
+          "scene": "The same shape aimed sideways overshoots instead. Asking the colleague at the next desk for a hand with いただけますか opens a distance neither of you wanted, and もらえますか was already the right height for somebody standing level with you.",
+          "jp": "手伝ってもらえますか。",
+          "en": "Could you give me a hand? — level, and correct there."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 3 necessarily uses keigo vocabulary outside KANJI_DICT (申・参・召・覧・尊敬語・謙譲語 and the like). Furigana needed throughout this stage — flagged once per lesson rather than per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "oitadaku",
+      "step": "Step 28 · Asking, and being allowed",
+      "setting": {
+        "scene": "The counter at the bank has your form and a problem with it. You have been waiting eleven minutes and are plainly about to wait more, and the woman behind the glass says a sentence you have heard a thousand times in this country without once being told how it is put together or that you could build one yourself.",
+        "jp": "少々お待ちください。",
+        "en": "One moment please — heard daily, never parsed.",
+        "pattern": "お待ちください"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "Now put it in your own mouth, asking rather than telling. Swap ください for いただけますか and the identical frame stops instructing and starts requesting, which is what you need the moment the person being asked to wait is the one above you.",
+          "jp": "少々お待ちいただけますか。",
+          "en": "Could you wait a moment? — the frame, asking."
+        },
+        {
+          "kind": "wrinkle",
+          "wr": 0,
+          "scene": "The common overbuild is to put する back in. ご確認していただけますか sounds like somebody being careful, and it is exactly one part too many — the frame already contains the verb, so the extra して has nothing to do but announce the effort.",
+          "jp": "ご確認していただけますか",
+          "en": "One part too many — the frame already holds the verb."
+        },
+        {
+          "kind": "wrinkle",
+          "wr": 1,
+          "scene": "And the same frame with になる instead points the benefit the other way. お待ちになりますか asks whether they intend to wait; お待ちいただけますか asks them to wait for you. Same person elevated, opposite thing being said.",
+          "jp": "お待ちになりますか。",
+          "en": "Are you going to wait? — polite, and not a request."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 3 necessarily uses keigo vocabulary outside KANJI_DICT (申・参・召・覧・尊敬語・謙譲語 and the like). Furigana needed throughout this stage — flagged once per lesson rather than per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "saseteitadaku",
+      "step": "Step 28 · Asking, and being allowed",
+      "setting": {
+        "scene": "You need Thursday off. In English the message writes itself in six words. In Japanese every shape you own says either 休みます, which is flat and states a fact at a man who outranks you, or 休んでもいいですか, which is Step 5 asking permission the way a schoolchild asks to leave the room. Neither is what an adult sends a section chief.",
+        "jp": "木曜日は休みます。",
+        "en": "I'm taking Thursday off — true, flat, and faintly rude.",
+        "pattern": "休みます"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "The adult form is built out of two things already in your hands. Step 20's causative turns 休む into being-let-to-rest; Step 14's いただく receives that permission humbly. The decision is still entirely yours. The sentence hands him the credit for it.",
+          "jp": "木曜日は休ませていただきます。",
+          "en": "I'll be taking Thursday off — permission, granted to itself."
+        },
+        {
+          "kind": "wrinkle",
+          "wr": 0,
+          "scene": "Somebody's permission has to be plausibly involved or the humility attaches to nothing. Said about your own coffee in your own kitchen with nobody else in the building, it is a joke, and it is the joke Japanese speakers make about the form most often.",
+          "jp": "コーヒーを飲ませていただきます",
+          "en": "Nobody permitted this. Empty politeness, and audibly so."
+        },
+        {
+          "kind": "wrinkle",
+          "wr": 1,
+          "scene": "Move to the potential and the announcement turns into a question. 使わせていただきます takes the thing and tells you afterwards; 使わせていただけますか asks first, and standing at a counter that difference is the entire exchange.",
+          "jp": "こちらを使わせていただけますか。",
+          "en": "May I use this? — asked, not announced."
+        }
+      ],
+      "claims": [
+        "The Japanese government's keigo guidelines address 〜させていただく directly, as a construction people ask about and overreach with."
+      ],
+      "sources": [
+        "敬語の指針, 文化審議会答申, 2 February 2007 (平成19年) — https://www.bunka.go.jp/seisaku/bunkashingikai/kokugo/hokoku/pdf/keigo_tosin.pdf"
+      ],
+      "flags": [
+        "Stage 3 necessarily uses keigo vocabulary outside KANJI_DICT (申・参・召・覧・尊敬語・謙譲語 and the like). Furigana needed throughout this stage — flagged once per lesson rather than per line.",
+        "The claim about the 2007 guidelines is cited to the 答申 itself. A reviewer should confirm the characterisation — that the document treats させていただく as a point of overreach rather than merely listing it — before this ships."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "sb-onegai",
+      "step": "Step 28 · Asking, and being allowed",
+      "setting": {
+        "scene": "One pen, one day. You want to borrow it at breakfast from the flatmate, at eleven from the colleague at the next desk, and at two in the afternoon from the man behind the ward office counter who has never seen you before and never will again. Same pen, same want, three different sentences, and the difference is not politeness. It is distance.",
+        "jp": "ペン、貸して。",
+        "en": "Lend us a pen — a friend, and nothing is missing from it.",
+        "pattern": "貸して"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "So climb. もらえますか for the colleague, いただけますか for anybody above you, お貸しいただけないでしょうか for the stranger who owes you nothing at all. Five rungs out of one verb, and the rung is picked by who is standing there rather than by how badly you want the pen.",
+          "jp": "ペンをお貸しいただけないでしょうか。",
+          "en": "Might I trouble you for a pen? — the top rung."
+        },
+        {
+          "kind": "wrinkle",
+          "wr": 0,
+          "scene": "Too high is not the safe error. The top rung aimed at the flatmate over breakfast lands as sarcasm or as a grievance, and either way you spend the next minute explaining that nothing is wrong, which is worse than the borrowing was.",
+          "jp": "お貸しいただけないでしょうか。",
+          "en": "To a friend: a joke, or a complaint. Not politeness."
+        },
+        {
+          "kind": "wrinkle",
+          "wr": 1,
+          "scene": "Pick the rung once and then hold it. Climbing halfway through a conversation is far more audible than starting one rung low and staying put, because the climb tells the other person you have just this second reassessed who they are.",
+          "jp": "ペンを貸してもらえますか。",
+          "en": "Rung three — a colleague, level with you."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 3 necessarily uses keigo vocabulary outside KANJI_DICT (申・参・召・覧・尊敬語・謙譲語 and the like). Furigana needed throughout this stage — flagged once per lesson rather than per line.",
+        "The five-rung ordering is the author's calibration, not a cited one. This is the item in the step most in need of a native speaker saying where the rungs actually sit."
       ],
       "review": {
         "status": "unreviewed"

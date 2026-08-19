@@ -56,7 +56,7 @@ and no composition.
 |---|---|---|
 | `temiru` | 〜てみる | try doing — do it and see |
 | `teikutekuru` | 〜ていく・〜てくる | change moving away from now, and toward it |
-| `b-s13` | 作文 · きのうのしっぱい | a small failure story: てしまった, ておいた, てみた |
+| `b-s13` | Composition · きのうのしっぱい | a small failure story: てしまった, ておいた, てみた |
 
 sb-aspect's covers extend to temiru/teikutekuru? **No** — keep sb-aspect's
 four-way contrast intact; the new pair gets its own watch fields instead.
@@ -76,7 +76,7 @@ carries its copy.
 | `tehoshii` | 〜てほしい | wanting someone else to do it |
 | `sb-kuremorau` | くれる vs もらう | one kindness, two sentences — who is the subject? |
 | `cc-favor` | お願い and the weight of favors | why asking is heavier here, and how てくれる thanks |
-| `b-s14` | 作文 · 親切 | a kindness given and one received, both directions marked |
+| `b-s14` | Composition · 親切 | a kindness given and one received, both directions marked |
 
 Rationale: early in the stage because favor-language saturates daily speech and
 every later composition wants it. R1's regression note pins to ageru2.
@@ -96,7 +96,7 @@ triangle shipped with both parents, closing the flag queue's oldest block.
 | `souda-denbun` | 〜そうです（伝聞） | I hear that — plain form + そうです |
 | `sb-sou` | 降りそう・降るそう・そうですね | **the blocked flag SHIPS HERE** — three shapes, three meanings; links back to cc-yes |
 | `cc-hedge` | 断定しない | why Japanese rounds certainty down — hedging as good manners |
-| `b-s15` | 作文 · うわさ | report something heard, guess something seen |
+| `b-s15` | Composition · うわさ | report something heard, guess something seen |
 
 Rationale: cc-sb-candidates item 1 requires the そう parents and the SB to
 ship together — this step is built around that pairing.
@@ -111,7 +111,7 @@ Stage 1's tara lesson carries an honesty flag pointing exactly here.
 | `nara` | 〜なら | the topical if — "if that's the situation…" |
 | `taradou` | 〜たらどうですか | advice wearing an if |
 | `sb-if4` | たら・と・ば・なら | REVISIT-completer — the four-way contrast the map demands; updates tara's flag |
-| `b-s16` | 作文 · アドバイス | give a friend advice: one condition, one suggestion |
+| `b-s16` | Composition · アドバイス | give a friend advice: one condition, one suggestion |
 
 Small step on purpose: the four-way SB is the heaviest judgment lesson in the
 stage and deserves undivided attention. The tara spotlight row in the revisit
@@ -131,7 +131,7 @@ map ("〜たら / 〜ば / 〜と / 〜なら") finds its home lesson here.
 | `youninaru` | 〜ようになる | change arrives — you can now, you do now |
 | `younisuru` | 〜ようにする | steering yourself — the standing effort |
 | `sb-suru-naru` | する系 vs なる系 | the agency thread: ことにする/ことになる, ようにする/ようになる as ONE system (echoes Step 9's く/にする・なる) |
-| `b-s17` | 作文 · 来年 | next year: a decision, a plan, a habit you're building |
+| `b-s17` | Composition · 来年 | next year: a decision, a plan, a habit you're building |
 
 ## Step 18 · Ability, experience & degrees — ✅ SHIPPED (Session 14; potential2 still reserved on R6)
 
@@ -144,7 +144,7 @@ map ("〜たら / 〜ば / 〜と / 〜なら") finds its home lesson here.
 | `yasui-nikui` | 〜やすい・〜にくい | easy-to, hard-to |
 | `teiru3` | 〜ている · 三回目 | REVISIT — the map's watch item: state vs progressive decided by verb class |
 | `potential2` | 可能形 · 二回目 | **RESERVED, BLOCKED on R6** — が/を with potentials; ships only with the reviewer's ruling, and SYSTEM_PROMPT moves in the same commit |
-| `b-s18` | 作文 · できること | what you can do now that you couldn't — たことがある + ようになりました |
+| `b-s18` | Composition · できること | what you can do now that you couldn't — たことがある + ようになりました |
 
 Rationale: teiru3 sits where verb breadth finally exists; potential2 is the
 sb-ganotwo resolution's home if R6 says the lesson must soften.
@@ -159,7 +159,7 @@ sb-ganotwo resolution's home if R6 says the lesson must soften.
 | `bakari` | 〜たばかり | fresh off it — and why it differs from たところ |
 | `naide` | 〜ないで（〜ずに） | without doing — the missing accompaniment |
 | `sb-madeni` | まで vs までに | until vs by — small particle, missed deadline |
-| `b-s19` | 作文 · いそがしい日 | a busy day told at its edges: deadlines, durings, just-finisheds |
+| `b-s19` | Composition · いそがしい日 | a busy day told at its edges: deadlines, durings, just-finisheds |
 
 ## Step 20 · Doing to & being done to — ✅ SHIPPED (Session 14)
 
@@ -171,7 +171,7 @@ sb-ganotwo resolution's home if R6 says the lesson must soften.
 | `nasai` | 〜なさい | the parent-and-teacher imperative |
 | `sb-rareru` | られる collision | passive, potential, honorific — one shape, three readings; 見られる decided by context |
 | `cc-meirei` | 命令はどこにいる | where commands actually live: signs, sports, anime — and why speech avoids them |
-| `b-s20` | 作文 · 子どものとき | childhood: what you were made to do, let do, told to do |
+| `b-s20` | Composition · 子どものとき | childhood: what you were made to do, let do, told to do |
 
 Rationale: passive shipped in Stage 1's Step 12, so the causative family
 completes the voice system here; sb-rareru untangles the collision that
@@ -188,7 +188,7 @@ potential (S1) and passive (S1) have been quietly building toward.
 | `temo` | 〜ても | even if — concession without the sting |
 | `sorede` | それで・それに・だから | the paragraph connectors, upgraded from でも/それから |
 | `sb-noni` | のに vs ても vs が | three concessions, three temperatures |
-| `b-s21` | 作文 · ざんねんな話 | a disappointment: stacked reasons, one のに |
+| `b-s21` | Composition · ざんねんな話 | a disappointment: stacked reasons, one のに |
 
 ## ~~Step 22 · Politeness, up and down~~ → MOVED to open Stage 3 (Lloyd, Session 14)
 
@@ -208,7 +208,7 @@ id below now live in the module. S3 unlocked in LEVELS (kanji markers):
   instinct, now grammar; its "much later" pointer lands here).
 - **S3 opening step C · Producing politeness** — `okeigo` (お〜になる・お〜する,
   the productive patterns), `sb-keigo-map` (one exchange, three renderings),
-  `b-keigo` (作文 · メール — one request, properly dressed).
+  `b-keigo` (Composition · メール — one request, properly dressed).
 
 Stage 2 keeps exactly one taste: Step 14's giving verbs (いただく・くださる・
 さしあげる), which the revisit map's R1 obligation pins there regardless —
@@ -223,7 +223,7 @@ they now double as Stage 3's seed, and Step 14's copy should say so.
 | `koto-no` | こと vs の | the two nominalizers — where each lives (nogasuki's forward pointer lands) |
 | `toiuimi` | 〜という意味 | asking what things mean — metalanguage for learners |
 | `sb-kotono` | ことか、のか | the choice drill: 見ることが好き? 見るのが好き? verbs of sense vs abstraction |
-| `b-s22` | 作文 · わからないこと | write about not-knowing: two embedded questions, one かどうか |
+| `b-s22` | Composition · わからないこと | write about not-knowing: two embedded questions, one かどうか |
 
 ## Step 23 · Other minds — ✅ SHIPPED (Session 14; Stage 2 complete)
 
@@ -236,7 +236,7 @@ the machinery") is the doorway.
 | `hoshigaru` | ほしがる | the noun-want, other-minds edition |
 | `sb-minds` | 私は嬉しい、彼は嬉しがっている | the my-mind/your-mind line English never draws |
 | `cc-honne` | 本音と建前 | the two truths — named honestly, without cynicism |
-| `b-s23` | 作文 · ともだち | describe a friend: what they seem to feel, want, be about to do — the whole evidence system in one portrait |
+| `b-s23` | Composition · ともだち | describe a friend: what they seem to feel, want, be about to do — the whole evidence system in one portrait |
 
 Rationale: closes the stage on the theme Stage 2 quietly builds throughout —
 what you can claim about the world versus about other people — so the stage

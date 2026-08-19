@@ -1,0 +1,589 @@
+{
+  "_": "Step 28 · Asking, and being allowed. Session 17. Spliced by build-stage3.py.",
+  "_why": "The module confessed this gap to itself. Step 27's composition brief (b-keigo) asks the learner to produce ご確認いただけますか — and nothing anywhere in 246 lessons had ever taught お〜いただく. A probe found させていただく at ZERO occurrences across every title, explanation, wrinkle and drill in the module, alongside ていただけませんか, ていただきたい, ご覧いただく and お待ちいただく. That is the most-produced keigo construction in working Japanese, absent from the stage whose whole subject is keigo.",
+  "_shape": "Steps 24-27 are RECEPTIVE — hear it, place it, dress a verb. This step is the two things a resident actually DOES with keigo: ask upward, and announce a thing you are about to do as though it were permitted. It is also where two earlier stages get paid off: Step 14's いただく and Step 20's causative finally meet, and the meeting is the lesson.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch L with the rest of the keigo stage. The two items needing a native eye most: whether the five-rung ladder in sb-onegai is calibrated where a Japanese speaker would actually put the rungs, and whether cc-harigami's 貼り紙 wording matches what is really on shutters.",
+  "insert": [],
+  "new_steps": [
+    {
+      "cat": "Step 28 · Asking, and being allowed",
+      "level": "S8",
+      "after_step": "Step 27 · Producing politeness",
+      "note": "Session 17. The stage's turn from hearing to producing. Steps 24-27 dressed verbs; this step spends the wardrobe on the only two moves a resident needs it for — asking somebody above you to do something, and announcing something you are about to do. Step 14's いただく and Step 20's causative converge here, which is why the step cannot come earlier than it does.",
+      "bank": [
+        [
+          "確認",
+          "checking"
+        ],
+        [
+          "記入",
+          "filling in"
+        ],
+        [
+          "都合",
+          "circumstances"
+        ],
+        [
+          "休業",
+          "closed for business"
+        ],
+        [
+          "変更",
+          "a change"
+        ],
+        [
+          "連絡",
+          "getting in touch"
+        ],
+        [
+          "返事",
+          "a reply"
+        ],
+        [
+          "署名",
+          "a signature"
+        ]
+      ],
+      "points": [
+        {
+          "id": "teitadakeru",
+          "jp": "〜ていただけますか・〜ていただけませんか",
+          "en": "asking upward, in the potential",
+          "kind": "grammar",
+          "exp": {
+            "what": "Step 5's てください was a request wrapped in a please, and it is still, underneath, an instruction. Pointed upward a request stops being an instruction at all and turns into a question about YOUR receiving — could I receive the favour of your doing this. The verb carrying it is Step 14's いただく, in the potential.",
+            "build": "て-form + いただけますか. Softer with a negative: 〜ていただけませんか. Softer again: 〜ていただけないでしょうか. The potential is doing the work — いただきますか would announce that you are about to receive something, which is not a request at all.",
+            "when": "Counters, emails, and every moment you need something from somebody who does not owe it to you. Of everything in this stage, this is the shape you will produce most.",
+            "watch": "The negative is POLITER, which reads backwards to an English ear: 〜ていただけませんか is gentler than 〜ていただけますか, because a negative question puts the refusal on the table before the other person has to. And it names your receiving, so it can never point at your own side."
+          },
+          "ex": [
+            [
+              "もう一度説明していただけますか。",
+              "Could you explain that once more? — your receiving, in the potential."
+            ],
+            [
+              "駅まで送っていただけませんか。",
+              "Could you possibly run me to the station? — negative, and softer for it."
+            ],
+            [
+              "少し待っていただけないでしょうか。",
+              "Might I ask you to wait a moment? — the softest rung of the three."
+            ]
+          ]
+        },
+        {
+          "id": "oitadaku",
+          "jp": "お〜いただく・ご〜いただく",
+          "en": "the request, wearing the frame",
+          "kind": "grammar",
+          "exp": {
+            "what": "Step 27 put a verb inside お + stem + する to lower your own action. Swap する for いただく and the identical frame carries a request instead of an offer: お待ちいただけますか, ご確認いただけますか. One notch above 〜ていただけますか, and the register printed Japanese actually lives in.",
+            "build": "お + native verb stem + いただく: 待ちます → お待ちいただけますか. ご + kanji compound + いただく: 確認 → ご確認いただけますか. The imperative sibling swaps いただく for ください — お掛けください, ご記入ください — which you have been obeying at counters since the day you landed.",
+            "when": "Forms, signs, service desks, and any message you would rather sounded like it came from an adult. The app has already asked you for one of these: Step 27's composition wants ご確認いただけますか.",
+            "watch": "ご確認していただく is the standard overbuild — the frame already holds the verb, so する has nothing left to do. And the お/ご split is decided by the word, not by how polite you are being: native readings take お, kanji compounds take ご."
+          },
+          "ex": [
+            [
+              "少々お待ちいただけますか。",
+              "Could you wait a moment? — the frame does the asking."
+            ],
+            [
+              "こちらにご記入ください。",
+              "Please fill this in here — the same frame in its imperative form."
+            ],
+            [
+              "ご確認いただけますでしょうか。",
+              "Might I ask you to check? — every softener the language owns, at once."
+            ]
+          ]
+        },
+        {
+          "id": "saseteitadaku",
+          "jp": "〜させていただきます",
+          "en": "permission you grant yourself",
+          "kind": "grammar",
+          "exp": {
+            "what": "Two things you already own, meeting for the first time. Step 20's causative 〜せる・させる means to let somebody do; Step 14's いただく means to receive, humbly. Bolt them together: I receive the favour of being allowed to do this. What it means in practice is I will do it — said so the doing arrives as your permission rather than my decision.",
+            "build": "Causative て-form + いただきます. 休む → 休ませて → 休ませていただきます. 確認する → 確認させていただきます. Ask instead of announce by moving to the potential: 使わせていただけますか.",
+            "when": "Anything you are about to do that touches somebody else — taking leave, opening a presentation, shutting a shop, accepting an offer. You will meet it on paper long before you meet it in speech.",
+            "watch": "It needs somebody whose permission is plausibly at stake. Hung on something nobody could have permitted, it is empty and Japanese speakers say so out loud — the 2007 keigo guidelines take the construction up directly, because it is the one people overreach with."
+          },
+          "ex": [
+            [
+              "本日は休ませていただきます。",
+              "We'll be closed today — a decision, dressed as your permission."
+            ],
+            [
+              "確認させていただきます。",
+              "Let me check that — the counter-and-telephone default."
+            ],
+            [
+              "こちらを使わせていただけますか。",
+              "May I use this? — the same shape, asked rather than announced."
+            ]
+          ]
+        },
+        {
+          "id": "sb-onegai",
+          "jp": "お願いの高さ",
+          "en": "one request, five heights",
+          "kind": "skill",
+          "exp": {
+            "what": "Every request you will ever make is one sentence at a different altitude, and the altitude is picked by who the person is — not by how badly you want the thing. Wanting it more does not move you up the ladder; it only makes you sound desperate at whatever height you were already standing.",
+            "build": "Borrowing a pen, five ways. 貸して (a friend) → 貸してくれる？ (a friend, asking) → 貸してもらえますか (a colleague) → 貸していただけますか (someone above you) → お貸しいただけないでしょうか (a stranger who owes you nothing). Announcing has its own short ladder: します → いたします → させていただきます.",
+            "when": "Every time you open your mouth to ask. Pick the rung once from the relationship, then hold it for the whole exchange — sliding up mid-sentence is more noticeable than starting one rung low.",
+            "watch": "Too high is not safe. お貸しいただけないでしょうか to a friend is not extra-polite, it is a joke or a grievance, and either way it puts distance between you that you then have to explain."
+          },
+          "ex": [
+            [
+              "ペン、貸して。",
+              "A friend. Plain, and nothing is missing from it."
+            ],
+            [
+              "ペンを貸してもらえますか。",
+              "A colleague — polite, and level with you."
+            ],
+            [
+              "ペンをお貸しいただけないでしょうか。",
+              "A stranger who owes you nothing — the top rung."
+            ]
+          ]
+        },
+        {
+          "id": "cc-harigami",
+          "jp": "貼り紙",
+          "en": "the sign on the shutter",
+          "kind": "culture",
+          "exp": "You will meet 〜させていただきます on paper years before anybody says it to your face.\n\nWalk to your usual shop on the wrong Wednesday and the shutter is down with an A4 sheet taped to it:\n\n「誠に勝手ながら、本日休業させていただきます。ご迷惑をおかけいたしますが、何卒ご了承ください。」\n\nUnpick it and there is almost nothing there. 誠に勝手ながら — entirely selfishly of us. 休業させていただきます — we will be receiving the favour of being permitted to close. ご迷惑をおかけいたします — we cause you trouble. 何卒ご了承ください — please, understand.\n\nFour clauses to say we are shut today. And not one of them tells you why, because the reason is not the point: the sheet exists to perform regret, and 〜させていただきます is the verb that performs it. The shop did not ask your permission. It closed. The sentence dresses the closing as something you allowed, and everybody reading it knows that, and it works anyway.\n\nOnce you can read one, the city fills up with them. 都合により on the notice by the lift. 年末年始休業のお知らせ in December. The ATM that is 休止させていただいております for maintenance. The station stairs closed for work, apologising in the same four beats.\n\nThis is also the cheapest keigo practice available to a resident: the signs never move, never expect an answer, and repeat the same six phrases forever. Read the shutters.",
+          "ex": [
+            [
+              "誠に勝手ながら、本日休業させていただきます。",
+              "Entirely selfishly of us, we will be closed today — the shutter's standard sentence."
+            ],
+            [
+              "都合により、しばらくお休みいたします。",
+              "Owing to circumstances, we'll be closed for a while — 都合により explains nothing, deliberately."
+            ],
+            [
+              "ご迷惑をおかけいたしますが、何卒ご了承ください。",
+              "We're causing you trouble; please understand — the closing bow of almost every notice."
+            ]
+          ]
+        },
+        {
+          "id": "b-onegai",
+          "jp": "Composition · お願い",
+          "en": "one request, three heights",
+          "kind": "build",
+          "requires": [
+            "teitadakeru",
+            "oitadaku",
+            "sb-onegai"
+          ],
+          "brief": "Pick ONE thing you need from somebody — a document checked, a deadline moved, a room borrowed — and ask for it three times: once to a friend, once to a colleague, once to somebody well above you. Same request, three altitudes. Use 〜ていただけますか or 〜ていただけませんか in the third, and お〜いただく or ご〜いただく at least once.",
+          "exp": {
+            "what": "The step's whole claim, tested in one place: that a request is one sentence with a dial on it, and that you can now turn the dial deliberately instead of hoping.",
+            "build": "Three short blocks, one per altitude, same content in each. Label who each is for. Three or four lines total — this is a range exercise, not an essay.",
+            "when": "This is the actual daily work of living in Japanese: the same errand, asked of a flatmate at breakfast and of a ward office at eleven, and it has to come out differently both times.",
+            "watch": "Keep the CONTENT identical across the three. The moment the friend version asks for something smaller, the exercise stops measuring register and starts measuring nerve."
+          },
+          "ex": []
+        }
+      ],
+      "deep": {
+        "teitadakeru": {
+          "seg": [
+            [
+              "もう一度",
+              "once more"
+            ],
+            [
+              "説明して",
+              "explaining — the て-form the whole request is built on"
+            ],
+            [
+              "いただけ",
+              "THE POINT — いただく in the POTENTIAL: could I receive this favour",
+              1
+            ],
+            [
+              "ますか。",
+              "polite question — and the question is the request"
+            ]
+          ],
+          "hl": "いただけませんか",
+          "note": "The negative rung, and the softer one: a negative question puts the refusal on the table before the other person has to put it there themselves.",
+          "wr": [
+            {
+              "t": "いただけ, not いただき. The potential is the entire difference — 〜ていただきますか announces that you are about to receive something, which is not a request and reads as a very odd thing to say out loud."
+            },
+            {
+              "t": "Downward it collapses. いただく names YOUR receiving from somebody above, so aimed at a friend or at your own side it is either comedy or distance; level with someone, 〜てもらえますか is already the right height.",
+              "jp": "手伝ってもらえますか。",
+              "en": "Could you give me a hand? — level, and correct there.",
+              "hl": "もらえますか"
+            }
+          ],
+          "drill": {
+            "note": "Build the request upward: て-form, then いただく in the potential, then decide how much softer you need it.",
+            "items": [
+              {
+                "q": "もう一度説明して___ますか。",
+                "en": "Could you explain that once more?",
+                "a": [
+                  "いただけ"
+                ],
+                "opts": [
+                  "いただけ",
+                  "いただき",
+                  "くださり",
+                  "もらい"
+                ],
+                "why": "The potential いただけ is what makes it a request rather than an announcement."
+              },
+              {
+                "q": "Which is SOFTER?",
+                "a": [
+                  "〜ていただけませんか"
+                ],
+                "opts": [
+                  "〜ていただけませんか",
+                  "〜ていただけますか"
+                ],
+                "why": "The negative leaves room for no, so it lands gentler — backwards to an English ear, and reliable."
+              },
+              {
+                "q": "駅まで送って___か。",
+                "en": "Could you possibly run me to the station? — the negative rung.",
+                "a": [
+                  "いただけません"
+                ],
+                "opts": [
+                  "いただけません",
+                  "いただきません",
+                  "いただけます"
+                ],
+                "why": "Negative potential: 〜ていただけませんか."
+              },
+              {
+                "q": "To a colleague, level with you, the natural form is 手伝って___ますか。",
+                "a": [
+                  "もらえ"
+                ],
+                "opts": [
+                  "もらえ",
+                  "いただけ",
+                  "くださり"
+                ],
+                "why": "いただく reaches upward; among equals it overshoots."
+              },
+              {
+                "q": "The softest of the three rungs is 〜ていただけ___。",
+                "a": [
+                  "ないでしょうか"
+                ],
+                "opts": [
+                  "ないでしょうか",
+                  "ますか",
+                  "ませんね"
+                ],
+                "why": "Negative plus でしょうか — every softener the shape has."
+              }
+            ]
+          }
+        },
+        "oitadaku": {
+          "seg": [
+            [
+              "少々",
+              "a moment — the counter's word for 少し"
+            ],
+            [
+              "お待ち",
+              "THE POINT — お + the stem of 待ちます, the frame opening",
+              1
+            ],
+            [
+              "いただけますか。",
+              "…and いただく in the potential closes it: would you wait"
+            ]
+          ],
+          "hl": "ご確認いただけますか",
+          "note": "Kanji compounds take ご rather than お. This exact sentence is what Step 27's composition has been asking you to produce.",
+          "wr": [
+            {
+              "t": "ご確認していただく stacks a する the frame has no room for. お/ご + stem + いただく is already the complete verb, and adding して is the same overbuild as 二重敬語, one floor down."
+            },
+            {
+              "t": "お待ちになりますか and お待ちいただけますか elevate the same person and mean opposite things. になる just describes their waiting politely — are you going to wait? いただく says the waiting would be a favour to YOU. Same verb, same altitude, reversed direction of benefit.",
+              "jp": "お待ちになりますか。",
+              "en": "Are you going to wait? — polite, but not a request.",
+              "hl": "お待ちになります"
+            }
+          ],
+          "drill": {
+            "note": "One frame, two openings: お for native readings, ご for kanji compounds.",
+            "items": [
+              {
+                "q": "少々___いただけますか。",
+                "en": "Could you wait a moment?",
+                "a": [
+                  "お待ち",
+                  "おまち"
+                ],
+                "opts": [
+                  "お待ち",
+                  "ご待ち",
+                  "お待ちして",
+                  "待ち"
+                ],
+                "why": "待ちます is a native reading, so the frame opens with お."
+              },
+              {
+                "q": "___いただけますでしょうか。",
+                "en": "Might I ask you to check?",
+                "a": [
+                  "ご確認",
+                  "ごかくにん"
+                ],
+                "opts": [
+                  "ご確認",
+                  "お確認",
+                  "ご確認して"
+                ],
+                "why": "確認 is a kanji compound: ご."
+              },
+              {
+                "q": "Which is the overbuild?",
+                "a": [
+                  "ご確認していただく"
+                ],
+                "opts": [
+                  "ご確認していただく",
+                  "ご確認いただく"
+                ],
+                "why": "The frame already holds the verb; する has nothing left to do."
+              },
+              {
+                "q": "こちらに___ください。",
+                "en": "Please fill this in here.",
+                "a": [
+                  "ご記入",
+                  "ごきにゅう"
+                ],
+                "opts": [
+                  "ご記入",
+                  "お記入",
+                  "ご記入して"
+                ],
+                "why": "記入 is a compound, and ください is the frame's imperative sibling."
+              },
+              {
+                "q": "Which one ASKS the other person to wait for you?",
+                "a": [
+                  "お待ちいただけますか"
+                ],
+                "opts": [
+                  "お待ちいただけますか",
+                  "お待ちになりますか"
+                ],
+                "why": "になる only describes their waiting politely; いただく makes it a favour done for you."
+              }
+            ]
+          }
+        },
+        "saseteitadaku": {
+          "seg": [
+            [
+              "本日は",
+              "today — 今日's formal twin, and the notice board's word"
+            ],
+            [
+              "休ませて",
+              "THE POINT — the causative of 休む: being LET to rest",
+              1
+            ],
+            [
+              "いただきます。",
+              "…received, humbly. Permission the sentence grants itself"
+            ]
+          ],
+          "hl": "確認させていただきます",
+          "note": "The counter and telephone default. Anything you are about to do that touches somebody else can be dressed in this frame.",
+          "wr": [
+            {
+              "t": "Somebody's permission has to be plausibly at stake. 私はコーヒーを飲ませていただきます, alone in your own kitchen, is a joke — there is nobody in the sentence who could have allowed it, so the humility has nothing to attach to."
+            },
+            {
+              "t": "Move to the potential and it stops announcing and starts asking. 使わせていただきます takes the thing; 使わせていただけますか asks for it, and at a counter that difference is the entire exchange.",
+              "jp": "こちらを使わせていただけますか。",
+              "en": "May I use this? — asked, not announced.",
+              "hl": "使わせていただけますか"
+            }
+          ],
+          "drill": {
+            "note": "Causative て-form first, いただく second. The causative is Step 20's; only the ending is new.",
+            "items": [
+              {
+                "q": "本日は___ていただきます。",
+                "en": "We'll be closed today — from 休む.",
+                "a": [
+                  "休ませ",
+                  "やすませ"
+                ],
+                "opts": [
+                  "休ませ",
+                  "休み",
+                  "休まれ",
+                  "休んで"
+                ],
+                "why": "Causative て-form: 休む → 休ませて."
+              },
+              {
+                "q": "確認する → ___ていただきます。",
+                "en": "Let me check that.",
+                "a": [
+                  "確認させ",
+                  "かくにんさせ"
+                ],
+                "opts": [
+                  "確認させ",
+                  "確認し",
+                  "確認され"
+                ],
+                "why": "する's causative is させる."
+              },
+              {
+                "q": "Which ASKS rather than announces?",
+                "a": [
+                  "使わせていただけますか"
+                ],
+                "opts": [
+                  "使わせていただけますか",
+                  "使わせていただきます"
+                ],
+                "why": "The potential turns the announcement into a request."
+              },
+              {
+                "q": "What has to exist for the form to make sense?",
+                "a": [
+                  "somebody whose permission is plausibly involved"
+                ],
+                "opts": [
+                  "somebody whose permission is plausibly involved",
+                  "a kanji compound",
+                  "a negative question"
+                ],
+                "why": "With nobody to have permitted it, the humility attaches to nothing."
+              },
+              {
+                "q": "Which two things is this form built out of?",
+                "a": [
+                  "the causative and いただく"
+                ],
+                "opts": [
+                  "the causative and いただく",
+                  "お〜する and ください",
+                  "the passive and もらう"
+                ],
+                "why": "Step 20's causative plus Step 14's いただく — both already yours."
+              }
+            ]
+          }
+        },
+        "sb-onegai": {
+          "seg": [
+            [
+              "ペン、",
+              "the thing — particle dropped, the way friends drop it"
+            ],
+            [
+              "貸して。",
+              "THE POINT — the bare て-form. Rung one, and nothing is missing from it",
+              1
+            ]
+          ],
+          "hl": "お貸しいただけないでしょうか",
+          "note": "Rung five. Same pen, same want, five floors up — the distance is entirely about who is standing there.",
+          "wr": [
+            {
+              "t": "Too high is not the safe error. The top rung aimed at a friend is heard as sarcasm or as a grievance, and either way it opens a distance you then have to spend the next minute explaining away."
+            },
+            {
+              "t": "Choose the rung from the relationship, then hold it for the whole exchange. Climbing mid-conversation is far more audible than starting one rung low and staying there, because the climb says you have just reappraised them.",
+              "jp": "ペンを貸してもらえますか。",
+              "en": "Rung three — a colleague, level with you.",
+              "hl": "もらえますか"
+            }
+          ],
+          "drill": {
+            "note": "One pen, five heights. Match the rung to the person, not to how much you want the pen.",
+            "items": [
+              {
+                "q": "To a close friend: ペン、___。",
+                "a": [
+                  "貸して",
+                  "かして"
+                ],
+                "opts": [
+                  "貸して",
+                  "貸していただけますか",
+                  "お貸しください"
+                ],
+                "why": "Plain て-form. Anything higher puts a wall up."
+              },
+              {
+                "q": "To a colleague: ペンを貸して___ますか。",
+                "a": [
+                  "もらえ"
+                ],
+                "opts": [
+                  "もらえ",
+                  "いただけ",
+                  "くださり"
+                ],
+                "why": "もらえますか is level and polite — the office default."
+              },
+              {
+                "q": "To someone well above you: ペンをお貸し___でしょうか。",
+                "a": [
+                  "いただけない"
+                ],
+                "opts": [
+                  "いただけない",
+                  "いただきます",
+                  "くださる"
+                ],
+                "why": "Negative potential inside the お〜いただく frame: the top rung."
+              },
+              {
+                "q": "The announcing ladder runs します → いたします → ___。",
+                "a": [
+                  "させていただきます"
+                ],
+                "opts": [
+                  "させていただきます",
+                  "してもらいます",
+                  "されます"
+                ],
+                "why": "Same three floors, pointed at your own action instead of theirs."
+              },
+              {
+                "q": "お貸しいただけないでしょうか, said to a friend, sounds ___。",
+                "a": [
+                  "sarcastic or cold"
+                ],
+                "opts": [
+                  "sarcastic or cold",
+                  "extra polite",
+                  "perfectly normal"
+                ],
+                "why": "Overshooting is a real error, not a safe one."
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

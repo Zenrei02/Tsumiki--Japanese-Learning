@@ -548,9 +548,13 @@
             "kenjougo",
             "sb-uchisoto",
             "okeigo",
-            "sb-keigo-map"
+            "sb-keigo-map",
+            "teitadakeru",
+            "oitadaku",
+            "saseteitadaku",
+            "sb-onegai"
           ],
-          "exp": "The Stage 3 review, and deliberately not a composition. This stage taught recognition, so the check is recognition: hear a line, name the plain sentence under it, and say which way it points and who moved. Some of these have more than one defensible answer — that is not a flaw in the question, it is what いらっしゃる actually does.",
+          "exp": "The Stage 3 review, and deliberately not a composition. Most of this stage taught recognition, so most of the check is recognition: hear a line, name the plain sentence under it, and say which way it points and who moved. Some of these have more than one defensible answer — that is not a flaw in the question, it is what いらっしゃる actually does.\n\nThe last section is different, because Step 28 was different. Asking upward and announcing a thing as permitted are the two moves you PRODUCE, so those questions ask you to build rather than to place.",
           "ex": []
         }
       ],

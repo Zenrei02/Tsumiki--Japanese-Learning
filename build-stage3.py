@@ -34,7 +34,7 @@ MODULE = HERE / "grammar-module.jsx"
 # Session 17 re-staging needed. Listed explicitly rather than globbed — a glob would pick
 # up whatever else ends up matching, which is not a thing to discover at splice time.
 CONTENT = [HERE / "stage-3-content-v1.json", HERE / "milestone-content-v1.json",
-           HERE / "stage-9-content-v1.json"]
+           HERE / "stage-8-request-content-v1.json", HERE / "stage-9-content-v1.json"]
 
 # ————— emit JS in the module's own house style —————
 def js_str(s):
@@ -217,6 +217,23 @@ def main():
     # 3 — whole new step blocks
     for blk in data["new_steps"]:
         if f'cat: {js_str(blk["cat"])}' in src:
+            # ⚠️ Session 17: --update used to stop here, so a step that already existed
+            # had EVERY point inside it frozen — an edit to rc7's covers/exp printed
+            # "skipped ... already present" and looked like a no-op that was fine. It was
+            # not: the JSON had stopped being the source of truth for two thirds of the
+            # module's lessons, silently. Under --update, walk the block's points too.
+            if update:
+                for p in blk["points"]:
+                    if f'id: "{p["id"]}"' not in src:
+                        continue
+                    s0, s1 = step_span(src, blk["cat"])
+                    a, b = point_span(src, s0, s1, p["id"])
+                    if a is None:
+                        continue
+                    fresh = js_point(p) + "\n"
+                    if src[a:b] != fresh:
+                        src = src[:a] + fresh + src[b:]
+                        rewritten.append(f'{p["id"]} ({b - a} -> {len(fresh)} bytes)')
             skipped.append(blk["cat"]); continue
         _, end = step_span(src, blk["after_step"])
         src = src[:end] + "\n" + js_step(blk) + src[end:]
@@ -230,9 +247,18 @@ def main():
         for k, v in (blk.get("deep") or {}).items(): deeps[k] = v
     marker = "  // @@DEEP-END"
     for pid, d in deeps.items():
-        if re.search(r'\n  "%s": \{' % re.escape(pid), src):
-            skipped.append(f"DEEP[{pid}]"); continue
         line = f'  "{pid}": ' + json.dumps(d, ensure_ascii=False) + ",\n"
+        m = re.search(r'\n(  "%s": \{.*?\n)' % re.escape(pid), src, re.S)
+        # The DEEP body is one long JSON line, so the lazy match ends at the newline
+        # that closes it. Anchor on the line, not on a brace walk.
+        if m:
+            old = m.group(1)
+            if update and old != line:
+                src = src[:m.start(1)] + line + src[m.end(1):]
+                rewritten.append(f"DEEP[{pid}]")
+            else:
+                skipped.append(f"DEEP[{pid}]")
+            continue
         at = src.index(marker)
         src = src[:at] + line + src[at:]
         added.append(f"DEEP[{pid}]")

@@ -409,7 +409,7 @@ const CURRICULUM = [
         ex: [["お疲れさまです。", "Standard work greeting — arriving, leaving, passing in the hallway."], ["いってきます。— いってらっしゃい。", "'I'm off' — 'Take care.' Every morning, every home."]],
       },
       {
-        id: "b-s1", jp: "作文 · じこしょうかい", en: "introduce yourself", kind: "build",
+        id: "b-s1", jp: "Composition · じこしょうかい", en: "introduce yourself", kind: "build",
         requires: ["desu", "ka", "kosoado", "qwords"],
         brief: "Introduce yourself in two or three sentences, then ask the other person one question back. You have no verbs yet — that's fine. です does more work than you would think.",
         exp: {
@@ -529,7 +529,7 @@ const CURRICULUM = [
         ex: [["図書館で勉強します。", "I study at the library. (action → で)"], ["図書館に本がたくさんあります。", "There are many books in the library. (existence → に)"]],
       },
       {
-        id: "b-s2a", jp: "作文 · 一文に全部", en: "four particles, one sentence", kind: "build",
+        id: "b-s2a", jp: "Composition · 一文に全部", en: "four particles, one sentence", kind: "build",
         requires: ["wa", "o", "ni-time", "de-place"],
         brief: "Write one sentence containing all four: a topic, a time, a place where something happened, and the thing the action landed on. Then write a second sentence that changes only the place.",
         exp: {
@@ -716,7 +716,7 @@ const CURRICULUM = [
         ex: [["昨日、図書館で本を読みました。", "Time, place, object, verb — the neutral order."], ["本は昨日読みました。", "Object pulled to the front as the topic: as for the book, I read it yesterday."]],
       },
       {
-        id: "b-s2b", jp: "作文 · つなぐ", en: "join things up", kind: "build",
+        id: "b-s2b", jp: "Composition · つなぐ", en: "join things up", kind: "build",
         requires: ["to-and", "mo", "no", "ya"],
         brief: "Describe what is on your desk or in your bag right now. Include one complete list, one incomplete list, at least one \"also,\" and at least one noun glued to another.",
         exp: {
@@ -808,7 +808,7 @@ const CURRICULUM = [
         ex: [["朝起きて、顔を洗います。", "I get up and wash my face."], ["ここに名前を書いてください。", "Please write your name here."]],
       },
       {
-        id: "b-s3a", jp: "作文 · つづける", en: "chain three actions", kind: "build",
+        id: "b-s3a", jp: "Composition · つづける", en: "chain three actions", kind: "build",
         requires: ["te", "mashita", "o"],
         brief: "Describe your morning in ONE sentence: three things you did, in order, joined by the て-form, with only the final verb carrying the tense.",
         exp: {
@@ -852,7 +852,7 @@ const CURRICULUM = [
         ex: [["窓を閉めました。", "I closed the window. (I did it → を + transitive)"], ["窓が閉まりました。", "The window closed. (it happened → が + intransitive)"], ["電気がついています。", "The light is on. (state, from the intransitive)"], ["会議は三時に始まります。", "The meeting starts at three. (it starts itself)"]],
       },
       {
-        id: "b-s3c", jp: "作文 · 部屋のじょうたい", en: "describe a state", kind: "build",
+        id: "b-s3c", jp: "Composition · 部屋のじょうたい", en: "describe a state", kind: "build",
         requires: ["sb-transitive", "teiru2", "o"],
         brief: "Describe the state of a room. One thing you did to something, and at least two things that are simply in a state — open, closed, on, off, stopped. Make every particle agree with its verb.",
         exp: {
@@ -928,7 +928,7 @@ const CURRICULUM = [
         ex: [["離婚した人は、もう一度結婚しますか。", "Do people who have divorced marry again? (clause before the noun, no joining word)"], ["これは母が作った料理です。", "This is food my mother made. (the clause's own subject takes が)"], ["東京に住んでいる友達がいます。", "I have a friend who lives in Tokyo."], ["昨日買った本はとても面白かったです。", "The book I bought yesterday was very interesting."]],
       },
       {
-        id: "b-s3b", jp: "作文 · 人をえがく", en: "describe a person", kind: "build",
+        id: "b-s3b", jp: "Composition · 人をえがく", en: "describe a person", kind: "build",
         requires: ["sb-nounmod", "teiru2", "masu"],
         brief: "Describe someone you know in two or three sentences — and describe them at least once with a clause placed in front of the noun, like 東京に住んでいる友達 or 日本語を勉強している人.",
         exp: {
@@ -947,7 +947,7 @@ const CURRICULUM = [
     bank: [["学校", "school"], ["友達", "friend"], ["映画", "movie"], ["毎日", "every day"], ["昨日", "yesterday"], ["本", "book"]],
     points: [
       {
-        id: "b1", jp: "作文 · 昨日のこと", en: "put yesterday together", kind: "build",
+        id: "b1", jp: "Composition · 昨日のこと", en: "put yesterday together", kind: "build",
         requires: ["mashita", "o", "de-place", "ni-time"],
         brief: "Write two or three sentences about yesterday. Say where you went, what you did there, and what time something happened.",
         exp: {
@@ -1045,7 +1045,7 @@ const CURRICULUM = [
         ex: [["お茶をください。", "Fossilized — お茶 is simply the word."], ["ご家族はお元気ですか。", "ご for the Chinese-origin word — politeness pointed at THEIR family."]],
       },
       {
-        id: "b-s4", jp: "作文 · ルールを説明する", en: "write the house rules", kind: "build",
+        id: "b-s4", jp: "Composition · ルールを説明する", en: "write the house rules", kind: "build",
         requires: ["tekudasai", "tewaikemasen", "nakereba", "temoii"],
         brief: "Write the rules for somewhere — a library, a classroom, your kitchen. One request, one prohibition, one requirement, one permission.",
         exp: {
@@ -1138,7 +1138,7 @@ const CURRICULUM = [
         ex: [["デパートへ買い物に行きます。", "I go to the department store to shop."], ["友達に会いに行きました。", "I went to meet a friend."]],
       },
       {
-        id: "b-s5", jp: "作文 · 計画", en: "state a plan", kind: "build",
+        id: "b-s5", jp: "Composition · 計画", en: "state a plan", kind: "build",
         requires: ["tai", "tsumori", "mashou", "niiku"],
         brief: "Write about something you are planning. Say what you want to do, what you intend to do, what you would like to do together, and where you are going in order to do it.",
         exp: {
@@ -1237,7 +1237,7 @@ const CURRICULUM = [
         ex: [["明日は晴れるでしょう。", "It will probably be sunny tomorrow."], ["彼は来ないでしょう。", "He probably won't come."]],
       },
       {
-        id: "b-s6", jp: "作文 · 一日のながれ", en: "narrate a routine", kind: "build",
+        id: "b-s6", jp: "Composition · 一日のながれ", en: "narrate a routine", kind: "build",
         requires: ["tekara", "maeni", "nagara", "taritari"],
         brief: "Describe a typical day. Put one thing after another, one thing before another, two things happening at once, and a couple of examples of what else you get up to.",
         exp: {
@@ -1256,7 +1256,7 @@ const CURRICULUM = [
     bank: [["一緒に", "together"], ["写真", "photo"], ["音楽", "music"], ["宿題", "homework"], ["買う", "to buy"], ["帰る", "to go home"]],
     points: [
       {
-        id: "b2", jp: "作文 · さそう", en: "make a plan with someone", kind: "build",
+        id: "b2", jp: "Composition · さそう", en: "make a plan with someone", kind: "build",
         requires: ["masenka", "tai", "tekara", "ni-time"],
         brief: "Invite someone to do something with you. Say when, say what you want to do, and put two actions in the right order.",
         exp: {
@@ -1327,7 +1327,7 @@ const CURRICULUM = [
       },
       { id: "cc-konbini", jp: "コンビニ・レストランの日本語", en: "convenience store & restaurant Japanese", kind: "culture", exp: "Staff speech is ultra-polite and formulaic. You don't need to produce it — you need to recognize the questions and know the two-word answers.", ex: [["袋はご利用ですか。— 大丈夫です。", "Need a bag? — I'm fine (no thanks)."], ["以上でよろしいですか。— はい。", "Will that be all? — Yes."]] },
       {
-        id: "b-s7", jp: "作文 · 部屋のようす", en: "map a room", kind: "build",
+        id: "b-s7", jp: "Composition · 部屋のようす", en: "map a room", kind: "build",
         requires: ["arimasu", "location", "motteiru"],
         brief: "Describe the room you are sitting in. Say what is there, where two things sit in relation to each other, and one thing you have on you.",
         exp: {
@@ -1437,7 +1437,7 @@ const CURRICULUM = [
       },
       { id: "cc-slang", jp: "すごい → すげー", en: "slang cousins of what you know", kind: "culture", exp: "Casual speech stretches and swaps what you just learned: すごい → すげー, and めっちゃ or 超 replace とても. Recognize them anywhere; use them only with friends.", ex: [["この店、めっちゃ安い！", "This place is super cheap! (casual とても)"], ["すげー！", "Whoa! (very casual — friends only)"]] },
       {
-        id: "b-s8", jp: "作文 · 場所をえがく", en: "sell me a place", kind: "build",
+        id: "b-s8", jp: "Composition · 場所をえがく", en: "sell me a place", kind: "build",
         requires: ["iadj", "naadj", "kute", "narimasu"],
         brief: "Describe somewhere you like — a café, a park, your hometown. Use both adjective types, join two of them inside one sentence, and say how something changed.",
         exp: {
@@ -1537,7 +1537,7 @@ const CURRICULUM = [
       },
       { id: "sb-ganotwo", jp: "を じゃなくて が", en: "the が-not-を reflex", kind: "skill", exp: "A small set of words takes が where English instinct says 'object': 好き, きらい, 上手, 下手, ほしい, わかる, できる — and every potential form (日本語が話せる, 朝早く起きられる). 〜を好き sounds off to native ears — this lesson trains the reflex until が feels automatic.", ex: [["日本語がわかります。", "I understand Japanese."], ["新しいくつがほしいです。", "I want new shoes."]] },
       {
-        id: "b-s9", jp: "作文 · 好みを言う", en: "rank and prefer", kind: "build",
+        id: "b-s9", jp: "Composition · 好みを言う", en: "rank and prefer", kind: "build",
         requires: ["ichiban", "suki", "potential", "sb-ganotwo"],
         brief: "Pick a category — food, music, cities — and say which one is your favourite, what you like, and one thing you are good or bad at. Check every particle before you submit.",
         exp: {
@@ -1651,7 +1651,7 @@ const CURRICULUM = [
         ex: [["私が好きなスポーツはテニスです。", "私 stays: the describing clause needs its own subject — and it takes が."], ["母が作った料理がいちばんおいしいです。", "Same slot, different owner — the clause says whose."]],
       },
       {
-        id: "b-s10", jp: "作文 · 理由を言う", en: "make your case", kind: "build",
+        id: "b-s10", jp: "Composition · 理由を言う", en: "make your case", kind: "build",
         requires: ["kara-because", "node", "ga-but", "doushite"],
         brief: "Argue for something small — why you prefer one commute, one coffee, one season. Give a reason, give a softer reason, admit one drawback, and answer your own \"why.\"",
         exp: {
@@ -1700,7 +1700,7 @@ const CURRICULUM = [
         ex: [["時間があったら、行きます。", "If I have time, I'll go."], ["このボタンを押すと、ドアが開きます。", "Press this button and the door opens. (every time)"], ["日本に着いたら、電話してください。", "When you arrive in Japan, please call. (a request → たら)"]],
       },
       {
-        id: "b-s11", jp: "作文 · しくみを説明する", en: "explain how something works", kind: "build",
+        id: "b-s11", jp: "Composition · しくみを説明する", en: "explain how something works", kind: "build",
         requires: ["tara", "sb-omou", "sb-transitive", "passive"],
         brief: "Explain how something works — a machine, an app, a process at your job. Say what happens automatically, what someone has to do, what you think about it, and one thing that gets done to it.",
         exp: {
@@ -1719,7 +1719,7 @@ const CURRICULUM = [
     bank: [["部屋", "room"], ["猫", "cat"], ["夏", "summer"], ["果物", "fruit"], ["時間", "time"], ["雨", "rain"]],
     points: [
       {
-        id: "b3", jp: "作文 · どちらが好きか", en: "argue a preference", kind: "build",
+        id: "b3", jp: "Composition · どちらが好きか", en: "argue a preference", kind: "build",
         requires: ["hou", "kara-because", "suki", "sb-nounmod"],
         brief: "Say which of two things you prefer and why. Describe at least one of them with a clause placed before the noun — 母が作った料理, 日本語を勉強している人, 去年見た映画.",
         exp: {
@@ -1820,7 +1820,7 @@ const CURRICULUM = [
         ex: [["いただきます。", "Before eating — even alone. A bracket, not a comment."], ["これからよろしくお願いします。", "Meeting someone new — untranslatable, indispensable."]],
       },
       {
-        id: "b-s13", jp: "作文 · きのうのしっぱい", en: "a small failure story", kind: "build", n4: true,
+        id: "b-s13", jp: "Composition · きのうのしっぱい", en: "a small failure story", kind: "build", n4: true,
         requires: ["teshimau", "teoku", "temiru"],
         brief: "Tell a small failure from your week — something forgotten, dropped, or regretted — using てしまいました for the damage, ておきました for what you'd prepared (or should have), and てみました for what you tried.",
         exp: {
@@ -1900,7 +1900,7 @@ const CURRICULUM = [
         ex: [["手伝ってくれてありがとう。", "Thanks for helping me — the kindness, named."], ["これ、京都のお土産です。", "A souvenir from Kyoto — the real message: you came along."]],
       },
       {
-        id: "b-s14", jp: "作文 · 親切", en: "kindnesses, in both directions", kind: "build",
+        id: "b-s14", jp: "Composition · 親切", en: "kindnesses, in both directions", kind: "build",
         requires: ["teageru", "ageru2", "itadaku", "tehoshii"],
         brief: "Write about kindness in your week: one favor someone did for you, one you did for someone, and one thing you wish someone would do. Keep the directions honest — every favor carries its verb.",
         exp: {
@@ -1995,7 +1995,7 @@ const CURRICULUM = [
         ex: [["違うかもしれませんが…。", "\"I may be wrong, but…\" — disagreement, entering politely."], ["明日は雨でしょう。", "Even the forecast hedges — でしょう, not です."]],
       },
       {
-        id: "b-s15", jp: "作文 · うわさ", en: "four kinds of knowing", kind: "build",
+        id: "b-s15", jp: "Composition · うわさ", en: "four kinds of knowing", kind: "build",
         requires: ["souda-denbun", "youda", "kamo", "hazu"],
         brief: "Pass on one piece of news you heard, read one situation from what you can see, add one honest maybe, and one reasoned should. Four sentences, four kinds of knowing.",
         exp: {
@@ -2055,7 +2055,7 @@ const CURRICULUM = [
         ex: [["時間があったら、行きます。", "One-off possibility → たら."], ["春になると、暖かくなります。", "Every year, automatically → と."], ["行くなら、早く。", "Their plan, your advice → なら."]],
       },
       {
-        id: "b-s16", jp: "作文 · アドバイス", en: "advice that stays gentle", kind: "build",
+        id: "b-s16", jp: "Composition · アドバイス", en: "advice that stays gentle", kind: "build",
         requires: ["tara", "ba", "nara", "taradou"],
         brief: "A friend tells you a problem. Write the advice: one 〜たらどうですか suggestion, one 〜なら tip that reacts to their situation, and one more condition with ば or たら. Leave the decision with them.",
         exp: {
@@ -2163,7 +2163,7 @@ const CURRICULUM = [
         ex: [["日本へ行くことにしました。", "I chose it — する."], ["日本へ行くことになりました。", "It came about — なる (perhaps modestly)."], ["早く起きるようにしています。→ 早く起きるようになりました。", "The effort, then the arrival — the full arc of a habit."]],
       },
       {
-        id: "b-s17", jp: "作文 · 来年", en: "next year, in four claims", kind: "build",
+        id: "b-s17", jp: "Composition · 来年", en: "next year, in four claims", kind: "build",
         requires: ["youtoomou", "kotonisuru", "yotei", "youninaru"],
         brief: "Write about next year: one plan on your mind, one decision already made, one thing on the calendar, and one change you want to arrive (〜ようになりたいです works beautifully).",
         exp: {
@@ -2243,7 +2243,7 @@ const CURRICULUM = [
         ex: [["田中さんは東京に行っています。", "Tanaka has gone to Tokyo — and is there now."], ["弟はもう起きています。", "My brother is up — awake as a state, not mid-rising."], ["今、昼ごはんを食べています。", "Eating lunch right now — a true middle."]],
       },
       {
-        id: "b-s18", jp: "作文 · できること", en: "what you can do now", kind: "build",
+        id: "b-s18", jp: "Composition · できること", en: "what you can do now", kind: "build",
         requires: ["takotogaaru", "youninaru", "sugiru", "kotogadekiru"],
         brief: "What you can do now that you once couldn't: one remembered first (たことがあります), one arrival (ようになりました), one confession from along the way (すぎました), and one formal claim (ことができます) — a small certificate, written by you.",
         exp: {
@@ -2323,7 +2323,7 @@ const CURRICULUM = [
         ex: [["三時まで会議があります。", "The meeting RUNS until three."], ["三時までにレポートを出します。", "The report lands BY three."]],
       },
       {
-        id: "b-s19", jp: "作文 · いそがしい日", en: "a busy day, told at its edges", kind: "build",
+        id: "b-s19", jp: "Composition · いそがしい日", en: "a busy day, told at its edges", kind: "build",
         requires: ["aida", "madeni", "tokoro", "naide"],
         brief: "Tell a busy day: one deadline met (までに), one thing that happened while another went on (間に), one moment you were caught mid-something (ているところ), and one corner you cut (ないで).",
         exp: {
@@ -2398,7 +2398,7 @@ const CURRICULUM = [
         ex: [["がんばれ！", "The one imperative everyone says — cheering suspends everything."], ["ここに入るな。", "Signage barks; people don't."]],
       },
       {
-        id: "b-s20", jp: "作文 · 子どものとき", en: "childhood, in voices", kind: "build",
+        id: "b-s20", jp: "Composition · 子どものとき", en: "childhood, in voices", kind: "build",
         requires: ["saseru", "saserareru", "nasai", "takotogaaru"],
         brief: "Childhood: one thing you were made to do (させられました), one thing you were allowed to do (させてくれました — Step 14's kindness meets the causative), one order you heard daily (quote it with なさい), and one thing you had never done back then (たことがありませんでした).",
         exp: {
@@ -2476,7 +2476,7 @@ const CURRICULUM = [
         ex: [["高いですが、買います。", "Cool: noted, buying anyway."], ["高くても、買います。", "Determined: price be damned."], ["高かったのに、壊れました。", "Felt: after what I paid — it broke."]],
       },
       {
-        id: "b-s21", jp: "作文 · ざんねんな話", en: "a disappointment, told warm", kind: "build",
+        id: "b-s21", jp: "Composition · ざんねんな話", en: "a disappointment, told warm", kind: "build",
         requires: ["shi", "noni", "temo", "sorede"],
         brief: "Tell a small disappointment: stack two reasons with し, let one のに carry the ache, one ても for what you did (or will do) anyway, and join sentences with それで・それに・だから.",
         exp: {
@@ -2546,7 +2546,7 @@ const CURRICULUM = [
         ex: [["泳ぐことができます。", "Fixed house — こと."], ["妹が泳ぐのを見ました。", "Watched it live — の."]],
       },
       {
-        id: "b-s22", jp: "作文 · わからないこと", en: "writing about not-knowing", kind: "build",
+        id: "b-s22", jp: "Composition · わからないこと", en: "writing about not-knowing", kind: "build",
         requires: ["kadouka", "ka-embed", "koto-no", "toiuimi"],
         brief: "Write about what you don't know: one かどうか uncertainty, one boxed open question (誰・何・どこ…か), one nominalized like or ability (の or こと — chosen on purpose), and one meaning-question you actually want to ask someone.",
         exp: {
@@ -2601,7 +2601,7 @@ const CURRICULUM = [
         ex: [["ちょっと…。", "The soft no — 建前 doing kind work. You met it in Step 6; now you know its family name."], ["また今度、ぜひ。", "\"Next time, definitely\" — the warmth is real; the date is not."]],
       },
       {
-        id: "b-s23", jp: "作文 · ともだち", en: "a portrait, honestly marked", kind: "build",
+        id: "b-s23", jp: "Composition · ともだち", en: "a portrait, honestly marked", kind: "build",
         requires: ["garu", "hoshigaru", "sb-minds", "youda"],
         brief: "A portrait of someone you know: what they seem to feel (ようです・そうです), what they're showing signs of wanting (たがっています・ほしがっています), something they've said (と言っています), and one direct line about your own feelings toward them (好き, たい — first person owns them).",
         exp: {
@@ -2795,7 +2795,7 @@ const CURRICULUM = [
         ex: [["先生、コーヒーを召し上がりますか。", "Offering upward — their drinking, elevated."], ["はい、いただきます。", "Accepting — your receiving, lowered. One exchange, both halves."], ["明日、うちに来る？", "And with a friend: plain altitude, no costume at all."]],
       },
       {
-        id: "b-keigo", jp: "作文 · メール", en: "one request, properly dressed", kind: "build",
+        id: "b-keigo", jp: "Composition · メール", en: "one request, properly dressed", kind: "build",
         requires: ["sonkeigo", "kenjougo", "okeigo"],
         brief: "A short message to a teacher or a company: open politely, name yourself with 〜と申します, make ONE request dressed in keigo (ご確認いただけますか・お送りいただけますか, or 〜てくださいませんか), and close with よろしくお願いいたします. Four or five sentences — altitude held steady from first line to last.",
         exp: {
@@ -2803,6 +2803,76 @@ const CURRICULUM = [
           build: "Opening (はじめまして, or お世話になっております if there's history) → 〜と申します → the request, once, dressed → よろしくお願いいたします.",
           when: "This is the keigo you'll produce most in real life: written, short, high-stakes-feeling, and completely formulaic — which is the good news.",
           watch: "One request, dressed once — a message that elevates every verb reads as nervous. Frame + name + request + bow: the frame carries the politeness so the verbs don't have to carry it all.",
+        },
+        ex: [],
+      },
+    ],
+  },
+
+  // Session 17. The stage's turn from hearing to producing. Steps 24-27 dressed
+  // verbs; this step spends the wardrobe on the only two moves a resident needs
+  // it for — asking somebody above you to do something, and announcing something
+  // you are about to do. Step 14's いただく and Step 20's causative converge here,
+  // which is why the step cannot come earlier than it does.
+  {
+    cat: "Step 28 · Asking, and being allowed",
+    level: "S8",
+    bank: [["確認", "checking"], ["記入", "filling in"], ["都合", "circumstances"], ["休業", "closed for business"], ["変更", "a change"], ["連絡", "getting in touch"], ["返事", "a reply"], ["署名", "a signature"]],
+    points: [
+      {
+        id: "teitadakeru", jp: "〜ていただけますか・〜ていただけませんか", en: "asking upward, in the potential", kind: "grammar",
+        exp: {
+          what: "Step 5's てください was a request wrapped in a please, and it is still, underneath, an instruction. Pointed upward a request stops being an instruction at all and turns into a question about YOUR receiving — could I receive the favour of your doing this. The verb carrying it is Step 14's いただく, in the potential.",
+          build: "て-form + いただけますか. Softer with a negative: 〜ていただけませんか. Softer again: 〜ていただけないでしょうか. The potential is doing the work — いただきますか would announce that you are about to receive something, which is not a request at all.",
+          when: "Counters, emails, and every moment you need something from somebody who does not owe it to you. Of everything in this stage, this is the shape you will produce most.",
+          watch: "The negative is POLITER, which reads backwards to an English ear: 〜ていただけませんか is gentler than 〜ていただけますか, because a negative question puts the refusal on the table before the other person has to. And it names your receiving, so it can never point at your own side.",
+        },
+        ex: [["もう一度説明していただけますか。", "Could you explain that once more? — your receiving, in the potential."], ["駅まで送っていただけませんか。", "Could you possibly run me to the station? — negative, and softer for it."], ["少し待っていただけないでしょうか。", "Might I ask you to wait a moment? — the softest rung of the three."]],
+      },
+      {
+        id: "oitadaku", jp: "お〜いただく・ご〜いただく", en: "the request, wearing the frame", kind: "grammar",
+        exp: {
+          what: "Step 27 put a verb inside お + stem + する to lower your own action. Swap する for いただく and the identical frame carries a request instead of an offer: お待ちいただけますか, ご確認いただけますか. One notch above 〜ていただけますか, and the register printed Japanese actually lives in.",
+          build: "お + native verb stem + いただく: 待ちます → お待ちいただけますか. ご + kanji compound + いただく: 確認 → ご確認いただけますか. The imperative sibling swaps いただく for ください — お掛けください, ご記入ください — which you have been obeying at counters since the day you landed.",
+          when: "Forms, signs, service desks, and any message you would rather sounded like it came from an adult. The app has already asked you for one of these: Step 27's composition wants ご確認いただけますか.",
+          watch: "ご確認していただく is the standard overbuild — the frame already holds the verb, so する has nothing left to do. And the お/ご split is decided by the word, not by how polite you are being: native readings take お, kanji compounds take ご.",
+        },
+        ex: [["少々お待ちいただけますか。", "Could you wait a moment? — the frame does the asking."], ["こちらにご記入ください。", "Please fill this in here — the same frame in its imperative form."], ["ご確認いただけますでしょうか。", "Might I ask you to check? — every softener the language owns, at once."]],
+      },
+      {
+        id: "saseteitadaku", jp: "〜させていただきます", en: "permission you grant yourself", kind: "grammar",
+        exp: {
+          what: "Two things you already own, meeting for the first time. Step 20's causative 〜せる・させる means to let somebody do; Step 14's いただく means to receive, humbly. Bolt them together: I receive the favour of being allowed to do this. What it means in practice is I will do it — said so the doing arrives as your permission rather than my decision.",
+          build: "Causative て-form + いただきます. 休む → 休ませて → 休ませていただきます. 確認する → 確認させていただきます. Ask instead of announce by moving to the potential: 使わせていただけますか.",
+          when: "Anything you are about to do that touches somebody else — taking leave, opening a presentation, shutting a shop, accepting an offer. You will meet it on paper long before you meet it in speech.",
+          watch: "It needs somebody whose permission is plausibly at stake. Hung on something nobody could have permitted, it is empty and Japanese speakers say so out loud — the 2007 keigo guidelines take the construction up directly, because it is the one people overreach with.",
+        },
+        ex: [["本日は休ませていただきます。", "We'll be closed today — a decision, dressed as your permission."], ["確認させていただきます。", "Let me check that — the counter-and-telephone default."], ["こちらを使わせていただけますか。", "May I use this? — the same shape, asked rather than announced."]],
+      },
+      {
+        id: "sb-onegai", jp: "お願いの高さ", en: "one request, five heights", kind: "skill",
+        exp: {
+          what: "Every request you will ever make is one sentence at a different altitude, and the altitude is picked by who the person is — not by how badly you want the thing. Wanting it more does not move you up the ladder; it only makes you sound desperate at whatever height you were already standing.",
+          build: "Borrowing a pen, five ways. 貸して (a friend) → 貸してくれる？ (a friend, asking) → 貸してもらえますか (a colleague) → 貸していただけますか (someone above you) → お貸しいただけないでしょうか (a stranger who owes you nothing). Announcing has its own short ladder: します → いたします → させていただきます.",
+          when: "Every time you open your mouth to ask. Pick the rung once from the relationship, then hold it for the whole exchange — sliding up mid-sentence is more noticeable than starting one rung low.",
+          watch: "Too high is not safe. お貸しいただけないでしょうか to a friend is not extra-polite, it is a joke or a grievance, and either way it puts distance between you that you then have to explain.",
+        },
+        ex: [["ペン、貸して。", "A friend. Plain, and nothing is missing from it."], ["ペンを貸してもらえますか。", "A colleague — polite, and level with you."], ["ペンをお貸しいただけないでしょうか。", "A stranger who owes you nothing — the top rung."]],
+      },
+      {
+        id: "cc-harigami", jp: "貼り紙", en: "the sign on the shutter", kind: "culture",
+        exp: "You will meet 〜させていただきます on paper years before anybody says it to your face.\n\nWalk to your usual shop on the wrong Wednesday and the shutter is down with an A4 sheet taped to it:\n\n「誠に勝手ながら、本日休業させていただきます。ご迷惑をおかけいたしますが、何卒ご了承ください。」\n\nUnpick it and there is almost nothing there. 誠に勝手ながら — entirely selfishly of us. 休業させていただきます — we will be receiving the favour of being permitted to close. ご迷惑をおかけいたします — we cause you trouble. 何卒ご了承ください — please, understand.\n\nFour clauses to say we are shut today. And not one of them tells you why, because the reason is not the point: the sheet exists to perform regret, and 〜させていただきます is the verb that performs it. The shop did not ask your permission. It closed. The sentence dresses the closing as something you allowed, and everybody reading it knows that, and it works anyway.\n\nOnce you can read one, the city fills up with them. 都合により on the notice by the lift. 年末年始休業のお知らせ in December. The ATM that is 休止させていただいております for maintenance. The station stairs closed for work, apologising in the same four beats.\n\nThis is also the cheapest keigo practice available to a resident: the signs never move, never expect an answer, and repeat the same six phrases forever. Read the shutters.",
+        ex: [["誠に勝手ながら、本日休業させていただきます。", "Entirely selfishly of us, we will be closed today — the shutter's standard sentence."], ["都合により、しばらくお休みいたします。", "Owing to circumstances, we'll be closed for a while — 都合により explains nothing, deliberately."], ["ご迷惑をおかけいたしますが、何卒ご了承ください。", "We're causing you trouble; please understand — the closing bow of almost every notice."]],
+      },
+      {
+        id: "b-onegai", jp: "Composition · お願い", en: "one request, three heights", kind: "build",
+        requires: ["teitadakeru", "oitadaku", "sb-onegai"],
+        brief: "Pick ONE thing you need from somebody — a document checked, a deadline moved, a room borrowed — and ask for it three times: once to a friend, once to a colleague, once to somebody well above you. Same request, three altitudes. Use 〜ていただけますか or 〜ていただけませんか in the third, and お〜いただく or ご〜いただく at least once.",
+        exp: {
+          what: "The step's whole claim, tested in one place: that a request is one sentence with a dial on it, and that you can now turn the dial deliberately instead of hoping.",
+          build: "Three short blocks, one per altitude, same content in each. Label who each is for. Three or four lines total — this is a range exercise, not an essay.",
+          when: "This is the actual daily work of living in Japanese: the same errand, asked of a flatmate at breakfast and of a ward office at eleven, and it has to come out differently both times.",
+          watch: "Keep the CONTENT identical across the three. The moment the friend version asks for something smaller, the exercise stops measuring register and starts measuring nerve.",
         },
         ex: [],
       },
@@ -2818,8 +2888,8 @@ const CURRICULUM = [
     points: [
       {
         id: "rc7", jp: "復習 · 聞き取り", en: "checkpoint: hear it, place it", kind: "review",
-        covers: ["sb-keigo-what", "sonkeigo", "sb-ikukuru", "gozaimasu", "kenjougo", "sb-uchisoto", "okeigo", "sb-keigo-map"],
-        exp: "The Stage 3 review, and deliberately not a composition. This stage taught recognition, so the check is recognition: hear a line, name the plain sentence under it, and say which way it points and who moved. Some of these have more than one defensible answer — that is not a flaw in the question, it is what いらっしゃる actually does.",
+        covers: ["sb-keigo-what", "sonkeigo", "sb-ikukuru", "gozaimasu", "kenjougo", "sb-uchisoto", "okeigo", "sb-keigo-map", "teitadakeru", "oitadaku", "saseteitadaku", "sb-onegai"],
+        exp: "The Stage 3 review, and deliberately not a composition. Most of this stage taught recognition, so most of the check is recognition: hear a line, name the plain sentence under it, and say which way it points and who moved. Some of these have more than one defensible answer — that is not a flaw in the question, it is what いらっしゃる actually does.\n\nThe last section is different, because Step 28 was different. Asking upward and announcing a thing as permitted are the two moves you PRODUCE, so those questions ask you to build rather than to place.",
         ex: [],
       },
     ],
@@ -2829,7 +2899,7 @@ const CURRICULUM = [
   // does that with tone, Japanese does it with the word, so picking wrong is
   // audible.
   {
-    cat: "Step 28 · Cause, blame and credit",
+    cat: "Step 29 · Cause, blame and credit",
     level: "S9",
     bank: [["結果", "result"], ["失敗", "a failure"], ["成功", "success"], ["努力", "effort"], ["事故", "an accident"], ["遅刻", "lateness"], ["準備", "preparation"], ["経験", "experience"]],
     points: [
@@ -2874,7 +2944,7 @@ const CURRICULUM = [
         ex: [["雨だから、行きません。", "Neutral — から asserts the reason."], ["雨のせいで、中止です。", "Owned, and blamed."], ["晴れたおかげで、できました。", "Owned, and credited."]],
       },
       {
-        id: "b-s28", jp: "作文 · うまくいかなかった日", en: "a day that went wrong", kind: "build",
+        id: "b-s29", jp: "Composition · うまくいかなかった日", en: "a day that went wrong", kind: "build",
         requires: ["okage", "seide", "sb-riyuu"],
         brief: "Write about a day that went badly and one thing that saved it. Use せいで once for what went wrong and おかげで once for what rescued it.",
         exp: {
@@ -2892,7 +2962,7 @@ const CURRICULUM = [
   // it at a distance — about, toward, by means of, in, for. It is why an N3
   // reading passage looks impenetrable to an N4 learner.
   {
-    cat: "Step 29 · The compound particles",
+    cat: "Step 30 · The compound particles",
     level: "S9",
     bank: [["問題", "problem; issue"], ["社会", "society"], ["方法", "method"], ["調査", "a survey"], ["意見", "an opinion"], ["影響", "influence"], ["場合", "case; situation"], ["環境", "environment"]],
     points: [
@@ -2957,7 +3027,7 @@ const CURRICULUM = [
         ex: [["問題について話す", "Discuss the problem — subject matter."], ["質問に対して答える", "Answer the question — facing it."], ["私にとって大切だ", "Important to me — my viewpoint."]],
       },
       {
-        id: "b-s29", jp: "作文 · 意見文", en: "a short opinion", kind: "build",
+        id: "b-s30", jp: "Composition · 意見文", en: "a short opinion", kind: "build",
         requires: ["nitsuite", "nitotte", "sb-fukugou"],
         brief: "Write a short opinion on something you have views about — a rule at work, a change in your town. Use について to name the topic and にとって to say whose view it is.",
         exp: {
@@ -2974,7 +3044,7 @@ const CURRICULUM = [
   // The stage's argumentative core. わけ is the hard one and worth the room: it
   // does NOT mean reason — it means that follows.
   {
-    cat: "Step 30 · Conclusions",
+    cat: "Step 31 · Conclusions",
     level: "S9",
     bank: [["理由", "reason"], ["説明", "explanation"], ["常識", "common sense"], ["立場", "position; standpoint"], ["当然", "natural; obvious"], ["確か", "certain"], ["普通", "ordinary"], ["若い", "young"]],
     points: [
@@ -3039,7 +3109,7 @@ const CURRICULUM = [
         ex: [["明日は雨でしょう。", "Probably — the forecast's word."], ["雨かもしれません。", "Maybe — an honest coin-flip."], ["買ったから、来るはずです。", "Should be — he bought a ticket."], ["電気が消えている。帰ったに違いない。", "Must have — the evidence closes it."]],
       },
       {
-        id: "b-s30", jp: "作文 · 推理", en: "reason it out", kind: "build",
+        id: "b-s31", jp: "Composition · 推理", en: "reason it out", kind: "build",
         requires: ["wakeda", "nichigainai", "sb-kakushin"],
         brief: "Describe something you noticed and work out what it means. Somebody's absence, a closed shop, a changed schedule. Use two different stops on the certainty dial and one わけだ where the conclusion lands.",
         exp: {
@@ -3057,7 +3127,7 @@ const CURRICULUM = [
   // say something new. かける and ぬく have no English equivalent and qualify for the
   // auto-qualifier treatment.
   {
-    cat: "Step 31 · Verbs that carry more",
+    cat: "Step 32 · Verbs that carry more",
     level: "S9",
     bank: [["途中", "partway; en route"], ["最後", "the end"], ["電気", "the light; electricity"], ["窓", "window"], ["話しかける", "to speak to"], ["やり直す", "to redo"], ["読み終わる", "to finish reading"], ["続ける", "to continue"]],
     points: [
@@ -3122,7 +3192,7 @@ const CURRICULUM = [
         ex: [["読みかけの本", "Half-read — かける."], ["最後までやりぬいた", "Saw it through — ぬく."], ["つけっぱなし", "Left on — and shouldn't have been."]],
       },
       {
-        id: "b-s31", jp: "作文 · 机の上", en: "the state of your desk", kind: "build",
+        id: "b-s32", jp: "Composition · 机の上", en: "the state of your desk", kind: "build",
         requires: ["kakeru", "ppanashi", "sb-aspect2"],
         brief: "Describe a desk, a room or a kitchen honestly — what is half-done, what got left, what you saw through to the end. Use かける once and っぱなし once.",
         exp: {
@@ -3139,7 +3209,7 @@ const CURRICULUM = [
   // Where a learner stops saying very and starts saying more than you'd think.
   // Every pattern here grades a claim rather than stating one.
   {
-    cat: "Step 32 · Degrees and tendencies",
+    cat: "Step 33 · Degrees and tendencies",
     level: "S9",
     bank: [["最近", "recently"], ["体", "body"], ["風邪", "a cold"], ["値段", "price"], ["味", "taste; flavour"], ["若者", "young people"], ["努力", "effort"], ["予想", "expectation"]],
     points: [
@@ -3204,7 +3274,7 @@ const CURRICULUM = [
         ex: [["忘れがち", "Often — a tendency."], ["疲れ気味", "A touch — a degree."], ["値段のわりに", "Considering — a benchmark."]],
       },
       {
-        id: "b-s32", jp: "作文 · レビュー", en: "write a review", kind: "build",
+        id: "b-s33", jp: "Composition · レビュー", en: "write a review", kind: "build",
         requires: ["warini", "dokoroka", "sb-doai"],
         brief: "Review something honestly — a restaurant, a film, a gadget. Use わりに once to set a benchmark, and one other grading word.",
         exp: {
@@ -3222,7 +3292,7 @@ const CURRICULUM = [
   // of timing — the instant, the middle, and the moment after. くせに carries real
   // rudeness and is flagged as such.
   {
-    cat: "Step 33 · Manner, pretence and timing",
+    cat: "Step 34 · Manner, pretence and timing",
     level: "S9",
     bank: [["説明", "explanation"], ["約束", "a promise"], ["準備", "preparation"], ["連絡", "contact; word"], ["会議", "meeting"], ["途中", "partway"], ["知る", "to know"], ["決まる", "to be decided"]],
     points: [
@@ -3307,7 +3377,7 @@ const CURRICULUM = [
         ex: [["座ったとたん", "The seam — and a surprise."], ["会議の最中に", "The thick of it — interrupted."], ["決まり次第", "As soon as possible — and I promise."]],
       },
       {
-        id: "b-s33", jp: "作文 · あの日のこと", en: "the day it all happened at once", kind: "build",
+        id: "b-s34", jp: "Composition · あの日のこと", en: "the day it all happened at once", kind: "build",
         requires: ["totan", "saichuu", "sb-timing"],
         brief: "Tell a short story about a day when things kept interrupting each other. Use たとたん once for a moment that turned on a hinge, and 最中に once for something that broke into the middle of another thing.",
         exp: {
@@ -3543,6 +3613,10 @@ const DEEP = {
   "sb-keigo-what": {"wr": [{"t": "The official count is five, not four. The Agency for Cultural Affairs' 敬語の指針 (2 February 2007) splits keigo into 尊敬語, 謙譲語Ⅰ, 謙譲語Ⅱ (also called 丁重語), 丁寧語 and 美化語. The four-way map here is the practical simplification — 謙譲語Ⅱ is a refinement of lowering that you can meet after the other four are solid."}, {"t": "美化語 comes in three tiers, and the first one has escaped. FROZEN: ご飯, お腹, お菓子 — no longer a choice at all, because 飯 is a different and rougher word. A LIVE DIAL: お水, お名前, お荷物 — strip the prefix and the register genuinely moves. MARKED: おビール, おソース — possible, and they read as service-counter rather than neutral.", "jp": "ご飯・お名前・おビール", "en": "Frozen / live dial / marked — one prefix, three different jobs.", "hl": "ご飯"}, {"t": "Step 5's cc-ogo taught お茶 and ご飯 as 'the polish prefixes' without naming them. They were 美化語 all along. One clean rule to carry: お goes on 和語, ご on 漢語, and loanwords take neither — ×おコーヒー is the test case that proves it."}], "drill": {"note": "Name the room, not the register. Each item asks which of the four is doing the work.", "items": [{"q": "「田中と申します」の敬語は？", "en": "Your own name, lowered.", "a": ["謙譲語"], "opts": ["謙譲語", "尊敬語", "丁寧語", "美化語"], "why": "申す lowers the speaker's own action. Your side goes down."}, {"q": "「先生がいらっしゃいます」の敬語は？", "en": "The teacher's being-there, raised.", "a": ["尊敬語"], "opts": ["尊敬語", "謙譲語", "丁寧語", "美化語"], "why": "いらっしゃる raises the other person's action."}, {"q": "「日本語を話します」の敬語は？", "en": "The form you have used since Step 1.", "a": ["丁寧語"], "opts": ["丁寧語", "尊敬語", "謙譲語", "美化語"], "why": "です・ます is politeness aimed at the listener — and it is keigo."}, {"q": "「お名前」の「お」は？", "en": "The noun itself, dressed.", "a": ["美化語"], "opts": ["美化語", "尊敬語", "謙譲語", "丁寧語"], "why": "The prefix dresses the noun rather than raising or lowering anyone's action."}, {"q": "敬語 is ___ 尊敬語 and 謙譲語.", "a": ["the umbrella over"], "opts": ["the umbrella over", "a third kind beside", "the opposite of", "the same thing as"], "why": "All of them are keigo. The question is never whether — it is which direction."}, {"q": "×おコーヒー is wrong because ___.", "a": ["loanwords take neither お nor ご"], "opts": ["loanwords take neither お nor ご", "コーヒー is 漢語", "お is only for verbs", "coffee is informal"], "why": "お goes on 和語, ご on 漢語, and borrowed words take neither."}]}},
   "sb-ikukuru": {"wr": [{"t": "参ります on a platform is the piece that surprises people most. The railway is lowering its own train, because the company is うち and you, the passenger, are そと. The train is not being modest — the announcer is, on the company's behalf, exactly as you would lower your own boss on the phone.", "jp": "まもなく電車が参ります。", "en": "The company lowers its own rolling stock.", "hl": "参ります"}, {"t": "伺う is not a synonym for 参る. It is narrower and it carries its own two jobs: visiting somebody, and asking them something. 明日伺います is 'I'll come to you tomorrow'; ちょっと伺いますが is 'may I ask you something'. Both lower you; neither is a general-purpose 行く."}, {"t": "Aim is everything, and the mirror error is the expensive one. おる is YOUR being-there — 先生はおりますか sends the teacher down, which is the exact opposite of what you meant. Up-verbs for them, down-verbs for you, and no exceptions to lean on."}], "drill": {"note": "Recognition first: hear the altitude, name the plain verb underneath, and say whose action it is.", "items": [{"q": "まもなく電車が___。", "en": "Station announcement — the train is arriving.", "a": ["参ります"], "opts": ["参ります", "いらっしゃいます", "おります", "来られます"], "why": "The company lowers its own train: 来る → 参る."}, {"q": "先生は教室に___か。", "en": "Asking whether the teacher is in.", "a": ["いらっしゃいます"], "opts": ["いらっしゃいます", "おります", "参ります", "申します"], "why": "The teacher is the other side — raise it. おります would demote them."}, {"q": "いらっしゃる covers ___.", "a": ["いる・行く・来る"], "opts": ["いる・行く・来る", "言う・話す", "食べる・飲む", "する・なる"], "why": "Three verbs, one elevated shape — which is why it is ambiguous and why that is fine."}, {"q": "明日、そちらに___。", "en": "I'll come to you tomorrow — visiting.", "a": ["伺います"], "opts": ["伺います", "いらっしゃいます", "おっしゃいます", "なさいます"], "why": "伺う is the narrow humble one: visiting, and asking."}, {"q": "「先生はおりますか」is wrong because ___.", "a": ["おる lowers the teacher"], "opts": ["おる lowers the teacher", "おる is too casual", "先生 cannot take keigo", "it needs です"], "why": "A humble verb aimed at the other person demotes them — the mirror of elevating yourself."}, {"q": "田中はただいま外出___。", "en": "On the phone, about your own colleague, to an outside caller.", "a": ["しております"], "opts": ["しております", "していらっしゃいます", "されています", "しております"], "why": "Your own side goes down, even your boss — おる, not いらっしゃる."}]}},
   "rc7": {"drill": {"note": "Five kinds of item: decode the plain verb, name the direction, spot the misaimed one, place it in a room, and pick the altitude. Where more than one answer fits, the explanation says so.", "items": [{"q": "「先生はいらっしゃいますか」の「いらっしゃる」は何の敬語？", "en": "Which plain verb is underneath?", "a": ["いる・行く・来る のどれでも"], "opts": ["いる・行く・来る のどれでも", "いる だけ", "行く だけ", "言う"], "why": "All three collapse into いらっしゃる, so the sentence is genuinely ambiguous — 'is the teacher in' or 'is the teacher coming'. Context decides, and native speakers do not notice the ambiguity."}, {"q": "「田中はおりません」— 誰を下げている？", "en": "Who is being lowered?", "a": ["話し手の側（うち）"], "opts": ["話し手の側（うち）", "田中さん個人だけ", "聞き手", "誰も"], "why": "The speaker lowers their whole side as one body, which is why 田中 loses his さん to an outside caller."}, {"q": "「先生はおりますか」の問題は？", "en": "What is wrong here?", "a": ["謙譲語を相手に向けている"], "opts": ["謙譲語を相手に向けている", "丁寧語が足りない", "先生に敬語は使わない", "問題ない"], "why": "おる lowers its subject, and the subject here is the teacher — the exact mirror of elevating yourself."}, {"q": "「まもなく電車が参ります」— どこで聞く？", "en": "Where would you hear this?", "a": ["駅のホーム"], "opts": ["駅のホーム", "友達の家", "教室で先生から", "電話で自分が言う"], "why": "The railway lowering its own train. You will hear it several times a day and never need to say it."}, {"q": "「お名前をお呼びします」の「お呼びします」は？", "en": "Which direction?", "a": ["謙譲語（話し手の動作）"], "opts": ["謙譲語（話し手の動作）", "尊敬語（相手の動作）", "美化語", "丁寧語だけ"], "why": "お + stem + する lowers the speaker's own action — the receptionist's calling, not your being called."}, {"q": "「いただきます」のもとの動詞は？", "en": "The verb underneath the mealtime phrase.", "a": ["いただく（もらうの謙譲語）"], "opts": ["いただく（もらうの謙譲語）", "いたす", "いらっしゃる", "くださる"], "why": "It is もらう, lowered — you have been conjugating a humble verb three times a day."}, {"q": "同じ「行く」を、相手には ___、自分には ___。", "en": "The same act, two directions.", "a": ["いらっしゃる／参る"], "opts": ["いらっしゃる／参る", "参る／いらっしゃる", "おる／いらっしゃる", "なさる／いたす"], "why": "Up for them, down for you — and the two words share no material at all."}, {"q": "「ご飯」の「ご」は今も敬語として働いている？", "en": "Is the prefix still doing a job?", "a": ["いいえ、語に定着している"], "opts": ["いいえ、語に定着している", "はい、尊敬語として", "はい、謙譲語として", "場面による"], "why": "Frozen. 飯 is a different, rougher word — the prefix stopped being a dial and became part of the vocabulary."}]}},
+  "teitadakeru": {"seg": [["もう一度", "once more"], ["説明して", "explaining — the て-form the whole request is built on"], ["いただけ", "THE POINT — いただく in the POTENTIAL: could I receive this favour", 1], ["ますか。", "polite question — and the question is the request"]], "hl": "いただけませんか", "note": "The negative rung, and the softer one: a negative question puts the refusal on the table before the other person has to put it there themselves.", "wr": [{"t": "いただけ, not いただき. The potential is the entire difference — 〜ていただきますか announces that you are about to receive something, which is not a request and reads as a very odd thing to say out loud."}, {"t": "Downward it collapses. いただく names YOUR receiving from somebody above, so aimed at a friend or at your own side it is either comedy or distance; level with someone, 〜てもらえますか is already the right height.", "jp": "手伝ってもらえますか。", "en": "Could you give me a hand? — level, and correct there.", "hl": "もらえますか"}], "drill": {"note": "Build the request upward: て-form, then いただく in the potential, then decide how much softer you need it.", "items": [{"q": "もう一度説明して___ますか。", "en": "Could you explain that once more?", "a": ["いただけ"], "opts": ["いただけ", "いただき", "くださり", "もらい"], "why": "The potential いただけ is what makes it a request rather than an announcement."}, {"q": "Which is SOFTER?", "a": ["〜ていただけませんか"], "opts": ["〜ていただけませんか", "〜ていただけますか"], "why": "The negative leaves room for no, so it lands gentler — backwards to an English ear, and reliable."}, {"q": "駅まで送って___か。", "en": "Could you possibly run me to the station? — the negative rung.", "a": ["いただけません"], "opts": ["いただけません", "いただきません", "いただけます"], "why": "Negative potential: 〜ていただけませんか."}, {"q": "To a colleague, level with you, the natural form is 手伝って___ますか。", "a": ["もらえ"], "opts": ["もらえ", "いただけ", "くださり"], "why": "いただく reaches upward; among equals it overshoots."}, {"q": "The softest of the three rungs is 〜ていただけ___。", "a": ["ないでしょうか"], "opts": ["ないでしょうか", "ますか", "ませんね"], "why": "Negative plus でしょうか — every softener the shape has."}]}},
+  "oitadaku": {"seg": [["少々", "a moment — the counter's word for 少し"], ["お待ち", "THE POINT — お + the stem of 待ちます, the frame opening", 1], ["いただけますか。", "…and いただく in the potential closes it: would you wait"]], "hl": "ご確認いただけますか", "note": "Kanji compounds take ご rather than お. This exact sentence is what Step 27's composition has been asking you to produce.", "wr": [{"t": "ご確認していただく stacks a する the frame has no room for. お/ご + stem + いただく is already the complete verb, and adding して is the same overbuild as 二重敬語, one floor down."}, {"t": "お待ちになりますか and お待ちいただけますか elevate the same person and mean opposite things. になる just describes their waiting politely — are you going to wait? いただく says the waiting would be a favour to YOU. Same verb, same altitude, reversed direction of benefit.", "jp": "お待ちになりますか。", "en": "Are you going to wait? — polite, but not a request.", "hl": "お待ちになります"}], "drill": {"note": "One frame, two openings: お for native readings, ご for kanji compounds.", "items": [{"q": "少々___いただけますか。", "en": "Could you wait a moment?", "a": ["お待ち", "おまち"], "opts": ["お待ち", "ご待ち", "お待ちして", "待ち"], "why": "待ちます is a native reading, so the frame opens with お."}, {"q": "___いただけますでしょうか。", "en": "Might I ask you to check?", "a": ["ご確認", "ごかくにん"], "opts": ["ご確認", "お確認", "ご確認して"], "why": "確認 is a kanji compound: ご."}, {"q": "Which is the overbuild?", "a": ["ご確認していただく"], "opts": ["ご確認していただく", "ご確認いただく"], "why": "The frame already holds the verb; する has nothing left to do."}, {"q": "こちらに___ください。", "en": "Please fill this in here.", "a": ["ご記入", "ごきにゅう"], "opts": ["ご記入", "お記入", "ご記入して"], "why": "記入 is a compound, and ください is the frame's imperative sibling."}, {"q": "Which one ASKS the other person to wait for you?", "a": ["お待ちいただけますか"], "opts": ["お待ちいただけますか", "お待ちになりますか"], "why": "になる only describes their waiting politely; いただく makes it a favour done for you."}]}},
+  "saseteitadaku": {"seg": [["本日は", "today — 今日's formal twin, and the notice board's word"], ["休ませて", "THE POINT — the causative of 休む: being LET to rest", 1], ["いただきます。", "…received, humbly. Permission the sentence grants itself"]], "hl": "確認させていただきます", "note": "The counter and telephone default. Anything you are about to do that touches somebody else can be dressed in this frame.", "wr": [{"t": "Somebody's permission has to be plausibly at stake. 私はコーヒーを飲ませていただきます, alone in your own kitchen, is a joke — there is nobody in the sentence who could have allowed it, so the humility has nothing to attach to."}, {"t": "Move to the potential and it stops announcing and starts asking. 使わせていただきます takes the thing; 使わせていただけますか asks for it, and at a counter that difference is the entire exchange.", "jp": "こちらを使わせていただけますか。", "en": "May I use this? — asked, not announced.", "hl": "使わせていただけますか"}], "drill": {"note": "Causative て-form first, いただく second. The causative is Step 20's; only the ending is new.", "items": [{"q": "本日は___ていただきます。", "en": "We'll be closed today — from 休む.", "a": ["休ませ", "やすませ"], "opts": ["休ませ", "休み", "休まれ", "休んで"], "why": "Causative て-form: 休む → 休ませて."}, {"q": "確認する → ___ていただきます。", "en": "Let me check that.", "a": ["確認させ", "かくにんさせ"], "opts": ["確認させ", "確認し", "確認され"], "why": "する's causative is させる."}, {"q": "Which ASKS rather than announces?", "a": ["使わせていただけますか"], "opts": ["使わせていただけますか", "使わせていただきます"], "why": "The potential turns the announcement into a request."}, {"q": "What has to exist for the form to make sense?", "a": ["somebody whose permission is plausibly involved"], "opts": ["somebody whose permission is plausibly involved", "a kanji compound", "a negative question"], "why": "With nobody to have permitted it, the humility attaches to nothing."}, {"q": "Which two things is this form built out of?", "a": ["the causative and いただく"], "opts": ["the causative and いただく", "お〜する and ください", "the passive and もらう"], "why": "Step 20's causative plus Step 14's いただく — both already yours."}]}},
+  "sb-onegai": {"seg": [["ペン、", "the thing — particle dropped, the way friends drop it"], ["貸して。", "THE POINT — the bare て-form. Rung one, and nothing is missing from it", 1]], "hl": "お貸しいただけないでしょうか", "note": "Rung five. Same pen, same want, five floors up — the distance is entirely about who is standing there.", "wr": [{"t": "Too high is not the safe error. The top rung aimed at a friend is heard as sarcasm or as a grievance, and either way it opens a distance you then have to spend the next minute explaining away."}, {"t": "Choose the rung from the relationship, then hold it for the whole exchange. Climbing mid-conversation is far more audible than starting one rung low and staying there, because the climb says you have just reappraised them.", "jp": "ペンを貸してもらえますか。", "en": "Rung three — a colleague, level with you.", "hl": "もらえますか"}], "drill": {"note": "One pen, five heights. Match the rung to the person, not to how much you want the pen.", "items": [{"q": "To a close friend: ペン、___。", "a": ["貸して", "かして"], "opts": ["貸して", "貸していただけますか", "お貸しください"], "why": "Plain て-form. Anything higher puts a wall up."}, {"q": "To a colleague: ペンを貸して___ますか。", "a": ["もらえ"], "opts": ["もらえ", "いただけ", "くださり"], "why": "もらえますか is level and polite — the office default."}, {"q": "To someone well above you: ペンをお貸し___でしょうか。", "a": ["いただけない"], "opts": ["いただけない", "いただきます", "くださる"], "why": "Negative potential inside the お〜いただく frame: the top rung."}, {"q": "The announcing ladder runs します → いたします → ___。", "a": ["させていただきます"], "opts": ["させていただきます", "してもらいます", "されます"], "why": "Same three floors, pointed at your own action instead of theirs."}, {"q": "お貸しいただけないでしょうか, said to a friend, sounds ___。", "a": ["sarcastic or cold"], "opts": ["sarcastic or cold", "extra polite", "perfectly normal"], "why": "Overshooting is a real error, not a safe one."}]}},
   // @@DEEP-END
 };
 const DRILL_DRAW = 5;
@@ -3787,6 +3861,10 @@ const ARCS = {
   "saichuu": {"setting": {"scene": "Nine minutes into a meeting that took three weeks to arrange, with everybody finally in the room, a phone goes off. Not during the meeting in the general sense — in the thick of it, at the worst available moment, which is a finer claim than Step 19's neutral window.", "jp": "会議の最中に、電話が鳴りました。", "en": "The phone rang right in the middle of the meeting.", "pattern": "最中に"}, "extensions": [{"kind": "flip", "scene": "You use it about a conversation rather than a meeting, where the interruption is somebody walking away rather than a noise, and the thing being broken into is your own half-finished sentence.", "jp": "話している最中に、帰ってしまいました。", "en": "He left while I was still talking."}, {"kind": "extra", "t": "It needs an activity with a middle. 寝ている最中に is odd for ordinary sleep, because sleeping is not an activity underway the way a meeting is — 寝ている間に is the natural sentence there, and 間に is the neutral window this one intensifies.", "scene": "You try it about ordinary sleep and it is subtly wrong in a way the neutral window is not, because sleeping is not an activity underway the way a meeting is.", "jp": "寝ている間に、電話がありました。", "en": "While I slept, a call came — the neutral window."}]},
   "shidai": {"setting": {"scene": "An email you have to send before you leave, about a decision that has not been made yet, to somebody who needs to know the moment it is. Not when it is decided, not after — as soon as, and the sentence is a promise rather than a description.", "jp": "決まり次第、ご連絡します。", "en": "I'll be in touch as soon as it's decided.", "pattern": "次第"}, "extensions": [{"kind": "flip", "scene": "You use it in the room rather than in writing, to start something the moment the last person arrives, and it is the same promise made out loud instead of on paper.", "jp": "到着次第、始めましょう。", "en": "Let's start as soon as everyone's here."}, {"kind": "extra", "t": "It cannot be used about the past, because the pattern is a promise — 決まり次第連絡しました is not a sentence. And the second half must be something you control: 決まり次第、雨が降ります is nonsense for exactly the same reason.", "scene": "You try to report a past sequence with it and the tense restriction refuses outright, which is the fastest way to learn that this pattern is a promise rather than a description.", "jp": "決まってから、連絡しました。", "en": "After it was decided, I got in touch — past, so てから."}]},
   "sb-timing": {"setting": {"scene": "Three patterns that all come out in English as when or as soon as, and all mean something different about where in an event you are standing. Side by side the difference stops being subtle, and the tense restrictions do most of the work of telling them apart.", "jp": "座ったとたん、電話が鳴りました。", "en": "The seam — past, and a surprise you did not control.", "pattern": "とたん"}, "extensions": [{"kind": "flip", "scene": "You sort three sentences from your own week into the three grains, and two of them turn out to have wanted a different one from the one you used at the time.", "jp": "決まり次第、ご連絡します。", "en": "As soon as possible — future, and your own promise."}, {"kind": "extra", "t": "The tense restrictions are absolute and they are the fastest self-check there is: たとたん is past and uncontrolled, 次第 is future and controlled. If a sentence wants both at once, it wants neither of them.", "scene": "You test a sentence against both restrictions and it fails each of them, which is how you find out it never wanted any of the three and had wanted てから all along.", "jp": "会議の最中に、電話が鳴りました。", "en": "The thick of it — an activity interrupted."}]},
+  "teitadakeru": {"setting": {"scene": "Your residence card renewal is finally in, and the clerk has just talked you through three forms at a speed built for people who grew up here. You need all of it again. Every request you own ends in てください, and in the half-second before you speak you can feel that telling this man to explain it a second time is not the thing you want to be doing.", "jp": "もう一度説明してください。", "en": "Please explain that once more — correct, and still an instruction.", "pattern": "してください"}, "extensions": [{"kind": "flip", "scene": "Pointed upward, a request stops being an instruction and becomes a question about what you might receive. The verb is Step 14's いただく, moved into the potential: could I receive the favour of your explaining it. Nothing in the content changed. The sentence simply stopped telling him anything.", "jp": "もう一度説明していただけますか。", "en": "Could you explain that once more?"}, {"kind": "wrinkle", "wr": 0, "scene": "The potential is not decoration. Take it out and the sentence announces that you are about to receive an explanation, which is an odd thing to say to a man who has not offered one yet, and he will hear the difference before you finish saying it.", "jp": "説明していただきますか", "en": "Not a request — an announcement with a question mark on it."}, {"kind": "wrinkle", "wr": 1, "scene": "The same shape aimed sideways overshoots instead. Asking the colleague at the next desk for a hand with いただけますか opens a distance neither of you wanted, and もらえますか was already the right height for somebody standing level with you.", "jp": "手伝ってもらえますか。", "en": "Could you give me a hand? — level, and correct there."}]},
+  "oitadaku": {"setting": {"scene": "The counter at the bank has your form and a problem with it. You have been waiting eleven minutes and are plainly about to wait more, and the woman behind the glass says a sentence you have heard a thousand times in this country without once being told how it is put together or that you could build one yourself.", "jp": "少々お待ちください。", "en": "One moment please — heard daily, never parsed.", "pattern": "お待ちください"}, "extensions": [{"kind": "flip", "scene": "Now put it in your own mouth, asking rather than telling. Swap ください for いただけますか and the identical frame stops instructing and starts requesting, which is what you need the moment the person being asked to wait is the one above you.", "jp": "少々お待ちいただけますか。", "en": "Could you wait a moment? — the frame, asking."}, {"kind": "wrinkle", "wr": 0, "scene": "The common overbuild is to put する back in. ご確認していただけますか sounds like somebody being careful, and it is exactly one part too many — the frame already contains the verb, so the extra して has nothing to do but announce the effort.", "jp": "ご確認していただけますか", "en": "One part too many — the frame already holds the verb."}, {"kind": "wrinkle", "wr": 1, "scene": "And the same frame with になる instead points the benefit the other way. お待ちになりますか asks whether they intend to wait; お待ちいただけますか asks them to wait for you. Same person elevated, opposite thing being said.", "jp": "お待ちになりますか。", "en": "Are you going to wait? — polite, and not a request."}]},
+  "saseteitadaku": {"setting": {"scene": "You need Thursday off. In English the message writes itself in six words. In Japanese every shape you own says either 休みます, which is flat and states a fact at a man who outranks you, or 休んでもいいですか, which is Step 5 asking permission the way a schoolchild asks to leave the room. Neither is what an adult sends a section chief.", "jp": "木曜日は休みます。", "en": "I'm taking Thursday off — true, flat, and faintly rude.", "pattern": "休みます"}, "extensions": [{"kind": "flip", "scene": "The adult form is built out of two things already in your hands. Step 20's causative turns 休む into being-let-to-rest; Step 14's いただく receives that permission humbly. The decision is still entirely yours. The sentence hands him the credit for it.", "jp": "木曜日は休ませていただきます。", "en": "I'll be taking Thursday off — permission, granted to itself."}, {"kind": "wrinkle", "wr": 0, "scene": "Somebody's permission has to be plausibly involved or the humility attaches to nothing. Said about your own coffee in your own kitchen with nobody else in the building, it is a joke, and it is the joke Japanese speakers make about the form most often.", "jp": "コーヒーを飲ませていただきます", "en": "Nobody permitted this. Empty politeness, and audibly so."}, {"kind": "wrinkle", "wr": 1, "scene": "Move to the potential and the announcement turns into a question. 使わせていただきます takes the thing and tells you afterwards; 使わせていただけますか asks first, and standing at a counter that difference is the entire exchange.", "jp": "こちらを使わせていただけますか。", "en": "May I use this? — asked, not announced."}]},
+  "sb-onegai": {"setting": {"scene": "One pen, one day. You want to borrow it at breakfast from the flatmate, at eleven from the colleague at the next desk, and at two in the afternoon from the man behind the ward office counter who has never seen you before and never will again. Same pen, same want, three different sentences, and the difference is not politeness. It is distance.", "jp": "ペン、貸して。", "en": "Lend us a pen — a friend, and nothing is missing from it.", "pattern": "貸して"}, "extensions": [{"kind": "flip", "scene": "So climb. もらえますか for the colleague, いただけますか for anybody above you, お貸しいただけないでしょうか for the stranger who owes you nothing at all. Five rungs out of one verb, and the rung is picked by who is standing there rather than by how badly you want the pen.", "jp": "ペンをお貸しいただけないでしょうか。", "en": "Might I trouble you for a pen? — the top rung."}, {"kind": "wrinkle", "wr": 0, "scene": "Too high is not the safe error. The top rung aimed at the flatmate over breakfast lands as sarcasm or as a grievance, and either way you spend the next minute explaining that nothing is wrong, which is worse than the borrowing was.", "jp": "お貸しいただけないでしょうか。", "en": "To a friend: a joke, or a complaint. Not politeness."}, {"kind": "wrinkle", "wr": 1, "scene": "Pick the rung once and then hold it. Climbing halfway through a conversation is far more audible than starting one rung low and staying put, because the climb tells the other person you have just this second reassessed who they are.", "jp": "ペンを貸してもらえますか。", "en": "Rung three — a colleague, level with you."}]},
   // @@ARCS-END
 };
 
@@ -3803,7 +3881,11 @@ const LEVELS = [
   { id: "S5", title: "5", subtitle: "Conversation", jlpt: "≈ JLPT N4", markers: "kana", tagline: "The て-form's second wind, kindness in both directions, evidence, and the four ifs.", groups: CURRICULUM.filter((c) => c.level === "S5") },
   { id: "S6", title: "6", subtitle: "Plans, time and voice", jlpt: "≈ JLPT N4", markers: "kana", tagline: "Intentions and decisions, ability and experience, time's edges, and things done to you.", groups: CURRICULUM.filter((c) => c.level === "S6") },
   { id: "S7", title: "7", subtitle: "Nuance and other minds", jlpt: "≈ JLPT N4", markers: "kana", tagline: "Concessions with temperature, thoughts in boxes, and the line between your mind and everyone else's.", groups: CURRICULUM.filter((c) => c.level === "S7") },
-  { id: "S8", title: "8", subtitle: "Politeness", jlpt: "≈ JLPT N3", markers: "kanji", tagline: "Keigo — hearing it, lowering yourself, and the nine rooms it will reach you in.", groups: CURRICULUM.filter((c) => c.level === "S8") },
+  // S8 carries a `pace` note the others do not. Lloyd, Session 17: a learner who reaches
+  // the shortest stage in the course should be told it is short ON PURPOSE, not left to
+  // read it as a thin patch. It is one idea — height — walked slowly through the rooms it
+  // turns up in, and the slowness was his own ruling back in Session 14.
+  { id: "S8", title: "8", subtitle: "Politeness", jlpt: "≈ JLPT N3", markers: "kanji", tagline: "Keigo — hearing it, lowering yourself, the rooms it will reach you in, and the two things you will actually do with it.", pace: "This is the shortest stage in the course, and that is the design. Everything before it added new machinery; this one adds almost none. Keigo is a single idea — how high the sentence reaches — and the whole stage is that one idea walked slowly through the rooms you will meet it in, because it is the shift every other stage ends up being measured against. Short, and deliberately unhurried.", groups: CURRICULUM.filter((c) => c.level === "S8") },
   { id: "S9", title: "9", subtitle: "Independence", jlpt: "≈ JLPT N3", markers: "kanji", tagline: "Cause with an owner, the compound particles that make writing possible, conclusions drawn and denied, and claims that are graded rather than asserted — where you stop reporting and start arguing.", groups: CURRICULUM.filter((c) => c.level === "S9") },
   { id: "S10", title: "10", subtitle: "Nuance", jlpt: "≈ JLPT N2", markers: "kanji", locked: true },
   { id: "S11", title: "11", subtitle: "Mastery", jlpt: "≈ JLPT N1", markers: "kanji", locked: true },
@@ -3818,7 +3900,10 @@ const KINDS = {
   primer:  { en: "PR", kana: "じょ", kanji: "序", reading: "じょ", color: "#8A6F4E", label: "Primer" },
   grammar: { en: "GM", kana: "ぶん", kanji: "文", reading: "ぶん", color: "#3D5A80", label: "Grammar" },
   skill:   { en: "SB", kana: "わざ", kanji: "技", reading: "わざ", color: "#C7351B", label: "Skill builder" },
-  build:   { en: "SP", kana: "さく", kanji: "作", reading: "さく", color: "#6B5B95", label: "Sentence practice" },
+  // Session 17, Lloyd: the composition lessons were identified only in kanji (作文 · …)
+  // and the kind was called "Sentence practice", which is not what they are and not what
+  // anybody calls them. One name now, in English, on both the badge and the title.
+  build:   { en: "CO", kana: "さく", kanji: "作", reading: "さく", color: "#6B5B95", label: "Composition" },
   culture: { en: "CC", kana: "まち", kanji: "街", reading: "まち", color: "#3E7C4F", label: "Culture connection" },
   // Darkened from #B08A1F: white text on the original ochre only reached 3.2:1.
   review:  { en: "CP", kana: "ふく", kanji: "復", reading: "ふく", color: "#907119", label: "Checkpoint" },
@@ -5263,6 +5348,78 @@ function stampFirsts(next) {
   return { ...next, _firstAt: stamps, _stampEpoch: next._stampEpoch == null ? t : next._stampEpoch };
 }
 
+// ————— Arriving at a stage —————
+// Lloyd, Session 17: entering a new stage should be congratulated, and congratulated
+// HARDER when it was unlocked by finishing the one before it rather than by tapping past
+// it. The two cases get deliberately different copy — an achievement that reads the same
+// as a navigation is not an achievement. A learner who peeked ahead, dismissed the quiet
+// version, and then genuinely earned the stage gets the real one on their next visit,
+// which is why the dismissal records WHICH greeting was shown rather than a bare flag.
+const MILESTONE_NAME = { "ms-n5": "N5", "ms-n4": "N4", "ms-n3": "N3" };
+
+function stageGreeting(level, prev, prevComplete) {
+  if (!prev) {
+    return {
+      kind: "start", mark: "始",
+      head: "This is where it starts.",
+      body: "Nothing here is locked and nothing is timed. Work down the list, or wander — the steps are ordered because order helps, not because the app is keeping score.",
+    };
+  }
+  if (!prevComplete) {
+    return {
+      kind: "peek", mark: "先",
+      head: `Looking ahead — Stage ${prev.title} still has work in it.`,
+      body: "Nothing is gated, so read anything you like. This stage will greet you properly once the one before it is finished.",
+    };
+  }
+  const ms = (levelPoints(prev) || []).map((p) => MILESTONE_NAME[p.id]).find(Boolean);
+  return {
+    kind: "earned", mark: "済",
+    head: `Stage ${prev.title} · ${prev.subtitle} is complete.`,
+    body: ms
+      ? `Every lesson in it is behind you — and with it everything the JLPT ${ms} syllabus expects of you. You opened this stage by finishing that one.`
+      : `Every lesson in it is behind you. You opened this stage by finishing that one, which is the only way it opens.`,
+  };
+}
+
+function StageWelcome({ greeting, onDismiss }) {
+  const earned = greeting.kind === "earned";
+  const accent = earned ? T.shu : greeting.kind === "start" ? T.ai : T.hairline;
+  return (
+    <div
+      role="status"
+      style={{
+        display: "flex", gap: 14, alignItems: "flex-start",
+        background: earned ? "#FBEDEA" : T.sheet,
+        border: `1px solid ${earned ? T.shu + "55" : T.hairline}`,
+        borderLeft: `3px solid ${accent}`,
+        borderRadius: 8, padding: "14px 16px", marginBottom: 16,
+      }}
+    >
+      <span style={{ fontFamily: T.jpFont, fontSize: 26, color: accent, lineHeight: 1.1 }}>
+        {greeting.mark}
+      </span>
+      <span style={{ flex: 1, minWidth: 0 }}>
+        <span style={{ display: "block", fontSize: 14, fontWeight: 600 }}>{greeting.head}</span>
+        <span style={{ display: "block", fontSize: 13, color: T.sub, marginTop: 3, lineHeight: 1.5 }}>
+          {greeting.body}
+        </span>
+      </span>
+      <button className="btn-ghost" onClick={onDismiss} style={{ flexShrink: 0, padding: "4px 10px" }}>
+        Got it
+      </button>
+    </div>
+  );
+}
+
+// ————— The returning learner's view —————
+// Lloyd, Session 17: somebody who says they have studied before should get the SPINE of a
+// stage — the compositions and the checkpoints — with everything else foldable so they can
+// still see what a stage contains. The spine is chosen because those two kinds are the only
+// ones that ask you to produce rather than read: they are where a returning learner finds
+// out what they have actually lost.
+const SPINE_KINDS = new Set(["build", "review"]);
+
 export default function GrammarPractice() {
   const [progress, setProgress] = useState({});
   const [kanjiMode, setKanjiMode] = useState("kanji");
@@ -5272,6 +5429,10 @@ export default function GrammarPractice() {
   const [query, setQuery] = useState("");
   const [openCats, setOpenCats] = useState(null); // null → fall back to first unfinished step
   const [challenge, setChallenge] = useState(false);
+  // null = never answered. "full" = show every lesson. "spine" = compositions and
+  // checkpoints only, with each step expandable to its full contents.
+  const [depth, setDepth] = useState(null);
+  const [fullSteps, setFullSteps] = useState(() => new Set());
   const loaded = useRef(false);
 
   const [, setIntegrationTick] = useState(0);
@@ -5282,6 +5443,7 @@ export default function GrammarPractice() {
     loadIntegrationState().then(() => setIntegrationTick((t) => t + 1));
     (async () => {
       try { const r = await window.storage.get("kanji-mode"); if (r && (r.value === "kana" || r.value === "kanji")) setKanjiMode(r.value); } catch {}
+      try { const r = await window.storage.get("learner-depth-v1"); if (r && (r.value === "full" || r.value === "spine")) setDepth(r.value); } catch {}
     })();
     // Home's challenge card sets this flag before navigating here. localStorage
     // rather than window.storage because it is the app shell's medium; guarded
@@ -5297,6 +5459,12 @@ export default function GrammarPractice() {
   const setMode = (m) => {
     setKanjiMode(m);
     try { window.storage.set("kanji-mode", m); } catch {}
+  };
+
+  const setDepthPref = (d) => {
+    setDepth(d);
+    setFullSteps(new Set());
+    try { window.storage.set("learner-depth-v1", d); } catch {}
   };
 
   const updateProgress = (p) => {
@@ -5335,6 +5503,29 @@ export default function GrammarPractice() {
     ? (level.groups.find((g) => g.points.some((p) => !isDone(p))) || level.groups[0] || {}).cat
     : null;
   const isOpen = (name) => (q ? true : openCats ? openCats.has(name) : name === firstUnfinished);
+
+  // The stage greeting. `prev` is the stage before this one in LEVELS, skipping locked
+  // ones; earning it means every lesson in that stage is done. Recording WHICH greeting
+  // was dismissed (not just that one was) is what lets a learner who peeked ahead still
+  // get the real congratulation later, once they have actually earned the stage.
+  const unlocked = LEVELS.filter((l) => !l.locked);
+  const prevLevel = level ? unlocked[unlocked.findIndex((l) => l.id === level.id) - 1] || null : null;
+  const prevComplete = prevLevel
+    ? levelPoints(prevLevel).length > 0 && levelPoints(prevLevel).every(isDone)
+    : false;
+  const greeting = level ? stageGreeting(level, prevLevel, prevComplete) : null;
+  const greetSeen = (progress._stageGreet || {})[level ? level.id : ""];
+  const showGreeting = !!greeting && greetSeen !== greeting.kind && greetSeen !== "earned";
+  const dismissGreeting = () =>
+    updateProgress({ ...progress, _stageGreet: { ...(progress._stageGreet || {}), [level.id]: greeting.kind } });
+
+  const spine = depth === "spine";
+  const toggleFull = (name) =>
+    setFullSteps((prev) => {
+      const next = new Set(prev);
+      if (next.has(name)) next.delete(name); else next.add(name);
+      return next;
+    });
   const toggleCat = (name) =>
     setOpenCats((prev) => {
       const next = new Set(prev || (firstUnfinished ? [firstUnfinished] : []));
@@ -5404,7 +5595,16 @@ export default function GrammarPractice() {
             <button className="btn-ghost" onClick={() => { setLevelId(null); setQuery(""); setOpenCats(null); }} style={{ marginBottom: 16 }}>
               ← All stages
             </button>
+            {showGreeting && <StageWelcome greeting={greeting} onDismiss={dismissGreeting} />}
             {level.tagline && <p style={{ fontSize: 14, color: T.sub, marginTop: 0 }}>{level.tagline}</p>}
+            {level.pace && (
+              <p style={{
+                fontSize: 13, color: T.sub, lineHeight: 1.6, margin: "0 0 14px",
+                borderLeft: `2px solid ${T.note}`, paddingLeft: 12,
+              }}>
+                {level.pace}
+              </p>
+            )}
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -5426,6 +5626,19 @@ export default function GrammarPractice() {
               ))}
               <span style={{ fontSize: 12, color: T.hairline, marginLeft: "auto" }}>nothing is gated yet</span>
             </div>
+            {spine && !q && (
+              <p style={{ fontSize: 13, color: T.sub, margin: "-4px 0 14px", lineHeight: 1.5 }}>
+                Showing the spine of this stage — the compositions and the checkpoints, the
+                lessons that ask you to produce rather than read. Open any step to see
+                everything inside it.{" "}
+                <button
+                  onClick={() => setDepthPref("full")}
+                  style={{ background: "none", border: "none", padding: 0, font: "inherit", color: T.ai, cursor: "pointer", textDecoration: "underline" }}
+                >
+                  Show every lesson instead
+                </button>
+              </p>
+            )}
             {level.groups.map((cat) => {
               const pts = cat.points.filter(
                 (p) => !q || p.jp.toLowerCase().includes(q) || p.en.toLowerCase().includes(q)
@@ -5433,17 +5646,23 @@ export default function GrammarPractice() {
               if (pts.length === 0) return null;
               const done = cat.points.filter(isDone).length;
               const complete = done === cat.points.length;
-              const open = isOpen(cat.cat);
+              // Spine mode opens every step (each is a line or two) and folds the teaching
+              // lessons behind a per-step expander instead.
+              const folded = spine && !q && !fullSteps.has(cat.cat);
+              const shown = folded ? pts.filter((p) => SPINE_KINDS.has(p.kind)) : pts;
+              const open = spine && !q ? true : isOpen(cat.cat);
               return (
                 <section key={cat.cat} style={{ marginBottom: 10 }}>
                   <button
                     className="step-head"
-                    onClick={() => toggleCat(cat.cat)}
-                    aria-expanded={open}
+                    // In spine mode the step is always open, so the head toggles what is
+                    // INSIDE it — spine only, or everything — rather than doing nothing.
+                    onClick={() => (spine && !q ? toggleFull(cat.cat) : toggleCat(cat.cat))}
+                    aria-expanded={spine && !q ? !folded : open}
                     aria-label={`${cat.cat} — ${complete ? "complete" : done ? "in progress" : "not started"}`}
                   >
                     <span style={{ color: T.sub, fontSize: 11, width: 10, transition: "transform .15s",
-                      display: "inline-block", transform: open ? "rotate(90deg)" : "none" }}>▶</span>
+                      display: "inline-block", transform: (spine && !q ? !folded : open) ? "rotate(90deg)" : "none" }}>▶</span>
                     <span style={{ fontSize: 13, letterSpacing: ".5px", color: T.ink, textTransform: "uppercase", flex: 1, textAlign: "left" }}>
                       {cat.cat}
                     </span>
@@ -5462,7 +5681,7 @@ export default function GrammarPractice() {
                   </button>
                   {open && (
                     <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 10 }}>
-                      {pts.map((p) => {
+                      {shown.map((p) => {
                         const pr = progress[p.id] || {};
                         const isComplete = isDone(p);
                         const started = pr.quizBest != null || pr.practiced || pr.built;
@@ -5480,6 +5699,19 @@ export default function GrammarPractice() {
                           </button>
                         );
                       })}
+                      {spine && !q && (
+                        <button
+                          className="btn-ghost"
+                          onClick={() => toggleFull(cat.cat)}
+                          style={{ alignSelf: "flex-start" }}
+                        >
+                          {folded
+                            ? shown.length
+                              ? "See everything in this step"
+                              : "This step has no writing in it — see what's inside"
+                            : "Fold this step back down"}
+                        </button>
+                      )}
                     </div>
                   )}
                 </section>
@@ -5491,6 +5723,29 @@ export default function GrammarPractice() {
           </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {depth === null ? (
+              <div style={{ background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 8, padding: "16px 18px" }}>
+                <div style={{ fontSize: 14, fontWeight: 600 }}>How much Japanese do you already have?</div>
+                <div style={{ fontSize: 13, color: T.sub, marginTop: 4, lineHeight: 1.5 }}>
+                  This only changes how much of a stage is on screen at once. Nothing is
+                  hidden from you and nothing is locked either way.
+                </div>
+                <div style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
+                  <button className="btn-primary" onClick={() => setDepthPref("full")}>I'm starting out</button>
+                  <button className="btn-ghost" onClick={() => setDepthPref("spine")}>I've studied before</button>
+                </div>
+              </div>
+            ) : (
+              <p style={{ fontSize: 12, color: T.sub, margin: "0 0 2px" }}>
+                {spine ? "Stages open on their compositions and checkpoints." : "Stages open in full."}{" "}
+                <button
+                  onClick={() => setDepthPref(spine ? "full" : "spine")}
+                  style={{ background: "none", border: "none", padding: 0, font: "inherit", color: T.ai, cursor: "pointer", textDecoration: "underline" }}
+                >
+                  {spine ? "Show every lesson" : "Show just the spine"}
+                </button>
+              </p>
+            )}
             <button className="level-card" onClick={() => setChallenge(true)} style={{ border: `1px solid ${T.shu}55` }}>
               <span style={{ fontFamily: T.jpFont, fontSize: 26, color: T.shu, minWidth: 54 }}>腕</span>
               <span style={{ flex: 1 }}>
