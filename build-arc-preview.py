@@ -68,7 +68,9 @@ for it in arcs['items']:
         t = e.get('t') if e['kind'] != 'wrinkle' else (wr[e['wr']].get('t') if e.get('wr') is not None and e['wr'] < len(wr) else None)
         exts.append({'kind': e['kind'], 'scene': e['scene'], 'jp': e['jp'], 'en': e['en'], 't': t})
     claimed = {e['wr'] for e in it['extensions'] if e['kind'] == 'wrinkle' and e.get('wr') is not None}
+    d = DEEP.get(pid) or {}
     lessons.append({
+        'seg': d.get('seg') or [], 'segNote': d.get('note') or '', 'hl': d.get('hl') or '',
         'id': pid, 'step': it['step'], 'jp': bt['jp'], 'en': bt['en'],
         'setting': it['setting'], 'ext': exts,
         'what': bt.get('what', ''), 'build': bt.get('build', ''),
@@ -110,7 +112,12 @@ p.body{font-size:15px;line-height:1.78;margin:0 0 14px}
 .hl{color:var(--shu);font-weight:600}
 .wrbox{background:var(--noteBg);border:1px solid var(--note);border-radius:9px;padding:12px 14px;margin:12px 0;
 font-size:14px;line-height:1.7;color:#3d3216}
-.seg{display:flex;gap:12px;align-items:baseline;padding:7px 11px;border:1px solid var(--hair);border-radius:6px;margin-bottom:7px}
+.seg{display:flex;gap:12px;align-items:baseline;padding:8px 12px;border:1px solid var(--hair);border-radius:6px;margin-bottom:7px;background:var(--sheet)}
+.seg.target{border-color:#C7351B66;background:#FBEDEA}
+.segjp{font-family:var(--jp);font-size:18px;flex-shrink:0}.segjp.tj{color:var(--shu);font-weight:600}
+#rv{max-width:620px;width:100%;margin-top:10px;background:none;border:0;color:#B9BAB6;font-size:11px;
+text-align:right;cursor:pointer;font-family:var(--ui);letter-spacing:.3px}
+#rv:hover{color:var(--sub)}
 .tag{font-size:11px;font-weight:700;color:var(--shu);letter-spacing:.4px}
 nav{margin-top:auto;display:flex;align-items:center;gap:10px;padding-top:16px;border-top:1px solid var(--hair)}
 button.nav{border:1px solid var(--hair);background:#fff;border-radius:8px;padding:9px 17px;cursor:pointer;font-size:14px}
@@ -131,11 +138,12 @@ kbd{background:#fff;border:1px solid var(--hair);border-bottom-width:2px;border-
  <code>lesson-arcs-v1.json</code> plus the module's own prose. It is <b>not</b> the app —
  nothing here is built, deployed or connected to Netlify. Arrow keys <kbd>←</kbd> <kbd>→</kbd> page.</div>
  <div id="card"></div>
+ <button id="rv" onclick="toggleMeta()">reviewer notes</button>
  <div id="meta"></div>
 </div>
 <script>
 const D = __DATA__;
-let li = 0, pi = 0;
+let li = 0, pi = 0, showMeta = false;
 const esc = s => (s||"").replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 function hl(t, p){ t = esc(t); if(!p) return t; const i = t.indexOf(esc(p));
   return i<0 ? t : t.slice(0,i)+'<span class="hl">'+esc(p)+'</span>'+t.slice(i+esc(p).length); }
@@ -161,8 +169,17 @@ function render(){
     if(L.when) h += '<div class="kicker">WHEN YOU\\'D USE IT</div><p class="body">'+esc(L.when)+'</p>';
   } else if(pg.k==='apart'){
     h += '<div class="kicker">ONE SENTENCE, TAKEN APART</div>';
-    if(L.ex[0]) h += jpbox(L.ex[0][0], L.ex[0][1], null);
-    h += '<p class="body" style="color:var(--sub);font-size:13px">The live module breaks this into per-word cards from <code>DEEP.seg</code>; the preview shows the sentence whole.</p>';
+    if(L.ex[0]){ h += '<div class="jpbox" style="border:0;padding-left:0"><div class="l" style="font-size:23px">'
+      + esc(L.ex[0][0]) + '</div><div class="g">' + esc(L.ex[0][1]) + '</div></div>'; }
+    if(L.seg.length){
+      h += L.seg.map(function(t){ var tgt = t[2];
+        return '<div class="seg'+(tgt?' target':'')+'"><span class="segjp'+(tgt?' tj':'')+'">'+esc(t[0])+'</span>'
+             + '<span style="font-size:13px;color:var(--sub);line-height:1.6">'
+             + (tgt?'<span class="tag">THE POINT · </span>':'')+esc(t[1])+'</span></div>'; }).join('');
+      if(L.segNote) h += '<p class="body" style="font-size:13px;color:var(--sub);margin-top:12px">'+esc(L.segNote)+'</p>';
+    } else {
+      h += '<p class="body" style="color:var(--sub);font-size:13px">This point has no <code>DEEP.seg</code> in the module, so there is nothing to take apart \u2014 the live app skips straight past this page.</p>';
+    }
   } else if(pg.k==='again'){
     h += '<div class="kicker">HOW IT\\'S BUILT — AND SIGHTED AGAIN</div>';
     if(L.build) h += '<p class="body">'+esc(L.build)+'</p>';
@@ -188,17 +205,20 @@ function render(){
      + P.map((p,i)=>'<button class="dot'+(i===pi?' on':'')+'" onclick="jump('+i+')" title="'+p.k+'"></button>').join('')
      + '</div><button class="nav primary" '+(pi<P.length-1?'':'disabled')+' onclick="go(1)">Next →</button></nav>';
   document.getElementById('card').innerHTML = h;
-  document.getElementById('meta').innerHTML =
-    '<b>'+esc(L.id)+'</b> — '+P.length+' pages · '+L.ext.length+' extension(s)'
-    + (L.flags.length ? '<br><b>flags:</b> '+L.flags.map(esc).join(' · ') : '')
-    + (L.claims.length ? '<br><b>claims:</b> '+L.claims.map(esc).join(' · ') : '')
-    + (L.sources.length ? '<br><b>sources:</b> '+L.sources.length : '');
+  document.getElementById('meta').innerHTML = showMeta
+    ? ('<b>'+esc(L.id)+'</b> — '+P.length+' pages · '+L.ext.length+' extension(s)'
+       + (L.flags.length ? '<br><b>flags:</b> '+L.flags.map(esc).join(' · ') : '')
+       + (L.claims.length ? '<br><b>claims:</b> '+L.claims.map(esc).join(' · ') : '')
+       + (L.sources.length ? '<br><b>sources:</b> '+L.sources.length : ''))
+    : '';
   document.querySelectorAll('.pt').forEach((b,i)=>b.classList.toggle('on', i===li));
 }
 function go(d){ const P=pages(D.lessons[li]); pi=Math.max(0,Math.min(P.length-1,pi+d)); render(); }
 function jump(i){ pi=i; render(); }
 function pick(i){ li=i; pi=0; render(); document.getElementById('main').scrollTop=0; }
-addEventListener('keydown', e => { if(e.key==='ArrowRight') go(1); if(e.key==='ArrowLeft') go(-1); });
+addEventListener('keydown', e => { if(e.key==='ArrowRight') go(1); if(e.key==='ArrowLeft') go(-1);
+  if(e.key==='r'||e.key==='R'){ showMeta=!showMeta; document.getElementById('rv').textContent = showMeta?'hide reviewer notes':'reviewer notes'; render(); } });
+function toggleMeta(){ showMeta=!showMeta; document.getElementById('rv').textContent = showMeta?'hide reviewer notes':'reviewer notes'; render(); }
 (function(){ let h='', cur=null;
   D.lessons.forEach((L,i)=>{ if(L.step!==cur){ cur=L.step; h+='<div class="stepname">'+esc(cur)+'</div>'; }
     h += '<button class="pt" onclick="pick('+i+')">'+esc(L.jp)+'<small>'+esc(L.en)+'</small></button>'; });
