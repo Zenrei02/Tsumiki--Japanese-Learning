@@ -11,12 +11,19 @@ WHAT IT DOES
   3. inserts whole new step blocks (Step 26 · Keigo in the wild, Checkpoint 7)
   4. inserts DEEP entries for the new points, inside the @@DEEP markers
 
-WHAT IT WILL NOT DO
-  Overwrite an existing point or DEEP entry. If an id is already in the module it is
-  skipped and reported, because a silent overwrite of hand-authored lesson prose is the
-  one failure this folder cannot afford.
+WHAT IT WILL NOT DO SILENTLY
+  Overwrite an existing point. By default an id already in the module is skipped and
+  reported, because a silent overwrite of hand-authored lesson prose is the one failure
+  this folder cannot afford.
 
-    python3 build-stage3.py            # splice, report
+  But insert-only means the JSON stops being the source of truth the moment a lesson
+  needs editing — the first edit would have to be made by hand in the module, which is
+  exactly the drift the marker blocks exist to prevent. So --update replaces a point's
+  body from the JSON when the two differ, prints a diff summary, and touches nothing
+  else. Explicit, reported, and never the default.
+
+    python3 build-stage3.py            # insert what is missing
+    python3 build-stage3.py --update   # ALSO rewrite points whose JSON has changed
     python3 build-stage3.py --check    # exit 1 if the module is out of date
 """
 import json, pathlib, re, sys
@@ -128,12 +135,34 @@ def point_end(src, start, end, pid):
     k = src.index("\n", j)
     return k + 1
 
+def point_span(src, start, end, pid):
+    """(start, end) of a whole point object, brace-matched, including its trailing line."""
+    m = re.search(r'\n( *)\{?\s*id: "%s"' % re.escape(pid), src[start:end])
+    if not m: return None, None
+    i = start + m.start() + 1
+    depth, j, instr, esc = 0, i, False, False
+    while j < end:
+        c = src[j]
+        if instr:
+            if esc: esc = False
+            elif c == "\\": esc = True
+            elif c == '"': instr = False
+        else:
+            if c == '"': instr = True
+            elif c == "{": depth += 1
+            elif c == "}":
+                depth -= 1
+                if depth == 0: break
+        j += 1
+    return i, src.index("\n", j) + 1
+
 def main():
     check = "--check" in sys.argv
+    update = "--update" in sys.argv
     src = MODULE.read_text(encoding="utf-8")
     data = json.loads(CONTENT.read_text(encoding="utf-8"))
     before = src
-    added, skipped = [], []
+    added, skipped, rewritten = [], [], []
     # A retitle changes the key later inserts look the step up by, so remember it.
     # Without this, the second point aimed at Step 24 searches for a title that no
     # longer exists and the whole splice dies halfway through.
@@ -151,7 +180,18 @@ def main():
             renamed[ins["step"]] = ins["retitle"]
             cat = ins["retitle"]
         if f'id: "{p["id"]}"' in src:
-            skipped.append(p["id"]); continue
+            if update:
+                s0, s1 = step_span(src, cat)
+                a, b = point_span(src, s0, s1, p["id"])
+                fresh = js_point(p) + "\n"
+                if src[a:b] != fresh:
+                    src = src[:a] + fresh + src[b:]
+                    rewritten.append(f'{p["id"]} ({b - a} -> {len(fresh)} bytes)')
+                else:
+                    skipped.append(p["id"])
+            else:
+                skipped.append(p["id"])
+            continue
         s0, s1 = step_span(src, cat)
         if ins.get("after"):
             at = point_end(src, s0, s1, ins["after"])
@@ -194,6 +234,8 @@ def main():
     cats = re.findall(r"\n  \{\n    cat: \"([^\"]+)\"", src)
     pts = len(re.findall(r'id: "[a-z0-9-]+", jp: "', src))
     print(f"added:   {', '.join(added) if added else '(nothing)'}")
+    if rewritten:
+        print(f"updated: {', '.join(rewritten)}")
     if skipped:
         print(f"skipped: {', '.join(skipped)}   (already present — never overwritten)")
     print(f"module now: {len(cats)} steps, {pts} lesson objects")

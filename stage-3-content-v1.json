@@ -3,14 +3,16 @@
   "_shape": "`points` entries are lesson objects in the module's own shape: skill lessons take a four-beat exp object, culture lessons take a single exp string. `deep` entries become DEEP[id] — wrinkles and drills. Nothing here is hand-pasted into the module; build-stage3.py is idempotent and re-runnable.",
   "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch L. The keigo claims are the highest-risk content in the app — every situation lesson asserts what a learner will actually hear in a real Japanese room, and only a native reader can confirm it.",
   "_register": "Hear-first (Lloyd, Session 17): every situation lesson opens on the sentence the learner expects, then the one they will actually meet. The expected form is never wrong Japanese — it is the right sentence in the wrong mouth.",
-
   "insert": [
     {
       "step": "Step 24 · Hearing keigo",
       "retitle": "Step 24 · Keigo is already everywhere",
       "after": null,
       "point": {
-        "id": "sb-keigo-what", "jp": "敬語の地図", "en": "what the word actually covers", "kind": "skill",
+        "id": "sb-keigo-what",
+        "jp": "敬語の地図",
+        "en": "what the word actually covers",
+        "kind": "skill",
         "exp": {
           "what": "敬語 is not a third thing standing beside 尊敬語 and 謙譲語 — it is the umbrella both of them live under, and you have been under it since Step 1. です・ます is 丁寧語, politeness aimed at the listener, and it is keigo. Stage 3 is not a new subject. It is the name for something you have been doing for twenty-three steps, plus two directions you have not met.",
           "build": "Four rooms under one roof. 丁寧語 — です・ます, aimed at whoever is listening, regardless of who the sentence is about. 尊敬語 — raises the OTHER person's action: 先生がおっしゃいました. 謙譲語 — lowers YOUR OWN: 私が申しました. 美化語 — the noun itself dressed with お or ご: お茶, ご飯.",
@@ -18,28 +20,124 @@
           "watch": "The trap is treating politeness as a dial for the room — formal place, formal words. It is not about the room, it is about the direction. Two people at the same counter use opposite verbs for the same act of going, and both are correct, because one of them is going and the other is being gone to."
         },
         "ex": [
-          ["日本語を話します。", "丁寧語 — aimed at the listener. You have used this since Step 1."],
-          ["先生は何とおっしゃいましたか。", "尊敬語 — the teacher's action, raised."],
-          ["田中と申します。", "謙譲語 — your own action, lowered."],
-          ["お茶・ご飯・お名前", "美化語 — the noun itself, dressed."]
+          [
+            "日本語を話します。",
+            "丁寧語 — aimed at the listener. You have used this since Step 1."
+          ],
+          [
+            "先生は何とおっしゃいましたか。",
+            "尊敬語 — the teacher's action, raised."
+          ],
+          [
+            "田中と申します。",
+            "謙譲語 — your own action, lowered."
+          ],
+          [
+            "お茶・ご飯・お名前",
+            "美化語 — the noun itself, dressed."
+          ]
         ]
       },
       "deep": {
         "wr": [
-          { "t": "The official count is five, not four. The Agency for Cultural Affairs' 敬語の指針 (2 February 2007) splits keigo into 尊敬語, 謙譲語Ⅰ, 謙譲語Ⅱ (also called 丁重語), 丁寧語 and 美化語. The four-way map here is the practical simplification — 謙譲語Ⅱ is a refinement of lowering that you can meet after the other four are solid." },
-          { "t": "美化語 comes in three tiers, and the first one has escaped. FROZEN: ご飯, お腹, お菓子 — no longer a choice at all, because 飯 is a different and rougher word. A LIVE DIAL: お水, お名前, お荷物 — strip the prefix and the register genuinely moves. MARKED: おビール, おソース — possible, and they read as service-counter rather than neutral.",
-            "jp": "ご飯・お名前・おビール", "en": "Frozen / live dial / marked — one prefix, three different jobs.", "hl": "ご飯" },
-          { "t": "Step 5's cc-ogo taught お茶 and ご飯 as 'the polish prefixes' without naming them. They were 美化語 all along. One clean rule to carry: お goes on 和語, ご on 漢語, and loanwords take neither — ×おコーヒー is the test case that proves it." }
+          {
+            "t": "The official count is five, not four. The Agency for Cultural Affairs' 敬語の指針 (2 February 2007) splits keigo into 尊敬語, 謙譲語Ⅰ, 謙譲語Ⅱ (also called 丁重語), 丁寧語 and 美化語. The four-way map here is the practical simplification — 謙譲語Ⅱ is a refinement of lowering that you can meet after the other four are solid."
+          },
+          {
+            "t": "美化語 comes in three tiers, and the first one has escaped. FROZEN: ご飯, お腹, お菓子 — no longer a choice at all, because 飯 is a different and rougher word. A LIVE DIAL: お水, お名前, お荷物 — strip the prefix and the register genuinely moves. MARKED: おビール, おソース — possible, and they read as service-counter rather than neutral.",
+            "jp": "ご飯・お名前・おビール",
+            "en": "Frozen / live dial / marked — one prefix, three different jobs.",
+            "hl": "ご飯"
+          },
+          {
+            "t": "Step 5's cc-ogo taught お茶 and ご飯 as 'the polish prefixes' without naming them. They were 美化語 all along. One clean rule to carry: お goes on 和語, ご on 漢語, and loanwords take neither — ×おコーヒー is the test case that proves it."
+          }
         ],
         "drill": {
           "note": "Name the room, not the register. Each item asks which of the four is doing the work.",
           "items": [
-            { "q": "「田中と申します」の敬語は？", "en": "Your own name, lowered.", "a": ["謙譲語"], "opts": ["謙譲語", "尊敬語", "丁寧語", "美化語"], "why": "申す lowers the speaker's own action. Your side goes down." },
-            { "q": "「先生がいらっしゃいます」の敬語は？", "en": "The teacher's being-there, raised.", "a": ["尊敬語"], "opts": ["尊敬語", "謙譲語", "丁寧語", "美化語"], "why": "いらっしゃる raises the other person's action." },
-            { "q": "「日本語を話します」の敬語は？", "en": "The form you have used since Step 1.", "a": ["丁寧語"], "opts": ["丁寧語", "尊敬語", "謙譲語", "美化語"], "why": "です・ます is politeness aimed at the listener — and it is keigo." },
-            { "q": "「お名前」の「お」は？", "en": "The noun itself, dressed.", "a": ["美化語"], "opts": ["美化語", "尊敬語", "謙譲語", "丁寧語"], "why": "The prefix dresses the noun rather than raising or lowering anyone's action." },
-            { "q": "敬語 is ___ 尊敬語 and 謙譲語.", "a": ["the umbrella over"], "opts": ["the umbrella over", "a third kind beside", "the opposite of", "the same thing as"], "why": "All of them are keigo. The question is never whether — it is which direction." },
-            { "q": "×おコーヒー is wrong because ___.", "a": ["loanwords take neither お nor ご"], "opts": ["loanwords take neither お nor ご", "コーヒー is 漢語", "お is only for verbs", "coffee is informal"], "why": "お goes on 和語, ご on 漢語, and borrowed words take neither." }
+            {
+              "q": "「田中と申します」の敬語は？",
+              "en": "Your own name, lowered.",
+              "a": [
+                "謙譲語"
+              ],
+              "opts": [
+                "謙譲語",
+                "尊敬語",
+                "丁寧語",
+                "美化語"
+              ],
+              "why": "申す lowers the speaker's own action. Your side goes down."
+            },
+            {
+              "q": "「先生がいらっしゃいます」の敬語は？",
+              "en": "The teacher's being-there, raised.",
+              "a": [
+                "尊敬語"
+              ],
+              "opts": [
+                "尊敬語",
+                "謙譲語",
+                "丁寧語",
+                "美化語"
+              ],
+              "why": "いらっしゃる raises the other person's action."
+            },
+            {
+              "q": "「日本語を話します」の敬語は？",
+              "en": "The form you have used since Step 1.",
+              "a": [
+                "丁寧語"
+              ],
+              "opts": [
+                "丁寧語",
+                "尊敬語",
+                "謙譲語",
+                "美化語"
+              ],
+              "why": "です・ます is politeness aimed at the listener — and it is keigo."
+            },
+            {
+              "q": "「お名前」の「お」は？",
+              "en": "The noun itself, dressed.",
+              "a": [
+                "美化語"
+              ],
+              "opts": [
+                "美化語",
+                "尊敬語",
+                "謙譲語",
+                "丁寧語"
+              ],
+              "why": "The prefix dresses the noun rather than raising or lowering anyone's action."
+            },
+            {
+              "q": "敬語 is ___ 尊敬語 and 謙譲語.",
+              "a": [
+                "the umbrella over"
+              ],
+              "opts": [
+                "the umbrella over",
+                "a third kind beside",
+                "the opposite of",
+                "the same thing as"
+              ],
+              "why": "All of them are keigo. The question is never whether — it is which direction."
+            },
+            {
+              "q": "×おコーヒー is wrong because ___.",
+              "a": [
+                "loanwords take neither お nor ご"
+              ],
+              "opts": [
+                "loanwords take neither お nor ご",
+                "コーヒー is 漢語",
+                "お is only for verbs",
+                "coffee is informal"
+              ],
+              "why": "お goes on 和語, ご on 漢語, and borrowed words take neither."
+            }
           ]
         }
       }
@@ -48,7 +146,10 @@
       "step": "Step 24 · Hearing keigo",
       "after": "sonkeigo",
       "point": {
-        "id": "sb-ikukuru", "jp": "行く・来る・いる → 一つ", "en": "three verbs, one replacement", "kind": "skill",
+        "id": "sb-ikukuru",
+        "jp": "行く・来る・いる → 一つ",
+        "en": "three verbs, one replacement",
+        "kind": "skill",
         "exp": {
           "what": "The hardest recognition problem in the stage, and it runs both directions at once. Going up, three verbs you have kept apart since Step 4 — いる, 行く, 来る — all collapse into いらっしゃる. Coming down, two of them collapse into 参る. The distinctions you spent Stage 1 learning are not wrong; they simply stop being visible at this altitude.",
           "build": "UP, for them: いる・行く・来る → いらっしゃる. DOWN, for you: 行く・来る → 参る; いる → おる; and 伺う is the narrower one, for visiting and for asking. So 先生はいらっしゃいますか covers three questions, and 明日参ります covers two answers.",
@@ -56,27 +157,120 @@
           "watch": "先生はいらっしゃいますか is 'is the teacher in?' or 'is the teacher coming?' and nothing in the sentence separates them. Your instinct will be that a rule is missing. It is not — this is ambiguity native speakers live in comfortably, and context resolves it every time without anybody noticing there was one."
         },
         "ex": [
-          ["先生はいらっしゃいますか。", "Is the teacher in? — or coming. Three verbs, one shape."],
-          ["まもなく電車が参ります。", "The train is about to arrive — 来る, lowered."],
-          ["明日、伺います。", "I'll visit tomorrow — the narrower humble one."]
+          [
+            "先生はいらっしゃいますか。",
+            "Is the teacher in? — or coming. Three verbs, one shape."
+          ],
+          [
+            "まもなく電車が参ります。",
+            "The train is about to arrive — 来る, lowered."
+          ],
+          [
+            "明日、伺います。",
+            "I'll visit tomorrow — the narrower humble one."
+          ]
         ]
       },
       "deep": {
         "wr": [
-          { "t": "参ります on a platform is the piece that surprises people most. The railway is lowering its own train, because the company is うち and you, the passenger, are そと. The train is not being modest — the announcer is, on the company's behalf, exactly as you would lower your own boss on the phone.",
-            "jp": "まもなく電車が参ります。", "en": "The company lowers its own rolling stock.", "hl": "参ります" },
-          { "t": "伺う is not a synonym for 参る. It is narrower and it carries its own two jobs: visiting somebody, and asking them something. 明日伺います is 'I'll come to you tomorrow'; ちょっと伺いますが is 'may I ask you something'. Both lower you; neither is a general-purpose 行く." },
-          { "t": "Aim is everything, and the mirror error is the expensive one. おる is YOUR being-there — 先生はおりますか sends the teacher down, which is the exact opposite of what you meant. Up-verbs for them, down-verbs for you, and no exceptions to lean on." }
+          {
+            "t": "参ります on a platform is the piece that surprises people most. The railway is lowering its own train, because the company is うち and you, the passenger, are そと. The train is not being modest — the announcer is, on the company's behalf, exactly as you would lower your own boss on the phone.",
+            "jp": "まもなく電車が参ります。",
+            "en": "The company lowers its own rolling stock.",
+            "hl": "参ります"
+          },
+          {
+            "t": "伺う is not a synonym for 参る. It is narrower and it carries its own two jobs: visiting somebody, and asking them something. 明日伺います is 'I'll come to you tomorrow'; ちょっと伺いますが is 'may I ask you something'. Both lower you; neither is a general-purpose 行く."
+          },
+          {
+            "t": "Aim is everything, and the mirror error is the expensive one. おる is YOUR being-there — 先生はおりますか sends the teacher down, which is the exact opposite of what you meant. Up-verbs for them, down-verbs for you, and no exceptions to lean on."
+          }
         ],
         "drill": {
           "note": "Recognition first: hear the altitude, name the plain verb underneath, and say whose action it is.",
           "items": [
-            { "q": "まもなく電車が___。", "en": "Station announcement — the train is arriving.", "a": ["参ります"], "opts": ["参ります", "いらっしゃいます", "おります", "来られます"], "why": "The company lowers its own train: 来る → 参る." },
-            { "q": "先生は教室に___か。", "en": "Asking whether the teacher is in.", "a": ["いらっしゃいます"], "opts": ["いらっしゃいます", "おります", "参ります", "申します"], "why": "The teacher is the other side — raise it. おります would demote them." },
-            { "q": "いらっしゃる covers ___.", "a": ["いる・行く・来る"], "opts": ["いる・行く・来る", "言う・話す", "食べる・飲む", "する・なる"], "why": "Three verbs, one elevated shape — which is why it is ambiguous and why that is fine." },
-            { "q": "明日、そちらに___。", "en": "I'll come to you tomorrow — visiting.", "a": ["伺います"], "opts": ["伺います", "いらっしゃいます", "おっしゃいます", "なさいます"], "why": "伺う is the narrow humble one: visiting, and asking." },
-            { "q": "「先生はおりますか」is wrong because ___.", "a": ["おる lowers the teacher"], "opts": ["おる lowers the teacher", "おる is too casual", "先生 cannot take keigo", "it needs です"], "why": "A humble verb aimed at the other person demotes them — the mirror of elevating yourself." },
-            { "q": "田中はただいま外出___。", "en": "On the phone, about your own colleague, to an outside caller.", "a": ["しております"], "opts": ["しております", "していらっしゃいます", "されています", "しております"], "why": "Your own side goes down, even your boss — おる, not いらっしゃる." }
+            {
+              "q": "まもなく電車が___。",
+              "en": "Station announcement — the train is arriving.",
+              "a": [
+                "参ります"
+              ],
+              "opts": [
+                "参ります",
+                "いらっしゃいます",
+                "おります",
+                "来られます"
+              ],
+              "why": "The company lowers its own train: 来る → 参る."
+            },
+            {
+              "q": "先生は教室に___か。",
+              "en": "Asking whether the teacher is in.",
+              "a": [
+                "いらっしゃいます"
+              ],
+              "opts": [
+                "いらっしゃいます",
+                "おります",
+                "参ります",
+                "申します"
+              ],
+              "why": "The teacher is the other side — raise it. おります would demote them."
+            },
+            {
+              "q": "いらっしゃる covers ___.",
+              "a": [
+                "いる・行く・来る"
+              ],
+              "opts": [
+                "いる・行く・来る",
+                "言う・話す",
+                "食べる・飲む",
+                "する・なる"
+              ],
+              "why": "Three verbs, one elevated shape — which is why it is ambiguous and why that is fine."
+            },
+            {
+              "q": "明日、そちらに___。",
+              "en": "I'll come to you tomorrow — visiting.",
+              "a": [
+                "伺います"
+              ],
+              "opts": [
+                "伺います",
+                "いらっしゃいます",
+                "おっしゃいます",
+                "なさいます"
+              ],
+              "why": "伺う is the narrow humble one: visiting, and asking."
+            },
+            {
+              "q": "「先生はおりますか」is wrong because ___.",
+              "a": [
+                "おる lowers the teacher"
+              ],
+              "opts": [
+                "おる lowers the teacher",
+                "おる is too casual",
+                "先生 cannot take keigo",
+                "it needs です"
+              ],
+              "why": "A humble verb aimed at the other person demotes them — the mirror of elevating yourself."
+            },
+            {
+              "q": "田中はただいま外出___。",
+              "en": "On the phone, about your own colleague, to an outside caller.",
+              "a": [
+                "しております"
+              ],
+              "opts": [
+                "しております",
+                "していらっしゃいます",
+                "されています",
+                "しております"
+              ],
+              "why": "Your own side goes down, even your boss — おる, not いらっしゃる."
+            }
           ]
         }
       }
@@ -85,59 +279,253 @@
       "step": "Step 14 · Giving, receiving & kindness",
       "after": "itadaku",
       "point": {
-        "id": "cc-itadakimasu", "jp": "いただきます", "en": "the verb you have been saying all along", "kind": "culture", "n4": true,
+        "id": "cc-itadakimasu",
+        "jp": "いただきます",
+        "en": "the verb you have been saying all along",
+        "kind": "culture",
+        "n4": true,
         "exp": "You have said it before every meal since your first week, and it is the verb you just learned. いただきます is いただく — the humble form of もらう — in its ます shape. Literally: I humbly receive. Not a set phrase that happens to sound like a verb, but the verb itself, conjugated, doing exactly the job Step 14 describes.\n\nThat much is uncontested. What comes next usually is not.\n\nThe story that circulates — in English and in a good deal of Japanese material — is that いただきます thanks the life of the ingredients, or the farmer, or the person who cooked. It is a lovely account and it is a modern gloss rather than an etymology. The linguist 近藤泰弘 has called the thanking-the-food and thanking-the-cook explanations かなり疑わしい, quite doubtful. The dates do not settle it either: one source finds it in a book of 1812, Japanese Wikipedia gives 1934, and Kondō reports an earlier mealtime example in a primary-school text of 1917. Those citations disagree, and a phrase that spread through schools in the last century is a different thing from an ancient rite.\n\nSo what is safe to carry: the verb is genuinely humble, the receiving is genuinely the point, and the beautiful explanation is younger than it sounds. Step 13's cc-ritual covered what the phrase DOES — a bracket around a meal, said even alone over a convenience-store onigiri. This one is where it comes from."
+      }
+    },
+    {
+      "step": "Step 26 · Keigo in the wild",
+      "after": "cc-nomikai",
+      "review": {
+        "batch": "L",
+        "status": "unreviewed"
+      },
+      "_why_last": "Step 26 runs universal -> conditional. Everybody stands on a platform; only some people receive a school print. Placing it last keeps the ordering principle honest and reinforces the lesson's own hook.",
+      "point": {
+        "id": "cc-hogosha",
+        "jp": "保護者様・お子様",
+        "en": "the letter in the school bag",
+        "kind": "culture",
+        "exp": "A print comes home folded twice in your child's bag, and the top line is addressed to you. You know the words for parent and child — 親 and 子ども, both since Step 3. Neither is anywhere on the page.\n\nWhat is there is 保護者様 at the top, and お子様 further down.\n\n保護者 is guardian rather than parent: a legal-shaped word for whoever is responsible for the child, which is exactly why a school reaches for it — it fits every household without needing to know anything about yours. 様 addresses you as that person. And お子様 is the honorific for somebody ELSE'S child, which means the school is raising your own child, to you, in a letter you are holding in your kitchen.\n\nThat is Step 25's うち・そと axis running straight through a family. From the school your child is outside and goes up. Writing back, your child is うち and goes flat — 子ども, never お子様. A parent who writes お子様 about their own child has elevated their own side: the same error as calling your own boss 田中さん to a customer.\n\nOne older word survives on older notices. ご父兄 — literally fathers and elder brothers — was standard for decades and has been widely dropped, because gender equality, rising divorce and fathers who are not at home all made it describe a family that had stopped being typical.\n\nAnd this is the venue nobody reaches by accident. No shop, station or counter will teach you these two words. You meet them the first time somebody hands you a letter that assumes you are responsible for a child — which is to say, you only learn them once you are on the receiving end of them.",
+        "ex": [
+          [
+            "保護者様",
+            "Addressed to you — as the child's guardian, not as a parent."
+          ],
+          [
+            "お子様のお名前をご記入ください。",
+            "Please write your child's name — the school raising your child, to you."
+          ],
+          [
+            "子どもがお世話になっております。",
+            "Thank you for looking after my child — writing back, your own side goes flat."
+          ]
+        ]
       }
     }
   ],
-
   "new_steps": [
     {
       "cat": "Step 26 · Keigo in the wild",
       "level": "N3",
       "after_step": "Step 25 · Lowering yourself",
-      "bank": [["電車", "train"], ["荷物", "luggage; a parcel"], ["予約", "a booking"], ["保険証", "insurance card"], ["番号", "number"], ["生", "draught beer"], ["会計", "the bill"], ["窓口", "the counter"]],
+      "bank": [
+        [
+          "電車",
+          "train"
+        ],
+        [
+          "荷物",
+          "luggage; a parcel"
+        ],
+        [
+          "予約",
+          "a booking"
+        ],
+        [
+          "保険証",
+          "insurance card"
+        ],
+        [
+          "番号",
+          "number"
+        ],
+        [
+          "生",
+          "draught beer"
+        ],
+        [
+          "会計",
+          "the bill"
+        ],
+        [
+          "窓口",
+          "the counter"
+        ]
+      ],
       "note": "Session 17, Lloyd's brief: the learner has to understand how much keigo invades their life, not that it is rare. Eight rooms, ordered by how often they are actually walked into. Every lesson is HEAR-FIRST — the sentence they expect, then the sentence they will meet.",
       "points": [
         {
-          "id": "cc-densha", "jp": "駅と電車", "en": "the announcement you hear twice a day", "kind": "culture",
+          "id": "cc-densha",
+          "jp": "駅と電車",
+          "en": "the announcement you hear twice a day",
+          "kind": "culture",
           "exp": "You know this sentence. 電車が来ます — you have owned it since Step 4. Stand on a platform and what comes out of the speaker is 「まもなく、電車が参ります」.\n\nSame train. Same arriving. Not one word you were listening for.\n\n参る is the humble verb — and the surprising part is who is being lowered. It is the railway, lowering its own train, because the company is うち and you, standing on the platform with a ticket, are そと. The train is not being modest. The announcer is, on the company's behalf, exactly as you would lower your own boss on a phone call.\n\nOnce you hear it, you hear it everywhere. The department store lift says 上へ参ります. The bus says 発車いたします. The doors 閉まります and the staff 恐れ入ります. Announcements are the one place a learner is guaranteed daily keigo exposure, and they are also the easiest, because they repeat forever and nobody expects an answer.\n\nWhat you actually need to produce here is nothing at all. This is a listening room.",
-          "ex": [["まもなく、電車が参ります。", "The train will arrive shortly — 来る, lowered by the company."], ["上へ参ります。", "Going up — the lift, in the same humble verb."], ["白線の内側までお下がりください。", "Please step back behind the white line — お〜ください, Step 27's pattern, met early."]]
+          "ex": [
+            [
+              "まもなく、電車が参ります。",
+              "The train will arrive shortly — 来る, lowered by the company."
+            ],
+            [
+              "上へ参ります。",
+              "Going up — the lift, in the same humble verb."
+            ],
+            [
+              "白線の内側までお下がりください。",
+              "Please step back behind the white line — お〜ください, Step 27's pattern, met early."
+            ]
+          ]
         },
         {
-          "id": "cc-mise2", "jp": "売り場とレジ", "en": "the shop floor's own register", "kind": "culture",
+          "id": "cc-mise2",
+          "jp": "売り場とレジ",
+          "en": "the shop floor's own register",
+          "kind": "culture",
           "exp": "You would ask いくらですか. What comes back is 「三千円でございます」, and if there is a queue, 「少々お待ちください」.\n\nでございます is です one bow deeper and it honours nobody in particular — it is politeness aimed at the room. That is why buildings speak it: department stores, hotels, banks, anywhere with a uniform. It is the announcement register rather than the personal one.\n\nThis is not the same shop Japanese you met twice before, and the difference is worth holding. Step 8's cc-konbini is survival — the two-word answers that get you out of a convenience store. Step 24's cc-baito is バイト敬語, the forms that are everywhere and that prescriptivists call wrong. This is the third thing: the correct, trained, department-store register, spoken by people who were taught it in a manual and get it right.\n\nYour half of the exchange stays small. はい, お願いします, 大丈夫です. The register comes at you; you are not expected to return it.",
-          "ex": [["三千円でございます。", "That'll be 3,000 yen — です, one bow deeper."], ["少々お待ちください。", "One moment please — the standard hold."], ["こちらでよろしいでしょうか。", "Is this all right? — でしょうか softens the asking further than ですか."]]
+          "ex": [
+            [
+              "三千円でございます。",
+              "That'll be 3,000 yen — です, one bow deeper."
+            ],
+            [
+              "少々お待ちください。",
+              "One moment please — the standard hold."
+            ],
+            [
+              "こちらでよろしいでしょうか。",
+              "Is this all right? — でしょうか softens the asking further than ですか."
+            ]
+          ]
         },
         {
-          "id": "cc-denwa", "jp": "電話", "en": "where your own boss goes down", "kind": "culture",
+          "id": "cc-denwa",
+          "jp": "電話",
+          "en": "where your own boss goes down",
+          "kind": "culture",
           "exp": "You would ask 田中さんはいますか. On a company phone, what you will hear back about that same person is 「田中はただいま外出しております」.\n\nNo さん. A humble verb. About their own section head.\n\nThis is うち and そと doing its most visible work, and it is the moment English speakers freeze. Lowering your own boss to an outsider feels like disloyalty. It is the opposite: you lower your entire side as one body, and the unity is the respect. Inside the office he is 田中さん and elevated; the instant the call connects to somebody outside, he is 田中 and he おる.\n\nThe same axis runs the other way. Ask about somebody at the company you are calling and they go up — 田中さんはいらっしゃいますか. One sentence, two directions, decided entirely by which side of the wall each person stands on.\n\nAnd the phone is where you will produce keigo earliest, because the script is short and fixed: your company, your name, and what you want.",
-          "ex": [["田中はただいま外出しております。", "Tanaka is out — your own side, lowered, さん dropped."], ["田中さんはいらっしゃいますか。", "Is Mr Tanaka in? — their side, raised."], ["いつもお世話になっております。", "The standard opening — untranslatable, and required."]]
+          "ex": [
+            [
+              "田中はただいま外出しております。",
+              "Tanaka is out — your own side, lowered, さん dropped."
+            ],
+            [
+              "田中さんはいらっしゃいますか。",
+              "Is Mr Tanaka in? — their side, raised."
+            ],
+            [
+              "いつもお世話になっております。",
+              "The standard opening — untranslatable, and required."
+            ]
+          ]
         },
         {
-          "id": "cc-takuhai", "jp": "宅配便", "en": "the slip in your letterbox", "kind": "culture",
+          "id": "cc-takuhai",
+          "jp": "宅配便",
+          "en": "the slip in your letterbox",
+          "kind": "culture",
           "exp": "You expect 荷物が来ます. What arrives instead, on a slip through the door, is ご不在のため — and if you catch the driver, 「お届けにあがりました」.\n\nあがる is another humble verb for coming, alongside 参る, and it is the delivery trade's own. The driver is lowering himself on behalf of the company; ご不在 dresses your absence with a 美化語 prefix, which is a small courtesy — even your not being home is described politely.\n\nRedelivery is the thing worth knowing before you need it. The slip has a number, a website and an automated line, and the phrase that matters is 再配達. Japan runs an enormous redelivery system precisely because so much is delivered to homes where nobody is in during the day, and the automated menus are entirely in keigo you will now recognise: ご希望の日時をお選びください.\n\nThe practical upshot: you do not have to speak to anybody. You have to read one slip.",
-          "ex": [["お届けにあがりました。", "I've come to deliver — あがる, another humble 来る."], ["ご不在のため、持ち帰りました。", "You were out, so I took it back."], ["再配達をお願いします。", "Redelivery please — the one sentence you will produce."]]
+          "ex": [
+            [
+              "お届けにあがりました。",
+              "I've come to deliver — あがる, another humble 来る."
+            ],
+            [
+              "ご不在のため、持ち帰りました。",
+              "You were out, so I took it back."
+            ],
+            [
+              "再配達をお願いします。",
+              "Redelivery please — the one sentence you will produce."
+            ]
+          ]
         },
         {
-          "id": "cc-byouin", "jp": "病院と薬局", "en": "the clinic's questions", "kind": "culture",
+          "id": "cc-byouin",
+          "jp": "病院と薬局",
+          "en": "the clinic's questions",
+          "kind": "culture",
           "exp": "You expect 名前を呼びます and どうしましたか. What you will hear is 「お名前をお呼びします」 and 「本日はどうなさいましたか」.\n\nThis is the productive pattern arriving before Step 27 teaches it. お + stem + する lowers the speaker's own action — the receptionist is lowering her calling-of-your-name — and なさる is the elevated する, raising yours. In one short exchange the altitude moves both ways, which is the whole system in miniature.\n\nA clinic is also where you will meet the most keigo per minute of any ordinary errand, because everybody in the building is trained and every question is scripted. 保険証はお持ちですか. こちらにおかけになってお待ちください. お大事に on the way out, which is the one you should learn to say back.\n\nWhat you need to produce is small and mostly nouns: where it hurts, since when, what you are taking. The keigo is entirely incoming.",
-          "ex": [["お名前をお呼びします。", "We'll call your name — お〜する, the speaker lowering her own act."], ["本日はどうなさいましたか。", "What brings you in today? — する, raised."], ["お大事に。", "Take care of yourself — say this one back."]]
+          "ex": [
+            [
+              "お名前をお呼びします。",
+              "We'll call your name — お〜する, the speaker lowering her own act."
+            ],
+            [
+              "本日はどうなさいましたか。",
+              "What brings you in today? — する, raised."
+            ],
+            [
+              "お大事に。",
+              "Take care of yourself — say this one back."
+            ]
+          ]
         },
         {
-          "id": "cc-yakusho", "jp": "役所の窓口", "en": "the counter you have already stood at", "kind": "culture",
+          "id": "cc-yakusho",
+          "jp": "役所の窓口",
+          "en": "the counter you have already stood at",
+          "kind": "culture",
           "exp": "You know 書いてください. At the counter you will be handed a form and told 「こちらにご記入ください」.\n\nSame instruction. ご記入 is the 漢語 noun dressed with ご, and ください does the asking — which means the polite version is not a different grammar so much as a different vocabulary, one layer more formal than the verb you own.\n\nYou have been standing at this counter since Step 0. The fourteen-day registration, the insurance, the certificate for the bank — all of it happened in rooms speaking this register, and until now you have been parsing the gestures rather than the sentences. The vocabulary is small and it repeats: お待ちください, お持ちですか, ご確認ください, 恐れ入りますが.\n\n恐れ入りますが is the one to recognise first. It means roughly 'I'm afraid I must trouble you', it precedes almost every request a counter makes of you, and it is the audible signal that something is about to be asked.",
-          "ex": [["こちらにご記入ください。", "Please fill this in here — ご + 漢語 noun."], ["恐れ入りますが、身分証をお持ちですか。", "Sorry to trouble you — do you have ID?"], ["少々お待ちください。", "One moment — the same hold as the shop floor."]]
+          "ex": [
+            [
+              "こちらにご記入ください。",
+              "Please fill this in here — ご + 漢語 noun."
+            ],
+            [
+              "恐れ入りますが、身分証をお持ちですか。",
+              "Sorry to trouble you — do you have ID?"
+            ],
+            [
+              "少々お待ちください。",
+              "One moment — the same hold as the shop floor."
+            ]
+          ]
         },
         {
-          "id": "cc-ginkou", "jp": "銀行と郵便局", "en": "the slowest, most polite room in Japan", "kind": "culture",
+          "id": "cc-ginkou",
+          "jp": "銀行と郵便局",
+          "en": "the slowest, most polite room in Japan",
+          "kind": "culture",
           "exp": "You expect 待ってください. What you get is 「恐れ入りますが、少々お待ちください」, and then you wait rather a long time.\n\nBanks and post offices run the deepest routine keigo of anywhere you will go monthly. Everything is 承ります (received, humbly), お預かりします (taken into our keeping), ご確認ください (please confirm). Money makes institutions careful, and careful in Japanese means low.\n\nお預かりします is worth pulling out because it is everywhere and it is not what it looks like. 預かる is to keep something on someone's behalf — so when a cashier says 一万円お預かりします, they are not saying they have taken your money, they are saying they are holding it while they make change. It is the same verb a coin locker uses, and it is why the phrase survives even when the amount is exact.\n\nExpect forms, a stamp, and a number ticket. Expect to be thanked more than you thanked anybody.",
-          "ex": [["一万円お預かりします。", "Taking 10,000 yen — holding it, not keeping it."], ["恐れ入りますが、こちらにご印鑑を。", "Sorry to trouble you — your seal here."], ["確かに承りました。", "Received and confirmed — 受ける, lowered."]]
+          "ex": [
+            [
+              "一万円お預かりします。",
+              "Taking 10,000 yen — holding it, not keeping it."
+            ],
+            [
+              "恐れ入りますが、こちらにご印鑑を。",
+              "Sorry to trouble you — your seal here."
+            ],
+            [
+              "確かに承りました。",
+              "Received and confirmed — 受ける, lowered."
+            ]
+          ]
         },
         {
-          "id": "cc-nomikai", "jp": "居酒屋と飲み会", "en": "the one room where it all drops", "kind": "culture",
+          "id": "cc-nomikai",
+          "jp": "居酒屋と飲み会",
+          "en": "the one room where it all drops",
+          "kind": "culture",
           "exp": "Everywhere else in this step, keigo comes at you. Here it comes at you from the floor and evaporates at your table, in the same evening, and you have to run both.\n\nFrom the staff: いらっしゃいませ, お決まりでしょうか, ラストオーダーになります. Textbook incoming keigo, and the same register you have met at every counter this step.\n\nFrom the table: none of that. Contractions, dropped particles, 〜っす doing the work of です — うまいっす, 大丈夫っす — and the section head who was firmly keigo at six o'clock on plain forms by eight. On Monday morning he will be keigo again, and neither of you will mention it. That switch is not rudeness or friendship exactly; it is what the room is for.\n\nTwo practical things. とりあえず生 — a beer to start, said by somebody within a minute of sitting down, and the closest thing to a ritual opening. And お通し, the small dish nobody ordered that appears anyway and goes on the bill: it is a seat charge in the shape of food, it is normal, and it is not a mistake.\n\nThe forms themselves you have met — Step 9's cc-slang, Step 13's cc-chau. What is new is the speed of the altitude change and where the line falls.",
-          "ex": [["とりあえず生をお願いします。", "A draught to start — the standard opening move."], ["お決まりでしょうか。", "Ready to order? — incoming, from the floor."], ["うまいっす。", "It's good — っす, the compressed です, table-side only."]]
+          "ex": [
+            [
+              "とりあえず生をお願いします。",
+              "A draught to start — the standard opening move."
+            ],
+            [
+              "お決まりでしょうか。",
+              "Ready to order? — incoming, from the floor."
+            ],
+            [
+              "うまいっす。",
+              "It's good — っす, the compressed です, table-side only."
+            ]
+          ]
         }
       ]
     },
@@ -148,8 +536,20 @@
       "note": "Lloyd, Session 17: Stage 3 needs a COMPREHENSION check. Every earlier checkpoint is production — a composition here would test the one thing a recognition stage does not claim to teach.",
       "points": [
         {
-          "id": "rc7", "jp": "復習 · 聞き取り", "en": "checkpoint: hear it, place it", "kind": "review",
-          "covers": ["sb-keigo-what", "sonkeigo", "sb-ikukuru", "gozaimasu", "kenjougo", "sb-uchisoto", "okeigo", "sb-keigo-map"],
+          "id": "rc7",
+          "jp": "復習 · 聞き取り",
+          "en": "checkpoint: hear it, place it",
+          "kind": "review",
+          "covers": [
+            "sb-keigo-what",
+            "sonkeigo",
+            "sb-ikukuru",
+            "gozaimasu",
+            "kenjougo",
+            "sb-uchisoto",
+            "okeigo",
+            "sb-keigo-map"
+          ],
           "exp": "The Stage 3 review, and deliberately not a composition. This stage taught recognition, so the check is recognition: hear a line, name the plain sentence under it, and say which way it points and who moved. Some of these have more than one defensible answer — that is not a flaw in the question, it is what いらっしゃる actually does.",
           "ex": []
         }
@@ -159,14 +559,118 @@
           "drill": {
             "note": "Five kinds of item: decode the plain verb, name the direction, spot the misaimed one, place it in a room, and pick the altitude. Where more than one answer fits, the explanation says so.",
             "items": [
-              { "q": "「先生はいらっしゃいますか」の「いらっしゃる」は何の敬語？", "en": "Which plain verb is underneath?", "a": ["いる・行く・来る のどれでも"], "opts": ["いる・行く・来る のどれでも", "いる だけ", "行く だけ", "言う"], "why": "All three collapse into いらっしゃる, so the sentence is genuinely ambiguous — 'is the teacher in' or 'is the teacher coming'. Context decides, and native speakers do not notice the ambiguity." },
-              { "q": "「田中はおりません」— 誰を下げている？", "en": "Who is being lowered?", "a": ["話し手の側（うち）"], "opts": ["話し手の側（うち）", "田中さん個人だけ", "聞き手", "誰も"], "why": "The speaker lowers their whole side as one body, which is why 田中 loses his さん to an outside caller." },
-              { "q": "「先生はおりますか」の問題は？", "en": "What is wrong here?", "a": ["謙譲語を相手に向けている"], "opts": ["謙譲語を相手に向けている", "丁寧語が足りない", "先生に敬語は使わない", "問題ない"], "why": "おる lowers its subject, and the subject here is the teacher — the exact mirror of elevating yourself." },
-              { "q": "「まもなく電車が参ります」— どこで聞く？", "en": "Where would you hear this?", "a": ["駅のホーム"], "opts": ["駅のホーム", "友達の家", "教室で先生から", "電話で自分が言う"], "why": "The railway lowering its own train. You will hear it several times a day and never need to say it." },
-              { "q": "「お名前をお呼びします」の「お呼びします」は？", "en": "Which direction?", "a": ["謙譲語（話し手の動作）"], "opts": ["謙譲語（話し手の動作）", "尊敬語（相手の動作）", "美化語", "丁寧語だけ"], "why": "お + stem + する lowers the speaker's own action — the receptionist's calling, not your being called." },
-              { "q": "「いただきます」のもとの動詞は？", "en": "The verb underneath the mealtime phrase.", "a": ["いただく（もらうの謙譲語）"], "opts": ["いただく（もらうの謙譲語）", "いたす", "いらっしゃる", "くださる"], "why": "It is もらう, lowered — you have been conjugating a humble verb three times a day." },
-              { "q": "同じ「行く」を、相手には ___、自分には ___。", "en": "The same act, two directions.", "a": ["いらっしゃる／参る"], "opts": ["いらっしゃる／参る", "参る／いらっしゃる", "おる／いらっしゃる", "なさる／いたす"], "why": "Up for them, down for you — and the two words share no material at all." },
-              { "q": "「ご飯」の「ご」は今も敬語として働いている？", "en": "Is the prefix still doing a job?", "a": ["いいえ、語に定着している"], "opts": ["いいえ、語に定着している", "はい、尊敬語として", "はい、謙譲語として", "場面による"], "why": "Frozen. 飯 is a different, rougher word — the prefix stopped being a dial and became part of the vocabulary." }
+              {
+                "q": "「先生はいらっしゃいますか」の「いらっしゃる」は何の敬語？",
+                "en": "Which plain verb is underneath?",
+                "a": [
+                  "いる・行く・来る のどれでも"
+                ],
+                "opts": [
+                  "いる・行く・来る のどれでも",
+                  "いる だけ",
+                  "行く だけ",
+                  "言う"
+                ],
+                "why": "All three collapse into いらっしゃる, so the sentence is genuinely ambiguous — 'is the teacher in' or 'is the teacher coming'. Context decides, and native speakers do not notice the ambiguity."
+              },
+              {
+                "q": "「田中はおりません」— 誰を下げている？",
+                "en": "Who is being lowered?",
+                "a": [
+                  "話し手の側（うち）"
+                ],
+                "opts": [
+                  "話し手の側（うち）",
+                  "田中さん個人だけ",
+                  "聞き手",
+                  "誰も"
+                ],
+                "why": "The speaker lowers their whole side as one body, which is why 田中 loses his さん to an outside caller."
+              },
+              {
+                "q": "「先生はおりますか」の問題は？",
+                "en": "What is wrong here?",
+                "a": [
+                  "謙譲語を相手に向けている"
+                ],
+                "opts": [
+                  "謙譲語を相手に向けている",
+                  "丁寧語が足りない",
+                  "先生に敬語は使わない",
+                  "問題ない"
+                ],
+                "why": "おる lowers its subject, and the subject here is the teacher — the exact mirror of elevating yourself."
+              },
+              {
+                "q": "「まもなく電車が参ります」— どこで聞く？",
+                "en": "Where would you hear this?",
+                "a": [
+                  "駅のホーム"
+                ],
+                "opts": [
+                  "駅のホーム",
+                  "友達の家",
+                  "教室で先生から",
+                  "電話で自分が言う"
+                ],
+                "why": "The railway lowering its own train. You will hear it several times a day and never need to say it."
+              },
+              {
+                "q": "「お名前をお呼びします」の「お呼びします」は？",
+                "en": "Which direction?",
+                "a": [
+                  "謙譲語（話し手の動作）"
+                ],
+                "opts": [
+                  "謙譲語（話し手の動作）",
+                  "尊敬語（相手の動作）",
+                  "美化語",
+                  "丁寧語だけ"
+                ],
+                "why": "お + stem + する lowers the speaker's own action — the receptionist's calling, not your being called."
+              },
+              {
+                "q": "「いただきます」のもとの動詞は？",
+                "en": "The verb underneath the mealtime phrase.",
+                "a": [
+                  "いただく（もらうの謙譲語）"
+                ],
+                "opts": [
+                  "いただく（もらうの謙譲語）",
+                  "いたす",
+                  "いらっしゃる",
+                  "くださる"
+                ],
+                "why": "It is もらう, lowered — you have been conjugating a humble verb three times a day."
+              },
+              {
+                "q": "同じ「行く」を、相手には ___、自分には ___。",
+                "en": "The same act, two directions.",
+                "a": [
+                  "いらっしゃる／参る"
+                ],
+                "opts": [
+                  "いらっしゃる／参る",
+                  "参る／いらっしゃる",
+                  "おる／いらっしゃる",
+                  "なさる／いたす"
+                ],
+                "why": "Up for them, down for you — and the two words share no material at all."
+              },
+              {
+                "q": "「ご飯」の「ご」は今も敬語として働いている？",
+                "en": "Is the prefix still doing a job?",
+                "a": [
+                  "いいえ、語に定着している"
+                ],
+                "opts": [
+                  "いいえ、語に定着している",
+                  "はい、尊敬語として",
+                  "はい、謙譲語として",
+                  "場面による"
+                ],
+                "why": "Frozen. 飯 is a different, rougher word — the prefix stopped being a dial and became part of the vocabulary."
+              }
             ]
           }
         }

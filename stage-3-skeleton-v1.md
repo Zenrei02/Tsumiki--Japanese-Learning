@@ -16,9 +16,9 @@ now in `grammar-module.jsx` unless marked otherwise — commits `a8e4521` (renum
 | **Checkpoint 7 · 聞き取り** — 8 recognition items | ✅ on the DEEP drill machinery |
 | `cc-itadakimasu` → Step 14 | ✅ Stage 2, after `itadaku` |
 | Arcs for all 8 Stage 3 points | ✅ **180/180 across all stages** |
-| `cc-hogosha` (optional ninth) | ⬜ not built — Lloyd's call |
+| `cc-hogosha` (ninth venue) | ✅ built — Lloyd said yes, Step 26, last |
 
-The module is now **35 steps, 245 lesson objects, 180 arcs, 549 pages**.
+The module is now **35 steps, 246 lesson objects, 180 arcs, 549 pages**.
 
 ## Lloyd's brief (Session 17)
 
@@ -203,11 +203,23 @@ changes in one room.
 contested-but-universal forms). `cc-mise2` is the *correct* department-store register and
 must be explicitly contrasted with both, or it is the third shop lesson in the course.
 
-### Optional ninth, flagged not scheduled
+### ✅ Ninth venue — built
 
-`cc-hogosha` — parents' evening and school notices (ご父兄, お子さま, 保護者). Lloyd
-teaches; this is either the most authentic lesson in the step or the one he is too close
-to. **His call, not scheduled.**
+`cc-hogosha` — **保護者様・お子様**, the letter in the school bag. Lloyd said yes, and
+reframed it: it matters to him as a teacher, but it matters to the *learner* as a
+potential parent. So the scenario puts the learner on the receiving end — married, with a
+child, holding a school print addressed to them.
+
+Two honorific titles, deliberately kept distinct: **保護者様** addresses the recipient as
+the child's guardian, **お子様** is the honorific for their child. And the hook is that
+these are words nobody meets by accident — **you only learn them once you are on the
+receiving end of them.** No shop, station or counter will teach them.
+
+The wrinkle that earns the lesson its place: お子様 is the honorific for *somebody else's*
+child, so the school is raising **your** child, to you. Writing back, your own child goes
+flat — 子ども, never お子様 — because that is Step 25's うち・そと axis running through a
+family. Placed **last** in the step: Step 26 runs universal → conditional, and everybody
+stands on a platform while only some people receive a school print.
 
 ---
 
