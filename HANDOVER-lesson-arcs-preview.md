@@ -185,3 +185,11 @@ from the rendering side — particularly any Japanese line that is too long for 
 the font size the module uses. Seventeen lines carry kanji outside `KANJI_DICT` and are
 flagged in the JSON for a furigana decision; if any of them render badly, say so, because
 that decision has not been made yet.
+
+---
+
+# ⚠️ SUPERSEDED — see HANDOVER-lesson-arcs-buildout.md
+
+The integration this file briefs was delivered in commit `65ccf5c`. What remains is a
+renderer gate that blocks 26 of the 112 arcs, plus the standalone build. Both are
+specified in `HANDOVER-lesson-arcs-buildout.md`, which is the current handover.
