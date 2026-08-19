@@ -87,6 +87,23 @@ Step 8 is short by design. Two are worth acting on:
 The rest — Steps 2, 10, 17, 18, 19 — are worth one CC between them at most, and Step 19
 (time's edges) is the best candidate if only one gets written.
 
+## ✅ BUILT — all seven, same session
+
+Lloyd ruled them in and they are authored, spliced and arced: `cc-aimai` (31),
+`cc-keiji` (30), `cc-manga` (32), `cc-aisatsu2` (34), `cc-news` (36), `cc-shikata` (38),
+`cc-nengajou` (42). Source `stage-9-10-culture-v1.json`; arcs in `lesson-arcs-v1.json`;
+reviewer scoping in `reviewer-content-batches-v1.md` as **Batch O**.
+
+Two carry sourced facts rather than general description — `cc-keiji` cites the Tokyo
+metropolitan subsidy for 電子回覧板, and `cc-nengajou` cites Japan Post's 2026 print run
+(≈748 million, −30.1% year on year, fifteenth consecutive decline, against a 2004 peak
+near 4.46 billion). Both sets of citations live in the arcs file beside the claims.
+
+**S9 goes 0 → 4 culture lessons; S10 goes 2 → 5.** Both stages remain lighter on culture
+than S5 or S8, which is right for their subject.
+
+The earlier-stage items below are NOT built and remain open.
+
 ## Open for Lloyd
 
 1. **Seven CCs for S9/S10, or fewer?** Seven is the number that makes the stages match the

@@ -10119,6 +10119,286 @@
       "review": {
         "status": "unreviewed"
       }
+    },
+    {
+      "point": "cc-aimai",
+      "step": "Step 31 · Conclusions",
+      "setting": {
+        "scene": "You have asked a colleague whether they could help with something on Saturday. They breathe in slightly, tilt their head, and say four words — and then stop. You wait, because in English a sentence that stops there has not finished, and the silence runs long enough that you start asking the question again.",
+        "jp": "土曜日、手伝ってもらえますか。",
+        "en": "Could you help on Saturday? — the question you asked.",
+        "pattern": "手伝って"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "The sentence was finished. ちょっと and a trailing pause is a complete refusal, and it is complete precisely because ending it would force the word out. Say it back yourself and you have declined without once being unkind to anybody.",
+          "jp": "土曜日はちょっと…",
+          "en": "Saturday's a bit — a whole sentence, in Japanese."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "This step's わけではない does the harder version: denying the conclusion somebody has drawn while leaving everything they actually said standing, which is what you need when a flat no would simply be false.",
+          "jp": "行きたくないわけではないんです。",
+          "en": "It's not that I don't want to go.",
+          "t": "The refusal is built to protect the ASKER — if the no is never said, nobody is on record as having been turned down. And the reverse is the half learners miss: 難しいですね about your proposal IS the answer."
+        }
+      ],
+      "claims": [
+        "In ordinary Japanese, いいえ answers questions of fact rather than declining offers, refusing requests or disagreeing with opinions; those are typically carried by a trailing ちょっと, by 難しい, by 考えておきます, or by patterns that deny an inference rather than a statement.",
+        "Directness varies substantially by individual, region, industry and age, and has been increasing among younger speakers and in internationally-facing workplaces."
+      ],
+      "sources": [],
+      "flags": [
+        "⚠️ HIGHEST-RISK LESSON IN THE APP OUTSIDE THE KEIGO STAGE. It makes claims about how Japanese speakers decline things, which is the single most stereotyped topic in the field. It is deliberately written about REGISTER AND MARKERS rather than national character, and it argues against the stereotype in the text — but whether the framing lands is a judgement only a native reader can make. Read this one first.",
+        "No citable source: these are observations about conversational practice rather than statistics. Stated as practice, with the variation caveat in the lesson body, rather than asserted as a fact about Japan.",
+        "Stage 9/10 culture lessons necessarily use kanji outside KANJI_DICT (回覧板・年賀状・仕方・訪米 and the like). Furigana needed — flagged once per lesson rather than per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "cc-keiji",
+      "step": "Step 30 · The compound particles",
+      "setting": {
+        "scene": "Somebody knocks about three weeks after you move in. A neighbour you have not met hands you a flat plastic folder with a grid of names printed down the front, says one short sentence, and goes. Inside is a single sheet about refuse collection. Your name is third from the top, with an empty box beside it, and you have no idea whether that box means read, agreed, or paid.",
+        "jp": "回覧板が回ってきました。",
+        "en": "The circulating folder has come round.",
+        "pattern": "回覧板"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "The box means read. Tick it or stamp it and carry the folder to the next house on the grid — that is the entire obligation, and the common first-year embarrassment is the folder sitting on your table for a week while eleven households wait behind you.",
+          "jp": "次の家に持って行きます。",
+          "en": "I'll take it on to the next house."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "And the sheet inside it is this step's grammar in the wild. Every heading on a neighbourhood notice hangs a noun off a claim with one of these six particles, and none of them has a verb in it at all.",
+          "jp": "ゴミの分別についてのお知らせ",
+          "en": "Notice concerning refuse separation.",
+          "t": "Tokyo's metropolitan government now subsidises 町会・自治会 moving to 電子回覧板, and wards including Minato run their own. Paper persists anyway: the volunteers who run a 町内会 skew elderly, so most areas that digitise end up running both."
+        }
+      ],
+      "claims": [
+        "A 回覧板 is a physical folder circulated house to house by a neighbourhood association, with a grid of household names to be stamped or ticked and passed on.",
+        "The Tokyo Metropolitan Government operates a subsidy for neighbourhood associations adopting 電子回覧板 and digital fee collection (announced April 2026); Minato Ward runs its own digital 回覧板 scheme.",
+        "Digitisation is commonly run in parallel with paper because association membership skews elderly, which increases rather than reduces the administrative burden."
+      ],
+      "sources": [
+        "東京都 · 町会・自治会の電子回覧板や町会費のデジタル化を応援 (April 2026) — https://www.metro.tokyo.lg.jp/information/press/2026/04/2026040810",
+        "港区 · デジタル回覧板 — https://www.city.minato.tokyo.jp/kuminkyoudoutan/digital_kairannbann.html",
+        "札幌市 · 町内会における回覧板のデジタル化について — https://www4.city.sapporo.jp/scg/task/post-005.html"
+      ],
+      "flags": [
+        "Stage 9/10 culture lessons necessarily use kanji outside KANJI_DICT (回覧板・年賀状・仕方・訪米 and the like). Furigana needed — flagged once per lesson rather than per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "cc-manga",
+      "step": "Step 32 · Verbs that carry more",
+      "setting": {
+        "scene": "You buy a manga because somebody said it was easy, and you get four pages in before admitting that you can read every kanji on the page and still not know what is happening. The verbs are the problem. You know 言う and you know かける, and 言いかけた is not obviously either of them, and there are six more like it before the chapter ends.",
+        "jp": "彼は何か言いました。",
+        "en": "He said something — the sentence you can build.",
+        "pattern": "言いました"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "This step is the join. A compound verb welds a second verb onto the first to add a direction, a completeness or an attitude, and once you can see the seam the vocabulary stops being six hundred new words and becomes two hundred you already had.",
+          "jp": "彼は何か言いかけて、やめました。",
+          "en": "He started to say something and stopped."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "Which makes this roughly the point where reading for pleasure stops being a punishment — and manga aimed at younger readers prints furigana over the kanji, so the reading is handed to you and only the meaning is your problem.",
+          "jp": "駅前で先生を見かけました。",
+          "en": "I happened to spot my teacher outside the station.",
+          "t": "⚠️ Manga dialogue is stylised. 俺様, わし, ですわ mark a character as a type, and a learner who absorbs them unnoticed will sound like a cartoon. Read it for the verbs and the rhythm; take your register from people."
+        }
+      ],
+      "claims": [
+        "Manga aimed at younger readerships (少年・少女 lines) commonly prints furigana over kanji, while lines aimed at adult readerships (青年・女性) frequently do not.",
+        "Manga dialogue uses role-marking pronouns and sentence-endings that are stylised rather than typical of ordinary speech."
+      ],
+      "sources": [],
+      "flags": [
+        "The furigana claim is a general publishing convention rather than a universal rule, and is stated as commonly rather than always. A reviewer should confirm the 少年/青年 split is fair as put.",
+        "Stage 9/10 culture lessons necessarily use kanji outside KANJI_DICT (回覧板・年賀状・仕方・訪米 and the like). Furigana needed — flagged once per lesson rather than per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "cc-aisatsu2",
+      "step": "Step 34 · Manner, pretence and timing",
+      "setting": {
+        "scene": "You have said おかげさまで perhaps two hundred times, because somebody taught it to you in week three as the answer to how are you. Today somebody asks what it means and you find you have no idea — you know when to say it and you have never once known what is inside it.",
+        "jp": "おかげさまで、元気です。",
+        "en": "I'm well, thanks — said for a year without being parsed.",
+        "pattern": "おかげさまで"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "It is Stage 9's おかげで, frozen, with an honorific さま in it: thanks to you. And there is no connection whatever between the person asking and your health. The phrase hands somebody credit for nothing in particular, which is a courteous thing to do and a strange one to explain.",
+          "jp": "おかげで、間に合いました。",
+          "en": "Thanks to you, I made it — the live version of the same word."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "The whole set works this way. お疲れさまです is literally you must be tired and functionally hello, goodbye and well done; 失礼します is literally I commit a rudeness and works on at least four different doors.",
+          "jp": "お先に失礼します。",
+          "en": "Excuse me for leaving ahead of you.",
+          "t": "⚠️ ご苦労さまです means nearly the same as お疲れさま and points DOWNWARD, from a superior to a subordinate. A learner who uses it on their boss has made a real mistake in a friendly voice."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9/10 culture lessons necessarily use kanji outside KANJI_DICT (回覧板・年賀状・仕方・訪米 and the like). Furigana needed — flagged once per lesson rather than per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "cc-news",
+      "step": "Step 36 · Sources and proportions",
+      "setting": {
+        "scene": "You decide you are ready to read a news site, and the first headline defeats you in a way that feels unfair: eight kanji, one comma, and no verb anywhere in it. You look for the particles that would tell you what relates to what and there are none of those either, and the article underneath is perfectly readable.",
+        "jp": "首相は来月アメリカに行きます。",
+        "en": "The PM will visit America next month — the sentence you'd build.",
+        "pattern": "行きます"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "A headline is a different grammar. The verb goes, the particles go, a comma does は's job, and a single へ carries the entire future tense. Once you expect that, the density stops being an obstacle and becomes the reason headlines are fast to read.",
+          "jp": "首相、来月訪米へ",
+          "en": "PM to visit the US next month."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "And the body of the article is this step, at full length. Name the source, then report — which is why a headline is the highest-density place these relations ever appear.",
+          "jp": "調査によると、去年に比べて３割減",
+          "en": "Per the survey: down thirty per cent on last year.",
+          "t": "か marks the unconfirmed (値上げか — a price rise?), と carries findings and quotes, and proportions come in 割, tenths, far more readily than in percentages. NHK's NEWS WEB EASY uses the same conventions with furigana."
+        }
+      ],
+      "claims": [
+        "Japanese newspaper headlines routinely omit verbs and particles, use へ to mark a forthcoming event, use か to mark an unconfirmed report, and express proportions in 割.",
+        "NHK publishes NEWS WEB EASY, a simplified news service with furigana intended for children and language learners."
+      ],
+      "sources": [],
+      "flags": [
+        "Headline conventions are stated from the form itself and are readily checkable against any Japanese news front page; a reviewer should confirm the へ and か characterisations are put fairly.",
+        "Stage 9/10 culture lessons necessarily use kanji outside KANJI_DICT (回覧板・年賀状・仕方・訪米 and the like). Furigana needed — flagged once per lesson rather than per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "cc-shikata",
+      "step": "Step 38 · No choice, and enough",
+      "setting": {
+        "scene": "The line is down, the replacement bus is an hour away, and the person beside you has said the same four syllables three times in five minutes. You have read that this phrase reveals something deep about Japanese fatalism, and standing on a wet platform it does not feel like a philosophy — it feels like something to say when there is nothing to say.",
+        "jp": "電車が止まりました。",
+        "en": "The train has stopped — the fact, and nothing else.",
+        "pattern": "止まりました"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "仕方がない is this step's しかない from the other side: しかない says there is only this option, 仕方がない says there is none. Both close a decision, and neither one complains. In practice the phrase is doing an ordinary job — it ends a circling conversation nobody can fix.",
+          "jp": "仕方がないですね。",
+          "en": "Nothing to be done — and the subject is now closed."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "Its other job is kinder and less written about. Said to somebody blaming themselves, しょうがないよ means it was not your fault and nobody could have done differently — which is absolution rather than resignation.",
+          "jp": "しょうがないよ、誰も分からなかったんだから。",
+          "en": "It's not on you — nobody could have known.",
+          "t": "⚠️ Because it closes a topic, using it about somebody ELSE's serious misfortune can read as filing their problem away. About your own troubles it is unremarkable; about theirs it has to be offered as comfort, not as a verdict."
+        }
+      ],
+      "claims": [
+        "仕方がない / しょうがない functions conversationally to close a topic that cannot be resolved, and also to absolve somebody who is blaming themselves.",
+        "The common claim that the phrase evidences a distinctively Japanese fatalism is contested, and the lesson presents it as contested rather than settled."
+      ],
+      "sources": [],
+      "flags": [
+        "⚠️ SECOND-HIGHEST RISK in this batch. It engages directly with a well-known cultural generalisation about Japan. Handled in the cc-baito shape — the received reading is stated AS a received reading and the narrower defensible claim is stated separately — but a reviewer should say whether the balance is right.",
+        "Stage 9/10 culture lessons necessarily use kanji outside KANJI_DICT (回覧板・年賀状・仕方・訪米 and the like). Furigana needed — flagged once per lesson rather than per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "cc-nengajou",
+      "step": "Step 42 · Occasions and consequences",
+      "setting": {
+        "scene": "It is the fourth of January and three cards have arrived from people you work with, all of them delivered on the first, and you sent nothing because nobody told you there was a deadline in December for post that arrives in January. There is a repair for this and you do not know it either.",
+        "jp": "年賀状をもらいました。",
+        "en": "I received New Year cards — and sent none.",
+        "pattern": "年賀状"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "The cards are posted in December, held by the post office, and delivered together on the first. There is a cut-off around the twenty-fifth for guaranteed first-of-January delivery, and hitting it is the whole game. Miss it and the repair is 寒中見舞い, sent after the seventh.",
+          "jp": "忘れないうちに、年賀状を出します。",
+          "en": "I'll post the cards before I forget."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "This step's grammar is the point: every obligation in the Japanese year is an OCCASION rather than a date. たびに for what recurs, うちに for a window closing, ついでに for the errand folded into a trip you were making anyway.",
+          "jp": "帰省のついでに、お墓参りをしました。",
+          "en": "I visited the grave while I was back home anyway.",
+          "t": "The custom is collapsing fast enough to watch. Japan Post's initial run for the 2026 cards was about 748 million — down 30.1 per cent year on year, the largest fall on record and the fifteenth consecutive annual decline, against a 2004 peak near 4.46 billion. So do not assume you are expected to send them: ask."
+        }
+      ],
+      "claims": [
+        "Japan Post's initial print run for 2026 New Year cards was approximately 748 million, a fall of about 30.1 per cent on the previous year — the largest recorded fall and the fifteenth consecutive annual decline.",
+        "The peak was approximately 4.46 billion cards for 2004, making the 2026 figure roughly one sixth of it.",
+        "Commonly cited causes are the spread of messaging apps and the October 2024 increase in postal charges.",
+        "New Year cards posted by a late-December cut-off are held and delivered together on 1 January; 寒中見舞い sent after 7 January is the customary repair for a missed card."
+      ],
+      "sources": [
+        "時事ドットコム · 来年の年賀はがき、３割減 発行枚数、過去最大の減少幅―日本郵便 (29 Aug 2025) — https://www.jiji.com/jc/article?k=2025082900750&g=eco",
+        "時事ドットコム · 年賀状の受け付け開始 発行枚数は３割減―日本郵便 (15 Dec 2025) — https://www.jiji.com/jc/article?k=2025121500126&g=soc",
+        "不破雷蔵 · 2026年用の当初発行枚数は7億4841万枚…年賀はがきの発行枚数などの実情 (Yahoo!ニュース エキスパート) — https://news.yahoo.co.jp/expert/articles/f9529f54e1bd10616039f10a00ddb8d9d960c895"
+      ],
+      "flags": [
+        "Stage 9/10 culture lessons necessarily use kanji outside KANJI_DICT (回覧板・年賀状・仕方・訪米 and the like). Furigana needed — flagged once per lesson rather than per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
     }
   ]
 }

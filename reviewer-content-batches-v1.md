@@ -291,3 +291,61 @@ etymology row:
    glosses. The reverse-payoff teaching order (音 taught after its user 意)
    is a sequencing choice, not a claim — flag only if the lesson copy
    confuses.
+
+## Batch O — the Stage 9/10 culture connections (Session 17)
+
+Seven lessons, authored to close the gap in `sb-cc-placement-review-v1.md`: Stage 9
+had **no** culture lessons at all across 36 teaching points, and Stage 10 only the two
+adverb-gathering ones. Every lesson here carries an arc (situation → line → wrinkle), and
+every claim is either sourced in `lesson-arcs-v1.json` or flagged there as unsourced.
+
+**Read `cc-aimai` first, and read it closely.** It is the highest-risk lesson in the app
+outside the keigo stage.
+
+| id | step | subject |
+|---|---|---|
+| `cc-aimai` | 31 | Refusing without いいえ — ちょっと…, 難しい, 考えておきます, and わけではない |
+| `cc-keiji` | 30 | 回覧板 — the folder that comes to your door, and the particles on the sheet |
+| `cc-manga` | 32 | Compound verbs in the wild, and where reading for pleasure starts |
+| `cc-aisatsu2` | 34 | おかげさまで, お疲れさま, 失礼します — the set phrases opened up |
+| `cc-news` | 36 | How a headline is built — no verb, へ for future, か for unconfirmed, 割 |
+| `cc-shikata` | 38 | 仕方がない, and the argument about what it means |
+| `cc-nengajou` | 42 | 年賀状, お中元/お歳暮, 忘年会, お盆 — the year's deadlines |
+
+### What to check, by risk
+
+1. **⚠️ `cc-aimai` — the framing, not the facts.** The topic (how Japanese speakers say
+   no) is the most stereotyped in the field. The lesson is deliberately written about
+   REGISTER AND MARKERS rather than national character, and it argues against the
+   stereotype in its own text — twice, explicitly. The question for you is whether that
+   lands, or whether it still reads as another foreigner explaining Japanese indirectness.
+   If it reads wrong, say so bluntly; this one is better cut than shipped half-right.
+   Specific items: is 「明日はちょっと…」 fairly described as a *complete* refusal? Is
+   「難しいですね」 fairly described as meaning no rather than meaning difficult? Is the
+   claim that directness is rising among younger speakers one you'd stand behind?
+
+2. **⚠️ `cc-shikata` — the balance.** Same shape as `cc-baito`: the received cultural
+   reading is stated *as* a received reading, and a narrower defensible claim is stated
+   separately. Is the balance right? Is the "absolution rather than resignation" reading
+   of しょうがないよ fair?
+
+3. **`cc-aisatsu2` — the ご苦労さま warning.** The lesson says ご苦労さまです points
+   downward and is a real error aimed upward. Confirm that is still true and still worth
+   flagging as strongly as it is.
+
+4. **`cc-manga` — the furigana convention.** Stated as 少年/少女 lines commonly carry
+   furigana and 青年/女性 lines frequently do not. Stated as a tendency, not a rule —
+   confirm it is put fairly.
+
+5. **`cc-news` — the headline rules.** へ for a forthcoming event, か for the unconfirmed,
+   割 for proportions, と for findings. Checkable against any front page; confirm nothing
+   is overstated.
+
+6. **`cc-keiji` and `cc-nengajou` — the facts are sourced, the practice is not.** The
+   Tokyo digital-回覧板 subsidy and the 年賀状 print-run figures carry citations in the
+   arcs file. What needs your eye is the *practice* around them: is the stamp-and-pass-on
+   description of a 回覧板 right? Is 寒中見舞い after the 7th the normal repair for a
+   missed card? Is the December cut-off described correctly?
+
+7. **Register throughout.** These are culture lessons, so several of them quote speech.
+   Anything that sounds like a textbook rather than a person is worth marking.

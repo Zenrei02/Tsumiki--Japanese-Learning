@@ -1,0 +1,121 @@
+{
+  "_": "Seven culture connections for Stages 9 and 10, closing the gap found in sb-cc-placement-review-v1.md. Spliced by build-stage3.py, which refuses to overwrite an existing id.",
+  "_why": "S9 had ZERO culture lessons across 36 teaching points and S10 only the two adverb-gathering ones, against seven in a 22-point stage earlier. Cause: both stages were authored against a GRAMMAR INVENTORY, and a grammar list has no culture in it, so nothing in the source material ever prompted one. The instrument shaped the output and nobody chose the shape.",
+  "_shape": "Lloyd's instruction: same arc shape and standards as the rest of the module — situation, line, wrinkle, every page carrying a producible Japanese sentence, register REQUIRED rather than observed, and the culture CAUSED by the situation rather than announced beside it. Arcs live in lesson-arcs-v1.json alongside the grammar points.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch O. ⚠️ cc-aimai is the highest-risk lesson in the app outside the keigo stage — it makes claims about how Japanese speakers decline things, which is the single most stereotyped topic in the field. It is written to be about REGISTER AND MARKERS rather than national character, and it argues against the stereotype explicitly, but only a native reader can say whether it lands.",
+  "insert": [
+    {
+      "step": "Step 31 · Conclusions",
+      "after": "sb-kakushin",
+      "point": {
+        "id": "cc-aimai",
+        "jp": "「いいえ」と言わない断り方",
+        "en": "no, without the word",
+        "kind": "culture",
+        "exp": "You will be told, probably in your first month, that Japanese people never say no. It is one of the most repeated things said about this language, it is not quite true, and the accurate version is far more specific and far more learnable than the stereotype.\n\nJapanese speakers say no constantly. What they mostly do not do is say いいえ.\n\nいいえ exists, it does mean no, and you have had it since Step 1. What nobody tells you is where it lives: it answers a question of FACT. 「これはペンですか」「いいえ、鉛筆です」. It corrects information. What it does not do is decline an offer, refuse a request, or disagree with an opinion — and those are the three places a learner most wants a no.\n\nFor those, the language uses shapes you now own, and this step handed you the sharpest one.\n\n〜わけではない denies the CONCLUSION somebody has drawn without denying anything they said. Asked whether life here must be hard, 「大変なわけではないんですが、慣れるまで少し時間がかかりますね」 refuses the premise and keeps the conversation. 〜とは限らない does the same to a generalisation. Neither one contradicts the person.\n\nThen the markers that are not grammar at all, and that carry most of the real refusals:\n\n「明日はちょっと…」 — trailing off, and never finished. The unfinished sentence IS the refusal; completing it would force the word out.\n\n「難しいですね」 — literally difficult. Functionally: no. A request that has been called 難しい is not under consideration.\n\n「考えておきます」 and its business cousin 「検討します」 — I'll think about it. Sometimes literal. Very often not.\n\n⚠️ Here is what the stereotype gets wrong, and it matters. None of this is evasion, and none of it is an inability to be direct. A refusal built this way protects the ASKER: if the no is never said, nobody is on record as having been turned down, and the relationship survives the answer intact. A flat いいえ is not uncomfortable because it is honest — it is uncomfortable because it converts somebody's request into a thing that was rejected.\n\nWhich makes the reverse the half foreign residents miss most. When a colleague says 難しいですね about your proposal, you have been given the answer. Waiting for something clearer is not patience; it is not having heard the one you got.\n\n⚠️ Two honest caveats, because a lesson like this can do damage. First: this varies enormously by person, region, industry and age. A Kansai building site is not a Tokyo bank, and anyone who tells you Japanese people are indirect has flattened a hundred million people into a sentence. Second: directness is rising, especially among younger speakers and in companies with heavy international contact — a learner who arrives expecting nothing but hedging will misread a straight answer as rudeness.\n\nThe thing to take from this is not that Japanese is vague. It is that the no you are listening for has a different shape from the one you are used to, and this step just gave you three of them.",
+        "ex": [
+          ["大変なわけではないんですが…", "It's not that it's hard, exactly — the conclusion denied, the door left open."],
+          ["明日はちょっと…", "Tomorrow's a bit — a finished sentence in Japanese, and a complete no."],
+          ["それは少し難しいですね。", "That's a little difficult — which means no."]
+        ]
+      }
+    },
+    {
+      "step": "Step 30 · The compound particles",
+      "after": "sb-fukugou",
+      "point": {
+        "id": "cc-keiji",
+        "jp": "回覧板と掲示板",
+        "en": "the folder that comes to your door",
+        "kind": "culture",
+        "exp": "Nobody warns foreign residents about this one, and it will arrive within a month of your moving in.\n\nA neighbour knocks and hands you a flat folder, often plastic, with a grid of names printed down the front and an empty box beside each. Inside is a single A4 sheet about refuse collection, or a fire drill, or the summer festival. This is a 回覧板 — a circulating noticeboard — and the arrangement is that you read the sheet, tick or stamp the box beside your name, and carry the folder to the next house on the list.\n\nThat is the entire obligation, and getting it wrong is one of the more common quiet embarrassments of a first year: the folder sitting on a table for a week while eleven households wait for it.\n\nWhat makes it worth a lesson here is what is printed on the sheet. A neighbourhood notice is built almost entirely out of the particles this step just taught you.\n\n「ゴミの分別について」 — concerning refuse separation. 「工事に関するお知らせ」 — notice regarding construction. 「大雨による影響」 — the effects caused by heavy rain. 「本会館において」 — at this community hall. Six compound particles will get you through most of a ward newsletter, and their absence is the single reason those sheets look impenetrable at N4 and turn legible almost overnight once you have them.\n\nNotice also what these headings do NOT have: verbs. A Japanese notice heading hangs a noun off a relation and stops, which is a shape you will meet again in Step 36 with newspaper headlines.\n\nThe folder is on its way out, slowly. Tokyo's metropolitan government now subsidises 町会・自治会 that move to 電子回覧板 — an electronic version, usually a messaging group or an app — and wards including Minato run their own digital schemes. It is not a clean replacement. The people who actually run a 町内会 skew elderly, so most areas that digitise end up running paper and digital side by side, which doubles the work for the volunteers doing it.\n\nSo the folder will probably still knock. Read it, stamp it, pass it on.",
+        "ex": [
+          ["ゴミの分別についてのお知らせ", "Notice concerning refuse separation — a heading with no verb in it."],
+          ["工事に関するお知らせが回ってきました。", "A notice about the construction work has come round."],
+          ["次の家に持って行きます。", "I'll take it on to the next house."]
+        ]
+      }
+    },
+    {
+      "step": "Step 32 · Verbs that carry more",
+      "after": "sb-aspect2",
+      "point": {
+        "id": "cc-manga",
+        "jp": "読めるようになる",
+        "en": "where compound verbs actually live",
+        "kind": "culture",
+        "exp": "This step is a threshold, and it is worth naming as one: it is roughly the point where reading Japanese for pleasure stops being a punishment.\n\nThe reason is compound verbs. Ordinary written Japanese is not built from the dictionary forms you learned one at a time — it is built from those forms welded to a second verb that adds a direction, a completeness or an attitude. 見かける, to happen to spot. 立ち止まる, to stop where you stand. 走り出す, to break into a run. 言いかける, to start saying something and not finish. やり直す, to do it over. 思いつく, for an idea to arrive.\n\nNone of these are in a beginner's vocabulary list, and all of them are made of verbs that are. That is the good news: you are not learning six hundred new words, you are learning that the words combine, and this step just taught you the joins.\n\nWhere you meet them is manga, and this is the practical part. Manga aimed at younger readers — 少年 and 少女 titles — normally prints furigana above the kanji, which means the reading is handed to you and only the meaning is your problem. That is an enormous difference from a novel, where an unknown kanji stops you completely. Titles aimed at adults, 青年 and 女性 lines, often drop the furigana, so the same shelf contains both a ramp and a wall.\n\nThe other thing manga gives you is casual speech in written form, which almost nothing else does. っぽい, ちゃう, じゃん, trailing けど, and the compound verbs above appear at a density you will not find in a textbook.\n\nA caution worth having: manga dialogue is stylised. Characters use pronouns and sentence-endings that mark them as a type — 俺様, わし, ですわ — and a learner who absorbs those without noticing will produce speech that sounds like a cartoon. Read it for the verbs and the rhythm; take your register from people.\n\nThe milestone is real, though. If you have this step, you can open something written for Japanese readers and get through a page. That has not been true until now.",
+        "ex": [
+          ["駅前で先生を見かけました。", "I happened to spot my teacher outside the station."],
+          ["彼は何か言いかけて、やめました。", "He started to say something and stopped."],
+          ["もう一度やり直します。", "I'll do it over from the start."]
+        ]
+      }
+    },
+    {
+      "step": "Step 34 · Manner, pretence and timing",
+      "after": "sb-timing",
+      "point": {
+        "id": "cc-aisatsu2",
+        "jp": "あいさつの中身",
+        "en": "the set phrases, opened up",
+        "kind": "culture",
+        "exp": "You have been saying several of these since your first month without any idea what was inside them. Now you can see the grammar, and seeing it changes how they are used.\n\n**おかげさまで.** Stage 9 taught おかげで — thanks to, cause with credit. おかげさまで is that word frozen into a greeting, and the さま is the honorific. Asked how you are, 「おかげさまで、元気です」 credits the asker for your wellbeing. There is no logical connection whatever between them and your health. That is the point: the phrase hands somebody credit for nothing in particular, which is a courteous thing to do and an odd one to explain.\n\n**お疲れさまです.** Literally you must be tired. Functionally it is hello, goodbye, well done, and I acknowledge you exist, depending entirely on where it lands. It is what you say passing a colleague in a corridor, what you say at the end of a meeting, and what the whole office says as you leave. ご苦労さまです means nearly the same and points DOWNWARD — from a superior to a subordinate — so a learner who uses it on their boss has made a real mistake in a friendly voice.\n\n**失礼します.** Literally I commit a rudeness. It works on at least four doors: entering a room, leaving a room, ending a phone call, and 「お先に失礼します」 when you go home before people who are still working. That last one is not optional in most offices, and its absence is noticed.\n\n**お世話になっております.** I am in your care. It opens essentially every business email and every phone call to a company you have any relationship with, whether or not anybody has cared for anybody. It is a frame, not a claim.\n\n**いってらっしゃい and おかえりなさい.** The going-out and coming-home pair, and they are genuinely reciprocal — one person cannot say both. If you live with anybody, learning to answer おかえり with ただいま is the smallest possible piece of belonging.\n\nThe pattern under all of them is the same, and it is this stage's subject: the literal content has largely worn away and what remains is timing. The phrase marks a moment — a threshold, a departure, an acknowledgement — and being fluent in them is mostly a matter of knowing which moment you are standing in.",
+        "ex": [
+          ["おかげさまで、元気です。", "I'm well, thanks to you — おかげで, frozen into a greeting."],
+          ["お先に失礼します。", "Excuse me for leaving ahead of you."],
+          ["お疲れさまでした。", "You must be tired — meaning well done, and goodbye."]
+        ]
+      }
+    },
+    {
+      "step": "Step 36 · Sources and proportions",
+      "after": "sb-hikaku",
+      "point": {
+        "id": "cc-news",
+        "jp": "見出しの読み方",
+        "en": "how a headline is built",
+        "kind": "culture",
+        "exp": "A Japanese news headline is not a short sentence. It is a different grammar, and knowing the rules turns a wall of kanji into something you can skim.\n\n**The verb is usually gone.** 「首相、来月訪米」 — Prime Minister, next month, visit-America. No verb, no particles, and a comma doing the work of は. Headlines are built from nouns pressed together, which is why they look dense and read fast once you expect it.\n\n**へ marks the future.** 「値上げへ」 means a price rise is coming. Where a sentence would need ことになりました, a headline uses a single particle and stops.\n\n**か marks the unconfirmed.** 「不正か」 — possible wrongdoing. The paper is telling you it does not yet know, and か carries the whole hedge.\n\n**と carries quotes and findings.** 「３割が『知らない』と回答」 — thirty per cent answered that they did not know. This is where the reporting grammar from this step lives, and 〜によると in the body of the article is the same move at full length: name the source, then report.\n\n**Numbers and 割.** Japanese reports proportions in 割 — tenths — far more readily than in percentages. ３割 is thirty per cent, and it will appear that way in the headline and often in the first paragraph.\n\nThe reason to learn this at exactly this step is that a headline is the highest-density place where 〜によると, 〜に比べて and 〜につれて all appear inside forty characters. 「調査によると、去年に比べて３割減」 — according to the survey, a thirty per cent fall compared with last year — is a complete news story in nineteen characters, and every relation in it is one you learned this step.\n\nA practical note: NHK publishes 「NEWS WEB EASY」, a version of its news written for children and for learners, with furigana and simplified grammar. It is the single best free reading resource at this level, and it uses these same headline conventions in a gentler form.",
+        "ex": [
+          ["首相、来月訪米へ", "PM to visit the US next month — no verb, and へ carries the future."],
+          ["調査によると、去年に比べて３割減", "Per the survey: down thirty per cent on last year."],
+          ["値上げか", "A price rise? — か alone marks it unconfirmed."]
+        ]
+      }
+    },
+    {
+      "step": "Step 38 · No choice, and enough",
+      "after": "sb-sentaku",
+      "point": {
+        "id": "cc-shikata",
+        "jp": "「仕方がない」をめぐって",
+        "en": "the phrase, and the argument about it",
+        "kind": "culture",
+        "exp": "仕方がない. There is no way of doing it. Its casual form is しょうがない, and you will hear one or the other several times a week.\n\nGrammatically it is this step's しかない seen from the other side: しかない says there is only this option, 仕方がない says there is no option at all. Both close a decision. Neither one complains.\n\nThe phrase has been made to carry a great deal of cultural weight, and this is where a learner should tread carefully.\n\n**The received story** goes that 仕方がない reveals a national tendency toward resignation — that Japanese culture accepts what cannot be changed rather than fighting it, and the phrase is the evidence. You will find this in a great many books about Japan, usually alongside 我慢, endurance, and usually connected to earthquakes.\n\n**The problem with the received story** is that it treats a conversational move as a philosophy. Watch where the phrase actually falls and it is almost always doing one of two ordinary jobs.\n\nIt CLOSES A TOPIC. Somebody has been circling a problem nobody can fix — a cancelled train, a decision taken above them — and 仕方がないですね ends the circling without anybody having to concede anything. English does this with oh well.\n\nOr it COMFORTS. Said to somebody who is blaming themselves, しょうがないよ means it was not your fault and nobody could have done differently. That is not resignation; that is absolution, and it is one of the kinder things you can say.\n\n**What is fair to say** is narrower and more useful: Japanese has a very short, very available phrase for accepting an outcome, it is socially easy to say, and having it ready changes how a conversation about a setback goes. Whether that reflects something deeper about the culture is a question about culture, not about the language, and the people best placed to answer it disagree with each other.\n\n⚠️ One thing to watch. Because it closes a topic, using it about somebody ELSE's serious misfortune can land badly — it can read as filing their problem away. About your own troubles it is unremarkable; about theirs, it needs to be offered as comfort rather than as a verdict.",
+        "ex": [
+          ["電車が止まったから、仕方がないですね。", "The train's stopped — nothing to be done, and the subject is closed."],
+          ["しょうがないよ、誰も分からなかったんだから。", "It's not on you — nobody could have known."],
+          ["我慢するしかないですね。", "There's nothing for it but to put up with it."]
+        ]
+      }
+    },
+    {
+      "step": "Step 42 · Occasions and consequences",
+      "after": "sb-toki2",
+      "point": {
+        "id": "cc-nengajou",
+        "jp": "一年の義理",
+        "en": "the calendar, and what it asks of you",
+        "kind": "culture",
+        "exp": "A Japanese year has deadlines in it that nobody puts in your calendar, and a foreign resident usually discovers each one about four days late.\n\n**年賀状, New Year cards.** Posted in December, held by the post office, and delivered together on the first of January. There is a cut-off date around the twenty-fifth for guaranteed first-of-January delivery, and hitting it is the entire game. If somebody sends you one and you have not sent theirs, the repair is 寒中見舞い, a mid-winter card sent after the seventh.\n\nThe practice is collapsing, and the numbers are worth knowing because they are the clearest illustration of a custom ending inside one working life. Japan Post's initial print run for the 2026 cards was about 748 million — down 30.1 per cent on the previous year, the largest fall on record, and the fifteenth consecutive annual decline. The peak was around 4.46 billion for 2004, so the current figure is roughly a sixth of it. Two causes are usually named: messaging apps replacing the greeting, and the October 2024 postal price rise.\n\nSo do not assume you are expected to send them. Ask.\n\n**お中元 and お歳暮.** Mid-year and year-end gifts to people you are obliged to — a landlord, a teacher, a client, a doctor. Both are also in decline, and both are more common in business than between individuals.\n\n**忘年会 and 新年会.** The year-forgetting party in December and the new-year one in January. The 忘年会 is the more load-bearing of the two socially, and it is the setting where the register drop from Step 26's cc-nomikai actually happens.\n\n**お盆**, in August in most of the country. Family return to home towns, and the trains and roads are at their worst of the year. If you plan to travel in Japan for pleasure, this is the week not to.\n\nThe grammar link is this step's, and it is a real one: every item here is an OCCASION rather than a date. 〜たびに for what recurs, 〜うちに for a window closing before a deadline, and 〜ついでに for the errand you fold into a trip you were making anyway — which is exactly how most of these obligations actually get discharged.",
+        "ex": [
+          ["年賀状は元日に届きます。", "New Year cards arrive on the first — if you make the deadline."],
+          ["忘れないうちに、年賀状を出します。", "I'll post the cards before I forget."],
+          ["帰省のついでに、お墓参りをしました。", "I visited the grave while I was back home anyway."]
+        ]
+      }
+    }
+  ],
+  "new_steps": []
+}
