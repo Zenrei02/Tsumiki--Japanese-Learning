@@ -11,8 +11,9 @@ deploy** and every push to `main` triggers one; ten pushes burned ~150 credits o
 Aug 13 2026 before anyone noticed. Lloyd's standing rule is **at most one push per
 session, made by him**.
 
-Your job ends at a **local dev server Lloyd can open in a browser**. Commit if you like —
-commits are free. Do not push, and do not suggest pushing.
+Your job ends at a **single standalone `.html` file Lloyd can open anywhere** (see "How
+Lloyd actually sees this" below). Commit if you like — commits are free. Do not push, and
+do not suggest pushing.
 
 `netlify.toml` carries a build-ignore rule so a push touching nothing under `naoshi-app/`
 skips the build. That is a safety net, not a licence.
@@ -111,6 +112,40 @@ hand-edit the generated block.
 
 ---
 
+## How Lloyd actually sees this
+
+**A single standalone `.html` file he can double-click.** Not a dev server he has to keep
+alive, and not a deploy.
+
+`build-standalone-html.py` already does exactly this for the kana modules — it inlines
+everything and makes zero network requests. Use it rather than inventing a second
+mechanism.
+
+### ⚠️ The trap that makes a standalone build lie to you
+
+**Standalone builds need a `window.storage` shim.** The artifact host provides one; a
+plain browser does not. Without it `loadProgress()` silently returns `{}` — so the app
+runs, looks completely fine, and forgets everything. Back it with `localStorage`, falling
+back to an in-memory object, because **Chrome blocks `localStorage` on `file://` in some
+configurations** and that failure is also silent.
+
+Verify by paging through a lesson, closing the file, reopening it, and checking the
+`walked` flag survived. If it did not, the shim is not working and everything you think
+you tested is unverified.
+
+### There is already a preview to compare against
+
+`lesson-arc-preview.html` (built by `build-arc-preview.py`, Session 17) renders the arc
+page-sequence straight from the JSON plus the module's own prose. **It is a shape preview,
+not the app** — no drill, no progress, no kanji toggle, and `apart` shows the sentence
+whole instead of breaking it into `DEEP.seg` cards.
+
+Use it two ways: as the reference for what the page order should feel like, and as a
+check on your own build — if a lesson reads differently in the real module than it does
+there, one of you has the data wrong, and it is worth knowing which before Lloyd sees it.
+
+---
+
 ## Conventions that will bite you if you skip them
 
 - **Whole-file deliverables, never patches.** A patch caused a white screen in Session 3.
@@ -133,10 +168,15 @@ hand-edit the generated block.
 1. `python3 check-arcs.py` exits 0.
 2. `build-arcs.py` runs clean and is idempotent — running it twice changes nothing.
 3. The app builds.
-4. `npm run dev` serves locally, and on any Stage 1 grammar point the Learn flow opens on
-   the situation and pages through to `try`.
-5. Points without an arc render exactly as before.
-6. **Nothing is pushed.** Report the local URL and stop.
+4. **A standalone `.html` exists that Lloyd can double-click**, and on any Stage 1 grammar
+   point the Learn flow opens on the situation and pages through to `try`.
+5. **Progress survives a close-and-reopen** of that file — proving the `window.storage`
+   shim is real and not silently swallowing writes.
+6. Points without an arc render exactly as before.
+7. **Nothing is pushed.** Report the file path and stop.
+
+A dev server is fine for your own iteration. It is not the deliverable, because Lloyd
+should not have to keep a terminal running to look at a lesson.
 
 ## What to tell Lloyd when you finish
 
