@@ -1,7 +1,24 @@
-# Stage 3 skeleton — v2 (Session 17; Lloyd's five rulings applied)
+# Stage 3 skeleton — v3 (Session 17; **BUILT**)
 
-*v1 was the proposal; this is the plan. All five open questions answered — see
-"Lloyd's rulings" at the foot. Nothing authored yet.*
+*v1 proposed, v2 took Lloyd's five rulings, v3 records what shipped. Everything below is
+now in `grammar-module.jsx` unless marked otherwise — commits `a8e4521` (renumber),
+`f75ee9c` (lessons + checkpoint), `45bafe1` (arcs).*
+
+## ✅ Built
+
+| | |
+|---|---|
+| Renumber, Producing politeness → Step 27 | ✅ `a8e4521`, isolated commit |
+| `sb-keigo-what` opening the stage | ✅ Step 24, first point |
+| `sb-ikukuru` — the collapse | ✅ Step 24, after `sonkeigo` |
+| Step 24 retitled *Keigo is already everywhere* | ✅ |
+| **Step 26 · Keigo in the wild** — 8 situation lessons | ✅ all eight |
+| **Checkpoint 7 · 聞き取り** — 8 recognition items | ✅ on the DEEP drill machinery |
+| `cc-itadakimasu` → Step 14 | ✅ Stage 2, after `itadaku` |
+| Arcs for all 8 Stage 3 points | ✅ **180/180 across all stages** |
+| `cc-hogosha` (optional ninth) | ⬜ not built — Lloyd's call |
+
+The module is now **35 steps, 245 lesson objects, 180 arcs, 549 pages**.
 
 ## Lloyd's brief (Session 17)
 
