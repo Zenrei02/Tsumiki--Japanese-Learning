@@ -1,0 +1,1232 @@
+[
+ {
+  "pattern": "あまり",
+  "gloss": "so much… that",
+  "taught": true,
+  "owners": [
+   "amari"
+  ],
+  "mentioned_in": [
+   "kute",
+   "narimasu",
+   "shimasu-change",
+   "nisuru"
+  ]
+ },
+ {
+  "pattern": "あまりに",
+  "gloss": "so much… that; too…",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "いくら○○ても / いくら○○でも",
+  "gloss": "no matter how",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": [
+   "shi",
+   "noni",
+   "temo"
+  ]
+ },
+ {
+  "pattern": "一方だ",
+  "gloss": "more and more; continue to",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "一方で",
+  "gloss": "on one hand; on the other hand",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "うちに",
+  "gloss": "while; before; doing",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "おかげで",
+  "gloss": "thanks to; because of",
+  "taught": true,
+  "owners": [
+   "okage"
+  ],
+  "mentioned_in": [
+   "okage",
+   "seide",
+   "bakarini",
+   "sb-riyuu"
+  ]
+ },
+ {
+  "pattern": "おそらく",
+  "gloss": "perhaps; likely; probably",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "かけ",
+  "gloss": "half-; not yet finished",
+  "taught": true,
+  "owners": [
+   "kakeru"
+  ],
+  "mentioned_in": [
+   "kara-because",
+   "node",
+   "ga-but",
+   "cc-kedo"
+  ]
+ },
+ {
+  "pattern": "がたい",
+  "gloss": "hard to; difficult to",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "がち",
+  "gloss": "apt to do; tend to do",
+  "taught": true,
+  "owners": [
+   "gachi"
+  ],
+  "mentioned_in": [
+   "gachi",
+   "gimi",
+   "warini",
+   "bahodo"
+  ]
+ },
+ {
+  "pattern": "代わりに",
+  "gloss": "instead of; in exchange for",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ぎみ",
+  "gloss": "like; -looking",
+  "taught": true,
+  "owners": [
+   "gimi"
+  ],
+  "mentioned_in": [
+   "gachi",
+   "gimi",
+   "warini",
+   "bahodo"
+  ]
+ },
+ {
+  "pattern": "きり",
+  "gloss": "only; just",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "きる",
+  "gloss": "to do something completely",
+  "taught": true,
+  "owners": [
+   "b-s18",
+   "kotogadekiru"
+  ],
+  "mentioned_in": [
+   "wa",
+   "ga",
+   "sb-waga",
+   "o"
+  ]
+ },
+ {
+  "pattern": "切れない",
+  "gloss": "being too much to finish",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "くせに",
+  "gloss": "even though; and yet; despite",
+  "taught": true,
+  "owners": [
+   "kuseni"
+  ],
+  "mentioned_in": [
+   "toori",
+   "furi",
+   "nagaramo",
+   "kuseni"
+  ]
+ },
+ {
+  "pattern": "くらい / ぐらい",
+  "gloss": "probably; around",
+  "taught": true,
+  "owners": [
+   "gurai"
+  ],
+  "mentioned_in": [
+   "dake",
+   "shika",
+   "counters",
+   "sb-counters"
+  ]
+ },
+ {
+  "pattern": "決して○○ない",
+  "gloss": "never; by no means",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "こそ",
+  "gloss": "certainly (emphasises the previous word)",
+  "taught": true,
+  "owners": [
+   "sb-kosoado"
+  ],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "こと",
+  "gloss": "must) do",
+  "taught": true,
+  "owners": [
+   "b-s18",
+   "b-s22",
+   "b-s34",
+   "b1",
+   "koto-no",
+   "kotogaaru",
+   "kotogadekiru",
+   "kotoninaru",
+   "kotonisuru",
+   "sb-doai",
+   "sb-kotono",
+   "takotogaaru"
+  ],
+  "mentioned_in": [
+   "ichiban",
+   "suki",
+   "jouzu",
+   "wakaru"
+  ]
+ },
+ {
+  "pattern": "ことか",
+  "gloss": "how…? what…!",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ことがある",
+  "gloss": "can; sometimes happens",
+  "taught": true,
+  "owners": [
+   "kotogaaru",
+   "takotogaaru"
+  ],
+  "mentioned_in": [
+   "kotogadekiru",
+   "takotogaaru",
+   "kotogaaru",
+   "sugiru"
+  ]
+ },
+ {
+  "pattern": "ことだ",
+  "gloss": "should (when giving advice)",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ことに",
+  "gloss": "ly",
+  "taught": true,
+  "owners": [
+   "kotoninaru",
+   "kotonisuru"
+  ],
+  "mentioned_in": [
+   "you-vol",
+   "youtoomou",
+   "kotonisuru",
+   "kotoninaru"
+  ]
+ },
+ {
+  "pattern": "ことはない",
+  "gloss": "there is no need to; never happens",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "さえ",
+  "gloss": "even",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": [
+   "gimi",
+   "warini",
+   "bahodo",
+   "dokoroka"
+  ]
+ },
+ {
+  "pattern": "さえ○○ば / さえすれば / さえいれば",
+  "gloss": "if only… then",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "しかない",
+  "gloss": "have no choice but",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ずに",
+  "gloss": "without (doing)",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": [
+   "aida",
+   "madeni",
+   "tokoro",
+   "bakari"
+  ]
+ },
+ {
+  "pattern": "ずにはいられない",
+  "gloss": "can't help but feel; can't help but do",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "せいで",
+  "gloss": "because of",
+  "taught": true,
+  "owners": [
+   "seide"
+  ],
+  "mentioned_in": [
+   "okage",
+   "seide",
+   "bakarini",
+   "sb-riyuu"
+  ]
+ },
+ {
+  "pattern": "そうもない",
+  "gloss": "very unlikely to",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "その結果",
+  "gloss": "as a result",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "だけ",
+  "gloss": "as much as",
+  "taught": true,
+  "owners": [
+   "dake",
+   "teitadakeru"
+  ],
+  "mentioned_in": [
+   "cc-family",
+   "kara-from",
+   "yori",
+   "ka-or"
+  ]
+ },
+ {
+  "pattern": "た結果 / の結果",
+  "gloss": "as a result of",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "だけど",
+  "gloss": "but; however",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "確かに",
+  "gloss": "surely; certainly",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "たとえ○○ても",
+  "gloss": "even if… is the case",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "たとえば",
+  "gloss": "for example",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "たとたん",
+  "gloss": "as soon as; just (now)",
+  "taught": true,
+  "owners": [
+   "totan"
+  ],
+  "mentioned_in": [
+   "furi",
+   "nagaramo",
+   "kuseni",
+   "totan"
+  ]
+ },
+ {
+  "pattern": "たびに",
+  "gloss": "everytime; whenever",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ために",
+  "gloss": "for the sake of; in order to",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ために",
+  "gloss": "because of; as a result of",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "たらいい / といい",
+  "gloss": "should",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": [
+   "ga-but",
+   "cc-kedo",
+   "demo",
+   "toiu"
+  ]
+ },
+ {
+  "pattern": "たらいい / といい",
+  "gloss": "I hope",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": [
+   "ga-but",
+   "cc-kedo",
+   "demo",
+   "toiu"
+  ]
+ },
+ {
+  "pattern": "たらいい / といい",
+  "gloss": "it would be nice if",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": [
+   "ga-but",
+   "cc-kedo",
+   "demo",
+   "toiu"
+  ]
+ },
+ {
+  "pattern": "だらけ",
+  "gloss": "covered (all over)",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "だらけ",
+  "gloss": "full of",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ついでに",
+  "gloss": "taking the opportunity; while (you) are at it",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "っけ",
+  "gloss": "what is… again?",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "っぱなし",
+  "gloss": "leaving something still in use",
+  "taught": true,
+  "owners": [
+   "ppanashi"
+  ],
+  "mentioned_in": [
+   "owaru",
+   "kakeru",
+   "nuku",
+   "ppanashi"
+  ]
+ },
+ {
+  "pattern": "っぽい",
+  "gloss": "ish; -like",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "つまり",
+  "gloss": "in other words; that is to say",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "てごらん",
+  "gloss": "please) try to; (please) look",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "て初めて",
+  "gloss": "not until; only after… did I",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "てもかまわない / てもかまいません",
+  "gloss": "no problem",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "という",
+  "gloss": "called; named",
+  "taught": true,
+  "owners": [
+   "toiu",
+   "toiuimi"
+  ],
+  "mentioned_in": [
+   "node",
+   "ga-but",
+   "cc-kedo",
+   "demo"
+  ]
+ },
+ {
+  "pattern": "ということ",
+  "gloss": "I've heard that; it seems that",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "というと",
+  "gloss": "speaking of; when you say…",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "というのは",
+  "gloss": "means; is",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "というのは",
+  "gloss": "because",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "というのは",
+  "gloss": "in particular",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "というより",
+  "gloss": "rather than",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "といっても",
+  "gloss": "although one says",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "とおり",
+  "gloss": "in the way; the same as",
+  "taught": true,
+  "owners": [
+   "toori"
+  ],
+  "mentioned_in": [
+   "toori"
+  ]
+ },
+ {
+  "pattern": "ところが",
+  "gloss": "however; although",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "どころか",
+  "gloss": "far from; nevermind",
+  "taught": true,
+  "owners": [
+   "dokoroka"
+  ],
+  "mentioned_in": [
+   "gimi",
+   "warini",
+   "bahodo",
+   "dokoroka"
+  ]
+ },
+ {
+  "pattern": "ところで",
+  "gloss": "by the way",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": [
+   "aida",
+   "madeni",
+   "tokoro"
+  ]
+ },
+ {
+  "pattern": "としたら / とすれば",
+  "gloss": "if it were the case that; if we assume",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "として",
+  "gloss": "as (i.e. in the role of)",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": [
+   "teshimau",
+   "niyotte",
+   "nioite",
+   "nitotte"
+  ]
+ },
+ {
+  "pattern": "としない / とはしない",
+  "gloss": "not try to; not make an effort to",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "とする",
+  "gloss": "try to",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "とする",
+  "gloss": "be about to",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "途中に / 途中で",
+  "gloss": "on the way; in the middle of",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "と共に",
+  "gloss": "together with",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "とは限らない",
+  "gloss": "not necessarily so; is not always true",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "どんなに○○ても",
+  "gloss": "no matter how",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ないことはない",
+  "gloss": "can; is not impossible",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "中",
+  "gloss": "during; throughout",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ながら / いながら / ながらも",
+  "gloss": "although; despite",
+  "taught": true,
+  "owners": [
+   "nagara",
+   "nagaramo"
+  ],
+  "mentioned_in": [
+   "tekara",
+   "atode",
+   "maeni",
+   "nagara"
+  ]
+ },
+ {
+  "pattern": "なぜなら / なぜかというと",
+  "gloss": "because; the reason is",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "なるべく",
+  "gloss": "as much as possible",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "なんか / なんて",
+  "gloss": "things like; something",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "において / における",
+  "gloss": "in; on; at; as for; regarding",
+  "taught": true,
+  "owners": [
+   "nioite"
+  ],
+  "mentioned_in": [
+   "nitsuite",
+   "nitaishite",
+   "niyotte",
+   "nioite"
+  ]
+ },
+ {
+  "pattern": "にかけて",
+  "gloss": "over (a period); through; concerning",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "にかわって / にかわり",
+  "gloss": "instead of; on behalf of",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "に関する / に関して",
+  "gloss": "related to; about",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "に比べて",
+  "gloss": "compared to",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "にしては",
+  "gloss": "for; considering it's",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "にしても",
+  "gloss": "even if",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "に対して",
+  "gloss": "regarding; with regards to",
+  "taught": true,
+  "owners": [
+   "nitaishite"
+  ],
+  "mentioned_in": [
+   "nitsuite",
+   "nitaishite",
+   "niyotte",
+   "nioite"
+  ]
+ },
+ {
+  "pattern": "に違いない",
+  "gloss": "I'm sure; no doubt that",
+  "taught": true,
+  "owners": [
+   "nichigainai"
+  ],
+  "mentioned_in": [
+   "wakeda",
+   "wakedewanai",
+   "beki",
+   "nichigainai"
+  ]
+ },
+ {
+  "pattern": "について",
+  "gloss": "concerning; about",
+  "taught": true,
+  "owners": [
+   "nitsuite"
+  ],
+  "mentioned_in": [
+   "nitsuite",
+   "nitaishite",
+   "niyotte",
+   "nioite"
+  ]
+ },
+ {
+  "pattern": "につれて",
+  "gloss": "as… then",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "にとって",
+  "gloss": "to; for; concerning",
+  "taught": true,
+  "owners": [
+   "nitotte"
+  ],
+  "mentioned_in": [
+   "nitaishite",
+   "niyotte",
+   "nioite",
+   "nitotte"
+  ]
+ },
+ {
+  "pattern": "によって / による",
+  "gloss": "due to; by means of",
+  "taught": true,
+  "owners": [
+   "niyotte"
+  ],
+  "mentioned_in": [
+   "nitsuite",
+   "nitaishite",
+   "niyotte",
+   "nioite"
+  ]
+ },
+ {
+  "pattern": "によると / によれば",
+  "gloss": "according to",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "間 / 間に",
+  "gloss": "while; during",
+  "taught": true,
+  "owners": [
+   "aida"
+  ],
+  "mentioned_in": [
+   "tekara",
+   "atode",
+   "maeni",
+   "nagara"
+  ]
+ },
+ {
+  "pattern": "間 / 間に",
+  "gloss": "between",
+  "taught": true,
+  "owners": [
+   "aida"
+  ],
+  "mentioned_in": [
+   "tekara",
+   "atode",
+   "maeni",
+   "nagara"
+  ]
+ },
+ {
+  "pattern": "ば○○ほど",
+  "gloss": "the more… the more/less",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ばいい",
+  "gloss": "should; can; it'd be good if",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ばかりでなく",
+  "gloss": "not only… but also; as well as",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ばよかった",
+  "gloss": "should have; it would have been better if",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ふと",
+  "gloss": "suddenly",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ふと",
+  "gloss": "accidentally; unexpectedly",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ふりをする",
+  "gloss": "to pretend; to act as if",
+  "taught": true,
+  "owners": [
+   "furi"
+  ],
+  "mentioned_in": [
+   "toori",
+   "furi"
+  ]
+ },
+ {
+  "pattern": "べき",
+  "gloss": "must do; should do",
+  "taught": true,
+  "owners": [
+   "beki"
+  ],
+  "mentioned_in": [
+   "wakeda",
+   "wakedewanai",
+   "beki"
+  ]
+ },
+ {
+  "pattern": "べきではない",
+  "gloss": "must not do; should not do",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "べつに○○ない / べつに○○じゃない",
+  "gloss": "not really; not particularly",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ほど",
+  "gloss": "the more; to the extent that; so much… that",
+  "taught": true,
+  "owners": [
+   "bahodo"
+  ],
+  "mentioned_in": [
+   "gachi",
+   "gimi",
+   "warini",
+   "bahodo"
+  ]
+ },
+ {
+  "pattern": "ほど○○ない",
+  "gloss": "is not as… as",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "最中に",
+  "gloss": "in the middle of",
+  "taught": true,
+  "owners": [
+   "saichuu"
+  ],
+  "mentioned_in": [
+   "nagaramo",
+   "kuseni",
+   "totan",
+   "saichuu"
+  ]
+ },
+ {
+  "pattern": "まま",
+  "gloss": "as it is",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": [
+   "teshimau",
+   "teoku"
+  ]
+ },
+ {
+  "pattern": "まるで",
+  "gloss": "as if; as though",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "向き",
+  "gloss": "towards (direction)",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "向き",
+  "gloss": "suitable for",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "向け",
+  "gloss": "intended for; aimed at",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "めったに",
+  "gloss": "hardly; rarely; seldom",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "もしかしたら",
+  "gloss": "perhaps; maybe",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "もの",
+  "gloss": "because (indicate reason or excuse)",
+  "taught": true,
+  "owners": [
+   "b-s20",
+   "monoda"
+  ],
+  "mentioned_in": [
+   "maeni",
+   "nagara",
+   "taritari",
+   "kata"
+  ]
+ },
+ {
+  "pattern": "ものだ",
+  "gloss": "used to do something; should do something",
+  "taught": true,
+  "owners": [
+   "monoda"
+  ],
+  "mentioned_in": [
+   "wakedewanai",
+   "beki",
+   "nichigainai",
+   "monoda"
+  ]
+ },
+ {
+  "pattern": "ような気がする",
+  "gloss": "have a feeling that; think that",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "ように",
+  "gloss": "in order to; so that",
+  "taught": true,
+  "owners": [
+   "youninaru",
+   "younisuru"
+  ],
+  "mentioned_in": [
+   "youtoomou",
+   "kotonisuru",
+   "kotoninaru",
+   "yotei"
+  ]
+ },
+ {
+  "pattern": "わけがない",
+  "gloss": "there is no way that",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "わけだ",
+  "gloss": "for that reason; no wonder; as you'd expect",
+  "taught": true,
+  "owners": [
+   "wakeda"
+  ],
+  "mentioned_in": [
+   "wakeda",
+   "beki",
+   "nichigainai",
+   "monoda"
+  ]
+ },
+ {
+  "pattern": "わけではない",
+  "gloss": "it doesn't mean that; it is not the case",
+  "taught": true,
+  "owners": [
+   "wakedewanai"
+  ],
+  "mentioned_in": [
+   "wakeda",
+   "wakedewanai"
+  ]
+ },
+ {
+  "pattern": "わけにはいかない",
+  "gloss": "must not; can't afford to",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "わりに",
+  "gloss": "for; despite; unexpectedly",
+  "taught": true,
+  "owners": [
+   "warini"
+  ],
+  "mentioned_in": [
+   "gachi",
+   "gimi",
+   "warini",
+   "bahodo"
+  ]
+ },
+ {
+  "pattern": "を中心に",
+  "gloss": "focused on; centered on",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ },
+ {
+  "pattern": "をはじめ / をはじめとする",
+  "gloss": "for example; starting with",
+  "taught": false,
+  "owners": [],
+  "mentioned_in": []
+ }
+]

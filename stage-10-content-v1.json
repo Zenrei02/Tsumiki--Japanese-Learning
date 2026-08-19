@@ -1,0 +1,423 @@
+{
+  "_": "Stage 10 · Saying it precisely — the last N3 mile. Spliced by build-stage3.py. Plan in stage-10-skeleton-v1.md.",
+  "_theme": "Stage 9 taught the learner to argue. Stage 10 is precision, and the point where the language tips from spoken to written — on whose authority, in what proportion, to what extent, and how sure.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch N. Three items want a native eye most: toiunowa (three senses most English explanations collapse), nishiteha vs nishitemo (one kana apart, different meanings), and marude (almost always wants ような/みたいな with it).",
+  "insert": [],
+  "new_steps": [
+    {
+      "cat": "Step 35 · Naming and rephrasing",
+      "level": "S10",
+      "after_step": "Checkpoint 8 · Stage review",
+      "note": "Stage 10 opens on という, because という is already in the learner's hands from Step 11 and is quietly doing five different jobs. Sorting them is the cheapest large gain available at this level: five patterns that share three characters, told apart by the particle that follows.",
+      "bank": [["意味", "meaning"], ["説明", "an explanation"], ["表現", "an expression"], ["言葉", "a word"], ["内容", "content"], ["文章", "a piece of writing"], ["例", "an example"], ["場合", "a case"]],
+      "points": [
+        {
+          "id": "toiukoto",
+          "jp": "〜ということだ",
+          "en": "so what that means is",
+          "kind": "grammar",
+          "exp": {
+            "what": "Step 11's という named a thing — 田中という人. Attach こと and it stops naming a thing and starts packaging a whole CLAUSE: what you were told, or what it comes down to. Two jobs in one shape, reporting and summarising, and both of them hand the content to somebody else to own.",
+            "build": "Plain clause + ということだ to report: 遅れるということです. Plain clause + ということ as a plain noun: 大事なのは、続けるということです. つまり in front turns it into the summarising sense.",
+            "when": "Relaying what you were told without claiming it, and stating the upshot of something long — the two things every message you forward has to do at once.",
+            "watch": "Step 15's そうだ also reports hearsay, but it can only report. ということだ also means so the upshot is, which そうだ never does, and it is the more formal of the two."
+          },
+          "ex": [
+            ["クリスさんは少し遅れるということです。", "Chris says he'll be a little late — reported, not claimed."],
+            ["つまり、行けないということですね。", "So what that means is you can't come."],
+            ["大事なのは、続けるということです。", "The important thing is the continuing itself."]
+          ]
+        },
+        {
+          "id": "toiuto",
+          "jp": "〜というと・〜といえば",
+          "en": "speaking of — the topic handoff",
+          "kind": "grammar",
+          "exp": {
+            "what": "Somebody says a word and you pick it up and make it the new topic. Mention Kyoto and the natural reply begins 京都というと. It is how a Japanese conversation changes subject without appearing to change subject, which is why it sounds so much smoother than an English but anyway.",
+            "build": "Noun + というと, or + といえば, which is interchangeable in most spoken use. There is also ときたら, the complaining cousin — うちの息子ときたら.",
+            "when": "Conversation, constantly. Of everything in this stage it is the pattern you will hear most and the one that most quickly makes your own speech sound less like a series of statements.",
+            "watch": "It needs something to pick UP. Opening a conversation with it is odd — the word has to have just been said, or be so obviously in the air that everyone can supply it."
+          },
+          "ex": [
+            ["京都というと、お寺ですね。", "Speaking of Kyoto — temples, right?"],
+            ["夏というと、花火を思い出します。", "Summer makes me think of fireworks."],
+            ["田中さんといえば、最近見ませんね。", "Speaking of Tanaka — haven't seen him lately."]
+          ]
+        },
+        {
+          "id": "toiunowa",
+          "jp": "〜というのは",
+          "en": "which is to say — one shape, three jobs",
+          "kind": "grammar",
+          "exp": {
+            "what": "Three distinct senses, and nearly every English explanation collapses them into one. It DEFINES (Xというのは、Yのことです). It gives a REASON, in a sentence of its own after the thing it explains. And it PICKS OUT a phrase for emphasis. Same six characters each time.",
+            "build": "Definition: noun + というのは + …のことです. Reason: full stop, then というのは、〜からです. Its casual form is って — それってどういう意味.",
+            "when": "Every time you ask what a word means or explain one, which from this stage on is how you will learn most new vocabulary: from a Japanese definition rather than an English gloss.",
+            "watch": "The reason sense reads backwards to an English ear because it comes AFTER the statement it explains, where から comes before. 肉は食べません。というのは、菜食主義だからです。 — the explanation arrives as a second sentence."
+          },
+          "ex": [
+            ["「謎」というのは、説明できないことです。", "A mystery is something that cannot be explained — defining."],
+            ["肉は食べません。というのは、菜食主義だからです。", "I don't eat meat. The reason is that I'm vegetarian."],
+            ["それって、どういう意味ですか。", "What does that mean? — the casual って."]
+          ]
+        },
+        {
+          "id": "toiuyori",
+          "jp": "〜というより",
+          "en": "rather than — correcting the word",
+          "kind": "grammar",
+          "exp": {
+            "what": "Not a comparison of two things. A correction of a LABEL. You reach for a word, find it not quite right, and replace it in the same breath — 涼しいというより寒い. Cool, no: cold. The first word is not wrong so much as not accurate enough, which is this stage's entire subject in one pattern.",
+            "build": "Plain form or noun + というより + the truer word. Often with むしろ for weight: 〜というより、むしろ〜.",
+            "when": "Being exact about your own description. Also the graceful way to disagree with somebody else's characterisation without saying they are wrong.",
+            "watch": "Step 3's より compares two separate things: AよりBのほうがいい. というより replaces one description of ONE thing with a better one. Same character, different job, and the difference is whether there are two items or two words."
+          },
+          "ex": [
+            ["今日は涼しいというより寒いです。", "Today is cold rather than cool."],
+            ["趣味というより、仕事です。", "It's work rather than a hobby."],
+            ["嫌いというより、むしろ苦手です。", "Not so much dislike as no good at it."]
+          ]
+        },
+        {
+          "id": "toittemo",
+          "jp": "〜といっても",
+          "en": "though I say that — shrinking it again",
+          "kind": "grammar",
+          "exp": {
+            "what": "You say a word that sounds bigger than the thing is, and then immediately shrink it. 旅行といっても、二日だけです — a trip, well, two days. It is modesty with a grammar behind it, which in Japanese is structural rather than a personality trait.",
+            "build": "Noun or plain form + といっても + the deflation. The second half almost always carries だけ, ちょっと or 特に〜ない.",
+            "when": "Answering any question about something of yours that could sound like a boast — your Japanese, your job, your trip, your cooking.",
+            "watch": "It deflates; it does not contradict. 旅行といっても、行きませんでした is broken, because the second half has to leave the first half true and merely smaller."
+          },
+          "ex": [
+            ["旅行といっても、二日だけです。", "A trip — though only two days."],
+            ["料理といっても、卵を焼いただけです。", "I say cooking; I fried an egg."],
+            ["祝日といっても、特に何もありません。", "A holiday, though nothing special happens."]
+          ]
+        },
+        {
+          "id": "sb-toiu2",
+          "jp": "という一族",
+          "en": "three characters, five jobs",
+          "kind": "skill",
+          "exp": {
+            "what": "という is now doing five different things and they are all the same three characters. Naming a thing, packaging a clause, picking up a topic, defining a word, and correcting a label. The good news is that you never have to guess: the particle AFTER という tells you which one is running.",
+            "build": "〜という人 names · 〜ということ packages · 〜というと picks up · 〜というのは defines · 〜というより corrects · 〜といっても deflates. Listen past という to what follows it.",
+            "when": "Every conversation and every page of print from here on. Sorting the family once is cheaper than meeting each member separately and wondering why they look alike.",
+            "watch": "The failure is not producing the wrong one — it is HEARING the wrong one, because they sound nearly identical at speed and the difference lands two syllables later. If a sentence suddenly makes no sense, check which member you assumed."
+          },
+          "ex": [
+            ["田中という人から電話がありました。", "Naming — a person called Tanaka."],
+            ["行けないということです。", "Packaging — the upshot is he can't go."],
+            ["京都というと、お寺ですね。", "Picking up — speaking of Kyoto."]
+          ]
+        },
+        {
+          "id": "b-s35",
+          "jp": "Composition · 説明する",
+          "en": "define it, then correct yourself",
+          "kind": "build",
+          "requires": ["toiunowa", "toiuyori", "toittemo"],
+          "brief": "Explain a word from your own language that Japanese has no clean equivalent for. Define it with 〜というのは, then correct your own first attempt with 〜というより, then deflate it once with 〜といっても. Four or five sentences.",
+          "exp": {
+            "what": "The step's family, used for the thing it exists for: explaining something to somebody who does not already have the word.",
+            "build": "Definition → correction → deflation. Keep the subject small and concrete; a word for a feeling works better than a word for an institution.",
+            "when": "This is a real and frequent job. Every foreign resident gets asked what something from home means, and the answer always needs one correction and one apology for the answer.",
+            "watch": "Correct the WORD, not the fact. というより has to replace a description, so both halves must still be about the same thing."
+          },
+          "ex": []
+        }
+      ],
+      "deep": {}
+    },
+    {
+      "cat": "Step 36 · Sources and proportions",
+      "level": "S10",
+      "after_step": "Step 35 · Naming and rephrasing",
+      "note": "The written register proper. Every pattern here attaches a noun to a claim and says what relation it bears — whose authority, against what baseline, in what proportion. These are what a newspaper, a notice and a report are made of, and they are the reason an N3 reading passage looks impenetrable to an N4 learner even when every word is known.",
+      "bank": [["調査", "a survey"], ["天気予報", "the weather forecast"], ["記事", "an article"], ["去年", "last year"], ["値段", "the price"], ["人口", "population"], ["結果", "a result"], ["時間", "time"]],
+      "points": [
+        {
+          "id": "niyoruto",
+          "jp": "〜によると・〜によれば",
+          "en": "according to — naming the source",
+          "kind": "grammar",
+          "exp": {
+            "what": "The written twin of Step 15's そうだ. によると names WHERE the information came from, and it commits you to nothing: you are the pipe, not the source. Almost every piece of reported information you read in Japanese arrives inside it.",
+            "build": "Noun + によると or によれば, then the report, and the sentence almost always closes with そうです, ということです or らしいです. The opening and the ending work as a pair.",
+            "when": "News, forecasts, notices, and any time you pass on something you did not witness. Also the safest way to raise a claim you are not sure you want to defend.",
+            "watch": "Step 30's によって is the same characters doing a different job — by means of, depending on. によると is followed by a REPORT; によって is followed by a result. What comes after tells you which one you are in."
+          },
+          "ex": [
+            ["天気予報によると、明日は雨だそうです。", "According to the forecast, it'll rain tomorrow."],
+            ["新聞によれば、値段が上がるということです。", "According to the paper, prices are going up."],
+            ["調査によると、多くの人が知らないらしいです。", "The survey says most people don't know."]
+          ]
+        },
+        {
+          "id": "nikanshite",
+          "jp": "〜に関して・〜に関する",
+          "en": "concerning — the formal about",
+          "kind": "grammar",
+          "exp": {
+            "what": "Step 30 gave you について for about. に関して is its formal register: same job, higher shelf. It is what appears on a form, in a subject line and at the head of a paragraph, and using について there is not wrong so much as underdressed.",
+            "build": "Noun + に関して before a verb; noun + に関する before a NOUN — 事故に関する記事, an article concerning the accident. The する/して split is the same one you already make with として.",
+            "when": "Written Japanese and formal speech. If you would write regarding rather than about in English, this is the one.",
+            "watch": "に関する modifies a noun and に関して modifies a verb, and swapping them is the commonest error here. 事故に関して記事 is broken; 事故に関する記事 is right."
+          },
+          "ex": [
+            ["この件に関して、質問があります。", "I have a question concerning this matter."],
+            ["事故に関する記事を読みました。", "I read an article about the accident."],
+            ["日本の文化に関して勉強しています。", "I'm studying Japanese culture — formally put."]
+          ]
+        },
+        {
+          "id": "nikurabete",
+          "jp": "〜に比べて",
+          "en": "compared to — the baseline",
+          "kind": "grammar",
+          "exp": {
+            "what": "Step 10's より said which of two is more. に比べて sets one of them up as a BASELINE and then describes the other against it. The difference is emphasis: より picks a winner, に比べて measures a gap.",
+            "build": "Noun + に比べて, or に比べると. Then the comparison, usually with an adjective and often with ずっと or 少し to size it.",
+            "when": "Anything with a before and an after — last year against this year, your first month here against now, the city against home.",
+            "watch": "より wants the two items side by side in one sentence; に比べて puts one of them behind the sentence as a reference point. 去年より高い states which is higher; 去年に比べて高い says how this year sits against last."
+          },
+          "ex": [
+            ["去年に比べて、物価が高くなりました。", "Prices have risen compared to last year."],
+            ["東京に比べると、ここは静かです。", "Compared with Tokyo, it's quiet here."],
+            ["前に比べて、ずっと上手になりましたね。", "You've got much better than before."]
+          ]
+        },
+        {
+          "id": "nitsurete",
+          "jp": "〜につれて",
+          "en": "as one thing changes, so does the other",
+          "kind": "grammar",
+          "exp": {
+            "what": "Two changes tied together, moving in step. As the season advances, the days shorten. Neither half is a cause exactly — they simply travel together, which is a relation English usually has to spell out with as and Japanese carries in one word.",
+            "build": "Dictionary form or a change-noun + につれて. Both halves must be CHANGES: 増える, 高くなる, 進む. A static fact on either side breaks it.",
+            "when": "Describing anything gradual — a season, a skill, a city, a price. It is heavily written and it is everywhere in the reading section of the test for exactly that reason.",
+            "watch": "It cannot take a one-off event. 駅に着くにつれて is wrong because arriving happens once; 駅に近づくにつれて works because approaching is gradual. Ask whether the thing has a middle."
+          },
+          "ex": [
+            ["年を取るにつれて、時間が早く感じます。", "As you get older, time feels faster."],
+            ["秋が進むにつれて、日が短くなります。", "As autumn advances, the days grow short."],
+            ["練習するにつれて、上手になりました。", "As I practised, I got better."]
+          ]
+        },
+        {
+          "id": "nikakete",
+          "jp": "〜から〜にかけて",
+          "en": "from here to there — the smeared range",
+          "kind": "grammar",
+          "exp": {
+            "what": "A range with soft edges. から〜まで gives you two exact points; から〜にかけて gives you a stretch whose boundaries are vague on purpose — through the night, across the north, from spring into summer.",
+            "build": "Noun + から + noun + にかけて. Works for time and for place, and the two ends are usually of the same kind.",
+            "when": "Weather, seasons, regions, and any period you cannot or need not pin down. Forecasts are built out of it: 今夜から明日にかけて.",
+            "watch": "まで is exact and にかけて is not, and choosing まで where the edge is genuinely fuzzy sounds falsely precise. If you could not name the minute it stops, this is the one."
+          },
+          "ex": [
+            ["今夜から明日にかけて、雨が降るでしょう。", "Rain from tonight through tomorrow."],
+            ["春から夏にかけて、花が咲きます。", "Flowers bloom from spring into summer."],
+            ["北海道から東北にかけて、雪が多いです。", "Heavy snow from Hokkaido across the northeast."]
+          ]
+        },
+        {
+          "id": "tomoni",
+          "jp": "〜と共に",
+          "en": "together with — and alongside it",
+          "kind": "grammar",
+          "exp": {
+            "what": "Two jobs sharing one shape. WITH, in the formal register — 家族と共に暮らす. And ALONGSIDE, of two things changing at once, where it does につれて's job at a higher altitude.",
+            "build": "Noun + と共に for the accompanying sense. Dictionary form or change-noun + と共に for the alongside sense. Read ともに.",
+            "when": "Written Japanese, speeches, and anything ceremonial. The companionship sense turns up in wedding and funeral language constantly.",
+            "watch": "For the everyday with, と or と一緒に is what a person actually says. と共に in casual speech is like saying together with whom I reside — correct, and dressed for an occasion that is not happening."
+          },
+          "ex": [
+            ["家族と共に暮らしています。", "I live together with my family — formal register."],
+            ["年を取ると共に、考え方が変わりました。", "As I aged, my thinking changed alongside it."],
+            ["技術の進歩と共に、生活が変わりました。", "Life changed along with advances in technology."]
+          ]
+        },
+        {
+          "id": "sb-hikaku",
+          "jp": "どの関係か",
+          "en": "which relation is it",
+          "kind": "skill",
+          "exp": {
+            "what": "This step handed you six ways to hang a noun off a claim, and English uses about, according to and compared to for most of them without distinguishing. Japanese makes you pick the RELATION before you can build the sentence, which is why these feel harder than their glosses suggest.",
+            "build": "Source: によると. Topic: について / に関して. Baseline: に比べて. Proportion: につれて. Range: から〜にかけて. Accompaniment: と共に.",
+            "when": "Every piece of writing you do from here. Speech mostly gets by with について and より; print does not.",
+            "watch": "The two easiest to cross are によると and によって — same characters, and the giveaway is what FOLLOWS. A report follows によると; a result or a means follows によって."
+          },
+          "ex": [
+            ["予報によると、雨だそうです。", "Source — the forecast said so."],
+            ["去年に比べて、高いです。", "Baseline — measured against last year."],
+            ["年を取るにつれて、変わります。", "Proportion — the two move together."]
+          ]
+        },
+        {
+          "id": "b-s36",
+          "jp": "Composition · 変わったこと",
+          "en": "report a change, with a source",
+          "kind": "build",
+          "requires": ["niyoruto", "nikurabete", "nitsurete"],
+          "brief": "Report something that has changed where you live — prices, weather, the number of tourists, anything. Open with 〜によると and name a source, measure it with 〜に比べて, and describe one gradual change with 〜につれて. Four or five sentences, written register.",
+          "exp": {
+            "what": "The step assembled: a claim with an owner, a baseline to measure against, and a change described as a proportion rather than an event.",
+            "build": "Source → measurement → proportion. Keep it to one topic; the exercise is about the relations, not the range of facts.",
+            "when": "This is the shape of every short written report you will ever produce in Japanese, and of most of what you will read.",
+            "watch": "Hold the register. によると with a plain casual ending in the same sentence is the mismatch that most marks a learner at this level."
+          },
+          "ex": []
+        }
+      ],
+      "deep": {}
+    },
+    {
+      "cat": "Step 37 · Audience and coverage",
+      "level": "S10",
+      "after_step": "Step 36 · Sources and proportions",
+      "note": "Who a thing is for, what it covers, and who stands in for whom. Signage and officialese live here — 子ども向け, 学生を中心に, 工事中, 修理のため — and so does the vocabulary of any job description a learner will ever read.",
+      "bank": [["子ども", "children"], ["学生", "a student"], ["初心者", "a beginner"], ["工事", "construction work"], ["会議", "a meeting"], ["担当", "the person in charge"], ["範囲", "a range"], ["受付", "reception"]],
+      "points": [
+        {
+          "id": "wohajime",
+          "jp": "〜をはじめ・〜をはじめとする",
+          "en": "starting with — the named example",
+          "kind": "grammar",
+          "exp": {
+            "what": "Names the most important member of a group and lets it stand for the rest. 東京をはじめ、大都市では — Tokyo first among them, and the other big cities too. It is a list that admits it is not finishing.",
+            "build": "Noun + をはじめ before a clause; noun + をはじめとする before a NOUN — 東京をはじめとする大都市.",
+            "when": "Formal writing and announcements. Notably in thanks and introductions, where naming the senior person first and gesturing at everyone else is the entire social move.",
+            "watch": "The named one has to be genuinely the leading example, not just the one you thought of first. Putting a minor member in that slot reads as a misjudgement of rank, which in a written notice is a real error."
+          },
+          "ex": [
+            ["東京をはじめ、大都市では家賃が高いです。", "Rents are high in Tokyo and other big cities."],
+            ["社長をはじめとする皆様に感謝します。", "My thanks to the president and everyone else."],
+            ["日本をはじめ、多くの国が参加します。", "Japan among others will take part."]
+          ]
+        },
+        {
+          "id": "wochuushin",
+          "jp": "〜を中心に",
+          "en": "centred on — where the weight sits",
+          "kind": "grammar",
+          "exp": {
+            "what": "Not the leading example but the CENTRE of gravity. 若い人を中心に人気があります — popular, with young people at the middle of it. It says where most of a thing is concentrated without claiming that is all of it.",
+            "build": "Noun + を中心に before a clause; を中心とする before a noun. The centre can be a person, a place, a group or a topic.",
+            "when": "Describing any distribution — who uses something, where a thing is happening, what a course is built around.",
+            "watch": "をはじめ names a member; を中心に names a focus. 東京をはじめ lists cities starting with Tokyo; 東京を中心に says the thing is concentrated around Tokyo and thins out from there."
+          },
+          "ex": [
+            ["若い人を中心に人気があります。", "It's popular, mainly among young people."],
+            ["東京を中心に広がっています。", "It's spreading outward from Tokyo."],
+            ["文法を中心に勉強しています。", "I'm studying with grammar at the centre."]
+          ]
+        },
+        {
+          "id": "nikawatte",
+          "jp": "〜にかわって・〜にかわり",
+          "en": "on behalf of — standing in",
+          "kind": "grammar",
+          "exp": {
+            "what": "Somebody or something takes another's place. Two flavours: standing in for a person today (社長にかわって), and replacing something over time (手紙にかわってメールが).",
+            "build": "Noun + にかわって, or にかわり in writing. Note the intransitive かわる — you are not doing anything to the person you replace.",
+            "when": "Meetings, phone calls and apologies, where somebody absent has to be spoken for. Also any description of one thing superseding another.",
+            "watch": "Step 42's 代わりに overlaps and is not the same. 代わりに is the everyday instead of, including instead of doing something; にかわって is specifically taking somebody's ROLE. A learner who uses にかわって for I had tea instead of coffee has claimed the coffee had a job."
+          },
+          "ex": [
+            ["社長にかわって、ご挨拶いたします。", "I'll speak on behalf of the president."],
+            ["手紙にかわって、メールが使われています。", "Email has taken the place of letters."],
+            ["父にかわり、お礼を申し上げます。", "On my father's behalf, my thanks."]
+          ]
+        },
+        {
+          "id": "mukimuke",
+          "jp": "〜向き・〜向け",
+          "en": "suited to, and aimed at",
+          "kind": "grammar",
+          "exp": {
+            "what": "One kana apart and a real difference. 向き means SUITED to — it happens to fit. 向け means AIMED at — somebody built it for them on purpose. 子ども向きの本 is a book children get on with; 子ども向けの本 was written for children.",
+            "build": "Noun + 向き / 向け, then の before a noun. 向き also keeps its literal sense of facing: 南向きの部屋, a south-facing room.",
+            "when": "Product descriptions, course levels, job postings and flat listings — four things a resident reads constantly and all of which turn on this distinction.",
+            "watch": "Intention is the whole test. 初心者向け is a beginners' course somebody designed; 初心者向き is a course that happens to suit beginners. In an advertisement the difference is what is being promised."
+          },
+          "ex": [
+            ["これは子ども向けの本です。", "This book was written for children."],
+            ["この仕事は初心者向きです。", "This job happens to suit a beginner."],
+            ["南向きの部屋がいいです。", "I'd like a south-facing room — the literal sense."]
+          ]
+        },
+        {
+          "id": "chuujuu",
+          "jp": "〜中（ちゅう・じゅう）",
+          "en": "during, and all through",
+          "kind": "grammar",
+          "exp": {
+            "what": "The same character with two readings that mean different things. ちゅう is IN THE MIDDLE OF — 工事中, under construction, and it will stop. じゅう is ALL THROUGH — 一日中, the whole day, with no gaps.",
+            "build": "Noun + 中. Which reading it takes is a property of the word rather than a rule you can derive: 授業中 じゅぎょうちゅう, 一日中 いちにちじゅう, 世界中 せかいじゅう, 電話中 でんわちゅう.",
+            "when": "Signs, more than anything. 準備中, 営業中, 使用中 on a lavatory door, 工事中 across a pavement — this is a reading skill before it is a speaking one.",
+            "watch": "There is no shortcut for the reading; it is learned per word. The rough tendency is that ちゅう attaches to activities and じゅう to spans, but 今日中 today's version of a span reads きょうじゅう while 午前中 reads ごぜんちゅう, so the tendency is not a rule."
+          },
+          "ex": [
+            ["ただいま準備中です。", "We're getting ready — the sign on the door."],
+            ["一日中、雨が降っていました。", "It rained all day long."],
+            ["会議中なので、後でかけ直します。", "I'm in a meeting; I'll call back."]
+          ]
+        },
+        {
+          "id": "tochuu",
+          "jp": "〜途中で・〜途中に",
+          "en": "on the way, and part way through",
+          "kind": "grammar",
+          "exp": {
+            "what": "Physically on the way somewhere, or part way through doing something. It is the noun 途中 doing grammar, and it covers both the road and the task.",
+            "build": "Noun + の + 途中で, or dictionary form + 途中で. で for something that happens there; に for a point on the route.",
+            "when": "Explaining lateness, interruptions and errands — three things that need explaining rather often.",
+            "watch": "Step 34's 最中に is the dramatic version: right in the thick of it, usually with an interruption you resented. 途中で is neutral. 食事の最中に電話が rings with annoyance; 帰る途中で買いました is just a fact about a shop."
+          },
+          "ex": [
+            ["帰る途中で、パンを買いました。", "I bought bread on the way home."],
+            ["会議の途中で、電話が鳴りました。", "The phone rang part way through the meeting."],
+            ["駅へ行く途中に、郵便局があります。", "There's a post office on the way to the station."]
+          ]
+        },
+        {
+          "id": "sb-hanni",
+          "jp": "だれのため、どこまで",
+          "en": "for whom, and how far",
+          "kind": "skill",
+          "exp": {
+            "what": "This step is entirely about SCOPE, and English marks almost none of it. Who a thing is for, whether that was intended, who is standing in for whom, and how much of a period or a place is covered.",
+            "build": "Leading member: をはじめ. Centre of gravity: を中心に. Substitution: にかわって. Suited: 向き. Aimed at: 向け. In the middle of: ちゅう / 途中で. All through: じゅう.",
+            "when": "Reading, mostly — signage, listings, notices and announcements. This step raises your comprehension faster than your speech, and that is the correct trade at this point.",
+            "watch": "The pair most worth getting right is 向き and 向け, because it is one kana, it is everywhere in advertising, and it is the difference between what something suits and what somebody meant it for."
+          },
+          "ex": [
+            ["初心者向けのコースです。", "Aimed at beginners — designed for them."],
+            ["若い人を中心に人気です。", "Centred on young people."],
+            ["ただいま工事中です。", "In the middle of construction — it will end."]
+          ]
+        },
+        {
+          "id": "b-s37",
+          "jp": "Composition · おしらせ",
+          "en": "write the notice",
+          "kind": "build",
+          "requires": ["mukimuke", "chuujuu", "wochuushin"],
+          "brief": "Write a short notice for a real place — a shop closing for work, a class being offered, a building with a lift out of service. Say who it is for with 〜向け, mark a period with 〜中, and name where the weight sits with 〜を中心に. Three or four sentences, in the flat register a notice actually uses.",
+          "exp": {
+            "what": "The step's scope vocabulary in the format it exists for. A notice has to say who, what and how long in as few words as the language allows.",
+            "build": "Who it is for → what is happening → how long. No greeting and no sign-off; notices do not have them.",
+            "when": "You will read a hundred of these before you write one, and writing one is the fastest way to stop finding them opaque.",
+            "watch": "Notices are terse and impersonal. A polite, warm sentence in the middle of one is more conspicuously wrong than a grammar mistake would be."
+          },
+          "ex": []
+        }
+      ],
+      "deep": {}
+    }
+  ]
+}

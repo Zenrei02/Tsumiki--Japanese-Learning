@@ -1,0 +1,526 @@
+[
+ {
+  "pattern": "あまり",
+  "gloss": "so much… that"
+ },
+ {
+  "pattern": "あまりに",
+  "gloss": "so much… that; too…"
+ },
+ {
+  "pattern": "いくら○○ても / いくら○○でも",
+  "gloss": "no matter how"
+ },
+ {
+  "pattern": "一方だ",
+  "gloss": "more and more; continue to"
+ },
+ {
+  "pattern": "一方で",
+  "gloss": "on one hand; on the other hand"
+ },
+ {
+  "pattern": "うちに",
+  "gloss": "while; before; doing"
+ },
+ {
+  "pattern": "おかげで",
+  "gloss": "thanks to; because of"
+ },
+ {
+  "pattern": "おそらく",
+  "gloss": "perhaps; likely; probably"
+ },
+ {
+  "pattern": "かけ",
+  "gloss": "half-; not yet finished"
+ },
+ {
+  "pattern": "がたい",
+  "gloss": "hard to; difficult to"
+ },
+ {
+  "pattern": "がち",
+  "gloss": "apt to do; tend to do"
+ },
+ {
+  "pattern": "代わりに",
+  "gloss": "instead of; in exchange for"
+ },
+ {
+  "pattern": "ぎみ-",
+  "gloss": "like; -looking"
+ },
+ {
+  "pattern": "きり",
+  "gloss": "only; just"
+ },
+ {
+  "pattern": "きる",
+  "gloss": "to do something completely"
+ },
+ {
+  "pattern": "切れない",
+  "gloss": "being too much to finish"
+ },
+ {
+  "pattern": "くせに",
+  "gloss": "even though; and yet; despite"
+ },
+ {
+  "pattern": "くらい / ぐらい",
+  "gloss": "probably; around"
+ },
+ {
+  "pattern": "決して○○ない",
+  "gloss": "never; by no means"
+ },
+ {
+  "pattern": "こそ",
+  "gloss": "certainly (emphasises the previous word)"
+ },
+ {
+  "pattern": "こと(",
+  "gloss": "must) do"
+ },
+ {
+  "pattern": "ことか",
+  "gloss": "how…? what…!"
+ },
+ {
+  "pattern": "ことがある",
+  "gloss": "can; sometimes happens"
+ },
+ {
+  "pattern": "ことだ",
+  "gloss": "should (when giving advice)"
+ },
+ {
+  "pattern": "ことに-",
+  "gloss": "ly"
+ },
+ {
+  "pattern": "ことはない",
+  "gloss": "there is no need to; never happens"
+ },
+ {
+  "pattern": "さえ",
+  "gloss": "even"
+ },
+ {
+  "pattern": "さえ○○ば / さえすれば / さえいれば",
+  "gloss": "if only… then"
+ },
+ {
+  "pattern": "しかない",
+  "gloss": "have no choice but"
+ },
+ {
+  "pattern": "ずに",
+  "gloss": "without (doing)"
+ },
+ {
+  "pattern": "ずにはいられない",
+  "gloss": "can't help but feel; can't help but do"
+ },
+ {
+  "pattern": "せいで",
+  "gloss": "because of"
+ },
+ {
+  "pattern": "そうもない",
+  "gloss": "very unlikely to"
+ },
+ {
+  "pattern": "その結果",
+  "gloss": "as a result"
+ },
+ {
+  "pattern": "だけ 2",
+  "gloss": "as much as"
+ },
+ {
+  "pattern": "た結果 / の結果",
+  "gloss": "as a result of"
+ },
+ {
+  "pattern": "だけど",
+  "gloss": "but; however"
+ },
+ {
+  "pattern": "確かに",
+  "gloss": "surely; certainly"
+ },
+ {
+  "pattern": "たとえ○○ても",
+  "gloss": "even if… is the case"
+ },
+ {
+  "pattern": "たとえば",
+  "gloss": "for example"
+ },
+ {
+  "pattern": "たとたん",
+  "gloss": "as soon as; just (now)"
+ },
+ {
+  "pattern": "たびに",
+  "gloss": "everytime; whenever"
+ },
+ {
+  "pattern": "ために 1",
+  "gloss": "for the sake of; in order to"
+ },
+ {
+  "pattern": "ために 2",
+  "gloss": "because of; as a result of"
+ },
+ {
+  "pattern": "たらいい / といい 1",
+  "gloss": "should"
+ },
+ {
+  "pattern": "たらいい / といい 2",
+  "gloss": "I hope"
+ },
+ {
+  "pattern": "たらいい / といい 3",
+  "gloss": "it would be nice if"
+ },
+ {
+  "pattern": "だらけ 1",
+  "gloss": "covered (all over)"
+ },
+ {
+  "pattern": "だらけ 2",
+  "gloss": "full of"
+ },
+ {
+  "pattern": "ついでに",
+  "gloss": "taking the opportunity; while (you) are at it"
+ },
+ {
+  "pattern": "っけ",
+  "gloss": "what is… again?"
+ },
+ {
+  "pattern": "っぱなし",
+  "gloss": "leaving something still in use"
+ },
+ {
+  "pattern": "っぽい-",
+  "gloss": "ish; -like"
+ },
+ {
+  "pattern": "つまり",
+  "gloss": "in other words; that is to say"
+ },
+ {
+  "pattern": "てごらん(",
+  "gloss": "please) try to; (please) look"
+ },
+ {
+  "pattern": "て初めて",
+  "gloss": "not until; only after… did I"
+ },
+ {
+  "pattern": "てもかまわない / てもかまいません",
+  "gloss": "no problem"
+ },
+ {
+  "pattern": "という",
+  "gloss": "called; named"
+ },
+ {
+  "pattern": "ということ",
+  "gloss": "I've heard that; it seems that"
+ },
+ {
+  "pattern": "というと",
+  "gloss": "speaking of; when you say…"
+ },
+ {
+  "pattern": "というのは 1",
+  "gloss": "means; is"
+ },
+ {
+  "pattern": "というのは 2",
+  "gloss": "because"
+ },
+ {
+  "pattern": "というのは 3",
+  "gloss": "in particular"
+ },
+ {
+  "pattern": "というより",
+  "gloss": "rather than"
+ },
+ {
+  "pattern": "といっても",
+  "gloss": "although one says"
+ },
+ {
+  "pattern": "とおり",
+  "gloss": "in the way; the same as"
+ },
+ {
+  "pattern": "ところが",
+  "gloss": "however; although"
+ },
+ {
+  "pattern": "どころか",
+  "gloss": "far from; nevermind"
+ },
+ {
+  "pattern": "ところで",
+  "gloss": "by the way"
+ },
+ {
+  "pattern": "としたら / とすれば",
+  "gloss": "if it were the case that; if we assume"
+ },
+ {
+  "pattern": "として",
+  "gloss": "as (i.e. in the role of)"
+ },
+ {
+  "pattern": "としない / とはしない",
+  "gloss": "not try to; not make an effort to"
+ },
+ {
+  "pattern": "とする 1",
+  "gloss": "try to"
+ },
+ {
+  "pattern": "とする 2",
+  "gloss": "be about to"
+ },
+ {
+  "pattern": "途中に / 途中で",
+  "gloss": "on the way; in the middle of"
+ },
+ {
+  "pattern": "と共に",
+  "gloss": "together with"
+ },
+ {
+  "pattern": "とは限らない",
+  "gloss": "not necessarily so; is not always true"
+ },
+ {
+  "pattern": "どんなに○○ても",
+  "gloss": "no matter how"
+ },
+ {
+  "pattern": "ないことはない",
+  "gloss": "can; is not impossible"
+ },
+ {
+  "pattern": "中",
+  "gloss": "during; throughout"
+ },
+ {
+  "pattern": "ながら / いながら / ながらも",
+  "gloss": "although; despite"
+ },
+ {
+  "pattern": "なぜなら / なぜかというと",
+  "gloss": "because; the reason is"
+ },
+ {
+  "pattern": "なるべく",
+  "gloss": "as much as possible"
+ },
+ {
+  "pattern": "なんか / なんて",
+  "gloss": "things like; something"
+ },
+ {
+  "pattern": "において / における",
+  "gloss": "in; on; at; as for; regarding"
+ },
+ {
+  "pattern": "にかけて",
+  "gloss": "over (a period); through; concerning"
+ },
+ {
+  "pattern": "にかわって / にかわり",
+  "gloss": "instead of; on behalf of"
+ },
+ {
+  "pattern": "に関する / に関して",
+  "gloss": "related to; about"
+ },
+ {
+  "pattern": "に比べて",
+  "gloss": "compared to"
+ },
+ {
+  "pattern": "にしては",
+  "gloss": "for; considering it's"
+ },
+ {
+  "pattern": "にしても",
+  "gloss": "even if"
+ },
+ {
+  "pattern": "に対して",
+  "gloss": "regarding; with regards to"
+ },
+ {
+  "pattern": "に違いない",
+  "gloss": "I'm sure; no doubt that"
+ },
+ {
+  "pattern": "について",
+  "gloss": "concerning; about"
+ },
+ {
+  "pattern": "につれて",
+  "gloss": "as… then"
+ },
+ {
+  "pattern": "にとって",
+  "gloss": "to; for; concerning"
+ },
+ {
+  "pattern": "によって / による",
+  "gloss": "due to; by means of"
+ },
+ {
+  "pattern": "によると / によれば",
+  "gloss": "according to"
+ },
+ {
+  "pattern": "間 / 間に 1",
+  "gloss": "while; during"
+ },
+ {
+  "pattern": "間 / 間に 2",
+  "gloss": "between"
+ },
+ {
+  "pattern": "ば○○ほど",
+  "gloss": "the more… the more/less"
+ },
+ {
+  "pattern": "ばいい",
+  "gloss": "should; can; it'd be good if"
+ },
+ {
+  "pattern": "ばかりでなく",
+  "gloss": "not only… but also; as well as"
+ },
+ {
+  "pattern": "ばよかった",
+  "gloss": "should have; it would have been better if"
+ },
+ {
+  "pattern": "ふと 1",
+  "gloss": "suddenly"
+ },
+ {
+  "pattern": "ふと 2",
+  "gloss": "accidentally; unexpectedly"
+ },
+ {
+  "pattern": "ふりをする",
+  "gloss": "to pretend; to act as if"
+ },
+ {
+  "pattern": "べき",
+  "gloss": "must do; should do"
+ },
+ {
+  "pattern": "べきではない",
+  "gloss": "must not do; should not do"
+ },
+ {
+  "pattern": "べつに○○ない / べつに○○じゃない",
+  "gloss": "not really; not particularly"
+ },
+ {
+  "pattern": "ほど",
+  "gloss": "the more; to the extent that; so much… that"
+ },
+ {
+  "pattern": "ほど○○ない",
+  "gloss": "is not as… as"
+ },
+ {
+  "pattern": "最中に",
+  "gloss": "in the middle of"
+ },
+ {
+  "pattern": "まま",
+  "gloss": "as it is"
+ },
+ {
+  "pattern": "まるで",
+  "gloss": "as if; as though"
+ },
+ {
+  "pattern": "向き 1",
+  "gloss": "towards (direction)"
+ },
+ {
+  "pattern": "向き 2",
+  "gloss": "suitable for"
+ },
+ {
+  "pattern": "向け",
+  "gloss": "intended for; aimed at"
+ },
+ {
+  "pattern": "めったに",
+  "gloss": "hardly; rarely; seldom"
+ },
+ {
+  "pattern": "もしかしたら",
+  "gloss": "perhaps; maybe"
+ },
+ {
+  "pattern": "もの",
+  "gloss": "because (indicate reason or excuse)"
+ },
+ {
+  "pattern": "ものだ",
+  "gloss": "used to do something; should do something"
+ },
+ {
+  "pattern": "ような気がする",
+  "gloss": "have a feeling that; think that"
+ },
+ {
+  "pattern": "ように",
+  "gloss": "in order to; so that"
+ },
+ {
+  "pattern": "わけがない",
+  "gloss": "there is no way that"
+ },
+ {
+  "pattern": "わけだ",
+  "gloss": "for that reason; no wonder; as you'd expect"
+ },
+ {
+  "pattern": "わけではない",
+  "gloss": "it doesn't mean that; it is not the case"
+ },
+ {
+  "pattern": "わけにはいかない",
+  "gloss": "must not; can't afford to"
+ },
+ {
+  "pattern": "わりに",
+  "gloss": "for; despite; unexpectedly"
+ },
+ {
+  "pattern": "を中心に",
+  "gloss": "focused on; centered on"
+ },
+ {
+  "pattern": "をはじめ / をはじめとする",
+  "gloss": "for example; starting with"
+ }
+]

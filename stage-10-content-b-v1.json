@@ -1,0 +1,421 @@
+{
+  "_": "Stage 10, part B — Steps 38-40. Split across three files purely for authoring; build-stage3.py concatenates them in CONTENT order and the split is invisible in the module.",
+  "insert": [],
+  "new_steps": [
+    {
+      "cat": "Step 38 · No choice, and enough",
+      "level": "S10",
+      "after_step": "Step 37 · Audience and coverage",
+      "note": "Necessity and sufficiency, which Japanese marks and English mostly leaves to tone. The step's spine is that there are two opposite pressures — there is nothing else for it, and this much is already enough — and a learner who only has なければならない from Step 5 can express the first badly and the second not at all.",
+      "bank": [["方法", "a method"], ["我慢", "putting up with it"], ["心配", "worry"], ["選択", "a choice"], ["条件", "a condition"], ["必要", "necessity"], ["最低", "the minimum"], ["十分", "enough"]],
+      "points": [
+        {
+          "id": "shikanai",
+          "jp": "〜しかない",
+          "en": "nothing for it but",
+          "kind": "grammar",
+          "exp": {
+            "what": "Step 3's しか meant only, with a negative. Put a verb in front of it and it becomes resignation with a grammar: there is no option but to do this. It is not the same as must — must says a rule requires it, しかない says the alternatives ran out.",
+            "build": "Dictionary form + しかない. Also noun + しかない for a thing: 水しかない. More formal: 〜ほかない, 〜よりほかない.",
+            "when": "Trains cancelled, deadline tomorrow, shop shut. It is one of the most-used patterns in adult conversation because most adult decisions are made this way.",
+            "watch": "It carries resignation, so pointing it at somebody else is bleak: 諦めるしかないですね to a person in trouble is honest but cold. About yourself it is ordinary and even a little wry."
+          },
+          "ex": [
+            ["電車が止まったので、歩くしかない。", "The train's stopped, so there's nothing for it but to walk."],
+            ["やるしかないですね。", "We'll just have to do it."],
+            ["待つしかありません。", "There's nothing to do but wait."]
+          ]
+        },
+        {
+          "id": "baii",
+          "jp": "〜ばいい",
+          "en": "you just have to — the easy answer",
+          "kind": "grammar",
+          "exp": {
+            "what": "The mirror of しかない, and much warmer: this is all it takes. It answers a worry by shrinking the problem to one action. Step 16's ば gave you the conditional; putting いい on the end turns it into advice that sounds like relief.",
+            "build": "ば-form + いい. Question form for asking: どうすればいいですか, the most useful sentence in this step. Past regret takes ばよかった, which is Step 40.",
+            "when": "Asking what to do, and answering somebody who is stuck. どうすればいいですか will get you out of more trouble in Japan than any other sentence at this level.",
+            "watch": "As advice it can sound dismissive if the problem is genuinely hard — 頑張ればいい to somebody struggling reads as you are not trying. It works best on problems with a genuinely simple answer."
+          },
+          "ex": [
+            ["どうすればいいですか。", "What should I do? — the question form."],
+            ["ボタンを押せばいいです。", "You just have to press the button."],
+            ["分からなければ、聞けばいいですよ。", "If you don't know, just ask."]
+          ]
+        },
+        {
+          "id": "sae",
+          "jp": "〜さえ・〜さえ〜ば",
+          "en": "even, and if only",
+          "kind": "grammar",
+          "exp": {
+            "what": "さえ is even, with a sharper edge than も: it picks the most extreme case to prove a point — 子供でさえ分かる, even a child gets it. Pair it with ば and it flips into sufficiency: this one thing, and nothing else, is all that is needed.",
+            "build": "Noun + さえ for even. For the sufficiency sense: noun + さえ + ば-form, or verb-stem + さえすれば. 薬を飲みさえすれば治ります.",
+            "when": "The even sense in argument; the if-only sense whenever you want to say the whole problem reduces to one condition.",
+            "watch": "も also means even and is far more common. さえ is stronger and slightly literary, and using it where も would do makes an ordinary sentence sound like it is making a case."
+          },
+          "ex": [
+            ["それは子供でさえ分かります。", "Even a child understands that."],
+            ["薬を飲みさえすれば、治ります。", "You'll get better if you just take the medicine."],
+            ["時間さえあれば、行きたいです。", "If only I had the time, I'd go."]
+          ]
+        },
+        {
+          "id": "kotoda",
+          "jp": "〜ことだ",
+          "en": "the thing to do is",
+          "kind": "grammar",
+          "exp": {
+            "what": "Advice stated as a general truth rather than aimed at a person. 毎日練習することだ — the thing is to practise daily. Because it never says you, it lands as counsel rather than instruction, which is why teachers and coaches live in it.",
+            "build": "Dictionary form + ことだ, or ないことだ for the negative. Its casual spoken life is small; this is mostly written and spoken-to-a-group.",
+            "when": "Giving advice to somebody below you, or stating a principle. Also very common in self-help writing and in the summing-up line of an article.",
+            "watch": "It is a downward-pointing form. Said to a superior it reverses the ranks — 早く帰ることです to your boss instructs him from above, which is not what you meant."
+          },
+          "ex": [
+            ["毎日少しずつ練習することです。", "The thing is to practise a little every day."],
+            ["同じ失敗を繰り返さないことだ。", "The thing is not to repeat the same mistake."],
+            ["まず、休むことですね。", "First of all, the thing is to rest."]
+          ]
+        },
+        {
+          "id": "kotohanai",
+          "jp": "〜ことはない",
+          "en": "there's no need to",
+          "kind": "grammar",
+          "exp": {
+            "what": "Reassurance with a shape. It removes an obligation the other person has assumed: you do not have to worry, you need not apologise. Step 5's なくてもいい permits not doing; ことはない says there was never a reason to.",
+            "build": "Dictionary form + ことはない. Often with そんなに or 別に in front to soften it further.",
+            "when": "Comforting somebody who is over-apologising or over-worrying, which in Japan is a daily conversational event and one you will otherwise have no good reply to.",
+            "watch": "Do not confuse it with Step 18's ことがある, which is about experience. ことはない removes a need; ことがない says it never happened. The particle is the whole difference."
+          },
+          "ex": [
+            ["心配することはありませんよ。", "There's no need to worry."],
+            ["謝ることはないですよ。", "You don't need to apologise."],
+            ["そんなに急ぐことはない。", "There's no need to rush like that."]
+          ]
+        },
+        {
+          "id": "naikotohanai",
+          "jp": "〜ないことはない",
+          "en": "it's not that I can't — the reluctant yes",
+          "kind": "grammar",
+          "exp": {
+            "what": "A double negative that says yes without enthusiasm. 食べられないことはない — it is not that I cannot eat it. Everything about the shape signals a reservation coming, and the listener will wait for it.",
+            "build": "ない-form + ことはない, or こともない. It is nearly always followed by が or けど and the reservation.",
+            "when": "Declining softly, agreeing reluctantly, and answering a question honestly when the plain yes would overstate your willingness.",
+            "watch": "Native listeners hear it as a no in progress. If you actually mean an ordinary yes, say the ordinary yes — this shape will be read as hedging whatever you intended."
+          },
+          "ex": [
+            ["行けないことはないですが、遅くなります。", "It's not that I can't go, but I'd be late."],
+            ["食べられないことはありません。", "It's not that I can't eat it."],
+            ["できないこともないけど、時間がかかる。", "It's not undoable, but it'd take time."]
+          ]
+        },
+        {
+          "id": "temokamawanai",
+          "jp": "〜てもかまわない",
+          "en": "I don't mind if",
+          "kind": "grammar",
+          "exp": {
+            "what": "Step 5's てもいい gave permission. てもかまわない gives it with a shrug — it makes no difference to me. The difference is not politeness but investment: いい approves, かまわない declines to care.",
+            "build": "て-form + もかまわない / かまいません. Question form asks permission at a notch above てもいいですか: 閉めてもかまいませんか.",
+            "when": "Granting permission graciously, and asking for it formally. Also stating flexibility — どちらでもかまいません is the standard reply when you genuinely have no preference.",
+            "watch": "Because it means I do not mind, it can sound cold if the other person wanted approval rather than tolerance. To a child asking if their drawing is good, かまわない is not the word."
+          },
+          "ex": [
+            ["窓を閉めてもかまいませんか。", "Would you mind if I closed the window?"],
+            ["どちらでもかまいません。", "Either is fine by me."],
+            ["少し遅れてもかまいません。", "I don't mind if you're a little late."]
+          ]
+        },
+        {
+          "id": "sb-sentaku",
+          "jp": "しなきゃ、で済むか",
+          "en": "must, may, and need not",
+          "kind": "skill",
+          "exp": {
+            "what": "You now have a full dial between forced and free, and the rungs are not interchangeable. なければならない is a rule. しかない is the alternatives running out. ばいい is the easy answer. てもかまわない is indifference. ことはない is release.",
+            "build": "Forced by rule: なければならない. Forced by circumstance: しかない. Sufficient: ばいい / さえ〜ば. Permitted: てもいい / てもかまわない. Unnecessary: なくてもいい / ことはない.",
+            "when": "Any conversation about what has to happen — which at work, at a counter and with a landlord is most of them.",
+            "watch": "The pair learners cross most is しかない and なければならない. A rule you dislike is still なければならない; しかない says there was no rule, only a lack of options, and using it about a regulation sounds like you are complaining about the weather."
+          },
+          "ex": [
+            ["ビザを取らなければなりません。", "A rule requires it."],
+            ["電車がないので、歩くしかない。", "No rule — no options."],
+            ["心配することはありません。", "Released — there was no need."]
+          ]
+        },
+        {
+          "id": "b-s38",
+          "jp": "Composition · 相談",
+          "en": "a problem, and the advice you'd give",
+          "kind": "build",
+          "requires": ["shikanai", "baii", "kotohanai"],
+          "brief": "Somebody writes to you with a small problem — they're nervous about a first day, or stuck without a train. Reply. Name the constraint with 〜しかない, give one simple action with 〜ばいい, and take one worry away with 〜ことはない. Four or five sentences.",
+          "exp": {
+            "what": "The step's dial, aimed at the situation it exists for: telling somebody what is forced, what is easy, and what they can stop worrying about.",
+            "build": "Acknowledge → the one constraint → the one action → the release. Keep it short; advice that runs long stops being reassuring.",
+            "when": "This is the shape of most kind messages between adults, and it is very hard to write warmly in a second language without these three.",
+            "watch": "Order matters emotionally. Release the worry last: leading with 心配することはない before you have addressed the problem reads as brushing them off."
+          },
+          "ex": []
+        }
+      ],
+      "deep": {}
+    },
+    {
+      "cat": "Step 39 · Denying the inference",
+      "level": "S10",
+      "after_step": "Step 38 · No choice, and enough",
+      "note": "Stage 9's わけだ drew a conclusion and わけではない denied one. This step finishes the family and adds the rest of the machinery for saying that something does not follow — which is a different and more useful act than saying something is false.",
+      "bank": [["理由", "a reason"], ["証拠", "evidence"], ["可能性", "a possibility"], ["常識", "common sense"], ["例外", "an exception"], ["事実", "a fact"], ["絶対", "absolutely"], ["場合", "a case"]],
+      "points": [
+        {
+          "id": "wakeganai",
+          "jp": "〜わけがない",
+          "en": "there's no way",
+          "kind": "grammar",
+          "exp": {
+            "what": "Not a denial of the fact — a denial that the fact is even POSSIBLE. Step 31's に違いない said it must be so; わけがない is its exact opposite face: there is no route by which that could be true.",
+            "build": "Plain form + わけがない, or the softer わけはない. Casual speech contracts it to わけない.",
+            "when": "Rejecting a suggestion out of hand, usually with some feeling. Also the honest reply when somebody credits you with something you know you did not do.",
+            "watch": "It is strong. Aimed at a person's statement it calls it impossible rather than mistaken, so among people you owe politeness to, はずがない or と思いません does the same work without the edge."
+          },
+          "ex": [
+            ["彼が知っているわけがない。", "There's no way he knows."],
+            ["こんな簡単な問題、間違えるわけがありません。", "No chance of getting a question this easy wrong."],
+            ["そんなに安いわけがないでしょう。", "There's no way it's that cheap."]
+          ]
+        },
+        {
+          "id": "wakeniwaikanai",
+          "jp": "〜わけにはいかない",
+          "en": "I can't very well — the social impossibility",
+          "kind": "grammar",
+          "exp": {
+            "what": "Not can't in the ability sense — Step 18's 〜ことができない covers that. This is the thing you are physically able to do and socially cannot: leave early, refuse the drink, say what you think. Japanese has a dedicated grammar for it, which tells you something about how often it comes up.",
+            "build": "Dictionary form + わけにはいかない. The negative flips the meaning to obligation: ないわけにはいかない, I cannot not do it — I have to.",
+            "when": "Explaining why you are staying, paying, attending or keeping quiet. It is the most useful pattern in this step for actually living somewhere.",
+            "watch": "It needs a SOCIAL reason behind it, not a physical one. 高いから買うわけにはいかない is odd, because money is a plain constraint; 部長の前で断るわけにはいかない is exactly right."
+          },
+          "ex": [
+            ["みんなが働いているので、帰るわけにはいきません。", "I can't very well leave while everyone's working."],
+            ["約束したので、行かないわけにはいかない。", "I promised, so I have to go."],
+            ["ここで諦めるわけにはいかない。", "I can't afford to give up here."]
+          ]
+        },
+        {
+          "id": "towakagiranai",
+          "jp": "〜とは限らない",
+          "en": "not necessarily — puncturing the rule",
+          "kind": "grammar",
+          "exp": {
+            "what": "Denies that something is ALWAYS true, without denying it is usually true. 高いものがいいとは限らない — expensive does not always mean good. It is the most precise disagreement in the language and the politest, because it concedes the general case while refusing the universal one.",
+            "build": "Plain form + とは限らない. Often with 必ずしも in front, which reinforces it: 必ずしも〜とは限らない.",
+            "when": "Any discussion where somebody has over-generalised, which is most discussions. Also very common in writing, where hedging a claim properly is the whole craft.",
+            "watch": "It attacks the ALWAYS, not the claim. Using it to mean that is false leaves your listener thinking you half-agreed, and they will proceed as if you did."
+          },
+          "ex": [
+            ["高いものがいいとは限りません。", "Expensive doesn't always mean good."],
+            ["日本人が全員寿司を好きだとは限らない。", "Not every Japanese person likes sushi."],
+            ["必ずしも成功するとは限らない。", "It won't necessarily succeed."]
+          ]
+        },
+        {
+          "id": "soumonai",
+          "jp": "〜そうもない",
+          "en": "doesn't look like it's going to",
+          "kind": "grammar",
+          "exp": {
+            "what": "Step 15's そう said it looks like it will. This is its proper negative, and it is not the one a learner guesses: そうじゃない denies the appearance, while そうもない says the appearance is of it NOT happening, and says so with a little despair.",
+            "build": "Verb stem + そうもない, or そうにない. From 降る: 降りそうもない, it doesn't look like raining.",
+            "when": "Weather, deadlines, queues, and any wait that is going badly. It is the natural thing to say while looking at something that is not improving.",
+            "watch": "The trap is building it as そうじゃない, which means it does not look that way — a comment on the appearance rather than the outcome. 終わりそうじゃない questions how it looks; 終わりそうもない says it will not finish."
+          },
+          "ex": [
+            ["今日は終わりそうもありません。", "It doesn't look like finishing today."],
+            ["雨はやみそうにないですね。", "The rain doesn't look like stopping."],
+            ["彼は来そうもない。", "He doesn't look like coming."]
+          ]
+        },
+        {
+          "id": "sb-hitei",
+          "jp": "ちがう、の四種類",
+          "en": "four ways to say no",
+          "kind": "skill",
+          "exp": {
+            "what": "Japanese distinguishes four things English says with one word. The fact is false. The INFERENCE does not follow. It is not always true. And it is not possible at all. Getting the wrong one does not sound rude so much as confused, because you will have denied something nobody claimed.",
+            "build": "The fact is wrong: 違います / ではありません. The inference does not follow: わけではない (Stage 9). Not always: とは限らない. Impossible: わけがない. Socially barred: わけにはいかない.",
+            "when": "Every disagreement, and every time you have to correct an assumption somebody has made about you — which as a foreign resident is often.",
+            "watch": "The most valuable of the five is わけではない, and it is the one learners reach for last. 嫌いなわけではない — it is not that I dislike it — rescues more conversations than any other sentence at this level."
+          },
+          "ex": [
+            ["嫌いなわけではありません。", "The inference doesn't follow — I don't dislike it."],
+            ["安いものが悪いとは限らない。", "Not always true."],
+            ["彼が知っているわけがない。", "Not possible at all."]
+          ]
+        },
+        {
+          "id": "b-s39",
+          "jp": "Composition · 誤解",
+          "en": "correct an assumption about you",
+          "kind": "build",
+          "requires": ["towakagiranai", "sb-hitei", "wakeniwaikanai"],
+          "brief": "Somebody has assumed something about you that isn't quite right — that all foreigners like something, that you must find something hard, that you'd rather be somewhere else. Correct it without contradicting them flatly. Use 〜とは限らない once and 〜わけではない once. Four or five sentences.",
+          "exp": {
+            "what": "The step's real job: disagreeing precisely enough that the other person can tell exactly how much you disagreed.",
+            "build": "Concede the general case → deny the universal → state what is actually true for you. That order is the whole technique.",
+            "when": "Constantly, and it is the single conversational skill that most changes how a foreign resident is talked to.",
+            "watch": "Concede something real first. A correction that opens with とは限らない and grants nothing reads as a lecture, whatever the grammar is doing."
+          },
+          "ex": []
+        }
+      ],
+      "deep": {}
+    },
+    {
+      "cat": "Step 40 · Regret, hope, and the unreal",
+      "level": "S10",
+      "after_step": "Step 39 · Denying the inference",
+      "note": "The counterfactual layer. Stage 6 taught the four ifs for things that might happen; this step is for things that did not, will not, and are not — the grammar of wishing, regretting, supposing and comparing to something imaginary.",
+      "bank": [["後悔", "regret"], ["希望", "a hope"], ["夢", "a dream"], ["気持ち", "a feeling"], ["想像", "imagination"], ["過去", "the past"], ["機会", "an opportunity"], ["偶然", "coincidence"]],
+      "points": [
+        {
+          "id": "bayokatta",
+          "jp": "〜ばよかった",
+          "en": "I should have — regret with a shape",
+          "kind": "grammar",
+          "exp": {
+            "what": "Step 38's ばいい said this is all it takes. Put it in the past and it becomes the thing you did not do: 早く出ればよかった, I should have left earlier. The regret is in the grammar, so your voice does not have to carry it.",
+            "build": "ば-form + よかった. For the opposite regret — something you did and shouldn't have — negate the verb: 言わなければよかった, I shouldn't have said it.",
+            "when": "Constantly, and it is one of the warmest things you can say to somebody else: 聞けばよかった admits you should have asked, which is an apology without the word.",
+            "watch": "The negative form is where learners stumble, because English flips the auxiliary and Japanese flips the VERB. I shouldn't have gone is 行かなければよかった — literally, it would have been good if I had not gone."
+          },
+          "ex": [
+            ["もっと早く出ればよかった。", "I should have left earlier."],
+            ["あんなこと、言わなければよかった。", "I shouldn't have said that."],
+            ["傘を持ってくればよかったですね。", "We should have brought an umbrella."]
+          ]
+        },
+        {
+          "id": "taraii",
+          "jp": "〜たらいい・〜といい",
+          "en": "I hope, and you might",
+          "kind": "grammar",
+          "exp": {
+            "what": "Two readings that share one shape, and the tense of what follows decides which. About the future with な or ね on the end it is a WISH — 晴れるといいですね, I hope it clears up. In a question or bare, it is ADVICE — どうしたらいいですか.",
+            "build": "たら-form or plain + といい. Wishing usually adds な (to yourself) or ですね (shared). Advice takes the question form.",
+            "when": "The wishing sense is a piece of daily social glue: hoping somebody's cold clears, hoping the weather holds, hoping the trip goes well. There is no natural substitute for it.",
+            "watch": "The wish is for something OUT of your control. Hoping for your own action is odd — 早く帰るといいな about your own going home is a wish addressed to the universe about a thing you decide."
+          },
+          "ex": [
+            ["明日、晴れるといいですね。", "I hope it's fine tomorrow."],
+            ["どうしたらいいですか。", "What should I do?"],
+            ["早く良くなるといいね。", "Hope you get better soon."]
+          ]
+        },
+        {
+          "id": "toshitara",
+          "jp": "〜としたら・〜とすれば",
+          "en": "supposing — arguing from a premise",
+          "kind": "grammar",
+          "exp": {
+            "what": "Not an if about the world but an if about the ARGUMENT. It grants a premise for the sake of what follows: supposing that is true, then this. Stage 9 gave you conclusions; this gives you the hypothetical to draw them from.",
+            "build": "Plain form + としたら / とすれば / とすると. Nearly interchangeable; とすれば leans logical, としたら leans imaginative.",
+            "when": "Reasoning out loud, planning against uncertainty, and any discussion that needs to explore a case without asserting it.",
+            "watch": "Step 16's たら is about events — if it rains, I'll stay. としたら is about premises — if it's true that it rains here in June, then we should move the trip. The first supposes a happening; the second supposes a FACT."
+          },
+          "ex": [
+            ["本当だとしたら、大変です。", "If that's true, we've got a problem."],
+            ["行くとすれば、来週でしょう。", "If we're going, it'd be next week."],
+            ["一億円もらうとしたら、何をしますか。", "Supposing you got a hundred million yen, what would you do?"]
+          ]
+        },
+        {
+          "id": "zuniwairarenai",
+          "jp": "〜ずにはいられない",
+          "en": "can't help but",
+          "kind": "grammar",
+          "exp": {
+            "what": "The feeling that overrides you. Not could not manage to stop, but could not be without doing it — laughing, worrying, thinking of somebody. The ず is an old negative that survives in exactly this kind of set phrase.",
+            "build": "ない-form minus ない, plus ずにはいられない. する is irregular: せずにはいられない. The plainer 〜ないではいられない means the same and sounds less literary.",
+            "when": "Strong involuntary reactions, in writing more than speech. It is the natural register for a novel, a letter or a heartfelt message.",
+            "watch": "It is emotionally loud. Attached to something small it is comic — 食べずにはいられない about a biscuit is a joke, and usually an intentional one."
+          },
+          "ex": [
+            ["彼女のことを心配せずにはいられません。", "I can't help worrying about her."],
+            ["この話を聞くと、笑わずにはいられない。", "Hearing this, you can't help laughing."],
+            ["言わずにはいられなかった。", "I couldn't keep it in."]
+          ]
+        },
+        {
+          "id": "younakigasuru",
+          "jp": "〜ような気がする",
+          "en": "I have a feeling that",
+          "kind": "grammar",
+          "exp": {
+            "what": "The weakest claim the language makes. Below かもしれない, below はず, below と思う: a sense you cannot back up and are declaring you cannot back up. It is intuition, marked as intuition.",
+            "build": "Plain form + ような気がする. Nouns take の: 気のせい, the feeling being mistaken, is the fixed phrase from the same root.",
+            "when": "Hedging honestly. Also the natural way to raise something you half-remember without asserting it, which is a frequent and awkward situation in a second language.",
+            "watch": "It is genuinely weak, so it cannot carry an important claim. Reporting a deadline with 来週のような気がします will not be treated as information — and correctly so, because you have just said you are guessing."
+          },
+          "ex": [
+            ["どこかで会ったような気がします。", "I feel like we've met somewhere."],
+            ["少し寒くなったような気がする。", "I have a feeling it's got a bit colder."],
+            ["何か忘れているような気がします。", "I feel like I'm forgetting something."]
+          ]
+        },
+        {
+          "id": "marude",
+          "jp": "まるで〜ようだ",
+          "en": "as if — the frank comparison",
+          "kind": "grammar",
+          "exp": {
+            "what": "Comparison to something the speaker knows is not the case. まるで夢のようだ — like a dream, and it plainly is not one. Step 15's ようだ alone can mean it seems; まるで in front removes that reading and makes it a figure of speech.",
+            "build": "まるで + noun + の + ようだ / みたいだ, or まるで + plain clause + ようだ. The adverb form is ように before a verb: まるで子供のように笑う.",
+            "when": "Description with feeling — weather, a place, a person's behaviour, an unbelievable piece of news.",
+            "watch": "まるで almost always needs ようだ or みたいだ to land on. Bare まるで with a plain adjective is incomplete to a Japanese ear, and it is the standard learner error here — the pair travels together."
+          },
+          "ex": [
+            ["まるで夢のようです。", "It's like a dream."],
+            ["まるで子供のように喜んでいます。", "He's delighted, like a child."],
+            ["まるで冬みたいに寒いですね。", "It's cold, like winter."]
+          ]
+        },
+        {
+          "id": "sb-katei",
+          "jp": "ありえたこと",
+          "en": "what didn't happen, and how to say it",
+          "kind": "skill",
+          "exp": {
+            "what": "Four unrealities and they are not interchangeable. Something you regret not doing. Something you hope will happen. A premise you are granting to argue from. And a comparison to something plainly untrue. English uses would and as if for most of them; Japanese uses a different pattern for each.",
+            "build": "Past regret: ばよかった. Future wish: といい / たらいい. Granted premise: としたら / とすれば. Frank comparison: まるで〜ようだ. Unbacked hunch: ような気がする.",
+            "when": "Reflection, planning and description — the three registers a learner reaches last, because they all require talking about things that are not in front of you.",
+            "watch": "The line worth holding is between としたら and たら. たら supposes an EVENT; としたら supposes a FACT you are willing to grant for the sake of argument. Using たら for a premise makes a discussion sound like a plan."
+          },
+          "ex": [
+            ["聞けばよかった。", "Regret — I should have asked."],
+            ["晴れるといいですね。", "Wish — out of our hands."],
+            ["本当だとしたら、困ります。", "Premise — granted for the argument."]
+          ]
+        },
+        {
+          "id": "b-s40",
+          "jp": "Composition · あの日",
+          "en": "one thing you'd do differently",
+          "kind": "build",
+          "requires": ["bayokatta", "taraii", "marude"],
+          "brief": "Write about a day that could have gone differently — a missed train, a thing left unsaid, an opportunity you didn't take. Use 〜ばよかった once for the regret, 〜といい once for what you hope now, and まるで〜ようだ once to describe how it felt. Four or five sentences.",
+          "exp": {
+            "what": "The step's four unrealities in the one place they naturally meet: looking back at something and forward from it in the same breath.",
+            "build": "What happened → the regret → the description → the hope. Ending on the hope rather than the regret is what keeps it from being bleak.",
+            "when": "This is what most personal writing in any language actually is, and it is the first composition in the course that asks for feeling rather than information.",
+            "watch": "One regret, not four. A paragraph of ばよかった reads as self-punishment rather than reflection, and that is a different piece of writing from the one being asked for."
+          },
+          "ex": []
+        }
+      ],
+      "deep": {}
+    }
+  ]
+}

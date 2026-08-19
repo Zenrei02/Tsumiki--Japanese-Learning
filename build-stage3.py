@@ -34,7 +34,11 @@ MODULE = HERE / "grammar-module.jsx"
 # Session 17 re-staging needed. Listed explicitly rather than globbed — a glob would pick
 # up whatever else ends up matching, which is not a thing to discover at splice time.
 CONTENT = [HERE / "stage-3-content-v1.json", HERE / "milestone-content-v1.json",
-           HERE / "stage-8-request-content-v1.json", HERE / "stage-9-content-v1.json"]
+           HERE / "stage-8-request-content-v1.json", HERE / "stage-9-content-v1.json",
+           # Stage 10 is split across three files for authoring only. Order matters:
+           # each step names the previous one in after_step, so b must follow a.
+           HERE / "stage-10-content-v1.json", HERE / "stage-10-content-b-v1.json",
+           HERE / "stage-10-content-c-v1.json"]
 
 # ————— emit JS in the module's own house style —————
 def js_str(s):
