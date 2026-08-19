@@ -4,7 +4,7 @@
   "_extensions": "kind 'flip' = the same pattern from the LEARNER's side with a different object — this replaces the abstract `when` beat. kind 'wrinkle' = attaches to the module's own DEEP[point].wr[i] via the `wr` index; the wrinkle's teaching text stays in the module and is NOT copied here. kind 'extra' = a wrinkle the module does not have, so it carries its own `t`.",
   "_register": "Required, not merely observed (Lloyd, Session 17). The spine is the business a new resident cannot avoid: the residence card, the ward office, the fourteen-day deadline, the medical, the rules on the board.",
   "_status": "AI-AUTHORED, NOT REVIEWED. One batch per lesson. Three questions per lesson: are the claims true; is each line natural FOR ITS MOMENT; is this the pattern a Japanese speaker would reach for here.",
-  "_coverage": "ALL THREE STAGES COMPLETE — every teaching point in Steps 0-27. cc-* lessons are already situations and b-*/rc* are compositions or checkpoints, so neither takes an arc.",
+  "_coverage": "ALL NINE STAGES COMPLETE — every teaching point in Steps 0-33.",
   "items": [
     {
       "point": "prim-shape",
@@ -6375,6 +6375,1305 @@
       "flags": [
         "No factual claims — an ordinary situation.",
         "Stage 3 necessarily uses keigo vocabulary outside KANJI_DICT (申・参・召・覧・尊敬語・謙譲語 and the like). Furigana needed throughout this stage — flagged once per lesson rather than per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "okage",
+      "step": "Step 28 · Cause, blame and credit",
+      "setting": {
+        "scene": "The visa renewal came back approved, and it came back approved because somebody in the office spent forty minutes checking your paperwork line by line before you submitted it. Telling people it went through is easy. Telling them in a way that puts the credit where it belongs needs a word that から does not have.",
+        "jp": "先生のおかげで、合格しました。",
+        "en": "Thanks to my teacher, I passed.",
+        "pattern": "おかげで"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You write the thank-you the same evening, and the word does the work your English would have needed a whole extra sentence for — it names the cause and hands over the credit in one move.",
+          "jp": "手伝ってくれたおかげで、間に合いました。",
+          "en": "Thanks to your help, I made it in time."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It can be used sarcastically, and it lands hard when it is. 君のおかげで about a disaster is not a mistake anybody makes twice — the word is so firmly on the good side that putting a bad outcome behind it reads as a deliberate cut.",
+          "scene": "Somebody uses it about a meeting that overran by two hours, and for a moment nobody in the room is quite sure whether it was a joke — which is how you learn that the word has only one side and putting a bad outcome behind it is always heard.",
+          "jp": "君のおかげで、二時間かかりました。",
+          "en": "Thanks to you, that took two hours — and everybody heard the edge."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "seide",
+      "step": "Step 28 · Cause, blame and credit",
+      "setting": {
+        "scene": "The form came back rejected over a date written in the wrong order, and the twenty minutes you now have to spend fixing it are not really yours to be annoyed about — you filled it in. Explaining what happened needs a word that says where the fault sits, and Japanese will not let you leave that unsaid.",
+        "jp": "寝坊したせいで、遅刻しました。",
+        "en": "I was late because I overslept.",
+        "pattern": "せいで"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about yourself first, which is where it is safest and where it reads as ordinary rather than accusatory — the blame lands on you and nobody has to react to it.",
+          "jp": "書き間違えたせいで、やり直しになりました。",
+          "en": "Because I wrote it wrong, it has to be done again."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "Aimed at a person it stops being a turn of phrase and becomes a real accusation. About yourself it is modest; about a colleague it is something you would have to mean, and there is a softer version — せいか — that turns the blame into a maybe.",
+          "scene": "You nearly use it about the person who handed you the form in the first place, and stop, because the sentence would have been heard exactly as it was built — as blame, aimed at somebody standing two desks away.",
+          "jp": "疲れているせいか、間違えました。",
+          "en": "Perhaps because I'm tired, I made a mistake — せいか hedges the blame."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "bakarini",
+      "step": "Step 28 · Cause, blame and credit",
+      "setting": {
+        "scene": "One box on the residence application, left blank because you were not sure whether it applied to you, and the whole thing has come back. Not the difficult parts — those were fine. One box. The sentence for this is not the same as the sentence for an ordinary mistake, because the size of the cause and the size of the result do not match.",
+        "jp": "一言言わなかったばかりに、大きな問題になりました。",
+        "en": "Just because I didn't say one word, it turned into a real problem.",
+        "pattern": "ばかりに"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about something smaller and older — a message you did not send, and the fortnight of confusion that followed — and the pattern carries the regret without you having to add a word of it.",
+          "jp": "連絡しなかったばかりに、ずっと待たせてしまいました。",
+          "en": "Just because I didn't get in touch, I kept them waiting all that time."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "The disproportion is the entire point. A large cause with a large result is せいで's job — spend ばかりに on it and the pattern is wasted, because it promises unfairness and the sentence has not delivered any.",
+          "scene": "You try it on something where the cause was genuinely serious and the result proportionate, and it comes out sounding like an excuse rather than a regret, because the pattern promises unfairness the facts do not supply.",
+          "jp": "準備しなかったせいで、失敗しました。",
+          "en": "A real cause, a real result — that is せいで, not ばかりに."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "sb-riyuu",
+      "step": "Step 28 · Cause, blame and credit",
+      "setting": {
+        "scene": "Four ways to say because, and you now have all of them. The difference between them is not politeness and it is not formality — it is whether the reason has an owner, and if so, whether that owner comes out of the sentence looking good or bad.",
+        "jp": "雨だから、行きません。",
+        "en": "It's raining, so I'm not going — から asserts, and owns nothing.",
+        "pattern": "から"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You rewrite the same explanation three times to watch the dial move, and only the middle word changes each time — neutral, then credited, then blamed. The facts are identical in all three sentences and the reader's impression is not.",
+          "jp": "晴れたおかげで、できました。",
+          "en": "It cleared up, so we managed it — and the weather gets the credit."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "The error here is social rather than grammatical, which makes it the expensive kind. 雨のおかげで試合が中止になりました thanks the rain for ruining the match: perfectly formed, and it reads as sarcasm whether or not any was intended.",
+          "scene": "So you check each sentence against its outcome before sending it, which takes about a second and turns out to be the whole discipline of this step — good result with the credit word, bad result with the blame word, and never crossed.",
+          "jp": "雨のせいで、中止になりました。",
+          "en": "Bad outcome, blaming word — matched."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "nitsuite",
+      "step": "Step 29 · The compound particles",
+      "setting": {
+        "scene": "Your first real email in Japanese that is not a request — a short note to the section about a change to the timetable. You know how to say the timetable and you know how to say changed, and you do not know how to say the sentence is ABOUT the timetable, which turns out to be the thing the whole email hangs on.",
+        "jp": "この問題について話しましょう。",
+        "en": "Let's talk about this problem.",
+        "pattern": "について"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it in the subject line as well, where it becomes についての and sits in front of a noun — which is how every notice on the staffroom wall has always been written.",
+          "jp": "時間割についてのお知らせ",
+          "en": "A notice regarding the timetable."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It needs a verb that can take a subject matter. 問題について行きます is not a sentence — you cannot go about a problem — and the mistake is easy because English lets about attach to almost anything.",
+          "scene": "You write a sentence where について sits in front of a verb of movement, and it comes apart in a way nothing in English would have warned you about, because English lets about attach to nearly anything and Japanese does not.",
+          "jp": "問題について考えました。",
+          "en": "I thought about the problem — a verb that can hold a topic."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "nitaishite",
+      "step": "Step 29 · The compound particles",
+      "setting": {
+        "scene": "A parent has written in with a complaint, and you have been asked to draft the reply. The complaint is the thing you are answering — not the thing you are discussing — and Japanese keeps those two apart with two different particles that English blurs into one word.",
+        "jp": "質問に対して、はっきり答えました。",
+        "en": "I answered the question clearly.",
+        "pattern": "に対して"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it again in the same reply, about the school's position on the issue, where it points a stance at a target rather than naming a subject — and the noun in front is something being faced rather than discussed.",
+          "jp": "その問題に対する学校の考えを説明しました。",
+          "en": "I explained the school's position on the matter."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "The overlap with について is real and the test is one question: can the noun be a topic of conversation, or is it something you are facing? You think ABOUT a problem and answer TO a question, and the two particles split exactly there.",
+          "scene": "You swap the two particles once by accident and the sentence says you discussed the question rather than answered it, which is a different and noticeably more evasive claim to be making in a letter to a parent.",
+          "jp": "質問について話しました。",
+          "en": "I discussed the question — which is not the same as answering it."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "niyotte",
+      "step": "Step 29 · The compound particles",
+      "setting": {
+        "scene": "A form asking how you would like to be contacted, with a note underneath explaining that the answer varies depending on which office you are dealing with. Three separate uses of one particle on a single sheet of paper, and none of them is the one you learned first.",
+        "jp": "人によって、意見が違います。",
+        "en": "Opinions differ from person to person.",
+        "pattern": "によって"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You meet the second use the same afternoon, in a sentence about how a decision was reached rather than about how much things vary — the means rather than the variation, and nothing in the shape of the word tells you which.",
+          "jp": "この方法によって、問題が解決しました。",
+          "en": "The problem was solved by this method."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "The third use is the passive agent, and it is the written one. In speech the agent takes に; によって belongs to reports and documents, so swapping them makes writing sound spoken and speech sound like a memo.",
+          "scene": "You see it again on a notice about a building and realise it is doing the job に does in conversation, which is why formal Japanese reads as though it were written by a different language from the one spoken in the corridor.",
+          "jp": "この本は夏目漱石によって書かれました。",
+          "en": "This book was written by Sōseki — the written passive agent."
+        }
+      ],
+      "claims": [
+        "によって serves as the agent marker in formal written passives, where speech uses に"
+      ],
+      "sources": [],
+      "flags": [
+        "夏目漱石 uses kanji outside KANJI_DICT — furigana needed.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "nioite",
+      "step": "Step 29 · The compound particles",
+      "setting": {
+        "scene": "The letter confirming your contract renewal, which is one page long and contains no sentence you would ever say out loud. Halfway down is a word doing the job で does, in clothes で never wears, and recognising it is the difference between reading the letter and guessing at it.",
+        "jp": "会議において、その問題が話し合われました。",
+        "en": "The matter was discussed at the meeting.",
+        "pattern": "において"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You meet it again the same week on a notice about environmental policy, where it marks a field rather than a place — and the register is identical both times, which is the only thing the word reliably signals.",
+          "jp": "日本における環境の問題",
+          "en": "Environmental issues in Japan."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It does not stretch to ordinary places. 台所において料理します is wrong in the way a dinner jacket is wrong at breakfast: で is the word, and において is reserved for the abstract, the institutional and the ceremonial.",
+          "scene": "You try it about your own kitchen as an experiment and it is immediately, obviously absurd — the word simply will not sit on a small physical place, and で snaps back into position without any effort at all.",
+          "jp": "台所で料理します。",
+          "en": "In the kitchen — で, and nothing else."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "nitotte",
+      "step": "Step 29 · The compound particles",
+      "setting": {
+        "scene": "A reference letter you have been asked to write for a colleague who is moving on, and the sentence that matters is the one about what the work meant to her. Not what it was — what it was to her, which is a different claim and needs a word that marks whose view it is.",
+        "jp": "私にとって、この経験はとても大切です。",
+        "en": "For me, this experience matters a great deal.",
+        "pattern": "にとって"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about yourself in a form asking why you want to take the course, and it turns a flat statement into a positioned one — the same fact, now clearly a judgement made from somewhere rather than a claim about the world.",
+          "jp": "私にとって、日本語は仕事の一部です。",
+          "en": "For me, Japanese is part of the job."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "The trap is plain に. 私に大切です is not the sentence — it is 私にとって大切です. And what follows must be a judgement rather than an action: にとって働きます is not a thing, because working is not an evaluation.",
+          "scene": "You write it once with に alone and the sentence is not quite ungrammatical, only wrong in a way you cannot yet hear — which is the most expensive kind of error, because nothing in the room corrects it.",
+          "jp": "学生にとって、その本は少し難しいです。",
+          "en": "For students, that book is a little difficult."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "sb-fukugou",
+      "step": "Step 29 · The compound particles",
+      "setting": {
+        "scene": "Five shapes that all start with に, all take a noun, and all get translated as about or for at some point — which is exactly why meeting them one at a time is the slowest possible way to learn them. Laid out together they stop overlapping.",
+        "jp": "問題について話す",
+        "en": "Discuss the problem — subject matter.",
+        "pattern": "について"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You sort your own last three emails by which of the five each sentence actually needed, and two of them turn out to have been wrong in a way nobody mentioned at the time and nobody was ever going to.",
+          "jp": "質問に対して答える",
+          "en": "Answer the question — facing it, not discussing it."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "When none of the five feels right, the plain particle usually was right all along. These are for when a sentence needs the extra distance — a noun held out as subject matter — and a paragraph that uses three of them reads as somebody testing new vocabulary.",
+          "scene": "You take two of them back out of a draft and it reads better immediately — which is the lesson underneath the lesson, because these are for distance and a paragraph does not need distance in every sentence.",
+          "jp": "私にとって大切です。",
+          "en": "Important to me — the viewpoint one, and the one worth keeping."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "wakeda",
+      "step": "Step 30 · Conclusions",
+      "setting": {
+        "scene": "Somebody in the staffroom mentions, in passing, that you have been here eleven years. The person they are telling had assumed two or three, and you watch the arithmetic happen on their face. What they say next is not a question and not a new fact — it is the sound of something clicking into place.",
+        "jp": "十年住んでいるんですか。道理で日本語が上手なわけですね。",
+        "en": "Ten years? No wonder your Japanese is good.",
+        "pattern": "わけです"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it yourself an hour later, when somebody explains why the trains were a mess all morning, and the whole of your journey suddenly makes sense backwards rather than forwards.",
+          "jp": "事故があったんですか。だから遅れたわけですね。",
+          "en": "There was an accident? So that's why everyone was late."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It cannot open a conversation. わけだ concludes from something already on the table, so used cold it sounds like the end of a thought nobody heard the beginning of. And it is not から — から supplies a reason, わけだ receives one.",
+          "scene": "You try it as an opening line and the other person waits for the part that was supposed to come first, because the word is a receipt for information rather than a delivery of it.",
+          "jp": "電車が止まっていたから、遅れました。",
+          "en": "から supplies the reason. わけだ would have received it."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "wakedewanai",
+      "step": "Step 30 · Conclusions",
+      "setting": {
+        "scene": "You have said, honestly, that you do not eat much natto — and you can see the conclusion forming on the other side of the table, which is that you hate it. You do not hate it. Denying that flatly would deny the thing you actually said, so what you need is a way to deny the inference and keep the fact.",
+        "jp": "嫌いなわけではありませんが、あまり食べません。",
+        "en": "It's not that I dislike it — I just don't eat much of it.",
+        "pattern": "わけではありません"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about your own Japanese the same week, when somebody's compliment has drawn a conclusion considerably larger than the evidence supports and denying it flatly would be its own kind of dishonesty.",
+          "jp": "全部わかったわけではありません。",
+          "en": "It's not that I understood all of it."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It denies the inference, not the sentence. 全部わかったわけではありません means I did not understand ALL of it — not that I understood none. The difference matters, because the second is a far bigger claim and English speakers reach for it by accident.",
+          "scene": "You hear the same shape used to walk back an impression without retracting a single word of fact, which is most of what it is for and most of why adults reach for it constantly.",
+          "jp": "行きたくないわけじゃないです。",
+          "en": "It's not that I don't want to go — the door stays open."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "beki",
+      "step": "Step 30 · Conclusions",
+      "setting": {
+        "scene": "A colleague has been covering for somebody who has not asked and has not thanked her, and she has not said anything about it for three weeks. You are about to give an opinion that is not advice and not a rule — it is a judgement about what a person ought to do, and Japanese has a word that carries exactly that weight.",
+        "jp": "もっと早く言うべきでした。",
+        "en": "You should have said something sooner.",
+        "pattern": "べき"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use the negative version about yourself, about something you said in a meeting and regretted before the sentence had finished leaving your mouth — which is where this pattern is safest and most honest.",
+          "jp": "そんなことを言うべきではありませんでした。",
+          "en": "I shouldn't have said that."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It is heavier than English should. 帰るべきです to a colleague is not go home and rest — it is closer to you ought to leave, and it will be heard as a judgement rather than a kindness. For gentle advice, Step 16's たらどうですか is the tool.",
+          "scene": "You nearly use it to suggest that somebody take a break, and swap it for the softer pattern in time, because what you meant was kindness and what the word carries is a verdict.",
+          "jp": "少し休んだらどうですか。",
+          "en": "How about a rest? — advice, not judgement."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "nichigainai",
+      "step": "Step 30 · Conclusions",
+      "setting": {
+        "scene": "The office is dark, the section head's coat is gone from the hook, and the meeting she called for four o'clock is nine minutes from starting. You did not see her leave. Everything you have is evidence, and the sentence you want is the strongest thing you can say that is still, honestly, a guess.",
+        "jp": "電気が消えている。もう帰ったに違いない。",
+        "en": "The lights are off — she must have gone home.",
+        "pattern": "に違いない"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about an object rather than a person, on handwriting you recognise without having watched anybody write it — the evidence is complete and the conclusion still is not a fact.",
+          "jp": "この字は先生のに違いありません。",
+          "en": "This handwriting must be the teacher's."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It is a conclusion, not a fact. Used about something you actually witnessed it sounds like you are guessing about your own experience — and it is noticeably more written than spoken, where きっと does the same job with less weight.",
+          "scene": "Somebody says it out loud in conversation and it sounds a shade formal, which is how you learn where it actually lives — in writing and in reasoning, rather than in the staffroom.",
+          "jp": "きっと帰りましたよ。",
+          "en": "She'll have gone home — the spoken version."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "monoda",
+      "step": "Step 30 · Conclusions",
+      "setting": {
+        "scene": "A first-year teacher has made the same mistake you made in your first year, and is taking it considerably harder than it deserves. What you want to say is not about this mistake — it is about how the world generally goes, which is a different kind of claim and needs a different ending.",
+        "jp": "若い時は、失敗するものです。",
+        "en": "When you're young, you make mistakes — that's how it goes.",
+        "pattern": "ものです"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "The same word turns up that evening doing something quite different, when somebody older begins a sentence about how things used to be — the nostalgia use, which is far more common in speech than the general truth.",
+          "jp": "学生の頃は、よく遊んだものです。",
+          "en": "Back in our student days, we used to go out a lot."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It cannot describe one situation. 今日は寒いものです is wrong, because today's weather is not a general truth — the claim has to be one that would still hold next year. That restriction is what separates it from です.",
+          "scene": "You try it about a single cold afternoon and it lands as though you were legislating about the weather, because the pattern claims a truth that would still hold next year.",
+          "jp": "今日は寒いです。",
+          "en": "Today is cold — a fact about today, so plain です."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "sb-kakushin",
+      "step": "Step 30 · Conclusions",
+      "setting": {
+        "scene": "Six ways to say how sure you are, built across three stages, and this is the first time they sit on one line. The gap between neighbouring stops is not decorative — each one commits you to a different amount, and English collapses the middle four into might and probably.",
+        "jp": "明日は雨でしょう。",
+        "en": "Probably rain — the forecast's own word.",
+        "pattern": "でしょう"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You place your own claims on the dial for a day and find you have been living at two stops out of six, which is why so much of what you say comes out either vaguer or firmer than you meant.",
+          "jp": "買ったから、来るはずです。",
+          "en": "He bought a ticket, so he should be coming."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "わけだ sits outside this line entirely. It is not a degree of certainty — it is a conclusion drawn from one, which is why it needs something already said before it can work at all.",
+          "scene": "You notice the difference the moment you try to open a sentence with わけだ and cannot — it needs something already on the table, which none of the six stops on the dial do.",
+          "jp": "電気が消えている。帰ったに違いない。",
+          "en": "Must have — the top of the dial, and the evidence closes it."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "hajimeru",
+      "step": "Step 31 · Verbs that carry more",
+      "setting": {
+        "scene": "A reading habit you have been meaning to build for two years finally starts on a Tuesday, with a book you will take four months to finish. Reporting that it has begun needs a shape that bolts one verb onto another — and it is the easiest member of a family you will use constantly.",
+        "jp": "八時に読みはじめました。",
+        "en": "I started reading at eight.",
+        "pattern": "はじめました"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about the weather within the hour, and notice that the compound works perfectly well on things nobody chose to start, which is not obvious from a pattern that looks like it is about intention.",
+          "jp": "雨が降りはじめました。",
+          "en": "It's started raining."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "はじめる is the transitive twin and はじまる the intransitive one, but the compound only ever takes はじめる — 雨が降りはじまる is wrong even though the rain starts by itself. The compound describes the action, not the rain's autonomy.",
+          "scene": "You reach for the wrong twin and the sentence is rejected by a rule that has nothing to do with who did the starting — the compound describes the action, and the action always takes はじめる.",
+          "jp": "雨が降りはじめました。",
+          "en": "The rain starts itself, and the compound still takes はじめる."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "owaru",
+      "step": "Step 31 · Verbs that carry more",
+      "setting": {
+        "scene": "Four months later, the last page. The book has been on the desk long enough that finishing it is genuinely an event, and the sentence for it closes an action that had a length — which is what separates this from the ending you learned in Step 13.",
+        "jp": "この本を読みおわりました。",
+        "en": "I've finished reading this book.",
+        "pattern": "読みおわりました"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about something smaller in order to arrange the evening, where the finishing is a condition for the next thing to happen rather than an announcement worth making in its own right.",
+          "jp": "食べおわったら、行きましょう。",
+          "en": "Let's go once we've finished eating."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It does not work on verbs with no duration. 死におわる is not a sentence — a thing has to take time before it can finish — and instantaneous verbs take Step 13's てしまう instead, which finishes an action and adds a feeling.",
+          "scene": "You test it on something momentary and the compound simply refuses to attach, because a thing has to take some amount of time before it can be finished, and forgetting takes none at all.",
+          "jp": "忘れてしまいました。",
+          "en": "Forgetting has no duration, so it takes てしまう."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "kakeru",
+      "step": "Step 31 · Verbs that carry more",
+      "setting": {
+        "scene": "Your desk, honestly described: three books with markers in them, a form filled in as far as the third box, and a message to the landlord that has been sitting half-typed since Thursday. English needs a whole phrase for each of those. Japanese puts it inside the verb.",
+        "jp": "読みかけの本が三冊あります。",
+        "en": "I've got three books on the go.",
+        "pattern": "読みかけ"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about a sentence rather than an object — the thing you started to say in the meeting and then decided against — which is the same unfinishedness applied to speech.",
+          "jp": "何か言いかけて、やめました。",
+          "en": "He started to say something, then stopped."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It is not 〜ている. 食べています is eating, in progress, with somebody at the table. 食べかけています is left half-eaten and the room is empty. One is an action; the other is the state something got abandoned in.",
+          "scene": "You use the wrong one about a plate on the table and describe somebody eating who in fact left an hour ago, which is a small error with a surprisingly large gap inside it.",
+          "jp": "食べかけのケーキがあります。",
+          "en": "There's a half-eaten cake — a state, not an action."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "nuku",
+      "step": "Step 31 · Verbs that carry more",
+      "setting": {
+        "scene": "The application you have been assembling for five weeks, with the certified translations and the two documents that had to come from another country, finally goes in. Saying you completed it is true and thin. There is a verb ending that says you completed it and that completing it cost something.",
+        "jp": "最後まで走りぬきました。",
+        "en": "I ran it all the way to the end.",
+        "pattern": "ぬきました"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about the thinking rather than the doing, which is where it is most at home — a decision made properly rather than quickly, and the effort is inside the verb rather than beside it.",
+          "jp": "よく考えぬいて決めました。",
+          "en": "I thought it through properly before deciding."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "Do not spend it on easy things. 食べぬきました about a sandwich is comic, because the pattern promises difficulty and an easy object undercuts it — for ordinary completion the words are おわる or てしまう.",
+          "scene": "Somebody uses it about a completely trivial task as a joke, and the joke works precisely because the ending is far too heavy for the thing it has been asked to carry.",
+          "jp": "読みおわりました。",
+          "en": "Ordinary completion — おわる, with no struggle claimed."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "ppanashi",
+      "step": "Step 31 · Verbs that carry more",
+      "setting": {
+        "scene": "The staffroom heater has been running since Friday, the window beside it has been open the same length of time, and it is Monday morning. Somebody is going to say something about it, and the word they use will contain the complaint so their voice does not have to.",
+        "jp": "電気がつけっぱなしでした。",
+        "en": "The light had been left on.",
+        "pattern": "つけっぱなし"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it as a request rather than a complaint, which is the polite half of the same word and the version you will actually produce more often than the accusing one.",
+          "jp": "窓を開けっぱなしにしないでください。",
+          "en": "Please don't leave the window open."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It carries blame, so it is not the neutral way to report a state. Step 13's てある says somebody did it on purpose — 窓が開けてある — while っぱなし says somebody left it and should not have. Same window, two different accusations.",
+          "scene": "You use てある where you meant っぱなし and accidentally credit somebody with having opened the window on purpose, which turns a complaint into a compliment that nobody in the room had earned.",
+          "jp": "窓が開けてあります。",
+          "en": "Opened on purpose — the neutral report, with no blame in it."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "sb-aspect2",
+      "step": "Step 31 · Verbs that carry more",
+      "setting": {
+        "scene": "Five endings that all bolt onto a ます-stem and all change what the verb claims about its own completeness. Met one at a time they look like vocabulary; laid out together they are a system with two axes — how far the action got, and how you feel about that.",
+        "jp": "読みかけの本",
+        "en": "Half-read — かける.",
+        "pattern": "かけ"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You run a single verb through all five endings in a notebook and the two axes separate cleanly for the first time: began, finished, abandoned, endured, neglected — one stem, five different claims about completeness.",
+          "jp": "最後までやりぬいた。",
+          "en": "Saw it through — ぬく, and it was hard."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "The two worth drilling are the two with no English equivalent — かける and ぬく. English speakers reach for them last because nothing in a first language suggests that a verb could carry unfinishedness or endurance as part of its own shape.",
+          "scene": "You catch yourself describing a half-done thing in three English-shaped words and then in one Japanese one, which is the first time the compound verbs feel like an economy rather than a burden.",
+          "jp": "つけっぱなし",
+          "en": "Left on — and it shouldn't have been."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "gachi",
+      "step": "Step 32 · Degrees and tendencies",
+      "setting": {
+        "scene": "A health check questionnaire with a column that is not asking whether you have been ill but whether you tend to be. One is an event and the other is a pattern, and the form wants the pattern — which needs a word that grades a tendency rather than reporting an occasion.",
+        "jp": "最近、忘れがちです。",
+        "en": "I've been forgetful lately.",
+        "pattern": "がち"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about your own childhood in the next box down, where a tendency across years rather than a fact about one week is exactly what the form is asking for.",
+          "jp": "子どもの頃は病気がちでした。",
+          "en": "I was often ill as a child."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "The negative colouring is built in. 元気がち is not a sentence, because being well a lot is not a complaint — if the tendency is welcome, this is not the word, and no amount of context will make it fit.",
+          "scene": "You try it on something good and the sentence quietly refuses to mean anything, because the negative colouring is not connotation you can override with context — it is what the word is.",
+          "jp": "よく元気になります。",
+          "en": "Often gets better — plain, because がち cannot carry good news."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "gimi",
+      "step": "Step 32 · Degrees and tendencies",
+      "setting": {
+        "scene": "Half past eight, and you are not ill enough to stay home and not well enough to pretend nothing is happening. Somebody asks how you are. The honest answer is a degree rather than a state, and reporting it without asking anybody to do something about it is exactly what this word is for.",
+        "jp": "ちょっと風邪気味です。",
+        "en": "I've got a bit of a cold coming on.",
+        "pattern": "気味"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about tiredness rather than illness later the same week, which is the other place it lives and the one where it does most of its social work.",
+          "jp": "最近、疲れ気味です。",
+          "en": "I've been a touch tired lately."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It is a degree, not a frequency — that is がち's job. 遅れ気味 means running slightly late today; 遅れがち means late a lot, as a habit. About a colleague the difference is between a Tuesday and a character reference.",
+          "scene": "You use the wrong one about somebody else and turn a single late morning into a standing accusation, which is a much larger thing to have said than you meant to say.",
+          "jp": "遅れがちです。",
+          "en": "Late a lot — a habit, and a much bigger thing to say."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "warini",
+      "step": "Step 32 · Degrees and tendencies",
+      "setting": {
+        "scene": "The flat is small, it is above a bakery, and the rent is a third less than the one you looked at on Tuesday. Somebody asks whether it is any good, and the honest answer is not good or bad — it is good for what it costs, which needs a benchmark inside the sentence.",
+        "jp": "値段のわりに、おいしいです。",
+        "en": "For the price, it's good.",
+        "pattern": "わりに"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about a person rather than a thing, which is where it is most common and most useful — and where the benchmark being undercut is somebody's age rather than a price.",
+          "jp": "若いわりに、しっかりしています。",
+          "en": "For someone so young, he's very together."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "The two halves have to genuinely disagree. A pairing that is not surprising reads as a clumsy comparison, because the pattern promises a gap and the listener waits for one — 安いわりに安い is not a sentence anybody finishes.",
+          "scene": "You use it in a sentence where the two halves agree rather than disagree, and the listener pauses, still waiting for the second shoe that the pattern promised and the sentence never actually dropped.",
+          "jp": "高いわりに、おいしくないです。",
+          "en": "Expensive, and not even good — the gap the pattern promises."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "bahodo",
+      "step": "Step 32 · Degrees and tendencies",
+      "setting": {
+        "scene": "Four months into a study habit and the odd thing has started happening: the more you read, the less certain you feel, because every page shows you two more things you did not know. Saying that needs a frame that scales one thing against another, and both halves use the same verb.",
+        "jp": "練習すればするほど、上手になります。",
+        "en": "The more you practise, the better you get.",
+        "pattern": "ばするほど"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use the version that is actually true of your week, where the slope runs downhill rather than up, and the frame turns out to carry discouragement exactly as well as it carries progress.",
+          "jp": "考えれば考えるほど、わからなくなります。",
+          "en": "The more I think about it, the less I understand."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "The verb must be the same on both sides. 読めば書くほど is not a scale, it is two unrelated things bolted together, and the sentence collapses. And the ば-form is Step 16's — this pattern is a large part of why that lesson mattered.",
+          "scene": "You try it with two different verbs and the frame stops meaning anything at all, because a scale needs the same thing on both ends and two unrelated verbs are not a scale.",
+          "jp": "高ければ高いほどいいです。",
+          "en": "The pricier the better — adjectives take ければ〜いほど."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "dokoroka",
+      "step": "Step 32 · Degrees and tendencies",
+      "setting": {
+        "scene": "Somebody says your Japanese must be almost fluent by now. They mean it kindly, they have heard you order lunch, and it is not remotely close to true. A polite correction would understate how far off it is — and there is a word for overturning an assumption rather than gently adjusting it.",
+        "jp": "安いどころか、とても高かったです。",
+        "en": "Far from cheap — it was very expensive.",
+        "pattern": "どころか"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about a holiday that was supposed to be restful and was not, where the assumption and the reality point in genuinely opposite directions rather than merely differing by a degree or two.",
+          "jp": "休むどころか、もっと忙しくなりました。",
+          "en": "Far from resting, I got busier."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It is not a soft correction. どころか says the assumption was not merely wrong but backwards, so aimed at somebody else's claim it reads as contradiction — about yourself it is safe, and often modest.",
+          "scene": "You aim it at a colleague's estimate rather than your own and it lands harder than the room expected, because overturning somebody else's claim is a different act from overturning your own.",
+          "jp": "思ったより高かったです。",
+          "en": "Pricier than I expected — the soft version, for somebody else's claim."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "sb-doai",
+      "step": "Step 32 · Degrees and tendencies",
+      "setting": {
+        "scene": "Six words that all do something English handles with adverbs and a raised eyebrow: they grade a claim instead of stating one. Met separately they look like vocabulary and get used interchangeably. Together they are the difference between a sentence that reports something and a sentence that takes a position on it.",
+        "jp": "忘れがち",
+        "en": "Often — a tendency, and an unwelcome one.",
+        "pattern": "がち"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You rewrite a flat paragraph of adjectives using three of them, and it stops sounding like a list and starts sounding like an opinion — which is the whole difference this step is for.",
+          "jp": "値段のわりに、いいです。",
+          "en": "Good for the price — a benchmark, not an adjective."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "The commonest error is がち for 気味 and back. One is how often and the other is how much, and about a person that is the difference between describing their week and describing them.",
+          "scene": "You check each one against the question it actually answers — how often, or how much — and the pair that kept collapsing into each other separates immediately and stays separated.",
+          "jp": "疲れ気味です。",
+          "en": "A touch tired — a degree, today."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "toori",
+      "step": "Step 33 · Manner, pretence and timing",
+      "setting": {
+        "scene": "A handover note from somebody who has left, with six steps on it, and a system that will do something expensive if the steps happen in the wrong order. When you report back that it is done, the word you want claims precision rather than approximation.",
+        "jp": "言ったとおりにやりました。",
+        "en": "I did it exactly as you said.",
+        "pattern": "とおり"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use the voiced version, which is nearly a fixed expression by now and is one of the two or three most useful short answers in any Japanese working week.",
+          "jp": "会議は予定どおり始まりました。",
+          "en": "The meeting started on schedule."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It is not ような. ような is like, resembling; とおり is exactly as, following. 言ったようにやりました is I did it more or less as you said, which is a weaker promise than anybody wants on a handover.",
+          "scene": "You use the softer one by accident and end up promising rather less than you actually delivered, which on a handover note is a strange and slightly costly direction in which to get something wrong.",
+          "jp": "説明のとおりにやりました。",
+          "en": "Exactly as explained — no room left in it."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "furi",
+      "step": "Step 33 · Manner, pretence and timing",
+      "setting": {
+        "scene": "On the train, somebody two seats down is having a phone conversation that everybody can hear and nobody wants to be part of. The entire carriage is doing the same thing, and there is a word for it that makes the pretending itself the action.",
+        "jp": "彼は知らないふりをしました。",
+        "en": "He pretended not to know.",
+        "pattern": "ふりをしました"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about yourself and a colleague's very obvious new haircut, where the pretending was clearly the kind thing to do rather than the dishonest one, and everybody at the table was doing it.",
+          "jp": "気づかないふりをしました。",
+          "en": "I pretended not to notice."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It carries a judgement, usually mild. Saying somebody 知らないふりをした accuses them of a small dishonesty — so it is not the neutral way to report that they did not know, which is simply 知りませんでした.",
+          "scene": "You use it where the person genuinely had no idea, and accidentally accuse them of a small dishonesty they did not commit — the judgement is inside the word and cannot be removed by tone.",
+          "jp": "知りませんでした。",
+          "en": "He didn't know — no pretence claimed."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "nagaramo",
+      "step": "Step 33 · Manner, pretence and timing",
+      "setting": {
+        "scene": "A reflective paragraph in a year-end report, about a decision you knew at the time was the wrong one and made anyway. Two things true of the same person at the same moment, and they contradict each other — which is a shape Step 7's ながら could hold the timing of but not the contradiction.",
+        "jp": "知っていながらも、何も言いませんでした。",
+        "en": "Even knowing, I said nothing.",
+        "pattern": "ながらも"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use the adjective version about the small office you are describing, where the concession is much gentler and the sentence turns out to be a compliment rather than an admission of anything.",
+          "jp": "小さいながらも、いい店です。",
+          "en": "Small though it is, it's a good shop."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "Do not confuse it with plain ながら. 音楽を聞きながら勉強する is two compatible actions in one body; 知っていながら言わなかった is two incompatible ones, and the も is what makes the difference audible.",
+          "scene": "You drop the も and the sentence stops conceding anything at all — it simply describes two things happening at once, which was Step 7's job and not this one's.",
+          "jp": "音楽を聞きながら勉強します。",
+          "en": "Two compatible actions — plain ながら, no contradiction."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "kuseni",
+      "step": "Step 33 · Manner, pretence and timing",
+      "setting": {
+        "scene": "A line in a drama that the subtitles render as even though, said by one character to another, and the temperature of the room changes. The subtitle is not wrong and it is not close to enough — the word carries contempt, and a learner who files it beside のに will one day use it and not understand what happened.",
+        "jp": "知っているくせに、教えてくれませんでした。",
+        "en": "He knew perfectly well, and still wouldn't tell me.",
+        "pattern": "くせに"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You look for the neutral version of the same sentence and find it two steps back, in Step 21, where it has been sitting the whole time doing the job without the contempt.",
+          "jp": "知っているのに、教えてくれませんでした。",
+          "en": "He knew, and still wouldn't tell me — のに, with no sneer."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "⚠️ This is genuinely insulting and です does not soften it. 子どものくせに is not affectionate — it means you are only a child, so how dare you. Recognise it in fiction and in arguments; for a neutral even though use のに, and for a polite one けど.",
+          "scene": "You hear it used affectionately between two close friends and realise the exception proves how sharp the default is — it works there because both of them know it should not.",
+          "jp": "高いけど、買います。",
+          "en": "Expensive, but I'm buying it — the safe one, always."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "⚠️ RUDENESS FLAG, same treatment as meirei: くせに is genuinely contemptuous and a learner meeting it in a drama will misjudge how it lands. The lesson says so explicitly.",
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "totan",
+      "step": "Step 33 · Manner, pretence and timing",
+      "setting": {
+        "scene": "You sit down for the first time since seven in the morning, and the phone rings. Not a minute later — at the exact moment your weight reaches the chair, as though the two events were connected, which they were not. There is a pattern for that seam and the surprise is built into it.",
+        "jp": "座ったとたん、電話が鳴りました。",
+        "en": "The instant I sat down, the phone rang.",
+        "pattern": "とたん"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about the weather, which is where most people meet it first and where the timing is at its most unfair — the rain waiting, apparently, for the door to close behind you.",
+          "jp": "外に出たとたん、雨が降りはじめました。",
+          "en": "The moment I stepped outside, it started raining."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It cannot carry your own intention. 家を出たとたん、買い物に行きました is wrong — you cannot plan the thing that happens at the instant, and if the second half is something you chose, the sentence wants てから or たら instead.",
+          "scene": "You write one where the second half was your own decision and the pattern quietly stops working, because a seam is something that happens to you rather than something you arrange.",
+          "jp": "家を出てから、買い物に行きました。",
+          "en": "After leaving, I went shopping — chosen, so てから."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "saichuu",
+      "step": "Step 33 · Manner, pretence and timing",
+      "setting": {
+        "scene": "Nine minutes into a meeting that took three weeks to arrange, with everybody finally in the room, a phone goes off. Not during the meeting in the general sense — in the thick of it, at the worst available moment, which is a finer claim than Step 19's neutral window.",
+        "jp": "会議の最中に、電話が鳴りました。",
+        "en": "The phone rang right in the middle of the meeting.",
+        "pattern": "最中に"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it about a conversation rather than a meeting, where the interruption is somebody walking away rather than a noise, and the thing being broken into is your own half-finished sentence.",
+          "jp": "話している最中に、帰ってしまいました。",
+          "en": "He left while I was still talking."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It needs an activity with a middle. 寝ている最中に is odd for ordinary sleep, because sleeping is not an activity underway the way a meeting is — 寝ている間に is the natural sentence there, and 間に is the neutral window this one intensifies.",
+          "scene": "You try it about ordinary sleep and it is subtly wrong in a way the neutral window is not, because sleeping is not an activity underway the way a meeting is.",
+          "jp": "寝ている間に、電話がありました。",
+          "en": "While I slept, a call came — the neutral window."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "shidai",
+      "step": "Step 33 · Manner, pretence and timing",
+      "setting": {
+        "scene": "An email you have to send before you leave, about a decision that has not been made yet, to somebody who needs to know the moment it is. Not when it is decided, not after — as soon as, and the sentence is a promise rather than a description.",
+        "jp": "決まり次第、ご連絡します。",
+        "en": "I'll be in touch as soon as it's decided.",
+        "pattern": "次第"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You use it in the room rather than in writing, to start something the moment the last person arrives, and it is the same promise made out loud instead of on paper.",
+          "jp": "到着次第、始めましょう。",
+          "en": "Let's start as soon as everyone's here."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "It cannot be used about the past, because the pattern is a promise — 決まり次第連絡しました is not a sentence. And the second half must be something you control: 決まり次第、雨が降ります is nonsense for exactly the same reason.",
+          "scene": "You try to report a past sequence with it and the tense restriction refuses outright, which is the fastest way to learn that this pattern is a promise rather than a description.",
+          "jp": "決まってから、連絡しました。",
+          "en": "After it was decided, I got in touch — past, so てから."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
+    },
+    {
+      "point": "sb-timing",
+      "step": "Step 33 · Manner, pretence and timing",
+      "setting": {
+        "scene": "Three patterns that all come out in English as when or as soon as, and all mean something different about where in an event you are standing. Side by side the difference stops being subtle, and the tense restrictions do most of the work of telling them apart.",
+        "jp": "座ったとたん、電話が鳴りました。",
+        "en": "The seam — past, and a surprise you did not control.",
+        "pattern": "とたん"
+      },
+      "extensions": [
+        {
+          "wr": null,
+          "kind": "flip",
+          "scene": "You sort three sentences from your own week into the three grains, and two of them turn out to have wanted a different one from the one you used at the time.",
+          "jp": "決まり次第、ご連絡します。",
+          "en": "As soon as possible — future, and your own promise."
+        },
+        {
+          "wr": null,
+          "kind": "extra",
+          "t": "The tense restrictions are absolute and they are the fastest self-check there is: たとたん is past and uncontrolled, 次第 is future and controlled. If a sentence wants both at once, it wants neither of them.",
+          "scene": "You test a sentence against both restrictions and it fails each of them, which is how you find out it never wanted any of the three and had wanted てから all along.",
+          "jp": "会議の最中に、電話が鳴りました。",
+          "en": "The thick of it — an activity interrupted."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 9 runs on N3 vocabulary, so kanji outside KANJI_DICT is the norm rather than the exception here — furigana needed throughout the stage. Flagged once per lesson rather than once per line."
       ],
       "review": {
         "status": "unreviewed"

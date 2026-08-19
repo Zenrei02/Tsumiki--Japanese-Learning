@@ -33,7 +33,8 @@ MODULE = HERE / "grammar-module.jsx"
 # More than one content file now: Stage 3's lessons, and the JLPT milestone lessons the
 # Session 17 re-staging needed. Listed explicitly rather than globbed — a glob would pick
 # up whatever else ends up matching, which is not a thing to discover at splice time.
-CONTENT = [HERE / "stage-3-content-v1.json", HERE / "milestone-content-v1.json"]
+CONTENT = [HERE / "stage-3-content-v1.json", HERE / "milestone-content-v1.json",
+           HERE / "stage-9-content-v1.json"]
 
 # ————— emit JS in the module's own house style —————
 def js_str(s):
@@ -47,6 +48,10 @@ def js_point(p, indent="      "):
     out = [head]
     if p.get("covers"):
         out.append(f'{indent}  covers: {json.dumps(p["covers"], ensure_ascii=False)},')
+    if p.get("requires"):
+        out.append(f'{indent}  requires: {json.dumps(p["requires"], ensure_ascii=False)},')
+    if p.get("brief"):
+        out.append(f'{indent}  brief: {js_str(p["brief"])},')
     exp = p["exp"]
     if isinstance(exp, dict):
         out.append(f"{indent}  exp: {{")
