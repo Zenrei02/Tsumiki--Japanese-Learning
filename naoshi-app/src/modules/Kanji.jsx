@@ -378,6 +378,7 @@ const MODULES = [
     },
   { id: "k-t26", kind: "kanji", title: "Work, and the company you keep", chars: ["社","事","業","者"],
     rule: "社's altar radical 礻 finishes — all four strokes — before 土 begins. Left side first, always, and it holds for every two-sided character in this group.",
+    wild: "株式会社 on every office building's nameplate — 社 ends most company names you will walk past. 営業中 hangs on shop doors (business, underway); 関係者以外立入禁止 on gates means the 者 concerned are not you. 工事中, with 事, fronts every dug-up pavement.",
     exp: "社 is the altar radical 礻 standing on earth 土 — a shrine, and then, when Japan needed a word for the companies arriving with the Meiji era, the shrine lent its character: 会社. Flip it and 社会 is society. Two characters, two orders, two of the most common words you will meet from here on.\n\n事 is the everyday こと — matter, business, the thing at hand. A hooked spine catching its crossbars; write it whole and often, because 仕事 is where the N3 stages spend most of their time.\n\n業 is trade built like scaffolding, thirteen strokes plank by plank. Your side of it for now is 授業 — the class you sit in.\n\n者 you have been writing since 暑: its top, finally out on its own. It marks the doer — 医者 heals, 若者 is young, 初心者 has just begun. The drill after this lesson takes the reunion apart.",
     },
 
@@ -387,16 +388,19 @@ const MODULES = [
 
   { id: "k-t27", kind: "kanji", title: "Where and when it happens", chars: ["場","京","予","合"],
     rule: "場 writes its earth 土 first, then the sun-banner 昜 — sun before the banner strokes sweep down and left.",
+    wild: "駐車場 is the blue P-sign's long form — a place for parked cars — and 会場 with an arrow points to any event you're heading for. 東京 is on the departure board of every east-bound shinkansen; 予約 glows on the reserved tab of ticket machines, and 予定 heads a whiteboard column in every office.",
     exp: "場 is ground 土 under the sun-banner 昜 — a lit patch of earth, which is all a place is. 場所 says where. 立場 is the ground you stand on. And 場合 is a place in time: a case, a situation — the word the four ifs of Step 16 have been waiting for.\n\n京 is a watchtower on high ground, and it keeps the tall silhouette of 高 — worth one look, because the two share a skyline. 東京 and 京都: the new capital and the old.\n\n予 is beforehand in four strokes. 予定 the plan, 予約 the booking, 天気予報 tomorrow's weather told today — the app's politeness stages lean on all three.\n\n合 is a lid settling onto its box: 人, 一, 口, every stroke already yours. Things that fit — 場合, 都合, 試合 — and the verb 合う, to fit, which your grammar met inside 間に合う.",
     },
 
   { id: "k-t28", kind: "kanji", title: "Saying why", chars: ["議","説","理","由"],
     rule: "言 is seven strokes, and every one of them lands before the right side begins — the same in 議 and 説 as it was in 話 and 語.",
+    wild: "会議室 on frosted-glass doors down every office corridor. 取扱説明書 is the booklet in the box with anything you buy — the 説明 is the middle of it. 料理 runs across menus and cooking shows all day; 理由 is the box on any form that asks why you are applying.",
     exp: "This is the reasons group — the characters behind Step 29's okage and seide, arriving in writing.\n\n議 is words 言 beside a dense right half that stays folded — twenty strokes, the heaviest character in this app. It means formal deliberation, and it rides almost entirely inside one word: 会議. Nine of your lesson banks already use it.\n\n説 is the third member of the talking family — 話 spoke, 語 named languages, and 説 explains: 説明. Same 言, new right side.\n\n理 is the king's jewel 王 beside the village 里 — and 里 keeps its sound, り, the trick you know from 寺 in 時 and 乍 in 昨. 料理 is cooking and 理由 is a reason: both are things done in their right order.\n\n由 is a field with one sprout through the top — origin, the root a reason grows from. 理由, and later 自由: freedom, acting from your own root.",
     },
 
   { id: "k-t29", kind: "kanji", title: "Before and after", chars: ["最","後","結","字","漢"],
     rule: "最 stacks top before bottom: the sun 日, then the ear 耳, and the gripping hand 又 closes it.",
+    wild: "自由席 and 指定席 on the shinkansen — 自由, built on 由, is the unreserved car. 最後尾 is the sign an attendant holds at the end of a long queue; 最新 flashes in electronics stores. And 漢字 names itself on every study-book spine in the bookshop's language corner.",
     exp: "最 is the sun over 取 — an ear 耳 in a gripping hand 又, the old sign for taking. Take from the top: the most. It builds superlatives by standing in front — 最初, 最後, 最近 — and your banks have been full of all three for two stages.\n\n後 reuses three old parts: the stepping 彳 of 行 and 待, a small thread, and the trailing feet 夂 from the bottom of 夏. Falling behind on the road — after. 後で, 午後, and 最後 again from the other side.\n\n結 is the thread 糸 of 終 tied to 吉. Knots: 結果 the result, 結婚 the marriage.\n\n字 is a child under the roof 宀, learning letters — hold it against 学, the same child under a different roof.\n\nAnd 漢. Water 氵 — carried unnamed in 洗 for five groups, named at last — beside a right half taught whole. It names old China, and in this app it lives inside exactly one word: 漢字. You have been saying it since day one. Now you can write it.",
     },
 
@@ -624,6 +628,22 @@ function Learn({ mod, known, onTapChar }) {
           {para}
         </p>
       ))}
+
+      {/* In the wild (Session 18) — where in Japan these characters are
+          standing right now: shop shutters, ticket stock, queue signage.
+          Observable claims only, no history — the scene idea applied to the
+          streetscape. Piloted on Group 7; earlier groups backfill later. */}
+      {mod.wild && (
+        <div style={{
+          background: T.noteBg, border: `1px solid ${T.note}44`, borderRadius: 6,
+          padding: "12px 16px", marginTop: 18,
+        }}>
+          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".6px", color: T.note, marginBottom: 5 }}>
+            IN THE WILD
+          </div>
+          <div style={{ fontSize: 14, lineHeight: 1.7 }}>{mod.wild}</div>
+        </div>
+      )}
 
       {chars.length > 0 && (
         <div style={{ marginTop: 22, display: "flex", flexDirection: "column", gap: 12 }}>

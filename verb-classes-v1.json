@@ -1,0 +1,224 @@
+{
+ "source": "UniDic via fugashi (cType) — derived, not authored",
+ "count": 54,
+ "verbs": {
+  "やり直す": {
+   "cls": "godan-su",
+   "base": "やり直す"
+  },
+  "休む": {
+   "cls": "godan-mu",
+   "base": "休む"
+  },
+  "会う": {
+   "cls": "godan-u",
+   "base": "会う"
+  },
+  "作る": {
+   "cls": "godan-ru",
+   "base": "作る"
+  },
+  "使う": {
+   "cls": "godan-u",
+   "base": "使う"
+  },
+  "入る": {
+   "cls": "godan-ru",
+   "base": "入る"
+  },
+  "写真を撮る": {
+   "cls": "godan-ru",
+   "base": "撮る"
+  },
+  "出す": {
+   "cls": "godan-su",
+   "base": "出す"
+  },
+  "分かる": {
+   "cls": "godan-ru",
+   "base": "分かる"
+  },
+  "勉強する": {
+   "cls": "suru",
+   "base": "する",
+   "stem": "勉強"
+  },
+  "合う": {
+   "cls": "godan-u",
+   "base": "合う"
+  },
+  "始まる": {
+   "cls": "godan-ru",
+   "base": "始まる"
+  },
+  "始める": {
+   "cls": "ichidan",
+   "base": "始める"
+  },
+  "寝る": {
+   "cls": "ichidan",
+   "base": "寝る"
+  },
+  "帰る": {
+   "cls": "godan-ru",
+   "base": "帰る"
+  },
+  "座る": {
+   "cls": "godan-ru",
+   "base": "座る"
+  },
+  "待つ": {
+   "cls": "godan-tsu",
+   "base": "待つ"
+  },
+  "忘れる": {
+   "cls": "ichidan",
+   "base": "忘れる"
+  },
+  "思う": {
+   "cls": "godan-u",
+   "base": "思う"
+  },
+  "急ぐ": {
+   "cls": "godan-gu",
+   "base": "急ぐ"
+  },
+  "手を洗う": {
+   "cls": "godan-u",
+   "base": "洗う"
+  },
+  "手伝う": {
+   "cls": "godan-u",
+   "base": "手伝う"
+  },
+  "散る": {
+   "cls": "godan-ru",
+   "base": "散る"
+  },
+  "散歩する": {
+   "cls": "suru",
+   "base": "する",
+   "stem": "散歩"
+  },
+  "書く": {
+   "cls": "godan-ku",
+   "base": "書く"
+  },
+  "来る": {
+   "cls": "kuru",
+   "base": "来る"
+  },
+  "歌う": {
+   "cls": "godan-u",
+   "base": "歌う"
+  },
+  "歩く": {
+   "cls": "godan-ku",
+   "base": "歩く"
+  },
+  "歯をみがく": {
+   "cls": "godan-ku",
+   "base": "みがく"
+  },
+  "決まる": {
+   "cls": "godan-ru",
+   "base": "決まる"
+  },
+  "決める": {
+   "cls": "ichidan",
+   "base": "決める"
+  },
+  "洗う": {
+   "cls": "godan-u",
+   "base": "洗う"
+  },
+  "知る": {
+   "cls": "godan-ru",
+   "base": "知る"
+  },
+  "答える": {
+   "cls": "ichidan",
+   "base": "答える"
+  },
+  "終わる": {
+   "cls": "godan-ru",
+   "base": "終わる"
+  },
+  "続ける": {
+   "cls": "ichidan",
+   "base": "続ける"
+  },
+  "聞く": {
+   "cls": "godan-ku",
+   "base": "聞く"
+  },
+  "落ちる": {
+   "cls": "ichidan",
+   "base": "落ちる"
+  },
+  "落とす": {
+   "cls": "godan-su",
+   "base": "落とす"
+  },
+  "薬を飲む": {
+   "cls": "godan-mu",
+   "base": "飲む"
+  },
+  "行く": {
+   "cls": "godan-ku",
+   "base": "行く"
+  },
+  "見る": {
+   "cls": "ichidan",
+   "base": "見る"
+  },
+  "言う": {
+   "cls": "godan-u",
+   "base": "言う"
+  },
+  "話しかける": {
+   "cls": "ichidan",
+   "base": "話しかける"
+  },
+  "話す": {
+   "cls": "godan-su",
+   "base": "話す"
+  },
+  "読み終わる": {
+   "cls": "godan-ru",
+   "base": "終わる"
+  },
+  "買う": {
+   "cls": "godan-u",
+   "base": "買う"
+  },
+  "起きる": {
+   "cls": "ichidan",
+   "base": "起きる"
+  },
+  "遅れる": {
+   "cls": "ichidan",
+   "base": "遅れる"
+  },
+  "閉まる": {
+   "cls": "godan-ru",
+   "base": "閉まる"
+  },
+  "開ける": {
+   "cls": "ichidan",
+   "base": "開ける"
+  },
+  "雨が降る": {
+   "cls": "godan-ru",
+   "base": "降る"
+  },
+  "食べる": {
+   "cls": "ichidan",
+   "base": "食べる"
+  },
+  "飲む": {
+   "cls": "godan-mu",
+   "base": "飲む"
+  }
+ }
+}
