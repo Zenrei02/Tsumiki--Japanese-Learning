@@ -47,12 +47,51 @@ def add(written, reading, meaning, source):
     if source not in e["sources"]:
         e["sources"].append(source)
 
+def die(msg):
+    sys.exit(f"build-word-ledger.py: {msg}")
+
+
+def bracketed(text, open_at):
+    """Return the contents of the [...] that starts at open_at, brackets balanced."""
+    depth, i = 0, open_at
+    while i < len(text):
+        if text[i] == "[":
+            depth += 1
+        elif text[i] == "]":
+            depth -= 1
+            if depth == 0:
+                return text[open_at + 1:i]
+        i += 1
+    die("unterminated bank array — the module is malformed.")
+
+
 # ---- store 1: bank arrays (per lesson category; [written, gloss], no reading)
-for m in re.finditer(r'cat: "([^"]+)",\s*\n\s*bank: \[([^\]]*(?:\][^\]]*)*?)\],\s*\n\s*points:', PRACTICE):
-    cat, body = m.group(1), m.group(2)
+#
+# Located STRUCTURALLY, not by a fixed field order. The original regex required
+# `cat:` and `bank:` to be adjacent lines; Session 17's restaging inserted
+# `level:` between them and this store silently fell to zero, which the report
+# then printed as "every kanji word has a reading somewhere" — a clean bill of
+# health produced by reading nothing. Hence the census guard below.
+cats = [(m.start(), m.group(1)) for m in re.finditer(r'\bcat: "([^"]+)"', PRACTICE)]
+banks_parsed = 0
+for i, (pos, cat) in enumerate(cats):
+    end = cats[i + 1][0] if i + 1 < len(cats) else len(PRACTICE)
+    block = PRACTICE[pos:end]
+    bm = re.search(r'\bbank: \[', block)
+    if not bm:
+        continue
+    banks_parsed += 1
+    body = bracketed(block, bm.end() - 1)
     step = cat.split("·")[0].strip()
-    for w in re.finditer(r'\["([^"]+)", "([^"]+)"\]', body):
+    for w in re.finditer(r'\["([^"]+)", *"([^"]+)"\]', body):
         add(w.group(1), None, w.group(2), f"bank:{step}")
+
+# Census: every `bank:` key in the file must have been parsed by the loop above.
+banks_in_file = len(re.findall(r'\bbank: \[', PRACTICE))
+if banks_parsed != banks_in_file:
+    die(f"parsed {banks_parsed} bank arrays but the module contains "
+        f"{banks_in_file}. The lesson structure has changed shape — fix the "
+        f"parser before trusting the ledger.")
 
 # ---- store 2: KANJI_DICT ([written, reading, meaning, jlpt])
 dict_region = PRACTICE[PRACTICE.index("const KANJI_DICT"):PRACTICE.index("const DICT_SORTED")]
@@ -62,10 +101,30 @@ for m in re.finditer(r'\["([^"]+)", "([^"]*)", "([^"]*)", "(N\d)"\]', dict_regio
     ledger[written]["jlpt"] = lvl
 
 # ---- store 3: kanji-module w: arrays ([written, reading, meaning] per kanji)
+w_parsed = 0
 for m in re.finditer(r'"(.)": \{[^{}]*?w: \[((?:\[[^\]]*\],?)*)\]', KANJI):
     ch, body = m.group(1), m.group(2)
+    w_parsed += 1
     for w in re.finditer(r'\["([^"]+)","([^"]*)","([^"]*)"\]', body):
         add(w.group(1), w.group(2) or None, w.group(3) or None, f"w:{ch}")
+
+# ---- census guards on the other two stores -----------------------------------
+# Same reasoning as store 1: a store that quietly reads nothing looks exactly
+# like a store with nothing to say. Compare against what the files contain.
+w_in_file = len(re.findall(r'\bw: \[', KANJI))
+if w_parsed != w_in_file:
+    die(f"parsed {w_parsed} kanji w: arrays but kanji-module.jsx contains "
+        f"{w_in_file}. Fix the parser before trusting the ledger.")
+
+dict_rows = len(re.findall(r'\["([^"]+)", "([^"]*)", "([^"]*)", "(N\d)"\]', dict_region))
+if dict_rows == 0:
+    die("KANJI_DICT parsed to zero rows — the dictionary's shape has changed.")
+
+for label, n in (("lesson banks", banks_parsed), ("KANJI_DICT", dict_rows),
+                 ("kanji w: arrays", w_parsed)):
+    if n == 0:
+        die(f"store '{label}' contributed nothing. A ledger built from two of "
+            f"three stores is not a ledger; refusing to write it.")
 
 # ---- report ----
 n_bank = sum(1 for e in ledger.values() if any(s.startswith("bank") for s in e["sources"]))

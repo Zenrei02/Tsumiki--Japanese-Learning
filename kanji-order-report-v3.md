@@ -1,4 +1,4 @@
-# Kanji order v3 — 2026-08-15
+# Kanji order v3 — 2026-08-20
 
 **Not a derivation.** Entire taught syllabus locked as prefix (Lloyd, Session 13). Groups 3-5 were authored from ledger demand; reordering them after the fact would repeat v1's Blocker-3 mistake. Derivation resumes only for a future group ordered BEFORE authoring.
 

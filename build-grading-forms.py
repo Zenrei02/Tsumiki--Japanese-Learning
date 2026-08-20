@@ -225,12 +225,14 @@ def js(s):
 
 
 GS_TEMPLATE = '''/**
- * Naoshi Step-3 blind grading forms — one Google Form per batch (B1–B8),
- * 15 tool outputs each, all feeding ONE response spreadsheet.
+ * Naoshi Step-3 blind grading forms — one Google Form per batch, all feeding
+ * ONE response spreadsheet. Batches are UNEVEN; each form is sized from the
+ * data it holds. See the BATCH SIZES line below for the real counts.
  *
  * GENERATED FILE — do not hand-edit. Regenerate with:
  *     python3 build-grading-forms.py
  * Generated from: {src}
+ * BATCH SIZES: {sizes} (total {total} outputs across {nbatches} forms)
  *
  * The three outputs for a sentence all sit in the same batch, so one grader
  * sees all three. Which model produced which output is not in this file and
@@ -239,8 +241,19 @@ GS_TEMPLATE = '''/**
  * HOW TO RUN
  *   1. script.google.com → New project → paste this over Code.gs
  *   2. Run → buildAllGradingForms   (authorise when prompted)
- *   3. Open the execution log. Send each reviewer the LIVE link for their batch.
- *      Same batch split as Step 2 — B1 first, as calibration.
+ *   3. Run → showLinks, and PASTE THE LOG SOMEWHERE PERMANENT. The Apps Script
+ *      console clears; showLinks can always reprint it, but only from the same
+ *      project under the same account.
+ *   4. Send each reviewer the LIVE link for their batch. B1 first, as calibration.
+ *
+ * ⚠️ RE-RUNNING IS SAFE, AND THAT IS DELIBERATE.
+ * This script remembers what it has already built in Script Properties, so a
+ * second run SKIPS every finished batch instead of creating a duplicate form.
+ * That matters because ~{items} form items sit close to the 6-minute execution
+ * limit: a timeout partway through is a normal outcome, not a failure. If it
+ * stops early, just run buildAllGradingForms again — or run the single
+ * remaining batch, e.g. buildB1(). Never start a fresh project to "try again";
+ * a fresh project has no memory and WILL duplicate the forms.
  *
  * Question titles are prefixed with the Output ID (e.g. "O017 ・ 評価") so
  * responses can be written back into the Blind Grading sheet columns G–H by
@@ -251,23 +264,129 @@ var DATA = [
 {data}
 ];
 
+/* ---- entry points ------------------------------------------------------- */
+
 function buildAllGradingForms() {{
-  var ss = SpreadsheetApp.create('Naoshi — ブラインド採点 responses (all batches)');
-  var batches = {{}};
-  DATA.forEach(function (row) {{
-    (batches[row.batch] = batches[row.batch] || []).push(row);
-  }});
-  Object.keys(batches).sort().forEach(function (b) {{
-    buildOneForm(b, batches[b], ss);
-  }});
+  var start = new Date().getTime();
+  var batches = batchList();
+  var built = 0, skipped = 0, stoppedAt = null;
+
+  for (var i = 0; i < batches.length; i++) {{
+    if (new Date().getTime() - start > 4.5 * 60 * 1000) {{
+      stoppedAt = batches.slice(i);
+      break;
+    }}
+    if (buildBatch(batches[i])) {{ built++; }} else {{ skipped++; }}
+  }}
+
   Logger.log('');
-  Logger.log('RESPONSES (all batches, one tab per form): ' + ss.getUrl());
+  Logger.log('Built ' + built + ' form(s) this run; skipped ' + skipped +
+             ' already built.');
+  if (stoppedAt) {{
+    Logger.log('STOPPED SHORT of the 6-minute limit with ' + stoppedAt.length +
+               ' batch(es) left: ' + stoppedAt.join(', '));
+    Logger.log('This is expected. Run buildAllGradingForms again — it resumes.');
+  }}
+  showLinks();
+}}
+
+{batchfns}
+/** Reprint every link this project has created. Safe to run any time. */
+function showLinks() {{
+  var props = PropertiesService.getScriptProperties();
+  Logger.log('');
+  Logger.log('--- LINKS ---');
+  batchList().forEach(function (b) {{
+    var live = props.getProperty('LIVE_' + b);
+    if (live) {{
+      Logger.log(b + '  LIVE: ' + live);
+      Logger.log(b + '  EDIT: ' + props.getProperty('EDIT_' + b));
+    }} else {{
+      Logger.log(b + '  (not built yet)');
+    }}
+  }});
+  var id = props.getProperty('RESPONSE_SS_ID');
+  Logger.log('RESPONSES (one tab per form): ' + (id
+    ? 'https://docs.google.com/spreadsheets/d/' + id + '/edit'
+    : '(not created yet)'));
   Logger.log('When batches are done: File → Download → Microsoft Excel, drop the file');
   Logger.log('in the project folder, and run import-grading-responses.py.');
 }}
 
+/**
+ * Forget every form this project built. It does NOT delete the forms — it only
+ * makes the script willing to build them a SECOND time. Nothing in the normal
+ * workflow needs this; if a form went wrong, delete that form in Drive first,
+ * then clear its two keys by hand.
+ */
+function resetGradingFormsState() {{
+  throw new Error('Refusing to run automatically. If you really mean it, open ' +
+    'Project Settings → Script Properties and delete the keys by hand. ' +
+    'Clearing this state is how duplicate live forms get created.');
+}}
+
+/* ---- machinery ---------------------------------------------------------- */
+
+function batchList() {{
+  var seen = {{}}, out = [];
+  DATA.forEach(function (r) {{
+    if (!seen[r.batch]) {{ seen[r.batch] = true; out.push(r.batch); }}
+  }});
+  return out.sort();
+}}
+
+function rowsFor(batch) {{
+  var rows = DATA.filter(function (r) {{ return r.batch === batch; }});
+  if (!rows.length) throw new Error('No rows for batch ' + batch + '.');
+  return rows;
+}}
+
+/** Returns true if it built the form, false if it was already built. */
+function buildBatch(batch) {{
+  var props = PropertiesService.getScriptProperties();
+  var live = props.getProperty('LIVE_' + batch);
+  if (live) {{
+    Logger.log(batch + '  already built — ' + live);
+    return false;
+  }}
+  var partial = props.getProperty('EDIT_' + batch);
+  if (partial) {{
+    throw new Error(batch + ' was left HALF-BUILT by an earlier run: the form ' +
+      'exists (' + partial + ') but its questions were not finished. Open it, ' +
+      'delete it in Drive, then delete the EDIT_' + batch + ' key in Project ' +
+      'Settings → Script Properties, then run this again. Building on top of a ' +
+      'half-built form would leave two live forms for one batch.');
+  }}
+  buildOneForm(batch, rowsFor(batch), responseSheet());
+  return true;
+}}
+
+/** The one response spreadsheet, created on first use and reused thereafter. */
+function responseSheet() {{
+  var props = PropertiesService.getScriptProperties();
+  var id = props.getProperty('RESPONSE_SS_ID');
+  if (id) {{
+    try {{
+      return SpreadsheetApp.openById(id);
+    }} catch (e) {{
+      throw new Error('The stored response spreadsheet (' + id + ') could not be ' +
+        'opened — it may be trashed, or you may be signed in as a different ' +
+        'account. Do NOT re-run blind: check Drive first, because building again ' +
+        'would create a second set of live forms.');
+    }}
+  }}
+  var ss = SpreadsheetApp.create('Naoshi — ブラインド採点 responses (all batches)');
+  props.setProperty('RESPONSE_SS_ID', ss.getId());
+  Logger.log('RESPONSES created: ' + ss.getUrl());
+  return ss;
+}}
+
 function buildOneForm(batch, rows, ss) {{
   var form = FormApp.create('Naoshi — ブラインド採点 ' + batch + ' (' + rows.length + '件)');
+  // Recorded the moment it exists, so a run that dies mid-build leaves a trail
+  // to the orphan instead of an invisible form nobody can find again.
+  PropertiesService.getScriptProperties()
+    .setProperty('EDIT_' + batch, form.getEditUrl());
   form.setDescription(
     'ツール（文法チェッカー）の出力を、確認済みの解答キーと照らして採点していただくフォームです。\\n\\n' +
     'この' + batch + 'バッチには' + rows.length + '件の出力があります。所要時間は25〜35分ほどです。' +
@@ -325,6 +444,10 @@ function buildOneForm(batch, rows, ss) {{
   form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
   Logger.log(batch + '  EDIT: ' + form.getEditUrl());
   Logger.log(batch + '  LIVE: ' + form.getPublishedUrl());
+  // LIVE_ is written LAST: it is what marks the batch finished, so a run that
+  // dies partway leaves EDIT_ only, and buildBatch refuses rather than duplicate.
+  PropertiesService.getScriptProperties()
+    .setProperty('LIVE_' + batch, form.getPublishedUrl());
 }}
 '''
 
@@ -359,7 +482,25 @@ def main():
            js(r["intended"]), js(r["verdict"]), js(r["feedback"]), js(r["key"]))
         for r in records
     )
-    gs = GS_TEMPLATE.format(src=WB_OUTPUTS.name, data=body)
+    order = sorted(by_batch)
+    batchfns = "".join(
+        "/** Build just %s (%d outputs). Safe to run twice — it skips if done. */\n"
+        "function build%s() { buildBatch('%s'); showLinks(); }\n\n" % (b, sizes[b], b, b)
+        for b in order
+    )
+    # 1 name field + 4 items per output (page break, header, choice, comment);
+    # the first output has no page break. Close enough to judge the 6-min limit.
+    items = len(by_batch) + len(records) * 4 - len(by_batch)
+
+    gs = GS_TEMPLATE.format(
+        src=WB_OUTPUTS.name,
+        data=body,
+        sizes=", ".join(f"{b}={sizes[b]}" for b in order),
+        total=len(records),
+        nbatches=len(by_batch),
+        items=items,
+        batchfns=batchfns,
+    )
 
     leak = re.search(r"\bM[123]\b", gs)
     if leak:
