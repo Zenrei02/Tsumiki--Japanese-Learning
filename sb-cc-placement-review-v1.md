@@ -102,7 +102,26 @@ work. The actual gap was wider: five ways to relate two actions in time and noth
 them. `sb-junjo` sorts the five and points at the とき rule as the sharpest edge in the set.
 Recorded on the flag itself so the change of scope is not lost.
 
-Step 2, 10, 17, 18 and 19 remain open.
+### ✅ AND STEP 19 — the last one
+
+`cc-chien` · 遅延証明書, the certificate of delay. Lloyd took the recommendation above
+("Step 19 is the best candidate if only one gets written") and it is built, arced and
+sourced from four railway operators' own pages.
+
+It is the right lesson for the step because a late train is precisely what Step 19's five
+patterns were built for — までに for the deadline, ところ for the moment, ばかり for having
+only just arrived, 間に for the gap you can still use, and ないで for the thing that turns a
+delay into a problem. And it is REQUIRED rather than observed: a resident will need the
+procedure, probably within a year.
+
+The finding that makes it a culture lesson rather than a how-to: **operators state that the
+certificate attests the maximum delay on a line and time band — not your train, and not
+that you were aboard.** It is not evidence. It is a document that lets both sides stop
+discussing the matter, which is a more interesting fact than anything the punctuality
+story would have produced. Reviewer batch P addendum.
+
+**Steps 2, 10, 17 and 18 remain open**, and the review's judgement stands: between them
+they are worth nothing more, unless a later session finds a reason.
 
 ## ✅ BUILT — all seven, same session
 

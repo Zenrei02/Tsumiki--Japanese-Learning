@@ -382,3 +382,28 @@ claims about what a room sounds like. Two lessons, both closing gaps named in
 
 5. **Register.** Both are Stage 1–4 lessons, so everything should be plain です・ます and
    the examples should be things a learner at that point could actually say.
+
+Batch P addendum — `cc-chien`, Step 19 · Time's edges (Session 17, same sitting).
+The last item from `sb-cc-placement-review-v1.md`. A late train, and the 遅延証明書
+that follows it.
+
+The **mechanism is sourced** from operators' own pages (JR East, Toei, Kintetsu,
+Hanshin) and cited in `lesson-arcs-v1.json`: roughly five minutes triggers one,
+they are handed out at gates and posted online for about 45 days, Kintetsu rounds
+to five-minute units and certifies anything past an hour as 「61分以上」. Those
+facts should need no checking, only confirmation that nothing is overstated.
+
+Two things do need your eye:
+
+1. **The social reading, which is the whole lesson.** Operators state that the
+   certificate attests the maximum delay on a LINE and TIME BAND — not your train,
+   and not that you were on it. The lesson draws from that the conclusion that the
+   paper is not evidence at all but a device for letting both sides stop
+   discussing the matter. That interpretation is the author's. If it is wrong, or
+   if it is right but reads as cynical, say so.
+
+2. **The punctuality caveat.** The lesson explicitly declines the
+   Japan-is-a-punctual-culture generalisation and substitutes a narrower claim:
+   that in workplaces and schools lateness is treated as requiring an account, and
+   a standard form exists for giving one. Is the narrower claim fair? Does the
+   refusal read as honest, or as hedging?

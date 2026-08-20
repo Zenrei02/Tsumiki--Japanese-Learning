@@ -10485,6 +10485,52 @@
       "review": {
         "status": "unreviewed"
       }
+    },
+    {
+      "point": "cc-chien",
+      "step": "Step 19 · Time's edges",
+      "setting": {
+        "scene": "It is twenty to nine, you are on a platform that is filling rather than emptying, and the board has stopped showing times altogether. Your first thought is that you are going to be late. Your second is that you have no way of saying why that anybody at work will accept. Around you, a queue has formed at a small window by the gate and nobody in it looks worried.",
+        "jp": "電車が遅れています。",
+        "en": "The train is delayed — true, and it is only your word for it.",
+        "pattern": "遅れて"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "The queue is for a 遅延証明書. Roughly five minutes of delay is enough to trigger one, staff hand them out at the gate on bad mornings, and every major operator posts one online covering the last forty-five days. Photograph it and you are done.",
+          "jp": "遅延証明書をもらいました。",
+          "en": "I got a delay certificate."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "And the rest of the morning is made of this step. までに for the deadline you are about to miss, ところ for the moment you are standing in, ばかり for having only just arrived, and 間に for the gap you can still use to send word before you are simply absent.",
+          "jp": "遅れている間に、会社に連絡しました。",
+          "en": "I let the office know while it was held up.",
+          "t": "⚠️ The certificate proves the maximum delay on that LINE and in that TIME BAND — not your train, and not that you were on it. Operators say so themselves. It is not evidence; it is a document that lets both sides stop discussing the matter."
+        }
+      ],
+      "claims": [
+        "Japanese railway operators issue a 遅延証明書 for delays of roughly five minutes or more; they are distributed at stations and published online, commonly covering the previous 45 days including the current day.",
+        "The certificate attests the maximum delay on a given line and time band. It does not attest an individual train's delay, and it does not attest that the holder was a passenger — operators state this explicitly.",
+        "Kintetsu issues certificates in five-minute units rounded up, and certifies anything of 61 minutes or more as 「61分以上」."
+      ],
+      "sources": [
+        "JR東日本 · 遅延証明書 — https://traininfo.jreast.co.jp/delay_certificate/",
+        "東京都交通局 · 遅延証明書 — https://www.kotsu.metro.tokyo.jp/subway/schedule/delay.html",
+        "近畿日本鉄道 · 遅延証明書 (five-minute units, 61分以上) — https://www.kintetsu.co.jp/gyoumu/delay/",
+        "阪神電気鉄道 · 遅延証明書 — https://www.hanshin.co.jp/system/delay/"
+      ],
+      "flags": [
+        "Stage 6 arc using kanji well outside KANJI_DICT (遅延証明書・連絡・会社). Furigana needed — flagged once for the lesson rather than per line.",
+        "⚠️ The MECHANISM is sourced from operators' own pages. The SOCIAL reading — that the certificate functions to close a conversation rather than to prove anything — is the author's interpretation and is the thing a reviewer should rule on.",
+        "⚠️ The lesson deliberately declines the Japan-is-punctual generalisation and states a narrower claim instead (lateness is treated as requiring an account, and a standard form exists for giving one). Confirm the narrower claim is fair and that the refusal reads as honest rather than as hedging."
+      ],
+      "review": {
+        "status": "unreviewed"
+      }
     }
   ]
 }
