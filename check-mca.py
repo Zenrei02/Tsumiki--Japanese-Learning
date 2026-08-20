@@ -44,6 +44,47 @@ for it in items:
     hits=set(m.group(0).lower() for m in re.finditer(block,it['text'],re.I))-allow
     if hits: fail.append(f"{it['id']}: romaji leak in rendered text: {sorted(hits)}")
 
+# ————— reachability: can a learner actually GET to this anecdote? —————
+#
+# Added Session 18, when the render landed. An anchor that check-mca.py accepts
+# is not the same thing as an anecdote a learner can open, and the gap between
+# them is invisible to every other check here: the JSON validates, the anchor
+# resolves against a real bank, and the item still reaches nobody.
+#
+# The two surfaces have DIFFERENT admission rules, which is the whole trap:
+#   • vocabulary word card — the word must exist in vocabulary-module.jsx's WORDS
+#   • grammar word popup   — the word must be in KANJI_DICT. A step's `bank` is
+#     rendered as "Tap to add" BUTTONS that feed the practice box; those are not
+#     JPText spans and they never open the popup. Being in a bank buys nothing.
+vocab_src = open('vocabulary-module.jsx', encoding='utf-8').read()
+_dict = re.search(r"const KANJI_DICT = \[(.*?)\n\];", src, re.S)
+dict_words = set(re.findall(r'\["([^"]+)"', _dict.group(1))) if _dict else set()
+vocab_words = set(re.findall(r'\{w:"([^"]+)"', vocab_src))
+
+unreachable, grammar_only, vocab_only = [], [], []
+for it in items:
+    w = it["anchor"]["word"]
+    in_g, in_v = w in dict_words, w in vocab_words
+    if not in_g and not in_v:
+        unreachable.append(f"{it['id']} ({w})")
+    elif in_g and not in_v:
+        grammar_only.append(w)
+    elif in_v and not in_g:
+        vocab_only.append(w)
+
+print("\n-- reachability --")
+print(f"  both surfaces: {len(items) - len(unreachable) - len(grammar_only) - len(vocab_only)}"
+      f"   grammar only: {len(grammar_only)}   vocab only: {len(vocab_only)}")
+if vocab_only:
+    print(f"  vocab-card only (not in KANJI_DICT, so no grammar popup): {' '.join(vocab_only)}")
+if unreachable:
+    fail.append(
+        "UNREACHABLE — these anecdotes render on NEITHER surface, because the word is in "
+        "neither KANJI_DICT nor the vocabulary WORDS list: " + ", ".join(unreachable) +
+        ". Adding a word to either store is authoring (a reading and a gloss are claims), "
+        "so this is a decision, not a mechanical fix."
+    )
+
 print("\n-- per-step density (module cc- lessons in that step shown) --")
 for st in sorted(per_step,key=lambda s:list(steps).index(s)):
     print(f"  {per_step[st]}  {st}   cc: {cc_by_step.get(st,[])}")
