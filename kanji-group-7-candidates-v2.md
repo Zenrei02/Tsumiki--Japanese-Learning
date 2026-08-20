@@ -30,7 +30,8 @@ instead of writing. A store that quietly reads nothing can no longer look like a
 store with nothing to say.
 
 The real gap the repaired run reports: **118 kanji-containing bank words carry no
-reading anywhere** (前: 10). Those render as "not in dictionary" in the display
+reading anywhere** (事 is the commonest character among them, in 6 of the 118).
+Those render as "not in dictionary" in the display
 path. That is a KANJI_DICT scope job, not a Group 7 job, but it is now visible.
 
 ## 2. What that does to the Group 7 list
