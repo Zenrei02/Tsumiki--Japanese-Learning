@@ -21,6 +21,35 @@ import openpyxl
 
 WORKBOOK = 'naoshi-eval-v1.xlsx'
 
+# ⚠️ REVIEWER NAME NORMALISATION — added Aug 21 2026, and it is load-bearing.
+# The form's name field is free text, and Tomoko typed 「テスト」 into it on most of
+# the Step 2 batches. That string lands in Eval Set column L as 〔テスト〕 — and
+# column L TRAVELS: build-grading-forms.py splices it into the amended-key block of
+# the Step 3 grading forms, where a grader with no context reads 「補足: 〔テスト〕」
+# as a stray test artefact rather than as an attribution of real reviewer work.
+#
+# The workbook was corrected by hand on Aug 21. Without this map, the next run of
+# this script would put 〔テスト〕 straight back — the same trap E09's L cell already
+# warns about ("a re-run of the importer will restore 要修正"). Correcting data
+# without correcting the thing that regenerates it is not a fix, it is a delay.
+STEP2_REVIEWER = 'ともこ'
+NAME_ALIASES = {'テスト', 'てすと', 'test', 'Test', 'TEST'}
+
+def canonical_name(raw, eid, blanks):
+    """What the reviewer typed → how she should be credited in column L.
+
+    A blank name also resolves to the reviewer: every Step 2 response came from her,
+    and some batches exported with the name column empty. That is an assumption, so
+    it is REPORTED rather than applied quietly — see the NOTE printed at the end.
+    """
+    name = str(raw or '').strip()
+    if name in NAME_ALIASES:
+        return STEP2_REVIEWER
+    if not name:
+        blanks.append(eid)
+        return STEP2_REVIEWER
+    return name
+
 def find_responses_file():
     if len(sys.argv) > 1:
         return sys.argv[1]
@@ -88,7 +117,7 @@ def main():
     id_row = {ws.cell(row=r, column=1).value: r
               for r in range(1, ws.max_row + 1)
               if re.match(r'^E\d{2}$', str(ws.cell(row=r, column=1).value or ''))}
-    written, conflicts = 0, 0
+    written, conflicts, blanks = 0, 0, []
     for eid, resp in sorted(answers.items()):
         if eid not in id_row:
             print(f'  ?? {eid} not in Eval Set — skipped')
@@ -99,6 +128,7 @@ def main():
             print(f'  CONFLICT {eid}: ' +
                   ' | '.join(f'{x[1]}: {x[2]}' for x in resp) + '  → using latest')
         ts, name, verdict, corr, comment = resp[-1]
+        name = canonical_name(name, eid, blanks)
         r = id_row[eid]
         ws.cell(row=r, column=10, value=verdict)                      # J キー確認
         ws.cell(row=r, column=11, value=corr or '')                   # K 修正案
@@ -112,6 +142,11 @@ def main():
     done = {eid for eid in answers if eid in id_row}
     missing = sorted(set(id_row) - done)
     print(f'\nWrote {written} rows into Eval Set J-L ({conflicts} conflicts).')
+    if blanks:
+        print(f'  NOTE: {len(blanks)} row(s) had an empty name in the export and were '
+              f'credited to 〔{STEP2_REVIEWER}〕 — {", ".join(blanks[:10])}'
+              + ('…' if len(blanks) > 10 else '')
+              + '. Correct if a second Step 2 reviewer is ever added.')
     print('Still unanswered: ' + (', '.join(missing) if missing else 'none — Step 2 complete.'))
 
 if __name__ == '__main__':

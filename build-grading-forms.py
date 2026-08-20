@@ -158,12 +158,38 @@ def load_keys():
     return keys
 
 
+def load_batch_map():
+    """Eval ID -> batch, read from Eval Set column M — the source col I points at.
+
+    Blind Grading column I is `=INDEX('Eval Set'!$M$6:$M$55, MATCH(B{r},…))`.
+    openpyxl cannot evaluate a formula and does not preserve cached results, so
+    EVERY script here that saves the workbook — both importers, this generator's
+    inputs — strips column I's cached values and leaves it unreadable.
+
+    Until Aug 21 2026 that made this generator die with "open the workbook once in
+    LibreOffice to recalculate", i.e. **regenerating the forms depended on a manual
+    GUI step on a machine that may not have LibreOffice**, triggered by a message
+    nobody would connect to "an importer ran last week". Read the source column
+    instead. The formula stays, because it is what makes the sheet readable to a
+    human; it is simply no longer the only way a script can learn the batch.
+    """
+    ws = openpyxl.load_workbook(WB_MASTER, data_only=True)["Eval Set"]
+    out = {}
+    for r in range(ES_FIRST, ES_LAST + 1):
+        eid = ws.cell(row=r, column=1).value
+        batch = ws.cell(row=r, column=13).value          # M バッチ
+        if eid and batch:
+            out[str(eid).strip()] = str(batch).strip()
+    return out
+
+
 def load_outputs():
     """Blind Grading rows, in sheet order. Model code is deliberately not read."""
     if not WB_OUTPUTS.exists():
         die(f"{WB_OUTPUTS.name} not found — run bakeoff-harness.py --run first.")
     ws = openpyxl.load_workbook(WB_OUTPUTS, data_only=True)["Blind Grading"]
-    rows, empty = [], []
+    batch_map = load_batch_map()
+    rows, empty, derived = [], [], 0
     for r in range(BG_FIRST, BG_LAST + 1):
         oid = ws.cell(row=r, column=1).value
         eid = ws.cell(row=r, column=2).value
@@ -176,9 +202,12 @@ def load_outputs():
             empty.append(oid)
             continue
         if not batch:
-            die(f"{oid} has no batch — the Blind Grading col I formula did not "
-                "resolve. Open the workbook once in LibreOffice to recalculate, "
-                "save, and re-run.")
+            batch = batch_map.get(str(eid).strip())
+            derived += 1
+        if not batch:
+            die(f"{oid} ({eid}) has no batch: Blind Grading col I did not resolve "
+                f"AND Eval Set col M has no entry for {eid}. Reconcile the two "
+                "workbooks — do not guess a batch.")
         rows.append({
             "oid": oid, "eid": eid, "batch": str(batch).strip(),
             "verdict": str(verdict).strip(), "feedback": (feedback or "").strip(),
@@ -187,6 +216,10 @@ def load_outputs():
         die(f"{len(empty)} Blind Grading rows have no tool verdict "
             f"({', '.join(empty[:5])}{'…' if len(empty) > 5 else ''}). "
             "The bake-off has not finished — re-run bakeoff-harness.py --run.")
+    if derived:
+        print(f"NOTE: Blind Grading col I was unresolved for {derived} row(s); "
+              "batch taken from Eval Set col M instead. Expected after any script "
+              "has saved the workbook — not an error.")
     return rows
 
 
