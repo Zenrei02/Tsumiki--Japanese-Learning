@@ -1,7 +1,7 @@
 {
- "generated": "2026-08-20",
+ "generated": "2026-08-21",
  "note": "Authoritative word set for the app. Input to the word-driven ordering pipeline. Regenerate with build-word-ledger.py.",
- "count": 471,
+ "count": 475,
  "words": [
   {
    "written": "学生",
@@ -379,13 +379,17 @@
   },
   {
    "written": "勉強する",
-   "readings": [],
+   "readings": [
+    "べんきょうする"
+   ],
    "meanings": [
     "to study"
    ],
    "sources": [
-    "bank:Step 4"
-   ]
+    "bank:Step 4",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
   },
   {
    "written": "食べる",
@@ -500,33 +504,45 @@
   },
   {
    "written": "座る",
-   "readings": [],
+   "readings": [
+    "すわる"
+   ],
    "meanings": [
     "to sit"
    ],
    "sources": [
-    "bank:Step 5"
-   ]
+    "bank:Step 5",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
   },
   {
    "written": "写真を撮る",
-   "readings": [],
+   "readings": [
+    "しゃしんをとる"
+   ],
    "meanings": [
     "to take a photo"
    ],
    "sources": [
-    "bank:Step 5"
-   ]
+    "bank:Step 5",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
   },
   {
    "written": "薬を飲む",
-   "readings": [],
+   "readings": [
+    "くすりをのむ"
+   ],
    "meanings": [
     "to take medicine"
    ],
    "sources": [
-    "bank:Step 5"
-   ]
+    "bank:Step 5",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
   },
   {
    "written": "帰る",
@@ -570,24 +586,32 @@
   },
   {
    "written": "急ぐ",
-   "readings": [],
+   "readings": [
+    "いそぐ"
+   ],
    "meanings": [
     "to hurry"
    ],
    "sources": [
-    "bank:Step 5"
-   ]
+    "bank:Step 5",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
   },
   {
    "written": "一緒に",
-   "readings": [],
+   "readings": [
+    "いっしょに"
+   ],
    "meanings": [
     "together"
    ],
    "sources": [
     "bank:Step 6",
-    "bank:Checkpoint 2"
-   ]
+    "bank:Checkpoint 2",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
   },
   {
    "written": "昼ごはん",
@@ -731,13 +755,17 @@
   },
   {
    "written": "散歩する",
-   "readings": [],
+   "readings": [
+    "さんぽする"
+   ],
    "meanings": [
     "to take a walk"
    ],
    "sources": [
-    "bank:Step 7"
-   ]
+    "bank:Step 7",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
   },
   {
    "written": "宿題",
@@ -762,11 +790,13 @@
     "しごと"
    ],
    "meanings": [
-    "work"
+    "work",
+    "work; job"
    ],
    "sources": [
     "bank:Step 7",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:事"
    ],
    "jlpt": "N4"
   },
@@ -1022,13 +1052,17 @@
   },
   {
    "written": "面白い",
-   "readings": [],
+   "readings": [
+    "おもしろい"
+   ],
    "meanings": [
     "interesting"
    ],
    "sources": [
-    "bank:Step 9"
-   ]
+    "bank:Step 9",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
   },
   {
    "written": "広い",
@@ -1203,13 +1237,17 @@
   },
   {
    "written": "遅れる",
-   "readings": [],
+   "readings": [
+    "おくれる"
+   ],
    "meanings": [
     "to be late"
    ],
    "sources": [
-    "bank:Step 11"
-   ]
+    "bank:Step 11",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
   },
   {
    "written": "窓",
@@ -1296,13 +1334,17 @@
   },
   {
    "written": "雨が降る",
-   "readings": [],
+   "readings": [
+    "あめがふる"
+   ],
    "meanings": [
     "to rain"
    ],
    "sources": [
-    "bank:Step 12"
-   ]
+    "bank:Step 12",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N5"
   },
   {
    "written": "作る",
@@ -1335,7 +1377,8 @@
     "bank:Step 25",
     "bank:Step 34",
     "bank:Step 37",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:議"
    ],
    "jlpt": "N3"
   },
@@ -1374,14 +1417,18 @@
   },
   {
    "written": "忘れる",
-   "readings": [],
+   "readings": [
+    "わすれる"
+   ],
    "meanings": [
     "to forget"
    ],
    "sources": [
     "bank:Step 13",
-    "bank:Step 22"
-   ]
+    "bank:Step 22",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
   },
   {
    "written": "かさ",
@@ -1409,55 +1456,74 @@
   },
   {
    "written": "落とす",
-   "readings": [],
+   "readings": [
+    "おとす"
+   ],
    "meanings": [
     "to drop"
    ],
    "sources": [
-    "bank:Step 13"
-   ]
+    "bank:Step 13",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
   },
   {
    "written": "最後まで",
-   "readings": [],
+   "readings": [
+    "さいごまで"
+   ],
    "meanings": [
     "to the end"
    ],
    "sources": [
-    "bank:Step 13"
-   ]
+    "bank:Step 13",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
   },
   {
    "written": "予約",
-   "readings": [],
+   "readings": [
+    "よやく"
+   ],
    "meanings": [
     "reservation",
     "a booking"
    ],
    "sources": [
     "bank:Step 13",
-    "bank:Step 26"
+    "bank:Step 26",
+    "w:予"
    ]
   },
   {
    "written": "晩ご飯",
-   "readings": [],
+   "readings": [
+    "ばんごはん"
+   ],
    "meanings": [
     "dinner"
    ],
    "sources": [
-    "bank:Step 13"
-   ]
+    "bank:Step 13",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
   },
   {
    "written": "手伝う",
-   "readings": [],
+   "readings": [
+    "てつだう"
+   ],
    "meanings": [
     "to help"
    ],
    "sources": [
-    "bank:Step 14"
-   ]
+    "bank:Step 14",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
   },
   {
    "written": "弟",
@@ -1536,29 +1602,38 @@
    ],
    "sources": [
     "bank:Step 15",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:結"
    ],
    "jlpt": "N3"
   },
   {
    "written": "閉まる",
-   "readings": [],
+   "readings": [
+    "しまる"
+   ],
    "meanings": [
     "to close"
    ],
    "sources": [
-    "bank:Step 15"
-   ]
+    "bank:Step 15",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
   },
   {
    "written": "落ちる",
-   "readings": [],
+   "readings": [
+    "おちる"
+   ],
    "meanings": [
     "to fall"
    ],
    "sources": [
-    "bank:Step 15"
-   ]
+    "bank:Step 15",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
   },
   {
    "written": "チケット",
@@ -1582,7 +1657,8 @@
    ],
    "sources": [
     "bank:Step 16",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:者"
    ],
    "jlpt": "N3"
   },
@@ -1610,7 +1686,8 @@
    ],
    "sources": [
     "bank:Step 16",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:京"
    ],
    "jlpt": "N5"
   },
@@ -1658,11 +1735,13 @@
    ],
    "meanings": [
     "schedule",
-    "schedule; plan"
+    "schedule; plan",
+    "plan; schedule"
    ],
    "sources": [
     "bank:Step 17",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:予"
    ],
    "jlpt": "N3"
   },
@@ -1729,7 +1808,8 @@
    ],
    "sources": [
     "bank:Step 17",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:京"
    ],
    "jlpt": "N5"
   },
@@ -1794,7 +1874,9 @@
     "bank:Step 18",
     "bank:Step 20",
     "bank:Step 22",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:字",
+    "w:漢"
    ],
    "jlpt": "N4"
   },
@@ -1824,7 +1906,8 @@
    ],
    "sources": [
     "bank:Step 18",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:字"
    ],
    "jlpt": "N4"
   },
@@ -1871,7 +1954,8 @@
    ],
    "sources": [
     "bank:Step 19",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:業"
    ],
    "jlpt": "N4"
   },
@@ -1926,13 +2010,17 @@
   },
   {
    "written": "答える",
-   "readings": [],
+   "readings": [
+    "こたえる"
+   ],
    "meanings": [
     "to answer"
    ],
    "sources": [
-    "bank:Step 20"
-   ]
+    "bank:Step 20",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
   },
   {
    "written": "がんばれ",
@@ -2010,23 +2098,31 @@
   },
   {
    "written": "歌う",
-   "readings": [],
+   "readings": [
+    "うたう"
+   ],
    "meanings": [
     "to sing"
    ],
    "sources": [
-    "bank:Step 22"
-   ]
+    "bank:Step 22",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
   },
   {
    "written": "決める",
-   "readings": [],
+   "readings": [
+    "きめる"
+   ],
    "meanings": [
     "to decide"
    ],
    "sources": [
-    "bank:Step 22"
-   ]
+    "bank:Step 22",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
   },
   {
    "written": "質問",
@@ -2068,13 +2164,17 @@
   },
   {
    "written": "何でも",
-   "readings": [],
+   "readings": [
+    "なんでも"
+   ],
    "meanings": [
     "anything"
    ],
    "sources": [
-    "bank:Step 23"
-   ]
+    "bank:Step 23",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N4"
   },
   {
    "written": "社長",
@@ -2086,7 +2186,8 @@
    ],
    "sources": [
     "bank:Step 24",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:社"
    ],
    "jlpt": "N3"
   },
@@ -2178,7 +2279,8 @@
     "bank:Step 25",
     "bank:Step 27",
     "KANJI_DICT",
-    "w:会"
+    "w:会",
+    "w:社"
    ],
    "jlpt": "N4"
   },
@@ -2201,53 +2303,73 @@
   },
   {
    "written": "保険証",
-   "readings": [],
+   "readings": [
+    "ほけんしょう"
+   ],
    "meanings": [
     "insurance card"
    ],
    "sources": [
-    "bank:Step 26"
-   ]
+    "bank:Step 26",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "番号",
-   "readings": [],
+   "readings": [
+    "ばんごう"
+   ],
    "meanings": [
     "number"
    ],
    "sources": [
-    "bank:Step 26"
-   ]
+    "bank:Step 26",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "生",
-   "readings": [],
+   "readings": [
+    "なま"
+   ],
    "meanings": [
     "draught beer"
    ],
    "sources": [
-    "bank:Step 26"
-   ]
+    "bank:Step 26",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "会計",
-   "readings": [],
+   "readings": [
+    "かいけい"
+   ],
    "meanings": [
     "the bill"
    ],
    "sources": [
-    "bank:Step 26"
-   ]
+    "bank:Step 26",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "窓口",
-   "readings": [],
+   "readings": [
+    "まどぐち"
+   ],
    "meanings": [
     "the counter"
    ],
    "sources": [
-    "bank:Step 26"
-   ]
+    "bank:Step 26",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "名前",
@@ -2293,176 +2415,239 @@
     "bank:Step 31",
     "bank:Step 34",
     "bank:Step 35",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:説"
    ],
    "jlpt": "N3"
   },
   {
    "written": "確認",
-   "readings": [],
+   "readings": [
+    "かくにん"
+   ],
    "meanings": [
     "checking"
    ],
    "sources": [
-    "bank:Step 28"
-   ]
+    "bank:Step 28",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "記入",
-   "readings": [],
+   "readings": [
+    "きにゅう"
+   ],
    "meanings": [
     "filling in"
    ],
    "sources": [
-    "bank:Step 28"
-   ]
+    "bank:Step 28",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "都合",
-   "readings": [],
+   "readings": [
+    "つごう"
+   ],
    "meanings": [
-    "circumstances"
+    "circumstances",
+    "convenience; circumstances"
    ],
    "sources": [
-    "bank:Step 28"
+    "bank:Step 28",
+    "w:合"
    ]
   },
   {
    "written": "休業",
-   "readings": [],
+   "readings": [
+    "きゅうぎょう"
+   ],
    "meanings": [
     "closed for business"
    ],
    "sources": [
-    "bank:Step 28"
+    "bank:Step 28",
+    "w:業"
    ]
   },
   {
    "written": "変更",
-   "readings": [],
+   "readings": [
+    "へんこう"
+   ],
    "meanings": [
     "a change"
    ],
    "sources": [
-    "bank:Step 28"
-   ]
+    "bank:Step 28",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "連絡",
-   "readings": [],
+   "readings": [
+    "れんらく"
+   ],
    "meanings": [
     "getting in touch",
     "contact; word"
    ],
    "sources": [
     "bank:Step 28",
-    "bank:Step 34"
-   ]
+    "bank:Step 34",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "返事",
-   "readings": [],
+   "readings": [
+    "へんじ"
+   ],
    "meanings": [
     "a reply"
    ],
    "sources": [
-    "bank:Step 28"
-   ]
+    "bank:Step 28",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "署名",
-   "readings": [],
+   "readings": [
+    "しょめい"
+   ],
    "meanings": [
     "a signature"
    ],
    "sources": [
-    "bank:Step 28"
-   ]
+    "bank:Step 28",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "結果",
-   "readings": [],
+   "readings": [
+    "けっか"
+   ],
    "meanings": [
     "result",
     "a result"
    ],
    "sources": [
     "bank:Step 29",
-    "bank:Step 36"
+    "bank:Step 36",
+    "w:結"
    ]
   },
   {
    "written": "失敗",
-   "readings": [],
+   "readings": [
+    "しっぱい"
+   ],
    "meanings": [
     "a failure"
    ],
    "sources": [
-    "bank:Step 29"
-   ]
+    "bank:Step 29",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "成功",
-   "readings": [],
+   "readings": [
+    "せいこう"
+   ],
    "meanings": [
     "success"
    ],
    "sources": [
-    "bank:Step 29"
-   ]
+    "bank:Step 29",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "努力",
-   "readings": [],
+   "readings": [
+    "どりょく"
+   ],
    "meanings": [
     "effort"
    ],
    "sources": [
     "bank:Step 29",
-    "bank:Step 33"
-   ]
+    "bank:Step 33",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "事故",
-   "readings": [],
+   "readings": [
+    "じこ"
+   ],
    "meanings": [
-    "an accident"
+    "an accident",
+    "accident"
    ],
    "sources": [
-    "bank:Step 29"
+    "bank:Step 29",
+    "w:事"
    ]
   },
   {
    "written": "遅刻",
-   "readings": [],
+   "readings": [
+    "ちこく"
+   ],
    "meanings": [
     "lateness"
    ],
    "sources": [
-    "bank:Step 29"
-   ]
+    "bank:Step 29",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "準備",
-   "readings": [],
+   "readings": [
+    "じゅんび"
+   ],
    "meanings": [
     "preparation"
    ],
    "sources": [
     "bank:Step 29",
-    "bank:Step 34"
-   ]
+    "bank:Step 34",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "経験",
-   "readings": [],
+   "readings": [
+    "けいけん"
+   ],
    "meanings": [
     "experience"
    ],
    "sources": [
     "bank:Step 29",
-    "bank:Step 42"
-   ]
+    "bank:Step 42",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "問題",
@@ -2481,61 +2666,82 @@
   },
   {
    "written": "社会",
-   "readings": [],
+   "readings": [
+    "しゃかい"
+   ],
    "meanings": [
     "society"
    ],
    "sources": [
-    "bank:Step 30"
+    "bank:Step 30",
+    "w:社"
    ]
   },
   {
    "written": "方法",
-   "readings": [],
+   "readings": [
+    "ほうほう"
+   ],
    "meanings": [
     "method",
     "a method"
    ],
    "sources": [
     "bank:Step 30",
-    "bank:Step 38"
-   ]
+    "bank:Step 38",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "調査",
-   "readings": [],
+   "readings": [
+    "ちょうさ"
+   ],
    "meanings": [
     "a survey"
    ],
    "sources": [
     "bank:Step 30",
-    "bank:Step 36"
-   ]
+    "bank:Step 36",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "意見",
-   "readings": [],
+   "readings": [
+    "いけん"
+   ],
    "meanings": [
     "an opinion"
    ],
    "sources": [
     "bank:Step 30",
-    "bank:Step 43"
-   ]
+    "bank:Step 43",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "影響",
-   "readings": [],
+   "readings": [
+    "えいきょう"
+   ],
    "meanings": [
     "influence"
    ],
    "sources": [
-    "bank:Step 30"
-   ]
+    "bank:Step 30",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "場合",
-   "readings": [],
+   "readings": [
+    "ばあい"
+   ],
    "meanings": [
     "case; situation",
     "a case"
@@ -2543,18 +2749,24 @@
    "sources": [
     "bank:Step 30",
     "bank:Step 35",
-    "bank:Step 39"
+    "bank:Step 39",
+    "w:場",
+    "w:合"
    ]
   },
   {
    "written": "環境",
-   "readings": [],
+   "readings": [
+    "かんきょう"
+   ],
    "meanings": [
     "environment"
    ],
    "sources": [
-    "bank:Step 30"
-   ]
+    "bank:Step 30",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "理由",
@@ -2569,85 +2781,115 @@
     "bank:Step 31",
     "bank:Step 39",
     "bank:Step 43",
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:理",
+    "w:由"
    ],
    "jlpt": "N3"
   },
   {
    "written": "常識",
-   "readings": [],
+   "readings": [
+    "じょうしき"
+   ],
    "meanings": [
     "common sense"
    ],
    "sources": [
     "bank:Step 31",
-    "bank:Step 39"
-   ]
+    "bank:Step 39",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "立場",
-   "readings": [],
+   "readings": [
+    "たちば"
+   ],
    "meanings": [
     "position; standpoint",
-    "a position"
+    "a position",
+    "standpoint"
    ],
    "sources": [
     "bank:Step 31",
-    "bank:Step 43"
+    "bank:Step 43",
+    "w:場"
    ]
   },
   {
    "written": "当然",
-   "readings": [],
+   "readings": [
+    "とうぜん"
+   ],
    "meanings": [
     "natural; obvious"
    ],
    "sources": [
-    "bank:Step 31"
-   ]
+    "bank:Step 31",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "確か",
-   "readings": [],
+   "readings": [
+    "たしか"
+   ],
    "meanings": [
     "certain"
    ],
    "sources": [
     "bank:Step 31",
-    "bank:Step 43"
-   ]
+    "bank:Step 43",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "普通",
-   "readings": [],
+   "readings": [
+    "ふつう"
+   ],
    "meanings": [
     "ordinary"
    ],
    "sources": [
-    "bank:Step 31"
-   ]
+    "bank:Step 31",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "若い",
-   "readings": [],
+   "readings": [
+    "わかい"
+   ],
    "meanings": [
     "young"
    ],
    "sources": [
-    "bank:Step 31"
-   ]
+    "bank:Step 31",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "途中",
-   "readings": [],
+   "readings": [
+    "とちゅう"
+   ],
    "meanings": [
     "partway; en route",
     "partway"
    ],
    "sources": [
     "bank:Step 32",
-    "bank:Step 34"
-   ]
+    "bank:Step 34",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "最後",
@@ -2655,7 +2897,24 @@
     "さいご"
    ],
    "meanings": [
-    "the end"
+    "the end",
+    "the last"
+   ],
+   "sources": [
+    "bank:Step 32",
+    "KANJI_DICT",
+    "w:最",
+    "w:後"
+   ],
+   "jlpt": "N3"
+  },
+  {
+   "written": "話しかける",
+   "readings": [
+    "はなしかける"
+   ],
+   "meanings": [
+    "to speak to"
    ],
    "sources": [
     "bank:Step 32",
@@ -2664,86 +2923,103 @@
    "jlpt": "N3"
   },
   {
-   "written": "話しかける",
-   "readings": [],
-   "meanings": [
-    "to speak to"
-   ],
-   "sources": [
-    "bank:Step 32"
-   ]
-  },
-  {
    "written": "やり直す",
-   "readings": [],
+   "readings": [
+    "やりなおす"
+   ],
    "meanings": [
     "to redo"
    ],
    "sources": [
-    "bank:Step 32"
-   ]
+    "bank:Step 32",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "読み終わる",
-   "readings": [],
+   "readings": [
+    "よみおわる"
+   ],
    "meanings": [
     "to finish reading"
    ],
    "sources": [
-    "bank:Step 32"
-   ]
+    "bank:Step 32",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "続ける",
-   "readings": [],
+   "readings": [
+    "つづける"
+   ],
    "meanings": [
     "to continue"
    ],
    "sources": [
-    "bank:Step 32"
-   ]
+    "bank:Step 32",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "最近",
-   "readings": [],
+   "readings": [
+    "さいきん"
+   ],
    "meanings": [
     "recently"
    ],
    "sources": [
-    "bank:Step 33"
+    "bank:Step 33",
+    "w:最"
    ]
   },
   {
    "written": "体",
-   "readings": [],
+   "readings": [
+    "からだ"
+   ],
    "meanings": [
     "body"
    ],
    "sources": [
-    "bank:Step 33"
-   ]
+    "bank:Step 33",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "風邪",
-   "readings": [],
+   "readings": [
+    "かぜ"
+   ],
    "meanings": [
     "a cold"
    ],
    "sources": [
-    "bank:Step 33"
-   ]
+    "bank:Step 33",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "値段",
-   "readings": [],
+   "readings": [
+    "ねだん"
+   ],
    "meanings": [
     "price",
     "the price"
    ],
    "sources": [
     "bank:Step 33",
-    "bank:Step 36"
-   ]
+    "bank:Step 36",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "味",
@@ -2761,113 +3037,157 @@
   },
   {
    "written": "若者",
-   "readings": [],
+   "readings": [
+    "わかもの"
+   ],
    "meanings": [
-    "young people"
+    "young people",
+    "young person"
    ],
    "sources": [
-    "bank:Step 33"
+    "bank:Step 33",
+    "w:者"
    ]
   },
   {
    "written": "予想",
-   "readings": [],
+   "readings": [
+    "よそう"
+   ],
    "meanings": [
     "expectation"
    ],
    "sources": [
-    "bank:Step 33"
-   ]
+    "bank:Step 33",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "約束",
-   "readings": [],
+   "readings": [
+    "やくそく"
+   ],
    "meanings": [
     "a promise"
    ],
    "sources": [
-    "bank:Step 34"
-   ]
+    "bank:Step 34",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "知る",
-   "readings": [],
+   "readings": [
+    "しる"
+   ],
    "meanings": [
     "to know"
    ],
    "sources": [
-    "bank:Step 34"
-   ]
+    "bank:Step 34",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "決まる",
-   "readings": [],
+   "readings": [
+    "きまる"
+   ],
    "meanings": [
     "to be decided"
    ],
    "sources": [
-    "bank:Step 34"
-   ]
+    "bank:Step 34",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "表現",
-   "readings": [],
+   "readings": [
+    "ひょうげん"
+   ],
    "meanings": [
     "an expression"
    ],
    "sources": [
-    "bank:Step 35"
-   ]
+    "bank:Step 35",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "内容",
-   "readings": [],
+   "readings": [
+    "ないよう"
+   ],
    "meanings": [
     "content"
    ],
    "sources": [
-    "bank:Step 35"
-   ]
+    "bank:Step 35",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "文章",
-   "readings": [],
+   "readings": [
+    "ぶんしょう"
+   ],
    "meanings": [
     "a piece of writing"
    ],
    "sources": [
-    "bank:Step 35"
-   ]
+    "bank:Step 35",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "例",
-   "readings": [],
+   "readings": [
+    "れい"
+   ],
    "meanings": [
     "an example"
    ],
    "sources": [
-    "bank:Step 35"
-   ]
+    "bank:Step 35",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "天気予報",
-   "readings": [],
+   "readings": [
+    "てんきよほう"
+   ],
    "meanings": [
-    "the weather forecast"
+    "the weather forecast",
+    "weather forecast"
    ],
    "sources": [
-    "bank:Step 36"
+    "bank:Step 36",
+    "w:予"
    ]
   },
   {
    "written": "記事",
-   "readings": [],
+   "readings": [
+    "きじ"
+   ],
    "meanings": [
     "an article"
    ],
    "sources": [
-    "bank:Step 36"
-   ]
+    "bank:Step 36",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "去年",
@@ -2885,294 +3205,410 @@
   },
   {
    "written": "人口",
-   "readings": [],
+   "readings": [
+    "じんこう"
+   ],
    "meanings": [
     "population"
    ],
    "sources": [
-    "bank:Step 36"
-   ]
+    "bank:Step 36",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "初心者",
-   "readings": [],
+   "readings": [
+    "しょしんしゃ"
+   ],
    "meanings": [
-    "a beginner"
+    "a beginner",
+    "beginner"
    ],
    "sources": [
-    "bank:Step 37"
+    "bank:Step 37",
+    "w:者"
    ]
   },
   {
    "written": "工事",
-   "readings": [],
+   "readings": [
+    "こうじ"
+   ],
    "meanings": [
     "construction work"
    ],
    "sources": [
-    "bank:Step 37"
-   ]
+    "bank:Step 37",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "担当",
-   "readings": [],
+   "readings": [
+    "たんとう"
+   ],
    "meanings": [
     "the person in charge"
    ],
    "sources": [
-    "bank:Step 37"
-   ]
+    "bank:Step 37",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "範囲",
-   "readings": [],
+   "readings": [
+    "はんい"
+   ],
    "meanings": [
     "a range"
    ],
    "sources": [
-    "bank:Step 37"
-   ]
+    "bank:Step 37",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "受付",
-   "readings": [],
+   "readings": [
+    "うけつけ"
+   ],
    "meanings": [
     "reception"
    ],
    "sources": [
-    "bank:Step 37"
-   ]
+    "bank:Step 37",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "我慢",
-   "readings": [],
+   "readings": [
+    "がまん"
+   ],
    "meanings": [
     "putting up with it"
    ],
    "sources": [
-    "bank:Step 38"
-   ]
+    "bank:Step 38",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "心配",
-   "readings": [],
+   "readings": [
+    "しんぱい"
+   ],
    "meanings": [
     "worry"
    ],
    "sources": [
-    "bank:Step 38"
-   ]
+    "bank:Step 38",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "選択",
-   "readings": [],
+   "readings": [
+    "せんたく"
+   ],
    "meanings": [
     "a choice"
    ],
    "sources": [
-    "bank:Step 38"
-   ]
+    "bank:Step 38",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "条件",
-   "readings": [],
+   "readings": [
+    "じょうけん"
+   ],
    "meanings": [
     "a condition"
    ],
    "sources": [
-    "bank:Step 38"
-   ]
+    "bank:Step 38",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "必要",
-   "readings": [],
+   "readings": [
+    "ひつよう"
+   ],
    "meanings": [
     "necessity"
    ],
    "sources": [
-    "bank:Step 38"
-   ]
+    "bank:Step 38",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "最低",
-   "readings": [],
+   "readings": [
+    "さいてい"
+   ],
    "meanings": [
     "the minimum"
    ],
    "sources": [
-    "bank:Step 38"
-   ]
+    "bank:Step 38",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "十分",
-   "readings": [],
+   "readings": [
+    "じゅうぶん"
+   ],
    "meanings": [
     "enough"
    ],
    "sources": [
-    "bank:Step 38"
-   ]
+    "bank:Step 38",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "証拠",
-   "readings": [],
+   "readings": [
+    "しょうこ"
+   ],
    "meanings": [
     "evidence"
    ],
    "sources": [
-    "bank:Step 39"
-   ]
+    "bank:Step 39",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "可能性",
-   "readings": [],
+   "readings": [
+    "かのうせい"
+   ],
    "meanings": [
     "a possibility"
    ],
    "sources": [
-    "bank:Step 39"
-   ]
+    "bank:Step 39",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "例外",
-   "readings": [],
+   "readings": [
+    "れいがい"
+   ],
    "meanings": [
     "an exception"
    ],
    "sources": [
-    "bank:Step 39"
-   ]
+    "bank:Step 39",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "事実",
-   "readings": [],
+   "readings": [
+    "じじつ"
+   ],
    "meanings": [
     "a fact"
    ],
    "sources": [
-    "bank:Step 39"
-   ]
+    "bank:Step 39",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "絶対",
-   "readings": [],
+   "readings": [
+    "ぜったい"
+   ],
    "meanings": [
     "absolutely"
    ],
    "sources": [
-    "bank:Step 39"
-   ]
+    "bank:Step 39",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "後悔",
-   "readings": [],
+   "readings": [
+    "こうかい"
+   ],
    "meanings": [
     "regret"
    ],
    "sources": [
-    "bank:Step 40"
-   ]
+    "bank:Step 40",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "希望",
-   "readings": [],
+   "readings": [
+    "きぼう"
+   ],
    "meanings": [
     "a hope"
    ],
    "sources": [
-    "bank:Step 40"
-   ]
+    "bank:Step 40",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "夢",
-   "readings": [],
+   "readings": [
+    "ゆめ"
+   ],
    "meanings": [
     "a dream"
    ],
    "sources": [
-    "bank:Step 40"
-   ]
+    "bank:Step 40",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "気持ち",
-   "readings": [],
+   "readings": [
+    "きもち"
+   ],
    "meanings": [
     "a feeling"
    ],
    "sources": [
-    "bank:Step 40"
-   ]
+    "bank:Step 40",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "想像",
-   "readings": [],
+   "readings": [
+    "そうぞう"
+   ],
    "meanings": [
     "imagination"
    ],
    "sources": [
-    "bank:Step 40"
-   ]
+    "bank:Step 40",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "過去",
-   "readings": [],
+   "readings": [
+    "かこ"
+   ],
    "meanings": [
     "the past"
    ],
    "sources": [
-    "bank:Step 40"
-   ]
+    "bank:Step 40",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "機会",
-   "readings": [],
+   "readings": [
+    "きかい"
+   ],
    "meanings": [
     "an opportunity"
    ],
    "sources": [
     "bank:Step 40",
-    "bank:Step 42"
-   ]
+    "bank:Step 42",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "偶然",
-   "readings": [],
+   "readings": [
+    "ぐうぜん"
+   ],
    "meanings": [
     "coincidence"
    ],
    "sources": [
-    "bank:Step 40"
-   ]
+    "bank:Step 40",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "泥",
-   "readings": [],
+   "readings": [
+    "どろ"
+   ],
    "meanings": [
     "mud"
    ],
    "sources": [
-    "bank:Step 41"
-   ]
+    "bank:Step 41",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "傷",
-   "readings": [],
+   "readings": [
+    "きず"
+   ],
    "meanings": [
     "a scratch"
    ],
    "sources": [
-    "bank:Step 41"
-   ]
+    "bank:Step 41",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "間違い",
-   "readings": [],
+   "readings": [
+    "まちがい"
+   ],
    "meanings": [
     "a mistake"
    ],
    "sources": [
-    "bank:Step 41"
-   ]
+    "bank:Step 41",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "安",
@@ -3190,13 +3626,17 @@
   },
   {
    "written": "数",
-   "readings": [],
+   "readings": [
+    "すう"
+   ],
    "meanings": [
     "a number"
    ],
    "sources": [
-    "bank:Step 41"
-   ]
+    "bank:Step 41",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "一人",
@@ -3216,123 +3656,171 @@
   },
   {
    "written": "表面",
-   "readings": [],
+   "readings": [
+    "ひょうめん"
+   ],
    "meanings": [
     "the surface"
    ],
    "sources": [
-    "bank:Step 41"
-   ]
+    "bank:Step 41",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "性格",
-   "readings": [],
+   "readings": [
+    "せいかく"
+   ],
    "meanings": [
     "character"
    ],
    "sources": [
-    "bank:Step 41"
-   ]
+    "bank:Step 41",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "用事",
-   "readings": [],
+   "readings": [
+    "ようじ"
+   ],
    "meanings": [
-    "an errand"
+    "an errand",
+    "errand"
    ],
    "sources": [
-    "bank:Step 42"
+    "bank:Step 42",
+    "w:事"
    ]
   },
   {
    "written": "目的",
-   "readings": [],
+   "readings": [
+    "もくてき"
+   ],
    "meanings": [
     "a purpose"
    ],
    "sources": [
-    "bank:Step 42"
-   ]
+    "bank:Step 42",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "以来",
-   "readings": [],
+   "readings": [
+    "いらい"
+   ],
    "meanings": [
     "since then"
    ],
    "sources": [
-    "bank:Step 42"
-   ]
+    "bank:Step 42",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "最初",
-   "readings": [],
+   "readings": [
+    "さいしょ"
+   ],
    "meanings": [
-    "the first time"
+    "the first time",
+    "the first"
    ],
    "sources": [
-    "bank:Step 42"
+    "bank:Step 42",
+    "w:最"
    ]
   },
   {
    "written": "原因",
-   "readings": [],
+   "readings": [
+    "げんいん"
+   ],
    "meanings": [
     "a cause"
    ],
    "sources": [
-    "bank:Step 42"
-   ]
+    "bank:Step 42",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "変化",
-   "readings": [],
+   "readings": [
+    "へんか"
+   ],
    "meanings": [
     "a change"
    ],
    "sources": [
-    "bank:Step 42"
-   ]
+    "bank:Step 42",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "反対",
-   "readings": [],
+   "readings": [
+    "はんたい"
+   ],
    "meanings": [
     "the opposite"
    ],
    "sources": [
-    "bank:Step 43"
-   ]
+    "bank:Step 43",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "段落",
-   "readings": [],
+   "readings": [
+    "だんらく"
+   ],
    "meanings": [
     "a paragraph"
    ],
    "sources": [
-    "bank:Step 43"
-   ]
+    "bank:Step 43",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "流れ",
-   "readings": [],
+   "readings": [
+    "ながれ"
+   ],
    "meanings": [
     "the flow"
    ],
    "sources": [
-    "bank:Step 43"
-   ]
+    "bank:Step 43",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "話題",
-   "readings": [],
+   "readings": [
+    "わだい"
+   ],
    "meanings": [
     "a topic"
    ],
    "sources": [
-    "bank:Step 43"
-   ]
+    "bank:Step 43",
+    "KANJI_DICT"
+   ],
+   "jlpt": "N3"
   },
   {
    "written": "ご飯",
@@ -4719,10 +5207,12 @@
     "りょうり"
    ],
    "meanings": [
-    "cooking; a dish"
+    "cooking; a dish",
+    "cooking"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:理"
    ],
    "jlpt": "N4"
   },
@@ -4935,7 +5425,8 @@
     "place"
    ],
    "sources": [
-    "KANJI_DICT"
+    "KANJI_DICT",
+    "w:場"
    ],
    "jlpt": "N3"
   },
@@ -6019,6 +6510,54 @@
    ],
    "sources": [
     "w:散"
+   ]
+  },
+  {
+   "written": "合う",
+   "readings": [
+    "あう"
+   ],
+   "meanings": [
+    "to fit; to match"
+   ],
+   "sources": [
+    "w:合"
+   ]
+  },
+  {
+   "written": "自由",
+   "readings": [
+    "じゆう"
+   ],
+   "meanings": [
+    "freedom"
+   ],
+   "sources": [
+    "w:由"
+   ]
+  },
+  {
+   "written": "午後",
+   "readings": [
+    "ごご"
+   ],
+   "meanings": [
+    "afternoon"
+   ],
+   "sources": [
+    "w:後"
+   ]
+  },
+  {
+   "written": "後で",
+   "readings": [
+    "あとで"
+   ],
+   "meanings": [
+    "later"
+   ],
+   "sources": [
+    "w:後"
    ]
   }
  ]

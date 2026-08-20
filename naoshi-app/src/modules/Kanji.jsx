@@ -157,6 +157,23 @@ const K = {
 "題": {"m": "topic; problem", "on": "ダイ", "story": "是 beside the page-head 頁 — the matter set squarely on the page in front of you. Eighteen strokes that read as two parts.", "w": [["宿題", "しゅくだい", "homework"], ["問題", "もんだい", "problem; question"]]},
 "図": {"m": "drawing; plan", "on": "ズ・ト", "story": "Marks sealed inside a border 囗 — territory drawn small: a map, a diagram, a plan.", "w": [["図書館", "としょかん", "library"], ["地図", "ちず", "map"]]},
 "館": {"m": "hall; building", "on": "カン", "story": "The food radical 飠 beside 官 — the official hall that fed its guests. The squashed-radical thread gets its second 飠 customer after 飲.", "w": [["図書館", "としょかん", "library"]]},
+  "社": { m: "company; shrine", on: "シャ", kun: "やしろ", story: "The altar radical 礻 beside earth 土 — a shrine standing on its ground. The word that made it modern is 会社: the gathering-place 会 plus 社. Flip the pair and you get 社会 — society. Same two characters, both directions, both everywhere.", w: [["会社","かいしゃ","company"],["社会","しゃかい","society"],["社長","しゃちょう","company president"]] },
+  "事": { m: "matter; work", on: "ジ", kun: "こと", story: "A vertical spine hooked at the foot, catching every crossbar on the way down — a character you will write far more often than take apart. It is the こと of everyday talk: the thing, the matter, the business at hand.", w: [["仕事","しごと","work; job"],["用事","ようじ","errand"],["事故","じこ","accident"]] },
+  "業": { m: "trade; business", on: "ギョウ", story: "Thirteen strokes of scaffolding over a base — trade as a built thing, plank by plank. You meet it from the student side first: 授業, a class.", w: [["授業","じゅぎょう","class; lesson"],["休業","きゅうぎょう","closed for business"]] },
+  "者": { m: "person (who does)", on: "シャ", kun: "もの", story: "The doer. Attach it to a field and you name the person working it: 医者 heals, 若者 is young, 初心者 is just starting. You have been writing it for weeks — it is the top of 暑, finally stepping out on its own.", w: [["医者","いしゃ","doctor"],["若者","わかもの","young person"],["初心者","しょしんしゃ","beginner"]] },
+  "場": { m: "place", on: "ジョウ", kun: "ば", story: "Earth 土 beside the sun-banner 昜 — a sunlit patch of ground, which is all a place is. 場所 says where, 立場 is the ground you stand on, and 場合 is a place in time — a case, a situation.", w: [["場所","ばしょ","place"],["場合","ばあい","case; situation"],["立場","たちば","standpoint"]] },
+  "京": { m: "capital", on: "キョウ", look: ["高"], story: "A watchtower on high ground — compare 高, which keeps the same tall silhouette. Two words carry it: 東京, the eastern capital, and 京都, the old one.", w: [["東京","とうきょう","Tokyo"],["京都","きょうと","Kyoto"]] },
+  "予": { m: "in advance", on: "ヨ", story: "Four strokes of beforehand. 予定 is the plan, 予約 is the booking, and 天気予報 is tomorrow's weather told today.", w: [["予定","よてい","plan; schedule"],["予約","よやく","reservation"],["天気予報","てんきよほう","weather forecast"]] },
+  "合": { m: "to fit; to match", on: "ゴウ", kun: "あ(う)", story: "A lid 人+一 settling onto its box 口 — every part already yours. Things that fit: 場合 a case, 都合 your circumstances, 試合 a match where two sides meet.", sentence: true, w: [["場合","ばあい","case; situation"],["都合","つごう","convenience; circumstances"],["合う","あう","to fit; to match"]] },
+  "議": { m: "deliberation", on: "ギ", story: "Words 言 beside a dense right half — twenty strokes, the heaviest character in the app, and it means exactly what that feels like: formal discussion. One word carries nearly all of its work: 会議, the meeting.", w: [["会議","かいぎ","meeting"]] },
+  "説": { m: "explain", on: "セツ", look: ["話","語"], story: "Words 言 again — the third member of the talking family after 話 and 語 — this time with a right side that unpacks: 説明, to explain.", w: [["説明","せつめい","explanation"]] },
+  "理": { m: "reason; logic", on: "リ", story: "The king's jewel 王 beside the village 里 — and 里 keeps its sound: り in 理, exactly the trick 寺 played in 時 and 乍 in 昨. 料理 is cooking, 理由 is a reason: both are things done in the right order.", w: [["料理","りょうり","cooking"],["理由","りゆう","reason"]] },
+  "由": { m: "reason; origin", on: "ユウ・ユ", story: "A field 田 with one sprout pushed through the top — where something comes from. 理由 is the reason; 自由 is freedom, doing things from your own root.", w: [["理由","りゆう","reason"],["自由","じゆう","freedom"]] },
+  "最": { m: "the most", on: "サイ", kun: "もっと(も)", story: "The sun 日 over 取 — an ear 耳 in a gripping hand 又, the old sign for taking. Take the topmost: the most. It makes superlatives by standing in front: 最初 first, 最後 last, 最近 lately.", w: [["最初","さいしょ","the first"],["最後","さいご","the last"],["最近","さいきん","recently"]] },
+  "後": { m: "after; behind", on: "ゴ", kun: "あと・うし(ろ)", look: ["待"], story: "The stepping radical 彳 you know from 行 and 待, a small thread 幺, and the trailing feet 夂 from the bottom of 夏 — falling behind on the road. 後で, later; 午後, the afternoon; 最後, the very last.", sentence: true, w: [["最後","さいご","the last"],["午後","ごご","afternoon"],["後で","あとで","later"]] },
+  "結": { m: "tie; conclude", on: "ケツ", kun: "むす(ぶ)", story: "The thread 糸 from 終 beside 吉 — a scholar 士 over a mouth 口. Threads tied off: 結果 is the result, 結婚 is marriage. Both are knots.", w: [["結果","けっか","result"],["結婚","けっこん","marriage"]] },
+  "字": { m: "character; letter", on: "ジ", look: ["学"], story: "A child 子 under the roof 宀 — where characters get learned. Compare 学, which sits the same child under a different roof. 漢字 is the word this whole module is about.", w: [["漢字","かんじ","kanji"],["字","じ","character; handwriting"]] },
+  "漢": { m: "China (old); the kan of kanji", on: "カン", story: "Water 氵 — named at last, after 洗 carried it unlabelled for five groups — beside a dense right half taught whole. It names the old mainland, and survives almost solely inside one word you say every day here: 漢字.", w: [["漢字","かんじ","kanji"]] },
 };
 
 // ————— Lessons —————
@@ -359,6 +376,34 @@ const MODULES = [
     chars: ["達","音","映","画","宿","題"],
     exp: "Six characters that spell an afternoon: the friends who arrived, the music on the way, the movie you watched, and the homework waiting after.\n\nBlank if you can. One stroke from the hint, as always.",
     },
+  { id: "k-t26", kind: "kanji", title: "Work, and the company you keep", chars: ["社","事","業","者"],
+    rule: "社's altar radical 礻 finishes — all four strokes — before 土 begins. Left side first, always, and it holds for every two-sided character in this group.",
+    exp: "社 is the altar radical 礻 standing on earth 土 — a shrine, and then, when Japan needed a word for the companies arriving with the Meiji era, the shrine lent its character: 会社. Flip it and 社会 is society. Two characters, two orders, two of the most common words you will meet from here on.\n\n事 is the everyday こと — matter, business, the thing at hand. A hooked spine catching its crossbars; write it whole and often, because 仕事 is where the N3 stages spend most of their time.\n\n業 is trade built like scaffolding, thirteen strokes plank by plank. Your side of it for now is 授業 — the class you sit in.\n\n者 you have been writing since 暑: its top, finally out on its own. It marks the doer — 医者 heals, 若者 is young, 初心者 has just begun. The drill after this lesson takes the reunion apart.",
+    },
+
+  { id: "sb-mono", kind: "skill", title: "者・暑 — the one who was there all along", chars: ["者","暑"],
+    exp: "When 暑 arrived in the feelings group, its top was just heat shimmer over the sun. Now the top has a name: 者, the doer, a character in its own right. Nothing about 暑 changed — your eye did.\n\nThat is the skill this builder is for. Parts you meet inside characters can step out and become characters, and characters you learn late retro-name the ones you learned early. 乍 did it as a sound; 者 does it as a shape.\n\nAnd 者 earns its keep immediately: it is the person-suffix of the working world — 医者, 若者, 初心者. When an unfamiliar character ends a word about a kind of person, guess しゃ and you will be right more often than not.",
+    },
+
+  { id: "k-t27", kind: "kanji", title: "Where and when it happens", chars: ["場","京","予","合"],
+    rule: "場 writes its earth 土 first, then the sun-banner 昜 — sun before the banner strokes sweep down and left.",
+    exp: "場 is ground 土 under the sun-banner 昜 — a lit patch of earth, which is all a place is. 場所 says where. 立場 is the ground you stand on. And 場合 is a place in time: a case, a situation — the word the four ifs of Step 16 have been waiting for.\n\n京 is a watchtower on high ground, and it keeps the tall silhouette of 高 — worth one look, because the two share a skyline. 東京 and 京都: the new capital and the old.\n\n予 is beforehand in four strokes. 予定 the plan, 予約 the booking, 天気予報 tomorrow's weather told today — the app's politeness stages lean on all three.\n\n合 is a lid settling onto its box: 人, 一, 口, every stroke already yours. Things that fit — 場合, 都合, 試合 — and the verb 合う, to fit, which your grammar met inside 間に合う.",
+    },
+
+  { id: "k-t28", kind: "kanji", title: "Saying why", chars: ["議","説","理","由"],
+    rule: "言 is seven strokes, and every one of them lands before the right side begins — the same in 議 and 説 as it was in 話 and 語.",
+    exp: "This is the reasons group — the characters behind Step 29's okage and seide, arriving in writing.\n\n議 is words 言 beside a dense right half that stays folded — twenty strokes, the heaviest character in this app. It means formal deliberation, and it rides almost entirely inside one word: 会議. Nine of your lesson banks already use it.\n\n説 is the third member of the talking family — 話 spoke, 語 named languages, and 説 explains: 説明. Same 言, new right side.\n\n理 is the king's jewel 王 beside the village 里 — and 里 keeps its sound, り, the trick you know from 寺 in 時 and 乍 in 昨. 料理 is cooking and 理由 is a reason: both are things done in their right order.\n\n由 is a field with one sprout through the top — origin, the root a reason grows from. 理由, and later 自由: freedom, acting from your own root.",
+    },
+
+  { id: "k-t29", kind: "kanji", title: "Before and after", chars: ["最","後","結","字","漢"],
+    rule: "最 stacks top before bottom: the sun 日, then the ear 耳, and the gripping hand 又 closes it.",
+    exp: "最 is the sun over 取 — an ear 耳 in a gripping hand 又, the old sign for taking. Take from the top: the most. It builds superlatives by standing in front — 最初, 最後, 最近 — and your banks have been full of all three for two stages.\n\n後 reuses three old parts: the stepping 彳 of 行 and 待, a small thread, and the trailing feet 夂 from the bottom of 夏. Falling behind on the road — after. 後で, 午後, and 最後 again from the other side.\n\n結 is the thread 糸 of 終 tied to 吉. Knots: 結果 the result, 結婚 the marriage.\n\n字 is a child under the roof 宀, learning letters — hold it against 学, the same child under a different roof.\n\nAnd 漢. Water 氵 — carried unnamed in 洗 for five groups, named at last — beside a right half taught whole. It names old China, and in this app it lives inside exactly one word: 漢字. You have been saying it since day one. Now you can write it.",
+    },
+
+  { id: "cp-work", kind: "checkpoint", title: "Checkpoint — the working week",
+    chars: ["社","事","場","予","議","字"],
+    exp: "Six characters that spell a working day: the company you joined, the work on the desk, the place it happens, the plan you made, the meeting about it — and the characters you wrote it all down in.\n\nBlank if you can. One stroke from the hint, as always.",
+    },
 ];
 
 // ————— Progress migration: order-v1 → order-v2 lesson ids (Session 10) —————
@@ -424,6 +469,9 @@ const GROUPS = [
   { title: "School days",
     blurb: "Friends and yesterdays, music and fruit, movies and rooms, and the study set — the gate seats a fourth guest, the page-head 頁 arrives, and the sound-carriers start paying.",
     ids: ["k-t22","sb-saku","k-t23","k-t24","k-t25","cp-school"] },
+  { title: "The working week",
+    blurb: "The company and the doers in it, the places and plans, the reasons said out loud — and 漢字 itself, finally written by the people learning it. 者 steps out of 暑, 里 keeps its sound, and 氵 gets its name.",
+    ids: ["k-t26","sb-mono","k-t27","k-t28","k-t29","cp-work"] },
 ];
 const INTRO = MODULES.find((m) => m.id === "cc-intro");
 const FURIGANA = MODULES.find((m) => m.id === "cc-furigana");

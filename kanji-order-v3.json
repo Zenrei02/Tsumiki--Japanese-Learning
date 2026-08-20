@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-20",
+ "generated": "2026-08-21",
  "version": 3,
  "method": "locked syllabus order — no derivation",
  "decision": "Entire taught syllabus locked as prefix (Lloyd, Session 13). Groups 3-5 were authored from ledger demand; reordering them after the fact would repeat v1's Blocker-3 mistake. Derivation resumes only for a future group ordered BEFORE authoring.",
@@ -7,7 +7,7 @@
  "corpora_used": [
   "kanjidic (newspaper rank)"
  ],
- "count": 128,
+ "count": 145,
  "order": [
   {
    "pos": 1,
@@ -1403,13 +1403,12 @@
    "demand_words": 3,
    "strokes": 12,
    "taught_parts": [
-    "日"
+    "日",
+    "者"
    ],
    "named_shapes": [],
    "muted_shapes": [],
-   "unclassified_shapes": [
-    "者"
-   ]
+   "unclassified_shapes": []
   },
   {
    "pos": 106,
@@ -1743,6 +1742,193 @@
    "unclassified_shapes": [
     "官"
    ]
+  },
+  {
+   "pos": 129,
+   "char": "社",
+   "v2_pos": null,
+   "demand_words": 7,
+   "strokes": 7,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 130,
+   "char": "事",
+   "v2_pos": null,
+   "demand_words": 8,
+   "strokes": 8,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 131,
+   "char": "業",
+   "v2_pos": null,
+   "demand_words": 3,
+   "strokes": 13,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 132,
+   "char": "者",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 8,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 133,
+   "char": "場",
+   "v2_pos": null,
+   "demand_words": 6,
+   "strokes": 12,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 134,
+   "char": "京",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 8,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 135,
+   "char": "予",
+   "v2_pos": null,
+   "demand_words": 6,
+   "strokes": 4,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 136,
+   "char": "合",
+   "v2_pos": null,
+   "demand_words": 6,
+   "strokes": 6,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 137,
+   "char": "議",
+   "v2_pos": null,
+   "demand_words": 9,
+   "strokes": 20,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 138,
+   "char": "説",
+   "v2_pos": null,
+   "demand_words": 5,
+   "strokes": 14,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 139,
+   "char": "理",
+   "v2_pos": null,
+   "demand_words": 5,
+   "strokes": 11,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 140,
+   "char": "由",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 5,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 141,
+   "char": "最",
+   "v2_pos": null,
+   "demand_words": 6,
+   "strokes": 12,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 142,
+   "char": "後",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 9,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 143,
+   "char": "結",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 12,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 144,
+   "char": "字",
+   "v2_pos": null,
+   "demand_words": 6,
+   "strokes": 6,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
+  },
+  {
+   "pos": 145,
+   "char": "漢",
+   "v2_pos": null,
+   "demand_words": 4,
+   "strokes": 13,
+   "taught_parts": [],
+   "named_shapes": [],
+   "muted_shapes": [],
+   "unclassified_shapes": []
   }
  ]
 }

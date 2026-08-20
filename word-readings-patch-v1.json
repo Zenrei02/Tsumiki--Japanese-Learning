@@ -1,377 +1,1168 @@
 {
-  "generated_from": "word-ledger-v1.json",
-  "ledger_count": 286,
-  "source": "UniDic via fugashi/unidic-lite — kana field (orthographic), not pron",
-  "status": "DERIVED, NOT REVIEWED — dictionary data, but no reviewer has signed it off. Send with the rest of the review queue.",
-  "count": 33,
-  "review_count": 2,
-  "entries": [
-    {
-      "written": "お茶",
-      "reading": "おちゃ",
-      "meaning": "tea",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 6"
-      ],
-      "confidence": "review",
-      "note": "multi-token entry, no linking particle"
-    },
-    {
-      "written": "言う",
-      "reading": "いう",
-      "meaning": "to say",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 12"
-      ],
-      "confidence": "review",
-      "note": "言う: ゆう → いう (headword reading)"
-    },
-    {
-      "written": "一緒に",
-      "reading": "いっしょに",
-      "meaning": "together",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 6",
-        "bank:Checkpoint 2"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "会う",
-      "reading": "あう",
-      "meaning": "to meet",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 6"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "作る",
-      "reading": "つくる",
-      "meaning": "to make",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 12"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "使う",
-      "reading": "つかう",
-      "meaning": "to use",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 5"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "写真を撮る",
-      "reading": "しゃしんをとる",
-      "meaning": "to take a photo",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 5"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "勉強する",
-      "reading": "べんきょうする",
-      "meaning": "to study",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 4"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "安い",
-      "reading": "やすい",
-      "meaning": "cheap",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 9"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "寒い",
-      "reading": "さむい",
-      "meaning": "cold",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 9"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "寝る",
-      "reading": "ねる",
-      "meaning": "to sleep",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 4"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "帰る",
-      "reading": "かえる",
-      "meaning": "to go home",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 5",
-        "bank:Checkpoint 2"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "広い",
-      "reading": "ひろい",
-      "meaning": "spacious",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 9"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "座る",
-      "reading": "すわる",
-      "meaning": "to sit",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 5"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "待つ",
-      "reading": "まつ",
-      "meaning": "to wait",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 5"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "忙しい",
-      "reading": "いそがしい",
-      "meaning": "busy",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 11"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "思う",
-      "reading": "おもう",
-      "meaning": "to think",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 12"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "急ぐ",
-      "reading": "いそぐ",
-      "meaning": "to hurry",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 5"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "手を洗う",
-      "reading": "てをあらう",
-      "meaning": "to wash hands",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 7"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "散歩する",
-      "reading": "さんぽする",
-      "meaning": "to take a walk",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 7"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "新しい",
-      "reading": "あたらしい",
-      "meaning": "new",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 6"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "暑い",
-      "reading": "あつい",
-      "meaning": "hot",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 9"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "歯をみがく",
-      "reading": "はをみがく",
-      "meaning": "to brush teeth",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 7"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "痛い",
-      "reading": "いたい",
-      "meaning": "painful",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 11"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "終わる",
-      "reading": "おわる",
-      "meaning": "to end",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 7",
-        "bank:Step 12"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "薬を飲む",
-      "reading": "くすりをのむ",
-      "meaning": "to take medicine",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 5"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "買う",
-      "reading": "かう",
-      "meaning": "to buy",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 6",
-        "bank:Checkpoint 2"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "起きる",
-      "reading": "おきる",
-      "meaning": "to get up",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 4"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "遅れる",
-      "reading": "おくれる",
-      "meaning": "to be late",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 11"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "開ける",
-      "reading": "あける",
-      "meaning": "to open",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 11"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "雨が降る",
-      "reading": "あめがふる",
-      "meaning": "to rain",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 12"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "面白い",
-      "reading": "おもしろい",
-      "meaning": "interesting",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 9"
-      ],
-      "confidence": "ok",
-      "note": ""
-    },
-    {
-      "written": "高い",
-      "reading": "たかい",
-      "meaning": "expensive; tall",
-      "jlpt": null,
-      "sources": [
-        "bank:Step 9"
-      ],
-      "confidence": "ok",
-      "note": ""
-    }
-  ]
+ "generated_from": "word-ledger-v1.json",
+ "ledger_count": 475,
+ "source": "UniDic via fugashi/unidic-lite — kana field (orthographic), not pron",
+ "status": "DERIVED, NOT REVIEWED — dictionary data, but no reviewer has signed it off. Send with the rest of the review queue.",
+ "count": 104,
+ "review_count": 5,
+ "entries": [
+  {
+   "written": "何でも",
+   "reading": "なんでも",
+   "meaning": "anything",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 23"
+   ],
+   "confidence": "corrected",
+   "note": "CORRECTED Session 18: UniDic headword rule gave なにでも; the lexicalized word is なんでも (何でも 'anything'). Human call, not derivation."
+  },
+  {
+   "written": "保険証",
+   "reading": "ほけんしょう",
+   "meaning": "insurance card",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 26"
+   ],
+   "confidence": "review",
+   "note": "multi-token entry, no linking particle"
+  },
+  {
+   "written": "十分",
+   "reading": "じゅうぶん",
+   "meaning": "enough",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 38"
+   ],
+   "confidence": "corrected",
+   "note": "CORRECTED Session 18: UniDic tokenized as ten-minutes じゅうふん; Step 38's bank glosses it 'enough' → じゅうぶん. Sense disambiguation is a human call."
+  },
+  {
+   "written": "可能性",
+   "reading": "かのうせい",
+   "meaning": "a possibility",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 39"
+   ],
+   "confidence": "review",
+   "note": "multi-token entry, no linking particle"
+  },
+  {
+   "written": "最後まで",
+   "reading": "さいごまで",
+   "meaning": "to the end",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 13"
+   ],
+   "confidence": "review",
+   "note": "multi-token entry, no linking particle"
+  },
+  {
+   "written": "やり直す",
+   "reading": "やりなおす",
+   "meaning": "to redo",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 32"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "一緒に",
+   "reading": "いっしょに",
+   "meaning": "together",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 6",
+    "bank:Checkpoint 2"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "予想",
+   "reading": "よそう",
+   "meaning": "expectation",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 33"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "事実",
+   "reading": "じじつ",
+   "meaning": "a fact",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 39"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "人口",
+   "reading": "じんこう",
+   "meaning": "population",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 36"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "以来",
+   "reading": "いらい",
+   "meaning": "since then",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 42"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "会計",
+   "reading": "かいけい",
+   "meaning": "the bill",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 26"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "体",
+   "reading": "からだ",
+   "meaning": "body",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 33"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "例",
+   "reading": "れい",
+   "meaning": "an example",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 35"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "例外",
+   "reading": "れいがい",
+   "meaning": "an exception",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 39"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "値段",
+   "reading": "ねだん",
+   "meaning": "price",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 33",
+    "bank:Step 36"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "偶然",
+   "reading": "ぐうぜん",
+   "meaning": "coincidence",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 40"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "傷",
+   "reading": "きず",
+   "meaning": "a scratch",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 41"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "内容",
+   "reading": "ないよう",
+   "meaning": "content",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 35"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "写真を撮る",
+   "reading": "しゃしんをとる",
+   "meaning": "to take a photo",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 5"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "努力",
+   "reading": "どりょく",
+   "meaning": "effort",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 29",
+    "bank:Step 33"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "勉強する",
+   "reading": "べんきょうする",
+   "meaning": "to study",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 4"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "原因",
+   "reading": "げんいん",
+   "meaning": "a cause",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 42"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "反対",
+   "reading": "はんたい",
+   "meaning": "the opposite",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 43"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "受付",
+   "reading": "うけつけ",
+   "meaning": "reception",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 37"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "変化",
+   "reading": "へんか",
+   "meaning": "a change",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 42"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "変更",
+   "reading": "へんこう",
+   "meaning": "a change",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 28"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "夢",
+   "reading": "ゆめ",
+   "meaning": "a dream",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 40"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "失敗",
+   "reading": "しっぱい",
+   "meaning": "a failure",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 29"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "工事",
+   "reading": "こうじ",
+   "meaning": "construction work",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 37"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "希望",
+   "reading": "きぼう",
+   "meaning": "a hope",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 40"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "常識",
+   "reading": "じょうしき",
+   "meaning": "common sense",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 31",
+    "bank:Step 39"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "座る",
+   "reading": "すわる",
+   "meaning": "to sit",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 5"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "当然",
+   "reading": "とうぜん",
+   "meaning": "natural; obvious",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 31"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "影響",
+   "reading": "えいきょう",
+   "meaning": "influence",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 30"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "後悔",
+   "reading": "こうかい",
+   "meaning": "regret",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 40"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "心配",
+   "reading": "しんぱい",
+   "meaning": "worry",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 38"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "必要",
+   "reading": "ひつよう",
+   "meaning": "necessity",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 38"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "忘れる",
+   "reading": "わすれる",
+   "meaning": "to forget",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 13",
+    "bank:Step 22"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "急ぐ",
+   "reading": "いそぐ",
+   "meaning": "to hurry",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 5"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "性格",
+   "reading": "せいかく",
+   "meaning": "character",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 41"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "想像",
+   "reading": "そうぞう",
+   "meaning": "imagination",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 40"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "意見",
+   "reading": "いけん",
+   "meaning": "an opinion",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 30",
+    "bank:Step 43"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "成功",
+   "reading": "せいこう",
+   "meaning": "success",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 29"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "我慢",
+   "reading": "がまん",
+   "meaning": "putting up with it",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 38"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "手伝う",
+   "reading": "てつだう",
+   "meaning": "to help",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 14"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "担当",
+   "reading": "たんとう",
+   "meaning": "the person in charge",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 37"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "散歩する",
+   "reading": "さんぽする",
+   "meaning": "to take a walk",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 7"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "数",
+   "reading": "すう",
+   "meaning": "a number",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 41"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "文章",
+   "reading": "ぶんしょう",
+   "meaning": "a piece of writing",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 35"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "方法",
+   "reading": "ほうほう",
+   "meaning": "method",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 30",
+    "bank:Step 38"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "晩ご飯",
+   "reading": "ばんごはん",
+   "meaning": "dinner",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 13"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "普通",
+   "reading": "ふつう",
+   "meaning": "ordinary",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 31"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "最低",
+   "reading": "さいてい",
+   "meaning": "the minimum",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 38"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "条件",
+   "reading": "じょうけん",
+   "meaning": "a condition",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 38"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "機会",
+   "reading": "きかい",
+   "meaning": "an opportunity",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 40",
+    "bank:Step 42"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "歌う",
+   "reading": "うたう",
+   "meaning": "to sing",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 22"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "段落",
+   "reading": "だんらく",
+   "meaning": "a paragraph",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 43"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "気持ち",
+   "reading": "きもち",
+   "meaning": "a feeling",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 40"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "決まる",
+   "reading": "きまる",
+   "meaning": "to be decided",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 34"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "決める",
+   "reading": "きめる",
+   "meaning": "to decide",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 22"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "泥",
+   "reading": "どろ",
+   "meaning": "mud",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 41"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "流れ",
+   "reading": "ながれ",
+   "meaning": "the flow",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 43"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "準備",
+   "reading": "じゅんび",
+   "meaning": "preparation",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 29",
+    "bank:Step 34"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "環境",
+   "reading": "かんきょう",
+   "meaning": "environment",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 30"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "生",
+   "reading": "なま",
+   "meaning": "draught beer",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 26"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "番号",
+   "reading": "ばんごう",
+   "meaning": "number",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 26"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "目的",
+   "reading": "もくてき",
+   "meaning": "a purpose",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 42"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "知る",
+   "reading": "しる",
+   "meaning": "to know",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 34"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "確か",
+   "reading": "たしか",
+   "meaning": "certain",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 31",
+    "bank:Step 43"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "確認",
+   "reading": "かくにん",
+   "meaning": "checking",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 28"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "窓口",
+   "reading": "まどぐち",
+   "meaning": "the counter",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 26"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "答える",
+   "reading": "こたえる",
+   "meaning": "to answer",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 20"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "範囲",
+   "reading": "はんい",
+   "meaning": "a range",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 37"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "約束",
+   "reading": "やくそく",
+   "meaning": "a promise",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 34"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "経験",
+   "reading": "けいけん",
+   "meaning": "experience",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 29",
+    "bank:Step 42"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "絶対",
+   "reading": "ぜったい",
+   "meaning": "absolutely",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 39"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "続ける",
+   "reading": "つづける",
+   "meaning": "to continue",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 32"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "署名",
+   "reading": "しょめい",
+   "meaning": "a signature",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 28"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "若い",
+   "reading": "わかい",
+   "meaning": "young",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 31"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "落ちる",
+   "reading": "おちる",
+   "meaning": "to fall",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 15"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "落とす",
+   "reading": "おとす",
+   "meaning": "to drop",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 13"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "薬を飲む",
+   "reading": "くすりをのむ",
+   "meaning": "to take medicine",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 5"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "表現",
+   "reading": "ひょうげん",
+   "meaning": "an expression",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 35"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "表面",
+   "reading": "ひょうめん",
+   "meaning": "the surface",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 41"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "記事",
+   "reading": "きじ",
+   "meaning": "an article",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 36"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "記入",
+   "reading": "きにゅう",
+   "meaning": "filling in",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 28"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "証拠",
+   "reading": "しょうこ",
+   "meaning": "evidence",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 39"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "話しかける",
+   "reading": "はなしかける",
+   "meaning": "to speak to",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 32"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "話題",
+   "reading": "わだい",
+   "meaning": "a topic",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 43"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "読み終わる",
+   "reading": "よみおわる",
+   "meaning": "to finish reading",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 32"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "調査",
+   "reading": "ちょうさ",
+   "meaning": "a survey",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 30",
+    "bank:Step 36"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "返事",
+   "reading": "へんじ",
+   "meaning": "a reply",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 28"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "途中",
+   "reading": "とちゅう",
+   "meaning": "partway; en route",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 32",
+    "bank:Step 34"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "連絡",
+   "reading": "れんらく",
+   "meaning": "getting in touch",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 28",
+    "bank:Step 34"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "遅れる",
+   "reading": "おくれる",
+   "meaning": "to be late",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 11"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "遅刻",
+   "reading": "ちこく",
+   "meaning": "lateness",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 29"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "過去",
+   "reading": "かこ",
+   "meaning": "the past",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 40"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "選択",
+   "reading": "せんたく",
+   "meaning": "a choice",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 38"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "閉まる",
+   "reading": "しまる",
+   "meaning": "to close",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 15"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "間違い",
+   "reading": "まちがい",
+   "meaning": "a mistake",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 41"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "雨が降る",
+   "reading": "あめがふる",
+   "meaning": "to rain",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 12"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "面白い",
+   "reading": "おもしろい",
+   "meaning": "interesting",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 9"
+   ],
+   "confidence": "ok",
+   "note": ""
+  },
+  {
+   "written": "風邪",
+   "reading": "かぜ",
+   "meaning": "a cold",
+   "jlpt": null,
+   "sources": [
+    "bank:Step 33"
+   ],
+   "confidence": "ok",
+   "note": ""
+  }
+ ]
 }
