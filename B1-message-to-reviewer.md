@@ -12,10 +12,11 @@ signed-out. Supersedes section 3 of `SESSION-18-reviewer-kickoff.md`.*
 
 ## Send this
 
-Replace `［お名前］` with how you address her — that is the only blank left.
+Ready to send as-is. **Uses 「恵子さん」 — the given name, whose kanji you confirmed — and
+does not write the surname at all.** Reasoning below.
 
 ```
-［お名前］さん、お待たせしました！こちらが1セット目です。
+恵子さん、お待たせしました！こちらが1セット目です。
 
 https://docs.google.com/forms/d/e/1FAIpQLSfO2OlT-vWhUwvt419nJPxg3DgQxHOQi7Vyjj8W0R1lK7RdYA/viewform
 
@@ -123,7 +124,19 @@ where it changes a verdict.
 
 ## Still yours to call
 
-- **Her name**, for the greeting — the one blank above.
+- **The surname, if you want to use it.** 「木谷」 is **not** in the message, deliberately.
+  Searched your Gmail and Calendar for 恵子 / Keiko / 木谷 / Kitani: **no hits**, so it cannot
+  be confirmed from here — contact must run through another channel.
+
+  The inference also runs the wrong way. *木谷 reads Kitani* is solid, and that is what you
+  checked. But writing her name needs the **reverse**: *Kitani is spelled …?* — and that
+  direction is not unique. 喜谷, 貴谷 and 城谷 are all read Kitani, and 北谷 usually is not
+  but sometimes is. 木谷 is much the commonest, so the guess is a good one; it is just not a
+  fact, and a wrong kanji is the first thing she reads.
+
+  Given name + さん sidesteps it entirely and fits the friendly register you chose. If you'd
+  normally use her surname, confirm the spelling first — ask, or copy it from however she
+  signs herself.
 - **Payment method.** Not yet discussed, and worth settling *before* B1 comes back:
   prompt payment on batch one is most of what makes batch two feel safe to agree to.
 - **Whether to commit past B1 now.** Deliberately not in the message. If you want the

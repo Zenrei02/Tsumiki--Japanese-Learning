@@ -1,0 +1,146 @@
+{
+  "_": "Stage 15 · The sharpened edge — Steps 65–66 + rc13. Chains after stage-15-content-v1.json.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch S continues.",
+  "insert": [],
+  "new_steps": [
+    {
+      "cat": "Step 65 · Conditions at the limit",
+      "level": "S15",
+      "after_step": "Step 64 · Worth measuring",
+      "note": "The four ifs were Stage 5; the fragile ifs were Stage 14. These are the ifs at the cliff edge: once-and-done, rather-die-than, no-point-anyway, and the ghost of a chance.",
+      "bank": [["逆境", "adversity"], ["事態", "the situation; state of affairs"], ["抗議", "a protest"], ["妥協", "compromise"], ["破産", "bankruptcy"], ["最悪", "the worst"], ["賭け", "a gamble"], ["撤退", "withdrawal; pulling out"]],
+      "points": [
+        {
+          "id": "gasaigo", "jp": "〜たが最後・ばそれまでだ", "en": "once that happens, it's over", "kind": "grammar",
+          "exp": {
+            "what": "Two points of no return. たが最後 marks the act after which the slide cannot be stopped: 彼が話し出したが最後、一時間は止まらない — once he starts talking, that's the hour gone. ばそれまでだ names the event that voids everything: 死んでしまえばそれまでだ — die, and all of it comes to nothing.",
+            "build": "た form + が最後 (spoken variant たら最後) + the irreversible slide. ば form + それまでだ: 忘れればそれまでだ.",
+            "when": "たが最後 in rueful character sketches and warnings. ばそれまでだ in memento-mori arguments — the reason to back up files, buy insurance, say the thing now.",
+            "watch": "たが最後 wants habitual or inevitable slides, not one-offs. ばそれまでだ's それまで is 'the end of the matter' — it pairs naturally with いくら〜ても in front: however much you save, lose the passbook and そこまで."
+          },
+          "ex": [["この犬は、一度吠え出したが最後、なかなか鳴きやまない。", "Once this dog starts barking, there's no stopping him."], ["どんな名作も、読まれなければそれまでだ。", "However great the work — unread, it comes to nothing."]]
+        },
+        {
+          "id": "kurainara", "jp": "〜くらいなら・ほうがましだ", "en": "rather anything than that", "kind": "grammar",
+          "exp": {
+            "what": "The comparison of last resort, usually as a pair: 謝るくらいなら、死んだほうがましだ — better dead than apologizing (hyperbole with its own grammar slot). くらいなら sets the despised option; ほうがましだ names the alternative as merely LESS bad — まし never means good.",
+            "build": "Dictionary form + くらいなら + alternative + ほうがましだ／ほうがいい. まし stands alone too: ないよりましだ — better than nothing.",
+            "when": "Declarations of principle and comic despair — the pattern runs on exaggeration and everyone prices it accordingly.",
+            "watch": "まし is the key vocabulary item: it concedes both options are bad. 今日のほうがましだ about weather says today is less awful, not fine — mistranslating まし as 'better' loses the shrug that defines it."
+          },
+          "ex": [["満員電車に乗るくらいなら、一時間歩いたほうがましだ。", "Rather walk an hour than ride that packed train."], ["嘘をつくくらいなら、黙っていたい。", "If it comes to lying, I'd sooner say nothing."]]
+        },
+        {
+          "id": "tatokorode", "jp": "〜たところで・としたって・とて", "en": "even if you did — no use", "kind": "grammar",
+          "exp": {
+            "what": "The futility conditionals. たところで concedes the attempt and denies the payoff: 今から急いだところで、間に合わない — hurry now and you still won't make it. としたって／としたところで does the same from a supposition; とて is their classical grandparent, alive in 私とて (even I) and 今更悔やんだとて.",
+            "build": "た form + ところで + negative outlook. Plain form + としたって. Noun + とて (recognition-level).",
+            "when": "たところで in realistic pessimism — budgeting, deadlines, apologies too late. The pattern that saves wasted effort by pricing it first.",
+            "watch": "The ending must be negative or dismissive; a positive result flips the pattern into nonsense. Distinguish Stage 12's ても始まらない cousin: 泣いても始まらない scolds the crying; 泣いたところで無駄だ merely prices it."
+          },
+          "ex": [["今さら謝ったところで、彼女は戻らない。", "Apologize now and she still isn't coming back."], ["私とて、好きでこの役を引き受けたわけではない。", "Even I did not take this role for the pleasure of it."]]
+        },
+        {
+          "id": "naimonodemonai", "jp": "〜ないものでもない・ないとも限らない・ではあるまいし", "en": "the ghost of a chance; it's not as if", "kind": "grammar",
+          "exp": {
+            "what": "Three careful hedges. ないものでもない cracks a door: 考えてみないものでもない — I might just consider it (reluctance built in). ないとも限らない admits the tail risk: 事故が起きないとも限らない — one can't rule it out. ではあるまいし dismisses a comparison to scold: 子どもではあるまいし — you're not a child, so…",
+            "build": "ない form + ものでもない／こともない. ない form + とも限らない. Noun + ではあるまいし + the reproach (まい from Stage 12, in its fossil form).",
+            "when": "The first in reluctant concessions (its coyness is the message); the second in insurance logic; the third in exasperated advice between intimates.",
+            "watch": "ないものでもない promises almost nothing — hearing it as a yes is a genuine cross-cultural accident. ではあるまいし is scolding grammar: warm with friends, insubordinate upward."
+          },
+          "ex": [["条件次第では、引き受けないものでもない。", "Depending on terms, it's not as if I'd never take it on."], ["初めてではあるまいし、そんなに緊張しなくてもいい。", "It's not as if it's your first time — no need for those nerves."]]
+        },
+        {
+          "id": "temiseru", "jp": "〜てみせる・てやまない", "en": "just watch me; unceasingly", "kind": "grammar",
+          "exp": {
+            "what": "Two vows at opposite temperatures. てみせる stakes a demonstration: 必ず合格してみせる — I WILL pass, and you'll see it; determination performed for an audience. てやまない is the formal heart that never stops: 願ってやまない — wishing without cease; ceremonial, warm, and entirely written.",
+            "build": "て form + みせる for the vow (first person, future). て form + やまない with emotion verbs only: 愛して, 尊敬して, 願って.",
+            "when": "てみせる in sports interviews and self-talk — the comeback's grammar. てやまない in congratulatory addresses and dedications.",
+            "watch": "てみせる needs an audience, real or imagined — vowing it alone in a field is theater without seats, which may be the point. てやまない's verb list is short; 食べてやまない is a comedy sketch."
+          },
+          "ex": [["来年こそ、優勝してみせる。", "Next year, I'll take the title — just watch."], ["皆様のご活躍を、心より願ってやみません。", "I wish you every success, unceasingly and from the heart."]]
+        },
+        {
+          "id": "b-s65", "jp": "Composition · 背水の陣", "en": "backs to the water", "kind": "build",
+          "exp": {
+            "what": "A five-line declaration before a make-or-break attempt: the stakes (ばそれまでだ), the refused alternative (くらいなら), the priced futility of half-measures (たところで), the tail risk admitted (ないとも限らない), and the vow (てみせる).",
+            "build": "The order matters: stakes → refusal → realism → honesty → vow. Ending anywhere earlier is a different, sadder composition.",
+            "when": "The speech before the leap is a genre from job resignations to marathon starts; the machinery keeps it from being only noise.",
+            "watch": "One てみせる. The vow's power is its singularity — a list of vows is a to-do list."
+          },
+          "ex": [["失敗しないとも限らない。それでも、やり遂げてみせる。", "It could still fail — I can't rule that out. Even so: watch me finish it."]]
+        }
+      ]
+    },
+    {
+      "cat": "Step 66 · Turns of thought",
+      "level": "S15",
+      "after_step": "Step 65 · Conditions at the limit",
+      "note": "The written pivots: conceding a point before turning it, contrasting fates, singling out offenders, and reporting belief at institutional distance. rc13 closes the stage.",
+      "bank": [["主張", "an assertion"], ["根拠", "grounds; basis"], ["矛盾", "contradiction"], ["偏見", "prejudice"], ["世論", "public opinion"], ["風潮", "a (social) trend"], ["皮肉", "irony; sarcasm"], ["盲点", "a blind spot"]],
+      "points": [
+        {
+          "id": "tohaie", "jp": "〜とはいえ・とはいうものの", "en": "that said", "kind": "grammar",
+          "exp": {
+            "what": "The written concession-then-turn: 春とはいえ、朝はまだ冷える — spring, granted, but the mornings still bite. The fact is accepted whole; the expectation it carries is what gets corrected. とはいうものの is the same hinge with a longer arm, often opening a paragraph against the previous one.",
+            "build": "Plain form／noun + とはいえ. とはいうものの sentence-initial or after a clause. Both are ものの's (Stage 12) more explicit relatives — the quote-particle と shows the concession being HELD UP first.",
+            "when": "Essays and reports, constantly — the polite way to disagree with a fact's implications rather than the fact. The N1 reading section's favorite hinge.",
+            "watch": "The turn must target the expectation, not deny the fact: 春とはいえ、まだ冬だ breaks faith with the concession. Beside けど and のに, this pair is bloodless on purpose — no frustration, just correction."
+          },
+          "ex": [["便利になったとはいえ、失ったものも多い。", "Convenient it may have become — that said, much was lost."], ["とはいうものの、現実はそう簡単ではない。", "That said, reality is not so simple."]]
+        },
+        {
+          "id": "nihikikae", "jp": "〜にひきかえ・に至っては", "en": "in stark contrast; and as for the worst of them", "kind": "grammar",
+          "exp": {
+            "what": "Two pointed contrasts. にひきかえ sets two fates side by side with a sigh built in: 兄にひきかえ、弟は… — unlike his brother, the younger one…; the comparison always shades value. に至っては descends a bad list to its floor and points: 山田に至っては、来もしなかった — and Yamada, for his part, didn't even come.",
+            "build": "Noun／の + にひきかえ. Noun + に至っては + the floor-level fact (often もしない for emphasis).",
+            "when": "にひきかえ in laments and unfavorable reviews — it is never neutral, unlike 一方. に至っては in complaints that itemize, always on the last and worst item.",
+            "watch": "にひきかえ between people in earshot is open invidiousness — the pattern parents are resented for. に至っては needs the list before it; as an opener it points at nothing."
+          },
+          "ex": [["去年の盛況にひきかえ、今年の客足は寂しい。", "In stark contrast to last year's crowds, this year's turnout is thin."], ["部長に至っては、企画書を読んでさえいなかった。", "And the director, for his part, hadn't even read the proposal."]]
+        },
+        {
+          "id": "tokitara", "jp": "〜ときたら・ならいざしらず", "en": "as for THAT one; if it were X, fine, but", "kind": "grammar",
+          "exp": {
+            "what": "Two topic-markers with attitude. ときたら hauls a familiar offender onto the stand: うちの息子ときたら、ゲームばかりだ — that son of mine, honestly. ならいざしらず waives a hypothetical excuse before pressing the charge: 新人ならいざしらず、十年目の君がこのミスは — a rookie, fine, but you, in year ten?",
+            "build": "Noun + ときたら + the familiar exasperation. Noun + ならいざしらず（はいざしらず）+ the inexcusable case.",
+            "when": "ときたら in fond or genuine complaint about intimates — it cannot be formal. ならいざしらず in reprimands and self-reproach, where the waived excuse sharpens the point.",
+            "watch": "ときたら's target must be well-known to both speakers; a stranger ときたら baffles. ならいざしらず's hypothetical must genuinely excuse — naming a worse case (プロならいざしらず) inverts the logic."
+          },
+          "ex": [["最近の天気ときたら、まったく予報が当たらない。", "This weather lately — honestly, the forecast never lands."], ["昔ならいざしらず、今はスマホで何でも調べられる。", "In the old days, maybe — but now everything is one phone-search away."]]
+        },
+        {
+          "id": "tomirareru", "jp": "〜ものと思われる・とみられる・とされる", "en": "it is believed — the institutional passive", "kind": "grammar",
+          "exp": {
+            "what": "How institutions believe things. とみられる reports the working view: 事故原因は速度超過とみられる — excess speed is seen as the cause. ものと思われる is its fuller-dress twin; とされる cites standing consensus: 体に良いとされる — held to be healthy. Nobody in these sentences has a name — that is their function.",
+            "build": "Plain form + とみられる／ものと思われる／とされる. News leads on とみられる; scholarship on とされる.",
+            "when": "Reading the news, above all — the evening bulletin runs on this trio. Producing them in reports lends claims institutional distance, wanted or not.",
+            "watch": "The trio ranks by settledness: とみられる (current view) < ものと思われる (considered view) < とされる (received doctrine). Sourced claims (によると) and believed claims (とされる) are different animals — mixing them is how rumors get footnotes."
+          },
+          "ex": [["犯人は、裏口から侵入したものと思われる。", "The intruder is believed to have entered by the rear door."], ["この温泉は、江戸時代から体に良いとされてきた。", "These springs have been held salubrious since the Edo period."]]
+        },
+        {
+          "id": "tokoroga2", "jp": "〜ところがある・ところから・はさておき", "en": "a streak of; from which; setting aside", "kind": "grammar",
+          "exp": {
+            "what": "Three joints for portraits and pivots. ところがある names a streak without totalizing: 彼には頑固なところがある — there's a stubborn streak in him. ところから derives a name or conclusion from a trait: よく笑うところから、福ちゃんと呼ばれる. はさておき shelves even the urgent to reach the urgent-er: 冗談はさておき — joking aside; はともかく's slightly brisker sibling.",
+            "build": "Adjective／clause + ところがある. Clause + ところから + naming/inference. Noun + はさておき.",
+            "when": "ところがある in fair-minded character sketches — kinder than flat adjectives because it leaves the rest of the person intact. ところから in etymologies and nicknames. はさておき in meetings, hourly.",
+            "watch": "ところがある is for tendencies, not facts — 背が高いところがある is nonsense. それはさておき is the fossil that changes subjects politely; deploy it and the room follows."
+          },
+          "ex": [["彼女には、思い込むと突っ走るところがある。", "She has a streak of charging ahead once an idea takes hold."], ["それはさておき、本題に入りましょう。", "That aside — to the matter at hand."]]
+        },
+        {
+          "id": "rc13", "jp": "復習 · Stage 15", "en": "checkpoint: the full stage", "kind": "review",
+          "covers": ["danisura", "haoroka", "nimomashite", "naimademo", "sb-kyokugen", "hameninaru", "zujimai", "toittaranai", "dehasumanai", "demonandemonai", "niataisuru", "nitaenai", "nikatakunai", "kiwamarinai", "attenokoto", "gasaigo", "kurainara", "tatokorode", "naimonodemonai", "temiseru", "tohaie", "nihikikae", "tokitara", "tomirareru", "tokoroga2"],
+          "exp": {
+            "what": "N1's first stage, reviewed: minimums weighed, verdicts delivered, worth certified, cliff-edge conditions priced, and the written pivots. The through-line was EDGE — every pattern here sharpens an ordinary claim to a point.",
+            "build": "Doorway pairs to re-test: だに／たりとも, はおろか／もさることながら, 羽目になる／始末だ, に値する／に足る, たが最後／ばそれまでだ, とはいえ／ものの, にひきかえ／一方.",
+            "when": "Before the literary machine — Stage 16 assumes this stage's registers are settled furniture.",
+            "watch": "This stage's danger is deploying edge where none is needed: 極まりない about lukewarm tea, ときたら about a stranger. N1 grammar wrongly dosed reads as sarcasm — which natives will assume was intended."
+          },
+          "ex": [["謝罪はおろか、説明すらない始末で、憤り極まりない。", "No explanation, let alone an apology — that's where it ended, and the anger is at its ceiling."]]
+        }
+      ]
+    }
+  ]
+}
