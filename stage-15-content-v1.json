@@ -1,0 +1,215 @@
+{
+  "_": "Stage 15 · The sharpened edge — N1 opens. Steps 62–64. Spliced by build-stage3.py. Scoped by n1-list-jlptgrammarlist.json (197 entries, 192 absent).",
+  "_theme": "N2 finished the working language. N1 is the language with its edge honed: emphasis that cuts to the smallest case, verdicts with temperature, worth measured formally, and conditions taken to their limit. Reading-heavy by nature — the milestone will say so honestly.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch S. Lloyd's own audit scheduled for tomorrow; the coverage audit runs tonight regardless — the ms-n3 rule does not take evenings off.",
+  "insert": [],
+  "new_steps": [
+    {
+      "cat": "Step 62 · Not even one",
+      "level": "S15",
+      "after_step": "Checkpoint 12 · Stage review",
+      "note": "Stage 15 opens N1. Every pattern here weighs the smallest imaginable case and finds it heavy — one yen, one second, a single mention. The grammar of emphasis by minimum.",
+      "bank": [["一瞬", "an instant"], ["一滴", "a single drop"], ["些細", "trivial"], ["膨大", "enormous"], ["一切", "entirely (not)"], ["皆無", "utterly absent"], ["圧倒的", "overwhelming"], ["徹底的", "thorough"]],
+      "points": [
+        {
+          "id": "danisura", "jp": "〜だに・〜たりとも", "en": "even to imagine; not even one", "kind": "grammar",
+          "exp": {
+            "what": "Two minimums. だに takes the least act — usually mental — and marks even that as too much or too telling: 想像するだに恐ろしい, dreadful even to imagine; 微動だにしない, doesn't move even a tremor. たりとも takes ONE counted unit and refuses it: 一秒たりとも無駄にできない — not even a single second.",
+            "build": "Dictionary form／noun + だに (the fixed partners: 想像する, 考える, 聞く, 一顧, 微動). 一 + counter + たりとも + negative: 一円たりとも, 一日たりとも.",
+            "when": "だに in written horror, awe and stillness; たりとも in vows and strict accounting — the coach's zero-tolerance sentence. Both are read far more than said.",
+            "watch": "たりとも is welded to 一: 三日たりとも breaks the machine. And だに keeps to its small set of partners — inventing new ones (食べるだに) reads as parody, which is also how comedians use it."
+          },
+          "ex": [["そんな結末は、想像するだに恐ろしい。", "An ending like that is dreadful even to imagine."], ["練習は一日たりとも休まなかった。", "He didn't miss practice — not for a single day."]]
+        },
+        {
+          "id": "haoroka", "jp": "〜はおろか・もさることながら", "en": "let alone; granted — but even more so", "kind": "grammar",
+          "exp": {
+            "what": "Two ladders between a small case and a big one. はおろか climbs down in disbelief: 漢字はおろか、ひらがなも読めない — can't read hiragana, let alone kanji; the obvious case fails, so of course the harder one does. もさることながら climbs up in praise: 味もさることながら、盛り付けが美しい — the taste, granted, but the presentation even more.",
+            "build": "Noun + はおろか + も／さえ／すら + (usually negative). Noun + もさることながら + the thing you actually want to say.",
+            "when": "はおろか in complaints and stark descriptions; もさることながら in reviews and speeches — it concedes the expected compliment on its way to the interesting one.",
+            "watch": "はおろか leans negative; a positive frame (刺身はおろか、寿司も食べられる) sounds off — さえ or はもちろん carries that. And もさることながら must END on the bigger item, or the concession ate the sentence."
+          },
+          "ex": [["貯金はおろか、今月の家賃も払えない。", "Never mind savings — I can't even make this month's rent."], ["この旅館は料理もさることながら、庭が見事だ。", "The food, certainly — but the garden here is the real masterpiece."]]
+        },
+        {
+          "id": "nimomashite", "jp": "〜にもまして・といわず", "en": "even more than; every single", "kind": "grammar",
+          "exp": {
+            "what": "Two totalizers. にもまして sets a high benchmark and clears it: 以前にもまして忙しい — busier than even before; the benchmark was already extreme. といわず, doubled, refuses to pick between examples because everything qualifies: 昼といわず夜といわず — day, night, no distinction; it never stops.",
+            "build": "Noun (often 何・誰・いつ, or a past state) + にもまして. Noun + といわず + noun + といわず, then the unbroken state.",
+            "when": "にもまして in formal openings — 今年は例年にもまして is the ceremony-speech fossil. といわず in describing sieges: renovation dust, wedding prep, exam season.",
+            "watch": "といわず pairs OPPOSITES or a sweep (手といわず足といわず); random pairs break the everything-reading. And 何にもまして (above all else) is the one everyday survivor of the family — worth owning outright."
+          },
+          "ex": [["今年は例年にもまして、桜が見事だ。", "This year, even more than most, the blossoms are superb."], ["彼は平日といわず週末といわず、働き続けた。", "Weekday or weekend — no distinction — he kept working."]]
+        },
+        {
+          "id": "naimademo", "jp": "〜ないまでも", "en": "if not quite that, at least", "kind": "grammar",
+          "exp": {
+            "what": "The graceful climb-down: 毎日とは言わないまでも、週に一度は連絡してほしい — daily, fine, no; but once a week at least. It names the ideal, waives it, and lands on the defensible minimum in one breath.",
+            "build": "ない form + までも, then the fallback with は・くらい・せめて: 完璧でないまでも, 優勝しないまでも.",
+            "when": "Requests and self-assessments where asking for everything would lose everything — parenting, management, and negotiating with oneself.",
+            "watch": "The fallback must genuinely be LESS than the waived ideal; if the two are equal the pattern reads as sarcasm. Its warm cousin is Step 61's だけは — insist on the minimum — where ないまでも negotiates down to it."
+          },
+          "ex": [["全部とは言わないまでも、半分は今日中に終わらせたい。", "I won't say all of it — but half I want done today."], ["尊敬されないまでも、信頼はされたい。", "If not admired, then at least trusted."]]
+        },
+        {
+          "id": "sb-kyokugen", "jp": "最小の重さ — 極限の道具", "en": "the minimum-case toolkit", "kind": "skill",
+          "exp": {
+            "what": "The course's whole even-family, finally on one bench. さえ (N4: even, plainly) → すら (written even) → まで (going as far as) → だに (even the thought) → たりとも (not even one unit) → はおろか (let alone) → ですら／であれ waiting one step ahead. Each tool weighs a minimum case; they differ in WHAT counts as the minimum — a thing, a thought, a unit, a rung.",
+            "build": "Choose by the minimum's type: a surprising includee (さえ・すら), a mental act (だに), a counted one (たりとも), a failed easy case (はおろか). The negative-polarity rule runs through most of the family — check the sentence's ending first.",
+            "when": "N1 reading passages stack two of these in one paragraph as a matter of course; the bench is for telling the stack apart at speed.",
+            "watch": "The false friend is まで: 子どもまで笑った is inclusion (even the kids laughed), not minimum-refusal. The family's exam questions almost always turn on polarity — even-and-affirmative versus even-and-negative."
+          },
+          "ex": [["名前すら知らない。名前だに思い出せない。一字たりとも書けない。", "Don't even know the name; can't even summon it; can't write one character of it — three minimums, three tools."]]
+        },
+        {
+          "id": "b-s62", "jp": "Composition · 極端に語る", "en": "describe by extremes", "kind": "build",
+          "exp": {
+            "what": "Describe a busy season in four lines using four different minimum-tools: the failed easy case (はおろか), the refused unit (たりとも), the sweep (といわず), and the climb-down (ないまでも).",
+            "build": "Shape to steal: 休暇はおろか、昼休みたりとも取れない。平日といわず週末といわず仕事だ。完全に休めないまでも、睡眠だけは守りたい。",
+            "when": "Exaggeration with correct machinery is how N1 essays earn their marks — and how tired workers earn their sympathy.",
+            "watch": "Four extremes is the ceiling for four lines. Five reads as panic."
+          },
+          "ex": [["引っ越し以来、段ボールはおろか、床すら見えない。", "Since the move I can't see the floor, let alone the boxes' bottoms."]]
+        }
+      ]
+    },
+    {
+      "cat": "Step 63 · How it ended up",
+      "level": "S15",
+      "after_step": "Step 62 · Not even one",
+      "note": "Verdict endings with temperature: outcomes that exasperate, conclusions that never arrived, patterns that never once worked. The grammar of the sigh.",
+      "bank": [["結局", "in the end"], ["羽目", "a fix; predicament"], ["失敗続き", "a string of failures"], ["徹夜", "an all-nighter"], ["言い出しっぺ", "the one who suggested it"], ["尻ぬぐい", "cleaning up someone's mess"], ["肝心", "the crucial (part)"], ["台無し", "ruined"]],
+      "points": [
+        {
+          "id": "hameninaru", "jp": "〜羽目になる・始末だ", "en": "ended up in a fix; and that's where it ended", "kind": "grammar",
+          "exp": {
+            "what": "Two arrival-points of a bad road. 羽目になる lands YOU in the unwanted spot: 全員の分を払う羽目になった — ended up paying for everyone; the fix is concrete and yours. 始末だ closes a deteriorating story with its final indignity: 最後には泣き出す始末だ — in the end, actually crying; the speaker is exasperated at the whole arc.",
+            "build": "Dictionary form + 羽目になる. Story of decline + この／その／dictionary form + 始末だ. 始末 needs the arc told first — it is a closing line, never an opener.",
+            "when": "羽目になる anywhere informal-and-rueful. 始末だ when narrating someone else's slide — it carries judgement, and everyone hears it.",
+            "watch": "羽目になる is self-deprecating and safe; 始末だ aimed at a present listener is an open rebuke. Both need genuinely unwanted outcomes — 優勝する羽目になった only works as a joke about dread."
+          },
+          "ex": [["終電を逃して、朝まで漫画喫茶で過ごす羽目になった。", "Missed the last train and ended up passing the night in a manga café."], ["最初は反対し、次は無視し、最後には会議に来ない始末だ。", "First he objected, then he ignored it, and in the end he simply stopped coming — that's where it ended up."]]
+        },
+        {
+          "id": "zujimai", "jp": "〜ずじまい・ためしがない", "en": "never did, in the end; never once worked", "kind": "grammar",
+          "exp": {
+            "what": "Two never-happeneds. ずじまい seals a missed intention: 会えずじまいだった — never did manage to meet (though I meant to, and now the window is shut). ためしがない audits a pattern and finds zero successes: 彼の計画がうまくいったためしがない — his plans have never once worked.",
+            "build": "ない-stem + ずじまい (する → せずじまい — the せ family's last call): 聞けずじまい, 出せずじまい. た form + ためしがない.",
+            "when": "ずじまい in regrets over closed windows — moves, deaths, lost addresses. ためしがない in fond or bitter exasperation with the reliably unreliable.",
+            "watch": "ずじまい needs a real intention that existed; things you never meant to do can't be ずじまい. ためしがない needs a track record — one failure isn't a pattern, and the pattern is the point."
+          },
+          "ex": [["結局、お礼を言えずじまいで、彼女は帰国してしまった。", "In the end I never did get to thank her — and then she flew home."], ["この目覚まし時計が役に立ったためしがない。", "This alarm clock has never once done its job."]]
+        },
+        {
+          "id": "toittaranai", "jp": "〜といったらない・のなんのって", "en": "beyond words — in both directions", "kind": "grammar",
+          "exp": {
+            "what": "Two overflow-markers for degree. といったらない declares a quality off the scale, formally enough for writing: その景色の美しさといったらなかった — the beauty of it defied telling. のなんのって does the same in an apron, mid-conversation: 痛いのなんのって — did it ever hurt.",
+            "build": "Noun／adjective + といったら（ありはし）ない. Plain adjective/verb + のなんのって, usually as its own exclamation before the story.",
+            "when": "といったらない both praises and despairs; のなんのって is pure spoken storytelling — the pattern that starts the anecdote at the izakaya.",
+            "watch": "のなんのって in writing is a transcription of speech, never prose. And といったらない's short form といったら opens a topic instead (先生といったら…) — the ない is what makes it a verdict."
+          },
+          "ex": [["初めて富士山を見た時の感動といったらなかった。", "The feeling of seeing Fuji for the first time — there are no words."], ["昨日の会議の長いのなんのって。五時間だよ。", "You would not believe how long yesterday's meeting was. Five hours."]]
+        },
+        {
+          "id": "dehasumanai", "jp": "〜ではすまない・きりがない", "en": "won't end there; there'd be no end", "kind": "grammar",
+          "exp": {
+            "what": "Two refusals of an easy stopping-point. ではすまない warns that the cheap resolution won't close the matter: 謝るだけではすまない — an apology won't be the end of it. きりがない looks down an infinite list and closes it on principle: 心配し出すときりがない — start worrying and there is no bottom.",
+            "build": "Noun／て-form + では（じゃ）すまない. Dictionary／ば・たら form + きりがない: 数え出したらきりがない.",
+            "when": "ではすまない in accountability talk — insurance, discipline, broken heirlooms. きりがない as the adult reason to stop: perfectionism, comparisons, worry.",
+            "watch": "ではすまない implies real consequences are coming; using it for trivia is empty threat. きりがない is not laziness but triage — the sentence that gives permission to ship."
+          },
+          "ex": [["会社の金を失くしたのだから、謝罪ではすまないだろう。", "He lost company money — an apology is not going to close this."], ["上を見ればきりがない。今の生活に感謝しよう。", "Look upward and there's no end to it. Better to be grateful for the life at hand."]]
+        },
+        {
+          "id": "demonandemonai", "jp": "〜でも何でもない・でなくてなんだろう", "en": "nothing of the sort; what else could it be", "kind": "grammar",
+          "exp": {
+            "what": "A denial and its mirror. でも何でもない strips a label completely: 偶然でも何でもない — no coincidence, nothing of the sort. でなくてなんだろう pins one on with rhetorical force: これが愛でなくてなんだろう — if this isn't love, what would be?",
+            "build": "Noun／な-adj + でも何でもない. Noun + でなくてなんだろう（か） — essay register, always rhetorical.",
+            "when": "The first in debunkings; the second at the emotional summit of an essay — once per essay, like にほかならない, whose passionate cousin it is.",
+            "watch": "でなくてなんだろう expects no answer; a listener who answers has misread the register — or is making a joke at your expense. Two in one text and the summit becomes a plateau."
+          },
+          "ex": [["あれは事故でも何でもない。明らかに計画的だ。", "That was no accident — nothing of the sort. Clearly planned."], ["自分を犠牲にして子を守る。これが愛情でなくてなんだろう。", "To shield a child at one's own cost — if that is not love, what is?"]]
+        },
+        {
+          "id": "b-s63", "jp": "Composition · 愚痴の芸術", "en": "the art of the complaint", "kind": "build",
+          "exp": {
+            "what": "Tell a five-line disaster story: the fix you landed in (羽目になった), how bad it was (のなんのって or といったらない), the thing you never managed (ずじまい), the pattern it fits (ためしがない), and the refusal to total it up (きりがない).",
+            "build": "The escalation IS the structure — each line one rung down, last line stepping off the ladder entirely.",
+            "when": "The well-built complaint is a Japanese social art form; done right it earns laughter and sympathy at once, which is its entire function.",
+            "watch": "Self-deprecating only. The same five lines aimed at a colleague is a performance review from hell."
+          },
+          "ex": [["手伝いに行ったのに、逆に一日中働く羽目になった。", "Went to help — ended up working the whole day myself."]]
+        }
+      ]
+    },
+    {
+      "cat": "Step 64 · Worth measuring",
+      "level": "S15",
+      "after_step": "Step 63 · How it ended up",
+      "note": "Formal evaluation: what deserves, what suffices, what cannot be borne, what a feeling is at its very limit. The vocabulary of citations and reviews.",
+      "bank": [["功績", "achievements; merit"], ["尊敬", "respect"], ["感激", "deep emotion"], ["光栄", "an honor"], ["鑑賞", "appreciation (of art)"], ["批評", "criticism; review"], ["傑作", "a masterpiece"], ["駄作", "a dud; failure of a work"]],
+      "points": [
+        {
+          "id": "niataisuru", "jp": "〜に値する・に足る／に足りない", "en": "worthy of; sufficient to", "kind": "grammar",
+          "exp": {
+            "what": "Two formal scales. に値する prices an object against an abstract standard: 賞賛に値する — worth praise; 一読に値する — worth a read. に足る measures sufficiency for trust-shaped nouns: 信頼に足る人物 — a person sufficient to be trusted; its negative 取るに足りない dismisses: beneath notice.",
+            "build": "Noun／dictionary form + に値する. Dictionary form／noun + に足る + noun; the set negative 取るに足りない.",
+            "when": "Citations, reviews, references — anywhere worth is being certified rather than felt. Spoken praise stays with 価値がある; these are its letterhead.",
+            "watch": "Both take dignified standards: 笑いに値する reads as contempt precisely because the frame is formal. 取るに足りない is fixed — inventing 話すに足りない works grammatically and sounds like a duel."
+          },
+          "ex": [["彼の長年の功績は、最大級の賞賛に値する。", "His years of contribution merit the highest praise."], ["それは取るに足りない問題だ。", "That is a matter beneath notice."]]
+        },
+        {
+          "id": "nitaenai", "jp": "〜にたえる／にたえない", "en": "bears it — or cannot be borne", "kind": "grammar",
+          "exp": {
+            "what": "One pattern, two lives. にたえる certifies robustness: 大人の鑑賞にたえる作品 — a work that holds up to adult scrutiny. にたえない splits: with 見る/聞く it recoils (見るにたえない惨状 — a scene one cannot bear to look at); with emotion-nouns it overflows formally (感謝にたえない — gratitude beyond expression, the acceptance-speech fossil).",
+            "build": "Dictionary form／noun + にたえる. 見る・聞く + にたえない for the recoil; 感謝・感激・遺憾 + にたえません for the ceremonial overflow.",
+            "when": "The recoil in reporting and criticism; the overflow exclusively in formal address — it is how officials feel things.",
+            "watch": "The two にたえない meanings cannot mix: 見るにたえません at an award ceremony announces the trophy is hideous. The emotion-noun list is short and fixed — stay on it."
+          },
+          "ex": [["この番組は、子どもに見せるにたえない内容だ。", "This program's content doesn't bear showing to children."], ["このような賞をいただき、感激にたえません。", "To receive such an award — my emotion is beyond expression."]]
+        },
+        {
+          "id": "nikatakunai", "jp": "〜にかたくない・にかかっている", "en": "not hard to imagine; hinges on", "kind": "grammar",
+          "exp": {
+            "what": "Two assessments of a situation's shape. にかたくない grants easy inference in formal dress: 想像にかたくない — not difficult to imagine (and the writer expects you to). にかかっている locates the pivot: 成功はチーム次第…改め、チームの結束にかかっている — success hinges on their cohesion.",
+            "build": "想像・察する・理解 + にかたくない (the partner list is nearly closed). Noun／かどうか + にかかっている.",
+            "when": "にかたくない in editorials extending empathy at arm's length. にかかっている in stakes-naming — speeches, previews, pep talks.",
+            "watch": "にかたくない with anything beyond its small partner set (食べるにかたくない) collapses into nonsense. And にかかっている's pivot must be undecided — a settled thing hinges on nothing."
+          },
+          "ex": [["ご家族の心痛は、察するにかたくない。", "The family's anguish is not hard to imagine."], ["この計画の成否は、初日の集客にかかっている。", "The plan's fate hinges on day-one turnout."]]
+        },
+        {
+          "id": "kiwamarinai", "jp": "〜極まる／極まりない・の至り／の極み", "en": "the utter limit", "kind": "grammar",
+          "exp": {
+            "what": "The summit-markers. 極まる／極まりない push a な-adjective to its ceiling, disapprovingly: 失礼極まりない — the height of rudeness (both forms mean the same maximum; the ない is not a negative). の至り and の極み crown nouns: 光栄の至り — the utmost honor; 贅沢の極み — luxury's very peak.",
+            "build": "な-adjective stem + 極まる／極まりない. Noun + の至り (formal humility: 光栄・恐縮・若気) / の極み (any summit: 感動・疲労・美).",
+            "when": "極まりない for indignation with a collar on; の至り in acceptance speeches; の極み wherever a summit needs naming — including 若気の至り, youth's excess, the set phrase for old embarrassments.",
+            "watch": "極まりない looks negative and isn't — 危険極まりない means MAXIMALLY dangerous. The pair takes な-adjectives only; 高い極まりない breaks. Positive adjectives prefer の極み."
+          },
+          "ex": [["客の前でそれを言うとは、非常識極まりない。", "Saying that in front of customers — the absolute height of thoughtlessness."], ["あの日の失敗は、若気の至りとしか言いようがない。", "That failure can only be called the excess of youth."]]
+        },
+        {
+          "id": "attenokoto", "jp": "〜あっての・かいもなく", "en": "only exists because; all for nothing", "kind": "grammar",
+          "exp": {
+            "what": "Gratitude's grammar and its shadow. あっての makes one thing the ground of another's existence: ファンあってのプロ野球 — pro baseball exists only because of the fans; remove X and Y vanishes. かいもなく is Step 60's かい with the audit failed: 看病のかいもなく — the nursing was, in the end, for nothing.",
+            "build": "Noun + あっての + noun — both slots mandatory. た form／noun + の + かいもなく + the loss.",
+            "when": "あっての in speeches of gratitude and warnings against forgetting one's base — 命あっての物種, the proverb: no life, no anything. かいもなく in obituaries and post-mortems, always with the effort named first.",
+            "watch": "あっての flips subject prominence — the DEPENDENT thing leads the sentence. かいもなく is heavy: it declares real effort futile, so it keeps to genuinely grave outcomes; a rained-out picnic gets 残念ながら."
+          },
+          "ex": [["社員あっての会社だということを、忘れてはならない。", "A company exists only because of its people — forget that at your peril."], ["手術のかいもなく、祖父は帰らぬ人となった。", "The surgery notwithstanding, my grandfather did not come home."]]
+        },
+        {
+          "id": "b-s64", "jp": "Composition · 表彰状", "en": "write the citation", "kind": "build",
+          "exp": {
+            "what": "A four-line award citation in full formal dress: the worth (に値する), what it withstood (にたえる), the ground it stood on (あっての), and the honoree's imagined reply (の至り).",
+            "build": "Shape to steal: 貴殿の長年の努力は、最大の賞賛に値する。いかなる批評にもたえる仕事であった。チームあっての成果と語る姿も含め、光栄の至りである。",
+            "when": "Citation register is N1's most concentrated habitat — one paragraph exercises half the step.",
+            "watch": "である register throughout; one です and the letterhead dissolves."
+          },
+          "ex": [["この作品は、時代を超えて読まれるに値する。", "This work deserves to be read across generations."]]
+        }
+      ]
+    }
+  ]
+}

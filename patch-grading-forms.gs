@@ -213,7 +213,12 @@ function verifyNoTestTag() {
                (found === 0 && newTag === f.expected ? '   ✓' : '   ← CHECK THIS'));
   });
   Logger.log('');
+  // Aug 21: these two lines had 〔テスト〕 hardcoded, left over from run 1. The CHECK
+  // was always correct — countIn_ uses RENAME_FROM — but run 2's clean result printed
+  // "〔テスト〕 appears nowhere" while actually having verified 〔ともこ〕. A log line
+  // naming a different thing than the code checked is the exact defect this whole
+  // session has been chasing, reproduced in the verifier written to catch it.
   Logger.log(remaining === 0
-    ? 'VERIFIED — 〔テスト〕 appears nowhere in any of the nine forms.'
-    : '!!! ' + remaining + ' occurrence(s) of 〔テスト〕 still live.');
+    ? 'VERIFIED — ' + RENAME_FROM + ' appears nowhere in any of the nine forms.'
+    : '!!! ' + remaining + ' occurrence(s) of ' + RENAME_FROM + ' still live.');
 }
