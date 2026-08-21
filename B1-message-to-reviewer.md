@@ -97,6 +97,28 @@ own remembered reasoning; an independent grader is a stronger test of whether th
 objectively usable at all. But it has to be read deliberately rather than absorbed into
 the headline.
 
+### And adjudicating a disagreement costs a favour, not money
+
+**Tomoko did all of Step 2 unpaid, as a favour.** Fifteen of the fifty keys carry her
+amendments, and every Step 3 grade on those rows is measured against her judgement — so
+the eval's foundation rests on goodwill that cannot be drawn on indefinitely. The Step 3
+reviewer is paid and can be asked for more; Tomoko cannot, at least not the same way.
+
+That constrains how key disagreements get resolved when B1 lands, in this order:
+
+1. **Lloyd adjudicates.** There is precedent — E09's own L cell records
+   `要修正→問題なし adjudicated by Lloyd, Aug 14 2026`. Free, fast, and already the
+   established mechanism.
+2. **Accept and annotate.** A disagreement that does not change a tier is a note in the
+   Results sheet, not a task.
+3. **Go back to Tomoko** — last, batched, and only for something genuinely unresolvable.
+   One considered question is a reasonable ask; a trickle of them is how a favour stops
+   being offered.
+
+The practical consequence for reading B1: **do not plan on re-verification as the default
+answer to a low score.** Budget roughly one return trip for the whole eval and spend it
+where it changes a verdict.
+
 ---
 
 ## Still yours to call
@@ -107,10 +129,10 @@ the headline.
 - **Whether to commit past B1 now.** Deliberately not in the message. If you want the
   option without making her feel auditioned, add 「1セット目やってみて、続けられそう
   だったら残りもお願いしたいです」.
-- **Whether ¥5,000 was ever agreed with *this* reviewer.** The kickoff's pricing section
-  says "B1 stays at ¥5,000 as promised" — that promise was made in a conversation whose
-  other party I cannot verify. Worth checking before the ¥300/output correction is
-  framed as a raise to someone who never heard the original figure.
+- ~~Whether ¥5,000 was agreed with *this* reviewer.~~ **Resolved: yes.** She is the paid
+  reviewer; the ¥300/output correction applies to her and the framing in the kickoff
+  stands. **Tomoko did Step 2 as a favour to Lloyd, unpaid** — she is not in the pricing
+  conversation at all.
 
 ## Before B9 goes out — not a problem for B1
 
