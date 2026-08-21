@@ -1,0 +1,285 @@
+{
+  "_": "Stage 11 · Nuance — Steps 47–49 + rc10. Spliced by build-stage3.py after stage-11-content-v1.json (after_step chains through 46).",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch P continues.",
+  "insert": [],
+  "new_steps": [
+    {
+      "cat": "Step 47 · The reason it reads",
+      "level": "S11",
+      "after_step": "Step 46 · Breadth",
+      "note": "から and ので gave reasons. Stage 9 gave blame and credit. These patterns give reasons a REGISTER: the shop-notice reason, the just-like-them reason, the all-the-more reason. Reading them is reading between lines.",
+      "bank": [["評判", "reputation"], ["専門家", "an expert"], ["割引", "a discount"], ["満員", "full (of people)"], ["休業日", "closed day"], ["経験者", "someone with experience"], ["値上げ", "a price rise"], ["行列", "a queue"]],
+      "points": [
+        {
+          "id": "kotokara", "jp": "〜ことから", "en": "from the fact that — the evidence reason", "kind": "grammar",
+          "exp": {
+            "what": "A reason presented as evidence: 窓が開いていることから、誰かが入ったと分かる — from the open window, we can tell someone came in. Where から states a cause, ことから presents an observed fact and draws the conclusion in public. It is also the set pattern for naming origins: 形が富士山に似ていることから、この名前がついた.",
+            "build": "Plain clause + ことから: 人気があることから, 音がしないことから. The following clause is typically a conclusion, discovery or naming.",
+            "when": "Explanations, guidebooks, quiz shows — anywhere a fact is being reasoned FROM rather than merely blamed. The naming use is everywhere in place-name lore.",
+            "watch": "The reason must be observable. A feeling reasons with から; ことから wants something you could point at."
+          },
+          "ex": [["行列ができていることから、あの店の人気が分かる。", "You can tell how popular that shop is from the queue outside."], ["雪が多いことから、この地方は「雪国」と呼ばれる。", "From its heavy snow, this region is called 'snow country'."]]
+        },
+        {
+          "id": "kotodakara", "jp": "〜ことだから", "en": "knowing them, surely", "kind": "grammar",
+          "exp": {
+            "what": "A reason built on character: 真面目な彼のことだから、時間通りに来るだろう — knowing how conscientious he is, he'll be on time. The pattern only works on people (and person-like things) whose habits both speakers know, and it always launches a prediction.",
+            "build": "Person + の + ことだから + a prediction: 田中さんのことだから、もう終わっているよ. The person usually carries a describing clause that names the trait doing the predicting.",
+            "when": "Reassuring someone, excusing someone, betting on someone — social reasoning among people who share context. It is warm grammar; it says 'we both know them.'",
+            "watch": "It needs the shared knowledge. About a stranger it fails socially rather than grammatically — the listener hears an intimacy that doesn't exist."
+          },
+          "ex": [["彼のことだから、締め切りは必ず守るだろう。", "Knowing him, he'll meet the deadline without fail."], ["心配性の母のことだから、もう駅に着いているはずだ。", "Knowing my worrier of a mother, she's already at the station."]]
+        },
+        {
+          "id": "dakeni", "jp": "〜だけに", "en": "all the more, given", "kind": "grammar",
+          "exp": {
+            "what": "A reason with a lever in it: 期待していただけに、がっかりした — precisely BECAUSE I had hoped, the disappointment was bigger. だけに takes a background fact and uses it to amplify the reaction, in either direction: bigger letdown, bigger joy.",
+            "build": "Plain clause／noun + だけに: 有名なだけに, 練習しただけに. The second clause carries a feeling or evaluation scaled UP by the first.",
+            "when": "Reactions with history behind them: results after long effort, prices at famous shops, upsets after favourites. Sports commentary runs on it.",
+            "watch": "The second half must scale with the first. A flat consequence (雨だっただけに、傘をさした) wastes the lever — から was enough there."
+          },
+          "ex": [["評判の店だけに、味は期待以上だった。", "Given its reputation, the food exceeded even expectation."], ["練習してきただけに、負けて悔しい。", "All that practice — which is exactly why losing stings."]]
+        },
+        {
+          "id": "dakeatte", "jp": "〜だけあって", "en": "living up to it", "kind": "grammar",
+          "exp": {
+            "what": "だけに's satisfied sibling: 専門家だけあって、説明が分かりやすい — being an expert, sure enough, the explanations are clear. The observed quality MATCHES the credential, and the speaker is nodding along. Admiration is built into the grammar.",
+            "build": "Plain clause／noun + だけあって: 高いだけあって, 十年住んだだけあって. Often paired with さすがに in the same breath.",
+            "when": "Compliments with reasons attached — hotels worth their price, veterans worth their years. The set where expectations are met, never dashed.",
+            "watch": "This is the fork from だけに: だけあって only goes to fulfilled expectations. Disappointment must switch back to だけに — 高いだけあってまずい contradicts itself."
+          },
+          "ex": [["さすが経験者だけあって、仕事が早い。", "As you'd expect from someone experienced, the work is fast."], ["有名なホテルだけあって、サービスが素晴らしい。", "It lives up to its name — the hotel's service is superb."]]
+        },
+        {
+          "id": "nitsuki", "jp": "〜につき", "en": "due to — as posted", "kind": "grammar",
+          "exp": {
+            "what": "The notice-board reason: 工事中につき、通行止め — due to construction, road closed. Four words, no verb, a bow implied. につき is how institutions give reasons: cold, brief, and pasted to a door.",
+            "build": "Noun + につき + the consequence, often verbless: 本日休業日につき, 雨天につき中止. (A second, unrelated meaning — per unit: 一人につき二枚 — reads from context.)",
+            "when": "READING, overwhelmingly: shutters, gates, elevators, event notices. Producing it belongs to whoever writes the notice — which one day is you, drafting the office sign.",
+            "watch": "It is paper grammar. Said aloud in conversation it sounds like reading a sign — ので owns the spoken register."
+          },
+          "ex": [["店内改装につき、しばらく休業いたします。", "Due to renovation, we will be closed for a while."], ["強風につき、本日の運転は中止します。", "Due to strong winds, today's service is cancelled."]]
+        },
+        {
+          "id": "ijouwa", "jp": "〜以上（は）", "en": "now that — the commitment reason", "kind": "grammar",
+          "exp": {
+            "what": "A reason that binds: 引き受けた以上、最後までやる — having taken it on, I see it through. 以上 turns a done fact into an obligation on the speaker: the die is cast, so the conduct follows.",
+            "build": "Plain clause + 以上（は）+ resolve/obligation/advice: 約束した以上, 学生である以上. The second half wants べきだ, なければならない, つもりだ — the duty shapes.",
+            "when": "Statements of principle and spine: contracts entered, roles accepted, countries moved to. 日本に住む以上、日本語を勉強するべきだ is the learner's own sentence.",
+            "watch": "The first clause must be settled and chosen. 雨が降る以上 misfires — weather commits nobody. からには is its near-twin and swaps in freely."
+          },
+          "ex": [["契約した以上、支払いの義務がある。", "Having signed the contract, you are obliged to pay."], ["やると言った以上、途中でやめるわけにはいかない。", "Having said I'd do it, backing out midway isn't an option."]]
+        },
+        {
+          "id": "cc-keiji2", "jp": "貼り紙の文法", "en": "the grammar taped to the door", "kind": "culture",
+          "exp": {
+            "what": "Japan communicates institutionally through short pasted notices, and they share one dialect: につき for the reason, ご迷惑をおかけします for the apology, ご了承ください for the closing bow. 本日休業日につき — four words carrying a full sentence of regret.",
+            "build": "The skeleton of nearly every notice: [reason]につき、[consequence]。ご迷惑をおかけしますが、ご了承ください。 Learn it once and a wall of paper becomes one form letter.",
+            "when": "Shutters, station gates, elevator doors, clinic windows. The reading payoff is immediate and daily — this register is met more often than any spoken keigo.",
+            "watch": "The apology lines are formulae, not feelings — ご迷惑をおかけします measures the notice's politeness, not the inconvenience's size. Reading emotional weight into stock phrases is the reverse of the mistake of missing it in real ones."
+          },
+          "ex": [["点検につき、エレベーターは使えません。ご了承ください。", "Due to inspection, the elevator is out of use. We appreciate your understanding."]]
+        },
+        {
+          "id": "b-s47", "jp": "Composition · 貼り紙を書く", "en": "write the notice yourself", "kind": "build",
+          "exp": {
+            "what": "Write a three-line notice: reason (につき), consequence, apology formula. Then rewrite the same fact as one SPOKEN line to a friend (ので).",
+            "build": "The pair is the exercise: 雨天につき、中止します／雨だから、中止だって。 Same fact, two registers, no overlap in vocabulary.",
+            "when": "Register-switching on one fact is the core N2 writing skill — this drills it on the smallest possible canvas.",
+            "watch": "If your notice contains です・ます AND につき but also から, the registers have bled. Notices are all-formal or they are not notices."
+          },
+          "ex": [["社内清掃につき、午後は入れません。", "Due to office cleaning, no entry this afternoon."]]
+        }
+      ]
+    },
+    {
+      "cat": "Step 48 · Committing to the claim",
+      "level": "S11",
+      "after_step": "Step 47 · The reason it reads",
+      "note": "Stage 9's Step 31 drew conclusions; Step 39 denied inferences. This step is certainty's top shelf — the four ways to stake your name on a claim, and the one pattern for saying it merely looks that way.",
+      "bank": [["犯人", "the culprit"], ["真実", "the truth"], ["誤解", "a misunderstanding"], ["判断", "a judgement"], ["印象", "an impression"], ["証言", "testimony"], ["うわさ", "a rumor"], ["当たり前", "obvious; only natural"]],
+      "points": [
+        {
+          "id": "nihokanaranai", "jp": "〜にほかならない", "en": "nothing other than", "kind": "grammar",
+          "exp": {
+            "what": "An identification sealed shut: 成功は努力の結果にほかならない — the success is nothing other than the result of effort. The pattern doesn't just assert; it excludes every alternative in the same breath.",
+            "build": "Noun + にほかならない: 誤解にほかならない, 愛情にほかならない. Essay Japanese; the noun is usually an interpretation or essence, not a physical object.",
+            "when": "The thesis sentence of an argument — the moment a writer stops weighing and names the thing. One per essay is about the right dose.",
+            "watch": "It identifies; it doesn't predict. Future events can't wear it — 明日は雨にほかならない is broken. For predictions, the next pattern."
+          },
+          "ex": [["この結果は、毎日の練習の成果にほかならない。", "This result is nothing other than the fruit of daily practice."], ["それは誤解にほかなりません。", "That is nothing but a misunderstanding."]]
+        },
+        {
+          "id": "nisouinai", "jp": "〜に相違ない", "en": "without doubt — on the record", "kind": "grammar",
+          "exp": {
+            "what": "に違いない from Stage 9, promoted to writing: same 'must be,' harder collar. 犯人はあの男に相違ない reads like a detective's report because that is the register it lives in — findings, testimony, formal conclusions.",
+            "build": "Noun／plain clause + に相違ない: 本物に相違ない, 彼が書いたに相違ない. Documents also use 相違ありません as the sworn-statement form — 記載内容に相違ありません, the contents are correct as written.",
+            "when": "Written conclusions and official confirmations. The 相違ありません form is one you will SIGN — it sits above the line on applications confirming everything is true.",
+            "watch": "In conversation it costumes you as a detective; に違いない remains the spoken form. The two are a register pair, not a nuance pair."
+          },
+          "ex": [["この証言から見て、彼が犯人に相違ない。", "From this testimony, he is without doubt the culprit."], ["上記の内容に相違ありません。", "The above contents are correct (as written) — the application formula."]]
+        },
+        {
+          "id": "nikimatteiru", "jp": "〜に決まっている", "en": "obviously — certainty with heat", "kind": "grammar",
+          "exp": {
+            "what": "The spoken shelf's top: そんなの、うそに決まっている — that's obviously a lie. Grammatical certainty plus emotional pressure; the speaker isn't concluding, they're refusing to entertain the alternative.",
+            "build": "Plain form／noun + に決まっている: 無理に決まっている, 勝つに決まっている. Casual speech shortens the orbit: 〜に決まってるじゃん.",
+            "when": "Conversation, argument, reassurance (大丈夫に決まっている). This is where the certainty family finally gets to be loud.",
+            "watch": "The heat is the point and the risk: at a superior it reads as talking back. The exam distinction — はずだ reasons, に違いない infers, に決まっている insists."
+          },
+          "ex": [["そんなうまい話、うそに決まっているよ。", "A deal that good is obviously a lie."], ["彼が謝るべきに決まっている。", "Obviously HE'S the one who should apologise."]]
+        },
+        {
+          "id": "toiumonoda", "jp": "〜というものだ", "en": "that's just what it is", "kind": "grammar",
+          "exp": {
+            "what": "A verdict appealing to common sense: それは無理というものだ — that, you see, is asking too much. The speaker holds the claim up as something everyone would recognise: this is what fairness/rudeness/asking-too-much looks like.",
+            "build": "Plain clause／noun + というものだ: 当たり前というものだ, 親心というものだ. The negative というものではない softens a general claim: 高ければいいというものではない — expensive doesn't simply mean good.",
+            "when": "Gentle verdicts and proverbs-on-the-spot; the negative form is the essay workhorse for pushing back on simple equations.",
+            "watch": "No past tense, no personal subject — the pattern speaks for common sense, and common sense has no yesterday. 私は嬉しいというものだ misfires; it was never about you."
+          },
+          "ex": [["初対面でそれを聞くのは、失礼というものだ。", "Asking that on first meeting — that's what rudeness is."], ["安ければいいというものではない。", "Cheap isn't automatically good."]]
+        },
+        {
+          "id": "kanoyouda", "jp": "〜かのようだ", "en": "as if it were", "kind": "grammar",
+          "exp": {
+            "what": "The counterweight to the whole step: everything else here commits, かのようだ steps back into open pretence. まるで夢であるかのようだ — as if it were a dream, and both of us know it isn't. Stage 10's まるで〜ようだ compared appearances; かのようだ marks the appearance as contrary to fact.",
+            "build": "Plain clause + かのようだ／かのように＋verb／かのような＋noun: 何も知らないかのように話す. まるで loves to open the sentence.",
+            "when": "Written description with literary temperature — snow like a stage set, a silence as if time had stopped. It is the novelist's たとえ.",
+            "watch": "The claim must be FALSE and both parties aware: 彼は病気であるかのようだ about someone actually sick collapses into slander of the truth. Real resemblance keeps plain ようだ."
+          },
+          "ex": [["彼は何も聞いていないかのように、仕事を続けた。", "He kept working as if he'd heard nothing."], ["町は、時間が止まったかのように静かだった。", "The town was quiet, as if time had stopped."]]
+        },
+        {
+          "id": "sb-kakushin2", "jp": "確信のはしご・二段目", "en": "the certainty ladder, full height", "kind": "skill",
+          "exp": {
+            "what": "The ladder now runs floor to ceiling, and register splits it in two. Spoken, climbing: かもしれない → だろう → はずだ → に違いない → に決まっている. Written, climbing: 〜と思われる → はずである → に相違ない → にほかならない. Same heights, different buildings.",
+            "build": "Choose the rung by evidence, the building by medium. A hunch in a report is と思われる; a certainty in a kitchen is に決まってる. The sworn form 相違ありません stands slightly apart — it certifies rather than argues.",
+            "when": "Every opinion you voice picks a rung whether you choose it or not. This builder is for choosing.",
+            "watch": "The classic overreach is importing certainty DOWN the register: に決まっている in an essay reads as shouting; にほかならない over dinner reads as a lecture. Height and building are independent choices."
+          },
+          "ex": [["彼は来ないに決まっている。／彼は来ないと思われる。", "He's obviously not coming. / It would appear he is not coming. (same claim, two buildings)"]]
+        },
+        {
+          "id": "b-s48", "jp": "Composition · 推理を書く", "en": "write the deduction", "kind": "build",
+          "exp": {
+            "what": "A four-line detective's note: the observed fact (ことから), the deduction (に相違ない), the alternative dismissed (わけがない, from Stage 10), and the verdict (にほかならない).",
+            "build": "Shape to steal: 窓が開いていることから、犯人は外から入ったに相違ない。中からのはずがない。これは計画的な犯行にほかならない。",
+            "when": "The certainty patterns only settle when forced to work together — a deduction chain is the smallest structure that forces them.",
+            "watch": "One claim per rung. If two sentences share a certainty level, the chain isn't climbing."
+          },
+          "ex": [["足あとがないことから、犯人はまだ中にいるに相違ない。", "From the absence of footprints, the culprit must still be inside."]]
+        }
+      ]
+    },
+    {
+      "cat": "Step 49 · On paper",
+      "level": "S11",
+      "after_step": "Step 48 · Committing to the claim",
+      "note": "The stage closes where N2 lives: the written register. Documents, reports, applications — the Japanese that is typed, stamped and filed. Every pattern here has a spoken equivalent the learner already owns; the lesson is the costume change.",
+      "bank": [["書類", "documents"], ["申請", "an application"], ["承認", "approval"], ["提出", "submission"], ["増加", "an increase"], ["減少", "a decrease"], ["発表", "an announcement"], ["期限", "a time limit"]],
+      "points": [
+        {
+          "id": "niokeru", "jp": "〜における", "en": "in/at — for documents", "kind": "grammar",
+          "exp": {
+            "what": "で and に put things places; における does the same job wearing a tie: 日本における教育, education in Japan — as a report would title it. It marks the arena of a topic rather than the location of an action.",
+            "build": "Noun + における + noun: 会議における発言, 現代における役割. Sentence-medial: においては. Strictly noun-connecting — verbs keep で.",
+            "when": "Titles, headings, theses, slides. If the sentence could be a section heading, における belongs; if it could be said across a table, it doesn't.",
+            "watch": "The classic overuse is spoken: 学校における友達 in conversation is a costume at a picnic. で survives every spoken need."
+          },
+          "ex": [["日本における人口の減少が、大きな問題になっている。", "Population decline in Japan has become a major problem."], ["会議における彼の発言が、話題になった。", "His remarks at the meeting became the talk of the office."]]
+        },
+        {
+          "id": "uede", "jp": "〜上で", "en": "upon — order with purpose", "kind": "grammar",
+          "exp": {
+            "what": "Two readings off one shape, split by the verb form in front. After た-form: proper sequence — よく考えた上で決めた, decided upon due consideration; the first step was the qualified basis for the second. After dictionary form: in the course of / for the purpose of — 申請する上で必要な書類, documents necessary in applying.",
+            "build": "た-form + 上で for the sequence; dictionary form + 上で for the in-doing. The nominal version 〜の上で works for both: 相談の上で.",
+            "when": "Procedures and prefaces: contracts want 確認の上、ご署名ください; guides want 生活する上での注意. It is てから with the casualness drained out and deliberation poured in.",
+            "watch": "The two readings do not mix: 考える上で決めた is neither. Check the verb form first — it is the whole meaning."
+          },
+          "ex": [["内容をよく確認した上で、サインしてください。", "Please sign after — and on the basis of — checking the contents carefully."], ["日本で働く上で、敬語は避けて通れない。", "In working in Japan, keigo is unavoidable."]]
+        },
+        {
+          "id": "nitomonatte", "jp": "〜に伴って", "en": "along with — paired change", "kind": "grammar",
+          "exp": {
+            "what": "Stage 10's につれて tracked one change dragging another. に伴って is its document-grade twin, and it also covers events with attendants: 引っ越しに伴って住所が変わった — with the move came the address change. Change A, and B in its train.",
+            "build": "Noun／dictionary-form verb + に伴って／に伴い (the い-form is the more written): 高齢化に伴い, 制度の変更に伴って.",
+            "when": "Reports of linked change: populations, prices, systems. The pattern of every news paragraph beginning 'with the increase in…'",
+            "watch": "Both sides must move or happen — a static pairing (机に伴って椅子がある) has nothing accompanying anything. And in conversation, と一緒に or につれて still do the living-room version."
+          },
+          "ex": [["インターネットの普及に伴って、生活が大きく変わった。", "With the spread of the internet, life changed profoundly."], ["転勤に伴い、来月引っ越します。", "In connection with my transfer, I move next month."]]
+        },
+        {
+          "id": "nisakidatte", "jp": "〜に先立って", "en": "prior to — the formal before", "kind": "grammar",
+          "exp": {
+            "what": "前に with a programme printed: 開会に先立って、黙とうが行われた — prior to the opening, a silence was observed. 先立つ is 'to go ahead of'; the pattern schedules a lesser formal act before a greater one.",
+            "build": "Noun／dictionary-form verb + に先立って／に先立ち: 発表に先立ち, 工事に先立って. The thing before に先立って is the MAIN event; the clause is the preliminary.",
+            "when": "Ceremonies, launches, official processes — the register where events have preliminaries at all. Speeches and news reports own it.",
+            "watch": "Both events need formality and connection: 昼ご飯に先立って手を洗った is a comedy of scale. 前に remains the everyday word — this is its dress uniform."
+          },
+          "ex": [["新製品の発売に先立って、発表会が開かれた。", "Prior to the product's release, a launch event was held."], ["面接に先立ち、書類審査が行われます。", "Prior to interviews, documents will be screened."]]
+        },
+        {
+          "id": "wokini", "jp": "〜を機に", "en": "taking the occasion to", "kind": "grammar",
+          "exp": {
+            "what": "An event turned into a hinge: 結婚を機に、引っ越した — taking the marriage as the occasion, we moved. The named event isn't the cause so much as the chosen turning point; the speaker made it one.",
+            "build": "Noun／dictionary-form verb + の + を機に: 卒業を機に, 病気を機に. The heavier をきっかけに swaps in with a nuance of chance rather than choice.",
+            "when": "Life-change narration — the self-introduction's load-bearing pattern. Résumés, first conversations, and the sentence about why you came to Japan.",
+            "watch": "The event should be a milestone. 昼休みを機に転職した reads as satire; the pattern spends significance, and small occasions can't cover the bill."
+          },
+          "ex": [["転職を機に、東京から引っ越しました。", "I took the job change as the occasion to move away from Tokyo."], ["入院を機に、生活を見直した。", "The hospital stay became my occasion to rethink how I live."]]
+        },
+        {
+          "id": "tsutsu", "jp": "〜つつ（も）／〜つつある", "en": "while, though — and mid-change", "kind": "grammar",
+          "exp": {
+            "what": "One classical stem, two modern jobs. つつ（も）is written concession-or-parallel: 悪いと知りつつ（も）— while knowing it was wrong. つつある is ongoing change caught mid-motion: 回復しつつある — in the process of recovering. Both are ながら's literary relatives.",
+            "build": "Verb ます-stem + つつ／つつも／つつある: 思いつつ, 増えつつある. The FORMS table on verb cards carries つつ from this point on.",
+            "when": "つつも for written self-aware contradiction (knowing better, doing anyway); つつある for reports of trends in motion — economies, recoveries, declines. Neither belongs in casual speech.",
+            "watch": "つつある differs from ている exactly where it matters: 変わっている is a state already reached, 変わりつつある is the changing itself. Trend sentences almost always want the second."
+          },
+          "ex": [["体に悪いと知りつつも、夜ふかしを続けている。", "While knowing it's bad for me, I keep staying up late."], ["この町の人口は、減少しつつある。", "This town's population is in the process of declining."]]
+        },
+        {
+          "id": "monono", "jp": "〜ものの", "en": "though — the written but", "kind": "grammar",
+          "exp": {
+            "what": "けど climbed all the rungs: が, のに, くせに — and ものの is the written landing: 申し込んだものの、行けるかどうか分からない — I applied, though whether I can go is another matter. Concession without のに's frustration or くせに's accusation: just the fact, then the complication.",
+            "build": "Plain form + ものの: 買ったものの, 便利なものの (na-adjectives take な／である). The second clause often trails into uncertainty — 〜かどうか分からない is its favourite ending.",
+            "when": "Written reflection and reports: things done whose outcomes wobble. The pattern of half-finished plans and honest progress reports.",
+            "watch": "ものの stays cool — it cannot carry のに's sting. 約束したのに来なかった accuses; 約束したものの来られなかった merely records. Choosing between them IS the register choice."
+          },
+          "ex": [["申請書を出したものの、承認されるかどうか分からない。", "I submitted the application, though whether it will be approved is another question."], ["日本語を三年勉強したものの、敬語はまだ難しい。", "Though I've studied Japanese three years, keigo is still hard."]]
+        },
+        {
+          "id": "cc-bunsho", "jp": "書きことばという別の国", "en": "written Japanese is a second country", "kind": "culture",
+          "exp": {
+            "what": "Formal written Japanese is not polite spoken Japanese written down — it is a parallel register with its own vocabulary table. だ・である replaces です・ます in reports; 〜より (from) opens official mail; 及び means and, 並びに means and-between-groups; する verbs shed する in headlines (来月値上げ). The patterns of this stage — における, に伴い, に先立ち — are its native grammar.",
+            "build": "The conversion table worth owning early: でも→しかし, だから→したがって, どんどん→急速に, とても→非常に. One column is your speech; the other is every document you will file.",
+            "when": "Reading official mail, writing anything an office will stamp, and — the quiet payoff — recognising why NHK subtitles and LINE messages feel like different languages. They are.",
+            "watch": "The registers must not leak INTO each other: したがって in chat is as wrong as だから in a report. N2's writing section is largely a test of keeping the two countries' borders."
+          },
+          "ex": [["会議の資料は、木曜までに提出のこと。", "Meeting materials to be submitted by Thursday. (the noticeboard imperative — のこと)"]]
+        },
+        {
+          "id": "b-s49", "jp": "Composition · 申請の一段落", "en": "one paragraph, filed", "kind": "build",
+          "exp": {
+            "what": "Write one application paragraph in である-register: the occasion (を機に), the basis (上で), the concession (ものの), and the request. Then say the same thing to a friend in three casual lines.",
+            "build": "Shape to steal: 転職を機に、貴校での学習を希望する。仕事を続けつつの通学になるものの、検討した上での決断である。",
+            "when": "This is the N2 writing task in miniature, and the two-register rewrite is the whole skill this stage taught.",
+            "watch": "The casual rewrite is not a decoration — if you cannot say it plainly, the formal version was probably assembled rather than meant."
+          },
+          "ex": [["よく考えた上での決断であるものの、不安もある。", "It is a decision made upon due consideration — though not without anxiety."]]
+        },
+        {
+          "id": "rc10", "jp": "復習 · Stage 11", "en": "checkpoint: the full stage", "kind": "review",
+          "covers": ["zaruwoenai", "youganai", "kaneru", "mai", "nukide", "sb-zaru", "nisaishite", "niatatte", "teirai", "kanaikauchini", "tekaradenaito", "wotowazu", "nominarazu", "hamotoyori", "niwatatte", "wotsuujite", "nikagirazu", "sb-kagiru", "kotokara", "kotodakara", "dakeni", "dakeatte", "nitsuki", "ijouwa", "nihokanaranai", "nisouinai", "nikimatteiru", "toiumonoda", "kanoyouda", "sb-kakushin2", "niokeru", "uede", "nitomonatte", "nisakidatte", "wokini", "tsutsu", "monono"],
+          "exp": {
+            "what": "Thirty-seven doors into N2's first rooms: refusal with a collar on, occasions and their speeches, scope declared edge to edge, reasons with registers, certainty at full height, and the written country. If Stage 9 taught arguing and Stage 10 taught precision, this stage taught FORMALITY as a working tool rather than a costume.",
+            "build": "The quiz draws across all six steps. The pairs that share a doorway are the ones worth re-checking: ざるを得ない／ようがない, に際して／にあたって, のみならず／はもとより, だけに／だけあって, に違いない／に相違ない, つつ／ながら, ものの／のに.",
+            "when": "Before moving on — Stage 12 assumes every register here is load-bearing.",
+            "watch": "The stage's single most common error family is register bleed: a spoken certainty in a written sentence, a notice-reason said aloud. When in doubt, ask WHERE the sentence lives before asking what it means."
+          },
+          "ex": [["以上の理由につき、本申請を承認せざるを得ない。", "For the above reasons, this application cannot but be approved. (five patterns, one sentence — the stage in miniature)"]]
+        }
+      ]
+    }
+  ]
+}

@@ -41,7 +41,10 @@ CONTENT = [HERE / "stage-3-content-v1.json", HERE / "milestone-content-v1.json",
            HERE / "stage-10-content-c-v1.json",
            HERE / "stage-9-10-culture-v1.json",
            HERE / "early-builders-v1.json",
-           HERE / "step-19-culture-v1.json"]
+           HERE / "step-19-culture-v1.json",
+           # Stage 11 (N2 opens) — split a/b for authoring only; b chains after a.
+           HERE / "stage-11-content-v1.json",
+           HERE / "stage-11-content-b-v1.json"]
 
 # ————— emit JS in the module's own house style —————
 def js_str(s):

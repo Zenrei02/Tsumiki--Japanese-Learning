@@ -174,6 +174,23 @@ const K = {
   "結": { m: "tie; conclude", on: "ケツ", kun: "むす(ぶ)", story: "The thread 糸 from 終 beside 吉 — a scholar 士 over a mouth 口. Threads tied off: 結果 is the result, 結婚 is marriage. Both are knots.", w: [["結果","けっか","result"],["結婚","けっこん","marriage"]] },
   "字": { m: "character; letter", on: "ジ", look: ["学"], story: "A child 子 under the roof 宀 — where characters get learned. Compare 学, which sits the same child under a different roof. 漢字 is the word this whole module is about.", w: [["漢字","かんじ","kanji"],["字","じ","character; handwriting"]] },
   "漢": { m: "China (old); the kan of kanji", on: "カン", story: "Water 氵 — named at last, after 洗 carried it unlabelled for five groups — beside a dense right half taught whole. It names the old mainland, and survives almost solely inside one word you say every day here: 漢字.", w: [["漢字","かんじ","kanji"]] },
+  "出": { m: "to go/come out", on: "シュツ", kun: "で(る)・だ(す)", story: "A footprint climbing out of a footprint — one 山 shape rising from another. The pair 出る/出す is the door swinging both ways: leave, and put out.", sentence: true, w: [["出る","でる","to go out; to leave"],["出す","だす","to put out; to send"],["提出","ていしゅつ","submission"]] },
+  "早": { m: "early; fast", on: "ソウ", kun: "はや(い)", story: "The sun 日 already up over the horizon line 十 — morning, before you were ready for it.", sentence: true, w: [["早い","はやい","early"],["早く","はやく","early; quickly"]] },
+  "店": { m: "shop", on: "テン", kun: "みせ", story: "The lean-to roof 广 from 広, sheltering a fortune-teller's stall 占 — a stand under an awning, which is what a shop was and, down any shopping street, often still is.", w: [["店","みせ","shop"],["店員","てんいん","shop clerk"],["書店","しょてん","bookshop"]] },
+  "読": { m: "to read", on: "ドク", kun: "よ(む)", story: "Words 言 beside 売, taught whole — the fourth member of the talking family, and the one that works in silence. 読む closes the loop 言・話・語 opened.", sentence: true, w: [["読む","よむ","to read"],["読み終わる","よみおわる","to finish reading"]] },
+  "方": { m: "direction; way; person (polite)", on: "ホウ", kun: "かた", story: "Four strokes doing three jobs: a direction (この方向), a method (やり方 — the かた of doing), and a polite person (あの方). The app's 〜のほうが comparisons have been spelling it in kana for thirty steps.", w: [["方法","ほうほう","method"],["夕方","ゆうがた","evening"],["読み方","よみかた","how to read (something)"]] },
+  "少": { m: "few; a little", on: "ショウ", kun: "すく(ない)・すこ(し)", story: "小 with one more grain flicked off — smallness, going or gone. The shape you have been writing inside 歩 since Group 4, finally out on its own.", sentence: true, w: [["少し","すこし","a little"],["少ない","すくない","few"],["減少","げんしょう","a decrease"]] },
+  "家": { m: "house; home; -ist", on: "カ", kun: "いえ・うち", story: "A pig 豕 under the roof 宀 — livestock under the family roof was what home meant when the character was young. As a suffix it names the person of a craft: 専門家, the expert.", w: [["家","いえ","house"],["家族","かぞく","family"],["専門家","せんもんか","an expert"]] },
+  "心": { m: "heart; mind", on: "シン", kun: "こころ", story: "Four strokes of heartbeat. You have written it inside 思 and 意 and squashed at the left of 忙 — now it stands alone, and 心配 (heart-distribution: worry) finally reads.", sentence: true, w: [["心","こころ","heart; mind"],["心配","しんぱい","worry"],["安心","あんしん","relief"]] },
+  "持": { m: "to hold", on: "ジ", kun: "も(つ)", story: "The hand radical 扌 beside 寺 — and 寺 keeps its sound, じ, exactly as it did in 時. The temple-sound family sb-tera opened now has three members: 時・待・持.", sentence: true, w: [["持つ","もつ","to hold; to have"],["気持ち","きもち","a feeling"],["金持ち","かねもち","a rich person"]] },
+  "忘": { m: "to forget", on: "ボウ", kun: "わす(れる)", story: "亡 — gone — sitting on top of 心, the heart. Something that was in the heart, now missing: forgetting, drawn as an inventory report. Both parts got their names in this week's policy pass, and the character costs nothing.", sentence: true, w: [["忘れる","わすれる","to forget"],["忘れ物","わすれもの","something left behind"]] },
+  "野": { m: "field; wild", on: "ヤ", kun: "の", story: "The village 里 beside 予 — the land out past the last houses. 野菜 are the field's vegetables; 分野 is a field of the abstract kind.", w: [["野菜","やさい","vegetables"],["分野","ぶんや","a field (of work)"]] },
+  "菜": { m: "greens; vegetable", on: "サイ", kun: "な", story: "The grass crown 艹 over a hand picking from a tree — greens, gathered. It waited two groups for 艹 to get its name; 野菜 completes the word the same lesson its partner arrives.", w: [["野菜","やさい","vegetables"]] },
+  "落": { m: "to fall; to drop", on: "ラク", kun: "お(ちる)・お(とす)", story: "The grass crown 艹 over water 氵 beside 各 — leaves onto water, the falling the world does on its own. 落ちる is what happens; 落とす is what you did — the transitivity pair sb-transitive promised keeps arriving.", sentence: true, w: [["落ちる","おちる","to fall"],["落とす","おとす","to drop"],["段落","だんらく","a paragraph"]] },
+  "切": { m: "to cut; precious", on: "セツ", kun: "き(る)", story: "Seven 七 beside the knife 刀 — a tally being cut. 切る cuts things; 大切 is what you would not cut: precious. 締め切り is the cut-off — the deadline this stage's Step 44 lives under.", sentence: true, w: [["切る","きる","to cut"],["大切","たいせつ","important; precious"],["締め切り","しめきり","deadline"]] },
+  "受": { m: "to receive", on: "ジュ", kun: "う(ける)", story: "A hand 爪 above, a hand 又 below, something passing between under a cover — receiving, drawn as the handoff itself. 受付 is where the building does it; 引き受ける is agreeing to catch what is thrown.", sentence: true, w: [["受ける","うける","to receive; to take (a test)"],["受付","うけつけ","reception"],["引き受ける","ひきうける","to take (a task) on"]] },
+  "引": { m: "to pull", on: "イン", kun: "ひ(く)", story: "The bow 弓 and a straight string 丨 — drawn, held. 引く is on half the doors in Japan; 割引 pulls the price down; 引っ越す pulls the whole household somewhere new.", sentence: true, w: [["引く","ひく","to pull"],["割引","わりびき","a discount"],["引っ越す","ひっこす","to move house"]] },
+  "別": { m: "separate; another", on: "ベツ", kun: "わか(れる)", story: "A joint being taken apart by the side-knife 刂 — separation as butchery, softened by a thousand years of use into 別の (another), 特別 (special), and 別れる, the human kind of parting.", w: [["別","べつ","separate; different"],["特別","とくべつ","special"],["性別","せいべつ","sex; gender"]] },
 };
 
 // ————— Lessons —————
@@ -408,6 +425,38 @@ const MODULES = [
     chars: ["社","事","場","予","議","字"],
     exp: "Six characters that spell a working day: the company you joined, the work on the desk, the place it happens, the plan you made, the meeting about it — and the characters you wrote it all down in.\n\nBlank if you can. One stroke from the hint, as always.",
     },
+  { id: "k-t30", kind: "kanji", title: "Out the door", chars: ["出","早","方","家"],
+    rule: "出 is five strokes, not six — the centre vertical runs top to bottom in ONE stroke, and the two 山 shapes hang off it.",
+    wild: "出口 glows green above every station exit, and 入口 answers it at street level. 一方通行 with 方 is the one-way sign down every narrow street. 空き家 in the news is the empty-house problem; 家 on nameplates is simply where someone lives.",
+    exp: "出 is the door swinging both ways: 出る to leave, 出す to put out — the transitivity pair pattern, now on the commonest verb of any morning. Five strokes, one spine.\n\n早 is the sun already over the line — early, and by extension fast. 早く来て carries both at once.\n\n方 does three jobs in four strokes: direction, method (やり方 — the way of doing), and the polite person (あの方). Your grammar has been spelling its ほう in kana since Step 10's comparisons — the character was waiting here.\n\n家 puts a pig 豕 under the roof 宀 — home, as the character's first farmers meant it. As a suffix it names the professional: 専門家, the expert Stage 11's banks keep mentioning.",
+    },
+
+  { id: "k-t31", kind: "kanji", title: "The shopping street", chars: ["店","野","菜","切"],
+    rule: "店's lean-to roof 广 goes up first — dot, horizontal, sweep — before anything shelters under it. Same order as 広.",
+    wild: "野菜100円 on handwritten cardboard outside the greengrocer — likely the first full word this lesson lets you read in the street. 〇〇店 ends the name of half the shops you pass. 締切 with 切 stamps posters and forms; 切符売り場 still sells the paper kind of ticket.",
+    exp: "店 is a stall 占 under the lean-to roof 广 you know from 広 — a shop, which down any 商店街 is still exactly that shape.\n\n野 is the village 里 beside 予: the land past the last houses. 分野 borrows it for abstract fields — the 分野を問わず of Stage 11's recruiting notices.\n\n菜 waited two groups for the grass crown 艹 to get its name, and arrives with its word: 野菜, the field's greens, both characters in one lesson.\n\n切 is a tally 七 meeting the knife 刀. It cuts both ways your life needs: 切る the verb, 大切 the precious (what you would NOT cut), and 締め切り — the deadline, time's own cut-off.",
+    },
+
+  { id: "sb-kokoro", kind: "skill", title: "心 — the heart you already wrote", chars: ["心","思","意","忘"],
+    exp: "心 arrives alone in this group, but you have been writing it for weeks: whole under 思 and 意 in the feelings group, squashed into 忄 beside 忙, and gone-from under 忘 this very lesson. One shape, four sightings, and now a name.\n\nThat is the retro-naming move again — 者 did it for 暑 in Group 7 — and it runs in both directions: knowing 心 re-reads every character it hides in, and every hidden 心 you spot from now on whispers FEELING before you look anything up.\n\nThe two-body rule is worth one look: standing at the left, the heart squashes to 忄 (忙・性・慣); sitting at the bottom, it keeps its full four strokes (思・忘・急). Position decides the costume — the meaning never changes.",
+    },
+
+  { id: "k-t32", kind: "kanji", title: "Hands, taking and holding", chars: ["持","受","引"],
+    rule: "扌 in 持 is three strokes finished before the right side starts — hand first, then what the hand does.",
+    wild: "引 is on half the doors in Japan — 引く PULL, facing 押す PUSH — and misreading the pair is the visitor's universal comedy. 受付 marks the reception desk of every building with a lobby; 割引 pulls prices down on every other poster.",
+    exp: "持 is the hand radical 扌 beside 寺 — and 寺 keeps its sound: じ, exactly as in 時. The temple family sb-tera opened with 時 and 待 now seats a third: hold, wait, hour, all sounding the same bell. 気持ち — the held feeling — is Stage 11 vocabulary already.\n\n受 draws the handoff itself: a hand 爪 above, a hand 又 below, something passing between. 受ける receives; 受付 is where the building receives you; 引き受ける is catching what someone throws.\n\n引 is the bow 弓 from the policy pass with its string drawn 丨. Pull the door, pull the price down (割引), pull the whole household to a new address (引っ越す) — Stage 11's bank in one character.",
+    },
+
+  { id: "k-t33", kind: "kanji", title: "What slips away", chars: ["読","少","忘","落","別"],
+    rule: "落 stacks in the order the rain falls: grass crown 艹 first, then the water 氵, then 各 — top, left, right.",
+    wild: "お忘れ物のないように — the train's nightly plea, with 忘 in the middle. 落し物 is the lost-property sign at the station office. 少々お待ちください hangs in every service queue, and 特別 with 別 sells everything from trains to cakes.",
+    exp: "読 completes the talking family — 言 spoke, 話 conversed, 語 named languages, and 読 reads them in silence. The right side stays folded; the sound どく is what to keep.\n\n少 is 小 with one grain flicked away — few. You wrote it inside 歩 in Group 4; here it stands alone, and 少し, one of the most-said words in the language, finally shows its face.\n\n忘 is this group's cleanest assembly: 亡 gone, over 心 the heart. Was in the heart; now missing. Both parts were named this week and the character costs nothing.\n\n落 is the grass 艹 and water 氵 stacked over 各 — leaves onto a stream. 落ちる happens; 落とす is your fault: the transitivity pair, weathered into nature.\n\n別 takes a joint apart with the side-knife 刂 — separate, another, special (特別), and 別れる, the human parting. The knife got its name in the policy pass; the word 性別 sits in Stage 11's Step 46 bank.",
+    },
+
+  { id: "cp-machi", kind: "checkpoint", title: "Checkpoint — out in town",
+    chars: ["出","店","心","持","読","別"],
+    exp: "Six characters that walk one errand: out the door, into the shop, the feeling you carry, the thing you hold, the sign you read, and the goodbye at the corner.\n\nBlank if you can. One stroke from the hint, as always.",
+    },
 ];
 
 // ————— Progress migration: order-v1 → order-v2 lesson ids (Session 10) —————
@@ -476,6 +525,9 @@ const GROUPS = [
   { title: "The working week",
     blurb: "The company and the doers in it, the places and plans, the reasons said out loud — and 漢字 itself, finally written by the people learning it. 者 steps out of 暑, 里 keeps its sound, and 氵 gets its name.",
     ids: ["k-t26","sb-mono","k-t27","k-t28","k-t29","cp-work"] },
+  { title: "Out and about",
+    blurb: "The street's own vocabulary: doors and exits, the shopping street, hands that take and hold, and the things that slip away. 心 steps out of 思・意・忘, 寺 rings its third bell in 持, and 引く finally explains every door you've pushed.",
+    ids: ["k-t30","k-t31","sb-kokoro","k-t32","k-t33","cp-machi"] },
 ];
 const INTRO = MODULES.find((m) => m.id === "cc-intro");
 const FURIGANA = MODULES.find((m) => m.id === "cc-furigana");

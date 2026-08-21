@@ -49,6 +49,12 @@ const CASES = [
   ["買う", "godan-u", "zu", "買わず"],
   // ある exception
   ["ある", "godan-ru", "nai", "ない"], ["ある", "godan-ru", "nakatta", "なかった"],
+  // N2 forms (Stage 11)
+  ["行く", "godan-ku", "zaru", "行かざる"], ["勉強する", "suru", "zaru", "勉強せざる"],
+  ["食べる", "ichidan", "zaru", "食べざる"], ["来る", "kuru", "zaru", "こざる"],
+  ["行く", "godan-ku", "maiF", "行くまい"], ["食べる", "ichidan", "maiF", "食べるまい"],
+  ["分かる", "godan-ru", "kaneruF", "分かりかねる"], ["答える", "ichidan", "kaneruF", "答えかねる"],
+  ["知る", "godan-ru", "tsutsuF", "知りつつ"], ["増える", "ichidan", "tsutsuF", "増えつつ"],
 ];
 
 let fail = 0;
