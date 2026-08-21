@@ -1,166 +1,406 @@
 {
-  "_": "Stage 16 · The literary machine — Steps 70–71, rc14, ms-n1. The curriculum's final file.",
-  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch T continues. ms-n1's claim is gated on tonight's coverage audit against n1-list-jlptgrammarlist.json, per the ms-n3 rule.",
-  "insert": [],
-  "new_steps": [
+ "_": "Stage 16 · The literary machine — Steps 70–71, rc14, ms-n1. The curriculum's final file.",
+ "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch T continues. ms-n1's claim is gated on tonight's coverage audit against n1-list-jlptgrammarlist.json, per the ms-n3 rule.",
+ "insert": [],
+ "new_steps": [
+  {
+   "cat": "Step 70 · Covered in, carried along",
+   "level": "S16",
+   "after_step": "Step 69 · One and only",
+   "note": "The texture suffixes and companion patterns: what a thing is coated in, steeped in, done alongside, and amplified by. Small forms, vivid work.",
+   "bank": [
+    [
+     "泥だらけ",
+     "mud-covered"
+    ],
+    [
+     "埃",
+     "dust"
+    ],
+    [
+     "汗",
+     "sweat"
+    ],
+    [
+     "満面",
+     "the whole face"
+    ],
+    [
+     "祝賀",
+     "celebration (formal)"
+    ],
+    [
+     "兼業",
+     "a side occupation"
+    ],
+    [
+     "相乗効果",
+     "synergy"
+    ],
+    [
+     "風物詩",
+     "a seasonal fixture"
+    ]
+   ],
+   "points": [
     {
-      "cat": "Step 70 · Covered in, carried along",
-      "level": "S16",
-      "after_step": "Step 69 · One and only",
-      "note": "The texture suffixes and companion patterns: what a thing is coated in, steeped in, done alongside, and amplified by. Small forms, vivid work.",
-      "bank": [["泥だらけ", "mud-covered"], ["埃", "dust"], ["汗", "sweat"], ["満面", "the whole face"], ["祝賀", "celebration (formal)"], ["兼業", "a side occupation"], ["相乗効果", "synergy"], ["風物詩", "a seasonal fixture"]],
-      "points": [
-        {
-          "id": "mamire", "jp": "〜まみれ・ずくめ・ぐるみ", "en": "coated, steeped, entire", "kind": "grammar",
-          "exp": {
-            "what": "Three totalities. まみれ coats a surface in something unwelcome: 汗まみれ, 泥まみれ, 借金まみれ — smeared to the skin. ずくめ steeps a stretch in one color or kind: 黒ずくめの男, いいことずくめ — nothing but. ぐるみ takes a unit whole into an action: 家族ぐるみの付き合い — a friendship family-and-all.",
-            "build": "Noun + まみれ (dirt-class nouns: 汗・泥・血・埃・借金). Noun + ずくめ (colors, 規則, いいこと). Noun + ぐるみ (家族・町・会社 — social units).",
-            "when": "Physical description, streaks of fortune, and whole-community efforts — 町ぐるみで応援する is the local-news fossil.",
-            "watch": "まみれ keeps to surfaces and burdens — 幸せまみれ breaks the coating image. だらけ (Stage 11's cousin) counts instances; まみれ smears continuously: 間違いだらけ but 泥まみれ. ずくめ's negative use (規則ずくめ) carries suffocation."
-          },
-          "ex": [["少年たちは、泥まみれになるまでボールを追った。", "The boys chased the ball until they were mud to the skin."], ["今月は、いいことずくめの一か月だった。", "This month was one good thing after another — nothing but."]]
-        },
-        {
-          "id": "gatera", "jp": "〜がてら・かたがた・かたわら", "en": "while at it; and also to; alongside", "kind": "grammar",
-          "exp": {
-            "what": "Three two-birds patterns, ranked by dress. がてら is the casual errand-pair: 散歩がてら、パンを買ってきた — bought bread while walking anyway. かたがた is its formal twin, for visits with two purposes: お礼かたがた、ご挨拶に伺いました. かたわら runs two LIVES in parallel: 会社勤めのかたわら、小説を書く — writing novels alongside the office job.",
-            "build": "ます-stem／noun + がてら. Noun + かたがた (お礼・お詫び・ご報告 — courtesy nouns). Noun の／dictionary form + かたわら.",
-            "when": "がてら daily; かたがた in formal visits and letters; かたわら in profiles — the second career's grammar, and 兼業's sentence-form.",
-            "watch": "がてら's main act comes FIRST (the walk), the bonus second; reversing them reverses the errand's honesty. かたわら needs sustained parallel lives — a one-day pairing is がてら wearing a suit too big."
-          },
-          "ex": [["買い物がてら、新しいパン屋をのぞいてみた。", "While out shopping anyway, I peeked into the new bakery."], ["彼女は教師のかたわら、翻訳の仕事も続けている。", "Alongside teaching, she keeps up her translation work."]]
-        },
-        {
-          "id": "toaimatte", "jp": "〜と相まって・も手伝って", "en": "combining with; abetted by", "kind": "grammar",
-          "exp": {
-            "what": "Synergy's grammar. と相まって multiplies two named causes: 好天と相まって、祭りは大盛況だった — the fine weather combining with the rest, the festival overflowed. も手伝って adds an abetting factor, often to outcomes that got away: 緊張も手伝って、早口になった — nerves lending a hand, the words rushed.",
-            "build": "Noun + と相まって／が相まって. Noun + も手伝って. Both formal-written; both need the OTHER cause present in context.",
-            "when": "Reviews, reports and retrospectives — wherever an outcome had two parents. 相乗効果 is the bank word it formalizes.",
-            "watch": "相まって needs genuinely co-acting causes, not a list; three or more collapses it into など. も手伝って's factor is secondary by grammar — promoting it to sole cause misreads the も."
-          },
-          "ex": [["円安と相まって、観光客が急増した。", "Combining with the weak yen, tourist numbers surged."], ["空腹も手伝って、その定食は格別にうまく感じられた。", "Hunger lending a hand, the set meal tasted exceptional."]]
-        },
-        {
-          "id": "nishitagai2", "jp": "〜に至るまで・を経て・を皮切りに", "en": "down to the last; by way of; starting the run with", "kind": "grammar",
-          "exp": {
-            "what": "Three span-markers for itineraries and careers. に至るまで sweeps down to the least item: 靴下の色に至るまで決められている — regulated down to sock color. を経て routes through stations: 大阪支社を経て、本社へ — via the Osaka office. を皮切りに fires a starting gun on a series: 東京公演を皮切りに、全国を回る — Tokyo first, then the nation.",
-            "build": "Noun + に至るまで (paired with から: 上は〜から下は〜に至るまで). Noun + を経て. Noun + を皮切りに（して）+ the continuing series.",
-            "when": "に至るまで in astonished audits of thoroughness; を経て in résumés and histories; を皮切りに in tour and campaign announcements.",
-            "watch": "を皮切りに needs the series to actually continue — a single event has no 皮切り. に至るまで's astonishment is the point: listing ordinary scope with it manufactures surprise where none is."
-          },
-          "ex": [["この旅館は、箸置きに至るまで主人の手作りだ。", "At this inn, everything down to the chopstick rests is the master's own work."], ["彼は、留学と現地勤務を経て、今の職に就いた。", "By way of study abroad and a local posting, he arrived at his current post."]]
-        },
-        {
-          "id": "b-s70", "jp": "Composition · 祭りのルポ", "en": "the festival, reported", "kind": "build",
-          "exp": {
-            "what": "A five-line color report on a town festival: the whole-town unit (ぐるみ), the coated kids (まみれ), the two-purpose visit (がてら), the co-acting causes (と相まって), and the thoroughness audit (に至るまで).",
-            "build": "Local-paper register — warm である prose. Every pattern in this step natively lives in exactly this article.",
-            "when": "The 風物詩 piece is a real and learnable genre; one draft of it converts the whole step to production.",
-            "watch": "One まみれ per report. Two and the festival reads as a disaster."
-          },
-          "ex": [["町ぐるみの祭りは、好天と相まって、例年にない賑わいを見せた。", "The whole-town festival, the fine weather conspiring, drew crowds beyond any recent year."]]
-        }
+     "id": "mamire",
+     "jp": "〜まみれ・ずくめ・ぐるみ",
+     "en": "coated, steeped, entire",
+     "kind": "grammar",
+     "exp": {
+      "what": "Three totalities. まみれ coats a surface in something unwelcome: 汗まみれ, 泥まみれ, 借金まみれ — smeared to the skin. ずくめ steeps a stretch in one color or kind: 黒ずくめの男, いいことずくめ — nothing but. ぐるみ takes a unit whole into an action: 家族ぐるみの付き合い — a friendship family-and-all.",
+      "build": "Noun + まみれ (dirt-class nouns: 汗・泥・血・埃・借金). Noun + ずくめ (colors, 規則, いいこと). Noun + ぐるみ (家族・町・会社 — social units).",
+      "when": "Physical description, streaks of fortune, and whole-community efforts — 町ぐるみで応援する is the local-news fossil.",
+      "watch": "まみれ keeps to surfaces and burdens — 幸せまみれ breaks the coating image. だらけ (Stage 11's cousin) counts instances; まみれ smears continuously: 間違いだらけ but 泥まみれ. ずくめ's negative use (規則ずくめ) carries suffocation."
+     },
+     "ex": [
+      [
+       "少年たちは、泥まみれになるまでボールを追った。",
+       "The boys chased the ball until they were mud to the skin."
+      ],
+      [
+       "今月は、いいことずくめの一か月だった。",
+       "This month was one good thing after another — nothing but."
       ]
+     ]
     },
     {
-      "cat": "Step 71 · The operators of record",
-      "level": "S16",
-      "after_step": "Step 70 · Covered in, carried along",
-      "note": "The last machinery: the operators official prose runs on — effective dates, governing standards, heedless disregard — plus the two gathering lessons that close the N1 adverb and spoken tiers. Then rc14, and the course's final milestone.",
-      "bank": [["施行", "coming into force"], ["発足", "inauguration; launch"], ["基盤", "a foundation; base"], ["変遷", "transitions; evolution"], ["先駆け", "a forerunner"], ["節目", "a milestone; juncture"], ["集大成", "a culmination"], ["幕開け", "the curtain's rise"]],
-      "points": [
-        {
-          "id": "womotte", "jp": "〜をもって・を限りに", "en": "as of; with this, the last", "kind": "grammar",
-          "exp": {
-            "what": "The closing-formula pair. をもって stamps an effective instant or names a formal instrument: 本日をもって閉店いたします — as of today, we close; 実力をもって示す — demonstrate by means of ability. を限りに draws the final line: 今日を限りに、酒をやめる — today is the last of it.",
-            "build": "Time noun + をもって (effective date); means noun + をもって (formal instrument); これをもちまして is the ceremony-closing fossil. Time noun + を限りに + the ending.",
-            "when": "Closings of every kind — shops, ceremonies, careers, habits. The register is stamped paper even when spoken.",
-            "watch": "をもって's two jobs split by noun type; 声を限りに (at the top of one's voice) is を限りに's one non-temporal fossil. Neither pattern opens anything — they are ink for endings."
-          },
-          "ex": [["本日の営業は、午後五時をもって終了いたします。", "Today's business concludes as of five p.m."], ["この試合を限りに、彼は現役を退いた。", "With that match as the last, he retired from play."]]
-        },
-        {
-          "id": "nisokushite", "jp": "〜に則って・に即して・に照らして", "en": "per the code; fitted to the facts; held to the light", "kind": "grammar",
-          "exp": {
-            "what": "Stage 14's basis-geometries gain their N1 floor. に則って follows codified rule: 規則に則って処理する — per the code, nori from 法. に即して fits action to the facts on the ground: 現状に即した対策 — measures fitted to how things stand. に照らして holds a case up against a standard's light: 判例に照らして判断する.",
-            "build": "Rule-noun + に則って; fact-noun + に即して; standard-noun + に照らして. All three prefer legal-administrative company.",
-            "when": "Law, policy and formal argument. sb-kijun's four geometries plus these three complete the full basis-lattice — seven prepositions English renders as 'according to.'",
-            "watch": "The three split cleanly: 則 codes, 即 facts, 照 tests. に則って a mood or に即して a law are category errors the exam sets annually."
-          },
-          "ex": [["手続きは、定款に則って行われた。", "The proceedings were conducted per the articles."], ["理想論ではなく、実態に即して考えるべきだ。", "Think fitted to the actual state of things, not to ideals."]]
-        },
-        {
-          "id": "woyosoni", "jp": "〜をよそに・をものともせず・を顧みず", "en": "heedless of — three temperatures", "kind": "grammar",
-          "exp": {
-            "what": "The disregard trio, ranked by what gets ignored. をよそに brushes aside others' concern: 親の心配をよそに、彼は旅に出た — his parents' worry left on the far shore. をものともせず treats an obstacle as no obstacle, heroically: 悪天候をものともせず — making nothing of the weather. を顧みず declines to look back at one's own cost: 危険を顧みず — without regard for the danger.",
-            "build": "Others'-feelings noun + をよそに. Obstacle noun + をものともせず. 危険・身の安全・家庭 + を（も）顧みず.",
-            "when": "Narrative and news. The trio's verdicts differ: をよそに tuts, をものともせず applauds, を顧みず holds its breath — same syntax, three moral temperatures.",
-            "watch": "Swap the nouns and the moral flips: 家族の反対をものともせず applauds what をよそに would tut at. The choice IS the editorial."
-          },
-          "ex": [["周囲の反対をよそに、二人は結婚した。", "Heedless of the objections around them, the two married."], ["彼女は、けがをものともせず、最後まで走り抜いた。", "Making nothing of the injury, she ran it out to the end."]]
-        },
-        {
-          "id": "ikan", "jp": "〜いかんだ／いかんによっては・いかんによらず・にあって", "en": "depending on the how; whatever it be; situated in", "kind": "grammar",
-          "exp": {
-            "what": "The last conditionals of record. いかん hangs outcomes on an unresolved variable: 結果いかんでは、計画を見直す — depending on how results fall; いかんによらず／いかんにかかわらず waives the variable entirely: 理由のいかんによらず、返品は不可. にあって situates formally: 非常時にあって — placed in an emergency, this-being-the-circumstance.",
-            "build": "Noun（の） + いかんだ／いかんでは／いかんによっては; + いかんによらず／にかかわらず for the waiver. Situation noun + にあって（は）.",
-            "when": "Regulations and formal assessment — いかん is 次第's courthouse cousin. にあって in commemorative prose: この節目にあって, at this juncture.",
-            "watch": "いかん takes only true variables (結果・内容・理由); a settled noun voids it. The waiver form on application forms is the one every resident eventually reads: 理由のいかんを問わず."
-          },
-          "ex": [["交渉の結果いかんによっては、撤退もあり得る。", "Depending on how negotiations fall, withdrawal too is conceivable."], ["困難な時代にあって、彼は基盤を築いた。", "Situated in a hard era, he laid the foundation."]]
-        },
-        {
-          "id": "cc-fukushi3", "jp": "最後の副詞の引き出し", "en": "the last adverb drawer", "kind": "culture",
-          "exp": {
-            "what": "N1's adverb tier, one scene as always — a veteran reporter filing on deadline. あらかじめ (in advance) the prep; かつて (once, in a former age) the background; いまだに (even now) the survival; 案の定 (as feared-slash-expected) the confirmation; てっきり (dead certain — wrongly) the confession; さぞ (how it must have been) the empathy; とりわけ (above all) the highlight; ことごとく (every last one) the sweep; もはや (by now, already past) the verdict; 極めて (in the extreme) the measurement; あえて (daring to, pointedly) the choice; あくまでも (to the very end, on principle) the stance; いかにも (exactly as one would look) the appearance; およそ (roughly; utterly-not) the frame; とっさに (in the reflex of the moment) the reaction; 何しろ (at any rate, you see) the excuse; さもないと (or else) the warning; まるっきり (completely, colloquially) the dismissal; いずれにせよ (either way) the close.",
-            "build": "The axes as before: time (あらかじめ・かつて・いまだに・もはや), certainty (案の定・てっきり・さぞ), scale (極めて・ことごとく・およそ・まるっきり), stance (あえて・あくまでも・いかにも・とりわけ). The axis is the hook; nineteen definitions alone will shuffle by morning.",
-            "when": "てっきり and 案の定 are the pair that upgrades everyday storytelling immediately — the wrong certainty and the confirmed hunch are half of all anecdotes.",
-            "watch": "あくまでも in negotiation (あくまでも個人の意見ですが) is the politest immovability in the language — hear it as a wall, deliver it as one."
-          },
-          "ex": [["てっきり冗談かと思ったら、案の定、本気だった。", "I was dead certain it was a joke — and, as feared, he meant it."]]
-        },
-        {
-          "id": "cc-kaiwa2", "jp": "話しことばの最終回", "en": "the spoken tier's last episode", "kind": "culture",
-          "exp": {
-            "what": "The N1-list items that live only in mouths, gathered: ってば (I SAID — exasperated repetition: 待ってってば); やしない (won't even, dismissively: 聞きやしない); というか (or rather, the mid-sentence recast); ときている (and on top of it, it's — the complaint's capstone); ないものか (is there not some way — wishing aloud); に言わせれば (if you ask me/her — the opinionated preface); のなんの (already met, waving from Stage 15); ですら and であれ in their spoken cameos.",
-            "build": "None of these are produced from rules — they are absorbed as melodies. The lesson is recognition plus one production license: というか, the most useful self-repair in Japanese conversation.",
-            "when": "Drama scripts, real arguments, and the exact register no textbook teaches. Understanding ってば means understanding you were not listening — valuable intelligence.",
-            "watch": "やしない and ときている both carry contempt; borrowed too early they fit like someone else's jacket. というか alone is safe everywhere — start there."
-          },
-          "ex": [["だから、違うってば。というか、話を聞いてよ。", "I SAID that's not it. Or rather — just listen, would you?"]]
-        },
-        {
-          "id": "b-s71", "jp": "Composition · 閉幕の辞", "en": "the closing address", "kind": "build",
-          "exp": {
-            "what": "The course's final composition: a six-line closing address for an event — the effective close (をもって), the governing thanks (に則って is optional; なくして from Stage 15 welcome), the heedless-of-difficulty tribute (をものともせず), the juncture (にあって), the last-line vow (を限りに or てやまない), and one adverb from the final drawer.",
-            "build": "これをもちまして…お開きとさせていただきます is the frame every Japanese event closes inside — write once, recognize forever.",
-            "when": "Every farewell party, graduation and project wrap the learner will ever attend ends with this genre. It is the right final exercise on purpose.",
-            "watch": "Closing addresses thank; they do not summarize. The temptation to recap is the register error — the room already knows what happened."
-          },
-          "ex": [["これをもちまして、本日の会を閉じさせていただきます。", "With this, we bring today's gathering to its close."]]
-        },
-        {
-          "id": "rc14", "jp": "復習 · Stage 16", "en": "checkpoint: the full stage", "kind": "review",
-          "covers": ["gahayaika", "sobakara", "toomoikiya", "tekaratoiumono", "sb-shunkan", "beku", "bekarazu", "nbakari", "woyoginaku", "nakushite", "sb-beku", "naradeha", "gotoki", "narini", "meku", "tomonaku", "mamire", "gatera", "toaimatte", "nishitagai2", "womotte", "nisokushite", "woyosoni", "ikan", "cc-fukushi3", "cc-kaiwa2"],
-          "exp": {
-            "what": "The literary machine, reviewed: the narrator's instants, duty in classical armor, singularity and seeming, textures and companions, and the operators of record. With Stage 15, this is the N1 syllabus as the named list measures it — the audit says the rest.",
-            "build": "The final doorway pairs: が早いか／や否や／なり, べく／べき, んばかり／とばかり, ならでは／をおいて, まみれ／だらけ, をもって／を限りに, 則って／即して／照らして.",
-            "when": "Before trusting ms-n1 — which, like ms-n2 before it, claims nothing the audit has not counted.",
-            "watch": "The stage's standing risk is REGISTER GRAVITY: this grammar pulls prose upward, and a learner fresh from it writes emails like imperial rescripts. The cure is the same as ever — say it plainly first, then dress it only as far as the room requires."
-          },
-          "ex": [["これをもって、全課程の復習を終える。", "With this, the review of the full course concludes."]]
-        },
-        {
-          "id": "ms-n1", "jp": "マイルストーン · N1", "en": "the far shore", "kind": "review",
-          "exp": {
-            "what": "This is the last milestone the course will ever state, so it is stated carefully. The N1 syllabus, as a named public list measures it, has been taught — checked against that list before this sentence was written, with tonight's audit filed beside it. What you now hold is not fluency; it is the complete toolkit the tests can name: every register from the konbini counter to the imperial rescript, every fossil of the classical negative, every operator a contract or an editorial runs on.",
-            "build": "What remains cannot be listed, which is the point: collocation, rhythm, humor, the ten thousand hours of reading and mishearing and being gently corrected that turn a toolkit into a voice. No course schedules those. The instruments that got you here — patterns anchored in situations, registers chosen on purpose, claims checked before they are made — are the same ones that carry the rest.",
-            "when": "This milestone, like its siblings, states capability and not completion. There is no completion. There is a door, and it is open, and everything interesting is on the other side, written in a language you can now read.",
-            "watch": "The honest caveats, for the last time and in the open: taught means met, not mastered; covered means the list, not the language; and none of it is reviewer-verified yet — that verification began this week, with one person and nine batches, and the whole edifice stands under it. 言葉は使ってこそ。Go use it."
-          },
-          "ex": [["ここから先は、教科書ではなく、あなたの人生が教材だ。", "From here on, the textbook is your life itself."]]
-        }
+     "id": "gatera",
+     "jp": "〜がてら・かたがた・かたわら",
+     "en": "while at it; and also to; alongside",
+     "kind": "grammar",
+     "exp": {
+      "what": "Three two-birds patterns, ranked by dress. がてら is the casual errand-pair: 散歩がてら、パンを買ってきた — bought bread while walking anyway. かたがた is its formal twin, for visits with two purposes: お礼かたがた、ご挨拶に伺いました. かたわら runs two LIVES in parallel: 会社勤めのかたわら、小説を書く — writing novels alongside the office job.",
+      "build": "ます-stem／noun + がてら. Noun + かたがた (お礼・お詫び・ご報告 — courtesy nouns). Noun の／dictionary form + かたわら.",
+      "when": "がてら daily; かたがた in formal visits and letters; かたわら in profiles — the second career's grammar, and 兼業's sentence-form.",
+      "watch": "がてら's main act comes FIRST (the walk), the bonus second; reversing them reverses the errand's honesty. かたわら needs sustained parallel lives — a one-day pairing is がてら wearing a suit too big."
+     },
+     "ex": [
+      [
+       "買い物がてら、新しいパン屋をのぞいてみた。",
+       "While out shopping anyway, I peeked into the new bakery."
+      ],
+      [
+       "彼女は教師のかたわら、翻訳の仕事も続けている。",
+       "Alongside teaching, she keeps up her translation work."
       ]
+     ]
+    },
+    {
+     "id": "toaimatte",
+     "jp": "〜と相まって・も手伝って",
+     "en": "combining with; abetted by",
+     "kind": "grammar",
+     "exp": {
+      "what": "Synergy's grammar. と相まって multiplies two named causes: 好天と相まって、祭りは大盛況だった — the fine weather combining with the rest, the festival overflowed. も手伝って adds an abetting factor, often to outcomes that got away: 緊張も手伝って、早口になった — nerves lending a hand, the words rushed.",
+      "build": "Noun + と相まって／が相まって. Noun + も手伝って. Both formal-written; both need the OTHER cause present in context.",
+      "when": "Reviews, reports and retrospectives — wherever an outcome had two parents. 相乗効果 is the bank word it formalizes.",
+      "watch": "相まって needs genuinely co-acting causes, not a list; three or more collapses it into など. も手伝って's factor is secondary by grammar — promoting it to sole cause misreads the も."
+     },
+     "ex": [
+      [
+       "円安と相まって、観光客が急増した。",
+       "Combining with the weak yen, tourist numbers surged."
+      ],
+      [
+       "空腹も手伝って、その定食は格別にうまく感じられた。",
+       "Hunger lending a hand, the set meal tasted exceptional."
+      ]
+     ]
+    },
+    {
+     "id": "nishitagai2",
+     "jp": "〜に至るまで・を経て・を皮切りに",
+     "en": "down to the last; by way of; starting the run with",
+     "kind": "grammar",
+     "exp": {
+      "what": "Three span-markers for itineraries and careers. に至るまで sweeps down to the least item: 靴下の色に至るまで決められている — regulated down to sock color. を経て routes through stations: 大阪支社を経て、本社へ — via the Osaka office. を皮切りに fires a starting gun on a series: 東京公演を皮切りに、全国を回る — Tokyo first, then the nation.",
+      "build": "Noun + に至るまで (paired with から: 上は〜から下は〜に至るまで). Noun + を経て. Noun + を皮切りに（して）+ the continuing series.",
+      "when": "に至るまで in astonished audits of thoroughness; を経て in résumés and histories; を皮切りに in tour and campaign announcements.",
+      "watch": "を皮切りに needs the series to actually continue — a single event has no 皮切り. に至るまで's astonishment is the point: listing ordinary scope with it manufactures surprise where none is."
+     },
+     "ex": [
+      [
+       "この旅館は、箸置きに至るまで主人の手作りだ。",
+       "At this inn, everything down to the chopstick rests is the master's own work."
+      ],
+      [
+       "彼は、留学と現地勤務を経て、今の職に就いた。",
+       "By way of study abroad and a local posting, he arrived at his current post."
+      ]
+     ]
+    },
+    {
+     "id": "b-s70",
+     "jp": "Composition · 祭りのルポ",
+     "en": "the festival, reported",
+     "kind": "build",
+     "exp": {
+      "what": "A five-line color report on a town festival: the whole-town unit (ぐるみ), the coated kids (まみれ), the two-purpose visit (がてら), the co-acting causes (と相まって), and the thoroughness audit (に至るまで).",
+      "build": "Local-paper register — warm である prose. Every pattern in this step natively lives in exactly this article.",
+      "when": "The 風物詩 piece is a real and learnable genre; one draft of it converts the whole step to production.",
+      "watch": "One まみれ per report. Two and the festival reads as a disaster."
+     },
+     "ex": [
+      [
+       "町ぐるみの祭りは、好天と相まって、例年にない賑わいを見せた。",
+       "The whole-town festival, the fine weather conspiring, drew crowds beyond any recent year."
+      ]
+     ]
     }
-  ]
+   ]
+  },
+  {
+   "cat": "Step 71 · The operators of record",
+   "level": "S16",
+   "after_step": "Step 70 · Covered in, carried along",
+   "note": "The last machinery: the operators official prose runs on — effective dates, governing standards, heedless disregard — plus the two gathering lessons that close the N1 adverb and spoken tiers. Then rc14, and the course's final milestone.",
+   "bank": [
+    [
+     "施行",
+     "coming into force"
+    ],
+    [
+     "発足",
+     "inauguration; launch"
+    ],
+    [
+     "基盤",
+     "a foundation; base"
+    ],
+    [
+     "変遷",
+     "transitions; evolution"
+    ],
+    [
+     "先駆け",
+     "a forerunner"
+    ],
+    [
+     "節目",
+     "a milestone; juncture"
+    ],
+    [
+     "集大成",
+     "a culmination"
+    ],
+    [
+     "幕開け",
+     "the curtain's rise"
+    ]
+   ],
+   "points": [
+    {
+     "id": "womotte",
+     "jp": "〜をもって・を限りに",
+     "en": "as of; with this, the last",
+     "kind": "grammar",
+     "exp": {
+      "what": "The closing-formula pair. をもって stamps an effective instant or names a formal instrument: 本日をもって閉店いたします — as of today, we close; 実力をもって示す — demonstrate by means of ability. を限りに draws the final line: 今日を限りに、酒をやめる — today is the last of it.",
+      "build": "Time noun + をもって (effective date); means noun + をもって (formal instrument); これをもちまして is the ceremony-closing fossil. Time noun + を限りに + the ending.",
+      "when": "Closings of every kind — shops, ceremonies, careers, habits. The register is stamped paper even when spoken.",
+      "watch": "をもって's two jobs split by noun type; 声を限りに (at the top of one's voice) is を限りに's one non-temporal fossil. Neither pattern opens anything — they are ink for endings."
+     },
+     "ex": [
+      [
+       "本日の営業は、午後五時をもって終了いたします。",
+       "Today's business concludes as of five p.m."
+      ],
+      [
+       "この試合を限りに、彼は現役を退いた。",
+       "With that match as the last, he retired from play."
+      ]
+     ]
+    },
+    {
+     "id": "nisokushite",
+     "jp": "〜に則って・に即して・に照らして",
+     "en": "per the code; fitted to the facts; held to the light",
+     "kind": "grammar",
+     "exp": {
+      "what": "Stage 14's basis-geometries gain their N1 floor. に則って follows codified rule: 規則に則って処理する — per the code, nori from 法. に即して fits action to the facts on the ground: 現状に即した対策 — measures fitted to how things stand. に照らして holds a case up against a standard's light: 判例に照らして判断する.",
+      "build": "Rule-noun + に則って; fact-noun + に即して; standard-noun + に照らして. All three prefer legal-administrative company.",
+      "when": "Law, policy and formal argument. sb-kijun's four geometries plus these three complete the full basis-lattice — seven prepositions English renders as 'according to.'",
+      "watch": "The three split cleanly: 則 codes, 即 facts, 照 tests. に則って a mood or に即して a law are category errors the exam sets annually."
+     },
+     "ex": [
+      [
+       "手続きは、定款に則って行われた。",
+       "The proceedings were conducted per the articles."
+      ],
+      [
+       "理想論ではなく、実態に即して考えるべきだ。",
+       "Think fitted to the actual state of things, not to ideals."
+      ]
+     ]
+    },
+    {
+     "id": "woyosoni",
+     "jp": "〜をよそに・をものともせず・を顧みず",
+     "en": "heedless of — three temperatures",
+     "kind": "grammar",
+     "exp": {
+      "what": "The disregard trio, ranked by what gets ignored. をよそに brushes aside others' concern: 親の心配をよそに、彼は旅に出た — his parents' worry left on the far shore. をものともせず treats an obstacle as no obstacle, heroically: 悪天候をものともせず — making nothing of the weather. を顧みず declines to look back at one's own cost: 危険を顧みず — without regard for the danger.",
+      "build": "Others'-feelings noun + をよそに. Obstacle noun + をものともせず. 危険・身の安全・家庭 + を（も）顧みず.",
+      "when": "Narrative and news. The trio's verdicts differ: をよそに tuts, をものともせず applauds, を顧みず holds its breath — same syntax, three moral temperatures.",
+      "watch": "Swap the nouns and the moral flips: 家族の反対をものともせず applauds what をよそに would tut at. The choice IS the editorial."
+     },
+     "ex": [
+      [
+       "周囲の反対をよそに、二人は結婚した。",
+       "Heedless of the objections around them, the two married."
+      ],
+      [
+       "彼女は、けがをものともせず、最後まで走り抜いた。",
+       "Making nothing of the injury, she ran it out to the end."
+      ]
+     ]
+    },
+    {
+     "id": "ikan",
+     "jp": "〜いかんだ／いかんによっては・いかんによらず・にあって",
+     "en": "depending on the how; whatever it be; situated in",
+     "kind": "grammar",
+     "exp": {
+      "what": "The last conditionals of record. いかん hangs outcomes on an unresolved variable: 結果いかんでは、計画を見直す — depending on how results fall; いかんによらず／いかんにかかわらず waives the variable entirely: 理由のいかんによらず、返品は不可. にあって situates formally: 非常時にあって — placed in an emergency, this-being-the-circumstance.",
+      "build": "Noun（の） + いかんだ／いかんでは／いかんによっては; + いかんによらず／にかかわらず for the waiver. Situation noun + にあって（は）.",
+      "when": "Regulations and formal assessment — いかん is 次第's courthouse cousin. にあって in commemorative prose: この節目にあって, at this juncture.",
+      "watch": "いかん takes only true variables (結果・内容・理由); a settled noun voids it. The waiver form on application forms is the one every resident eventually reads: 理由のいかんを問わず."
+     },
+     "ex": [
+      [
+       "交渉の結果いかんによっては、撤退もあり得る。",
+       "Depending on how negotiations fall, withdrawal too is conceivable."
+      ],
+      [
+       "困難な時代にあって、彼は基盤を築いた。",
+       "Situated in a hard era, he laid the foundation."
+      ]
+     ]
+    },
+    {
+     "id": "cc-fukushi3",
+     "jp": "最後の副詞の引き出し",
+     "en": "the last adverb drawer",
+     "kind": "culture",
+     "exp": {
+      "what": "N1's adverb tier, one scene as always — a veteran reporter filing on deadline. あらかじめ (in advance) the prep; かつて (once, in a former age) the background; いまだに (even now) the survival; 案の定 (as feared-slash-expected) the confirmation; てっきり (dead certain — wrongly) the confession; さぞ (how it must have been) the empathy; とりわけ (above all) the highlight; ことごとく (every last one) the sweep; もはや (by now, already past) the verdict; 極めて (in the extreme) the measurement; あえて (daring to, pointedly) the choice; あくまでも (to the very end, on principle) the stance; いかにも (exactly as one would look) the appearance; およそ (roughly; utterly-not) the frame; とっさに (in the reflex of the moment) the reaction; 何しろ (at any rate, you see) the excuse; さもないと (or else) the warning; まるっきり (completely, colloquially) the dismissal; いずれにせよ (either way) the close.",
+      "build": "The axes as before: time (あらかじめ・かつて・いまだに・もはや), certainty (案の定・てっきり・さぞ), scale (極めて・ことごとく・およそ・まるっきり), stance (あえて・あくまでも・いかにも・とりわけ). The axis is the hook; nineteen definitions alone will shuffle by morning.",
+      "when": "てっきり and 案の定 are the pair that upgrades everyday storytelling immediately — the wrong certainty and the confirmed hunch are half of all anecdotes.",
+      "watch": "あくまでも in negotiation (あくまでも個人の意見ですが) is the politest immovability in the language — hear it as a wall, deliver it as one."
+     },
+     "ex": [
+      [
+       "てっきり冗談かと思ったら、案の定、本気だった。",
+       "I was dead certain it was a joke — and, as feared, he meant it."
+      ]
+     ]
+    },
+    {
+     "id": "cc-kaiwa2",
+     "jp": "話しことばの最終回",
+     "en": "the spoken tier's last episode",
+     "kind": "culture",
+     "exp": {
+      "what": "The N1-list items that live only in mouths, gathered: ってば (I SAID — exasperated repetition: 待ってってば); やしない (won't even, dismissively: 聞きやしない); というか (or rather, the mid-sentence recast); ときている (and on top of it, it's — the complaint's capstone); ないものか (is there not some way — wishing aloud); に言わせれば (if you ask me/her — the opinionated preface); のなんの (already met, waving from Stage 15); ですら and であれ in their spoken cameos.",
+      "build": "None of these are produced from rules — they are absorbed as melodies. The lesson is recognition plus one production license: というか, the most useful self-repair in Japanese conversation.",
+      "when": "Drama scripts, real arguments, and the exact register no textbook teaches. Understanding ってば means understanding you were not listening — valuable intelligence.",
+      "watch": "やしない and ときている both carry contempt; borrowed too early they fit like someone else's jacket. というか alone is safe everywhere — start there."
+     },
+     "ex": [
+      [
+       "だから、違うってば。というか、話を聞いてよ。",
+       "I SAID that's not it. Or rather — just listen, would you?"
+      ]
+     ]
+    },
+    {
+     "id": "b-s71",
+     "jp": "Composition · 閉幕の辞",
+     "en": "the closing address",
+     "kind": "build",
+     "exp": {
+      "what": "The course's final composition: a six-line closing address for an event — the effective close (をもって), the governing thanks (に則って is optional; なくして from Stage 15 welcome), the heedless-of-difficulty tribute (をものともせず), the juncture (にあって), the last-line vow (を限りに or てやまない), and one adverb from the final drawer.",
+      "build": "これをもちまして…お開きとさせていただきます is the frame every Japanese event closes inside — write once, recognize forever.",
+      "when": "Every farewell party, graduation and project wrap the learner will ever attend ends with this genre. It is the right final exercise on purpose.",
+      "watch": "Closing addresses thank; they do not summarize. The temptation to recap is the register error — the room already knows what happened."
+     },
+     "ex": [
+      [
+       "これをもちまして、本日の会を閉じさせていただきます。",
+       "With this, we bring today's gathering to its close."
+      ]
+     ]
+    },
+    {
+     "id": "rc14",
+     "jp": "復習 · Stage 16",
+     "en": "checkpoint: the full stage",
+     "kind": "review",
+     "covers": [
+      "gahayaika",
+      "sobakara",
+      "toomoikiya",
+      "tekaratoiumono",
+      "sb-shunkan",
+      "beku",
+      "bekarazu",
+      "nbakari",
+      "woyoginaku",
+      "nakushite",
+      "sb-beku",
+      "naradeha",
+      "gotoki",
+      "narini",
+      "meku",
+      "tomonaku",
+      "mamire",
+      "gatera",
+      "toaimatte",
+      "nishitagai2",
+      "womotte",
+      "nisokushite",
+      "woyosoni",
+      "ikan",
+      "cc-fukushi3",
+      "cc-kaiwa2",
+      "toatte",
+      "karaaru",
+      "wofumaete"
+     ],
+     "exp": {
+      "what": "The literary machine, reviewed: the narrator's instants, duty in classical armor, singularity and seeming, textures and companions, and the operators of record. With Stage 15, this is the N1 syllabus as the named list measures it — the audit says the rest.",
+      "build": "The final doorway pairs: が早いか／や否や／なり, べく／べき, んばかり／とばかり, ならでは／をおいて, まみれ／だらけ, をもって／を限りに, 則って／即して／照らして.",
+      "when": "Before trusting ms-n1 — which, like ms-n2 before it, claims nothing the audit has not counted.",
+      "watch": "The stage's standing risk is REGISTER GRAVITY: this grammar pulls prose upward, and a learner fresh from it writes emails like imperial rescripts. The cure is the same as ever — say it plainly first, then dress it only as far as the room requires."
+     },
+     "ex": [
+      [
+       "これをもって、全課程の復習を終える。",
+       "With this, the review of the full course concludes."
+      ]
+     ]
+    },
+    {
+     "id": "ms-n1",
+     "jp": "マイルストーン · N1",
+     "en": "the far shore",
+     "kind": "review",
+     "exp": {
+      "what": "This is the last milestone the course will ever state, so it is stated carefully. The N1 syllabus, as a named public list measures it, has been taught — checked against that list before this sentence was written, with tonight's audit filed beside it. What you now hold is not fluency; it is the complete toolkit the tests can name: every register from the konbini counter to the imperial rescript, every fossil of the classical negative, every operator a contract or an editorial runs on.",
+      "build": "What remains cannot be listed, which is the point: collocation, rhythm, humor, the ten thousand hours of reading and mishearing and being gently corrected that turn a toolkit into a voice. No course schedules those. The instruments that got you here — patterns anchored in situations, registers chosen on purpose, claims checked before they are made — are the same ones that carry the rest.",
+      "when": "This milestone, like its siblings, states capability and not completion. There is no completion. There is a door, and it is open, and everything interesting is on the other side, written in a language you can now read.",
+      "watch": "The honest caveats, for the last time and in the open: taught means met, not mastered; covered means the list, not the language; and none of it is reviewer-verified yet — that verification began this week, with one person and nine batches, and the whole edifice stands under it. 言葉は使ってこそ。Go use it."
+     },
+     "ex": [
+      [
+       "ここから先は、教科書ではなく、あなたの人生が教材だ。",
+       "From here on, the textbook is your life itself."
+      ]
+     ]
+    }
+   ]
+  }
+ ]
 }

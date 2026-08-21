@@ -2,11 +2,11 @@
  "generated": "2026-08-21",
  "kanji_order": "kanji-order-v3.json",
  "counts": {
-  "total": 662,
+  "total": 763,
   "taught": 111,
-  "enters_module": 76,
-  "visits": 109,
-  "completable": 69,
+  "enters_module": 77,
+  "visits": 110,
+  "completable": 70,
   "taught_with_kanji": 95,
   "ruby_capable": 95,
   "readings_from_patch": 0,
@@ -1115,6 +1115,19 @@
    "kt": null
   },
   {
+   "w": "遅れる",
+   "r": "おくれる",
+   "m": "to be late",
+   "k": [
+    "遅"
+   ],
+   "u": [],
+   "j": false,
+   "s": "Step 11 · Reasons, contrast & connectors",
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "いす",
    "r": null,
    "m": "chair",
@@ -1477,19 +1490,6 @@
    "kt": null
   },
   {
-   "w": "遅れる",
-   "r": "おくれる",
-   "m": "to be late",
-   "k": [],
-   "u": [
-    "遅"
-   ],
-   "j": false,
-   "s": "Step 11 · Reasons, contrast & connectors",
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "静か",
    "r": "しずか",
    "m": "quiet",
@@ -1582,6 +1582,20 @@
    "kt": null
   },
   {
+   "w": "一切",
+   "r": "いっさい",
+   "m": "entirely (not)",
+   "k": [
+    "一",
+    "切"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "一度",
    "r": "いちど",
    "m": "once",
@@ -1610,6 +1624,36 @@
    "kt": null
   },
   {
+   "w": "一滴",
+   "r": "いちてき",
+   "m": "a single drop",
+   "k": [
+    "一"
+   ],
+   "u": [
+    "滴"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "一瞬",
+   "r": "いっしゅん",
+   "m": "an instant",
+   "k": [
+    "一"
+   ],
+   "u": [
+    "瞬"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "一緒",
    "r": "いっしょ",
    "m": "together",
@@ -1618,6 +1662,21 @@
    ],
    "u": [
     "緒"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "唯一",
+   "r": "ゆいいつ",
+   "m": "the one and only",
+   "k": [
+    "一"
+   ],
+   "u": [
+    "唯"
    ],
    "j": false,
    "s": null,
@@ -2006,6 +2065,36 @@
    "kt": null
   },
   {
+   "w": "節目",
+   "r": "ふしめ",
+   "m": "a milestone; juncture",
+   "k": [
+    "目"
+   ],
+   "u": [
+    "節"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "羽目",
+   "r": "はめ",
+   "m": "a fix; predicament",
+   "k": [
+    "目"
+   ],
+   "u": [
+    "羽"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "田中",
    "r": "たなか",
    "m": "Tanaka (name)",
@@ -2212,6 +2301,21 @@
    "kt": null
   },
   {
+   "w": "職人",
+   "r": "しょくにん",
+   "m": "an artisan",
+   "k": [
+    "人"
+   ],
+   "u": [
+    "職"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "入",
    "r": "はい",
    "m": "enter",
@@ -2336,6 +2440,51 @@
     "切"
    ],
    "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "大変",
+   "r": "たいへん",
+   "m": "awful; a lot",
+   "k": [
+    "大",
+    "変"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "膨大",
+   "r": "ぼうだい",
+   "m": "enormous",
+   "k": [
+    "大"
+   ],
+   "u": [
+    "膨"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "集大成",
+   "r": "しゅうたいせい",
+   "m": "a culmination",
+   "k": [
+    "大",
+    "成"
+   ],
+   "u": [
+    "集"
+   ],
    "j": false,
    "s": null,
    "x": null,
@@ -2540,6 +2689,21 @@
    "kt": null
   },
   {
+   "w": "処分",
+   "r": "しょぶん",
+   "m": "disciplinary action",
+   "k": [
+    "分"
+   ],
+   "u": [
+    "処"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "分かる",
    "r": "わかる",
    "m": "to understand",
@@ -2559,6 +2723,20 @@
    "k": [
     "分",
     "野"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "自分",
+   "r": "じぶん",
+   "m": "oneself",
+   "k": [
+    "分",
+    "自"
    ],
    "u": [],
    "j": false,
@@ -2892,6 +3070,20 @@
    "kt": null
   },
   {
+   "w": "証明",
+   "r": "しょうめい",
+   "m": "proof",
+   "k": [
+    "明",
+    "証"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "説明",
    "r": "せつめい",
    "m": "explanation",
@@ -2912,11 +3104,10 @@
    "k": [
     "天",
     "気",
-    "予"
-   ],
-   "u": [
+    "予",
     "報"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -2947,6 +3138,21 @@
     "週"
    ],
    "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "先駆け",
+   "r": "さきがけ",
+   "m": "a forerunner",
+   "k": [
+    "先"
+   ],
+   "u": [
+    "駆"
+   ],
    "j": false,
    "s": null,
    "x": null,
@@ -2990,6 +3196,21 @@
     "持"
    ],
    "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "気配",
+   "r": "けはい",
+   "m": "a presence; sign",
+   "k": [
+    "気"
+   ],
+   "u": [
+    "配"
+   ],
    "j": false,
    "s": null,
    "x": null,
@@ -3066,6 +3287,21 @@
    "kt": null
   },
   {
+   "w": "偏見",
+   "r": "へんけん",
+   "m": "prejudice",
+   "k": [
+    "見"
+   ],
+   "u": [
+    "偏"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "意見",
    "r": "いけん",
    "m": "an opinion",
@@ -3130,6 +3366,21 @@
     "強"
    ],
    "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "施行",
+   "r": "しこう",
+   "m": "coming into force",
+   "k": [
+    "行"
+   ],
+   "u": [
+    "施"
+   ],
    "j": false,
    "s": null,
    "x": null,
@@ -3210,11 +3461,10 @@
    "r": "まちがい",
    "m": "a mistake",
    "k": [
-    "間"
-   ],
-   "u": [
+    "間",
     "違"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -3416,6 +3666,20 @@
    "kt": null
   },
   {
+   "w": "能力",
+   "r": "のうりょく",
+   "m": "ability",
+   "k": [
+    "力",
+    "能"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "お土産",
    "r": "おみやげ",
    "m": "souvenir",
@@ -3449,6 +3713,20 @@
    "m": "say",
    "k": [
     "言"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "言い出しっぺ",
+   "r": "いいだしっぺ",
+   "m": "the one who suggested it",
+   "k": [
+    "言",
+    "出"
    ],
    "u": [],
    "j": false,
@@ -3491,11 +3769,10 @@
    "r": "しょうげん",
    "m": "testimony",
    "k": [
-    "言"
-   ],
-   "u": [
+    "言",
     "証"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -3589,6 +3866,34 @@
    "m": "tree",
    "k": [
     "木"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "本場",
+   "r": "ほんば",
+   "m": "the authentic home (of a thing)",
+   "k": [
+    "本",
+    "場"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "本当",
+   "r": "ほんとう",
+   "m": "truth; really",
+   "k": [
+    "本",
+    "当"
    ],
    "u": [],
    "j": false,
@@ -3804,6 +4109,21 @@
    "kt": null
   },
   {
+   "w": "幕開け",
+   "r": "まくあけ",
+   "m": "the curtain's rise",
+   "k": [
+    "開"
+   ],
+   "u": [
+    "幕"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "開",
    "r": "あ",
    "m": "open",
@@ -3878,6 +4198,36 @@
     "文"
    ],
    "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "傑作",
+   "r": "けっさく",
+   "m": "a masterpiece",
+   "k": [
+    "作"
+   ],
+   "u": [
+    "傑"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "駄作",
+   "r": "ださく",
+   "m": "a dud; failure of a work",
+   "k": [
+    "作"
+   ],
+   "u": [
+    "駄"
+   ],
    "j": false,
    "s": null,
    "x": null,
@@ -4091,6 +4441,21 @@
    "kt": null
   },
   {
+   "w": "名残",
+   "r": "なごり",
+   "m": "traces; the remains of",
+   "k": [
+    "名"
+   ],
+   "u": [
+    "残"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "署名",
    "r": "しょめい",
    "m": "a signature",
@@ -4106,15 +4471,29 @@
    "kt": null
   },
   {
-   "w": "当たり前",
-   "r": "あたりまえ",
-   "m": "obvious; only natural",
+   "w": "寸前",
+   "r": "すんぜん",
+   "m": "the verge; just before",
    "k": [
     "前"
    ],
    "u": [
+    "寸"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "当たり前",
+   "r": "あたりまえ",
+   "m": "obvious; only natural",
+   "k": [
+    "前",
     "当"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -4571,6 +4950,34 @@
    "kt": null
   },
   {
+   "w": "物価",
+   "r": "ぶっか",
+   "m": "prices (in general)",
+   "k": [
+    "物",
+    "価"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "物音",
+   "r": "ものおと",
+   "m": "a (suspicious) sound",
+   "k": [
+    "物",
+    "音"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "荷物",
    "r": "にもつ",
    "m": "luggage; a parcel",
@@ -4579,6 +4986,22 @@
    ],
    "u": [
     "荷"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "風物詩",
+   "r": "ふうぶつし",
+   "m": "a seasonal fixture",
+   "k": [
+    "物",
+    "風"
+   ],
+   "u": [
+    "詩"
    ],
    "j": false,
    "s": null,
@@ -4805,10 +5228,26 @@
    "r": "せいか",
    "m": "results; fruits",
    "k": [
+    "果",
+    "成"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "相乗効果",
+   "r": "そうじょうこうか",
+   "m": "synergy",
+   "k": [
     "果"
    ],
    "u": [
-    "成"
+    "相",
+    "乗",
+    "効"
    ],
    "j": false,
    "s": null,
@@ -4874,6 +5313,20 @@
    "kt": null
   },
   {
+   "w": "合図",
+   "r": "あいず",
+   "m": "a signal",
+   "k": [
+    "図",
+    "合"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "社長",
    "r": "しゃちょう",
    "m": "company president",
@@ -4893,11 +5346,10 @@
    "r": "じけん",
    "m": "an incident",
    "k": [
-    "事"
-   ],
-   "u": [
+    "事",
     "件"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -4912,6 +5364,21 @@
     "実"
    ],
    "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "事態",
+   "r": "じたい",
+   "m": "the situation; state of affairs",
+   "k": [
+    "事"
+   ],
+   "u": [
+    "態"
+   ],
    "j": false,
    "s": null,
    "x": null,
@@ -4952,11 +5419,10 @@
    "r": "ぶじ",
    "m": "safe and sound",
    "k": [
-    "事"
-   ],
-   "u": [
+    "事",
     "無"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -5001,6 +5467,21 @@
    ],
    "u": [
     "返"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "兼業",
+   "r": "けんぎょう",
+   "m": "a side occupation",
+   "k": [
+    "業"
+   ],
+   "u": [
+    "兼"
    ],
    "j": false,
    "s": null,
@@ -5378,6 +5859,21 @@
    "kt": null
   },
   {
+   "w": "抗議",
+   "r": "こうぎ",
+   "m": "a protest",
+   "k": [
+    "議"
+   ],
+   "u": [
+    "抗"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "議論",
    "r": "ぎろん",
    "m": "debate; discussion",
@@ -5412,11 +5908,10 @@
    "r": "むり",
    "m": "impossible; unreasonable",
    "k": [
-    "理"
-   ],
-   "u": [
+    "理",
     "無"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -5469,11 +5964,10 @@
    "r": "じゆう",
    "m": "freedom",
    "k": [
-    "由"
-   ],
-   "u": [
+    "由",
     "自"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -5518,6 +6012,21 @@
     "後"
    ],
    "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "最悪",
+   "r": "さいあく",
+   "m": "the worst",
+   "k": [
+    "最"
+   ],
+   "u": [
+    "悪"
+   ],
    "j": false,
    "s": null,
    "x": null,
@@ -5604,6 +6113,21 @@
    ],
    "u": [
     "婚"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "結局",
+   "r": "けっきょく",
+   "m": "in the end",
+   "k": [
+    "結"
+   ],
+   "u": [
+    "局"
    ],
    "j": false,
    "s": null,
@@ -5700,6 +6224,21 @@
    ],
    "u": [
     "提"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "飛び出す",
+   "r": "とびだす",
+   "m": "to dash out",
+   "k": [
+    "出"
+   ],
+   "u": [
+    "飛"
    ],
    "j": false,
    "s": null,
@@ -5956,6 +6495,21 @@
     "決"
    ],
    "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "肝心",
+   "r": "かんじん",
+   "m": "the crucial (part)",
+   "k": [
+    "心"
+   ],
+   "u": [
+    "肝"
+   ],
    "j": false,
    "s": null,
    "x": null,
@@ -6268,11 +6822,10 @@
    "r": "せいべつ",
    "m": "sex; gender",
    "k": [
-    "別"
-   ],
-   "u": [
+    "別",
     "性"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -6497,11 +7050,10 @@
    "r": "かち",
    "m": "value; worth",
    "k": [
-    "値"
-   ],
-   "u": [
+    "値",
     "価"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -6512,10 +7064,10 @@
    "r": "かちかん",
    "m": "values; worldview",
    "k": [
-    "値"
+    "値",
+    "価"
    ],
    "u": [
-    "価",
     "観"
    ],
    "j": false,
@@ -6554,6 +7106,21 @@
    "kt": null
   },
   {
+   "w": "満面",
+   "r": "まんめん",
+   "m": "the whole face",
+   "k": [
+    "面"
+   ],
+   "u": [
+    "満"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "表面",
    "r": "ひょうめん",
    "m": "the surface",
@@ -6562,6 +7129,21 @@
    ],
    "u": [
     "表"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "面影",
+   "r": "おもかげ",
+   "m": "a lingering likeness",
+   "k": [
+    "面"
+   ],
+   "u": [
+    "影"
    ],
    "j": false,
    "s": null,
@@ -6803,11 +7385,10 @@
    "r": "ひょうばん",
    "m": "reputation",
    "k": [
-    "判"
-   ],
-   "u": [
+    "判",
     "評"
    ],
+   "u": [],
    "j": false,
    "s": null,
    "x": null,
@@ -6877,6 +7458,726 @@
    ],
    "u": [
     "試"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "独自",
+   "r": "どくじ",
+   "m": "unique to oneself",
+   "k": [
+    "自"
+   ],
+   "u": [
+    "独"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "自動詞",
+   "r": "じどうし",
+   "m": "intransitive verb",
+   "k": [
+    "自",
+    "動"
+   ],
+   "u": [
+    "詞"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "自然",
+   "r": "しぜん",
+   "m": "nature",
+   "k": [
+    "自"
+   ],
+   "u": [
+    "然"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "当たる",
+   "r": "あたる",
+   "m": "to hit; to strike true",
+   "k": [
+    "当"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "当然",
+   "r": "とうぜん",
+   "m": "natural; obvious",
+   "k": [
+    "当"
+   ],
+   "u": [
+    "然"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "担当",
+   "r": "たんとう",
+   "m": "the person in charge",
+   "k": [
+    "当"
+   ],
+   "u": [
+    "担"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "成功",
+   "r": "せいこう",
+   "m": "success",
+   "k": [
+    "成"
+   ],
+   "u": [
+    "功"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "成長",
+   "r": "せいちょう",
+   "m": "growth",
+   "k": [
+    "成"
+   ],
+   "u": [
+    "長"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "変",
+   "r": "か",
+   "m": "change",
+   "k": [
+    "変"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "変わる",
+   "r": "かわる",
+   "m": "to change (by itself)",
+   "k": [
+    "変"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "変化",
+   "r": "へんか",
+   "m": "a change",
+   "k": [
+    "変"
+   ],
+   "u": [
+    "化"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "変更",
+   "r": "へんこう",
+   "m": "a change",
+   "k": [
+    "変"
+   ],
+   "u": [
+    "更"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "変遷",
+   "r": "へんせん",
+   "m": "transitions; evolution",
+   "k": [
+    "変"
+   ],
+   "u": [
+    "遷"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "他動詞",
+   "r": "たどうし",
+   "m": "transitive verb",
+   "k": [
+    "動"
+   ],
+   "u": [
+    "他",
+    "詞"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "動く",
+   "r": "うごく",
+   "m": "to move",
+   "k": [
+    "動"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "動詞",
+   "r": "どうし",
+   "m": "verb",
+   "k": [
+    "動"
+   ],
+   "u": [
+    "詞"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "感動",
+   "r": "かんどう",
+   "m": "being moved",
+   "k": [
+    "動"
+   ],
+   "u": [
+    "感"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "運動",
+   "r": "うんどう",
+   "m": "exercise",
+   "k": [
+    "動"
+   ],
+   "u": [
+    "運"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "台風",
+   "r": "たいふう",
+   "m": "typhoon",
+   "k": [
+    "風"
+   ],
+   "u": [
+    "台"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "風",
+   "r": "かぜ",
+   "m": "wind",
+   "k": [
+    "風"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "風格",
+   "r": "ふうかく",
+   "m": "dignity; presence",
+   "k": [
+    "風"
+   ],
+   "u": [
+    "格"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "風潮",
+   "r": "ふうちょう",
+   "m": "a (social) trend",
+   "k": [
+    "風"
+   ],
+   "u": [
+    "潮"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "風邪",
+   "r": "かぜ",
+   "m": "a cold",
+   "k": [
+    "風"
+   ],
+   "u": [
+    "邪"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "遅",
+   "r": "おく",
+   "m": "late",
+   "k": [
+    "遅"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "遅い",
+   "r": "おそい",
+   "m": "late; slow",
+   "k": [
+    "遅"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "遅刻",
+   "r": "ちこく",
+   "m": "lateness",
+   "k": [
+    "遅"
+   ],
+   "u": [
+    "刻"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "批評",
+   "r": "ひひょう",
+   "m": "criticism; review",
+   "k": [
+    "評"
+   ],
+   "u": [
+    "批"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "評価",
+   "r": "ひょうか",
+   "m": "evaluation; esteem",
+   "k": [
+    "評",
+    "価"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "保証",
+   "r": "ほしょう",
+   "m": "guarantee",
+   "k": [
+    "証"
+   ],
+   "u": [
+    "保"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "保険証",
+   "r": "ほけんしょう",
+   "m": "insurance card",
+   "k": [
+    "証"
+   ],
+   "u": [
+    "保",
+    "険"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "証拠",
+   "r": "しょうこ",
+   "m": "evidence",
+   "k": [
+    "証"
+   ],
+   "u": [
+    "拠"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "台無し",
+   "r": "だいなし",
+   "m": "ruined",
+   "k": [
+    "無"
+   ],
+   "u": [
+    "台"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "無料",
+   "r": "むりょう",
+   "m": "free of charge",
+   "k": [
+    "無"
+   ],
+   "u": [
+    "料"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "無駄",
+   "r": "むだ",
+   "m": "waste; futility",
+   "k": [
+    "無"
+   ],
+   "u": [
+    "駄"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "皆無",
+   "r": "かいむ",
+   "m": "utterly absent",
+   "k": [
+    "無"
+   ],
+   "u": [
+    "皆"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "違",
+   "r": "ちが",
+   "m": "differ; be wrong",
+   "k": [
+    "違"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "違う",
+   "r": "ちがう",
+   "m": "to differ; to be wrong",
+   "k": [
+    "違"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "違反",
+   "r": "いはん",
+   "m": "a violation",
+   "k": [
+    "違"
+   ],
+   "u": [
+    "反"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "件",
+   "r": "けん",
+   "m": "matter; case",
+   "k": [
+    "件"
+   ],
+   "u": [],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "条件",
+   "r": "じょうけん",
+   "m": "a condition",
+   "k": [
+    "件"
+   ],
+   "u": [
+    "条"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "条件付き",
+   "r": "じょうけんつき",
+   "m": "conditional",
+   "k": [
+    "件"
+   ],
+   "u": [
+    "条",
+    "付"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "可能",
+   "r": "かのう",
+   "m": "possible",
+   "k": [
+    "能"
+   ],
+   "u": [
+    "可"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "可能形",
+   "r": "かのうけい",
+   "m": "potential form",
+   "k": [
+    "能"
+   ],
+   "u": [
+    "可",
+    "形"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "可能性",
+   "r": "かのうせい",
+   "m": "a possibility",
+   "k": [
+    "能",
+    "性"
+   ],
+   "u": [
+    "可"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "才能",
+   "r": "さいのう",
+   "m": "talent",
+   "k": [
+    "能"
+   ],
+   "u": [
+    "才"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "性格",
+   "r": "せいかく",
+   "m": "character",
+   "k": [
+    "性"
+   ],
+   "u": [
+    "格"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "報告",
+   "r": "ほうこく",
+   "m": "a report",
+   "k": [
+    "報"
+   ],
+   "u": [
+    "告"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "報道",
+   "r": "ほうどう",
+   "m": "news coverage",
+   "k": [
+    "報"
+   ],
+   "u": [
+    "道"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "情報",
+   "r": "じょうほう",
+   "m": "information",
+   "k": [
+    "報"
+   ],
+   "u": [
+    "情"
    ],
    "j": false,
    "s": null,
@@ -7071,6 +8372,34 @@
    "kt": null
   },
   {
+   "w": "世論",
+   "r": "よろん",
+   "m": "public opinion",
+   "k": [],
+   "u": [
+    "世",
+    "論"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "主張",
+   "r": "しゅちょう",
+   "m": "an assertion",
+   "k": [],
+   "u": [
+    "主",
+    "張"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "乗",
    "r": "の",
    "m": "ride",
@@ -7098,14 +8427,13 @@
    "kt": null
   },
   {
-   "w": "他動詞",
-   "r": "たどうし",
-   "m": "transitive verb",
+   "w": "些細",
+   "r": "ささい",
+   "m": "trivial",
    "k": [],
    "u": [
-    "他",
-    "動",
-    "詞"
+    "些",
+    "細"
    ],
    "j": false,
    "s": null,
@@ -7180,21 +8508,6 @@
    "kt": null
   },
   {
-   "w": "保険証",
-   "r": "ほけんしょう",
-   "m": "insurance card",
-   "k": [],
-   "u": [
-    "保",
-    "険",
-    "証"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "健康",
    "r": "けんこう",
    "m": "health",
@@ -7262,6 +8575,20 @@
    "kt": null
   },
   {
+   "w": "光栄",
+   "r": "こうえい",
+   "m": "an honor",
+   "k": [],
+   "u": [
+    "光",
+    "栄"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "内容",
    "r": "ないよう",
    "m": "content",
@@ -7317,13 +8644,13 @@
    "kt": null
   },
   {
-   "w": "動詞",
-   "r": "どうし",
-   "m": "verb",
+   "w": "功績",
+   "r": "こうせき",
+   "m": "achievements; merit",
    "k": [],
    "u": [
-    "動",
-    "詞"
+    "功",
+    "績"
    ],
    "j": false,
    "s": null,
@@ -7380,36 +8707,6 @@
    "u": [
     "原",
     "因"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "可能形",
-   "r": "かのうけい",
-   "m": "potential form",
-   "k": [],
-   "u": [
-    "可",
-    "能",
-    "形"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "可能性",
-   "r": "かのうせい",
-   "m": "a possibility",
-   "k": [],
-   "u": [
-    "可",
-    "能",
-    "性"
    ],
    "j": false,
    "s": null,
@@ -7499,6 +8796,34 @@
    "kt": null
   },
   {
+   "w": "圧倒的",
+   "r": "あっとうてき",
+   "m": "overwhelming",
+   "k": [],
+   "u": [
+    "圧",
+    "倒",
+    "的"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "埃",
+   "r": "ほこり",
+   "m": "dust",
+   "k": [],
+   "u": [
+    "埃"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "基準",
    "r": "きじゅん",
    "m": "a standard; criterion",
@@ -7513,13 +8838,13 @@
    "kt": null
   },
   {
-   "w": "報道",
-   "r": "ほうどう",
-   "m": "news coverage",
+   "w": "基盤",
+   "r": "きばん",
+   "m": "a foundation; base",
    "k": [],
    "u": [
-    "報",
-    "道"
+    "基",
+    "盤"
    ],
    "j": false,
    "s": null,
@@ -7547,47 +8872,6 @@
    "k": [],
    "u": [
     "壊"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "変",
-   "r": "か",
-   "m": "change",
-   "k": [],
-   "u": [
-    "変"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "変化",
-   "r": "へんか",
-   "m": "a change",
-   "k": [],
-   "u": [
-    "変",
-    "化"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "変更",
-   "r": "へんこう",
-   "m": "a change",
-   "k": [],
-   "u": [
-    "変",
-    "更"
    ],
    "j": false,
    "s": null,
@@ -7635,6 +8919,21 @@
    "kt": null
   },
   {
+   "w": "失敗続き",
+   "r": "しっぱいつづき",
+   "m": "a string of failures",
+   "k": [],
+   "u": [
+    "失",
+    "敗",
+    "続"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "奇跡",
    "r": "きせき",
    "m": "a miracle",
@@ -7642,6 +8941,61 @@
    "u": [
     "奇",
     "跡"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "妥協",
+   "r": "だきょう",
+   "m": "compromise",
+   "k": [],
+   "u": [
+    "妥",
+    "協"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "容認",
+   "r": "ようにん",
+   "m": "toleration; acceptance",
+   "k": [],
+   "u": [
+    "容",
+    "認"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "尊敬",
+   "r": "そんけい",
+   "m": "respect",
+   "k": [],
+   "u": [
+    "尊",
+    "敬"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "尻ぬぐい",
+   "r": "しりぬぐい",
+   "m": "cleaning up someone's mess",
+   "k": [],
+   "u": [
+    "尻"
    ],
    "j": false,
    "s": null,
@@ -7716,20 +9070,6 @@
    "kt": null
   },
   {
-   "w": "当然",
-   "r": "とうぜん",
-   "m": "natural; obvious",
-   "k": [],
-   "u": [
-    "当",
-    "然"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "影響",
    "r": "えいきょう",
    "m": "influence",
@@ -7750,6 +9090,35 @@
    "k": [],
    "u": [
     "彼"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "徹夜",
+   "r": "てつや",
+   "m": "an all-nighter",
+   "k": [],
+   "u": [
+    "徹",
+    "夜"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "徹底的",
+   "r": "てっていてき",
+   "m": "thorough",
+   "k": [],
+   "u": [
+    "徹",
+    "底",
+    "的"
    ],
    "j": false,
    "s": null,
@@ -7784,20 +9153,6 @@
    "kt": null
   },
   {
-   "w": "性格",
-   "r": "せいかく",
-   "m": "character",
-   "k": [],
-   "u": [
-    "性",
-    "格"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "恋しい",
    "r": "こいしい",
    "m": "longed-for",
@@ -7824,27 +9179,13 @@
    "kt": null
   },
   {
-   "w": "情報",
-   "r": "じょうほう",
-   "m": "information",
-   "k": [],
-   "u": [
-    "情",
-    "報"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "感動",
-   "r": "かんどう",
-   "m": "being moved",
+   "w": "感激",
+   "r": "かんげき",
+   "m": "deep emotion",
    "k": [],
    "u": [
     "感",
-    "動"
+    "激"
    ],
    "j": false,
    "s": null,
@@ -7865,20 +9206,6 @@
    "kt": null
   },
   {
-   "w": "成功",
-   "r": "せいこう",
-   "m": "success",
-   "k": [],
-   "u": [
-    "成",
-    "功"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "我慢",
    "r": "がまん",
    "m": "putting up with it",
@@ -7886,20 +9213,6 @@
    "u": [
     "我",
     "慢"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "才能",
-   "r": "さいのう",
-   "m": "talent",
-   "k": [],
-   "u": [
-    "才",
-    "能"
    ],
    "j": false,
    "s": null,
@@ -7947,20 +9260,6 @@
    "kt": null
   },
   {
-   "w": "担当",
-   "r": "たんとう",
-   "m": "the person in charge",
-   "k": [],
-   "u": [
-    "担",
-    "当"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "指示",
    "r": "しじ",
    "m": "instructions",
@@ -7975,6 +9274,20 @@
    "kt": null
   },
   {
+   "w": "振り向く",
+   "r": "ふりむく",
+   "m": "to turn around",
+   "k": [],
+   "u": [
+    "振",
+    "向"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "掃除",
    "r": "そうじ",
    "m": "cleaning",
@@ -7982,6 +9295,34 @@
    "u": [
     "掃",
     "除"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "撤回",
+   "r": "てっかい",
+   "m": "retraction",
+   "k": [],
+   "u": [
+    "撤",
+    "回"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "撤退",
+   "r": "てったい",
+   "m": "withdrawal; pulling out",
+   "k": [],
+   "u": [
+    "撤",
+    "退"
    ],
    "j": false,
    "s": null,
@@ -8124,41 +9465,26 @@
    "kt": null
   },
   {
-   "w": "条件",
-   "r": "じょうけん",
-   "m": "a condition",
-   "k": [],
-   "u": [
-    "条",
-    "件"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "条件付き",
-   "r": "じょうけんつき",
-   "m": "conditional",
-   "k": [],
-   "u": [
-    "条",
-    "件",
-    "付"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "枚",
    "r": "まい",
    "m": "counter: flat things",
    "k": [],
    "u": [
     "枚"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "根拠",
+   "r": "こんきょ",
+   "m": "grounds; basis",
+   "k": [],
+   "u": [
+    "根",
+    "拠"
    ],
    "j": false,
    "s": null,
@@ -8179,12 +9505,39 @@
    "kt": null
   },
   {
+   "w": "歓声",
+   "r": "かんせい",
+   "m": "a cheer",
+   "k": [],
+   "u": [
+    "歓",
+    "声"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "止",
    "r": "と",
    "m": "stop",
    "k": [],
    "u": [
     "止"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "汗",
+   "r": "あせ",
+   "m": "sweat",
+   "k": [],
+   "u": [
+    "汗"
    ],
    "j": false,
    "s": null,
@@ -8209,6 +9562,19 @@
    "w": "泥",
    "r": "どろ",
    "m": "mud",
+   "k": [],
+   "u": [
+    "泥"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "泥だらけ",
+   "r": "どろだらけ",
+   "m": "mud-covered",
    "k": [],
    "u": [
     "泥"
@@ -8312,20 +9678,6 @@
    "kt": null
   },
   {
-   "w": "無駄",
-   "r": "むだ",
-   "m": "waste; futility",
-   "k": [],
-   "u": [
-    "無",
-    "駄"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "熱",
    "r": "あつ",
    "m": "hot (to the touch)",
@@ -8421,12 +9773,68 @@
    "kt": null
   },
   {
+   "w": "発足",
+   "r": "ほっそく",
+   "m": "inauguration; launch",
+   "k": [],
+   "u": [
+    "発",
+    "足"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "皮肉",
+   "r": "ひにく",
+   "m": "irony; sarcasm",
+   "k": [],
+   "u": [
+    "皮",
+    "肉"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "盲点",
+   "r": "もうてん",
+   "m": "a blind spot",
+   "k": [],
+   "u": [
+    "盲",
+    "点"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "着",
    "r": "つ",
    "m": "arrive; wear",
    "k": [],
    "u": [
     "着"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "矛盾",
+   "r": "むじゅん",
+   "m": "contradiction",
+   "k": [],
+   "u": [
+    "矛",
+    "盾"
    ],
    "j": false,
    "s": null,
@@ -8453,6 +9861,20 @@
    "k": [],
    "u": [
     "知"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "破産",
+   "r": "はさん",
+   "m": "bankruptcy",
+   "k": [],
+   "u": [
+    "破",
+    "産"
    ],
    "j": false,
    "s": null,
@@ -8493,6 +9915,20 @@
    "k": [],
    "u": [
     "祈"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "祝賀",
+   "r": "しゅくが",
+   "m": "celebration (formal)",
+   "k": [],
+   "u": [
+    "祝",
+    "賀"
    ],
    "j": false,
    "s": null,
@@ -8634,6 +10070,20 @@
    "kt": null
   },
   {
+   "w": "義務",
+   "r": "ぎむ",
+   "m": "duty; obligation",
+   "k": [],
+   "u": [
+    "義",
+    "務"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "習慣",
    "r": "しゅうかん",
    "m": "a habit; custom",
@@ -8667,21 +10117,6 @@
    "k": [],
    "u": [
     "脱"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "自動詞",
-   "r": "じどうし",
-   "m": "intransitive verb",
-   "k": [],
-   "u": [
-    "自",
-    "動",
-    "詞"
    ],
    "j": false,
    "s": null,
@@ -8826,34 +10261,6 @@
    "kt": null
   },
   {
-   "w": "証拠",
-   "r": "しょうこ",
-   "m": "evidence",
-   "k": [],
-   "u": [
-    "証",
-    "拠"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "評価",
-   "r": "ひょうか",
-   "m": "evaluation; esteem",
-   "k": [],
-   "u": [
-    "評",
-    "価"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "誤解",
    "r": "ごかい",
    "m": "a misunderstanding",
@@ -8936,6 +10343,34 @@
    "kt": null
   },
   {
+   "w": "貫禄",
+   "r": "かんろく",
+   "m": "weight; gravitas",
+   "k": [],
+   "u": [
+    "貫",
+    "禄"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "責務",
+   "r": "せきむ",
+   "m": "one's charge; responsibility",
+   "k": [],
+   "u": [
+    "責",
+    "務"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "資料",
    "r": "しりょう",
    "m": "documents; data",
@@ -8943,6 +10378,19 @@
    "u": [
     "資",
     "料"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "賭け",
+   "r": "かけ",
+   "m": "a gamble",
+   "k": [],
+   "u": [
+    "賭"
    ],
    "j": false,
    "s": null,
@@ -8976,6 +10424,20 @@
    "kt": null
   },
   {
+   "w": "辞任",
+   "r": "じにん",
+   "m": "resignation (from a post)",
+   "k": [],
+   "u": [
+    "辞",
+    "任"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "近所迷惑",
    "r": "きんじょめいわく",
    "m": "neighborhood nuisance",
@@ -8992,6 +10454,20 @@
    "kt": null
   },
   {
+   "w": "逆境",
+   "r": "ぎゃっきょう",
+   "m": "adversity",
+   "k": [],
+   "u": [
+    "逆",
+    "境"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "連絡",
    "r": "れんらく",
    "m": "getting in touch",
@@ -8999,33 +10475,6 @@
    "u": [
     "連",
     "絡"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "遅",
-   "r": "おく",
-   "m": "late",
-   "k": [],
-   "u": [
-    "遅"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "遅刻",
-   "r": "ちこく",
-   "m": "lateness",
-   "k": [],
-   "u": [
-    "遅",
-    "刻"
    ],
    "j": false,
    "s": null,
@@ -9060,19 +10509,6 @@
    "kt": null
   },
   {
-   "w": "違",
-   "r": "ちが",
-   "m": "differ; be wrong",
-   "k": [],
-   "u": [
-    "違"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
    "w": "選択",
    "r": "せんたく",
    "m": "a choice",
@@ -9080,6 +10516,34 @@
    "u": [
     "選",
     "択"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "遺憾",
+   "r": "いかん",
+   "m": "regrettable (officialese)",
+   "k": [],
+   "u": [
+    "遺",
+    "憾"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
+   "w": "鑑賞",
+   "r": "かんしょう",
+   "m": "appreciation (of art)",
+   "k": [],
+   "u": [
+    "鑑",
+    "賞"
    ],
    "j": false,
    "s": null,
@@ -9140,6 +10604,20 @@
    "kt": null
   },
   {
+   "w": "静寂",
+   "r": "せいじゃく",
+   "m": "silence; stillness",
+   "k": [],
+   "u": [
+    "静",
+    "寂"
+   ],
+   "j": false,
+   "s": null,
+   "x": null,
+   "kt": null
+  },
+  {
    "w": "靴",
    "r": "くつ",
    "m": "shoes",
@@ -9159,20 +10637,6 @@
    "k": [],
    "u": [
     "顔"
-   ],
-   "j": false,
-   "s": null,
-   "x": null,
-   "kt": null
-  },
-  {
-   "w": "風邪",
-   "r": "かぜ",
-   "m": "a cold",
-   "k": [],
-   "u": [
-    "風",
-    "邪"
    ],
    "j": false,
    "s": null,

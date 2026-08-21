@@ -1,0 +1,16 @@
+{
+ "source": "jlptgrammarlist.neocities.org N1, Aug 20 2026",
+ "final": "161 taught + 28 gathering-lesson + 8 declared soft cells = 197/197",
+ "hard_residual": [],
+ "soft_cells": [
+  "ことだし",
+  "こととて",
+  "ことのないよう",
+  "ものとして",
+  "にまつわる",
+  "思いをする",
+  "てまで",
+  "てしかるべきだ"
+ ],
+ "soft_note": "Soft = adjacent pattern taught and the item reachable from it (ことだし/こととて near ものだから; ものとして near ことになっている; てまで near てでも; てしかるべき near べき/べからず; にまつわる near をめぐって; 思いをする near ものがある; ことのないよう near ことなく). Declared, not claimed."
+}

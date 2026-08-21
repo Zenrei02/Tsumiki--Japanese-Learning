@@ -208,6 +208,23 @@ const K = {
   "約": { m: "promise; approximately", on: "ヤク", story: "The thread 糸 tied to a ladle 勺 — a knot in the string as the old reminder of a promise. 約束 the promise, 予約 the booking, and before numbers it means roughly: 約十分, about ten minutes.", w: [["約束","やくそく","a promise"],["予約","よやく","reservation"],["約","やく","approximately"]] },
   "経": { m: "to pass through; manage", on: "ケイ", kun: "へ(る)", story: "The thread 糸 running through 圣 — a hand 又 over earth 土, every part named. The warp thread a loom runs on: 経験 what you have passed through, 経済 the economy, 経由 going by way of.", w: [["経験","けいけん","experience"],["経済","けいざい","the economy"],["経由","けいゆ","via"]] },
   "験": { m: "to test", on: "ケン", story: "The horse 馬 side taught whole — an old word for putting a horse through its paces — beside its dense checker. Testing is what remains: 経験 tested by life, 試験 by paper, 実験 by laboratory.", w: [["経験","けいけん","experience"],["試験","しけん","an exam"],["実験","じっけん","an experiment"]] },
+  "心": { m: "heart; mind", on: "シン", kun: "こころ", story: "Four strokes of heartbeat, formally taught at last — sb-kokoro named it inside 思・意・忘・忙; here it stands on its own card. 心配 distributes the heart: worry. 安心 settles it: relief.", sentence: true, w: [["心","こころ","heart; mind"],["心配","しんぱい","worry"],["安心","あんしん","relief"]] },
+  "自": { m: "self (a nose)", on: "ジ・シ", kun: "みずか(ら)", story: "A nose, front-on — Japan points at its nose to mean ME, and the character does the same. 自分 the self, 自由 freedom (self-derived), 自然 nature: that which is so of itself.", w: [["自分","じぶん","oneself"],["自由","じゆう","freedom"],["自然","しぜん","nature"]] },
+  "当": { m: "to hit (the mark); this-", on: "トウ", kun: "あ(たる)・あ(てる)", story: "A hand catching light — hitting exactly. 当たる strikes true, 当たり前 is what hits everyone as obvious, 本当 is what hits as true, and 当店 on a sign means THIS shop, the one you are standing in.", sentence: true, w: [["本当","ほんとう","truth; really"],["当たり前","あたりまえ","obvious; only natural"],["当たる","あたる","to hit; to strike true"]] },
+  "成": { m: "to become; to form", on: "セイ", kun: "な(る)", story: "A blade shaping a thing into being — completion by work. 成功 is success (work arrived), 成長 is growth, 成果 the formed fruit. The kanji behind half the achievement vocabulary the N2 stages banked.", w: [["成功","せいこう","success"],["成長","せいちょう","growth"],["成果","せいか","results; fruits"]] },
+  "変": { m: "to change; strange", on: "ヘン", kun: "か(わる)・か(える)", story: "The trailing feet 夂 under a tangle — change, walking away from what was. 変わる changes on its own, 変える changes by hand (the transitivity pair, one last time), 大変 is change too big: awful. And plain 変 is the everyday word for weird.", sentence: true, w: [["変わる","かわる","to change (by itself)"],["大変","たいへん","awful; a lot"],["変","へん","strange"]] },
+  "動": { m: "to move", on: "ドウ", kun: "うご(く)", story: "Weight 重 driven by force 力 — movement itself. 動く moves, 運動 is exercise, 感動 is the heart moved. The tracker's old suspicion is settled: 動 enters on word demand at last — 動詞, the moving word, is now a bonus rather than the reason.", sentence: true, w: [["動く","うごく","to move"],["運動","うんどう","exercise"],["感動","かんどう","being moved"]] },
+  "無": { m: "nothing; without", on: "ム・ブ", kun: "な(い)", story: "A dancer's sleeves burned down to strokes — the old form borrowed for absence itself. 無料 without charge, 無理 without reason (impossible), 無事 without incident: safe. The most useful negation in the written language.", w: [["無料","むりょう","free of charge"],["無理","むり","impossible; unreasonable"],["無事","ぶじ","safe and sound"]] },
+  "風": { m: "wind; style", on: "フウ", kun: "かぜ", story: "A bug 虫 under a sail 几 — the old belief that wind carried insects. 台風 the typhoon, 風邪 the cold it blows in (かぜ, a whole-word reading), and ふうに — Stage 13's in-such-a-way — is this character doing abstract work: the way the wind of a thing blows.", w: [["台風","たいふう","typhoon"],["風","かぜ","wind"],["風邪","かぜ","a cold (whole-word reading)"]] },
+  "遅": { m: "late; slow", on: "チ", kun: "おそ(い)・おく(れる)", story: "A sheep 羊 dawdling on the road 辶 under a low roof 尸 — lateness, drawn from life. 遅れる runs late, 遅刻 is the lateness on record, and 遅延証明書 is the slip the station prints to prove the train was the sheep, not you.", sentence: true, w: [["遅れる","おくれる","to be late"],["遅刻","ちこく","lateness"],["遅い","おそい","late; slow"]] },
+  "違": { m: "to differ; to violate", on: "イ", kun: "ちが(う)", story: "Paths crossing on the road 辶 without meeting — difference. 違う is the everyday no-that's-different; 間違い the mistake; 違反 the difference from the rules that gets you a sticker on the windshield.", sentence: true, w: [["違う","ちがう","to differ; to be wrong"],["間違い","まちがい","a mistake"],["違反","いはん","a violation"]] },
+  "件": { m: "matter; case (counter)", on: "ケン", story: "A person 亻 beside an ox 牛 — an old tally of property become the counter for MATTERS. 事件 the incident, 条件 the conditions, and 例の件 — 'that matter' — the smallest phrase office email runs on.", w: [["事件","じけん","an incident"],["条件","じょうけん","a condition"],["件","けん","matter; case"]] },
+  "能": { m: "ability; Noh", on: "ノウ", story: "An old bear-shape pressed into service for capability. 可能 the possible, 能力 the ability, 才能 the talent — and alone it names 能, the oldest theater still performed. Taught whole; its parts repay nobody.", w: [["可能","かのう","possible"],["能力","のうりょく","ability"],["才能","さいのう","talent"]] },
+  "性": { m: "nature; -ness; sex", on: "セイ", kun: "さが", story: "The standing heart 忄 beside 生, life — the nature one is born with. 性格 character, 性別 sex, and as a suffix it manufactures abstractions: 可能性 possibility, 安全性 safety-ness. The N2 banks have been waiting for it.", w: [["性格","せいかく","character; personality"],["性別","せいべつ","sex; gender"],["可能性","かのうせい","possibility"]] },
+  "評": { m: "to assess", on: "ヒョウ", story: "Words 言 laid flat and level 平 — assessment as the leveling of speech. 評判 the public's verdict, 評価 the formal grade, 批評 the critique. The fifth member of the talking family.", w: [["評判","ひょうばん","reputation"],["評価","ひょうか","evaluation"],["批評","ひひょう","criticism; review"]] },
+  "価": { m: "value; price", on: "カ", kun: "あたい", story: "A person 亻 before covered goods — pricing at the stall. 価値 the value, 評価 the assessed worth, 物価 the price of things entire, the word every resident learns the year prices rise.", w: [["価値","かち","value"],["評価","ひょうか","evaluation"],["物価","ぶっか","prices (in general)"]] },
+  "証": { m: "proof", on: "ショウ", story: "Words 言 made correct 正 — speech that stands up: proof. 保険証 the insurance card, 保証 the guarantee, 証明 the proving, 遅延証明書 the station's confession. The sixth and last talker.", w: [["保険証","ほけんしょう","insurance card"],["保証","ほしょう","guarantee"],["証明","しょうめい","proof"]] },
+  "報": { m: "to report; requite", on: "ホウ", kun: "むく(いる)", story: "An old scene of judgment rendered — returning what is due, which is what reporting is. 情報 information, 報告 the report, 天気予報 the forecast, and 報われる — effort requited — the verb every かいがある sentence hopes for.", w: [["情報","じょうほう","information"],["報告","ほうこく","a report"],["天気予報","てんきよほう","weather forecast"]] },
 };
 
 // ————— Lessons —————
@@ -506,6 +523,38 @@ const MODULES = [
     chars: ["実","決","面","約","経","験"],
     exp: "Six characters that audit a life: what is real, what got decided, the face you met, the promise you made, what you have passed through, and how it was tested.\n\nBlank if you can. One stroke from the hint, as always.",
     },
+  { id: "k-t38", kind: "kanji", title: "Heart, self, and hitting the mark", chars: ["心","自","当","成"],
+    rule: "心 is four strokes and none of them touch — the dots float around the hook like beats around a pulse.",
+    wild: "当店 on handwritten signs means THIS shop — the one you're in. 成人式 posters every January; 自動 on every door that opens itself. 本日 and 当日 share their 当 across every event notice in town.",
+    exp: "心 gets its own card at last — sb-kokoro named it inside four characters, and the ledger has been demanding it in six words. 心配, 安心, 熱心: the heart distributed, settled, and burning.\n\n自 is a nose, front-on — and Japan points at its nose to mean ME. 自分, 自由, 自然: the self, the self-derived, and that-which-is-so-of-itself.\n\n当 hits the mark: 当たる strikes true, 本当 is what strikes as true, 当たり前 is what strikes everyone as obvious — Stage 15's bank word, finally writable.\n\n成 shapes a thing into being: 成功, 成長, 成果 — the achievement vocabulary the N2 banks have carried in kana for a week.",
+    },
+
+  { id: "k-t39", kind: "kanji", title: "Change in motion", chars: ["変","動","風","遅"],
+    rule: "変's trailing feet 夂 come last — the tangle above settles before anything walks away from it.",
+    wild: "台風情報 crawls across every screen each September; 強風注意 flaps at station entrances. 遅延証明書 is the small slip by the ticket gate that proves the train was late, not you — take one, your office wants it. 変更 headlines every timetable notice.",
+    exp: "変 is change walking away from what was — 変わる by itself, 変える by hand, the transitivity pair one last time. 大変 is change too big to manage: awful. Plain 変 is the everyday weird.\n\n動 settles an old tracker suspicion: it enters on word demand at last. Weight 重 driven by force 力 — 動く, 運動, 感動: the body moved, and the heart.\n\n風 sails a bug 虫 under 几 — the old belief that wind carried insects. 台風, and 風邪 — the cold it blows in, かぜ as a whole-word reading. Stage 13's ふうに is this character working abstractly.\n\n遅 puts a sheep 羊 dawdling on the road 辶 — lateness drawn from life. 遅れる, 遅刻, and the station's own confession: 遅延証明書.",
+    },
+
+  { id: "sb-gen", kind: "skill", title: "言 — the six speakers", chars: ["話","語","読","説","評","証"],
+    exp: "The word radical 言 has been collecting characters since Stage 0's tail, and with this group its bench is full: 話 converses, 語 names languages, 読 reads in silence, 説 explains, 評 assesses, and 証 proves. Six speakers, one radical, and a progression hiding in plain sight — from talking, through reading, to speech that stands up in court.\n\nThe reading payoff is the usual one: an unknown 言-character is ABOUT language or assertion before you look it up — 訳 (translate), 許 (permit: words that allow), 誤 (err in speech) will all arrive pre-sorted.\n\nAnd one etymological footnote worth its flag: 言 itself is a mouth with sound-lines rising — the radical is a picture of exactly what it organizes. Fifty characters from now, that one image will have paid for this whole lesson.",
+    },
+
+  { id: "k-t40", kind: "kanji", title: "Nothing, and what it rules out", chars: ["無","違","件","能"],
+    rule: "無 writes its four bottom dots LAST — the sleeves burn down to embers only after the dancer is drawn.",
+    wild: "無料 is the happiest word on any sign, and it is everywhere. 駐車違反 stickers appear on windshields with bureaucratic promptness. 例の件について opens a million office emails a day — THAT matter, the one we both know.",
+    exp: "無 is absence itself, borrowed from a dancer's burned-down sleeves. 無料 without charge, 無理 without reason, 無事 without incident — three of the most-used words in daily life, one character.\n\n違 crosses paths on the road 辶 without meeting: 違う, the everyday that's-not-it; 間違い, the mistake; 違反, the difference from rules that costs money.\n\n件 tallies matters: 事件 the incident, 条件 the conditions, and 例の件 — that matter — the smallest load-bearing phrase in office Japanese.\n\n能 is capability wearing an old bear's shape, taught whole: 可能, 能力, 才能 — and alone, the Noh stage, where the same character has stood for six hundred years.",
+    },
+
+  { id: "k-t41", kind: "kanji", title: "The verdict sheet", chars: ["性","評","価","証","報"],
+    rule: "評 and 証 finish all seven strokes of 言 before their right sides speak — the family rule, unbroken through six characters.",
+    wild: "保証書 in the box with anything electronic — keep it. ★の評価 runs every app store and gourmet site; 物価 headlines the news whenever prices climb. 領収証 is the receipt with legal weight — ask for it by name at any register.",
+    exp: "性 stands the heart 忄 beside life 生 — the born nature. 性格, 性別, and the suffix that manufactures N2's abstractions: 可能性, 安全性.\n\n評 lays words 言 level 平: assessment. 評判 the street's verdict, 評価 the formal one — Stage 12's queue outside the ramen shop, now writable.\n\n価 prices at the stall: 価値, 評価, 物価 — the word every resident learns the year everything costs more.\n\n証 makes words correct 正 — the six talkers' last seat: proof. 保険証 from the clinic scene, 保証 from the warranty card, 遅延証明書 from two lessons ago — the paper trail closes.\n\n報 returns what is due: 情報, 報告, 天気予報 — and 報われる, effort requited, the verb every かいがある sentence hopes for.",
+    },
+
+  { id: "cp-kokoro", kind: "checkpoint", title: "Checkpoint — the inner ledger",
+    chars: ["心","自","変","無","証","報"],
+    exp: "Six characters that audit the inside of a life: the heart, the self, what changed, what was absent, what was proven, and what was reported back.\n\nBlank if you can. One stroke from the hint — for the last time in this course, as always.",
+    },
 ];
 
 // ————— Progress migration: order-v1 → order-v2 lesson ids (Session 10) —————
@@ -580,6 +629,9 @@ const GROUPS = [
   { title: "The measure of things",
     blurb: "Real and imagined, weighed and priced, decided and bounded, promised and proven. The thread 糸 ties its fourth knot, 直 arrives and immediately goes to work inside 値, and 期間限定 becomes readable — which changes shopping forever.",
     ids: ["k-t34","k-t35","sb-ito","k-t36","k-t37","cp-real"] },
+  { title: "The inner ledger",
+    blurb: "Heart, self, change and absence — then the verdict sheet: nature, assessment, price, proof, report. 心 takes its own card at last, 言 seats its sixth speaker, and 遅延証明書 becomes a word you can read at the exact moment a train makes you need one.",
+    ids: ["k-t38","k-t39","sb-gen","k-t40","k-t41","cp-kokoro"] },
 ];
 const INTRO = MODULES.find((m) => m.id === "cc-intro");
 const FURIGANA = MODULES.find((m) => m.id === "cc-furigana");

@@ -55,7 +55,9 @@ CONTENT = [HERE / "stage-3-content-v1.json", HERE / "milestone-content-v1.json",
            HERE / "stage-15-content-v1.json",
            HERE / "stage-15-content-b-v1.json",
            HERE / "stage-16-content-v1.json",
-           HERE / "stage-16-content-b-v1.json"]
+           HERE / "stage-16-content-b-v1.json",
+           HERE / "stage-16-sweep-v1.json",
+           HERE / "stage-16-sweep-b-v1.json"]
 
 # ————— emit JS in the module's own house style —————
 def js_str(s):

@@ -1,0 +1,35 @@
+{
+  "_": "Stage 16 — the N1 sweep. Two lessons into Step 71, closing what the post-authoring audit still found absent. Same mechanism as stage-13-sweep: measure, find short, fix, and only then let the milestone speak.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch T continues.",
+  "new_steps": [],
+  "insert": [
+    {
+      "step": "Step 71 · The operators of record",
+      "after": "ikan",
+      "point": {
+        "id": "toatte", "jp": "〜とあって・とあれば・ゆえ（に）・んがため（に）", "en": "the circumstance being; for the sake of — in armor", "kind": "grammar",
+        "exp": {
+          "what": "The formal circumstance-and-purpose set. とあって reports a special circumstance and its natural consequence: 連休とあって、どこも混んでいた — it being the holidays, everywhere was packed. とあれば accepts a condition as sufficient cause: 君の頼みとあれば、断れない — if it's you asking, refusal is off the table. ゆえに gives reason in scholar's ink: 我思う、ゆえに我あり. んがため（に） is purpose at maximum formality, the ん of んばかり serving desire: 勝たんがために、手段を選ばなかった — for the sake of winning, no means were beneath them.",
+          "build": "Noun／plain clause + とあって + observed consequence (third-person, reported). Noun／と + あれば. Noun／plain + （が）ゆえ（に）. ない-stem + んがため（に） (する → せんがため).",
+          "when": "とあって is news-Japanese's favorite scene-setter — every holiday-crowd report opens with it. とあれば in loyal pledges; ゆえに in logic and law; んがために in editorials describing single-minded pursuit, usually with an eyebrow raised.",
+          "watch": "とあって needs a genuinely special circumstance and cannot take the speaker's own situation. んがため's purpose is usually judged excessive by the sentence around it — the pattern itself carries the eyebrow. And ゆえに outside logic, law or deliberate gravity reads as cosplay."
+        },
+        "ex": [["三連休の初日とあって、高速道路は朝から渋滞した。", "It being the first day of the long weekend, the expressways jammed from morning."], ["生き残らんがために、会社は何でも切り捨てた。", "For the sake of survival, the company cut away everything."]]
+      }
+    },
+    {
+      "step": "Step 71 · The operators of record",
+      "after": "toatte",
+      "point": {
+        "id": "karaaru", "jp": "〜からある・であれ・もしないで", "en": "a good X or more; be it what it may; without so much as", "kind": "grammar",
+        "exp": {
+          "what": "Three last operators. からある sets a quantity's floor with awe in it: 二十キロからある荷物 — a load of twenty kilos if it's a gram (money takes からする, people からの). であれ waives category, doubled or with question words: 相手が誰であれ — be the opponent who they may; 雨であれ雪であれ. もしないで indicts an omission: 調べもしないで批判する — criticizing without so much as checking; the も is the accusation.",
+          "build": "Quantity + からある／からする（price）／からの（people）. Noun + であれ（, noun + であれ）; 何であれ・誰であれ. ます-stem + もしないで／もせずに + the act that needed the omitted step.",
+          "when": "からある in reportage impressed by scale. であれ in principled declarations — にしろ's higher court. もしないで in rebukes, self-directed included; its polite shadow は any 確認もせずに in a written apology.",
+          "watch": "からある only floors impressive quantities — 二個からある is bathos. であれ demands the categorical stance a plain にしても would dodge. もしないで's verb must be the OBVIOUS prerequisite; indicting an irrelevant omission makes the accuser the story."
+        },
+        "ex": [["現場には、百人からある報道陣が詰めかけていた。", "A press corps a hundred strong if a soul had crowded the scene."], ["理由が何であれ、暴力は容認できない。", "Whatever the reason may be, violence cannot be countenanced."]]
+      }
+    }
+  ]
+}

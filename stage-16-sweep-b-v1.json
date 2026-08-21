@@ -1,0 +1,49 @@
+{
+  "_": "N1 sweep, second pass — the hand-read of the audit residual found eleven items still genuinely absent. Three family lessons close them; the remaining soft cells are DECLARED in n1-audit.json rather than papered over.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch T continues.",
+  "new_steps": [],
+  "insert": [
+    {
+      "step": "Step 63 · How it ended up",
+      "after": "dehasumanai",
+      "point": {
+        "id": "madomonai", "jp": "〜までもない・ほどのことはない・には及ばない・にあたらない", "en": "no need to even — the four dismissals", "kind": "grammar",
+        "exp": {
+          "what": "Four ways to wave a thing off as beneath the effort. までもない: the act is unnecessary — 言うまでもない, it goes without saying. ほどのことはない: the matter doesn't rise to that — 騒ぐほどのことはない, nothing worth the fuss. には及ばない: formal declining — ご心配には及びません, your concern, while kind, is not required. にあたらない: the reaction is unwarranted — 驚くにあたらない, no cause for surprise.",
+          "build": "Dictionary form + までもない／ほどのことはない／には及ばない／にあたらない. The reaction verbs (驚く・非難する・褒める) prefer にあたらない; the courtesy nouns (心配・お礼) prefer には及ばない.",
+          "when": "Reassurance and formal modesty — the receptionist's ご心配には及びません, the editorial's 驚くにあたらない. 言うまでもなく is the essay adverb every N1 passage uses once.",
+          "watch": "All four dismiss the ACT, not the person — but tone slips easily: 君の意見は聞くまでもない is a door slammed. The safest faces are the fossils: 言うまでもない and ご心配には及びません."
+        },
+        "ex": [["この程度の雨なら、傘を差すまでもない。", "Rain this light isn't worth opening an umbrella over."], ["彼が勝ったのは実力だ。驚くにあたらない。", "He won on ability — no cause for surprise."]]
+      }
+    },
+    {
+      "step": "Step 66 · Turns of thought",
+      "after": "tokitara",
+      "point": {
+        "id": "monowo", "jp": "〜ものを・ばこそ・か否か", "en": "when you only had to; precisely because; whether or not", "kind": "grammar",
+        "exp": {
+          "what": "Three written hinges. ものを is reproach at a road not taken: 言ってくれれば手伝ったものを — you had only to say, and I'd have helped (but you didn't, and here we are); のに with grief in it. ばこそ is からこそ in classical dress, always positive: 愛すればこそ、厳しくする — precisely because there is love. か否か is かどうか for documents: 実現するか否かは不明だ.",
+          "build": "Plain form + ものを, usually sentence-final with the regret trailing. ば form + こそ. Dictionary form／noun + か否（いな）か.",
+          "when": "ものを in fiction and family arguments — it needs standing to reproach. ばこそ in formal defenses of hard choices. か否か wherever かどうか would sag under the register.",
+          "watch": "ものを's unspoken half IS the sentence; completing it kills it. ばこそ takes only noble reasons — 安いばこそ買った misdresses a bargain. か否か cannot take the casual clause かどうか accepts: 行くか行かないか否か is double-counted."
+        },
+        "ex": [["一言相談してくれればよかったものを。", "You had only to say one word to me — and yet."], ["体を思えばこそ、酒を止めるよう言うのだ。", "It is precisely out of care for your health that I tell you to stop."]]
+      }
+    },
+    {
+      "step": "Step 71 · The operators of record",
+      "after": "karaaru",
+      "point": {
+        "id": "wofumaete", "jp": "〜を踏まえて・をいいことに・嫌いがある・にもほどがある", "en": "building on; exploiting; a tendency toward; there are limits", "kind": "grammar",
+        "exp": {
+          "what": "Four last operators of judgment. を踏まえて stands ON prior ground to move forward: 前回の反省を踏まえて — building on last time's lessons; に基づいて's action-facing sibling. をいいことに exploits a license: 親のいない のをいいことに、遊び放題だ — taking absence as permission. 嫌いがある diagnoses an unwelcome tendency, formally: 独断で決める嫌いがある — has a tendency toward deciding alone. にもほどがある draws the line under an excess: 冗談にもほどがある — even jokes have limits.",
+          "build": "Noun + を踏まえて（た）. Clause の／noun + をいいことに + the liberty taken. Dictionary form／noun の + 嫌い（きらい）がある. Noun + にもほどがある.",
+          "when": "を踏まえて in every meeting summary in Japan. をいいことに in indictments — the pattern never approves. 嫌いがある in performance reviews and self-aware confession. にもほどがある in exasperation with its sleeves rolled up.",
+          "watch": "嫌いがある reads きらい but is not dislike — the tendency meaning is the exam's favorite trap. をいいことに condemns by grammar; neutral exploitation wants を利用して. And にもほどがある aimed upward is insubordination with excellent form."
+        },
+        "ex": [["調査結果を踏まえて、方針を練り直した。", "Building on the survey results, we reworked the policy."], ["彼は優しいのをいいことに、彼女は約束を破り続けた。", "Exploiting his kindness, she went on breaking promises."]]
+      }
+    }
+  ]
+}
