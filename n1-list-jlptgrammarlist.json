@@ -1,0 +1,790 @@
+[
+ {
+  "jp": "あえて",
+  "gloss": "dare to"
+ },
+ {
+  "jp": "あくまでも",
+  "gloss": "to the end; to the utmost degree"
+ },
+ {
+  "jp": "案の定",
+  "gloss": "just as one thought"
+ },
+ {
+  "jp": "あらかじめ",
+  "gloss": "beforehand; in advance"
+ },
+ {
+  "jp": "あっての",
+  "gloss": "to owe everything to"
+ },
+ {
+  "jp": "場合によっては",
+  "gloss": "depending on the situation"
+ },
+ {
+  "jp": "ばこそ",
+  "gloss": "only because"
+ },
+ {
+  "jp": "ばそれまでだ",
+  "gloss": "if… then it's over"
+ },
+ {
+  "jp": "べからず",
+  "gloss": "must not; should not"
+ },
+ {
+  "jp": "べく",
+  "gloss": "in order to; should"
+ },
+ {
+  "jp": "べくもない",
+  "gloss": "can't"
+ },
+ {
+  "jp": "びる",
+  "gloss": "seeming to be"
+ },
+ {
+  "jp": "ぶり",
+  "gloss": "style; manner"
+ },
+ {
+  "jp": "ぶる",
+  "gloss": "behaving like"
+ },
+ {
+  "jp": "だに",
+  "gloss": "even"
+ },
+ {
+  "jp": "であれ / であろうと",
+  "gloss": "whoever / whatever / however"
+ },
+ {
+  "jp": "でも何でもない",
+  "gloss": "not in the least"
+ },
+ {
+  "jp": "でなくてなんだろう",
+  "gloss": "must be; is definitely"
+ },
+ {
+  "jp": "ではあるまいか",
+  "gloss": "I wonder if it's not"
+ },
+ {
+  "jp": "ではあるまいし",
+  "gloss": "it's not like; it isn't as if"
+ },
+ {
+  "jp": "ではすまない",
+  "gloss": "it doesn't end with just"
+ },
+ {
+  "jp": "がてら",
+  "gloss": "on the same occasion"
+ },
+ {
+  "jp": "が早いか",
+  "gloss": "as soon as"
+ },
+ {
+  "jp": "が最後",
+  "gloss": "once something occurs; something else happens"
+ },
+ {
+  "jp": "ごとき / ごとく",
+  "gloss": "like; as if"
+ },
+ {
+  "jp": "ぐるみ",
+  "gloss": "together with"
+ },
+ {
+  "jp": "羽目になる",
+  "gloss": "to end up with (something unpleasant)"
+ },
+ {
+  "jp": "ひとつ",
+  "gloss": "to give something a try"
+ },
+ {
+  "jp": "ほどのことはない",
+  "gloss": "not worth; no need to"
+ },
+ {
+  "jp": "ほうがましだ",
+  "gloss": "I would rather"
+ },
+ {
+  "jp": "いかなる",
+  "gloss": "any kind of"
+ },
+ {
+  "jp": "いかんでは / いかんによっては",
+  "gloss": "depending on"
+ },
+ {
+  "jp": "いかんによらず",
+  "gloss": "regardless of"
+ },
+ {
+  "jp": "いかに",
+  "gloss": "how"
+ },
+ {
+  "jp": "いかにも",
+  "gloss": "indeed; really"
+ },
+ {
+  "jp": "いまだに",
+  "gloss": "still; even now"
+ },
+ {
+  "jp": "いずれにせよ",
+  "gloss": "at any rate; in any case"
+ },
+ {
+  "jp": "じみた",
+  "gloss": "to look like"
+ },
+ {
+  "jp": "限りだ",
+  "gloss": "I feel so"
+ },
+ {
+  "jp": "かいもなく",
+  "gloss": "even though"
+ },
+ {
+  "jp": "か否か",
+  "gloss": "whether or not"
+ },
+ {
+  "jp": "可能性がある",
+  "gloss": "there's a possibility"
+ },
+ {
+  "jp": "からある",
+  "gloss": "as much as; as many as"
+ },
+ {
+  "jp": "かたがた",
+  "gloss": "while; for the purpose of"
+ },
+ {
+  "jp": "かたわら",
+  "gloss": "while; at the same time"
+ },
+ {
+  "jp": "かつて",
+  "gloss": "once; before"
+ },
+ {
+  "jp": "嫌いがある",
+  "gloss": "to have a tendency to"
+ },
+ {
+  "jp": "きっての",
+  "gloss": "the most … of all"
+ },
+ {
+  "jp": "きりがない",
+  "gloss": "there's no end to"
+ },
+ {
+  "jp": "極まる / 極まりない",
+  "gloss": "extremely"
+ },
+ {
+  "jp": "極めて",
+  "gloss": "extremely; exceedingly"
+ },
+ {
+  "jp": "ことだし",
+  "gloss": "because; since"
+ },
+ {
+  "jp": "ことごとく",
+  "gloss": "altogether; entirely"
+ },
+ {
+  "jp": "ことなしに",
+  "gloss": "without doing something"
+ },
+ {
+  "jp": "ことのないよう",
+  "gloss": "so as not to"
+ },
+ {
+  "jp": "こととて",
+  "gloss": "because; since"
+ },
+ {
+  "jp": "くらいなら",
+  "gloss": "rather than"
+ },
+ {
+  "jp": "くらいのものだ",
+  "gloss": "only"
+ },
+ {
+  "jp": "までだ",
+  "gloss": "only"
+ },
+ {
+  "jp": "までもない",
+  "gloss": "it's not necessary to"
+ },
+ {
+  "jp": "まじき",
+  "gloss": "should not; must not"
+ },
+ {
+  "jp": "ままに",
+  "gloss": "to do as"
+ },
+ {
+  "jp": "まみれ",
+  "gloss": "to be covered in"
+ },
+ {
+  "jp": "まるっきり",
+  "gloss": "totally; completely"
+ },
+ {
+  "jp": "めく",
+  "gloss": "to show signs of"
+ },
+ {
+  "jp": "もはや",
+  "gloss": "already; no longer"
+ },
+ {
+  "jp": "も顧みず / を顧みず",
+  "gloss": "regardless of; despite"
+ },
+ {
+  "jp": "もしないで",
+  "gloss": "without even doing"
+ },
+ {
+  "jp": "もので",
+  "gloss": "because; for that reason"
+ },
+ {
+  "jp": "ものを",
+  "gloss": "I wish; if only"
+ },
+ {
+  "jp": "ものと思われる",
+  "gloss": "to think; to suppose"
+ },
+ {
+  "jp": "ものとして",
+  "gloss": "to assume; to suppose"
+ },
+ {
+  "jp": "もさることながら",
+  "gloss": "not only… but also"
+ },
+ {
+  "jp": "もしくは",
+  "gloss": "or; otherwise"
+ },
+ {
+  "jp": "ながらに / ながらの",
+  "gloss": "while; during"
+ },
+ {
+  "jp": "ないまでも",
+  "gloss": "even if something isn't done"
+ },
+ {
+  "jp": "ないものか",
+  "gloss": "can't we…?; can't I…?"
+ },
+ {
+  "jp": "ないものでもない",
+  "gloss": "(something) is not entirely impossible"
+ },
+ {
+  "jp": "ないとも限らない",
+  "gloss": "might"
+ },
+ {
+  "jp": "なくして",
+  "gloss": "without"
+ },
+ {
+  "jp": "何しろ",
+  "gloss": "in any case; as you know"
+ },
+ {
+  "jp": "なしに",
+  "gloss": "without"
+ },
+ {
+  "jp": "ならでは",
+  "gloss": "uniquely applying to"
+ },
+ {
+  "jp": "ならいざしらず",
+  "gloss": "I don't know about A; but B"
+ },
+ {
+  "jp": "なり",
+  "gloss": "as soon as"
+ },
+ {
+  "jp": "なりに / なりの",
+  "gloss": "in one's own way or style"
+ },
+ {
+  "jp": "なりとも",
+  "gloss": "even a little; at least"
+ },
+ {
+  "jp": "に値する",
+  "gloss": "to be worth; to deserve"
+ },
+ {
+  "jp": "にあたらない",
+  "gloss": "it's not worth; there's no need to"
+ },
+ {
+  "jp": "にあって",
+  "gloss": "at; during; in the condition of"
+ },
+ {
+  "jp": "にひきかえ",
+  "gloss": "in contrast to"
+ },
+ {
+  "jp": "に至るまで",
+  "gloss": "until; as far as"
+ },
+ {
+  "jp": "に至っては",
+  "gloss": "as for; when it comes to"
+ },
+ {
+  "jp": "に言わせれば",
+  "gloss": "if you ask; if one may say"
+ },
+ {
+  "jp": "にかかっている",
+  "gloss": "to depend on"
+ },
+ {
+  "jp": "にかたくない",
+  "gloss": "it's not hard to"
+ },
+ {
+  "jp": "にまつわる",
+  "gloss": "to be related to"
+ },
+ {
+  "jp": "にもほどがある",
+  "gloss": "to have a limit; to go too far"
+ },
+ {
+  "jp": "にもまして",
+  "gloss": "more than; above"
+ },
+ {
+  "jp": "に則って",
+  "gloss": "in accordance with"
+ },
+ {
+  "jp": "に先駆けて",
+  "gloss": "to be the first"
+ },
+ {
+  "jp": "にしたって",
+  "gloss": "even; even if"
+ },
+ {
+  "jp": "にして",
+  "gloss": "only; in (time span)"
+ },
+ {
+  "jp": "に即して",
+  "gloss": "in keeping with"
+ },
+ {
+  "jp": "にたえる / にたえない",
+  "gloss": "can/can't do something"
+ },
+ {
+  "jp": "に足る / に足りる",
+  "gloss": "to be enough; to be worthy of"
+ },
+ {
+  "jp": "に足りない",
+  "gloss": "to be not worth"
+ },
+ {
+  "jp": "に照らして",
+  "gloss": "in comparison with; according to"
+ },
+ {
+  "jp": "にとどまらず",
+  "gloss": "not limited to"
+ },
+ {
+  "jp": "には及ばない",
+  "gloss": "there's no need to"
+ },
+ {
+  "jp": "によらず",
+  "gloss": "regardless of"
+ },
+ {
+  "jp": "んばかりに",
+  "gloss": "as if; as though"
+ },
+ {
+  "jp": "んがため",
+  "gloss": "in order to"
+ },
+ {
+  "jp": "の至り",
+  "gloss": "utmost"
+ },
+ {
+  "jp": "の極み",
+  "gloss": "utmost"
+ },
+ {
+  "jp": "のみか",
+  "gloss": "not only… but also"
+ },
+ {
+  "jp": "のなんのって",
+  "gloss": "extremely"
+ },
+ {
+  "jp": "を踏まえて",
+  "gloss": "based on"
+ },
+ {
+  "jp": "を経て",
+  "gloss": "through; after; via"
+ },
+ {
+  "jp": "をいいことに",
+  "gloss": "to take advantage of"
+ },
+ {
+  "jp": "を限りに",
+  "gloss": "starting from"
+ },
+ {
+  "jp": "を兼ねて",
+  "gloss": "also for the purpose of"
+ },
+ {
+  "jp": "を皮切りに",
+  "gloss": "starting with"
+ },
+ {
+  "jp": "を機に",
+  "gloss": "as an opportunity to"
+ },
+ {
+  "jp": "を禁じえない",
+  "gloss": "can't help but"
+ },
+ {
+  "jp": "をものともせず",
+  "gloss": "in defiance of"
+ },
+ {
+  "jp": "をもって 1",
+  "gloss": "by means of"
+ },
+ {
+  "jp": "をもって 2",
+  "gloss": "at the time"
+ },
+ {
+  "jp": "をおいて",
+  "gloss": "other than; without"
+ },
+ {
+  "jp": "を余儀なくされる",
+  "gloss": "to be forced to do something"
+ },
+ {
+  "jp": "をよそに",
+  "gloss": "despite"
+ },
+ {
+  "jp": "思いをする",
+  "gloss": "to feel"
+ },
+ {
+  "jp": "折に",
+  "gloss": "when; on the occasion"
+ },
+ {
+  "jp": "およそ",
+  "gloss": "totally; (not) at all"
+ },
+ {
+  "jp": "さもないと",
+  "gloss": "otherwise; else; if not so"
+ },
+ {
+  "jp": "さぞ",
+  "gloss": "I'm sure; I'm certain"
+ },
+ {
+  "jp": "始末だ",
+  "gloss": "end up; in the end"
+ },
+ {
+  "jp": "そばから",
+  "gloss": "as soon as"
+ },
+ {
+  "jp": "さも",
+  "gloss": "truly; really"
+ },
+ {
+  "jp": "それなりに",
+  "gloss": "as it is; in its own way"
+ },
+ {
+  "jp": "そうにもない",
+  "gloss": "impossible; unlikely"
+ },
+ {
+  "jp": "た拍子に",
+  "gloss": "the instant"
+ },
+ {
+  "jp": "ためしがない",
+  "gloss": "(something) is never the case"
+ },
+ {
+  "jp": "たりとも",
+  "gloss": "(not) even; (not) any"
+ },
+ {
+  "jp": "た瞬間に",
+  "gloss": "the moment"
+ },
+ {
+  "jp": "てっきり",
+  "gloss": "surely; certainly"
+ },
+ {
+  "jp": "たところで",
+  "gloss": "even if one does something"
+ },
+ {
+  "jp": "てからというもの",
+  "gloss": "after; since"
+ },
+ {
+  "jp": "てかなわない",
+  "gloss": "can't stand; unable to"
+ },
+ {
+  "jp": "てまで",
+  "gloss": "even"
+ },
+ {
+  "jp": "てみせる",
+  "gloss": "I'll definitely"
+ },
+ {
+  "jp": "てもどうにもならない",
+  "gloss": "it's no use"
+ },
+ {
+  "jp": "ても始まらない",
+  "gloss": "it's no use"
+ },
+ {
+  "jp": "ても差し支えない",
+  "gloss": "can; it's okay if"
+ },
+ {
+  "jp": "てしかるべきだ",
+  "gloss": "should"
+ },
+ {
+  "jp": "ってば",
+  "gloss": "I said; I told you to"
+ },
+ {
+  "jp": "てやまない",
+  "gloss": "always; never stop"
+ },
+ {
+  "jp": "と相まって",
+  "gloss": "together with"
+ },
+ {
+  "jp": "とあれば",
+  "gloss": "if; if it's the case that"
+ },
+ {
+  "jp": "とあって",
+  "gloss": "because of"
+ },
+ {
+  "jp": "とばかりに",
+  "gloss": "as if; as though"
+ },
+ {
+  "jp": "といえども",
+  "gloss": "even; even if"
+ },
+ {
+  "jp": "といったらない",
+  "gloss": "very; extremely"
+ },
+ {
+  "jp": "という",
+  "gloss": "all; every"
+ },
+ {
+  "jp": "というか",
+  "gloss": "or; or more precisely"
+ },
+ {
+  "jp": "というもの",
+  "gloss": "during a period of time"
+ },
+ {
+  "jp": "というわけだ",
+  "gloss": "this means"
+ },
+ {
+  "jp": "というわけではない",
+  "gloss": "it's not that; it doesn't mean that"
+ },
+ {
+  "jp": "といわず",
+  "gloss": "not just; both"
+ },
+ {
+  "jp": "ときたら",
+  "gloss": "when it comes to; concerning"
+ },
+ {
+  "jp": "ときている",
+  "gloss": "because"
+ },
+ {
+  "jp": "ところがある",
+  "gloss": "there is"
+ },
+ {
+  "jp": "ところから",
+  "gloss": "from the fact that"
+ },
+ {
+  "jp": "とみられる",
+  "gloss": "to be regarded as; to be expected to"
+ },
+ {
+  "jp": "とみるや",
+  "gloss": "at the sight of; upon seeing"
+ },
+ {
+  "jp": "ともなく",
+  "gloss": "to do something without thinking about it"
+ },
+ {
+  "jp": "ともなると / ともなれば",
+  "gloss": "when; once (something happens)"
+ },
+ {
+  "jp": "ともすれば",
+  "gloss": "apt to; prone to"
+ },
+ {
+  "jp": "と思いきや",
+  "gloss": "I thought"
+ },
+ {
+  "jp": "とりわけ",
+  "gloss": "especially"
+ },
+ {
+  "jp": "とされる",
+  "gloss": "is considered"
+ },
+ {
+  "jp": "とっさに",
+  "gloss": "at once; right away"
+ },
+ {
+  "jp": "としたって / としたところで",
+  "gloss": "even if"
+ },
+ {
+  "jp": "とて",
+  "gloss": "even if; even though"
+ },
+ {
+  "jp": "とは",
+  "gloss": "(indicates word or phrase being defined)"
+ },
+ {
+  "jp": "とはいえ",
+  "gloss": "nonetheless; although"
+ },
+ {
+  "jp": "とはいうものの",
+  "gloss": "having said that; be that as it may"
+ },
+ {
+  "jp": "はおろか",
+  "gloss": "let alone; not to mention"
+ },
+ {
+  "jp": "はさておき",
+  "gloss": "setting aside"
+ },
+ {
+  "jp": "や否や",
+  "gloss": "the moment that; as soon as"
+ },
+ {
+  "jp": "やしない",
+  "gloss": "not (emphatic negative)"
+ },
+ {
+  "jp": "ようによっては",
+  "gloss": "depending on"
+ },
+ {
+  "jp": "ゆえに",
+  "gloss": "therefore; consequently"
+ },
+ {
+  "jp": "ざる",
+  "gloss": "not; -un"
+ },
+ {
+  "jp": "ずじまい",
+  "gloss": "never"
+ },
+ {
+  "jp": "ずくめ",
+  "gloss": "entirely; completely"
+ },
+ {
+  "jp": "ずとも",
+  "gloss": "even without doing"
+ }
+]

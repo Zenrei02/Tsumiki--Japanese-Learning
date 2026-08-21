@@ -223,6 +223,35 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   the habit generalises: before trusting a green render test, check what artifact it actually
   loaded.
 
+- **⚠️ `web_fetch` CACHES PER URL. A re-fetch returns what that exact URL showed the FIRST
+  time it was fetched — for hours. Bust it with a junk query param.**
+
+  ```
+  https://…/viewform?cb=whatever      ← forces a live read
+  ```
+
+  Session 18.5, Aug 21 2026. The grading-form patch ran twice, both times logging `45/45 OK`.
+  Re-fetching the live forms afterwards showed **B3 still on the run-1 tag and B9 still on the
+  pre-run-1 tag** — a textbook "the log lied" result, and this project has a standing rule that
+  says believe the artifact over the log. The artifact was right; **the window I was looking
+  through was stale.** Adding `?cb=…` returned the correct text instantly, and Drive
+  `modifiedTime` on the form (`13:38:11Z`) matched the Apps Script log line to the second.
+
+  Every form returned exactly what it showed on its own first fetch: B9 fetched pre-run-1 kept
+  showing 〔テスト〕 through two patches; B3 first fetched after run 1 kept showing 〔ともこ〕.
+  Nothing about the response says it is cached — no age header, no staleness marker.
+
+  **This is a rule about verification tools, not about Google Forms.** "Inspect the artifact,
+  not the log" has failed three times on this project and this is the first time the
+  *inspection* was the broken part. So: a check that reads through a cache is not a check. When
+  confirming a change landed, either bust the cache or corroborate with an independent channel
+  — Drive `modifiedTime` is the cheap one here, it is not cached and it timestamps the write.
+
+  Two claims made this session rest on cached reads and were re-verified once this was found:
+  B1 "renders 15 pages signed-out" post-patch, and the run-1 confirmation on B3/B7. Both
+  re-checked with a cache-buster and both hold. **The conclusions survived; the evidence
+  originally cited for them did not.** State which of the two you actually have.
+
 ## Artifact-environment quirks (Session 5 — all probed, none are code bugs)
 
 - **The artifact API proxy pins the model.** Arbitrary model strings are *not* honoured. Both
