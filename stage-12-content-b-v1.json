@@ -1,0 +1,245 @@
+{
+  "_": "Stage 12 · Standpoints — Steps 53–55 + rc11. Chains after stage-12-content-v1.json.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch Q continues.",
+  "insert": [],
+  "new_steps": [
+    {
+      "cat": "Step 53 · Rumor and relay",
+      "level": "S12",
+      "after_step": "Step 52 · Feelings past containment",
+      "note": "Stage 5 taught そうだ and らしい — hearsay in its Sunday clothes. This step is how information actually moves between people: clipped, vague on purpose, and always one remove from its source.",
+      "bank": [["情報", "information"], ["事件", "an incident"], ["報道", "news coverage"], ["記者", "a reporter"], ["見出し", "a headline"], ["内緒", "a secret"], ["噂話", "gossip"], ["出来事", "an event; happening"]],
+      "points": [
+        {
+          "id": "toka", "jp": "〜とか", "en": "I hear — vaguely on purpose", "kind": "grammar",
+          "exp": {
+            "what": "The N5 とか listed examples; this one relays news with the edges sanded off: 田中さん、会社を辞めるとか — Tanaka's quitting, or so one hears. The vagueness is politeness: it leaves the speaker unaccountable and the news deniable.",
+            "build": "Plain clause + とか, usually sentence-final: 来月結婚するとか. Often with 聞いた or 言っていた understood, never stated.",
+            "when": "Office corridors and family kitchens — passing on what you half-know. It is そうだ's off-duty form.",
+            "watch": "Deliberate vagueness about GOOD news reads warm; about bad news it reads like gossip, because it is. The pattern doesn't launder the content."
+          },
+          "ex": [["部長、来月転勤になるとか。", "The manager's being transferred next month, or so I hear."], ["あの店、閉まったとか聞いたけど。", "I heard that place closed, or something."]]
+        },
+        {
+          "id": "ndatte", "jp": "〜んだって", "en": "they say — the relay marker", "kind": "grammar",
+          "exp": {
+            "what": "Casual hearsay with the source's voice still warm on it: 明日、休みなんだって — tomorrow's off, apparently (someone just told me). Where とか blurs, んだって points: this came from somewhere specific, freshly.",
+            "build": "Plain clause + んだって; nouns and な-adjectives take なんだって. Rising って at the end keeps the relay audible.",
+            "when": "The default spoken relay among friends — school news, neighbourhood news, what the notice downstairs says. You will hear it hourly.",
+            "watch": "It is casual到底: in polite company the same job is done by そうです or ということです (Step 35's toiukoto). The three are one ladder — んだって／とか → そうだ → ということだ — climbed by formality."
+          },
+          "ex": [["あの二人、別れたんだって。", "Those two split up, apparently."], ["新しい店、野菜が安いんだって。", "The new shop's vegetables are cheap, they say."]]
+        },
+        {
+          "id": "toiukotoha", "jp": "〜ということは", "en": "which means", "kind": "grammar",
+          "exp": {
+            "what": "The relay's logical half: take what was just said and unfold it. 電車が止まっている？ということは、会議に遅れるということだ — the train's stopped? Which means we'll be late. It turns received information into its consequence in front of the listener.",
+            "build": "Statement + ということは + conclusion (often closing with ということだ／わけだ): ということは、つまり….",
+            "when": "Thinking aloud in company — the natural spoken bridge between hearing and understanding. Also the interviewer's favourite: ということは、賛成ですね？",
+            "watch": "The conclusion must genuinely follow. Using ということは to change subject rather than unfold one is a recognisable dodge — and is used as one."
+          },
+          "ex": [["電気がついている。ということは、誰かいるはずだ。", "The lights are on. Which means someone must be in."], ["ということは、来週まで待つしかないわけですね。", "Which means, then, we've no choice but to wait till next week."]]
+        },
+        {
+          "id": "fuuni", "jp": "〜というふうに／ふうに", "en": "in such a way", "kind": "grammar",
+          "exp": {
+            "what": "Manner, pointed at: こういうふうに切ってください — cut it this way. というふうに quotes a whole manner into place: 皆が納得するというふうに説明したい. ふう is 風 — the way the wind of a thing blows.",
+            "build": "こういう／そういう／どういう + ふうに for the demonstrative set; clause + というふうに for the quoted set; ふうな before nouns.",
+            "when": "Teaching, demonstrating, describing style: how the chef folds it, how the boss wants it phrased. Reading its kanji 風 waits for the kanji track.",
+            "watch": "というふうに beside Step 35's という family: というふうに is HOW, ということは is WHAT-FOLLOWS, というものだ is WHAT-IT-AMOUNTS-TO. The follower tells them apart, as ever."
+          },
+          "ex": [["こういうふうに書けば、読みやすくなりますよ。", "If you write it this way, it gets easier to read."], ["誰も傷つかないというふうに、言い方を工夫した。", "I worked the phrasing so that no one would be hurt."]]
+        },
+        {
+          "id": "toitta", "jp": "〜といった", "en": "such as — the formal list", "kind": "grammar",
+          "exp": {
+            "what": "など climbed into print: 東京や大阪といった大都市 — big cities such as Tokyo and Osaka. It gives examples AND files them under their category noun in one move; the list feels representative rather than exhaustive.",
+            "build": "Noun(s) + といった + category noun: 寿司や天ぷらといった日本料理. Two examples is the natural dose.",
+            "when": "Written description — reports, brochures, essays. The spoken mouth says such lists with など or とか.",
+            "watch": "The category noun is mandatory and must actually contain the examples: 犬や猫といった魚 breaks. Without the category, plain など was the word."
+          },
+          "ex": [["醤油や味噌といった調味料は、大豆から作られる。", "Seasonings such as soy sauce and miso are made from soybeans."], ["遅刻や忘れ物といった小さなミスが続いた。", "Small slips such as lateness and forgotten items kept happening."]]
+        },
+        {
+          "id": "kananika", "jp": "〜か何か・〜ではないか", "en": "or something; why don't we", "kind": "grammar",
+          "exp": {
+            "what": "Two small social tools. か何か blurs an example into an offer: コーヒーか何か飲みますか — coffee or something? And ではないか（じゃないか） flips a negative question into a push: 行こうではないか (formal, let us go) and 言ったじゃないか (I TOLD you, didn't I) — proposal and protest, same shape.",
+            "build": "Noun + か何か. Volitional + ではないか for the formal proposal; plain clause + じゃないか for the protest／reminder.",
+            "when": "か何か is everyday hospitality. 〜ようではないか is speech-podium grammar; 〜じゃないか is the sound of friendly indignation everywhere.",
+            "watch": "Intonation carries じゃないか's two faces: falling = protest, flat-rising = realisation (あ、田中じゃないか). Listening for it is the skill; producing the protest at a superior is not advised."
+          },
+          "ex": [["お茶か何か、いかがですか。", "Would you like tea or something?"], ["みんなで力を合わせようではないか。", "Let us combine our efforts, shall we not."]]
+        },
+        {
+          "id": "b-s53", "jp": "Composition · 又聞きの報告", "en": "relay the news, three registers", "kind": "build",
+          "exp": {
+            "what": "One piece of office news, relayed three ways: to a friend (んだって), to a colleague (とか聞きました), in the minutes (ということだ). Then one ということは line drawing the consequence.",
+            "build": "The ladder is the lesson: んだって → とか → そうだ → ということだ, same fact climbing four rungs.",
+            "when": "Relaying accurately WITHOUT overclaiming certainty is half of workplace Japanese.",
+            "watch": "Each register keeps its own hedge. A んだって inside the minutes is the failure mode — and a genuinely funny one to imagine."
+          },
+          "ex": [["支店が移転するということです。ということは、通勤時間が変わるわけです。", "The branch is relocating, per report. Which means commutes change."]]
+        }
+      ]
+    },
+    {
+      "cat": "Step 54 · Not a chance",
+      "level": "S12",
+      "after_step": "Step 53 · Rumor and relay",
+      "note": "Stage 10 denied inferences politely (わけがない, とは限らない). This step is the full impossibility shelf — from playground っこない to written に過ぎない — plus the duty forms that close doors from the other side.",
+      "bank": [["実力", "real ability"], ["実現", "realization; coming true"], ["現実", "reality"], ["理想", "an ideal"], ["予想外", "unexpected"], ["奇跡", "a miracle"], ["才能", "talent"], ["条件付き", "conditional"]],
+      "points": [
+        {
+          "id": "kkonai", "jp": "〜っこない・そうにない", "en": "no chance — spoken impossibility", "kind": "grammar",
+          "exp": {
+            "what": "Two casual doors shut. っこない is the blunt one: できっこない — no chance, full stop, friends-only register. そうにない is gentler and observational: 終わりそうにない — from the look of it, this isn't going to end. One denies ability, the other reads the horizon.",
+            "build": "ます-stem + っこない: 分かりっこない, 勝てっこない. ます-stem + そうにない（そうもない）: 降りそうにない — Stage 5's looks-like そう, negated hard.",
+            "when": "っこない among intimates about steep odds. そうにない anywhere — it is the polite-capable way to say the meeting will overrun.",
+            "watch": "っこない at work is a register slip — わけがない (Stage 10) is its office suit. そうにない beside そうもない: interchangeable; the も version is a shade more resigned."
+          },
+          "ex": [["こんな量、一日で終わりっこないよ。", "No chance this much gets done in a day."], ["雨は、やみそうにない。", "This rain shows no sign of stopping."]]
+        },
+        {
+          "id": "nisuginai", "jp": "〜に過ぎない・でしかない", "en": "merely — cutting things down", "kind": "grammar",
+          "exp": {
+            "what": "The deflation pair. に過ぎない measures: 一例に過ぎない — no more than one example (it does not exceed that). でしかない judges: 言い訳でしかない — it is an excuse and nothing better. Same translation, different temperature: 過ぎない states scale, でしかない states verdict.",
+            "build": "Noun／plain clause + に過ぎない; Noun + でしかない. Both written-leaning; both love 単なる／ただの in front.",
+            "when": "Essays and honest self-assessment: 始まりに過ぎない keeps a success modest; 数字でしかない dismisses a metric. The N2 reading section leans on both.",
+            "watch": "でしかない always carries disappointment — 妻でしかない is an insult where 妻に過ぎない is odd-but-neutral. Choose by whether you mean to wound the noun."
+          },
+          "ex": [["これは第一歩に過ぎない。", "This is no more than a first step."], ["謝罪がなければ、言葉は音でしかない。", "Without an apology behind them, words are merely sound."]]
+        },
+        {
+          "id": "nakuhanai", "jp": "〜なくはない", "en": "it's not that I don't", "kind": "grammar",
+          "exp": {
+            "what": "The double negative that opens a door a crack: 行きたくなくはない — it's not that I don't want to go. Two negatives don't cancel; they hedge: yes, faintly, with reservations the listener is invited to ask about.",
+            "build": "ない form with ない → なくはない／なくもない: 分からなくはない, 食べなくもない. Adjectives too: 高くなくはない.",
+            "when": "Reluctant concessions and shy admissions — agreeing to a plan you half-like, conceding a rival's point. Deeply conversational.",
+            "watch": "It is never enthusiasm. 好きじゃなくはない to a confession is a soft landing for a no, and every native listener hears it that way. The double negative IS the message."
+          },
+          "ex": [["彼の気持ちも、分からなくはない。", "It's not that I can't see his side of it."], ["迷いがなくはないが、やってみよう。", "Not that I'm without doubts — but let's try it."]]
+        },
+        {
+          "id": "tehanaranai", "jp": "〜てはならない・ねばならない", "en": "must not; must — on paper", "kind": "grammar",
+          "exp": {
+            "what": "Step 5's てはいけない and なければならない in official dress. てはならない forbids from above: ここで泳いではならない — signage and statute. ねばならない obliges from principle: 守らねばならない — ね is the old negative again (sb-zaru's family), so the bones read 'if not doing, it does not become'.",
+            "build": "て form + はならない. ない-stem + ねばならない; する → せねばならない, the same せ as せず・せざる.",
+            "when": "Reading, overwhelmingly: rules, contracts, editorials, exam passages. Producing them belongs to whoever drafts the rules — occasionally you.",
+            "watch": "The する trap once more: しねばならない is wrong, せねばならない is the form. Spoken Japanese keeps なきゃ／なくちゃ; these are their courtroom cousins."
+          },
+          "ex": [["この書類は、期限までに提出せねばならない。", "These documents must be submitted by the deadline."], ["従業員以外、この機械に触れてはならない。", "No one but staff may touch this machine."]]
+        },
+        {
+          "id": "yorihokanai", "jp": "〜よりほかない・ようでは", "en": "nothing for it; if it stays like this", "kind": "grammar",
+          "exp": {
+            "what": "Two closers. よりほかない is the resignation form of しかない: 諦めるよりほかない — nothing for it but to give up; ほか (other) says every alternative was checked. ようでは condemns a tendency: 遅刻するようでは、信頼されない — if you're the sort to be late, trust won't come; the ending is always a bad forecast.",
+            "build": "Dictionary form + よりほかない（ほかはない）. Plain form + ようでは + negative outlook.",
+            "when": "よりほかない in written conclusions where しかない would sound light. ようでは in warnings and self-scolding — the coach's pattern.",
+            "watch": "ようでは must end dark; a bright ending flips it into ようなら (Step 16's turf). And よりほかない outranks しかない in formality only — the resignation is identical."
+          },
+          "ex": [["部品がない以上、修理は諦めるよりほかない。", "With no parts to be had, there's nothing for it but to give up on the repair."], ["この程度で疲れているようでは、本番は乗り切れない。", "If this much tires you out, you'll never survive the real thing."]]
+        },
+        {
+          "id": "sb-hitei3", "jp": "不可能の棚 — 全段", "en": "the impossibility shelf, floor to ceiling", "kind": "skill",
+          "exp": {
+            "what": "Every no the course owns, on one shelf by register and target. Casual: っこない (ability), もんか (refusal), そうにない (outlook). Neutral: わけがない (reason forbids), とは限らない (not necessarily), はずがない. Written: に過ぎない／でしかない (deflation), ようがない (no method), ざるを得ない's mirror ねばならない (no exit from duty), よりほかない (no alternative).",
+            "build": "Choose by WHAT is impossible: the method (ようがない), the odds (っこない・そうにない), the logic (わけがない), the alternatives (よりほかない), the scale of the thing itself (に過ぎない).",
+            "when": "The N2 exam's favourite cluster — four options from this shelf under one sentence is a standard question shape.",
+            "watch": "The false friend inside the family: かねない looks like it belongs here and means the OPPOSITE — might well happen. Step 44 planted it; this shelf is where it bites."
+          },
+          "ex": [["直しようがない・直せっこない・直すよりほかない。", "No way to fix it / no chance of fixing it / nothing for it but to fix it — three different sentences."]]
+        },
+        {
+          "id": "b-s54", "jp": "Composition · 却下の理由", "en": "reject the proposal, in writing", "kind": "build",
+          "exp": {
+            "what": "Four written lines rejecting a plan: the deflation (に過ぎない), the impossibility with its kind named (ようがない or 実現しそうにない), the duty (ねばならない), and the one door left open (なくはない).",
+            "build": "Ending on なくはない is deliberate — a rejection that closes every door reads as war; Japanese business writing leaves one ajar.",
+            "when": "Saying no in writing without burning the bridge — the genre above all genres.",
+            "watch": "One deflation is firm; two is contempt. Count them."
+          },
+          "ex": [["この案は、現状では実現しようがない。ただ、方向性は評価できなくはない。", "As it stands this can't be realized. The direction, however, is not without merit."]]
+        }
+      ]
+    },
+    {
+      "cat": "Step 55 · Moments and aftermaths",
+      "level": "S12",
+      "after_step": "Step 54 · Not a chance",
+      "note": "Stage 11 did formal occasions. This step is time at street level — near-misses, interruptions, long-awaited returns, and the sour end of a long road. rc11 closes the stage.",
+      "bank": [["瞬間", "an instant"], ["直後", "just after"], ["直前", "just before"], ["同時", "the same time"], ["結末", "the ending; outcome"], ["再会", "reunion"], ["近所迷惑", "neighborhood nuisance"], ["夜中", "the middle of the night"]],
+      "points": [
+        {
+          "id": "tokorodatta", "jp": "〜ところだった", "en": "almost — the near miss", "kind": "grammar",
+          "exp": {
+            "what": "Step 19's ところ aimed at disaster and stopped: 乗り遅れるところだった — I was a breath from missing it (and didn't). The pattern reports the world that almost happened, always with relief or a shudder.",
+            "build": "Dictionary form + ところだった: 忘れるところだった, ぶつかるところだった. もう少しで in front sharpens the margin.",
+            "when": "The near-miss report — everyday and constant: almost forgot the meeting, almost got on the wrong train, almost said the thing.",
+            "watch": "The event must NOT have happened; 乗り遅れたところだった contradicts itself. And it wants misfortunes — 合格するところだった (almost passed) works but lands as bitter comedy."
+          },
+          "ex": [["もう少しで、傘を忘れるところだった。", "I very nearly forgot my umbrella."], ["危ない！車とぶつかるところだったよ。", "Careful! You were an inch from that car."]]
+        },
+        {
+          "id": "tokoroni", "jp": "〜ところに／ところへ", "en": "right at the moment when", "kind": "grammar",
+          "exp": {
+            "what": "The interruption pattern: 出かけようとしたところに、電話が鳴った — right as I was heading out, the phone rang. Step 19 taught ところ as a point in an action's arc; に／へ aims something INCOMING at that point, usually inconvenient, occasionally providential.",
+            "build": "た／ている／ようとした form + ところに（へ）+ arrival verb: 来た, 鳴った, 帰ってきた.",
+            "when": "Storytelling's workhorse — every anecdote about bad timing runs through it. The lucky version exists too: 困っていたところに、先輩が通りかかった.",
+            "watch": "What follows must ARRIVE (come, call, appear) — a state can't interrupt. Compare Step 34's とたん: とたん is instant sequence; ところに is an arc met by an arrival."
+          },
+          "ex": [["寝ようとしたところに、友達から電話が来た。", "Right as I was going to sleep, a friend called."], ["道に迷っていたところへ、交番が見えた。", "Just as I was well and truly lost, a police box came into view."]]
+        },
+        {
+          "id": "katoomottara", "jp": "〜かと思ったら／かと思うと", "en": "no sooner had — the whiplash", "kind": "grammar",
+          "exp": {
+            "what": "Two states in whiplash succession: 泣いたかと思ったら、もう笑っている — no sooner crying than laughing. The pattern watches something change faster than expectation allows, and carries the watcher's mild disbelief.",
+            "build": "た form + かと思ったら／かと思うと + the surprising next: 晴れたかと思うと、また降り出した.",
+            "when": "Weather, toddlers, moods, the stock market — anything whose changes outrun dignity. Always about what you OBSERVE, never your own actions.",
+            "watch": "First-person breaks it: 私は寝たかと思ったら起きた misfires — you can't be surprised by your own whiplash. Stage 11's か〜ないかのうちに overlaps; that one is tighter timing, this one is bigger surprise."
+          },
+          "ex": [["空が暗くなったかと思ったら、大粒の雨が降り出した。", "The sky darkened, and next thing, fat drops were falling."], ["帰ってきたかと思うと、もう出かけて行った。", "No sooner home than out the door again."]]
+        },
+        {
+          "id": "todoujini", "jp": "〜と同時に", "en": "at the same moment; and equally", "kind": "grammar",
+          "exp": {
+            "what": "Simultaneity, stated cleanly: ドアが開くと同時に、客が入ってきた — the instant the door opened, in they came. Second job in writing: both-at-once for qualities — 教師であると同時に、研究者でもある, a teacher and equally a researcher.",
+            "build": "Dictionary form／noun(である) + と同時に. The both-at-once reading pairs with でもある.",
+            "when": "Precise narration and formal introductions. The timing sense competes with Stage 11's か〜ないかのうちに and loses on drama, wins on neutrality.",
+            "watch": "The two events must be genuinely simultaneous, not merely close — for close, ところに or とたん. The dual-identity reading needs である register around it."
+          },
+          "ex": [["ベルが鳴ると同時に、学生たちは走り出した。", "The moment the bell rang, the students bolted."], ["この仕事は大変であると同時に、やりがいもある。", "This work is hard and, in equal measure, rewarding."]]
+        },
+        {
+          "id": "tageku", "jp": "〜たあげく・た末（に）", "en": "after all that — how the road ended", "kind": "grammar",
+          "exp": {
+            "what": "Two ends of a long road. たあげく arrives somewhere bad: 悩んだあげく、断った — after all that agonising, refused (and the length made it worse). た末に just arrives, often somewhere earned: 話し合った末に、合意した — at the end of long talks, agreement. Same road, different weather at the end.",
+            "build": "た form + あげく（に）: 迷ったあげく. た form／noun + の + 末（に）: 考えた末, 議論の末. Both need a genuinely LONG first act.",
+            "when": "あげく for regrets and wasted effort; 末 for hard-won outcomes and neutral records. News writing uses 末 constantly: 逃走の末、逮捕された.",
+            "watch": "あげく + good outcome is the classic error: 頑張ったあげく合格した sounds like passing was a tragedy. Flip to 末 and it reads right."
+          },
+          "ex": [["さんざん迷ったあげく、何も買わずに店を出た。", "After endless dithering, I left the shop with nothing."], ["何度も失敗した末に、ようやく成功した。", "At the end of many failures, success finally came."]]
+        },
+        {
+          "id": "burini", "jp": "〜ぶりに", "en": "for the first time in", "kind": "grammar",
+          "exp": {
+            "what": "The reunion measure: 十年ぶりに会った — met for the first time in ten years. ぶり loads the whole gap into the meeting, which is why 久しぶり — the everyday greeting you've known since Stage 1 — is this pattern with the number blurred.",
+            "build": "Time span + ぶりに（の）: 三日ぶりに, 五年ぶりの再会. The span is how long the thing did NOT happen.",
+            "when": "Returns, revivals, weather records (十年ぶりの大雪), and every catch-up conversation's opening minutes.",
+            "watch": "The span must feel long for the activity — 三分ぶりに水を飲んだ is absurd because three minutes isn't absence. And ぶり attaches to the gap, never the date: 2020年ぶり is broken."
+          },
+          "ex": [["国の母と、二年ぶりに電話で話した。", "Talked with my mother back home for the first time in two years."], ["この町では、二十年ぶりの大雪だそうだ。", "They say it's the heaviest snow this town has seen in twenty years."]]
+        },
+        {
+          "id": "rc11", "jp": "復習 · Stage 12", "en": "checkpoint: the full stage", "kind": "review",
+          "covers": ["karasuruto", "nishitara", "toshiteha", "tokorowomiruto", "sb-shiten", "karakoso", "karaniha", "karatoitte", "monodakara", "kotoninatteiru", "tekoso", "tetamaranai", "naidehairarenai", "monogaaru", "monoka", "cc-honne2", "toka", "ndatte", "toiukotoha", "fuuni", "toitta", "kananika", "kkonai", "nisuginai", "nakuhanai", "tehanaranai", "yorihokanai", "sb-hitei3", "tokorodatta", "tokoroni", "katoomottara", "todoujini", "tageku", "burini"],
+          "exp": {
+            "what": "Stage 12 in one look: claims pinned to standpoints, reasons with force, feelings past containment, news at one remove, the impossibility shelf, and time at street level. The stage's through-line was the SPEAKER — where they stand, what moves them, what they rule out.",
+            "build": "The pairs that share a doorway: からすると／にしたら (judge vs feel), からこそ／だけに (spotlight vs lever), てたまらない／てならない (raw vs reflective), に過ぎない／でしかない (scale vs verdict), あげく／末 (bad end vs earned end), とたん／ところに／か〜ないかのうちに (three grains of timing).",
+            "when": "Before Stage 13, which takes these standpoints and files them into the formal lattice.",
+            "watch": "This stage's error family is TARGET confusion — patterns that only take others (にしたら, かと思ったら), only take yourself (ものか, ないではいられない), or only take the observable (ところを見ると). When a sentence fails, check who it's about before checking the form."
+          },
+          "ex": [["悩んだ末に断ったからといって、彼を責められるものか。", "After all that agony he refused — as if anyone could blame him for that. (the stage, compounded)"]]
+        }
+      ]
+    }
+  ]
+}

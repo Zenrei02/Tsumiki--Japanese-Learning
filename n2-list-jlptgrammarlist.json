@@ -1,0 +1,937 @@
+[
+ {
+  "raw": "あるいはor; possibly",
+  "jp": "あるいは",
+  "gloss": "or; possibly"
+ },
+ {
+  "raw": "いきなりsuddenly; all of a sudden",
+  "jp": "いきなり",
+  "gloss": "suddenly; all of a sudden"
+ },
+ {
+  "raw": "以上 1over",
+  "jp": "以上 1",
+  "gloss": "over"
+ },
+ {
+  "raw": "以上 2because; now that",
+  "jp": "以上 2",
+  "gloss": "because; now that"
+ },
+ {
+  "raw": "以上にmore than; no less than",
+  "jp": "以上に",
+  "gloss": "more than; no less than"
+ },
+ {
+  "raw": "いよいよat last; finally",
+  "jp": "いよいよ",
+  "gloss": "at last; finally"
+ },
+ {
+  "raw": "いわゆるso-called; so to speak",
+  "jp": "いわゆる",
+  "gloss": "so-called; so to speak"
+ },
+ {
+  "raw": "上でafter",
+  "jp": "上で",
+  "gloss": "after"
+ },
+ {
+  "raw": "上にas well; besides; in addition to",
+  "jp": "上に",
+  "gloss": "as well; besides; in addition to"
+ },
+ {
+  "raw": "上はnow that; since",
+  "jp": "上は",
+  "gloss": "now that; since"
+ },
+ {
+  "raw": "えないunable to; cannot",
+  "jp": "えない",
+  "gloss": "unable to; cannot"
+ },
+ {
+  "raw": "える / うるcan; is possible",
+  "jp": "える / うる",
+  "gloss": "can; is possible"
+ },
+ {
+  "raw": "恐れがあるthere are fears that",
+  "jp": "恐れがある",
+  "gloss": "there are fears that"
+ },
+ {
+  "raw": "おまけにto make matters worse",
+  "jp": "おまけに",
+  "gloss": "to make matters worse"
+ },
+ {
+  "raw": "かいがあるit's worth one's effort to do something",
+  "jp": "かいがある",
+  "gloss": "it's worth one's effort to do something"
+ },
+ {
+  "raw": "かえってon the contrary; rather; surprisingly",
+  "jp": "かえって",
+  "gloss": "on the contrary; rather; surprisingly"
+ },
+ {
+  "raw": "限りas long as; while… is the case",
+  "jp": "限り",
+  "gloss": "as long as; while… is the case"
+ },
+ {
+  "raw": "かと思ったら / かと思うとthen again; just when; no sooner than",
+  "jp": "かと思ったら / かと思うと",
+  "gloss": "then again; just when; no sooner than"
+ },
+ {
+  "raw": "か何かor something",
+  "jp": "か何か",
+  "gloss": "or something"
+ },
+ {
+  "raw": "かねないmight happen; might do something",
+  "jp": "かねない",
+  "gloss": "might happen; might do something"
+ },
+ {
+  "raw": "かねるunable to do something",
+  "jp": "かねる",
+  "gloss": "unable to do something"
+ },
+ {
+  "raw": "かのようas if; just like",
+  "jp": "かのよう",
+  "gloss": "as if; just like"
+ },
+ {
+  "raw": "から言うとin terms of; from the point of view of",
+  "jp": "から言うと",
+  "gloss": "in terms of; from the point of view of"
+ },
+ {
+  "raw": "からこそprecisely because",
+  "jp": "からこそ",
+  "gloss": "precisely because"
+ },
+ {
+  "raw": "からしてjudging from; based on",
+  "jp": "からして",
+  "gloss": "judging from; based on"
+ },
+ {
+  "raw": "からすると / からすればjudging from; considering",
+  "jp": "からすると / からすれば",
+  "gloss": "judging from; considering"
+ },
+ {
+  "raw": "からといってjust because",
+  "jp": "からといって",
+  "gloss": "just because"
+ },
+ {
+  "raw": "からにはnow that; since; so long as",
+  "jp": "からには",
+  "gloss": "now that; since; so long as"
+ },
+ {
+  "raw": "ら見るとfrom the point of view of; by the look of",
+  "jp": "ら見ると",
+  "gloss": "from the point of view of; by the look of"
+ },
+ {
+  "raw": "気feel like",
+  "jp": "気",
+  "gloss": "feel like"
+ },
+ {
+  "raw": "逆にon the contrary",
+  "jp": "逆に",
+  "gloss": "on the contrary"
+ },
+ {
+  "raw": "げ(giving the appearance of)",
+  "jp": "げ",
+  "gloss": "(giving the appearance of)"
+ },
+ {
+  "raw": "ことからfrom the fact that",
+  "jp": "ことから",
+  "gloss": "from the fact that"
+ },
+ {
+  "raw": "ことだからit is exactly because",
+  "jp": "ことだから",
+  "gloss": "it is exactly because"
+ },
+ {
+  "raw": "ことなくwithout doing something even once",
+  "jp": "ことなく",
+  "gloss": "without doing something even once"
+ },
+ {
+  "raw": "ごとにeach; every; at intervals of",
+  "jp": "ごとに",
+  "gloss": "each; every; at intervals of"
+ },
+ {
+  "raw": "ことになっているto be expected to; to be scheduled to",
+  "jp": "ことになっている",
+  "gloss": "to be expected to; to be scheduled to"
+ },
+ {
+  "raw": "ことにはならないjust because… doesn't mean…",
+  "jp": "ことにはならない",
+  "gloss": "just because… doesn't mean…"
+ },
+ {
+  "raw": "際にat the time; in case of",
+  "jp": "際に",
+  "gloss": "at the time; in case of"
+ },
+ {
+  "raw": "幸いluckily; fortunately",
+  "jp": "幸い",
+  "gloss": "luckily; fortunately"
+ },
+ {
+  "raw": "さらにfurthermore; again; more and more",
+  "jp": "さらに",
+  "gloss": "furthermore; again; more and more"
+ },
+ {
+  "raw": "ざるを得ないcan't help doing; have no choice but",
+  "jp": "ざるを得ない",
+  "gloss": "can't help doing; have no choice but"
+ },
+ {
+  "raw": "しかもmoreover; furthermore",
+  "jp": "しかも",
+  "gloss": "moreover; furthermore"
+ },
+ {
+  "raw": "次第as soon as",
+  "jp": "次第",
+  "gloss": "as soon as"
+ },
+ {
+  "raw": "次第だ / 次第でdepending on; so",
+  "jp": "次第だ / 次第で",
+  "gloss": "depending on; so"
+ },
+ {
+  "raw": "したがってtherefore; accordingly",
+  "jp": "したがって",
+  "gloss": "therefore; accordingly"
+ },
+ {
+  "raw": "上from the standpoint of",
+  "jp": "上",
+  "gloss": "from the standpoint of"
+ },
+ {
+  "raw": "すなわちin other words",
+  "jp": "すなわち",
+  "gloss": "in other words"
+ },
+ {
+  "raw": "ずに済むget by without doing something",
+  "jp": "ずに済む",
+  "gloss": "get by without doing something"
+ },
+ {
+  "raw": "せいぜいat the most; at best",
+  "jp": "せいぜい",
+  "gloss": "at the most; at best"
+ },
+ {
+  "raw": "せめてat least; at most",
+  "jp": "せめて",
+  "gloss": "at least; at most"
+ },
+ {
+  "raw": "そういえばcome to think of it",
+  "jp": "そういえば",
+  "gloss": "come to think of it"
+ },
+ {
+  "raw": "そうするとhaving done that",
+  "jp": "そうすると",
+  "gloss": "having done that"
+ },
+ {
+  "raw": "そうにないextremely unlikely to; showing no signs of",
+  "jp": "そうにない",
+  "gloss": "extremely unlikely to; showing no signs of"
+ },
+ {
+  "raw": "その上besides; in addition; furthermore",
+  "jp": "その上",
+  "gloss": "besides; in addition; furthermore"
+ },
+ {
+  "raw": "それともor; or else",
+  "jp": "それとも",
+  "gloss": "or; or else"
+ },
+ {
+  "raw": "それなのにand yet; despite this",
+  "jp": "それなのに",
+  "gloss": "and yet; despite this"
+ },
+ {
+  "raw": "それならthen; if that's the case",
+  "jp": "それなら",
+  "gloss": "then; if that's the case"
+ },
+ {
+  "raw": "それにしてもnevertheless; even so",
+  "jp": "それにしても",
+  "gloss": "nevertheless; even so"
+ },
+ {
+  "raw": "たあげくto end up; finally",
+  "jp": "たあげく",
+  "gloss": "to end up; finally"
+ },
+ {
+  "raw": "だけあって…being the case; precisely because",
+  "jp": "だけあって…",
+  "gloss": "being the case; precisely because"
+ },
+ {
+  "raw": "だけでなくnot only… but also",
+  "jp": "だけでなく",
+  "gloss": "not only… but also"
+ },
+ {
+  "raw": "だけに…being the case; precisely because",
+  "jp": "だけに…",
+  "gloss": "being the case; precisely because"
+ },
+ {
+  "raw": "だけのことはあるno wonder; it's not surprising that",
+  "jp": "だけのことはある",
+  "gloss": "no wonder; it's not surprising that"
+ },
+ {
+  "raw": "だけはto do all that one can",
+  "jp": "だけは",
+  "gloss": "to do all that one can"
+ },
+ {
+  "raw": "だけましだone should feel grateful for",
+  "jp": "だけましだ",
+  "gloss": "one should feel grateful for"
+ },
+ {
+  "raw": "た末 / の末as a conclusion of",
+  "jp": "た末 / の末",
+  "gloss": "as a conclusion of"
+ },
+ {
+  "raw": "直ちにat once; immediately",
+  "jp": "直ちに",
+  "gloss": "at once; immediately"
+ },
+ {
+  "raw": "だってbecause; but",
+  "jp": "だって",
+  "gloss": "because; but"
+ },
+ {
+  "raw": "たってeven if; even though; no matter how",
+  "jp": "たって",
+  "gloss": "even if; even though; no matter how"
+ },
+ {
+  "raw": "たまえ(order somebody to do something)",
+  "jp": "たまえ",
+  "gloss": "(order somebody to do something)"
+ },
+ {
+  "raw": "っこないno chance of; … is definitely not possible",
+  "jp": "っこない",
+  "gloss": "no chance of; … is definitely not possible"
+ },
+ {
+  "raw": "つつwhile; although",
+  "jp": "つつ",
+  "gloss": "while; although"
+ },
+ {
+  "raw": "つつあるto be doing",
+  "jp": "つつある",
+  "gloss": "to be doing"
+ },
+ {
+  "raw": "つもりでwith the intention of doing",
+  "jp": "つもりで",
+  "gloss": "with the intention of doing"
+ },
+ {
+  "raw": "ていてはif one keeps doing something",
+  "jp": "ていては",
+  "gloss": "if one keeps doing something"
+ },
+ {
+  "raw": "て以来since",
+  "jp": "て以来",
+  "gloss": "since"
+ },
+ {
+  "raw": "てからでないとunless; until",
+  "jp": "てからでないと",
+  "gloss": "unless; until"
+ },
+ {
+  "raw": "てこそnow that; since",
+  "jp": "てこそ",
+  "gloss": "now that; since"
+ },
+ {
+  "raw": "でしかないmerely; nothing but; no more than",
+  "jp": "でしかない",
+  "gloss": "merely; nothing but; no more than"
+ },
+ {
+  "raw": "てしょうがないvery; extremely",
+  "jp": "てしょうがない",
+  "gloss": "very; extremely"
+ },
+ {
+  "raw": "てたまらないvery; extremely; can't help but do",
+  "jp": "てたまらない",
+  "gloss": "very; extremely; can't help but do"
+ },
+ {
+  "raw": "てでもeven if one has to; by all means",
+  "jp": "てでも",
+  "gloss": "even if one has to; by all means"
+ },
+ {
+  "raw": "て当然だnatural; as a matter of course",
+  "jp": "て当然だ",
+  "gloss": "natural; as a matter of course"
+ },
+ {
+  "raw": "てならないvery; extremely",
+  "jp": "てならない",
+  "gloss": "very; extremely"
+ },
+ {
+  "raw": "てはif; since; one after another",
+  "jp": "ては",
+  "gloss": "if; since; one after another"
+ },
+ {
+  "raw": "てはいられないcan't afford to; unable to",
+  "jp": "てはいられない",
+  "gloss": "can't afford to; unable to"
+ },
+ {
+  "raw": "てばかりはいられないcan't keep doing something",
+  "jp": "てばかりはいられない",
+  "gloss": "can't keep doing something"
+ },
+ {
+  "raw": "ではないかlet's do something; why don't we",
+  "jp": "ではないか",
+  "gloss": "let's do something; why don't we"
+ },
+ {
+  "raw": "てはならないmust not; cannot; should not",
+  "jp": "てはならない",
+  "gloss": "must not; cannot; should not"
+ },
+ {
+  "raw": "手前before; in front of; from one's standpoint",
+  "jp": "手前",
+  "gloss": "before; in front of; from one's standpoint"
+ },
+ {
+  "raw": "ということはthat is to say",
+  "jp": "ということは",
+  "gloss": "that is to say"
+ },
+ {
+  "raw": "というふうにin such a way that",
+  "jp": "というふうに",
+  "gloss": "in such a way that"
+ },
+ {
+  "raw": "というものだsomething like…; something called…",
+  "jp": "というものだ",
+  "gloss": "something like…; something called…"
+ },
+ {
+  "raw": "というものでもないthere is no guarantee that…; not necessarily",
+  "jp": "というものでもない",
+  "gloss": "there is no guarantee that…; not necessarily"
+ },
+ {
+  "raw": "といったsuch… as",
+  "jp": "といった",
+  "gloss": "such… as"
+ },
+ {
+  "raw": "どうせanyway; anyhow",
+  "jp": "どうせ",
+  "gloss": "anyway; anyhow"
+ },
+ {
+  "raw": "どうやらit seems like; it appears that",
+  "jp": "どうやら",
+  "gloss": "it seems like; it appears that"
+ },
+ {
+  "raw": "とかI heard that…",
+  "jp": "とか",
+  "gloss": "I heard that…"
+ },
+ {
+  "raw": "と考えられるone can think that…",
+  "jp": "と考えられる",
+  "gloss": "one can think that…"
+ },
+ {
+  "raw": "ところだったwas just about to do something",
+  "jp": "ところだった",
+  "gloss": "was just about to do something"
+ },
+ {
+  "raw": "どころではないthis is not the time for…",
+  "jp": "どころではない",
+  "gloss": "this is not the time for…"
+ },
+ {
+  "raw": "ところに / ところへat the time",
+  "jp": "ところに / ところへ",
+  "gloss": "at the time"
+ },
+ {
+  "raw": "ところを見るとjudging from; seeing that",
+  "jp": "ところを見ると",
+  "gloss": "judging from; seeing that"
+ },
+ {
+  "raw": "としてはas for",
+  "jp": "としては",
+  "gloss": "as for"
+ },
+ {
+  "raw": "としてもassuming; even if",
+  "jp": "としても",
+  "gloss": "assuming; even if"
+ },
+ {
+  "raw": "とっくにalready; long ago",
+  "jp": "とっくに",
+  "gloss": "already; long ago"
+ },
+ {
+  "raw": "と同時にat the same time as",
+  "jp": "と同時に",
+  "gloss": "at the same time as"
+ },
+ {
+  "raw": "ともeven if; no matter",
+  "jp": "とも",
+  "gloss": "even if; no matter"
+ },
+ {
+  "raw": "ないではいられないcan't help but feel; can't help but do",
+  "jp": "ないではいられない",
+  "gloss": "can't help but feel; can't help but do"
+ },
+ {
+  "raw": "なおfurthermore; still; yet (used to add more information to the )",
+  "jp": "なお",
+  "gloss": "furthermore; still; yet (used to add more information to the )"
+ },
+ {
+  "raw": "中をin; on",
+  "jp": "中を",
+  "gloss": "in; on"
+ },
+ {
+  "raw": "なくはないit's not that…; can; may be",
+  "jp": "なくはない",
+  "gloss": "it's not that…; can; may be"
+ },
+ {
+  "raw": "にあたりat the time; on the occasion of",
+  "jp": "にあたり",
+  "gloss": "at the time; on the occasion of"
+ },
+ {
+  "raw": "に応じてdepending on; in accordance with",
+  "jp": "に応じて",
+  "gloss": "depending on; in accordance with"
+ },
+ {
+  "raw": "にかかわらずregardless of",
+  "jp": "にかかわらず",
+  "gloss": "regardless of"
+ },
+ {
+  "raw": "にかかわるto relate to; to have to do with",
+  "jp": "にかかわる",
+  "gloss": "to relate to; to have to do with"
+ },
+ {
+  "raw": "に限ってonly; particularly when",
+  "jp": "に限って",
+  "gloss": "only; particularly when"
+ },
+ {
+  "raw": "に限らずnot just; not only… but also",
+  "jp": "に限らず",
+  "gloss": "not just; not only… but also"
+ },
+ {
+  "raw": "に限るnothing better than; there's nothing like",
+  "jp": "に限る",
+  "gloss": "nothing better than; there's nothing like"
+ },
+ {
+  "raw": "に決まっているI'm sure that…",
+  "jp": "に決まっている",
+  "gloss": "I'm sure that…"
+ },
+ {
+  "raw": "に加えてin addition to",
+  "jp": "に加えて",
+  "gloss": "in addition to"
+ },
+ {
+  "raw": "に越したことはないit's best that; there's nothing better than",
+  "jp": "に越したことはない",
+  "gloss": "it's best that; there's nothing better than"
+ },
+ {
+  "raw": "に応えてin response to",
+  "jp": "に応えて",
+  "gloss": "in response to"
+ },
+ {
+  "raw": "に基づいてbased on",
+  "jp": "に基づいて",
+  "gloss": "based on"
+ },
+ {
+  "raw": "に際してon the occasion of; at the time of",
+  "jp": "に際して",
+  "gloss": "on the occasion of; at the time of"
+ },
+ {
+  "raw": "に先立ちbefore; prior to",
+  "jp": "に先立ち",
+  "gloss": "before; prior to"
+ },
+ {
+  "raw": "に従ってas; therefore",
+  "jp": "に従って",
+  "gloss": "as; therefore"
+ },
+ {
+  "raw": "にしたらfrom the point of view of",
+  "jp": "にしたら",
+  "gloss": "from the point of view of"
+ },
+ {
+  "raw": "にしろ / にせよthough; even if; whether… or",
+  "jp": "にしろ / にせよ",
+  "gloss": "though; even if; whether… or"
+ },
+ {
+  "raw": "に過ぎないno more than; just; merely",
+  "jp": "に過ぎない",
+  "gloss": "no more than; just; merely"
+ },
+ {
+  "raw": "に相違ないwithout a doubt; certain; sure",
+  "jp": "に相違ない",
+  "gloss": "without a doubt; certain; sure"
+ },
+ {
+  "raw": "に沿ってalong with; in accordance with",
+  "jp": "に沿って",
+  "gloss": "along with; in accordance with"
+ },
+ {
+  "raw": "につきdue to; because; per; each",
+  "jp": "につき",
+  "gloss": "due to; because; per; each"
+ },
+ {
+  "raw": "につけboth… and…; every time something happens",
+  "jp": "につけ",
+  "gloss": "both… and…; every time something happens"
+ },
+ {
+  "raw": "にてin; at",
+  "jp": "にて",
+  "gloss": "in; at"
+ },
+ {
+  "raw": "に伴ってas; due to",
+  "jp": "に伴って",
+  "gloss": "as; due to"
+ },
+ {
+  "raw": "にはin order to; for",
+  "jp": "には",
+  "gloss": "in order to; for"
+ },
+ {
+  "raw": "に反してagainst; contrary to",
+  "jp": "に反して",
+  "gloss": "against; contrary to"
+ },
+ {
+  "raw": "にほかならないnothing but; none other than",
+  "jp": "にほかならない",
+  "gloss": "nothing but; none other than"
+ },
+ {
+  "raw": "に向かってtowards; to face; to head to",
+  "jp": "に向かって",
+  "gloss": "towards; to face; to head to"
+ },
+ {
+  "raw": "にもかかわらずdespite; in spite of; although",
+  "jp": "にもかかわらず",
+  "gloss": "despite; in spite of; although"
+ },
+ {
+  "raw": "にわたってthroughout; over (a period of time)",
+  "jp": "にわたって",
+  "gloss": "throughout; over (a period of time)"
+ },
+ {
+  "raw": "抜きで / 抜きにしてleaving out; cutting out",
+  "jp": "抜きで / 抜きにして",
+  "gloss": "leaving out; cutting out"
+ },
+ {
+  "raw": "抜くto do something to the end",
+  "jp": "抜く",
+  "gloss": "to do something to the end"
+ },
+ {
+  "raw": "ねばならないhave to; must",
+  "jp": "ねばならない",
+  "gloss": "have to; must"
+ },
+ {
+  "raw": "のみならずnot only; besides; as well",
+  "jp": "のみならず",
+  "gloss": "not only; besides; as well"
+ },
+ {
+  "raw": "のも当然だit's only natural that; no wonder",
+  "jp": "のも当然だ",
+  "gloss": "it's only natural that; no wonder"
+ },
+ {
+  "raw": "のもとでunder",
+  "jp": "のもとで",
+  "gloss": "under"
+ },
+ {
+  "raw": "のももっともだno wonder; … is only natural",
+  "jp": "のももっともだ",
+  "gloss": "no wonder; … is only natural"
+ },
+ {
+  "raw": "ばかり 2about; approximately",
+  "jp": "ばかり 2",
+  "gloss": "about; approximately"
+ },
+ {
+  "raw": "ばかりだcontinue to",
+  "jp": "ばかりだ",
+  "gloss": "continue to"
+ },
+ {
+  "raw": "ばかりにbecause; on account of",
+  "jp": "ばかりに",
+  "gloss": "because; on account of"
+ },
+ {
+  "raw": "果たしてsure enough; really",
+  "jp": "果たして",
+  "gloss": "sure enough; really"
+ },
+ {
+  "raw": "はともかくwhether or not",
+  "jp": "はともかく",
+  "gloss": "whether or not"
+ },
+ {
+  "raw": "は別としてaside from",
+  "jp": "は別として",
+  "gloss": "aside from"
+ },
+ {
+  "raw": "はもとよりalso; let alone",
+  "jp": "はもとより",
+  "gloss": "also; let alone"
+ },
+ {
+  "raw": "反面on the other hand",
+  "jp": "反面",
+  "gloss": "on the other hand"
+ },
+ {
+  "raw": "ふうにin a way (this way/that way/what way)",
+  "jp": "ふうに",
+  "gloss": "in a way (this way/that way/what way)"
+ },
+ {
+  "raw": "ふたたびagain; once more",
+  "jp": "ふたたび",
+  "gloss": "again; once more"
+ },
+ {
+  "raw": "ぶりにfor the first time in",
+  "jp": "ぶりに",
+  "gloss": "for the first time in"
+ },
+ {
+  "raw": "まいwon't; intend not to",
+  "jp": "まい",
+  "gloss": "won't; intend not to"
+ },
+ {
+  "raw": "むしろrather; instead",
+  "jp": "むしろ",
+  "gloss": "rather; instead"
+ },
+ {
+  "raw": "もう少しでalmost; nearly",
+  "jp": "もう少しで",
+  "gloss": "almost; nearly"
+ },
+ {
+  "raw": "もかまわずwithout worrying about",
+  "jp": "もかまわず",
+  "gloss": "without worrying about"
+ },
+ {
+  "raw": "もっともbut then; although",
+  "jp": "もっとも",
+  "gloss": "but then; although"
+ },
+ {
+  "raw": "ものかas if",
+  "jp": "ものか",
+  "gloss": "as if"
+ },
+ {
+  "raw": "ものがある(sentence-ending expression of strong judgement)",
+  "jp": "ものがある",
+  "gloss": "(sentence-ending expression of strong judgement)"
+ },
+ {
+  "raw": "ものだからbecause; the reason is",
+  "jp": "ものだから",
+  "gloss": "because; the reason is"
+ },
+ {
+  "raw": "ものではないshouldn't do something; it's impossible to do something",
+  "jp": "ものではない",
+  "gloss": "shouldn't do something; it's impossible to do something"
+ },
+ {
+  "raw": "ものならif one can do something",
+  "jp": "ものなら",
+  "gloss": "if one can do something"
+ },
+ {
+  "raw": "もののbut; although",
+  "jp": "ものの",
+  "gloss": "but; although"
+ },
+ {
+  "raw": "やがてsoon; before long; eventually",
+  "jp": "やがて",
+  "gloss": "soon; before long; eventually"
+ },
+ {
+  "raw": "ようがない / ようもないthere's no way to; it's impossible to",
+  "jp": "ようがない / ようもない",
+  "gloss": "there's no way to; it's impossible to"
+ },
+ {
+  "raw": "要するにthe point is",
+  "jp": "要するに",
+  "gloss": "the point is"
+ },
+ {
+  "raw": "ようではif",
+  "jp": "ようでは",
+  "gloss": "if"
+ },
+ {
+  "raw": "よりほかないto have no choice but",
+  "jp": "よりほかない",
+  "gloss": "to have no choice but"
+ },
+ {
+  "raw": "わずかにslightly",
+  "jp": "わずかに",
+  "gloss": "slightly"
+ },
+ {
+  "raw": "をきっかけにwith… as a start; as a result of",
+  "jp": "をきっかけに",
+  "gloss": "with… as a start; as a result of"
+ },
+ {
+  "raw": "を契機にas a good opportunity to; as a result of",
+  "jp": "を契機に",
+  "gloss": "as a good opportunity to; as a result of"
+ },
+ {
+  "raw": "をこめてfilled with",
+  "jp": "をこめて",
+  "gloss": "filled with"
+ },
+ {
+  "raw": "を通じて / を通してvia; through",
+  "jp": "を通じて / を通して",
+  "gloss": "via; through"
+ },
+ {
+  "raw": "を問わずregardless of",
+  "jp": "を問わず",
+  "gloss": "regardless of"
+ },
+ {
+  "raw": "を除いてexcept; with the exception of",
+  "jp": "を除いて",
+  "gloss": "except; with the exception of"
+ },
+ {
+  "raw": "をめぐってconcerning; in regard to",
+  "jp": "をめぐって",
+  "gloss": "concerning; in regard to"
+ },
+ {
+  "raw": "をもとにbased on; from",
+  "jp": "をもとに",
+  "gloss": "based on; from"
+ },
+ {
+  "raw": "んだってI heard that",
+  "jp": "んだって",
+  "gloss": "I heard that"
+ }
+]

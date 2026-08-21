@@ -1,0 +1,215 @@
+{
+  "_": "Stage 13 · The formal lattice — N2 closes. Steps 56–58. Spliced by build-stage3.py after stage-12-content-b-v1.json.",
+  "_theme": "Stage 12 followed the speaker; Stage 13 is the machinery documents run on — grounds, relations, concessions, judgments — plus the gathering lessons for the adverb and connector tiers, per Lloyd's Stage-10 ruling. It ends with ms-n2, a capability claim backed by the audit for once.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch R.",
+  "insert": [],
+  "new_steps": [
+    {
+      "cat": "Step 56 · Grounds and guides",
+      "level": "S13",
+      "after_step": "Step 55 · Moments and aftermaths",
+      "note": "Stage 13 opens. Five patterns that name what a decision RESTS ON — the basis family. Every report, contract and recipe in the country runs on at least one of them.",
+      "bank": [["基準", "a standard; criterion"], ["方針", "a policy; course"], ["指示", "instructions"], ["要望", "a request; wishes"], ["規定", "regulations"], ["手順", "a procedure"], ["調整", "adjustment"], ["法律", "the law"]],
+      "points": [
+        {
+          "id": "nimotozuite", "jp": "〜に基づいて", "en": "based on", "kind": "grammar",
+          "exp": {
+            "what": "The foundation marker: 法律に基づいて処理する — handled on the basis of the law. 基づく is to take as one's 基 — base — so the named noun is the ground the action stands on, and the action claims its legitimacy from it.",
+            "build": "Noun + に基づいて／に基づき (the き-form more written) / に基づく + noun: 調査に基づく報告.",
+            "when": "Law, data, principles, plans — wherever an action wants to show its foundations. The pattern of every methods section and every official justification.",
+            "watch": "The base must be an authority-bearing thing: 気分に基づいて決めた is grammatical satire. For feelings and impressions, によって or によると carried the job long ago."
+          },
+          "ex": [["この計画は、去年の調査に基づいている。", "This plan is based on last year's survey."], ["規定に基づき、罰金を科します。", "Per the regulations, a fine will be imposed."]]
+        },
+        {
+          "id": "nisotte", "jp": "〜に沿って", "en": "along; in line with", "kind": "grammar",
+          "exp": {
+            "what": "沿う is to run alongside — a river, a wall, a plan. 川に沿って歩く walks the physical sense; 方針に沿って進める runs the abstract one: proceeding so as never to leave the named line's side.",
+            "build": "Noun + に沿って／に沿い / に沿った + noun: 期待に沿った結果, マニュアルに沿って.",
+            "when": "Physical routes, and compliance with guidelines that are PATHS rather than foundations — curricula, manuals, themes, hopes (ご期待に沿えず申し訳ありません is the set apology).",
+            "watch": "The lattice's first fine cut: 基づいて stands ON the thing; 沿って moves BESIDE it. A law grounds a ruling (基づいて); a manual guides a procedure (沿って). Both readable in seconds, swappable in neither direction."
+          },
+          "ex": [["線路に沿って、桜の木が植えられている。", "Cherry trees are planted along the rail line."], ["会社の方針に沿って、計画を立て直した。", "We redrew the plan in line with company policy."]]
+        },
+        {
+          "id": "nishitagatte", "jp": "〜に従って", "en": "following; as — obedience and lockstep", "kind": "grammar",
+          "exp": {
+            "what": "従う is to follow a superior, and both readings keep the deference. Obedience: 指示に従って行動する — act per instructions. Lockstep change: 北に行くに従って寒くなる — as you go north, it cools; the second thing follows the first the way a subordinate follows.",
+            "build": "Noun + に従って for obedience; dictionary-form verb + に従って for lockstep. Written に従い.",
+            "when": "Instructions, laws, elders for the first sense; gradual paired change for the second — where it competes with Stage 10's につれて and wins only on formality.",
+            "watch": "The obedience sense needs an authority: 猫に従う is comedy (or truth). And the lockstep sense wants gradual change — for events, と同時に."
+          },
+          "ex": [["係員の指示に従ってください。", "Please follow the staff's instructions."], ["年を取るに従って、時間が早く感じられる。", "As one ages, time comes to feel faster."]]
+        },
+        {
+          "id": "nioujite", "jp": "〜に応じて", "en": "according to — the sliding scale", "kind": "grammar",
+          "exp": {
+            "what": "応じる is to respond, and the pattern makes one thing a DIAL for another: 収入に応じて、税金が変わる — tax varies with income. Not obedience, not foundation: calibration.",
+            "build": "Noun + に応じて／に応じた + noun: 状況に応じた対応, 人数に応じて.",
+            "when": "Prices, portions, difficulty levels, responses tailored to circumstances — anywhere the answer is 'it depends, lawfully.'",
+            "watch": "The dial noun must vary: 名前に応じて料金が変わる is nonsense because names don't scale. Its cousin に応えて (responding to hopes/requests — 期待に応えて) shares the verb and splits the job: 応じて calibrates, 応えて answers."
+          },
+          "ex": [["経験に応じて、給料が決まります。", "Pay is set according to experience."], ["お客様のご要望に応えて、営業時間を延ばしました。", "Answering customers' wishes, we extended our hours."]]
+        },
+        {
+          "id": "sb-kijun", "jp": "基準の四天王", "en": "the four basis particles, told apart", "kind": "skill",
+          "exp": {
+            "what": "Four patterns, one preposition in English, four different geometries in Japanese. 基づいて stands ON (foundation). 沿って runs BESIDE (path). 従って walks BEHIND (authority). 応じて scales WITH (dial). The exam asks you to pick one; the geometry answers before the grammar does.",
+            "build": "Test with the noun: a law grounds (基づいて) and commands (従って) but is no dial; income scales (応じて) but grounds nothing; a manual guides (沿って). Some nouns take two — 計画に基づいて／沿って both live — and then the nuance is WHERE the plan sits: under you or beside you.",
+            "when": "These four appear together in every N2 grammar section ever printed. Five minutes of geometry beats fifty flashcards.",
+            "watch": "従って alone doubles as a conjunction (したがって, therefore — Stage 10's written connector). Sentence-initial with a comma, it is the connector; mid-sentence after に, it is this family."
+          },
+          "ex": [["マニュアルに沿って、規定に基づき、指示に従って作業する。", "Working along the manual, on the regulations, per instructions — three geometries, one sentence."]]
+        },
+        {
+          "id": "b-s56", "jp": "Composition · 手順書の一節", "en": "write the procedure", "kind": "build",
+          "exp": {
+            "what": "A four-line procedure paragraph: the foundation (に基づき), the path (に沿って), the authority (に従い), and the sliding scale (に応じて). である register throughout.",
+            "build": "Shape to steal: 本手順は安全規定に基づく。作業はマニュアルに沿って行い、係員の指示に従うこと。人数に応じて班を分ける。",
+            "when": "The procedure register runs every workplace document; producing four correct geometries in sequence is the whole test.",
+            "watch": "のこと endings (Step 49's noticeboard imperative) belong here — ください does not."
+          },
+          "ex": [["緊急時は、本規定に基づき行動のこと。", "In emergencies, act per these regulations."]]
+        }
+      ]
+    },
+    {
+      "cat": "Step 57 · With, against, around",
+      "level": "S13",
+      "after_step": "Step 56 · Grounds and guides",
+      "note": "The relation family: adding to, running counter to, facing toward, circling around, touching upon, leaving out. The prepositions of the editorial page.",
+      "bank": [["対立", "confrontation"], ["協力", "cooperation"], ["方向", "a direction"], ["材料", "materials; ingredients"], ["資料", "documents; data"], ["議論", "debate; discussion"], ["予測", "a forecast"], ["祈り", "a prayer"]],
+      "points": [
+        {
+          "id": "nikuwaete", "jp": "〜に加えて", "en": "in addition to — the pile grows", "kind": "grammar",
+          "exp": {
+            "what": "加える is to add, and the pattern stacks a second thing on a first that was already enough: 強風に加えて、雨も降り出した — on top of the wind, rain. Where のみならず widens a claim, に加えて loads a situation.",
+            "build": "Noun + に加えて／に加え: 基本料金に加えて.",
+            "when": "Weather, bills, symptoms, duties — the grammar of things piling up, neutral about whether the pile is good.",
+            "watch": "Beside its siblings: のみならず argues (not only but even), はもとより assumes (that goes without saying), に加えて merely stacks. News prose uses this one precisely because it argues nothing."
+          },
+          "ex": [["彼は英語に加えて、中国語も勉強し始めた。", "On top of English, he's started Chinese too."], ["人手不足に加え、材料費も上がっている。", "Added to the labor shortage, material costs are rising."]]
+        },
+        {
+          "id": "nihanshite", "jp": "〜に反して", "en": "contrary to", "kind": "grammar",
+          "exp": {
+            "what": "反する is to run counter, and the pattern measures an outcome against what was expected and finds it opposite: 予想に反して、あっさり勝った — contrary to forecast, an easy win. The noun is always an expectation-bearing thing: 予想, 期待, 意思, 規則.",
+            "build": "Noun + に反して／に反し / に反する + noun: 意に反する結果.",
+            "when": "Results that betray forecasts — elections, matches, experiments. The written cousin of のに with the emotion drained and the measurement kept.",
+            "watch": "The noun must carry an expectation: 天気に反して is broken (weather expects nothing); 天気予報に反して works. For people acting against advice, に反して reads stiff — friends say のに."
+          },
+          "ex": [["大方の予想に反して、新人が優勝した。", "Contrary to most predictions, the newcomer took the title."], ["親の期待に反して、彼は会社を辞めた。", "Against his parents' hopes, he quit the company."]]
+        },
+        {
+          "id": "nimukatte", "jp": "〜に向かって", "en": "toward; facing", "kind": "grammar",
+          "exp": {
+            "what": "向かう is to face and head for, and the pattern aims things: 駅に向かって歩く (motion), 壁に向かって座る (orientation), 目標に向かって努力する (purpose), and — the sharp one — 親に向かって、その口の利き方は何だ (TO someone's face, marking effrontery).",
+            "build": "Noun + に向かって／に向かい / に向けて for the aimed-preparation variant: 大会に向けて練習する.",
+            "when": "Directions and goals daily; the effrontery reading in scoldings. に向けて owns deadlines and events being prepared for — 発売に向けて.",
+            "watch": "向かって vs 向けて: 向かって MOVES toward; 向けて AIMS at (and may stand still). Training happens に向けて the tournament; walking happens に向かって the station."
+          },
+          "ex": [["ゴールに向かって、最後まで走り抜いた。", "He ran flat out toward the goal, to the very end."], ["決勝戦に向けて、チームは調整を続けている。", "The team keeps fine-tuning ahead of the final."]]
+        },
+        {
+          "id": "womegutte", "jp": "〜をめぐって", "en": "over; concerning — the circling dispute", "kind": "grammar",
+          "exp": {
+            "what": "めぐる is to circle, and what circles the named noun is always DISCUSSION with heat in it: 遺産をめぐって、兄弟が争っている — the brothers are fighting over the inheritance. The noun is the still center; the argument orbits.",
+            "build": "Noun + をめぐって／をめぐり / をめぐる + noun: 移転をめぐる議論.",
+            "when": "News and reports of disputes: inheritances, construction plans, interpretations, personnel. If nobody disagrees, use について.",
+            "watch": "The orbiting thing must be contested plural voices — をめぐって考える (one person thinking) misfires; をめぐって対立する is the native habitat. について informs; をめぐって embroils."
+          },
+          "ex": [["新しい工場の建設をめぐって、住民の意見が分かれている。", "Residents are split over the new factory's construction."], ["その規則の解釈をめぐって、議論が続いた。", "Debate continued over how to read the rule."]]
+        },
+        {
+          "id": "wonozoite", "jp": "〜を除いて・をもとに・をこめて", "en": "except; built from; filled with", "kind": "grammar",
+          "exp": {
+            "what": "Three を-patterns that finish the family. を除いて subtracts: 月曜を除いて営業 — open except Mondays. をもとに builds from a source: 実話をもとにした映画 — a film built on a true story. をこめて pours feeling in: 心をこめて作った — made with heart in it.",
+            "build": "Noun + を除いて（除き）; +をもとに（して）; +をこめて. こめて's noun is always an emotion: 愛, 感謝, 願い, 心.",
+            "when": "除いて in schedules and statistics; をもとに in credits and methods (基づいて's lighter cousin — a source, not an authority); をこめて in gifts, letters, and every hand-made thing's description.",
+            "watch": "をもとに vs に基づいて: the film is based ON a story loosely (をもとに); the ruling stands on the law strictly (に基づいて). Looseness is をもとに's feature, not its flaw."
+          },
+          "ex": [["祝日を除いて、毎日開いています。", "Open every day except holidays."], ["感謝をこめて、手紙を書いた。", "I wrote the letter with gratitude folded in."]]
+        },
+        {
+          "id": "b-s57", "jp": "Composition · 紛争の記事", "en": "the dispute, reported", "kind": "build",
+          "exp": {
+            "what": "A five-line news paragraph: the dispute (をめぐって), what fuels it (に加えて), the surprise (に反して), the direction (に向けて), and the exception (を除いて). である register.",
+            "build": "News syntax to steal: 〜をめぐり、対立が続いている。〜に加え、〜も争点となった。大方の予想に反し、〜。解決に向けて協議が進む。一部を除いて、合意は近い。",
+            "when": "This IS the shape of half the articles on NHK NEWS WEB EASY's grown-up sibling. Reading them becomes pattern-spotting after writing one.",
+            "watch": "Every pattern in its written short form (をめぐり, に加え, に反し) — the って forms mark the paragraph as half-spoken."
+          },
+          "ex": [["公園の移転をめぐり、意見が対立している。", "Opinions clash over the park's relocation."]]
+        }
+      ]
+    },
+    {
+      "cat": "Step 58 · No matter what",
+      "level": "S13",
+      "after_step": "Step 57 · With, against, around",
+      "note": "The concession summit. のに complained, ものの recorded, ながらも conceded — these forms OVERRIDE: despite, regardless, even if, whoever it costs. The grammar of pressing on.",
+      "bank": [["悪天候", "bad weather"], ["危険", "danger"], ["困難", "difficulty"], ["批判", "criticism"], ["周囲", "one's surroundings; those around"], ["決心", "determination"], ["中止", "cancellation"], ["強行", "forcing through"]],
+      "points": [
+        {
+          "id": "nimokakawarazu", "jp": "〜にもかかわらず・にかかわらず", "en": "despite / regardless — one kana apart", "kind": "grammar",
+          "exp": {
+            "what": "The pair the exam loves most. にもかかわらず takes a FACT and overrides it: 雨にもかかわらず、試合は行われた — despite the rain, played anyway. にかかわらず takes a VARIABLE and declares it irrelevant: 天候にかかわらず行います — held regardless of weather. One も, completely different machines.",
+            "build": "Fact (noun／plain clause) + にもかかわらず. Variable (noun, often paired opposites: 有無・晴雨・年齢) + にかかわらず.",
+            "when": "にもかかわらず in reports of defiance and surprise; にかかわらず in rules and announcements — it is を問わず's twin, swappable in most notices.",
+            "watch": "The test: can the noun VARY? 雨 fell (fact → にも); 天候 varies (variable → に). Getting this pair right is worth three exam questions; the third sibling にかかわる (to concern: 命にかかわる問題) just borrows the verb."
+          },
+          "ex": [["悪天候にもかかわらず、多くの人が集まった。", "Despite the foul weather, a crowd gathered."], ["経験の有無にかかわらず、応募できます。", "You may apply regardless of experience."]]
+        },
+        {
+          "id": "nishiro", "jp": "〜にしろ／にせよ・としても", "en": "even supposing", "kind": "grammar",
+          "exp": {
+            "what": "Concession over hypotheticals. にしろ／にせよ (the old imperatives of する) concede a case or a pair: 行くにしろ行かないにしろ、連絡はください — going or not, let me know. としても concedes a whole supposition: 本当だとしても、驚かない — even if true, no surprise.",
+            "build": "Plain form + にしろ／にせよ, often doubled for alternatives; いずれにせよ (either way) is the fossilised favourite. Plain form + としても.",
+            "when": "Covering both branches before they split — plans, verdicts, contingencies. にせよ leans written; にしろ spoken; としても goes anywhere.",
+            "watch": "The doubled shape needs real alternatives: 行くにしろ来るにしろ blurs (same journey). And note the family: Step 50's としては was a role; としても is a supposition — the は/も splits them, again."
+          },
+          "ex": [["冗談にせよ、言っていいことと悪いことがある。", "Even as a joke, some things shouldn't be said."], ["間に合わないとしても、行くだけ行ってみよう。", "Even if we won't make it, let's at least go."]]
+        },
+        {
+          "id": "tedemo", "jp": "〜てでも・もかまわず", "en": "whatever it takes; heedless of", "kind": "grammar",
+          "exp": {
+            "what": "The costs-be-damned pair. てでも names the price you'd pay: 徹夜してでも終わらせる — I'll finish if it takes all night. もかまわず names what you ignored: 人目もかまわず泣いた — cried heedless of watching eyes (構う, to mind, refused).",
+            "build": "て form + でも + resolve: 借金してでも. Noun + もかまわず: 雨にぬれるのもかまわず.",
+            "when": "てでも in vows and ultimatums — the strongest determination shape the course teaches. もかまわず in narration of people past caring.",
+            "watch": "てでも's named cost must be real and unwelcome (休んででも rings false — resting costs nothing). もかまわず describes OTHERS or your past self; announcing your own present heedlessness dissolves it."
+          },
+          "ex": [["どんな手を使ってでも、締め切りには間に合わせる。", "Whatever it takes, I'll make that deadline."], ["彼は服が汚れるのもかまわず、子どもを助けた。", "Heedless of his clothes, he pulled the child out."]]
+        },
+        {
+          "id": "temo2", "jp": "〜とも・う（よう）と", "en": "no matter — the written summit", "kind": "grammar",
+          "exp": {
+            "what": "The literary peak of no-matter: どんなに苦しくとも — however hard it be; 誰が何と言おうと — whatever anyone may say. とも after adjectives, volitional + と after verbs; both survive mainly in writing, speeches and proverbs, which is exactly where N2 reading finds them.",
+            "build": "Adjective く-form + とも: 遅くとも (at the latest — the fossil you already use). Volitional + と（も）: 雨が降ろうと, 何があろうとも.",
+            "when": "Reading first: editorials, anthems, wedding vows. Producing: 遅くとも and 少なくとも are the everyday fossils; the full pattern is for the one speech a year.",
+            "watch": "The volitional here is NOT invitation — 降ろうと is 'though it may rain', nobody is inviting rain. Step 17's よう wearing court dress; the follower (と) tells you which."
+          },
+          "ex": [["誰に反対されようと、この道を行くと決めた。", "Whoever may oppose it, I've decided on this path."], ["遅くとも八時までには着きます。", "I'll arrive by eight at the latest."]]
+        },
+        {
+          "id": "sb-jouho", "jp": "譲歩のはしご — 全段", "en": "the concession ladder, complete", "kind": "skill",
+          "exp": {
+            "what": "Every 'but-anyway' the course owns, in one climb. Feeling it: のに (frustrated) → くせに (contemptuous — flag intact). Recording it: ものの (cool) → ながらも (self-aware). Overriding it: にもかかわらず (fact defied) → にかかわらず・を問わず (variable dismissed). Supposing it: としても → にしろ／にせよ. Paying it: てでも → もかまわず. Summit: とも／ようと.",
+            "build": "Choose by what stands in the way: a feeling, a fact, a variable, a hypothesis, or a cost. English 'despite/even if' flattens five machines into two words — the ladder unflattens them.",
+            "when": "The single most exam-dense family in N2, and the most life-dense: every plan in Japan carries a weather clause.",
+            "watch": "Register mismatches are the production risk: くせに in a report, にもかかわらず in a text message. Height on the ladder and height of register move together."
+          },
+          "ex": [["雨天にもかかわらず決行。雨天にかかわらず決行。", "Held despite the rain / held rain or shine — the pair, side by side."]]
+        },
+        {
+          "id": "b-s58", "jp": "Composition · 決行のお知らせ", "en": "the it-goes-ahead notice", "kind": "build",
+          "exp": {
+            "what": "Write the festival notice: held regardless (にかかわらず), despite last year's cancellation (にもかかわらず), even if numbers are small (としても), and the organisers' resolve (てでも).",
+            "build": "Notice register from Step 47 + concession machinery from this step — the two lessons meet exactly here.",
+            "when": "The 雨天決行 poster is the most-read genre in Japan every festival season; now you can write one.",
+            "watch": "にかかわらず in the rule line, にもかかわらず in the history line. Swapping them is the exact error the sb warned about — in public, laminated."
+          },
+          "ex": [["本祭りは、天候にかかわらず開催します。", "This festival will be held regardless of weather."]]
+        }
+      ]
+    }
+  ]
+}

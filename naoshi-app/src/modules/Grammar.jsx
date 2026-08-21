@@ -320,6 +320,89 @@ const KANJI_DICT = [
   ["誤解", "ごかい", "a misunderstanding", "N2"],
   ["諦める", "あきらめる", "to give up", "N2"],
   ["面接", "めんせつ", "a job interview", "N2"],
+  // ————— DERIVED READINGS, Stages 12-13 batch (Session 18) — UniDic; 社会人/電子マネー hand-corrected. —————
+  ["予想外", "よそうがい", "unexpected", "N2"],
+  ["価値観", "かちかん", "values; worldview", "N2"],
+  ["努力家", "どりょくか", "a hard worker", "N2"],
+  ["悪天候", "あくてんこう", "bad weather", "N2"],
+  ["新入社員", "しんにゅうしゃいん", "a new employee", "N2"],
+  ["条件付き", "じょうけんつき", "conditional", "N2"],
+  ["消費者", "しょうひしゃ", "consumers", "N2"],
+  ["社会人", "しゃかいじん", "a working adult", "N2"],
+  ["近所迷惑", "きんじょめいわく", "neighborhood nuisance", "N2"],
+  ["電子マネー", "でんしマネー", "electronic money", "N2"],
+  ["上司", "じょうし", "one's boss", "N2"],
+  ["不満", "ふまん", "dissatisfaction", "N2"],
+  ["世代", "せだい", "a generation", "N2"],
+  ["中止", "ちゅうし", "cancellation", "N2"],
+  ["予測", "よそく", "a forecast", "N2"],
+  ["予防", "よぼう", "prevention", "N2"],
+  ["事件", "じけん", "an incident", "N2"],
+  ["健康", "けんこう", "health", "N2"],
+  ["内緒", "ないしょ", "a secret", "N2"],
+  ["再会", "さいかい", "reunion", "N2"],
+  ["出来事", "できごと", "an event; happening", "N2"],
+  ["半面", "はんめん", "the other side (of a quality)", "N2"],
+  ["協力", "きょうりょく", "cooperation", "N2"],
+  ["危機", "きき", "a crisis", "N2"],
+  ["危険", "きけん", "danger", "N2"],
+  ["同時", "どうじ", "the same time", "N2"],
+  ["周囲", "しゅうい", "one's surroundings; those around", "N2"],
+  ["噂話", "うわさばなし", "gossip", "N2"],
+  ["回復", "かいふく", "recovery", "N2"],
+  ["困難", "こんなん", "difficulty", "N2"],
+  ["基準", "きじゅん", "a standard; criterion", "N2"],
+  ["報道", "ほうどう", "news coverage", "N2"],
+  ["夜中", "よなか", "the middle of the night", "N2"],
+  ["奇跡", "きせき", "a miracle", "N2"],
+  ["実績", "じっせき", "a track record", "N2"],
+  ["強行", "きょうこう", "forcing through", "N2"],
+  ["恋しい", "こいしい", "longed-for", "N2"],
+  ["悔しい", "くやしい", "frustrating; galling", "N2"],
+  ["情報", "じょうほう", "information", "N2"],
+  ["意識", "いしき", "awareness", "N2"],
+  ["感動", "かんどう", "being moved", "N2"],
+  ["懐かしい", "なつかしい", "nostalgic; dearly missed", "N2"],
+  ["成果", "せいか", "results; fruits", "N2"],
+  ["手順", "てじゅん", "a procedure", "N2"],
+  ["才能", "さいのう", "talent", "N2"],
+  ["批判", "ひはん", "criticism", "N2"],
+  ["指示", "しじ", "instructions", "N2"],
+  ["方向", "ほうこう", "a direction", "N2"],
+  ["方針", "ほうしん", "a policy; course", "N2"],
+  ["時代", "じだい", "an era", "N2"],
+  ["本気", "ほんき", "seriousness", "N2"],
+  ["材料", "ざいりょう", "materials; ingredients", "N2"],
+  ["毎回", "まいかい", "every time", "N2"],
+  ["決心", "けっしん", "determination", "N2"],
+  ["法律", "ほうりつ", "the law", "N2"],
+  ["涙", "なみだ", "tears", "N2"],
+  ["無事", "ぶじ", "safe and sound", "N2"],
+  ["無駄", "むだ", "waste; futility", "N2"],
+  ["理想", "りそう", "an ideal", "N2"],
+  ["瞬間", "しゅんかん", "an instant", "N2"],
+  ["祈り", "いのり", "a prayer", "N2"],
+  ["納得", "なっとく", "being convinced", "N2"],
+  ["結末", "けつまつ", "the ending; outcome", "N2"],
+  ["罰金", "ばっきん", "a fine", "N2"],
+  ["羨ましい", "うらやましい", "envious", "N2"],
+  ["習慣", "しゅうかん", "a habit; custom", "N2"],
+  ["苦労", "くろう", "hardship", "N2"],
+  ["被害", "ひがい", "damage; harm", "N2"],
+  ["要望", "ようぼう", "a request; wishes", "N2"],
+  ["見出し", "みだし", "a headline", "N2"],
+  ["規則", "きそく", "a rule", "N2"],
+  ["規定", "きてい", "regulations", "N2"],
+  ["覚悟", "かくご", "readiness; resolve", "N2"],
+  ["観点", "かんてん", "a point of view", "N2"],
+  ["言い訳", "いいわけ", "an excuse", "N2"],
+  ["記者", "きしゃ", "a reporter", "N2"],
+  ["評価", "ひょうか", "evaluation; esteem", "N2"],
+  ["調整", "ちょうせい", "adjustment", "N2"],
+  ["謙遜", "けんそん", "modesty; humility", "N2"],
+  ["議論", "ぎろん", "debate; discussion", "N2"],
+  ["資料", "しりょう", "documents; data", "N2"],
+  ["部下", "ぶか", "a subordinate", "N2"],
 ];
 const DICT_SORTED = [...KANJI_DICT].sort((a, b) => b[0].length - a[0].length);
 // Live learner state, shared with the kanji module (known-kanji-v1) and the
@@ -5047,6 +5130,958 @@ const CURRICULUM = [
     ],
   },
 
+  // Stage 12 opens. Every pattern in this step pins a claim to a pair of eyes —
+  // judged from the evidence, seen from a position, felt from inside a role.
+  {
+    cat: "Step 50 · Seen from here",
+    level: "S12",
+    bank: [["上司", "one's boss"], ["部下", "a subordinate"], ["消費者", "consumers"], ["世代", "a generation"], ["価値観", "values; worldview"], ["態度", "an attitude"], ["意識", "awareness"], ["観点", "a point of view"]],
+    points: [
+      {
+        id: "karasuruto", jp: "〜からすると／からすれば・から言うと・から見ると", en: "judging from — the viewpoint casts", kind: "grammar",
+        exp: {
+          what: "One job, three casts: take a standpoint, judge from it. 経験から言うと speaks from your own store; 表情から見ると reads evidence off a surface; 彼からすると steps into someone else's shoes entirely. The particle before the verb names what kind of standpoint it is.",
+          build: "Noun + からすると／からすれば, から言うと／から言えば, から見ると／から見れば. Person + からすると almost always means 'from their perspective' — the empathy cast.",
+          when: "Softening an opinion by naming its source, and reading situations aloud: あの様子から見ると、会議は長引きそうだ.",
+          watch: "から alone is a reason; adding する・言う・見る makes it a VANTAGE. The empathy cast flips who feels: 私からすると is redundant-but-heard; 外国人からすると is how you explain your own puzzlement politely.",
+        },
+        ex: [["この結果からすると、方法を変えるべきだ。", "Judging from these results, we should change the method."], ["消費者から見ると、値上げの理由は分かりにくい。", "Seen from the consumer's side, the reason for the price rise is hard to grasp."]],
+      },
+      {
+        id: "nishitara", jp: "〜にしたら／にしてみれば", en: "if you were them", kind: "grammar",
+        exp: {
+          what: "The full step into another person's position: 部下にしたら、あの言い方はつらい — if you were the subordinate, that phrasing stings. Where からすると judges from a position, にしたら FEELS from it; the following clause is nearly always an emotion or hardship.",
+          build: "Person／group + にしたら・にしてみれば・にすれば: 親にしてみれば, 新人にしたら.",
+          when: "Advocating for someone absent — the meeting where you voice what the customer, the junior, the neighbour would feel. It is the grammar of consideration.",
+          watch: "It takes people (and person-like groups) only: 会社にしたら works, 天気にしたら does not. And the speaker is explicitly NOT the person named — using it about yourself collapses the device.",
+        },
+        ex: [["新人にしてみれば、この量の仕事は多すぎるだろう。", "For a newcomer, this workload must feel like too much."], ["犬にしたら、留守番は長い一日だ。", "From the dog's side of it, house-sitting is a long day."]],
+      },
+      {
+        id: "toshiteha", jp: "〜としては", en: "in one's capacity as", kind: "grammar",
+        exp: {
+          what: "A standpoint worn as a ROLE: 担当者としては、賛成できません — speaking as the person in charge, I cannot agree. The と is Step 34's にしては cousin, but where にしては measured against expectation, としては speaks from inside the title.",
+          build: "Noun (role/organisation) + としては: 私としては, 会社としては, 学校としては.",
+          when: "Official opinions and careful personal ones: 私としては marks 'this is my position' while leaving room for the group to decide otherwise — a very Japanese piece of machinery.",
+          watch: "The role must be real and relevant. And keep the Stage-10 pair distinct: 学生にしては上手 (good FOR a student — surprise) versus 学生としては反対 (as a student, I object — role).",
+        },
+        ex: [["担当者としては、その変更に賛成しかねます。", "As the person in charge, I'm afraid I can't support that change."], ["私としては、もう少し様子を見たいです。", "For my part, I'd like to watch how it develops a little longer."]],
+      },
+      {
+        id: "tokorowomiruto", jp: "〜ところを見ると", en: "seeing that — deduction from the scene", kind: "grammar",
+        exp: {
+          what: "Point at what is visibly happening and deduce: 電気が消えているところを見ると、もう寝たのだろう — seeing the lights off, they've likely gone to bed. The evidence is a SCENE, caught as-is, and the conclusion keeps a soft edge (だろう・らしい・ようだ).",
+          build: "Plain clause + ところを見ると + inference: 笑っているところを見ると, 慌てているところを見ると.",
+          when: "Reading rooms out loud. Detective work at kitchen scale — who ate the pudding, whether the meeting went well, why the neighbour is packing.",
+          watch: "The conclusion must stay tentative; a hard ending (寝た, full stop) wastes the deliberate softness. Compare Step 47's ことから, which reasons from a FACT and can conclude firmly — ところを見ると reasons from a glimpse.",
+        },
+        ex: [["かばんがないところを見ると、もう出かけたようだ。", "Seeing the bag is gone, it looks like she's already left."], ["何も言わないところを見ると、結果は良くなかったのだろう。", "Seeing he says nothing, the result mustn't have been good."]],
+      },
+      {
+        id: "sb-shiten", jp: "視点の道具箱", en: "the standpoint toolbox, sorted", kind: "skill",
+        exp: {
+          what: "Five tools, one axis: WHERE the judgement stands. から言うと (my store of knowledge) → から見ると (the visible evidence) → ところを見ると (a live scene) → からすると (their shoes, judging) → にしたら (their shoes, feeling) → としては (a worn role). Left to right, the speaker steps further out of themselves.",
+          build: "Choose by two questions: is the standpoint mine, theirs, or a role? and am I judging or feeling? Judging-from-mine takes から言うと; feeling-from-theirs takes にしたら; speaking-for-the-office takes としては.",
+          when: "N2's reading passages switch standpoint mid-paragraph without warning; this map is how you keep track of who is seeing.",
+          watch: "The classic exam bait pairs にしては with としては and からすると with にしたら. The first pair splits on surprise-vs-role; the second on judge-vs-feel.",
+        },
+        ex: [["先生から見ると簡単でも、学生にしたら難しい。", "Easy seen from the teacher's side; hard if you're the student. (two tools, one sentence)"]],
+      },
+      {
+        id: "b-s50", jp: "Composition · 立場を変えて", en: "the same fact, three standpoints", kind: "build",
+        exp: {
+          what: "Take one workplace fact (the office is moving) and write it three times: judged from evidence (から見ると), felt from a position (にしたら), stated from a role (としては).",
+          build: "Same fact every line — only the eyes move. That constraint is the exercise.",
+          when: "Standpoint-switching is the single most transferable N2 writing skill; meetings run on it.",
+          watch: "If a line's CONTENT changed rather than its standpoint, the tool slipped.",
+        },
+        ex: [["会社としては決定済みだが、社員にしたら急な話だ。", "For the company it's decided; for the staff it's sudden."]],
+      },
+    ],
+  },
+
+  // The reason family's third visit. から reported, おかげで credited, だけに amplified —
+  // these versions push: precisely because, now that, just because. The force is
+  // the meaning.
+  {
+    cat: "Step 51 · Because, with force",
+    level: "S12",
+    bank: [["規則", "a rule"], ["制度", "a system"], ["習慣", "a habit; custom"], ["言い訳", "an excuse"], ["努力家", "a hard worker"], ["本気", "seriousness"], ["覚悟", "readiness; resolve"], ["罰金", "a fine"]],
+    points: [
+      {
+        id: "karakoso", jp: "〜からこそ", en: "precisely because", kind: "grammar",
+        exp: {
+          what: "から with a spotlight: 好きだからこそ、厳しく言う — precisely BECAUSE I care, I'm hard on you. こそ singles the reason out against every alternative, and the pattern loves reasons that LOOK like they should produce the opposite result.",
+          build: "Plain clause + からこそ, often closed with のだ: 苦労したからこそ、今がある。",
+          when: "Defending a choice that surprises: strictness from love, distance from respect, refusal from friendship. Speeches and heartfelt arguments.",
+          watch: "The reason must be worth the spotlight — 安いからこそ買った wastes こそ on the obvious. And it explains; it cannot request: 好きだからこそ、来てください misfires.",
+        },
+        ex: [["信頼しているからこそ、この仕事を頼むんです。", "It's precisely because I trust you that I'm asking you to do this."], ["失敗したからこそ、学べたことがある。", "There are things I could learn precisely because I failed."]],
+      },
+      {
+        id: "karaniha", jp: "〜からには", en: "now that — with spine", kind: "grammar",
+        exp: {
+          what: "Step 47's 以上は with the collar loosened one notch: 引き受けたからには、最後までやる. A committed fact, then the conduct it demands — but からには survives conversation where 以上は leans written.",
+          build: "Plain clause + からには + resolve／duty／advice: 約束したからには, 日本にいるからには.",
+          when: "Vows, pep talks, self-talk. The natural spoken shape of seeing-things-through.",
+          watch: "Same rule as 以上は: the first clause must be settled and chosen. The two swap freely; register picks between them.",
+        },
+        ex: [["やると決めたからには、途中でやめない。", "Now that I've decided to do it, I won't quit partway."], ["試合に出るからには、勝ちたい。", "If I'm going to be in the match at all, I want to win."]],
+      },
+      {
+        id: "karatoitte", jp: "〜からといって", en: "just because — doesn't follow", kind: "grammar",
+        exp: {
+          what: "The inference-blocker: 日本に住んでいるからといって、敬語が得意とは限らない — just because someone lives in Japan doesn't mean their keigo is good. It quotes a reason someone MIGHT give, then refuses the conclusion drawn from it.",
+          build: "Plain clause + からといって + negative／limiting end: 〜とは限らない, 〜わけではない, 〜てはいけない. The ending is part of the pattern.",
+          when: "Correcting overgeneralisation — about groups, about yourself, about what money or age or nationality supposedly implies. Essay Japanese loves it; so do arguments.",
+          watch: "It must end negative. 疲れたからといって、休んだ (and so I rested) is broken — that's plain から. The pattern exists to refuse the 'and so'.",
+        },
+        ex: [["安いからといって、質が悪いわけではない。", "Just because it's cheap doesn't mean the quality is bad."], ["忙しいからといって、連絡しないのは良くない。", "Being busy is no excuse for not getting in touch."]],
+      },
+      {
+        id: "monodakara", jp: "〜ものだから", en: "because — the flustered excuse", kind: "grammar",
+        exp: {
+          what: "A reason offered apologetically, palms up: 道が混んでいたものだから、遅れました — the roads were jammed, you see. ものだから marks the cause as outside your control and the speaker as slightly flustered about it; casual speech clips it to もんだから／もんで.",
+          build: "Plain clause + ものだから: 知らなかったものだから, 子どもが熱を出したものだから.",
+          when: "Excuses and explanations for things gone sideways — lateness, forgotten replies, odd behaviour. Softer and more human than から.",
+          watch: "It cannot front a command or invitation (遅れたものだから、待ってください misfires) and the reason should be genuinely uncontrollable — using it for choices reads as dodging.",
+        },
+        ex: [["電車が止まったものだから、会議に間に合わなかった。", "The train stopped, you see, so I couldn't make the meeting."], ["あまりに安かったもんだから、つい二つ買ってしまった。", "It was so cheap I ended up buying two."]],
+      },
+      {
+        id: "kotoninatteiru", jp: "〜ことになっている", en: "the rule is that", kind: "grammar",
+        exp: {
+          what: "Step 17's ことになる froze into an institution: ゴミは月曜に出すことになっている — the arrangement (nobody present decided it) is that rubbish goes out Monday. The pattern reports rules, customs and schedules as standing states.",
+          build: "Dictionary／ない form + ことになっている: 使ってはいけないことになっている, 九時に集まることになっている.",
+          when: "Explaining how things work here — office rules, school customs, family arrangements. It is the neutral voice of EVERY handbook, and the polite way to enforce a rule without owning it.",
+          watch: "Contrast ことにしている, YOUR standing decision (毎朝走ることにしている). The いる/ある of agency: なっている received the rule, している made it.",
+        },
+        ex: [["この部屋では靴を脱ぐことになっています。", "The rule here is that shoes come off."], ["書類は金曜までに出すことになっている。", "Documents are (per the arrangement) due by Friday."]],
+      },
+      {
+        id: "tekoso", jp: "〜てこそ", en: "only by — the earned result", kind: "grammar",
+        exp: {
+          what: "て-form with こそ's spotlight on it: 自分でやってこそ、意味がある — only by doing it yourself does it mean anything. The first clause is the necessary path; the second is what it alone unlocks, always something good.",
+          build: "て-form + こそ + positive outcome: 働いてこそ, 苦労してこそ. The ending often carries 意味がある・価値がある・一人前だ.",
+          when: "Principles and small sermons — effort, independence, experience. Graduation-speech grammar, used sparingly in life.",
+          watch: "The outcome must be positive and earned: 失敗してこそ成長する works because growth redeems the failure; 遅刻してこそ怒られる is nonsense — nothing is earned.",
+        },
+        ex: [["自分の言葉で説明してこそ、理解したと言える。", "Only when you can explain it in your own words can you say you've understood."], ["雨の日も走ってこそ、本当の練習だ。", "Only if you run on rainy days too is it real training."]],
+      },
+      {
+        id: "b-s51", jp: "Composition · 言い訳と決意", en: "one excuse, one vow", kind: "build",
+        exp: {
+          what: "Two short paragraphs about the same missed deadline: the excuse (ものだから + からといって to head off the obvious judgement) and the vow (からには + てこそ).",
+          build: "The pivot line to steal: 遅れたからといって、やる気がないわけではありません。引き受けたからには、必ず仕上げます。",
+          when: "Recovering from a slip in writing is a real workplace genre; this is its miniature.",
+          watch: "Excuse paragraph stays flustered-humble; vow paragraph stays spine-straight. Mixing the registers is the failure mode.",
+        },
+        ex: [["体調を崩したものだから、提出が遅れました。", "I fell ill, you see, which is why the submission is late."]],
+      },
+    ],
+  },
+
+  // Stage 5 hedged feelings; Stage 9 argued them. These patterns report feelings
+  // that exceed the speaker — unbearably, helplessly, beyond doing anything
+  // about it. The grammar of too much.
+  {
+    cat: "Step 52 · Feelings past containment",
+    level: "S12",
+    bank: [["懐かしい", "nostalgic; dearly missed"], ["悔しい", "frustrating; galling"], ["羨ましい", "envious"], ["恋しい", "longed-for"], ["不満", "dissatisfaction"], ["感動", "being moved"], ["涙", "tears"], ["限界", "one's limit"]],
+    points: [
+      {
+        id: "tetamaranai", jp: "〜てたまらない・てしょうがない・てならない", en: "unbearably — the overflow trio", kind: "grammar",
+        exp: {
+          what: "Three ways to say a feeling exceeds you, one dial apart. てたまらない: can't withstand it (raw intensity). てしょうがない: nothing to be done about it (exasperated intensity, the spoken favourite). てならない: it presses on me of itself (reflective, slightly written — the one that takes 思えてならない, 気がしてならない).",
+          build: "て-form of a FEELING word + the tail: 会いたくてたまらない, 暑くてしょうがない, 残念でならない. な-adjectives take で.",
+          when: "Real intensity only — homesickness, envy, a win you can't stop grinning about. てならない owns the spontaneous-thought endings: そう思えてならない.",
+          watch: "The word before must be involuntary feeling, not action: 食べてたまらない fails; 食べたくてたまらない (the WANTING is the feeling) is the fix. Exam bait: てならない pairs with 思える／気がする where the other two cannot.",
+        },
+        ex: [["国の家族に会いたくてたまらない。", "I miss my family back home unbearably."], ["彼の判断は正しかったと思えてならない。", "I can't help feeling his call was the right one."]],
+      },
+      {
+        id: "naidehairarenai", jp: "〜ないではいられない・てはいられない・てばかりはいられない", en: "can't not — the compulsion set", kind: "grammar",
+        exp: {
+          what: "Three shapes of cannot-stay-still. ないではいられない: the urge wins — 笑わないではいられなかった, I couldn't not laugh. てはいられない: the situation forbids staying — こうしてはいられない, no time to be doing this. てばかりはいられない: the SAME state has run too long — 泣いてばかりはいられない, I can't just keep crying.",
+          build: "All build on いられない, can't-remain: ない form＋ではいられない; て form＋はいられない; て form＋ばかりはいられない. Formal writing swaps ないでは → ずには (Step 40's ず, again).",
+          when: "Compulsion (the joke you had to make), urgency (the news that gets you off the sofa), and the turn in every recovery story — mourning that must yield to moving.",
+          watch: "Agency splits the set: ないではいられない is an inner urge; てはいられない is outer pressure. The ばかり version needs a state already in progress — it is always a hinge, never an opener.",
+        },
+        ex: [["あの映画は、泣かないではいられなかった。", "That film — I couldn't not cry."], ["いつまでも悔しがってばかりはいられない。次の試合がある。", "I can't keep stewing over it forever. There's a next match."]],
+      },
+      {
+        id: "monogaaru", jp: "〜ものがある", en: "there is something to it", kind: "grammar",
+        exp: {
+          what: "A felt quality, pointed at without being named: 彼の歌には胸を打つものがある — there is something in his singing that strikes the chest. ものがある reports that a quality is genuinely THERE while admitting it resists description — which is precisely why it reads as sincere.",
+          build: "Plain modifier + ものがある: 考えさせられるものがある, 寂しいものがある. The modifier names the effect on you, not the thing itself.",
+          when: "Reviews, eulogies, reflections — praise (or melancholy) that wants weight without hype. One per paragraph is plenty.",
+          watch: "It evaluates by impression, so hard facts reject it: 三人いるものがある is nonsense. And it is one-way — the pattern feels; it never criticises sharply. 許せないものがある is about as hard as it swings.",
+        },
+        ex: [["この古い商店街には、どこか懐かしいものがある。", "There's something nostalgic about this old shopping street."], ["彼の努力には、頭が下がるものがある。", "There is something in his effort that commands respect."]],
+      },
+      {
+        id: "monoka", jp: "〜ものか", en: "as if I would — the refusal", kind: "grammar",
+        exp: {
+          what: "A rhetorical door-slam: 二度と行くものか — as if I'd ever go again. Formally a question, actually the strongest refusal the language keeps in casual dress; もんか in speech, ものですか in polite fury.",
+          build: "Dictionary form + ものか／もんか: 負けるものか, 泣くもんか. Said with falling intonation — it asks nothing.",
+          when: "Defiance, mostly self-directed: the runner at the 30th kilometre, the shop owner refusing to close. Manga and real life both.",
+          watch: "It refuses YOUR OWN prospective action or a claim about you. About others it becomes scorn (あいつにできるものか — as if HE could) — real, but a register to recognise before producing.",
+        },
+        ex: [["こんなところで諦めるものか。", "As if I'd give up here."], ["あんな店、二度と行くもんか。", "As if I'd ever set foot in that place again."]],
+      },
+      {
+        id: "cc-honne2", jp: "感情の見せ方", en: "where the feelings are allowed out", kind: "culture",
+        exp: {
+          what: "This step's grammar is intense, and its natural habitats are specific: the izakaya after the second drink, the sports stand, the retirement speech, the 送別会. The same feelings stay unvoiced at the Tuesday meeting — not suppressed, SCHEDULED. Knowing the venues keeps the grammar calibrated.",
+          build: "The pairing to notice: intensity grammar + softening frame. 悔しくてたまらないんですけどね — the んですけどね wraps the overflow back into company shape. Bare てたまらない with no wrapper is diary or intimacy.",
+          when: "Producing: save the trio for venues where feeling is licensed. Reading: when a Japanese colleague USES てならない in a meeting, that is the loudest sentence of the quarter — hear it at full volume.",
+          watch: "The standing accuracy rule applies: this lesson describes where you will HEAR these forms, not what anyone inwardly feels. The claim is about venues and wrappers, both checkable by listening.",
+        },
+        ex: [["正直、悔しくてしょうがないんですけどね。", "Honestly, it's eating me alive — (wrapped, and therefore sayable)."]],
+      },
+      {
+        id: "b-s52", jp: "Composition · 送別の一言", en: "the farewell paragraph", kind: "build",
+        exp: {
+          what: "Write four lines for a colleague's send-off: the something-about-them (ものがある), the overflow (てならない or てたまらない), the can't-stay hinge (てばかりはいられない), and the vow (からには, from last step).",
+          build: "Shape to steal: 〜さんの仕事ぶりには、学ぶものがあります。寂しくてなりませんが、いつまでも寂しがってばかりはいられません。",
+          when: "The 送別会 speech is a genre every working learner eventually faces; this is its skeleton.",
+          watch: "One overflow per speech. Two reads as performance — which is itself a cultural note.",
+        },
+        ex: [["先輩と働けなくなるのは、寂しくてなりません。", "Losing you as a colleague — the sadness presses of itself."]],
+      },
+    ],
+  },
+
+  // Stage 5 taught そうだ and らしい — hearsay in its Sunday clothes. This step is how
+  // information actually moves between people: clipped, vague on purpose, and
+  // always one remove from its source.
+  {
+    cat: "Step 53 · Rumor and relay",
+    level: "S12",
+    bank: [["情報", "information"], ["事件", "an incident"], ["報道", "news coverage"], ["記者", "a reporter"], ["見出し", "a headline"], ["内緒", "a secret"], ["噂話", "gossip"], ["出来事", "an event; happening"]],
+    points: [
+      {
+        id: "toka", jp: "〜とか", en: "I hear — vaguely on purpose", kind: "grammar",
+        exp: {
+          what: "The N5 とか listed examples; this one relays news with the edges sanded off: 田中さん、会社を辞めるとか — Tanaka's quitting, or so one hears. The vagueness is politeness: it leaves the speaker unaccountable and the news deniable.",
+          build: "Plain clause + とか, usually sentence-final: 来月結婚するとか. Often with 聞いた or 言っていた understood, never stated.",
+          when: "Office corridors and family kitchens — passing on what you half-know. It is そうだ's off-duty form.",
+          watch: "Deliberate vagueness about GOOD news reads warm; about bad news it reads like gossip, because it is. The pattern doesn't launder the content.",
+        },
+        ex: [["部長、来月転勤になるとか。", "The manager's being transferred next month, or so I hear."], ["あの店、閉まったとか聞いたけど。", "I heard that place closed, or something."]],
+      },
+      {
+        id: "ndatte", jp: "〜んだって", en: "they say — the relay marker", kind: "grammar",
+        exp: {
+          what: "Casual hearsay with the source's voice still warm on it: 明日、休みなんだって — tomorrow's off, apparently (someone just told me). Where とか blurs, んだって points: this came from somewhere specific, freshly.",
+          build: "Plain clause + んだって; nouns and な-adjectives take なんだって. Rising って at the end keeps the relay audible.",
+          when: "The default spoken relay among friends — school news, neighbourhood news, what the notice downstairs says. You will hear it hourly.",
+          watch: "It is casual到底: in polite company the same job is done by そうです or ということです (Step 35's toiukoto). The three are one ladder — んだって／とか → そうだ → ということだ — climbed by formality.",
+        },
+        ex: [["あの二人、別れたんだって。", "Those two split up, apparently."], ["新しい店、野菜が安いんだって。", "The new shop's vegetables are cheap, they say."]],
+      },
+      {
+        id: "toiukotoha", jp: "〜ということは", en: "which means", kind: "grammar",
+        exp: {
+          what: "The relay's logical half: take what was just said and unfold it. 電車が止まっている？ということは、会議に遅れるということだ — the train's stopped? Which means we'll be late. It turns received information into its consequence in front of the listener.",
+          build: "Statement + ということは + conclusion (often closing with ということだ／わけだ): ということは、つまり….",
+          when: "Thinking aloud in company — the natural spoken bridge between hearing and understanding. Also the interviewer's favourite: ということは、賛成ですね？",
+          watch: "The conclusion must genuinely follow. Using ということは to change subject rather than unfold one is a recognisable dodge — and is used as one.",
+        },
+        ex: [["電気がついている。ということは、誰かいるはずだ。", "The lights are on. Which means someone must be in."], ["ということは、来週まで待つしかないわけですね。", "Which means, then, we've no choice but to wait till next week."]],
+      },
+      {
+        id: "fuuni", jp: "〜というふうに／ふうに", en: "in such a way", kind: "grammar",
+        exp: {
+          what: "Manner, pointed at: こういうふうに切ってください — cut it this way. というふうに quotes a whole manner into place: 皆が納得するというふうに説明したい. ふう is 風 — the way the wind of a thing blows.",
+          build: "こういう／そういう／どういう + ふうに for the demonstrative set; clause + というふうに for the quoted set; ふうな before nouns.",
+          when: "Teaching, demonstrating, describing style: how the chef folds it, how the boss wants it phrased. Reading its kanji 風 waits for the kanji track.",
+          watch: "というふうに beside Step 35's という family: というふうに is HOW, ということは is WHAT-FOLLOWS, というものだ is WHAT-IT-AMOUNTS-TO. The follower tells them apart, as ever.",
+        },
+        ex: [["こういうふうに書けば、読みやすくなりますよ。", "If you write it this way, it gets easier to read."], ["誰も傷つかないというふうに、言い方を工夫した。", "I worked the phrasing so that no one would be hurt."]],
+      },
+      {
+        id: "toitta", jp: "〜といった", en: "such as — the formal list", kind: "grammar",
+        exp: {
+          what: "など climbed into print: 東京や大阪といった大都市 — big cities such as Tokyo and Osaka. It gives examples AND files them under their category noun in one move; the list feels representative rather than exhaustive.",
+          build: "Noun(s) + といった + category noun: 寿司や天ぷらといった日本料理. Two examples is the natural dose.",
+          when: "Written description — reports, brochures, essays. The spoken mouth says such lists with など or とか.",
+          watch: "The category noun is mandatory and must actually contain the examples: 犬や猫といった魚 breaks. Without the category, plain など was the word.",
+        },
+        ex: [["醤油や味噌といった調味料は、大豆から作られる。", "Seasonings such as soy sauce and miso are made from soybeans."], ["遅刻や忘れ物といった小さなミスが続いた。", "Small slips such as lateness and forgotten items kept happening."]],
+      },
+      {
+        id: "kananika", jp: "〜か何か・〜ではないか", en: "or something; why don't we", kind: "grammar",
+        exp: {
+          what: "Two small social tools. か何か blurs an example into an offer: コーヒーか何か飲みますか — coffee or something? And ではないか（じゃないか） flips a negative question into a push: 行こうではないか (formal, let us go) and 言ったじゃないか (I TOLD you, didn't I) — proposal and protest, same shape.",
+          build: "Noun + か何か. Volitional + ではないか for the formal proposal; plain clause + じゃないか for the protest／reminder.",
+          when: "か何か is everyday hospitality. 〜ようではないか is speech-podium grammar; 〜じゃないか is the sound of friendly indignation everywhere.",
+          watch: "Intonation carries じゃないか's two faces: falling = protest, flat-rising = realisation (あ、田中じゃないか). Listening for it is the skill; producing the protest at a superior is not advised.",
+        },
+        ex: [["お茶か何か、いかがですか。", "Would you like tea or something?"], ["みんなで力を合わせようではないか。", "Let us combine our efforts, shall we not."]],
+      },
+      {
+        id: "b-s53", jp: "Composition · 又聞きの報告", en: "relay the news, three registers", kind: "build",
+        exp: {
+          what: "One piece of office news, relayed three ways: to a friend (んだって), to a colleague (とか聞きました), in the minutes (ということだ). Then one ということは line drawing the consequence.",
+          build: "The ladder is the lesson: んだって → とか → そうだ → ということだ, same fact climbing four rungs.",
+          when: "Relaying accurately WITHOUT overclaiming certainty is half of workplace Japanese.",
+          watch: "Each register keeps its own hedge. A んだって inside the minutes is the failure mode — and a genuinely funny one to imagine.",
+        },
+        ex: [["支店が移転するということです。ということは、通勤時間が変わるわけです。", "The branch is relocating, per report. Which means commutes change."]],
+      },
+    ],
+  },
+
+  // Stage 10 denied inferences politely (わけがない, とは限らない). This step is the full
+  // impossibility shelf — from playground っこない to written に過ぎない — plus the duty
+  // forms that close doors from the other side.
+  {
+    cat: "Step 54 · Not a chance",
+    level: "S12",
+    bank: [["実力", "real ability"], ["実現", "realization; coming true"], ["現実", "reality"], ["理想", "an ideal"], ["予想外", "unexpected"], ["奇跡", "a miracle"], ["才能", "talent"], ["条件付き", "conditional"]],
+    points: [
+      {
+        id: "kkonai", jp: "〜っこない・そうにない", en: "no chance — spoken impossibility", kind: "grammar",
+        exp: {
+          what: "Two casual doors shut. っこない is the blunt one: できっこない — no chance, full stop, friends-only register. そうにない is gentler and observational: 終わりそうにない — from the look of it, this isn't going to end. One denies ability, the other reads the horizon.",
+          build: "ます-stem + っこない: 分かりっこない, 勝てっこない. ます-stem + そうにない（そうもない）: 降りそうにない — Stage 5's looks-like そう, negated hard.",
+          when: "っこない among intimates about steep odds. そうにない anywhere — it is the polite-capable way to say the meeting will overrun.",
+          watch: "っこない at work is a register slip — わけがない (Stage 10) is its office suit. そうにない beside そうもない: interchangeable; the も version is a shade more resigned.",
+        },
+        ex: [["こんな量、一日で終わりっこないよ。", "No chance this much gets done in a day."], ["雨は、やみそうにない。", "This rain shows no sign of stopping."]],
+      },
+      {
+        id: "nisuginai", jp: "〜に過ぎない・でしかない", en: "merely — cutting things down", kind: "grammar",
+        exp: {
+          what: "The deflation pair. に過ぎない measures: 一例に過ぎない — no more than one example (it does not exceed that). でしかない judges: 言い訳でしかない — it is an excuse and nothing better. Same translation, different temperature: 過ぎない states scale, でしかない states verdict.",
+          build: "Noun／plain clause + に過ぎない; Noun + でしかない. Both written-leaning; both love 単なる／ただの in front.",
+          when: "Essays and honest self-assessment: 始まりに過ぎない keeps a success modest; 数字でしかない dismisses a metric. The N2 reading section leans on both.",
+          watch: "でしかない always carries disappointment — 妻でしかない is an insult where 妻に過ぎない is odd-but-neutral. Choose by whether you mean to wound the noun.",
+        },
+        ex: [["これは第一歩に過ぎない。", "This is no more than a first step."], ["謝罪がなければ、言葉は音でしかない。", "Without an apology behind them, words are merely sound."]],
+      },
+      {
+        id: "nakuhanai", jp: "〜なくはない", en: "it's not that I don't", kind: "grammar",
+        exp: {
+          what: "The double negative that opens a door a crack: 行きたくなくはない — it's not that I don't want to go. Two negatives don't cancel; they hedge: yes, faintly, with reservations the listener is invited to ask about.",
+          build: "ない form with ない → なくはない／なくもない: 分からなくはない, 食べなくもない. Adjectives too: 高くなくはない.",
+          when: "Reluctant concessions and shy admissions — agreeing to a plan you half-like, conceding a rival's point. Deeply conversational.",
+          watch: "It is never enthusiasm. 好きじゃなくはない to a confession is a soft landing for a no, and every native listener hears it that way. The double negative IS the message.",
+        },
+        ex: [["彼の気持ちも、分からなくはない。", "It's not that I can't see his side of it."], ["迷いがなくはないが、やってみよう。", "Not that I'm without doubts — but let's try it."]],
+      },
+      {
+        id: "tehanaranai", jp: "〜てはならない・ねばならない", en: "must not; must — on paper", kind: "grammar",
+        exp: {
+          what: "Step 5's てはいけない and なければならない in official dress. てはならない forbids from above: ここで泳いではならない — signage and statute. ねばならない obliges from principle: 守らねばならない — ね is the old negative again (sb-zaru's family), so the bones read 'if not doing, it does not become'.",
+          build: "て form + はならない. ない-stem + ねばならない; する → せねばならない, the same せ as せず・せざる.",
+          when: "Reading, overwhelmingly: rules, contracts, editorials, exam passages. Producing them belongs to whoever drafts the rules — occasionally you.",
+          watch: "The する trap once more: しねばならない is wrong, せねばならない is the form. Spoken Japanese keeps なきゃ／なくちゃ; these are their courtroom cousins.",
+        },
+        ex: [["この書類は、期限までに提出せねばならない。", "These documents must be submitted by the deadline."], ["従業員以外、この機械に触れてはならない。", "No one but staff may touch this machine."]],
+      },
+      {
+        id: "yorihokanai", jp: "〜よりほかない・ようでは", en: "nothing for it; if it stays like this", kind: "grammar",
+        exp: {
+          what: "Two closers. よりほかない is the resignation form of しかない: 諦めるよりほかない — nothing for it but to give up; ほか (other) says every alternative was checked. ようでは condemns a tendency: 遅刻するようでは、信頼されない — if you're the sort to be late, trust won't come; the ending is always a bad forecast.",
+          build: "Dictionary form + よりほかない（ほかはない）. Plain form + ようでは + negative outlook.",
+          when: "よりほかない in written conclusions where しかない would sound light. ようでは in warnings and self-scolding — the coach's pattern.",
+          watch: "ようでは must end dark; a bright ending flips it into ようなら (Step 16's turf). And よりほかない outranks しかない in formality only — the resignation is identical.",
+        },
+        ex: [["部品がない以上、修理は諦めるよりほかない。", "With no parts to be had, there's nothing for it but to give up on the repair."], ["この程度で疲れているようでは、本番は乗り切れない。", "If this much tires you out, you'll never survive the real thing."]],
+      },
+      {
+        id: "sb-hitei3", jp: "不可能の棚 — 全段", en: "the impossibility shelf, floor to ceiling", kind: "skill",
+        exp: {
+          what: "Every no the course owns, on one shelf by register and target. Casual: っこない (ability), もんか (refusal), そうにない (outlook). Neutral: わけがない (reason forbids), とは限らない (not necessarily), はずがない. Written: に過ぎない／でしかない (deflation), ようがない (no method), ざるを得ない's mirror ねばならない (no exit from duty), よりほかない (no alternative).",
+          build: "Choose by WHAT is impossible: the method (ようがない), the odds (っこない・そうにない), the logic (わけがない), the alternatives (よりほかない), the scale of the thing itself (に過ぎない).",
+          when: "The N2 exam's favourite cluster — four options from this shelf under one sentence is a standard question shape.",
+          watch: "The false friend inside the family: かねない looks like it belongs here and means the OPPOSITE — might well happen. Step 44 planted it; this shelf is where it bites.",
+        },
+        ex: [["直しようがない・直せっこない・直すよりほかない。", "No way to fix it / no chance of fixing it / nothing for it but to fix it — three different sentences."]],
+      },
+      {
+        id: "b-s54", jp: "Composition · 却下の理由", en: "reject the proposal, in writing", kind: "build",
+        exp: {
+          what: "Four written lines rejecting a plan: the deflation (に過ぎない), the impossibility with its kind named (ようがない or 実現しそうにない), the duty (ねばならない), and the one door left open (なくはない).",
+          build: "Ending on なくはない is deliberate — a rejection that closes every door reads as war; Japanese business writing leaves one ajar.",
+          when: "Saying no in writing without burning the bridge — the genre above all genres.",
+          watch: "One deflation is firm; two is contempt. Count them.",
+        },
+        ex: [["この案は、現状では実現しようがない。ただ、方向性は評価できなくはない。", "As it stands this can't be realized. The direction, however, is not without merit."]],
+      },
+    ],
+  },
+
+  // Stage 11 did formal occasions. This step is time at street level —
+  // near-misses, interruptions, long-awaited returns, and the sour end of a long
+  // road. rc11 closes the stage.
+  {
+    cat: "Step 55 · Moments and aftermaths",
+    level: "S12",
+    bank: [["瞬間", "an instant"], ["直後", "just after"], ["直前", "just before"], ["同時", "the same time"], ["結末", "the ending; outcome"], ["再会", "reunion"], ["近所迷惑", "neighborhood nuisance"], ["夜中", "the middle of the night"]],
+    points: [
+      {
+        id: "tokorodatta", jp: "〜ところだった", en: "almost — the near miss", kind: "grammar",
+        exp: {
+          what: "Step 19's ところ aimed at disaster and stopped: 乗り遅れるところだった — I was a breath from missing it (and didn't). The pattern reports the world that almost happened, always with relief or a shudder.",
+          build: "Dictionary form + ところだった: 忘れるところだった, ぶつかるところだった. もう少しで in front sharpens the margin.",
+          when: "The near-miss report — everyday and constant: almost forgot the meeting, almost got on the wrong train, almost said the thing.",
+          watch: "The event must NOT have happened; 乗り遅れたところだった contradicts itself. And it wants misfortunes — 合格するところだった (almost passed) works but lands as bitter comedy.",
+        },
+        ex: [["もう少しで、傘を忘れるところだった。", "I very nearly forgot my umbrella."], ["危ない！車とぶつかるところだったよ。", "Careful! You were an inch from that car."]],
+      },
+      {
+        id: "tokoroni", jp: "〜ところに／ところへ", en: "right at the moment when", kind: "grammar",
+        exp: {
+          what: "The interruption pattern: 出かけようとしたところに、電話が鳴った — right as I was heading out, the phone rang. Step 19 taught ところ as a point in an action's arc; に／へ aims something INCOMING at that point, usually inconvenient, occasionally providential.",
+          build: "た／ている／ようとした form + ところに（へ）+ arrival verb: 来た, 鳴った, 帰ってきた.",
+          when: "Storytelling's workhorse — every anecdote about bad timing runs through it. The lucky version exists too: 困っていたところに、先輩が通りかかった.",
+          watch: "What follows must ARRIVE (come, call, appear) — a state can't interrupt. Compare Step 34's とたん: とたん is instant sequence; ところに is an arc met by an arrival.",
+        },
+        ex: [["寝ようとしたところに、友達から電話が来た。", "Right as I was going to sleep, a friend called."], ["道に迷っていたところへ、交番が見えた。", "Just as I was well and truly lost, a police box came into view."]],
+      },
+      {
+        id: "katoomottara", jp: "〜かと思ったら／かと思うと", en: "no sooner had — the whiplash", kind: "grammar",
+        exp: {
+          what: "Two states in whiplash succession: 泣いたかと思ったら、もう笑っている — no sooner crying than laughing. The pattern watches something change faster than expectation allows, and carries the watcher's mild disbelief.",
+          build: "た form + かと思ったら／かと思うと + the surprising next: 晴れたかと思うと、また降り出した.",
+          when: "Weather, toddlers, moods, the stock market — anything whose changes outrun dignity. Always about what you OBSERVE, never your own actions.",
+          watch: "First-person breaks it: 私は寝たかと思ったら起きた misfires — you can't be surprised by your own whiplash. Stage 11's か〜ないかのうちに overlaps; that one is tighter timing, this one is bigger surprise.",
+        },
+        ex: [["空が暗くなったかと思ったら、大粒の雨が降り出した。", "The sky darkened, and next thing, fat drops were falling."], ["帰ってきたかと思うと、もう出かけて行った。", "No sooner home than out the door again."]],
+      },
+      {
+        id: "todoujini", jp: "〜と同時に", en: "at the same moment; and equally", kind: "grammar",
+        exp: {
+          what: "Simultaneity, stated cleanly: ドアが開くと同時に、客が入ってきた — the instant the door opened, in they came. Second job in writing: both-at-once for qualities — 教師であると同時に、研究者でもある, a teacher and equally a researcher.",
+          build: "Dictionary form／noun(である) + と同時に. The both-at-once reading pairs with でもある.",
+          when: "Precise narration and formal introductions. The timing sense competes with Stage 11's か〜ないかのうちに and loses on drama, wins on neutrality.",
+          watch: "The two events must be genuinely simultaneous, not merely close — for close, ところに or とたん. The dual-identity reading needs である register around it.",
+        },
+        ex: [["ベルが鳴ると同時に、学生たちは走り出した。", "The moment the bell rang, the students bolted."], ["この仕事は大変であると同時に、やりがいもある。", "This work is hard and, in equal measure, rewarding."]],
+      },
+      {
+        id: "tageku", jp: "〜たあげく・た末（に）", en: "after all that — how the road ended", kind: "grammar",
+        exp: {
+          what: "Two ends of a long road. たあげく arrives somewhere bad: 悩んだあげく、断った — after all that agonising, refused (and the length made it worse). た末に just arrives, often somewhere earned: 話し合った末に、合意した — at the end of long talks, agreement. Same road, different weather at the end.",
+          build: "た form + あげく（に）: 迷ったあげく. た form／noun + の + 末（に）: 考えた末, 議論の末. Both need a genuinely LONG first act.",
+          when: "あげく for regrets and wasted effort; 末 for hard-won outcomes and neutral records. News writing uses 末 constantly: 逃走の末、逮捕された.",
+          watch: "あげく + good outcome is the classic error: 頑張ったあげく合格した sounds like passing was a tragedy. Flip to 末 and it reads right.",
+        },
+        ex: [["さんざん迷ったあげく、何も買わずに店を出た。", "After endless dithering, I left the shop with nothing."], ["何度も失敗した末に、ようやく成功した。", "At the end of many failures, success finally came."]],
+      },
+      {
+        id: "burini", jp: "〜ぶりに", en: "for the first time in", kind: "grammar",
+        exp: {
+          what: "The reunion measure: 十年ぶりに会った — met for the first time in ten years. ぶり loads the whole gap into the meeting, which is why 久しぶり — the everyday greeting you've known since Stage 1 — is this pattern with the number blurred.",
+          build: "Time span + ぶりに（の）: 三日ぶりに, 五年ぶりの再会. The span is how long the thing did NOT happen.",
+          when: "Returns, revivals, weather records (十年ぶりの大雪), and every catch-up conversation's opening minutes.",
+          watch: "The span must feel long for the activity — 三分ぶりに水を飲んだ is absurd because three minutes isn't absence. And ぶり attaches to the gap, never the date: 2020年ぶり is broken.",
+        },
+        ex: [["国の母と、二年ぶりに電話で話した。", "Talked with my mother back home for the first time in two years."], ["この町では、二十年ぶりの大雪だそうだ。", "They say it's the heaviest snow this town has seen in twenty years."]],
+      },
+      {
+        id: "rc11", jp: "復習 · Stage 12", en: "checkpoint: the full stage", kind: "review",
+        covers: ["karasuruto", "nishitara", "toshiteha", "tokorowomiruto", "sb-shiten", "karakoso", "karaniha", "karatoitte", "monodakara", "kotoninatteiru", "tekoso", "tetamaranai", "naidehairarenai", "monogaaru", "monoka", "cc-honne2", "toka", "ndatte", "toiukotoha", "fuuni", "toitta", "kananika", "kkonai", "nisuginai", "nakuhanai", "tehanaranai", "yorihokanai", "sb-hitei3", "tokorodatta", "tokoroni", "katoomottara", "todoujini", "tageku", "burini"],
+        exp: {
+          what: "Stage 12 in one look: claims pinned to standpoints, reasons with force, feelings past containment, news at one remove, the impossibility shelf, and time at street level. The stage's through-line was the SPEAKER — where they stand, what moves them, what they rule out.",
+          build: "The pairs that share a doorway: からすると／にしたら (judge vs feel), からこそ／だけに (spotlight vs lever), てたまらない／てならない (raw vs reflective), に過ぎない／でしかない (scale vs verdict), あげく／末 (bad end vs earned end), とたん／ところに／か〜ないかのうちに (three grains of timing).",
+          when: "Before Stage 13, which takes these standpoints and files them into the formal lattice.",
+          watch: "This stage's error family is TARGET confusion — patterns that only take others (にしたら, かと思ったら), only take yourself (ものか, ないではいられない), or only take the observable (ところを見ると). When a sentence fails, check who it's about before checking the form.",
+        },
+        ex: [["悩んだ末に断ったからといって、彼を責められるものか。", "After all that agony he refused — as if anyone could blame him for that. (the stage, compounded)"]],
+      },
+    ],
+  },
+
+  // Stage 13 opens. Five patterns that name what a decision RESTS ON — the basis
+  // family. Every report, contract and recipe in the country runs on at least
+  // one of them.
+  {
+    cat: "Step 56 · Grounds and guides",
+    level: "S13",
+    bank: [["基準", "a standard; criterion"], ["方針", "a policy; course"], ["指示", "instructions"], ["要望", "a request; wishes"], ["規定", "regulations"], ["手順", "a procedure"], ["調整", "adjustment"], ["法律", "the law"]],
+    points: [
+      {
+        id: "nimotozuite", jp: "〜に基づいて", en: "based on", kind: "grammar",
+        exp: {
+          what: "The foundation marker: 法律に基づいて処理する — handled on the basis of the law. 基づく is to take as one's 基 — base — so the named noun is the ground the action stands on, and the action claims its legitimacy from it.",
+          build: "Noun + に基づいて／に基づき (the き-form more written) / に基づく + noun: 調査に基づく報告.",
+          when: "Law, data, principles, plans — wherever an action wants to show its foundations. The pattern of every methods section and every official justification.",
+          watch: "The base must be an authority-bearing thing: 気分に基づいて決めた is grammatical satire. For feelings and impressions, によって or によると carried the job long ago.",
+        },
+        ex: [["この計画は、去年の調査に基づいている。", "This plan is based on last year's survey."], ["規定に基づき、罰金を科します。", "Per the regulations, a fine will be imposed."]],
+      },
+      {
+        id: "nisotte", jp: "〜に沿って", en: "along; in line with", kind: "grammar",
+        exp: {
+          what: "沿う is to run alongside — a river, a wall, a plan. 川に沿って歩く walks the physical sense; 方針に沿って進める runs the abstract one: proceeding so as never to leave the named line's side.",
+          build: "Noun + に沿って／に沿い / に沿った + noun: 期待に沿った結果, マニュアルに沿って.",
+          when: "Physical routes, and compliance with guidelines that are PATHS rather than foundations — curricula, manuals, themes, hopes (ご期待に沿えず申し訳ありません is the set apology).",
+          watch: "The lattice's first fine cut: 基づいて stands ON the thing; 沿って moves BESIDE it. A law grounds a ruling (基づいて); a manual guides a procedure (沿って). Both readable in seconds, swappable in neither direction.",
+        },
+        ex: [["線路に沿って、桜の木が植えられている。", "Cherry trees are planted along the rail line."], ["会社の方針に沿って、計画を立て直した。", "We redrew the plan in line with company policy."]],
+      },
+      {
+        id: "nishitagatte", jp: "〜に従って", en: "following; as — obedience and lockstep", kind: "grammar",
+        exp: {
+          what: "従う is to follow a superior, and both readings keep the deference. Obedience: 指示に従って行動する — act per instructions. Lockstep change: 北に行くに従って寒くなる — as you go north, it cools; the second thing follows the first the way a subordinate follows.",
+          build: "Noun + に従って for obedience; dictionary-form verb + に従って for lockstep. Written に従い.",
+          when: "Instructions, laws, elders for the first sense; gradual paired change for the second — where it competes with Stage 10's につれて and wins only on formality.",
+          watch: "The obedience sense needs an authority: 猫に従う is comedy (or truth). And the lockstep sense wants gradual change — for events, と同時に.",
+        },
+        ex: [["係員の指示に従ってください。", "Please follow the staff's instructions."], ["年を取るに従って、時間が早く感じられる。", "As one ages, time comes to feel faster."]],
+      },
+      {
+        id: "nioujite", jp: "〜に応じて", en: "according to — the sliding scale", kind: "grammar",
+        exp: {
+          what: "応じる is to respond, and the pattern makes one thing a DIAL for another: 収入に応じて、税金が変わる — tax varies with income. Not obedience, not foundation: calibration.",
+          build: "Noun + に応じて／に応じた + noun: 状況に応じた対応, 人数に応じて.",
+          when: "Prices, portions, difficulty levels, responses tailored to circumstances — anywhere the answer is 'it depends, lawfully.'",
+          watch: "The dial noun must vary: 名前に応じて料金が変わる is nonsense because names don't scale. Its cousin に応えて (responding to hopes/requests — 期待に応えて) shares the verb and splits the job: 応じて calibrates, 応えて answers.",
+        },
+        ex: [["経験に応じて、給料が決まります。", "Pay is set according to experience."], ["お客様のご要望に応えて、営業時間を延ばしました。", "Answering customers' wishes, we extended our hours."]],
+      },
+      {
+        id: "sb-kijun", jp: "基準の四天王", en: "the four basis particles, told apart", kind: "skill",
+        exp: {
+          what: "Four patterns, one preposition in English, four different geometries in Japanese. 基づいて stands ON (foundation). 沿って runs BESIDE (path). 従って walks BEHIND (authority). 応じて scales WITH (dial). The exam asks you to pick one; the geometry answers before the grammar does.",
+          build: "Test with the noun: a law grounds (基づいて) and commands (従って) but is no dial; income scales (応じて) but grounds nothing; a manual guides (沿って). Some nouns take two — 計画に基づいて／沿って both live — and then the nuance is WHERE the plan sits: under you or beside you.",
+          when: "These four appear together in every N2 grammar section ever printed. Five minutes of geometry beats fifty flashcards.",
+          watch: "従って alone doubles as a conjunction (したがって, therefore — Stage 10's written connector). Sentence-initial with a comma, it is the connector; mid-sentence after に, it is this family.",
+        },
+        ex: [["マニュアルに沿って、規定に基づき、指示に従って作業する。", "Working along the manual, on the regulations, per instructions — three geometries, one sentence."]],
+      },
+      {
+        id: "b-s56", jp: "Composition · 手順書の一節", en: "write the procedure", kind: "build",
+        exp: {
+          what: "A four-line procedure paragraph: the foundation (に基づき), the path (に沿って), the authority (に従い), and the sliding scale (に応じて). である register throughout.",
+          build: "Shape to steal: 本手順は安全規定に基づく。作業はマニュアルに沿って行い、係員の指示に従うこと。人数に応じて班を分ける。",
+          when: "The procedure register runs every workplace document; producing four correct geometries in sequence is the whole test.",
+          watch: "のこと endings (Step 49's noticeboard imperative) belong here — ください does not.",
+        },
+        ex: [["緊急時は、本規定に基づき行動のこと。", "In emergencies, act per these regulations."]],
+      },
+    ],
+  },
+
+  // The relation family: adding to, running counter to, facing toward, circling
+  // around, touching upon, leaving out. The prepositions of the editorial page.
+  {
+    cat: "Step 57 · With, against, around",
+    level: "S13",
+    bank: [["対立", "confrontation"], ["協力", "cooperation"], ["方向", "a direction"], ["材料", "materials; ingredients"], ["資料", "documents; data"], ["議論", "debate; discussion"], ["予測", "a forecast"], ["祈り", "a prayer"]],
+    points: [
+      {
+        id: "nikuwaete", jp: "〜に加えて", en: "in addition to — the pile grows", kind: "grammar",
+        exp: {
+          what: "加える is to add, and the pattern stacks a second thing on a first that was already enough: 強風に加えて、雨も降り出した — on top of the wind, rain. Where のみならず widens a claim, に加えて loads a situation.",
+          build: "Noun + に加えて／に加え: 基本料金に加えて.",
+          when: "Weather, bills, symptoms, duties — the grammar of things piling up, neutral about whether the pile is good.",
+          watch: "Beside its siblings: のみならず argues (not only but even), はもとより assumes (that goes without saying), に加えて merely stacks. News prose uses this one precisely because it argues nothing.",
+        },
+        ex: [["彼は英語に加えて、中国語も勉強し始めた。", "On top of English, he's started Chinese too."], ["人手不足に加え、材料費も上がっている。", "Added to the labor shortage, material costs are rising."]],
+      },
+      {
+        id: "nihanshite", jp: "〜に反して", en: "contrary to", kind: "grammar",
+        exp: {
+          what: "反する is to run counter, and the pattern measures an outcome against what was expected and finds it opposite: 予想に反して、あっさり勝った — contrary to forecast, an easy win. The noun is always an expectation-bearing thing: 予想, 期待, 意思, 規則.",
+          build: "Noun + に反して／に反し / に反する + noun: 意に反する結果.",
+          when: "Results that betray forecasts — elections, matches, experiments. The written cousin of のに with the emotion drained and the measurement kept.",
+          watch: "The noun must carry an expectation: 天気に反して is broken (weather expects nothing); 天気予報に反して works. For people acting against advice, に反して reads stiff — friends say のに.",
+        },
+        ex: [["大方の予想に反して、新人が優勝した。", "Contrary to most predictions, the newcomer took the title."], ["親の期待に反して、彼は会社を辞めた。", "Against his parents' hopes, he quit the company."]],
+      },
+      {
+        id: "nimukatte", jp: "〜に向かって", en: "toward; facing", kind: "grammar",
+        exp: {
+          what: "向かう is to face and head for, and the pattern aims things: 駅に向かって歩く (motion), 壁に向かって座る (orientation), 目標に向かって努力する (purpose), and — the sharp one — 親に向かって、その口の利き方は何だ (TO someone's face, marking effrontery).",
+          build: "Noun + に向かって／に向かい / に向けて for the aimed-preparation variant: 大会に向けて練習する.",
+          when: "Directions and goals daily; the effrontery reading in scoldings. に向けて owns deadlines and events being prepared for — 発売に向けて.",
+          watch: "向かって vs 向けて: 向かって MOVES toward; 向けて AIMS at (and may stand still). Training happens に向けて the tournament; walking happens に向かって the station.",
+        },
+        ex: [["ゴールに向かって、最後まで走り抜いた。", "He ran flat out toward the goal, to the very end."], ["決勝戦に向けて、チームは調整を続けている。", "The team keeps fine-tuning ahead of the final."]],
+      },
+      {
+        id: "womegutte", jp: "〜をめぐって", en: "over; concerning — the circling dispute", kind: "grammar",
+        exp: {
+          what: "めぐる is to circle, and what circles the named noun is always DISCUSSION with heat in it: 遺産をめぐって、兄弟が争っている — the brothers are fighting over the inheritance. The noun is the still center; the argument orbits.",
+          build: "Noun + をめぐって／をめぐり / をめぐる + noun: 移転をめぐる議論.",
+          when: "News and reports of disputes: inheritances, construction plans, interpretations, personnel. If nobody disagrees, use について.",
+          watch: "The orbiting thing must be contested plural voices — をめぐって考える (one person thinking) misfires; をめぐって対立する is the native habitat. について informs; をめぐって embroils.",
+        },
+        ex: [["新しい工場の建設をめぐって、住民の意見が分かれている。", "Residents are split over the new factory's construction."], ["その規則の解釈をめぐって、議論が続いた。", "Debate continued over how to read the rule."]],
+      },
+      {
+        id: "wonozoite", jp: "〜を除いて・をもとに・をこめて", en: "except; built from; filled with", kind: "grammar",
+        exp: {
+          what: "Three を-patterns that finish the family. を除いて subtracts: 月曜を除いて営業 — open except Mondays. をもとに builds from a source: 実話をもとにした映画 — a film built on a true story. をこめて pours feeling in: 心をこめて作った — made with heart in it.",
+          build: "Noun + を除いて（除き）; +をもとに（して）; +をこめて. こめて's noun is always an emotion: 愛, 感謝, 願い, 心.",
+          when: "除いて in schedules and statistics; をもとに in credits and methods (基づいて's lighter cousin — a source, not an authority); をこめて in gifts, letters, and every hand-made thing's description.",
+          watch: "をもとに vs に基づいて: the film is based ON a story loosely (をもとに); the ruling stands on the law strictly (に基づいて). Looseness is をもとに's feature, not its flaw.",
+        },
+        ex: [["祝日を除いて、毎日開いています。", "Open every day except holidays."], ["感謝をこめて、手紙を書いた。", "I wrote the letter with gratitude folded in."]],
+      },
+      {
+        id: "b-s57", jp: "Composition · 紛争の記事", en: "the dispute, reported", kind: "build",
+        exp: {
+          what: "A five-line news paragraph: the dispute (をめぐって), what fuels it (に加えて), the surprise (に反して), the direction (に向けて), and the exception (を除いて). である register.",
+          build: "News syntax to steal: 〜をめぐり、対立が続いている。〜に加え、〜も争点となった。大方の予想に反し、〜。解決に向けて協議が進む。一部を除いて、合意は近い。",
+          when: "This IS the shape of half the articles on NHK NEWS WEB EASY's grown-up sibling. Reading them becomes pattern-spotting after writing one.",
+          watch: "Every pattern in its written short form (をめぐり, に加え, に反し) — the って forms mark the paragraph as half-spoken.",
+        },
+        ex: [["公園の移転をめぐり、意見が対立している。", "Opinions clash over the park's relocation."]],
+      },
+    ],
+  },
+
+  // The concession summit. のに complained, ものの recorded, ながらも conceded — these
+  // forms OVERRIDE: despite, regardless, even if, whoever it costs. The grammar
+  // of pressing on.
+  {
+    cat: "Step 58 · No matter what",
+    level: "S13",
+    bank: [["悪天候", "bad weather"], ["危険", "danger"], ["困難", "difficulty"], ["批判", "criticism"], ["周囲", "one's surroundings; those around"], ["決心", "determination"], ["中止", "cancellation"], ["強行", "forcing through"]],
+    points: [
+      {
+        id: "nimokakawarazu", jp: "〜にもかかわらず・にかかわらず", en: "despite / regardless — one kana apart", kind: "grammar",
+        exp: {
+          what: "The pair the exam loves most. にもかかわらず takes a FACT and overrides it: 雨にもかかわらず、試合は行われた — despite the rain, played anyway. にかかわらず takes a VARIABLE and declares it irrelevant: 天候にかかわらず行います — held regardless of weather. One も, completely different machines.",
+          build: "Fact (noun／plain clause) + にもかかわらず. Variable (noun, often paired opposites: 有無・晴雨・年齢) + にかかわらず.",
+          when: "にもかかわらず in reports of defiance and surprise; にかかわらず in rules and announcements — it is を問わず's twin, swappable in most notices.",
+          watch: "The test: can the noun VARY? 雨 fell (fact → にも); 天候 varies (variable → に). Getting this pair right is worth three exam questions; the third sibling にかかわる (to concern: 命にかかわる問題) just borrows the verb.",
+        },
+        ex: [["悪天候にもかかわらず、多くの人が集まった。", "Despite the foul weather, a crowd gathered."], ["経験の有無にかかわらず、応募できます。", "You may apply regardless of experience."]],
+      },
+      {
+        id: "nishiro", jp: "〜にしろ／にせよ・としても", en: "even supposing", kind: "grammar",
+        exp: {
+          what: "Concession over hypotheticals. にしろ／にせよ (the old imperatives of する) concede a case or a pair: 行くにしろ行かないにしろ、連絡はください — going or not, let me know. としても concedes a whole supposition: 本当だとしても、驚かない — even if true, no surprise.",
+          build: "Plain form + にしろ／にせよ, often doubled for alternatives; いずれにせよ (either way) is the fossilised favourite. Plain form + としても.",
+          when: "Covering both branches before they split — plans, verdicts, contingencies. にせよ leans written; にしろ spoken; としても goes anywhere.",
+          watch: "The doubled shape needs real alternatives: 行くにしろ来るにしろ blurs (same journey). And note the family: Step 50's としては was a role; としても is a supposition — the は/も splits them, again.",
+        },
+        ex: [["冗談にせよ、言っていいことと悪いことがある。", "Even as a joke, some things shouldn't be said."], ["間に合わないとしても、行くだけ行ってみよう。", "Even if we won't make it, let's at least go."]],
+      },
+      {
+        id: "tedemo", jp: "〜てでも・もかまわず", en: "whatever it takes; heedless of", kind: "grammar",
+        exp: {
+          what: "The costs-be-damned pair. てでも names the price you'd pay: 徹夜してでも終わらせる — I'll finish if it takes all night. もかまわず names what you ignored: 人目もかまわず泣いた — cried heedless of watching eyes (構う, to mind, refused).",
+          build: "て form + でも + resolve: 借金してでも. Noun + もかまわず: 雨にぬれるのもかまわず.",
+          when: "てでも in vows and ultimatums — the strongest determination shape the course teaches. もかまわず in narration of people past caring.",
+          watch: "てでも's named cost must be real and unwelcome (休んででも rings false — resting costs nothing). もかまわず describes OTHERS or your past self; announcing your own present heedlessness dissolves it.",
+        },
+        ex: [["どんな手を使ってでも、締め切りには間に合わせる。", "Whatever it takes, I'll make that deadline."], ["彼は服が汚れるのもかまわず、子どもを助けた。", "Heedless of his clothes, he pulled the child out."]],
+      },
+      {
+        id: "temo2", jp: "〜とも・う（よう）と", en: "no matter — the written summit", kind: "grammar",
+        exp: {
+          what: "The literary peak of no-matter: どんなに苦しくとも — however hard it be; 誰が何と言おうと — whatever anyone may say. とも after adjectives, volitional + と after verbs; both survive mainly in writing, speeches and proverbs, which is exactly where N2 reading finds them.",
+          build: "Adjective く-form + とも: 遅くとも (at the latest — the fossil you already use). Volitional + と（も）: 雨が降ろうと, 何があろうとも.",
+          when: "Reading first: editorials, anthems, wedding vows. Producing: 遅くとも and 少なくとも are the everyday fossils; the full pattern is for the one speech a year.",
+          watch: "The volitional here is NOT invitation — 降ろうと is 'though it may rain', nobody is inviting rain. Step 17's よう wearing court dress; the follower (と) tells you which.",
+        },
+        ex: [["誰に反対されようと、この道を行くと決めた。", "Whoever may oppose it, I've decided on this path."], ["遅くとも八時までには着きます。", "I'll arrive by eight at the latest."]],
+      },
+      {
+        id: "sb-jouho", jp: "譲歩のはしご — 全段", en: "the concession ladder, complete", kind: "skill",
+        exp: {
+          what: "Every 'but-anyway' the course owns, in one climb. Feeling it: のに (frustrated) → くせに (contemptuous — flag intact). Recording it: ものの (cool) → ながらも (self-aware). Overriding it: にもかかわらず (fact defied) → にかかわらず・を問わず (variable dismissed). Supposing it: としても → にしろ／にせよ. Paying it: てでも → もかまわず. Summit: とも／ようと.",
+          build: "Choose by what stands in the way: a feeling, a fact, a variable, a hypothesis, or a cost. English 'despite/even if' flattens five machines into two words — the ladder unflattens them.",
+          when: "The single most exam-dense family in N2, and the most life-dense: every plan in Japan carries a weather clause.",
+          watch: "Register mismatches are the production risk: くせに in a report, にもかかわらず in a text message. Height on the ladder and height of register move together.",
+        },
+        ex: [["雨天にもかかわらず決行。雨天にかかわらず決行。", "Held despite the rain / held rain or shine — the pair, side by side."]],
+      },
+      {
+        id: "b-s58", jp: "Composition · 決行のお知らせ", en: "the it-goes-ahead notice", kind: "build",
+        exp: {
+          what: "Write the festival notice: held regardless (にかかわらず), despite last year's cancellation (にもかかわらず), even if numbers are small (としても), and the organisers' resolve (てでも).",
+          build: "Notice register from Step 47 + concession machinery from this step — the two lessons meet exactly here.",
+          when: "The 雨天決行 poster is the most-read genre in Japan every festival season; now you can write one.",
+          watch: "にかかわらず in the rule line, にもかかわらず in the history line. Swapping them is the exact error the sb warned about — in public, laminated.",
+        },
+        ex: [["本祭りは、天候にかかわらず開催します。", "This festival will be held regardless of weather."]],
+      },
+    ],
+  },
+
+  // The judgment family: outcomes that follow from what things are — deservedly,
+  // unsurprisingly, at best, if only. Where Stage 12 refused, this step
+  // approves.
+  {
+    cat: "Step 59 · Only natural",
+    level: "S13",
+    bank: [["実績", "a track record"], ["成果", "results; fruits"], ["評価", "evaluation; esteem"], ["納得", "being convinced"], ["無事", "safe and sound"], ["健康", "health"], ["安全", "safety"], ["謙遜", "modesty; humility"]],
+    points: [
+      {
+        id: "temouzenda", jp: "〜のも当然だ・て当然だ・のももっともだ", en: "only natural; fair enough", kind: "grammar",
+        exp: {
+          what: "Approval by inevitability. のも当然だ: given the facts, of course — 怒るのも当然だ, no wonder she's angry. て当然だ: deserved by right — 感謝されて当然だ, thanks are only proper. のももっともだ adds the nod of agreement: fair enough, I'd feel the same.",
+          build: "Plain clause + のも当然だ／のももっともだ; て form + 当然だ. もっとも also opens replies alone: もっともな意見です — a fair point.",
+          when: "Validating reactions — yours, theirs, a character's. The empathetic half of judgment, and the polite way to take someone's side in a dispute.",
+          watch: "当然 states logic; もっとも grants sympathy. A judge writes 当然; a friend says もっとも. (And sentence-initial もっとも means 'though, mind you' — Stage 13's connector lesson files that one.)",
+        },
+        ex: [["あれだけ練習したのだから、勝って当然だ。", "With that much training, winning is only proper."], ["彼が断ったのももっともだ。条件がひどすぎる。", "Fair enough that he refused — the terms were awful."]],
+      },
+      {
+        id: "dakenokotohaaru", jp: "〜だけのことはある", en: "no wonder — it lives up to it", kind: "grammar",
+        exp: {
+          what: "Step 47's だけあって, turned into a standalone verdict: さすがプロだけのことはある — no wonder; that's a pro for you. The observed quality is measured against the credential and found worth every bit of it; さすが loves to open the sentence.",
+          build: "Plain clause／noun + だけのことはある, usually closing the remark: 十年習っただけのことはある.",
+          when: "Admiration on inspection — the hotel that earns its stars, the veteran's effortless fix. Compliment grammar with evidence inside it.",
+          watch: "Same polarity rule as だけあって: fulfilled expectations only. And it needs a REAL credential to point back at — さすが alone with no antecedent is just noise.",
+        },
+        ex: [["この包丁はよく切れる。老舗の品だけのことはある。", "This knife cuts beautifully — no wonder, from a shop with that history."], ["彼女の発音は美しい。留学しただけのことはある。", "Her pronunciation is lovely; the study abroad shows."]],
+      },
+      {
+        id: "nikoshitakotohanai", jp: "〜に越したことはない・に限る", en: "nothing better than", kind: "grammar",
+        exp: {
+          what: "Two superlatives of prudence and preference. に越したことはない: nothing surpasses it — 安全であるに越したことはない, you can't beat safe; the hedged best, room left for reality. に限る: for my money, nothing else will do — 夏はビールに限る; the enthusiast's absolute.",
+          build: "Plain form／noun + に越したことはない. Noun／dictionary form + に限る: 疲れた日は早く寝るに限る.",
+          when: "越した for advice with a shrug in it (early is best, but); 限る for declared preferences and small dogmas. Both are conversation's friendly sages.",
+          watch: "限る's family reunion: に限り (today only), に限って (my child never / cursed timing), に限らず (not limited to), に限る (nothing beats). Step 46's sb planted the map; this rung completes it.",
+        },
+        ex: [["用心するに越したことはない。", "It never hurts to be careful."], ["冬の夜は、温かい鍋に限る。", "On a winter night, nothing beats a hot nabe."]],
+      },
+      {
+        id: "mononara", jp: "〜ものなら・（よ）うものなら", en: "if only one could; just try it", kind: "grammar",
+        exp: {
+          what: "Two faces of a fragile if. できるものなら: if it were only possible — 代われるものなら代わりたい, I'd trade places if trading were a thing; wistful, the potential form before it. And ようものなら: should you DARE — 遅刻しようものなら、大目玉だ, be late once and thunder follows; the volitional makes the if a transgression.",
+          build: "Potential + ものなら for the wish: 戻れるものなら. Volitional + ものなら for the threat: 言おうものなら.",
+          when: "The wish in condolences and daydreams; the threat in describing strict regimes — schools, kitchens, drill sergeants.",
+          watch: "The wish needs the potential (できる, 戻れる); the threat needs the volitional. Mixing forms mixes faces — 遅刻できるものなら is an invitation to comedy.",
+        },
+        ex: [["やり直せるものなら、あの日からやり直したい。", "If do-overs existed, I'd start from that day."], ["会議中にスマホを見ようものなら、部長ににらまれる。", "So much as glance at your phone in that meeting and the director's glare finds you."]],
+      },
+      {
+        id: "b-s59", jp: "Composition · 推薦の言葉", en: "the recommendation", kind: "build",
+        exp: {
+          what: "Write four lines recommending a colleague: the credential verdict (だけのことはある), the deserved outcome (て当然), the prudent superlative (に越したことはない), and the wish (ものなら).",
+          build: "Shape to steal: 彼女の実績は本物で、評価されて当然です。十年続けただけのことはあります。採用するに越したことはありません。",
+          when: "Reference letters and internal recommendations — a genre where measured praise beats loud praise, which is what this family is FOR.",
+          watch: "One さすが maximum. Two reads as flattery, and flattery is what this grammar exists to avoid resembling.",
+        },
+        ex: [["彼に任せられるものなら、任せたいところです。", "If entrusting it to him were possible, that's exactly what I'd wish to do."]],
+      },
+    ],
+  },
+
+  // The potential family at N2: what could happen, what was worth it, what never
+  // happened at all, and what one got away without. Small patterns, high
+  // frequency.
+  {
+    cat: "Step 60 · Worth, risk and clean escapes",
+    level: "S13",
+    bank: [["価値", "value; worth"], ["危機", "a crisis"], ["被害", "damage; harm"], ["苦労", "hardship"], ["回復", "recovery"], ["予防", "prevention"], ["解決", "a solution"], ["無駄", "waste; futility"]],
+    points: [
+      {
+        id: "uru", jp: "〜得る／得ない", en: "could conceivably — the written can", kind: "grammar",
+        exp: {
+          what: "The potential form for POSSIBILITY-IN-PRINCIPLE rather than personal skill: あり得る — it could conceivably be; 起こり得る問題 — problems that could arise. Read うる in the dictionary form, える in the negative and ます-stem: あり得る（うる）, あり得ない（えない）.",
+          build: "ます-stem + 得る／得ない: 考え得る, 想像し得ない. Written register; the everyday mouth says できる or かもしれない.",
+          when: "Risk assessment, philosophy, reports — where what's at stake is whether the world PERMITS a thing, not whether you can do it. あり得ない has escaped into speech as 'no way'.",
+          watch: "泳ぎ得る for swimming ability is wrong — ability stays with potential form; 得る does in-principle only. The reading split (うる／える) is a favourite exam trap.",
+        },
+        ex: [["その計画には、あり得る危険を全て書き出した。", "For that plan we listed every conceivable risk."], ["十年前には想像し得なかった技術だ。", "Technology unimaginable ten years ago."]],
+      },
+      {
+        id: "osoregaaru", jp: "〜恐れがある", en: "there is a risk that", kind: "grammar",
+        exp: {
+          what: "The forecast of harm, in official voice: 大雨の恐れがあります — risk of heavy rain. 恐れ is fear turned institutional; the pattern only ever predicts unwelcome things, which is why it lives in weather bulletins, package inserts and disclaimers.",
+          build: "Dictionary form／noun + の + 恐れがある: 遅れる恐れ, 副作用の恐れ.",
+          when: "Reading daily (every typhoon season sentence carries it); producing in reports where かもしれない would sound underdressed.",
+          watch: "Good outcomes reject it absolutely: 合格する恐れ is broken. Its bright twin is 可能性がある, which swings both ways — the exam swaps them to see if you notice the polarity.",
+        },
+        ex: [["台風の接近により、電車が止まる恐れがある。", "With the typhoon nearing, trains may well stop."], ["この薬は、眠くなる恐れがあります。", "This medicine carries a risk of drowsiness."]],
+      },
+      {
+        id: "kaigaaru", jp: "〜かいがある・がい", en: "worth the effort", kind: "grammar",
+        exp: {
+          what: "Effort, audited and approved: 練習したかいがあって、優勝できた — the practice paid off. かい is the return on something costly; bolted to a stem it makes the worth-words: やりがい, 生きがい — the feeling that doing (or living) repays itself.",
+          build: "た form + かいがあって／かいがある; ない form: 苦労したかいがない (it didn't pay). ます-stem + がい for the nouns: 働きがい.",
+          when: "After outcomes, in gratitude and rue; the がい nouns are everyday identity vocabulary — job interviews ask about やりがい with a straight face.",
+          watch: "The first clause must have COST something: 昼寝したかいがあって misfires (naps aren't effort). And かいがない hurts exactly as much as かいがある warms — the audit cuts both ways.",
+        },
+        ex: [["毎日練習したかいがあって、発音がほめられた。", "The daily practice paid off — my pronunciation got praised."], ["この仕事は大変だが、やりがいがある。", "The work is hard, but it repays the doing."]],
+      },
+      {
+        id: "kotonaku", jp: "〜ことなく・ずに済む", en: "without ever; got away without", kind: "grammar",
+        exp: {
+          what: "Two clean escapes. ことなく is written without-ever: 一度も休むことなく、走り続けた — ran on without once resting; ないで's formal cousin with 'not even once' folded in. ずに済む is relief: 並ばずに済んだ — got away without queueing; 済む (to conclude) says the matter closed WITHOUT the unpleasant thing.",
+          build: "Dictionary form + ことなく. ない-stem + ずに済む (する → せずに済む — the せ family's fourth appearance); casual mouth says ないで済む.",
+          when: "ことなく in written narration and eulogy; ずに済む in daily relief — the meeting cancelled, the fine avoided, the umbrella unneeded.",
+          watch: "ずに済む's escaped thing must be unwelcome: 食べずに済んだ about a feast you wanted reads as loss written backwards. And ことなく needs gravity — 歯を磨くことなく寝た is mock-epic.",
+        },
+        ex: [["彼は一日も欠席することなく、三年間通い続けた。", "He attended three years without missing a single day."], ["保険のおかげで、大金を払わずに済んだ。", "Thanks to the insurance, I got away without paying a fortune."]],
+      },
+      {
+        id: "b-s60", jp: "Composition · 事故報告の結び", en: "close the incident report", kind: "build",
+        exp: {
+          what: "Four written lines closing an incident report: what could have happened (得る／恐れがあった), what was escaped (ずに済んだ), what the precautions were worth (かいがあって), and the vow forward (ことなく).",
+          build: "Shape to steal: 大事故になり得る状況だったが、避難訓練のかいがあって、けが人を出さずに済んだ。今後も点検を怠ることなく続ける。",
+          when: "The incident report's closing paragraph is where all four patterns naturally co-occur — this is not an invented exercise.",
+          watch: "Keep the relief (ずに済んだ) before the vow (ことなく) — reversed, the report sounds like it's celebrating before it's done apologising.",
+        },
+        ex: [["幸い、大きな被害を出さずに済んだ。", "Fortunately, we escaped without major damage."]],
+      },
+    ],
+  },
+
+  // N2's remaining machinery, plus the two gathering lessons that close the
+  // adverb and connector tiers the way Stage 10 closed its own. Then rc12, and
+  // the milestone this time has an audit behind it.
+  {
+    cat: "Step 61 · The last folds",
+    level: "S13",
+    bank: [["毎回", "every time"], ["半面", "the other side (of a quality)"], ["経済", "the economy"], ["社会人", "a working adult"], ["新入社員", "a new employee"], ["電子マネー", "electronic money"], ["現金", "cash"], ["時代", "an era"]],
+    points: [
+      {
+        id: "gotoni", jp: "〜ごとに・につけ", en: "at every; whenever it touches", kind: "grammar",
+        exp: {
+          what: "Two rhythms. ごとに is the metronome: 三日ごとに水をやる — every third day; 家ごとに配る — to every single house. につけ is the trigger: この歌を聞くにつけ、国を思い出す — every time this song reaches me, home comes back; the second clause is always a feeling that arrives unbidden.",
+          build: "Number-span／noun + ごとに. Dictionary form + につけ, classically doubled: 見るにつけ聞くにつけ.",
+          when: "ごとに in schedules, dosages, distributions — pure administration. につけ in reflective prose; it is the grammar of involuntary memory.",
+          watch: "ごとに vs Step 42's たびに: たびに narrates occasions, ごとに measures intervals. And につけ's second half must be spontaneous feeling — a planned action after につけ breaks the machinery.",
+        },
+        ex: [["この薬は、六時間ごとに飲んでください。", "Take this medicine every six hours."], ["桜を見るにつけ、卒業の日を思い出す。", "Every time I see cherry blossoms, graduation day returns."]],
+      },
+      {
+        id: "hanmen", jp: "〜反面・半面", en: "on the other side of it", kind: "grammar",
+        exp: {
+          what: "One thing, two faces, honestly held: 便利な反面、危険もある — convenient, and on the flip side, dangerous. Unlike 一方で (which contrasts two arenas), 反面 splits a SINGLE thing down the middle and shows both faces of the same coin.",
+          build: "Plain form (な-adj + な／である) + 反面: 給料がいい反面, 静かな反面.",
+          when: "Balanced evaluation — reviews, essays, the pros-and-cons paragraph. The N2 writing section practically requires one 反面 per opinion piece.",
+          watch: "Both faces must belong to ONE subject: 東京は便利な反面、田舎は静かだ breaks (two subjects → 一方). The two spellings 反面／半面 both circulate; 反面 is the safer written choice.",
+        },
+        ex: [["電子マネーは便利な反面、使いすぎる心配がある。", "E-money is convenient — and on the other side of that, easy to overuse."], ["彼は厳しい反面、誰よりも部下を守る。", "He's severe, and on the other face of it, protects his people like no one else."]],
+      },
+      {
+        id: "hatomokaku", jp: "〜はともかく・は別として", en: "setting that aside", kind: "grammar",
+        exp: {
+          what: "The agenda-managers. はともかく shelves a topic to reach the urgent one: 味はともかく、量は多い — the taste, whatever about it; the portions are huge. は別として sets a case formally outside the discussion: 冗談は別として — joking apart. Both concede a little about the shelved thing by shelving it.",
+          build: "Noun + はともかく（として）; noun／plain clause + のは別として.",
+          when: "Steering conversations and essays past a bog: acknowledge, shelve, proceed. The polite way to not-discuss someone's cooking.",
+          watch: "What you shelve, listeners assume you doubt — 見た目はともかく quietly insults the appearance. Shelve only what you can afford to have heard as conceded.",
+        },
+        ex: [["結果はともかく、挑戦したことに意味がある。", "Whatever about the result, the attempt itself meant something."], ["費用の問題は別として、計画自体は素晴らしい。", "Cost aside, the plan itself is excellent."]],
+      },
+      {
+        id: "temae", jp: "〜手前・上は", en: "having gone that far in front of them", kind: "grammar",
+        exp: {
+          what: "Obligation with an audience. 手前: having said/done it IN FRONT of someone, backing out is no longer available — 引き受けると言った手前、断れない; the watching eyes are inside the grammar. 上は is からには's most formal sibling: こうなった上は — matters having come to this.",
+          build: "た／ている form + 手前 + can't-retreat clause. た form + 上は + resolve.",
+          when: "手前 for the specifically Japanese bind of face before witnesses — colleagues, in-laws, neighbours. 上は in declarations at the point of no return.",
+          watch: "手前 needs the audience named or known; alone in a forest there is no 手前. The now-that ladder completes: からには (spoken) → 以上は (written) → 上は (formal) → 手前 (witnessed).",
+        },
+        ex: [["みんなの前で宣言した手前、今さらやめられない。", "Having declared it in front of everyone, quitting now isn't available."], ["こうなった上は、最後まで戦うしかない。", "Matters having come to this, there is nothing but to see it through."]],
+      },
+      {
+        id: "kagiri2", jp: "〜限り（は）", en: "as long as — the standing condition", kind: "grammar",
+        exp: {
+          what: "The 限る family's last member, and the only one that holds TIME open: 私がここにいる限り、心配はいらない — as long as I'm here, no worries needed. The named state is a roof; the promise under it lasts exactly as long as the roof does.",
+          build: "Dictionary／ている form + 限り（は）: 生きている限り, 学生である限り. The negative sets a floor instead: 雨が降らない限り、決行 — unless it rains.",
+          when: "Promises, warranties, standing rules — anything guaranteed for the duration of a condition. The ない限り version is contract prose's favourite unless.",
+          watch: "The family map completes: に限り (only, official), に限って (the exception／cursed timing), に限らず (not limited to), に限る (nothing beats), 限り (as long as). Five jobs, one verb — the full house sb-kagiru promised.",
+        },
+        ex: [["体が動く限り、この店を続けるつもりだ。", "As long as this body moves, I mean to keep the shop going."], ["よほどのことがない限り、計画は変わりません。", "Barring something extraordinary, the plan won't change."]],
+      },
+      {
+        id: "bakarida", jp: "〜ばかりだ・ていては", en: "only ever worsening; if you keep that up", kind: "grammar",
+        exp: {
+          what: "The downward-spiral pair. ばかりだ tracks a one-way slide: 状況は悪くなるばかりだ — the situation does nothing but worsen; change with no second direction. ていては diagnoses the habit that feeds it: 泣いていては、何も解決しない — if you keep crying, nothing gets solved.",
+          build: "Dictionary form (change verbs) + ばかりだ: 増えるばかり, 離れていくばかり. て form + いては + negative outcome: 遊んでいては.",
+          when: "ばかりだ in laments and trend reports — always downhill (or felt as downhill). ていては in advice and self-scolding, the gentle precursor to ようでは's condemnation.",
+          watch: "ばかりだ needs a directional verb: 高いばかりだ misreads (that's just 'merely expensive'). And good trends reject it — 良くなるばかりだ sounds wrong precisely because the pattern's heart is a sigh.",
+        },
+        ex: [["何もしなければ、差は広がるばかりだ。", "Do nothing, and the gap only ever widens."], ["失敗を恐れていては、何も始められない。", "Keep fearing failure, and nothing can begin."]],
+      },
+      {
+        id: "dokorodehanai", jp: "〜どころではない・ものではない・ことにはならない", en: "no time for that; not done; doesn't count", kind: "grammar",
+        exp: {
+          what: "Three written refusals of a framing. どころではない: circumstances forbid it — 旅行どころではない, a trip is out of the question right now. ものではない: propriety forbids it — 人を笑うものではない, one doesn't laugh at people; the general moral, no finger pointed. ことにはならない: the logic doesn't carry — 謝ったからといって、許されたことにはならない, apologising doesn't add up to being forgiven.",
+          build: "Noun／dictionary form + どころではない. Dictionary form + ものではない (the generic should-not). Plain clause + ことにはならない, half-married to Step 51's からといって.",
+          when: "どころではない in busy seasons and crises; ものではない from mentors and parents — it scolds the act, not the person; ことにはならない in argument, closing a gap between a fact and the conclusion someone wants from it.",
+          watch: "ものではない generalises — aimed at one person's single act it turns pompous; that job belongs to てはいけない. And Step 48's というものではない hedges a claim, while ことにはならない refuses an inference — near neighbours, different targets.",
+        },
+        ex: [["引っ越しの準備で、花見どころではなかった。", "With the move to prepare, blossom-viewing was out of the question."], ["出席しただけでは、参加したことにはならない。", "Merely showing up doesn't amount to taking part."]],
+      },
+      {
+        id: "jouni", jp: "〜以上に・だけは・だけましだ", en: "more than; at the very least; count the mercy", kind: "grammar",
+        exp: {
+          what: "Three degree-setters. 以上に raises the bar past a known mark: 予想以上に大変だった — harder than forecast. だけは carves out the minimum one insists on: 挨拶だけは欠かさない — the greeting, at least, never skipped. だけましだ finds the floor worth gratitude: 濡れたが、傘があるだけましだ — soaked, but having an umbrella at all beats the alternative.",
+          build: "Noun + 以上に. Verb／noun + だけは + the defended minimum. Plain clause + だけましだ, usually after a misfortune already named.",
+          when: "以上に in results against expectations; だけは in resolutions and standards; だけましだ in the specifically Japanese art of counting small mercies — its natural habitat is commiseration.",
+          watch: "だけましだ consoles; said about someone ELSE's misfortune it minimises and lands badly. And だけは carries an implied 'even if nothing else' — using it on something grand (優勝だけは) reads as comedy or hubris, usually both.",
+        },
+        ex: [["新しい仕事は、想像以上に忙しい。", "The new job is busier than imagined."], ["熱はあるが、食欲があるだけましだ。", "There's a fever, but at least the appetite's intact — count the mercy."]],
+      },
+      {
+        id: "shojou", jp: "〜上・にて・のもとで・中を", en: "the document particles", kind: "grammar",
+        exp: {
+          what: "Four function words that only exist on paper. 〜上（じょう）: from the standpoint of a domain — 規則上、認められない, not permitted rules-wise. にて: で in a morning coat — 本日は書面にて失礼いたします. のもとで: under an auspice — 先生のもとで学ぶ, studying under a teacher. 中を（なかを）: through adverse conditions — 雨の中を、お越しいただき恐縮です, thank you for coming through the rain.",
+          build: "Noun + 上 (法律上, 健康上, 立場上 — the domain noun is closed-class); noun + にて (place, means, time); person／condition + のもとで; weather／crowd + の + 中を.",
+          when: "Reading official mail and ceremony speech, where all four cluster. Producing: にて and 中を belong in your own formal thank-yous sooner than you'd think — 雨の中をありがとうございます is week-one politeness at N2 altitude.",
+          watch: "上 the suffix reads じょう, never うえ — 規則上 is きそくじょう; misreading it aloud is the tell of a paper-only learner. And にて is precisely で: using it in speech is morning-coat-at-the-konbini.",
+        },
+        ex: [["安全上の理由により、本日は中止いたします。", "For safety reasons, today's event is cancelled."], ["暑い中を、ご来場いただきありがとうございます。", "Thank you for coming through this heat."]],
+      },
+      {
+        id: "cc-fukushi2", jp: "副詞の道具箱・二段目", en: "the N2 adverb drawer, in one scene", kind: "culture",
+        exp: {
+          what: "The N2 lists carry another adverb tier — real words, no machinery — and one scene holds them all: a manager reacting to news. どうやら (it seems) opens the hedge; いよいよ (at last) marks the arrival; いきなり (without warning) the surprise; かえって (contrary to intent) the backfire; せめて (at least) the floor of hope; せいぜい (at best) its ceiling; どうせ (anyway, cynically) the shrug; とっくに (long since) the old news; 直ちに (at once) the order; わずかに (barely) the margin; ふたたび (once more) the return; 幸い (luckily) the escape; いわゆる (so-called) the label held at tweezers' length.",
+          build: "Each pins to its axis: hedge (どうやら), timing (いよいよ・いきなり・とっくに・直ちに・ふたたび), scale (せめて・せいぜい・わずかに), stance (どうせ・かえって・幸い・いわゆる). The axis is the memory hook; definitions alone shuffle.",
+          when: "These carry paragraphs' emotional weather. どうせ especially: a sentence wearing it has given up before the verb arrives, and hearing that early changes how you answer.",
+          watch: "せめて and せいぜい mirror-trap: both translate 'at least/most' territory — せめて hopes upward from below, せいぜい caps downward from above. 幸い is the one that starts official mail: 幸いです closes requests politely.",
+        },
+        ex: [["どうやら、いよいよ来週発表らしい。せめて連絡ぐらい、直ちにほしいものだ。", "Seems it's finally announced next week. The least they could do is tell us — immediately."]],
+      },
+      {
+        id: "cc-setsuzoku2", jp: "つなぎ言葉の棚卸し", en: "the connector shelf, stocktaken", kind: "culture",
+        exp: {
+          what: "The written connectors N2 reading assumes, filed by job. Adding: しかも (and what's more), おまけに (and to top it off — usually misfortune), さらに (further), その上 (on top of that). Restating: すなわち (namely), 要するに (the point is), つまり you know. Turning: それにしても (even so — mild wonder), それなのに (and yet — mild grievance), なお (note, additionally — pure administration), もっとも (though, mind you — the polite asterisk). Choosing: それとも (or, in questions), あるいは (or possibly, in prose). Concluding: したがって (therefore, in reports).",
+          build: "Read them as stage directions: しかも raises, おまけに piles misfortune, もっとも walks half a step back, なお changes nothing and adds a footnote. The sentence after each is doing what the connector announced.",
+          when: "Editorials and exam passages navigate by these. Writing: one connector per two sentences is the ceiling before prose turns into scaffolding.",
+          watch: "おまけに is the marked one — it piles on, almost always unpleasantly: 終電を逃し、おまけに雨まで降ってきた. Using it for good news reads as irony, which is also how natives use it for fun.",
+        },
+        ex: [["彼は遅刻した。しかも、書類も忘れてきた。おまけに、言い訳ばかりだ。", "Late — and what's more, forgot the documents. And to top it off, nothing but excuses."]],
+      },
+      {
+        id: "b-s61", jp: "Composition · 総まとめの意見文", en: "the full-dress opinion piece", kind: "build",
+        exp: {
+          what: "Six lines, N2 complete: the balanced open (反面), the shelved objection (はともかく), the basis (に基づいて, Step 56), the concession (にもかかわらず, Step 58), the natural verdict (のも当然だ, Step 59), and one connector from the shelf between any two lines.",
+          build: "This is b-s43's 意見文 rebuilt with two more stages of machinery. Same rule as ever: one claim per line, the machinery carries the relations.",
+          when: "The N2 writing task, at full weight, using only what the course has taught — which is now the point.",
+          watch: "If any line could be deleted without the argument losing a limb, the machinery was decoration. That test outranks every grammar check in this course.",
+        },
+        ex: [["費用の問題はともかく、調査に基づいて判断すべきだ。", "Cost questions aside, the call should rest on the survey."]],
+      },
+      {
+        id: "rc12", jp: "復習 · Stage 13", en: "checkpoint: the full stage", kind: "review",
+        covers: ["nimotozuite", "nisotte", "nishitagatte", "nioujite", "sb-kijun", "nikuwaete", "nihanshite", "nimukatte", "womegutte", "wonozoite", "nimokakawarazu", "nishiro", "tedemo", "temo2", "sb-jouho", "temouzenda", "dakenokotohaaru", "nikoshitakotohanai", "mononara", "uru", "osoregaaru", "kaigaaru", "kotonaku", "gotoni", "hanmen", "hatomokaku", "temae", "cc-fukushi2", "cc-setsuzoku2", "kagiri2", "bakarida", "dokorodehanai", "jouni", "shojou"],
+        exp: {
+          what: "The lattice, assembled: four basis geometries, six relations, the concession ladder to its summit, the judgment family, the potential family, and the last folds. With Stage 12's standpoints, this closes the N2 syllabus the audit could name.",
+          build: "The four-way that decides most exam questions in this stage: 基づいて／沿って／従って／応じて — under, beside, behind, scaled-with. If those four are solid, the lattice mostly holds.",
+          when: "Before trusting ms-n2's claim — which, for the first time in this course's history, was measured before it was written.",
+          watch: "Register remains the stage's silent axis: every pattern here has a spoken cousin taught stages ago, and the real skill is not the form but the CHOICE of altitude. When in doubt, descend — an over-plain sentence is honest; an over-dressed one is comedy.",
+        },
+        ex: [["規定に基づき、天候にかかわらず、予定に沿って実施する。", "Per the regulations, regardless of weather, on schedule — the lattice in one line."]],
+      },
+      {
+        id: "ms-n2", jp: "マイルストーン · N2", en: "what you can do now", kind: "review",
+        exp: {
+          what: "You can now work in this language. Not survive — WORK: read the notice on the door and the clause in the contract, follow the meeting and the argument after it, refuse politely, insist formally, relay news at the right distance from its source, and write a paragraph an office would file without comment. The N2 syllabus, as a named public list measures it, is covered — checked against that list, item by item, before this sentence was written.",
+          build: "What sits above this is N1's tail: rarer, more literary, more fossilized — patterns you will now meet in reading faster than any course could schedule them. The instrument that got you here (patterns anchored in situations, registers chosen on purpose) is the same one that gets you through them.",
+          when: "This milestone states capability, not completion — there is no finish line in a living language, and the course would be lying if it drew one.",
+          watch: "The honest caveat, in the open: covered means TAUGHT, not yet verified by a native reviewer — that review is in motion — and taught means MET, not mastered. Mastery is what the review challenges, the drills and the writing you do from here are for. The door is open; the walking through it is yours.",
+        },
+        ex: [["ここまで来たからには、あとは使いながら磨くのみだ。", "Having come this far, all that remains is to polish it in use."]],
+      },
+    ],
+  },
+
   // The real end of N3. ms-n3 lives here now — it sat at the end of Stage 9
   // telling the learner they had covered the level, which was false from the day
   // it shipped and was caught because a capability claim is falsifiable in a way
@@ -5627,7 +6662,9 @@ const LEVELS = [
   // sits at the end of THIS stage, where it is true.
   { id: "S10", title: "10", subtitle: "Saying it precisely", jlpt: "≈ JLPT N3", markers: "kanji", tagline: "On whose authority, in what proportion, to what extent and how sure — and the point where the language tips from spoken to written.", groups: CURRICULUM.filter((c) => c.level === "S10") },
   { id: "S11", title: "11", subtitle: "Nuance", jlpt: "≈ JLPT N2", markers: "kanji", tagline: "Refusing politely, speaking at ceremonies, writing for the record — formality as a working tool, not a costume.", groups: CURRICULUM.filter((c) => c.level === "S11") },
-  { id: "S12", title: "12", subtitle: "Mastery", jlpt: "≈ JLPT N1", markers: "kanji", locked: true },
+  { id: "S12", title: "12", subtitle: "Standpoints", jlpt: "≈ JLPT N2", markers: "kanji", tagline: "Whose eyes a claim is seen from, reasons with force behind them, feelings past containment, and what cannot happen.", groups: CURRICULUM.filter((c) => c.level === "S12") },
+  { id: "S13", title: "13", subtitle: "The formal lattice", jlpt: "≈ JLPT N2", markers: "kanji", tagline: "Grounds, relations, concessions and judgments — the machinery documents run on, and the door N2 closes behind you.", groups: CURRICULUM.filter((c) => c.level === "S13") },
+  { id: "S14", title: "14", subtitle: "Mastery", jlpt: "≈ JLPT N1", markers: "kanji", locked: true },
 ];
 
 // Lesson types. GATING: intentionally none yet — later, skill builders and

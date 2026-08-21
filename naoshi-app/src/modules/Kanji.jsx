@@ -191,6 +191,23 @@ const K = {
   "受": { m: "to receive", on: "ジュ", kun: "う(ける)", story: "A hand 爪 above, a hand 又 below, something passing between under a cover — receiving, drawn as the handoff itself. 受付 is where the building does it; 引き受ける is agreeing to catch what is thrown.", sentence: true, w: [["受ける","うける","to receive; to take (a test)"],["受付","うけつけ","reception"],["引き受ける","ひきうける","to take (a task) on"]] },
   "引": { m: "to pull", on: "イン", kun: "ひ(く)", story: "The bow 弓 and a straight string 丨 — drawn, held. 引く is on half the doors in Japan; 割引 pulls the price down; 引っ越す pulls the whole household somewhere new.", sentence: true, w: [["引く","ひく","to pull"],["割引","わりびき","a discount"],["引っ越す","ひっこす","to move house"]] },
   "別": { m: "separate; another", on: "ベツ", kun: "わか(れる)", story: "A joint being taken apart by the side-knife 刂 — separation as butchery, softened by a thousand years of use into 別の (another), 特別 (special), and 別れる, the human kind of parting.", w: [["別","べつ","separate; different"],["特別","とくべつ","special"],["性別","せいべつ","sex; gender"]] },
+  "実": { m: "real; fruit", on: "ジツ", kun: "み・じつ", story: "The roof 宀 over a full store — what the house actually HAS. 事実 is the fact, 実力 the real ability, 実現 making real. The N2 stages' most-demanded character, six words deep before this lesson opened.", w: [["事実","じじつ","a fact"],["実力","じつりょく","real ability"],["実現","じつげん","realization"]] },
+  "面": { m: "face; surface; aspect", on: "メン", kun: "おもて", story: "A face in a frame — the outline of a head with the features boxed in. It works every angle: 場面 the scene, 面接 the interview (faces meeting), 反面 the other face of a thing, and 面白い — interesting, literally a brightening face.", w: [["面接","めんせつ","a job interview"],["場面","ばめん","a scene"],["面白い","おもしろい","interesting"]] },
+  "決": { m: "to decide", on: "ケツ", kun: "き(める)・き(まる)", story: "Water 氵 bursting a bank — the old image for settling something once and for all. 決める what you decide, 決まる what gets settled, 解決 the problem dissolved.", sentence: true, w: [["決める","きめる","to decide"],["決まる","きまる","to be decided"],["解決","かいけつ","a solution"]] },
+  "現": { m: "to appear; present", on: "ゲン", kun: "あらわ(れる)", story: "The king's jewel 王 beside seeing 見 — polish the stone until what was hidden shows. 現実 is what has appeared: reality; 現金 the money actually present; 実現 the appearing of the real.", w: [["現実","げんじつ","reality"],["現金","げんきん","cash"],["表現","ひょうげん","an expression"]] },
+  "度": { m: "degree; time (occasion)", on: "ド", kun: "たび", story: "The lean-to 广 over a measuring hand 又 — a scale on the wall. Degrees of temperature, of attitude (態度), of system (制度), and the counting of occasions: 一度, 今度 — and 〜たびに, which your grammar met at Step 42, is this character read たび.", w: [["一度","いちど","once"],["態度","たいど","an attitude"],["制度","せいど","a system"]] },
+  "値": { m: "value; price", on: "チ", kun: "ね・あたい", story: "A person 亻 beside 直 — what someone judges straight-on: worth. 値段 the price, 価値 the value, 値上げ the rise you met on Stage 12's posters. 直 arrived one lesson ago; here is its first customer.", w: [["値段","ねだん","price"],["価値","かち","value"],["値上げ","ねあげ","a price rise"]] },
+  "直": { m: "straight; direct; fix", on: "チョク", kun: "なお(す)・なお(る)", story: "An eye 目 sighting down a straight line — directness itself. 直前・直後 bracket a moment, 直す repairs (straightens), and the app's own name hides here: naoshi, the fixing.", sentence: true, w: [["直す","なおす","to fix"],["直前","ちょくぜん","just before"],["直後","ちょくご","just after"]] },
+  "想": { m: "to imagine; thought", on: "ソウ", story: "A tree 木 and an eye 目 over the heart 心 — looking at something and letting the heart work on it. 想像 imagines, 予想 forecasts, 感想 is what the heart made of it. Every part already yours.", w: [["想像","そうぞう","imagination"],["予想","よそう","a forecast"],["感想","かんそう","impressions"]] },
+  "対": { m: "opposite; versus", on: "タイ", story: "Two sides facing across a line — versus, toward, matched against. 反対 opposes, 対立 confronts, 対象 is who a thing is aimed at — the small print Stage 12's posters kept defining.", w: [["反対","はんたい","opposition"],["対象","たいしょう","the target; those covered"],["対立","たいりつ","confrontation"]] },
+  "判": { m: "to judge", on: "ハン", story: "A half 半 cut by the side-knife 刂 — dividing a matter cleanly down the middle, which is what judging is. 判断 the judgement, 評判 the public's verdict: the reputation.", w: [["判断","はんだん","a judgement"],["評判","ひょうばん","reputation"]] },
+  "断": { m: "to cut off; refuse", on: "ダン", kun: "ことわ(る)", story: "Bundled threads meeting the axe 斤 — severing. 断る is refusing (cutting the request), 判断 is judging (cutting the matter), 横断歩道 is where you cut across the street.", sentence: true, w: [["断る","ことわる","to refuse"],["判断","はんだん","a judgement"],["横断歩道","おうだんほどう","a pedestrian crossing"]] },
+  "期": { m: "a term; period", on: "キ", story: "The moon 月 keeping the calendar's beat beside 其 — a span with edges. 期間 the period, 期限 the deadline, 学期 the term. The word 期間限定 is about to become readable, and Japan is covered in it.", w: [["期間","きかん","a period"],["期限","きげん","a time limit"],["学期","がっき","a school term"]] },
+  "限": { m: "limit", on: "ゲン", kun: "かぎ(る)", story: "The hill radical ⻖ — named here, the left-side cousin of 部's right-side town — against 艮, a hard stop: the slope you cannot pass. 限る limits, 期限 sets the time limit, 限界 is where ability ends. Your grammar's whole 限る family finally shows its face.", sentence: true, w: [["期限","きげん","a time limit"],["限界","げんかい","one's limit"],["限る","かぎる","to limit"]] },
+  "全": { m: "whole; all", on: "ゼン", kun: "まった(く)", story: "A roof 人 over the king's jewel 王 — everything, safely under one cover. 全部 all of it, 全国 the whole country, 安全 safety: wholeness kept.", w: [["全部","ぜんぶ","all of it"],["全国","ぜんこく","the whole country"],["安全","あんぜん","safety"]] },
+  "約": { m: "promise; approximately", on: "ヤク", story: "The thread 糸 tied to a ladle 勺 — a knot in the string as the old reminder of a promise. 約束 the promise, 予約 the booking, and before numbers it means roughly: 約十分, about ten minutes.", w: [["約束","やくそく","a promise"],["予約","よやく","reservation"],["約","やく","approximately"]] },
+  "経": { m: "to pass through; manage", on: "ケイ", kun: "へ(る)", story: "The thread 糸 running through 圣 — a hand 又 over earth 土, every part named. The warp thread a loom runs on: 経験 what you have passed through, 経済 the economy, 経由 going by way of.", w: [["経験","けいけん","experience"],["経済","けいざい","the economy"],["経由","けいゆ","via"]] },
+  "験": { m: "to test", on: "ケン", story: "The horse 馬 side taught whole — an old word for putting a horse through its paces — beside its dense checker. Testing is what remains: 経験 tested by life, 試験 by paper, 実験 by laboratory.", w: [["経験","けいけん","experience"],["試験","しけん","an exam"],["実験","じっけん","an experiment"]] },
 };
 
 // ————— Lessons —————
@@ -457,6 +474,38 @@ const MODULES = [
     chars: ["出","店","心","持","読","別"],
     exp: "Six characters that walk one errand: out the door, into the shop, the feeling you carry, the thing you hold, the sign you read, and the goodbye at the corner.\n\nBlank if you can. One stroke from the hint, as always.",
     },
+  { id: "k-t34", kind: "kanji", title: "Real and imagined", chars: ["実","現","直","想"],
+    rule: "現 finishes its king 王 — all four strokes — before 見 opens an eye. Left before right, as ever.",
+    wild: "現金のみ taped by the register of every old shop that never took to card readers. 直進 painted on the road at every complicated junction. 実物 on museum labels means you are looking at the real one.",
+    exp: "実 is the roof 宀 over a full store — what the house actually HAS. It led the demand table at six words: 事実, 実力, 実現, 実は. The realest character in the app, in every sense.\n\n現 polishes the king's jewel 王 until seeing 見 happens — appearing. 現実 is what has appeared: reality. 現金 is the money actually present, and the konbini's 現金のみ sign is about to make sense.\n\n直 sights an eye 目 down a straight line — direct, and by extension repair: 直す, to straighten what bent. This app's own name lives here.\n\n想 stacks a tree 木 and an eye 目 over the heart 心 — look, then let the heart work. 想像, 予想, 感想: imagination, forecast, impressions. Every part was already yours.",
+    },
+
+  { id: "k-t35", kind: "kanji", title: "Weighed and priced", chars: ["度","値","面","対"],
+    rule: "値's person 亻 is two strokes, done first; 直 then writes exactly as it did last lesson — a character you know arriving as a part.",
+    wild: "値下げ in red on supermarket stickers every evening; お値打ち品 on the bargain shelf. 面接会場はこちら with an arrow, taped up in every office lobby each hiring season. 対象外 in small print is the coupon telling you it doesn't apply.",
+    exp: "度 hangs a measuring hand 又 under the lean-to 广 — a scale on the wall. Degrees (温度), attitudes (態度), systems (制度), and occasions: 一度, 今度 — and Step 42's たびに is this character, read たび.\n\n値 is a person 亻 judging 直 straight-on: worth. 値段, 価値, and Stage 12's 値上げ posters. 直 arrived one lesson ago; this is the promised second customer.\n\n面 frames a face — and works every angle of the metaphor: 場面 the scene, 面接 the interview (faces, meeting), 反面 the other face, 面白い the brightening one.\n\n対 sets two sides facing: versus. 反対, 対立, and 対象 — the small print that decides whether the discount is yours.",
+    },
+
+  { id: "sb-ito", kind: "skill", title: "糸 — one thread, four knots", chars: ["終","結","約","経"],
+    exp: "The thread radical 糸 got its name in the policy pass and has quietly collected four characters since: 終 (the season's end of the thread), 結 (tied into a knot), 約 (the knot as reminder — a promise), and now 経 (the warp thread the loom runs on — what you pass through).\n\nOne image organises all four: thread ENDS, thread TIES, thread REMINDS, thread RUNS THROUGH. That is not etymology trivia — it is four abstract words (終わる・結果・約束・経験) hung on one concrete picture.\n\nThe forward promise: 糸 has more customers coming — 続 (continuing: thread plus selling), 絡 (tangling: your 連絡), 紙 (paper). When a new character walks in wearing the thread, read the left side as DONE and spend your attention on the right.",
+    },
+
+  { id: "k-t36", kind: "kanji", title: "Decided, cut, and bounded", chars: ["決","判","断","限"],
+    rule: "限's hill radical ⻖ is three strokes on the LEFT — the mirror of 部's town on the right. Same shape, opposite wall, different meaning.",
+    wild: "決算セール banners drape department stores every February and August. 横断歩道 is painted at your feet at every crossing. 期間限定 — with 限 — is on half the products in the konbini at any given moment; Japan runs on limited editions.",
+    exp: "決 is water 氵 bursting a bank — settling something once and for all. 決める and 決まる are Stage 8 vocabulary finally written; 解決 dissolves the problem entirely.\n\n判 cuts a half 半 with the side-knife 刂 — judging as clean division. 判断 is the judgement; 評判 is the public's verdict, which Stage 12 taught you to measure by queue length.\n\n断 brings the axe 斤 down on bundled threads — severing. 断る refuses (cuts the request), 判断 decides (cuts the matter), and 横断歩道 is where you cut across the street, painted white.\n\n限 names a new part: the hill ⻖, the LEFT-side cousin of 部's right-side town ⻏ — against 艮, a slope with a hard stop. 期限, 限界, 限る — your grammar's whole 限る family, at last in writing.",
+    },
+
+  { id: "k-t37", kind: "kanji", title: "The term, the promise, the proof", chars: ["期","限","約","経","験"],
+    rule: "験's horse 馬 is ten strokes and every one lands before the right side starts — the heaviest left radical the course has met.",
+    wild: "期間限定 — now fully readable — on seasonal snacks, menus and campaigns everywhere, forever. 予約制 on restaurant doors means book first. 受験生 in winter news reports are the exam-takers this country reorganises itself around every January.",
+    exp: "期 keeps the calendar's beat with the moon 月 — a span with edges. 期間, 学期, and with last lesson's 限: 期限, the deadline, and 期間限定, the phrase that sells half of Japan.\n\n限 returns from last lesson for its compound — the pattern 曜 and 題 taught: meet the character, then meet it working.\n\n約 ties a reminder-knot 勺 in the thread 糸 — a promise. 約束, 予約, and before numbers: roughly — 約十分.\n\n経 runs the thread 糸 through 圣 (a hand 又 over earth 土 — all named): the warp a loom runs on. 経験 is what has run through you; 経済 is what runs through everything else.\n\n験 puts the horse 馬 — taught whole, the old image of testing by riding — beside its checker. 経験, 試験, 実験: tested by life, by paper, by laboratory. Sixteen strokes, and the scariest-looking character in the app decomposes like all the rest.",
+    },
+
+  { id: "cp-real", kind: "checkpoint", title: "Checkpoint — the measure of things",
+    chars: ["実","決","面","約","経","験"],
+    exp: "Six characters that audit a life: what is real, what got decided, the face you met, the promise you made, what you have passed through, and how it was tested.\n\nBlank if you can. One stroke from the hint, as always.",
+    },
 ];
 
 // ————— Progress migration: order-v1 → order-v2 lesson ids (Session 10) —————
@@ -528,6 +577,9 @@ const GROUPS = [
   { title: "Out and about",
     blurb: "The street's own vocabulary: doors and exits, the shopping street, hands that take and hold, and the things that slip away. 心 steps out of 思・意・忘, 寺 rings its third bell in 持, and 引く finally explains every door you've pushed.",
     ids: ["k-t30","k-t31","sb-kokoro","k-t32","k-t33","cp-machi"] },
+  { title: "The measure of things",
+    blurb: "Real and imagined, weighed and priced, decided and bounded, promised and proven. The thread 糸 ties its fourth knot, 直 arrives and immediately goes to work inside 値, and 期間限定 becomes readable — which changes shopping forever.",
+    ids: ["k-t34","k-t35","sb-ito","k-t36","k-t37","cp-real"] },
 ];
 const INTRO = MODULES.find((m) => m.id === "cc-intro");
 const FURIGANA = MODULES.find((m) => m.id === "cc-furigana");

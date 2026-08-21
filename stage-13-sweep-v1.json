@@ -1,0 +1,77 @@
+{
+  "_": "Stage 13 — the last sweep. Five lessons inserted into Step 61 ahead of the gathering lessons, closing the 14 items the post-build audit still found absent. This file exists BECAUSE the audit was re-run after authoring — the number ms-n2 claims was measured, found short, and fixed, rather than rounded up.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch R continues.",
+  "new_steps": [],
+  "insert": [
+    {
+      "step": "Step 61 · The last folds",
+      "after": "temae",
+      "point": {
+        "id": "kagiri2", "jp": "〜限り（は）", "en": "as long as — the standing condition", "kind": "grammar",
+        "exp": {
+          "what": "The 限る family's last member, and the only one that holds TIME open: 私がここにいる限り、心配はいらない — as long as I'm here, no worries needed. The named state is a roof; the promise under it lasts exactly as long as the roof does.",
+          "build": "Dictionary／ている form + 限り（は）: 生きている限り, 学生である限り. The negative sets a floor instead: 雨が降らない限り、決行 — unless it rains.",
+          "when": "Promises, warranties, standing rules — anything guaranteed for the duration of a condition. The ない限り version is contract prose's favourite unless.",
+          "watch": "The family map completes: に限り (only, official), に限って (the exception／cursed timing), に限らず (not limited to), に限る (nothing beats), 限り (as long as). Five jobs, one verb — the full house sb-kagiru promised."
+        },
+        "ex": [["体が動く限り、この店を続けるつもりだ。", "As long as this body moves, I mean to keep the shop going."], ["よほどのことがない限り、計画は変わりません。", "Barring something extraordinary, the plan won't change."]]
+      }
+    },
+    {
+      "step": "Step 61 · The last folds",
+      "after": "kagiri2",
+      "point": {
+        "id": "bakarida", "jp": "〜ばかりだ・ていては", "en": "only ever worsening; if you keep that up", "kind": "grammar",
+        "exp": {
+          "what": "The downward-spiral pair. ばかりだ tracks a one-way slide: 状況は悪くなるばかりだ — the situation does nothing but worsen; change with no second direction. ていては diagnoses the habit that feeds it: 泣いていては、何も解決しない — if you keep crying, nothing gets solved.",
+          "build": "Dictionary form (change verbs) + ばかりだ: 増えるばかり, 離れていくばかり. て form + いては + negative outcome: 遊んでいては.",
+          "when": "ばかりだ in laments and trend reports — always downhill (or felt as downhill). ていては in advice and self-scolding, the gentle precursor to ようでは's condemnation.",
+          "watch": "ばかりだ needs a directional verb: 高いばかりだ misreads (that's just 'merely expensive'). And good trends reject it — 良くなるばかりだ sounds wrong precisely because the pattern's heart is a sigh."
+        },
+        "ex": [["何もしなければ、差は広がるばかりだ。", "Do nothing, and the gap only ever widens."], ["失敗を恐れていては、何も始められない。", "Keep fearing failure, and nothing can begin."]]
+      }
+    },
+    {
+      "step": "Step 61 · The last folds",
+      "after": "bakarida",
+      "point": {
+        "id": "dokorodehanai", "jp": "〜どころではない・ものではない・ことにはならない", "en": "no time for that; not done; doesn't count", "kind": "grammar",
+        "exp": {
+          "what": "Three written refusals of a framing. どころではない: circumstances forbid it — 旅行どころではない, a trip is out of the question right now. ものではない: propriety forbids it — 人を笑うものではない, one doesn't laugh at people; the general moral, no finger pointed. ことにはならない: the logic doesn't carry — 謝ったからといって、許されたことにはならない, apologising doesn't add up to being forgiven.",
+          "build": "Noun／dictionary form + どころではない. Dictionary form + ものではない (the generic should-not). Plain clause + ことにはならない, half-married to Step 51's からといって.",
+          "when": "どころではない in busy seasons and crises; ものではない from mentors and parents — it scolds the act, not the person; ことにはならない in argument, closing a gap between a fact and the conclusion someone wants from it.",
+          "watch": "ものではない generalises — aimed at one person's single act it turns pompous; that job belongs to てはいけない. And Step 48's というものではない hedges a claim, while ことにはならない refuses an inference — near neighbours, different targets."
+        },
+        "ex": [["引っ越しの準備で、花見どころではなかった。", "With the move to prepare, blossom-viewing was out of the question."], ["出席しただけでは、参加したことにはならない。", "Merely showing up doesn't amount to taking part."]]
+      }
+    },
+    {
+      "step": "Step 61 · The last folds",
+      "after": "dokorodehanai",
+      "point": {
+        "id": "jouni", "jp": "〜以上に・だけは・だけましだ", "en": "more than; at the very least; count the mercy", "kind": "grammar",
+        "exp": {
+          "what": "Three degree-setters. 以上に raises the bar past a known mark: 予想以上に大変だった — harder than forecast. だけは carves out the minimum one insists on: 挨拶だけは欠かさない — the greeting, at least, never skipped. だけましだ finds the floor worth gratitude: 濡れたが、傘があるだけましだ — soaked, but having an umbrella at all beats the alternative.",
+          "build": "Noun + 以上に. Verb／noun + だけは + the defended minimum. Plain clause + だけましだ, usually after a misfortune already named.",
+          "when": "以上に in results against expectations; だけは in resolutions and standards; だけましだ in the specifically Japanese art of counting small mercies — its natural habitat is commiseration.",
+          "watch": "だけましだ consoles; said about someone ELSE's misfortune it minimises and lands badly. And だけは carries an implied 'even if nothing else' — using it on something grand (優勝だけは) reads as comedy or hubris, usually both."
+        },
+        "ex": [["新しい仕事は、想像以上に忙しい。", "The new job is busier than imagined."], ["熱はあるが、食欲があるだけましだ。", "There's a fever, but at least the appetite's intact — count the mercy."]]
+      }
+    },
+    {
+      "step": "Step 61 · The last folds",
+      "after": "jouni",
+      "point": {
+        "id": "shojou", "jp": "〜上・にて・のもとで・中を", "en": "the document particles", "kind": "grammar",
+        "exp": {
+          "what": "Four function words that only exist on paper. 〜上（じょう）: from the standpoint of a domain — 規則上、認められない, not permitted rules-wise. にて: で in a morning coat — 本日は書面にて失礼いたします. のもとで: under an auspice — 先生のもとで学ぶ, studying under a teacher. 中を（なかを）: through adverse conditions — 雨の中を、お越しいただき恐縮です, thank you for coming through the rain.",
+          "build": "Noun + 上 (法律上, 健康上, 立場上 — the domain noun is closed-class); noun + にて (place, means, time); person／condition + のもとで; weather／crowd + の + 中を.",
+          "when": "Reading official mail and ceremony speech, where all four cluster. Producing: にて and 中を belong in your own formal thank-yous sooner than you'd think — 雨の中をありがとうございます is week-one politeness at N2 altitude.",
+          "watch": "上 the suffix reads じょう, never うえ — 規則上 is きそくじょう; misreading it aloud is the tell of a paper-only learner. And にて is precisely で: using it in speech is morning-coat-at-the-konbini."
+        },
+        "ex": [["安全上の理由により、本日は中止いたします。", "For safety reasons, today's event is cancelled."], ["暑い中を、ご来場いただきありがとうございます。", "Thank you for coming through this heat."]]
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Word ledger report — 2026-08-21
 
-**545 distinct words** across the three stores: 313 in lesson banks, 406 in KANJI_DICT, 217 in kanji w: arrays; 335 appear in more than one store.
+**652 distinct words** across the three stores: 409 in lesson banks, 488 in KANJI_DICT, 263 in kanji w: arrays; 431 appear in more than one store.
 
 ## Cross-store reading conflicts
 

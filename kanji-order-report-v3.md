@@ -2,11 +2,11 @@
 
 **Not a derivation.** Entire taught syllabus locked as prefix (Lloyd, Session 13). Groups 3-5 were authored from ledger demand; reordering them after the fact would repeat v1's Blocker-3 mistake. Derivation resumes only for a future group ordered BEFORE authoring.
 
-Covers **162** characters — the module's teaching order, verbatim. Downstream consumers (build-vocab-data.py) read this file; kanji-order-v2.json stays as the record of the last derived order (64 chars).
+Covers **178** characters — the module's teaching order, verbatim. Downstream consumers (build-vocab-data.py) read this file; kanji-order-v2.json stays as the record of the last derived order (64 chars).
 
 ## Teaching order
 
-> 一二三十日月目田口白小水川山人入八大中車女子四国円今分手時上学下生明天先気百好年見行七千間雨来町火何母力男土食言話私木本休校林森五六九会電開買作文使書朝起帰週毎曜名前語高安新広思待始終飲茶歩聞物写真勉強意味寒暑忙痛寝洗歯散友達昨夏音楽果机映画部屋問宿題図館社事業者場京予合議説理由最後結字漢出早方家店野菜切心忘持受引読少落別
+> 一二三十日月目田口白小水川山人入八大中車女子四国円今分手時上学下生明天先気百好年見行七千間雨来町火何母力男土食言話私木本休校林森五六九会電開買作文使書朝起帰週毎曜名前語高安新広思待始終飲茶歩聞物写真勉強意味寒暑忙痛寝洗歯散友達昨夏音楽果机映画部屋問宿題図館社事業者場京予合議説理由最後結字漢出早方家店野菜切心忘持受引読少落別実現直想度値面対約経決判断限期験
 
 ## ⚠️ Shapes awaiting policy classification
 
