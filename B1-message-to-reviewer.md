@@ -1,15 +1,21 @@
 # B1 — the message to send
 
-*Session 18.5, Aug 21 2026. Forms built and patched; B1 verified live and signed-out
-this morning. This supersedes section 3 of `SESSION-18-reviewer-kickoff.md`, which was
-written before the forms existed and before the name tag was corrected.*
+*Session 18.5, Aug 21 2026. Forms built, patched twice, B1 verified live and
+signed-out. Supersedes section 3 of `SESSION-18-reviewer-kickoff.md`.*
+
+> ⚠️ **The Step 3 grader is NOT the Step 2 reviewer.** Established late on Aug 21,
+> after a first draft had been written on the opposite assumption. It changes the
+> amended-key wording below, the name tag inside the forms, and how the B1 results
+> should be read. Everything downstream of "same person" was rewritten.
 
 ---
 
 ## Send this
 
+Replace `［お名前］` with how you address her — that is the only blank left.
+
 ```
-ともこさん、お待たせしました！こちらが1セット目です。
+［お名前］さん、お待たせしました！こちらが1セット目です。
 
 https://docs.google.com/forms/d/e/1FAIpQLSfO2OlT-vWhUwvt419nJPxg3DgQxHOQi7Vyjj8W0R1lK7RdYA/viewform
 
@@ -31,11 +37,15 @@ AIが正しい前提では作っていません。むしろ、どこで間違え
 テストです。「これは違うでしょ」と思ったら、遠慮なくそう付けてください。
 厳しく付けてもらうほど価値があります。
 
-【前回の修正が入っています】
+【解答キーについて】
 15問のうち6問に【Step 2でレビュアーが修正したキー】という欄があります。
-これは前回ともこさんに直していただいた内容がそのまま入っているもので、
-〔ともこ〕とお名前が付いています。その欄がある問題は、元のキーではなく
+解答キーは前の段階で別のネイティブの方に一度チェックしてもらっていて、その方が
+直した内容がそのまま入っています。その欄がある問題は、元のキーではなく
 修正後のキーを基準に採点してください。
+
+そのうえで、キー自体がおかしいと思う問題があったら、採点はキー通りに付けて
+いただいて、コメント欄に「キーのほうが違うと思う」と書いておいてください。
+そこが食い違うこと自体が知りたい情報なので、遠慮なくお願いします。
 
 【同じ文が何回か出てきます】
 これは意図的です（設定を変えて同じ文を処理しているため）。前にどう付けたかは
@@ -44,62 +54,66 @@ AIが正しい前提では作っていません。むしろ、どこで間違え
 15問で25〜35分くらいです。途中保存ができないので、まとまった時間のあるときに
 一気にお願いします。
 
-もし解答キーのほうがおかしいと思う問題があったら、採点はキー通りに付けて
-いただいて、コメント欄に一言書いておいてもらえれば大丈夫です。
-
 分からないところがあれば途中でも聞いてください！
 ```
 
 ---
 
-## What changed from the Session 18 draft, and why
+## What the "different person" fact changed
 
-**Her name is in the greeting.** Taken from your instruction today, not from the form —
-she typed 「テスト」 into the name field, so if 「ともこさん」 is not how you normally
-address her, that is the one line to change before sending.
+**The amended-key block now says the opposite of the first draft.** It previously read
+「前回ともこさんに直していただいた内容」 — written when the grader was thought to be the
+same person. Sent to this reviewer it would have been a misattribution on **page 2**, the
+second thing she sees, in a form she has been told is blind. It now says a different
+native checked the key beforehand, which is both true and useful: it tells her the key
+has standing without asking her to defer to a stranger.
 
-**The 【前回の修正が入っています】 block is new, and it is not decorative.** Six of B1's
-fifteen pages carry an amended-key block, and the first of them is **page 2** — the second
-thing she sees. She would meet her own name, in a form she was told is blind, with no
-explanation. Read cold that looks like a leak or a mistake; explained in advance it reads
-as her earlier work being taken seriously. It also does a second job: it tells her which
-key to grade against on those six, which the form states but easy to skim past.
+**The tag inside the forms became a role.** 〔ともこ〕 → 〔別のネイティブレビュアー〕,
+re-patched across all nine forms. Eval Set column L still holds the real name, because
+that column is the provenance record and rewriting it would erase who did the Step 2
+work; `build-grading-forms.py` redacts the tag at render time instead. The record and
+the artifact want different things here, and that is not a conflict to resolve by
+picking one.
 
-**The line about a doubtful key is new.** She is the person who verified these keys, so a
-key she now disagrees with is real signal — but routing it into the *grade* would corrupt
-the instrument, because 一致/部分一致/見逃し/誤指摘 can only express a judgement about the
-tool. Sending it to the comment box keeps the score clean and still captures it.
+**The "if the key looks wrong" line got promoted and expanded.** With one person doing
+both steps it was a nicety. With two it is the main safety valve — see below.
 
-**Everything else is Session 18's wording, unchanged** — including 「AIが正しい前提では
-作っていません」, which is load-bearing: a polite grader who assumes the tool is
-authoritative drifts toward 一致, and 誤指摘 is the count the whole go/tune decision rests
-on. Also unchanged: 15問 (not the 12問 the Session 17 brief wrongly promised), the
-no-deadline framing, and the honest warning that the form cannot be saved halfway.
+---
 
-**Verified before writing this:** B1's LIVE link opens signed-out with no login wall,
-renders 15 pages, and the six amended blocks now read 〔ともこ〕. The link above is copied
-from the Links page, not reconstructed from an EDIT id — the mistake made on Aug 12.
+## ⚠️ Read this before reading the B1 score
+
+**A different person set the key than grades against it, and that is a confound the
+number will not show.** Where this reviewer disagrees with the Step 2 reviewer's amended
+key, the disagreement surfaces as 部分一致 or 誤指摘 **charged to the tool** — because
+一致/部分一致/見逃し/誤指摘 can only express a judgement about the tool. Two natives
+differing gets recorded as the tool being wrong.
+
+**Six of B1's fifteen pages carry an amended key** (pages 2, 3, 6, 7, 10, 12), so this is
+not a marginal effect on the calibration batch. Before treating a low B1 score as a tool
+problem, read the comment boxes on those six first.
+
+It is not purely a cost. One person doing both steps would grade the tool against their
+own remembered reasoning; an independent grader is a stronger test of whether the key is
+objectively usable at all. But it has to be read deliberately rather than absorbed into
+the headline.
 
 ---
 
 ## Still yours to call
 
-- **Payment method.** Not yet discussed, and worth settling *before* B1 comes back —
+- **Her name**, for the greeting — the one blank above.
+- **Payment method.** Not yet discussed, and worth settling *before* B1 comes back:
   prompt payment on batch one is most of what makes batch two feel safe to agree to.
-  銀行振込 leaves a record; PayPay is faster and more casual; Amazonギフト券 avoids
-  sharing account details.
-- **Whether to commit past B1 now.** Deliberately not in the message above. B1 is the
-  calibration batch: it tells you whether the 4-way vocabulary is usable before ¥40,000
-  is committed. If you want to keep the option without making her feel auditioned, add
-  「1セット目やってみて、続けられそうだったら残りもお願いしたいです」.
-- **The ¥300/output correction.** Raise it *after* B1 lands, framed as fairness rather
-  than renegotiation — 「バッチごとに問題数が違うことに気づいたので、1問あたりで計算し
-  直しました」. Unprompted it reads as care; after she notices B9 is twice the work it
-  reads as a haggle.
+- **Whether to commit past B1 now.** Deliberately not in the message. If you want the
+  option without making her feel auditioned, add 「1セット目やってみて、続けられそう
+  だったら残りもお願いしたいです」.
+- **Whether ¥5,000 was ever agreed with *this* reviewer.** The kickoff's pricing section
+  says "B1 stays at ¥5,000 as promised" — that promise was made in a conversation whose
+  other party I cannot verify. Worth checking before the ¥300/output correction is
+  framed as a raise to someone who never heard the original figure.
 
 ## Before B9 goes out — not a problem for B1
 
-Every form's description says 「所要時間は25〜35分ほどです」 regardless of size. That is
-honest for B1's 15 and for the other fifteens, generous for B5's 12, and **wrong for B9's
-30**, which is roughly double. Fix the string in `build-grading-forms.py` and re-patch
-before B9 ships.
+Every form's description says 「所要時間は25〜35分ほどです」 regardless of size. Honest for
+B1's 15, generous for B5's 12, **wrong for B9's 30**, which is roughly double. Fix the
+string in `build-grading-forms.py` and re-patch before B9 ships.

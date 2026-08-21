@@ -2,16 +2,17 @@
  * Naoshi Step-3 blind grading — IN-PLACE name-tag patch. Aug 21 2026.
  *
  * WHAT IT DOES
- *   Rewrites 〔テスト〕 → 〔ともこ〕 in the amended-key block of all nine live
- *   grading forms. 45 occurrences: B1:6 B2:3 B3:6 B4:3 B5:3 B6:6 B7:6 B8:6 B9:6.
+ *   Rewrites the provenance tag in the amended-key block of all nine live grading
+ *   forms. 45 occurrences: B1:6 B2:3 B3:6 B4:3 B5:3 B6:6 B7:6 B8:6 B9:6.
+ *   Set RENAME_FROM / RENAME_TO below; everything else is fixed.
  *
- * WHY
- *   The Step 2 key-check form's name field is free text, and Tomoko typed 「テスト」
- *   into it. import-key-check-responses.py wrote that through to Eval Set column L
- *   as 〔テスト〕, and build-grading-forms.py splices column L into the grading
- *   forms. A grader with no context reads 「補足: 〔テスト〕」 as a leftover test
- *   artefact and discounts a real reviewer amendment. The workbook, the importer and
- *   the generator were all corrected on Aug 21; this patches what is already live.
+ * WHY THE TAG EXISTS AT ALL
+ *   The Step 2 key-check form's name field is free text, and the reviewer typed
+ *   「テスト」 into it. import-key-check-responses.py wrote that through to Eval Set
+ *   column L, and build-grading-forms.py splices column L into the grading forms —
+ *   so a grader with no context read 「補足: 〔テスト〕」 as a leftover test artefact
+ *   and would have discounted a real amendment. Run 1 fixed that. Run 2 replaces
+ *   the name with a role, because the grader turned out to be a different person.
  *
  * WHY A PATCH AND NOT A REBUILD
  *   Rebuilding these forms would produce new URLs (already recorded in Notion) and
@@ -38,8 +39,20 @@
  *   twice been handed a truthful success log for a broken artifact.
  */
 
-var RENAME_FROM = '〔テスト〕';
-var RENAME_TO   = '〔ともこ〕';
+// ── RUN 2, Aug 21 2026 ───────────────────────────────────────────────────────
+// Run 1 was 〔テスト〕 → 〔ともこ〕, 45/45 clean. Then a fact arrived that changed
+// the answer: **the Step 3 grader is not the Step 2 reviewer.** A real name only
+// helped while the grader was the person being credited. To a stranger, 「補足:
+// 〔ともこ〕」 on 30 items names someone they cannot place — and putting Tomoko's
+// name in front of a third party is a decision, not a default.
+//
+// So the form now carries a ROLE. Eval Set column L keeps her real name, because
+// that column is the provenance record; build-grading-forms.py redacts the tag at
+// render time instead. Record and artifact want different things here.
+//
+// Set these two and re-run. Counts and guards are unchanged — same 45 items.
+var RENAME_FROM = '〔ともこ〕';
+var RENAME_TO   = '〔別のネイティブレビュアー〕';
 
 // EDIT ids, copied from the 🔗 Links page — the LIVE table, not reconstructed.
 // Expected = occurrences of RENAME_FROM in that form, counted in the generated .gs.

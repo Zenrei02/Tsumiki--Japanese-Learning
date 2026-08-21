@@ -227,6 +227,31 @@ def intended_ja(status):
     return "誤りなし" if status == "CORRECT" else "誤りあり"
 
 
+# ⚠️ THE STEP 2 REVIEWER AND THE STEP 3 GRADER ARE DIFFERENT PEOPLE — Aug 21 2026.
+# Eval Set column L keeps her real name, because column L is the provenance record
+# and rewriting it would destroy who actually did the Step 2 work. The
+# REVIEWER-FACING FORM must not carry it: a grader who cannot place 「ともこ」 reads
+# it as noise, and naming her to a third party is a decision, not a default.
+# So the tag is redacted to a ROLE, and only at render time. Record and artifact
+# want different things here; that is not a contradiction to be resolved by
+# picking one.
+AMEND_ROLE = "別のネイティブレビュアー"
+NAME_TAG_RE = re.compile(r"〔[^〕]*〕\s*$")
+
+
+def redact_name_tag(note):
+    """Replace a TRAILING 〔name〕 provenance tag with a role label.
+
+    Only a tag at the very end is touched — that is where import-key-check-responses
+    appends it, verified across all 15 amended rows. A 〔…〕 anywhere else is the
+    reviewer's own prose and is left alone.
+    """
+    note = (note or "").strip()
+    if not note:
+        return ""
+    return NAME_TAG_RE.sub(f"〔{AMEND_ROLE}〕", note).strip()
+
+
 def key_block(k):
     """The verified key as the grader should see it.
 
@@ -247,7 +272,7 @@ def key_block(k):
         if k["amendment"]:
             out.append(f"修正案: {k['amendment']}")
         if k["amend_note"]:
-            out.append(f"補足: {k['amend_note']}")
+            out.append(f"補足: {redact_name_tag(k['amend_note'])}")
         out.append("※ 採点はこの修正後のキーを基準にしてください。")
     return "\n".join(out)
 
