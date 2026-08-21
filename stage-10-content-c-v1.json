@@ -1,927 +1,927 @@
 {
-  "_": "Stage 10, part C — Steps 41-43 and Checkpoint 9. Carries the two culture lessons that hold the adverb tier (Lloyd's ruling: patterns get lessons, adverbs get a gathering lesson) and ms-n3, moved here from Stage 9 where it claimed a level that was not finished.",
-  "insert": [
+ "_": "Stage 10, part C — Steps 41-43 and Checkpoint 9. Carries the two culture lessons that hold the adverb tier (Lloyd's ruling: patterns get lessons, adverbs get a gathering lesson) and ms-n3, moved here from Stage 9 where it claimed a level that was not finished.",
+ "insert": [
+  {
+   "step": "Step 43 · The connectors",
+   "after": "sb-setsuzoku",
+   "point": {
+    "id": "sb-kyoudai",
+    "jp": "兄弟のかたち",
+    "en": "the siblings you already own",
+    "kind": "skill",
+    "exp": {
+     "what": "The last few things on any N3 list are not new patterns at all — they are one-move variations on shapes you already have. Every one of them is a form you can build tonight from something taught earlier, and the only reason they look unfamiliar is that nobody pointed at them.",
+     "build": "べき → べきではない (should not). ばかり → ばかりでなく, and だけ → だけでなく (not only, but also). ても → たとえ〜ても and どんなに〜ても (even if, no matter how). あまり → あまりに (excessively). ない → べつに〜ない (not particularly).",
+     "when": "Immediately. These carry no new machinery, so the cost of adding them is a sentence each and the gain is that a reading passage stops having holes in it.",
+     "watch": "たとえ and どんなに are ADVERBS that need their ても; dropping the second half leaves the sentence hanging, and it is the one error in this set that a listener actually notices."
+    },
+    "ex": [
+     [
+      "そんなことを言うべきではありません。",
+      "You shouldn't say that — べき, negated."
+     ],
+     [
+      "たとえ雨が降っても、行きます。",
+      "Even if it rains, I'm going."
+     ],
+     [
+      "安いだけでなく、質もいいです。",
+      "Not only cheap — good quality too."
+     ]
+    ]
+   }
+  }
+ ],
+ "new_steps": [
+  {
+   "cat": "Step 41 · Quality, quantity, limit",
+   "level": "S11",
+   "after_step": "Step 40 · Regret, hope, and the unreal",
+   "note": "Suffixes that grade a thing rather than describe it. Stage 9's がち and 気味 graded a tendency; these grade a quality, a quantity or a limit, and most of them attach straight onto a noun or a verb stem — cheap to build and very hard to guess from English.",
+   "bank": [
+    [
+     "泥",
+     "mud"
+    ],
+    [
+     "傷",
+     "a scratch"
+    ],
+    [
+     "間違い",
+     "a mistake"
+    ],
+    [
+     "安",
+     "cheap"
+    ],
+    [
+     "数",
+     "a number"
+    ],
+    [
+     "一人",
+     "one person"
+    ],
+    [
+     "表面",
+     "the surface"
+    ],
+    [
+     "性格",
+     "character"
+    ]
+   ],
+   "points": [
     {
-      "step": "Step 43 · The connectors",
-      "after": "sb-setsuzoku",
-      "point": {
-        "id": "sb-kyoudai",
-        "jp": "兄弟のかたち",
-        "en": "the siblings you already own",
-        "kind": "skill",
-        "exp": {
-          "what": "The last few things on any N3 list are not new patterns at all — they are one-move variations on shapes you already have. Every one of them is a form you can build tonight from something taught earlier, and the only reason they look unfamiliar is that nobody pointed at them.",
-          "build": "べき → べきではない (should not). ばかり → ばかりでなく, and だけ → だけでなく (not only, but also). ても → たとえ〜ても and どんなに〜ても (even if, no matter how). あまり → あまりに (excessively). ない → べつに〜ない (not particularly).",
-          "when": "Immediately. These carry no new machinery, so the cost of adding them is a sentence each and the gain is that a reading passage stops having holes in it.",
-          "watch": "たとえ and どんなに are ADVERBS that need their ても; dropping the second half leaves the sentence hanging, and it is the one error in this set that a listener actually notices."
-        },
-        "ex": [
-          [
-            "そんなことを言うべきではありません。",
-            "You shouldn't say that — べき, negated."
-          ],
-          [
-            "たとえ雨が降っても、行きます。",
-            "Even if it rains, I'm going."
-          ],
-          [
-            "安いだけでなく、質もいいです。",
-            "Not only cheap — good quality too."
-          ]
-        ]
-      }
+     "id": "darake",
+     "jp": "〜だらけ",
+     "en": "covered in — and it's a mess",
+     "kind": "grammar",
+     "exp": {
+      "what": "Full of something, and the something is always unwelcome. 泥だらけ, mud everywhere; 間違いだらけ, riddled with errors. The judgement is baked in, which is why it needs no adjective around it.",
+      "build": "Noun + だらけ, then の before a noun: 傷だらけの手. No particle in between and no conjugation.",
+      "when": "Describing mess, damage and error — a child back from a park, a first draft, a room after a party.",
+      "watch": "Never for good things. 花だらけ about a beautiful garden is wrong in a way that is hard to unhear; that is いっぱい. If you would not sigh saying it, this is not the word."
+     },
+     "ex": [
+      [
+       "靴が泥だらけになりました。",
+       "My shoes got covered in mud."
+      ],
+      [
+       "この作文は間違いだらけです。",
+       "This composition is riddled with mistakes."
+      ],
+      [
+       "傷だらけの手をしていた。",
+       "His hands were covered in scratches."
+      ]
+     ]
+    },
+    {
+     "id": "ppoi",
+     "jp": "〜っぽい",
+     "en": "-ish — the casual approximation",
+     "kind": "grammar",
+     "exp": {
+      "what": "The most productive suffix in casual Japanese and the one that most quickly makes speech sound natural. It means somewhat like, and it attaches to almost anything: 子供っぽい childish, 安っぽい cheap-looking, 忘れっぽい forgetful.",
+      "build": "Noun, adjective stem or verb stem + っぽい. The result behaves as an い-adjective: 子供っぽかった, 安っぽくない.",
+      "when": "Everyday description and, increasingly, everyday hedging — young speakers use it the way English uses sort of. It belongs in casual speech, not in writing.",
+      "watch": "It is almost always mildly negative when it attaches to a person. 大人っぽい is a compliment; 子供っぽい is not, and neither is 男っぽい said to a woman. The suffix carries an opinion."
+     },
+     "ex": [
+      [
+       "そのシャツ、安っぽいね。",
+       "That shirt looks cheap."
+      ],
+      [
+       "最近、忘れっぽくなりました。",
+       "I've got forgetful lately."
+      ],
+      [
+       "ちょっと子供っぽいですね。",
+       "That's a bit childish."
+      ]
+     ]
+    },
+    {
+     "id": "gatai",
+     "jp": "〜がたい",
+     "en": "hard to bring yourself to",
+     "kind": "grammar",
+     "exp": {
+      "what": "Step 18's にくい meant physically awkward. がたい is difficulty of a different kind — the thing resists being done at all, usually for a reason inside you. 信じがたい, hard to believe. 捨てがたい, hard to throw away.",
+      "build": "Verb stem + がたい. It is limited to a fixed set in practice: 信じがたい, 忘れがたい, 捨てがたい, 想像しがたい, 理解しがたい, 耐えがたい.",
+      "when": "Written and formal. In speech, にくい or 〜のは難しい does the job; がたい in casual conversation sounds like you are quoting something.",
+      "watch": "You cannot productively coin new ones the way you can with にくい. 食べがたい is not a word; 食べにくい is. Learn the set rather than the rule."
+     },
+     "ex": [
+      [
+       "信じがたい話ですね。",
+       "That's a hard story to believe."
+      ],
+      [
+       "この本は捨てがたいです。",
+       "I can't quite bring myself to throw this book out."
+      ],
+      [
+       "忘れがたい一日でした。",
+       "It was an unforgettable day."
+      ]
+     ]
+    },
+    {
+     "id": "kirenai",
+     "jp": "〜きれない",
+     "en": "too much to finish",
+     "kind": "grammar",
+     "exp": {
+      "what": "Stage 9's きる meant do it all the way through. Negate it and you get the opposite and more useful half: there is more of this than can be got through. 食べきれない, more than I can eat. 数えきれない, past counting.",
+      "build": "Verb stem + きれない. The positive きる is the completion form: 食べきる, to finish the lot.",
+      "when": "Portions, workloads, queues and crowds — anywhere the quantity defeats the action. 数えきれないほど is a fixed and very common intensifier.",
+      "watch": "It is about QUANTITY, not ability. 食べられない means you cannot eat it — allergy, dislike, no teeth. 食べきれない means it is simply too much, and the food is fine."
+     },
+     "ex": [
+      [
+       "多すぎて、食べきれません。",
+       "It's too much — I can't finish it."
+      ],
+      [
+       "数えきれないほど星があります。",
+       "There are more stars than you could count."
+      ],
+      [
+       "読みきれないほど本があります。",
+       "More books than I could get through."
+      ]
+     ]
+    },
+    {
+     "id": "kiri",
+     "jp": "〜きり",
+     "en": "just the two of us, and nothing since",
+     "kind": "grammar",
+     "exp": {
+      "what": "Two senses that share a root idea of a hard edge. ONLY, of a small number — 二人きり, just the two of them. And SINCE, of a last occurrence with nothing after it — 出て行ったきり, went out and that was the last of it.",
+      "build": "Noun + きり for the only sense. Past plain form + きり (often + 帰ってこない) for the since sense. っきり is the casual form of the first.",
+      "when": "The first sense for privacy and for care — 二人きりで話す, 寝たきり of someone bedridden. The second for absences that have gone on too long.",
+      "watch": "だけ also means only and is neutral. きり adds that there is nobody and nothing else, which can be intimate or bleak depending on where it lands — 二人きり is romantic; 一人きり is not."
+     },
+     "ex": [
+      [
+       "二人きりで話したいです。",
+       "I'd like to talk with just the two of us."
+      ],
+      [
+       "彼は出て行ったきり、帰ってきません。",
+       "He went out and hasn't come back since."
+      ],
+      [
+       "祖母は寝たきりです。",
+       "My grandmother is bedridden."
+      ]
+     ]
+    },
+    {
+     "id": "ippouda",
+     "jp": "〜一方だ",
+     "en": "only ever more so",
+     "kind": "grammar",
+     "exp": {
+      "what": "A change running in one direction with no sign of turning. 増える一方だ — going up and only up. Stage 6's ようになる noted that a change happened; this says it is still happening and has not stopped.",
+      "build": "Dictionary form + 一方だ. The verb must be a change verb — 増える, 減る, 悪くなる, 高くなる.",
+      "when": "Prices, populations, workloads, the weather, your own Japanese. It is a staple of written commentary and of complaining.",
+      "watch": "It leans negative in practice. 良くなる一方だ is grammatical and rare; speakers reach for this when something is getting worse, and a listener will hear the pessimism whether you meant it or not."
+     },
+     "ex": [
+      [
+       "物価は上がる一方です。",
+       "Prices just keep going up."
+      ],
+      [
+       "人口は減る一方だ。",
+       "The population only ever falls."
+      ],
+      [
+       "仕事が増える一方で、休めません。",
+       "The work only piles up, and I can't take a break."
+      ]
+     ]
+    },
+    {
+     "id": "sb-teido2",
+     "jp": "くっつく言葉",
+     "en": "the suffixes, sorted",
+     "kind": "skill",
+     "exp": {
+      "what": "Six things that clip onto a word and change what it claims. English does some of this with -ish and -ridden and does the rest with whole phrases, so the instinct to reach for one is what has to be built here.",
+      "build": "Unwelcome abundance: だらけ. Approximation: っぽい. Inner resistance: がたい. Too much to finish: きれない. Nothing but / nothing since: きり. One-way change: 一方だ.",
+      "when": "Description, at the point where adjectives stop being enough. These are what let you say how much and in what direction rather than just which quality.",
+      "watch": "Four of the six carry a JUDGEMENT you cannot switch off — だらけ, っぽい, きり and 一方だ all lean negative. Reaching for one about something good is the error that recurs, and no amount of surrounding politeness cancels it."
+     },
+     "ex": [
+      [
+       "泥だらけです。",
+       "Unwelcome abundance."
+      ],
+      [
+       "安っぽいです。",
+       "Approximate, and unflattering."
+      ],
+      [
+       "上がる一方です。",
+       "One direction, and not a good one."
+      ]
+     ]
+    },
+    {
+     "id": "b-s41",
+     "jp": "Composition · ちらかった部屋",
+     "en": "describe something in a state",
+     "kind": "build",
+     "requires": [
+      "darake",
+      "ppoi",
+      "kirenai"
+     ],
+     "brief": "Describe something that has got out of hand — a desk, a room, an inbox, a to-do list. Use 〜だらけ once, 〜っぽい once, and 〜きれない once. Three or four sentences, and let the suffixes carry the complaint so the adjectives don't have to.",
+     "exp": {
+      "what": "The step's suffixes doing what they exist for: grading a state without piling up adjectives.",
+      "build": "One thing, described three ways — what it is covered in, what it resembles, and what there is too much of.",
+      "when": "Complaining well is a real skill in a second language, and it is mostly a matter of having the right suffix rather than the right adjective.",
+      "watch": "Do not add とても and すごく on top. These suffixes already carry the intensity; stacking an intensifier on だらけ is the written equivalent of raising your voice."
+     },
+     "ex": []
     }
-  ],
-  "new_steps": [
+   ],
+   "deep": {}
+  },
+  {
+   "cat": "Step 42 · Occasions and consequences",
+   "level": "S11",
+   "after_step": "Step 41 · Quality, quantity, limit",
+   "note": "The last of the time grammar, and the purpose/result pair. Stage 6 taught time's edges and Stage 9 taught its grains; this step is about occasions — the window, the recurrence, the opportunity taken, and the moment something first became clear.",
+   "bank": [
+    [
+     "機会",
+     "an opportunity"
+    ],
+    [
+     "用事",
+     "an errand"
+    ],
+    [
+     "目的",
+     "a purpose"
+    ],
+    [
+     "経験",
+     "experience"
+    ],
+    [
+     "以来",
+     "since then"
+    ],
+    [
+     "最初",
+     "the first time"
+    ],
+    [
+     "原因",
+     "a cause"
+    ],
+    [
+     "変化",
+     "a change"
+    ]
+   ],
+   "points": [
     {
-      "cat": "Step 41 · Quality, quantity, limit",
-      "level": "S10",
-      "after_step": "Step 40 · Regret, hope, and the unreal",
-      "note": "Suffixes that grade a thing rather than describe it. Stage 9's がち and 気味 graded a tendency; these grade a quality, a quantity or a limit, and most of them attach straight onto a noun or a verb stem — cheap to build and very hard to guess from English.",
-      "bank": [
-        [
-          "泥",
-          "mud"
-        ],
-        [
-          "傷",
-          "a scratch"
-        ],
-        [
-          "間違い",
-          "a mistake"
-        ],
-        [
-          "安",
-          "cheap"
-        ],
-        [
-          "数",
-          "a number"
-        ],
-        [
-          "一人",
-          "one person"
-        ],
-        [
-          "表面",
-          "the surface"
-        ],
-        [
-          "性格",
-          "character"
-        ]
+     "id": "uchini",
+     "jp": "〜うちに",
+     "en": "while it lasts",
+     "kind": "grammar",
+     "exp": {
+      "what": "A window that is going to close. 熱いうちに食べてください — eat it while it is hot, and the unspoken half is that it will not stay hot. That expiry is the whole difference from Step 19's 間に, which is just a span.",
+      "build": "Plain form, い-adjective, な-adjective + な, or noun + の, then うちに. The negative is very common: 忘れないうちに, before I forget.",
+      "when": "Urgency without pressure — while the weather holds, while you're here, before it gets dark. It is one of the kindest ways to hurry somebody.",
+      "watch": "間に is a neutral span; うちに says the state is temporary and you should act. 若い間に and 若いうちに differ exactly in whether youth is being described or being spent."
+     },
+     "ex": [
+      [
+       "熱いうちに召し上がってください。",
+       "Please eat it while it's hot."
       ],
-      "points": [
-        {
-          "id": "darake",
-          "jp": "〜だらけ",
-          "en": "covered in — and it's a mess",
-          "kind": "grammar",
-          "exp": {
-            "what": "Full of something, and the something is always unwelcome. 泥だらけ, mud everywhere; 間違いだらけ, riddled with errors. The judgement is baked in, which is why it needs no adjective around it.",
-            "build": "Noun + だらけ, then の before a noun: 傷だらけの手. No particle in between and no conjugation.",
-            "when": "Describing mess, damage and error — a child back from a park, a first draft, a room after a party.",
-            "watch": "Never for good things. 花だらけ about a beautiful garden is wrong in a way that is hard to unhear; that is いっぱい. If you would not sigh saying it, this is not the word."
-          },
-          "ex": [
-            [
-              "靴が泥だらけになりました。",
-              "My shoes got covered in mud."
-            ],
-            [
-              "この作文は間違いだらけです。",
-              "This composition is riddled with mistakes."
-            ],
-            [
-              "傷だらけの手をしていた。",
-              "His hands were covered in scratches."
-            ]
-          ]
-        },
-        {
-          "id": "ppoi",
-          "jp": "〜っぽい",
-          "en": "-ish — the casual approximation",
-          "kind": "grammar",
-          "exp": {
-            "what": "The most productive suffix in casual Japanese and the one that most quickly makes speech sound natural. It means somewhat like, and it attaches to almost anything: 子供っぽい childish, 安っぽい cheap-looking, 忘れっぽい forgetful.",
-            "build": "Noun, adjective stem or verb stem + っぽい. The result behaves as an い-adjective: 子供っぽかった, 安っぽくない.",
-            "when": "Everyday description and, increasingly, everyday hedging — young speakers use it the way English uses sort of. It belongs in casual speech, not in writing.",
-            "watch": "It is almost always mildly negative when it attaches to a person. 大人っぽい is a compliment; 子供っぽい is not, and neither is 男っぽい said to a woman. The suffix carries an opinion."
-          },
-          "ex": [
-            [
-              "そのシャツ、安っぽいね。",
-              "That shirt looks cheap."
-            ],
-            [
-              "最近、忘れっぽくなりました。",
-              "I've got forgetful lately."
-            ],
-            [
-              "ちょっと子供っぽいですね。",
-              "That's a bit childish."
-            ]
-          ]
-        },
-        {
-          "id": "gatai",
-          "jp": "〜がたい",
-          "en": "hard to bring yourself to",
-          "kind": "grammar",
-          "exp": {
-            "what": "Step 18's にくい meant physically awkward. がたい is difficulty of a different kind — the thing resists being done at all, usually for a reason inside you. 信じがたい, hard to believe. 捨てがたい, hard to throw away.",
-            "build": "Verb stem + がたい. It is limited to a fixed set in practice: 信じがたい, 忘れがたい, 捨てがたい, 想像しがたい, 理解しがたい, 耐えがたい.",
-            "when": "Written and formal. In speech, にくい or 〜のは難しい does the job; がたい in casual conversation sounds like you are quoting something.",
-            "watch": "You cannot productively coin new ones the way you can with にくい. 食べがたい is not a word; 食べにくい is. Learn the set rather than the rule."
-          },
-          "ex": [
-            [
-              "信じがたい話ですね。",
-              "That's a hard story to believe."
-            ],
-            [
-              "この本は捨てがたいです。",
-              "I can't quite bring myself to throw this book out."
-            ],
-            [
-              "忘れがたい一日でした。",
-              "It was an unforgettable day."
-            ]
-          ]
-        },
-        {
-          "id": "kirenai",
-          "jp": "〜きれない",
-          "en": "too much to finish",
-          "kind": "grammar",
-          "exp": {
-            "what": "Stage 9's きる meant do it all the way through. Negate it and you get the opposite and more useful half: there is more of this than can be got through. 食べきれない, more than I can eat. 数えきれない, past counting.",
-            "build": "Verb stem + きれない. The positive きる is the completion form: 食べきる, to finish the lot.",
-            "when": "Portions, workloads, queues and crowds — anywhere the quantity defeats the action. 数えきれないほど is a fixed and very common intensifier.",
-            "watch": "It is about QUANTITY, not ability. 食べられない means you cannot eat it — allergy, dislike, no teeth. 食べきれない means it is simply too much, and the food is fine."
-          },
-          "ex": [
-            [
-              "多すぎて、食べきれません。",
-              "It's too much — I can't finish it."
-            ],
-            [
-              "数えきれないほど星があります。",
-              "There are more stars than you could count."
-            ],
-            [
-              "読みきれないほど本があります。",
-              "More books than I could get through."
-            ]
-          ]
-        },
-        {
-          "id": "kiri",
-          "jp": "〜きり",
-          "en": "just the two of us, and nothing since",
-          "kind": "grammar",
-          "exp": {
-            "what": "Two senses that share a root idea of a hard edge. ONLY, of a small number — 二人きり, just the two of them. And SINCE, of a last occurrence with nothing after it — 出て行ったきり, went out and that was the last of it.",
-            "build": "Noun + きり for the only sense. Past plain form + きり (often + 帰ってこない) for the since sense. っきり is the casual form of the first.",
-            "when": "The first sense for privacy and for care — 二人きりで話す, 寝たきり of someone bedridden. The second for absences that have gone on too long.",
-            "watch": "だけ also means only and is neutral. きり adds that there is nobody and nothing else, which can be intimate or bleak depending on where it lands — 二人きり is romantic; 一人きり is not."
-          },
-          "ex": [
-            [
-              "二人きりで話したいです。",
-              "I'd like to talk with just the two of us."
-            ],
-            [
-              "彼は出て行ったきり、帰ってきません。",
-              "He went out and hasn't come back since."
-            ],
-            [
-              "祖母は寝たきりです。",
-              "My grandmother is bedridden."
-            ]
-          ]
-        },
-        {
-          "id": "ippouda",
-          "jp": "〜一方だ",
-          "en": "only ever more so",
-          "kind": "grammar",
-          "exp": {
-            "what": "A change running in one direction with no sign of turning. 増える一方だ — going up and only up. Stage 6's ようになる noted that a change happened; this says it is still happening and has not stopped.",
-            "build": "Dictionary form + 一方だ. The verb must be a change verb — 増える, 減る, 悪くなる, 高くなる.",
-            "when": "Prices, populations, workloads, the weather, your own Japanese. It is a staple of written commentary and of complaining.",
-            "watch": "It leans negative in practice. 良くなる一方だ is grammatical and rare; speakers reach for this when something is getting worse, and a listener will hear the pessimism whether you meant it or not."
-          },
-          "ex": [
-            [
-              "物価は上がる一方です。",
-              "Prices just keep going up."
-            ],
-            [
-              "人口は減る一方だ。",
-              "The population only ever falls."
-            ],
-            [
-              "仕事が増える一方で、休めません。",
-              "The work only piles up, and I can't take a break."
-            ]
-          ]
-        },
-        {
-          "id": "sb-teido2",
-          "jp": "くっつく言葉",
-          "en": "the suffixes, sorted",
-          "kind": "skill",
-          "exp": {
-            "what": "Six things that clip onto a word and change what it claims. English does some of this with -ish and -ridden and does the rest with whole phrases, so the instinct to reach for one is what has to be built here.",
-            "build": "Unwelcome abundance: だらけ. Approximation: っぽい. Inner resistance: がたい. Too much to finish: きれない. Nothing but / nothing since: きり. One-way change: 一方だ.",
-            "when": "Description, at the point where adjectives stop being enough. These are what let you say how much and in what direction rather than just which quality.",
-            "watch": "Four of the six carry a JUDGEMENT you cannot switch off — だらけ, っぽい, きり and 一方だ all lean negative. Reaching for one about something good is the error that recurs, and no amount of surrounding politeness cancels it."
-          },
-          "ex": [
-            [
-              "泥だらけです。",
-              "Unwelcome abundance."
-            ],
-            [
-              "安っぽいです。",
-              "Approximate, and unflattering."
-            ],
-            [
-              "上がる一方です。",
-              "One direction, and not a good one."
-            ]
-          ]
-        },
-        {
-          "id": "b-s41",
-          "jp": "Composition · ちらかった部屋",
-          "en": "describe something in a state",
-          "kind": "build",
-          "requires": [
-            "darake",
-            "ppoi",
-            "kirenai"
-          ],
-          "brief": "Describe something that has got out of hand — a desk, a room, an inbox, a to-do list. Use 〜だらけ once, 〜っぽい once, and 〜きれない once. Three or four sentences, and let the suffixes carry the complaint so the adjectives don't have to.",
-          "exp": {
-            "what": "The step's suffixes doing what they exist for: grading a state without piling up adjectives.",
-            "build": "One thing, described three ways — what it is covered in, what it resembles, and what there is too much of.",
-            "when": "Complaining well is a real skill in a second language, and it is mostly a matter of having the right suffix rather than the right adjective.",
-            "watch": "Do not add とても and すごく on top. These suffixes already carry the intensity; stacking an intensifier on だらけ is the written equivalent of raising your voice."
-          },
-          "ex": []
-        }
+      [
+       "忘れないうちにメモします。",
+       "I'll note it down before I forget."
       ],
-      "deep": {}
+      [
+       "明るいうちに帰りましょう。",
+       "Let's head back while it's still light."
+      ]
+     ]
     },
     {
-      "cat": "Step 42 · Occasions and consequences",
-      "level": "S10",
-      "after_step": "Step 41 · Quality, quantity, limit",
-      "note": "The last of the time grammar, and the purpose/result pair. Stage 6 taught time's edges and Stage 9 taught its grains; this step is about occasions — the window, the recurrence, the opportunity taken, and the moment something first became clear.",
-      "bank": [
-        [
-          "機会",
-          "an opportunity"
-        ],
-        [
-          "用事",
-          "an errand"
-        ],
-        [
-          "目的",
-          "a purpose"
-        ],
-        [
-          "経験",
-          "experience"
-        ],
-        [
-          "以来",
-          "since then"
-        ],
-        [
-          "最初",
-          "the first time"
-        ],
-        [
-          "原因",
-          "a cause"
-        ],
-        [
-          "変化",
-          "a change"
-        ]
+     "id": "tabini",
+     "jp": "〜たびに",
+     "en": "every time — the reliable recurrence",
+     "kind": "grammar",
+     "exp": {
+      "what": "Not whenever it happens to happen, but every single time without exception. この本を読むたびに彼を思い出す — the remembering is automatic and has never once failed to happen.",
+      "build": "Dictionary form or noun + の, then たびに. 会うたびに, 試験のたびに.",
+      "when": "Habits, associations and the small reliable machinery of a life. Also the natural way to describe something that has become a link in your head.",
+      "watch": "Step 16's と also chains two events reliably, but と is neutral and mechanical — 押すと開く. たびに carries the sense of an occasion recurring, so it wants an event with some substance, not a switch."
+     },
+     "ex": [
+      [
+       "この歌を聞くたびに、国を思い出します。",
+       "Every time I hear this song I think of home."
       ],
-      "points": [
-        {
-          "id": "uchini",
-          "jp": "〜うちに",
-          "en": "while it lasts",
-          "kind": "grammar",
-          "exp": {
-            "what": "A window that is going to close. 熱いうちに食べてください — eat it while it is hot, and the unspoken half is that it will not stay hot. That expiry is the whole difference from Step 19's 間に, which is just a span.",
-            "build": "Plain form, い-adjective, な-adjective + な, or noun + の, then うちに. The negative is very common: 忘れないうちに, before I forget.",
-            "when": "Urgency without pressure — while the weather holds, while you're here, before it gets dark. It is one of the kindest ways to hurry somebody.",
-            "watch": "間に is a neutral span; うちに says the state is temporary and you should act. 若い間に and 若いうちに differ exactly in whether youth is being described or being spent."
-          },
-          "ex": [
-            [
-              "熱いうちに召し上がってください。",
-              "Please eat it while it's hot."
-            ],
-            [
-              "忘れないうちにメモします。",
-              "I'll note it down before I forget."
-            ],
-            [
-              "明るいうちに帰りましょう。",
-              "Let's head back while it's still light."
-            ]
-          ]
-        },
-        {
-          "id": "tabini",
-          "jp": "〜たびに",
-          "en": "every time — the reliable recurrence",
-          "kind": "grammar",
-          "exp": {
-            "what": "Not whenever it happens to happen, but every single time without exception. この本を読むたびに彼を思い出す — the remembering is automatic and has never once failed to happen.",
-            "build": "Dictionary form or noun + の, then たびに. 会うたびに, 試験のたびに.",
-            "when": "Habits, associations and the small reliable machinery of a life. Also the natural way to describe something that has become a link in your head.",
-            "watch": "Step 16's と also chains two events reliably, but と is neutral and mechanical — 押すと開く. たびに carries the sense of an occasion recurring, so it wants an event with some substance, not a switch."
-          },
-          "ex": [
-            [
-              "この歌を聞くたびに、国を思い出します。",
-              "Every time I hear this song I think of home."
-            ],
-            [
-              "会うたびに、背が伸びていますね。",
-              "You've grown every time I see you."
-            ],
-            [
-              "試験のたびに緊張します。",
-              "I get nervous every single exam."
-            ]
-          ]
-        },
-        {
-          "id": "tsuideni",
-          "jp": "〜ついでに",
-          "en": "while I'm at it",
-          "kind": "grammar",
-          "exp": {
-            "what": "A second errand carried on the back of a first. You were going anyway, so you did the other thing too. The first action is the real reason for the trip and the second is a passenger, and that ranking is what the word encodes.",
-            "build": "Dictionary or past plain form + ついでに, or noun + の + ついでに: 買い物のついでに.",
-            "when": "Errands, favours and offers. It is also the polite way to ask for something small — ついでに at the front tells the other person you are not asking them to make a trip.",
-            "watch": "The main errand has to be real and has to be yours. Offering ついでに for a journey you are making solely for the other person is transparently kind but literally false, and it lands as the opposite of modest."
-          },
-          "ex": [
-            [
-              "買い物のついでに、郵便局に寄りました。",
-              "I dropped by the post office while I was out shopping."
-            ],
-            [
-              "ついでにこれもお願いできますか。",
-              "Could you do this too while you're at it?"
-            ],
-            [
-              "散歩のついでにパンを買ってきます。",
-              "I'll pick up bread on my walk."
-            ]
-          ]
-        },
-        {
-          "id": "tehajimete",
-          "jp": "〜て初めて",
-          "en": "not until — the thing you only learn by doing",
-          "kind": "grammar",
-          "exp": {
-            "what": "The realisation that requires the experience. 住んでみて初めて分かりました — I didn't understand until I'd actually lived there. It says the knowledge was unavailable in advance, which is a different claim from simply doing one thing then another.",
-            "build": "て-form + 初めて, then almost always 分かる, 気づく or a verb of realisation.",
-            "when": "Reflecting on anything you learned the hard way — a country, a job, a language. For a foreign resident this is close to a default sentence shape.",
-            "watch": "It needs a realisation on the other side. 食べて初めて美味しかった is odd; 食べて初めて分かりました works, because the second half has to be understanding rather than an ordinary next event."
-          },
-          "ex": [
-            [
-              "日本に住んでみて初めて分かりました。",
-              "I didn't really understand until I lived in Japan."
-            ],
-            [
-              "失って初めて、大切さに気づきます。",
-              "You only realise the value once it's gone."
-            ],
-            [
-              "自分でやって初めて、難しさが分かった。",
-              "Only doing it myself showed me how hard it was."
-            ]
-          ]
-        },
-        {
-          "id": "kekka",
-          "jp": "〜た結果・その結果",
-          "en": "as a result of — the reported outcome",
-          "kind": "grammar",
-          "exp": {
-            "what": "The written register's because-therefore. 話し合った結果 — after discussion, and here is what came of it. It reports the outcome of a deliberate process, which is why it belongs to reports, minutes and news rather than to conversation.",
-            "build": "Past plain form + 結果, or noun + の + 結果. その結果 stands alone at the head of the following sentence.",
-            "when": "Any account of something decided, investigated or tested. It is a staple of the reading section for exactly this reason.",
-            "watch": "The cause has to be an EFFORT, not an accident. 雨が降った結果 is odd, because rain is not a process anyone conducted; 調べた結果 and 相談した結果 are natural because somebody did them on purpose."
-          },
-          "ex": [
-            [
-              "よく話し合った結果、こうなりました。",
-              "After a good discussion, this is where we landed."
-            ],
-            [
-              "調査の結果、原因が分かりました。",
-              "The investigation identified the cause."
-            ],
-            [
-              "その結果、参加者が増えました。",
-              "As a result, attendance rose."
-            ]
-          ]
-        },
-        {
-          "id": "tameni",
-          "jp": "〜ために",
-          "en": "for the sake of, and because of",
-          "kind": "grammar",
-          "exp": {
-            "what": "One shape, two jobs, and which one is running depends on whether the verb is something you CONTROL. 勉強するために来ました — in order to study, a purpose. 雪のために遅れました — because of snow, a cause. Volition splits them.",
-            "build": "Purpose: dictionary form or noun + の + ために. Cause: past or state form, or a noun that names something that happened. The written 〜ため is the same word with the に dropped.",
-            "when": "Purpose in everyday speech; cause in notices and announcements, where 事故のため and 工事のため explain most of what has gone wrong on any given day.",
-            "watch": "Step 6's ように does purposes you cannot control — 分かるように, so that it will be understood. ために needs a purpose you can actually aim at. 上手になるために is odd because becoming good is not an act; 上手になるように is right."
-          },
-          "ex": [
-            [
-              "日本語を勉強するために来ました。",
-              "I came in order to study Japanese."
-            ],
-            [
-              "事故のため、電車が遅れています。",
-              "Trains are delayed because of an accident."
-            ],
-            [
-              "家族のために働いています。",
-              "I work for my family's sake."
-            ]
-          ]
-        },
-        {
-          "id": "sb-toki2",
-          "jp": "いつ、の残り",
-          "en": "the rest of when",
-          "kind": "skill",
-          "exp": {
-            "what": "You now hold most of the time system, and the distinctions are fine ones. A neutral span. A closing window. A reliable recurrence. An errand carried along. A realisation that needed the experience. English uses while for the first three of those.",
-            "build": "Neutral span: 間に. Closing window: うちに. Every occurrence: たびに. Piggybacked errand: ついでに. Only after doing: て初めて. Mid-action: 途中で / 最中に.",
-            "when": "Constantly, and the payoff is that a listener can tell which one you meant. Saying 間に where you meant うちに loses the urgency entirely.",
-            "watch": "うちに against 間に is the pair that matters. 若い間に旅行した describes when the travelling happened. 若いうちに旅行しなさい says youth is running out. Only one of them is advice."
-          },
-          "ex": [
-            [
-              "熱いうちにどうぞ。",
-              "The window is closing."
-            ],
-            [
-              "会うたびに大きくなるね。",
-              "Every occurrence, without exception."
-            ],
-            [
-              "住んで初めて分かりました。",
-              "The knowledge needed the experience."
-            ]
-          ]
-        },
-        {
-          "id": "b-s42",
-          "jp": "Composition · 住んでみて",
-          "en": "what you only learned by being here",
-          "kind": "build",
-          "requires": [
-            "tehajimete",
-            "uchini",
-            "tabini"
-          ],
-          "brief": "Write about something you only understood after arriving somewhere new — a place, a job, a language. Use 〜て初めて for the realisation, 〜たびに for something that happens reliably, and 〜うちに for advice to someone who hasn't arrived yet. Four or five sentences.",
-          "exp": {
-            "what": "The step's time grammar aimed at the one subject every learner of this course actually has: what living somewhere teaches that reading about it does not.",
-            "build": "The realisation → the recurring thing → the advice. Ending on advice to somebody who has not arrived is what turns a reflection into a piece of writing.",
-            "when": "This is the most-written paragraph in the entire foreign-resident genre, and being able to write it in Japanese is a real milestone.",
-            "watch": "て初めて needs a realisation verb behind it. If your second clause is an ordinary event rather than an understanding, the pattern is the wrong one."
-          },
-          "ex": []
-        }
+      [
+       "会うたびに、背が伸びていますね。",
+       "You've grown every time I see you."
       ],
-      "deep": {}
+      [
+       "試験のたびに緊張します。",
+       "I get nervous every single exam."
+      ]
+     ]
     },
     {
-      "cat": "Step 43 · The connectors",
-      "level": "S10",
-      "after_step": "Step 42 · Occasions and consequences",
-      "note": "The last step of the level, and the one that makes a paragraph rather than a sentence. Also the home of the two gathering lessons: Lloyd's ruling was that patterns get lessons and the adverb tier gets a culture connection, because a list of eight adverbs with eight definitions teaches nothing that one scene showing them working does not teach better.",
-      "bank": [
-        [
-          "意見",
-          "an opinion"
-        ],
-        [
-          "理由",
-          "a reason"
-        ],
-        [
-          "反対",
-          "the opposite"
-        ],
-        [
-          "確か",
-          "certain"
-        ],
-        [
-          "立場",
-          "a position"
-        ],
-        [
-          "段落",
-          "a paragraph"
-        ],
-        [
-          "流れ",
-          "the flow"
-        ],
-        [
-          "話題",
-          "a topic"
-        ]
+     "id": "tsuideni",
+     "jp": "〜ついでに",
+     "en": "while I'm at it",
+     "kind": "grammar",
+     "exp": {
+      "what": "A second errand carried on the back of a first. You were going anyway, so you did the other thing too. The first action is the real reason for the trip and the second is a passenger, and that ranking is what the word encodes.",
+      "build": "Dictionary or past plain form + ついでに, or noun + の + ついでに: 買い物のついでに.",
+      "when": "Errands, favours and offers. It is also the polite way to ask for something small — ついでに at the front tells the other person you are not asking them to make a trip.",
+      "watch": "The main errand has to be real and has to be yours. Offering ついでに for a journey you are making solely for the other person is transparently kind but literally false, and it lands as the opposite of modest."
+     },
+     "ex": [
+      [
+       "買い物のついでに、郵便局に寄りました。",
+       "I dropped by the post office while I was out shopping."
       ],
-      "points": [
-        {
-          "id": "tsumari",
-          "jp": "つまり",
-          "en": "in other words — the restatement",
-          "kind": "grammar",
-          "exp": {
-            "what": "Says the same thing again, shorter and clearer. It is the single most useful word for a learner in the room, because it lets you check that you understood by restating — つまり、明日は休みですか.",
-            "build": "Sentence-initial adverb. Often paired with ということです at the end of the restatement, which is Step 35's pattern doing its job.",
-            "when": "Confirming, summarising and rescuing yourself when a long explanation has lost you. It is the politest way to say I want to check I have this right.",
-            "watch": "What follows must be SHORTER and no newer. Adding a fresh point after つまり confuses the listener badly, because they were waiting for a compression and got an expansion."
-          },
-          "ex": [
-            [
-              "つまり、明日は休みということですか。",
-              "So what you mean is tomorrow's a day off?"
-            ],
-            [
-              "つまり、行けないんですね。",
-              "In other words, you can't come."
-            ],
-            [
-              "つまり、そういうことです。",
-              "That, in short, is the situation."
-            ]
-          ]
-        },
-        {
-          "id": "tokoroga",
-          "jp": "ところが",
-          "en": "and yet — the turn you didn't see coming",
-          "kind": "grammar",
-          "exp": {
-            "what": "Sentence-initial but, and specifically the surprising one. Step 11's でも is neutral contrast; ところが says what follows overturned an expectation the speaker actually held, which is why it belongs to storytelling.",
-            "build": "Stands alone at the head of a sentence. The clause before it has to have set up an expectation for it to break.",
-            "when": "Anecdotes, and any account where something went differently from planned. It is the hinge of almost every story told at a Japanese dinner table.",
-            "watch": "It cannot join clauses inside one sentence — that is が or けど. And it needs a genuine reversal: using it for an ordinary contrast is like saying but to my astonishment about a change in the weather."
-          },
-          "ex": [
-            [
-              "早く出ました。ところが、間に合いませんでした。",
-              "I left early. And yet I didn't make it."
-            ],
-            [
-              "ところが、誰も来なかったんです。",
-              "But then — nobody came."
-            ],
-            [
-              "安いと思いました。ところが、高かった。",
-              "I thought it'd be cheap. It wasn't."
-            ]
-          ]
-        },
-        {
-          "id": "ippoude",
-          "jp": "〜一方で",
-          "en": "on the other hand — holding both",
-          "kind": "grammar",
-          "exp": {
-            "what": "Two true things about the same subject that pull in different directions. 父は自分に厳しい一方で、他人には優しい. Not a contradiction — a balance, stated deliberately, and it is what a fair piece of writing is made of.",
-            "build": "Plain form + 一方で, or as a sentence-initial 一方. Both halves must describe the SAME subject; that is what separates it from ordinary contrast.",
-            "when": "Any writing that weighs something up. This is the pattern that most reliably makes an opinion piece read as considered rather than one-sided.",
-            "watch": "Do not confuse it with Step 41's 一方だ, which is a one-way change and means almost the opposite thing. 増える一方だ says only ever up; 増える一方で says while it rises, something else is also true."
-          },
-          "ex": [
-            [
-              "便利になった一方で、人と話さなくなりました。",
-              "It's got convenient, and on the other hand we talk less."
-            ],
-            [
-              "父は厳しい一方で、優しいところもあります。",
-              "My father is strict, but he has a kind side too."
-            ],
-            [
-              "給料はいい。一方、休みが少ない。",
-              "The pay is good. On the other hand, there's little time off."
-            ]
-          ]
-        },
-        {
-          "id": "nazenara",
-          "jp": "なぜなら〜からだ",
-          "en": "the reason being — explanation after the fact",
-          "kind": "grammar",
-          "exp": {
-            "what": "The written way to give a reason AFTER you have made the claim. から and ので put the reason first; なぜなら lets you state your position, then justify it, which is the order an argument wants.",
-            "build": "Claim, full stop, then なぜなら + reason + からです. The closing からです is not optional in careful writing — the pair opens and closes together.",
-            "when": "Essays, opinion pieces, and any explanation long enough that burying the reason in front of the claim would lose the reader.",
-            "watch": "In speech it is stiff. Spoken Japanese would use だって or, more often, just から. Using なぜなら at a dinner table sounds like you are reading from a report."
-          },
-          "ex": [
-            [
-              "私は反対です。なぜなら、時間がないからです。",
-              "I'm against it, because there isn't time."
-            ],
-            [
-              "これが一番いいです。なぜなら、安全だからです。",
-              "This is best, the reason being it's safe."
-            ],
-            [
-              "なぜかというと、経験がないからです。",
-              "The reason is that I have no experience."
-            ]
-          ]
-        },
-        {
-          "id": "nishiteha",
-          "jp": "〜にしては",
-          "en": "for a — measured against its own kind",
-          "kind": "grammar",
-          "exp": {
-            "what": "Judges something against the standard for its own category and finds it off that standard. 初心者にしては上手です — good, for a beginner. The compliment and the limit arrive together, which is exactly what the English for a does.",
-            "build": "Noun or plain form + にしては. What follows must be a departure from expectation; a sentence that meets expectation has nothing for it to do.",
-            "when": "Assessment of any kind, and it is everywhere in feedback. Learners hear it about their own Japanese constantly.",
-            "watch": "It always contains a small put-down. 日本語にしては上手 means good for a Japanese person, which is not a compliment; 日本人にしては is a different and stranger claim. Check what category you have put the person in before you say it."
-          },
-          "ex": [
-            [
-              "初めてにしては、よくできました。",
-              "For a first attempt, that went well."
-            ],
-            [
-              "冬にしては暖かいですね。",
-              "It's warm for winter."
-            ],
-            [
-              "値段にしては、いい品物です。",
-              "For the price, it's a good item."
-            ]
-          ]
-        },
-        {
-          "id": "nishitemo",
-          "jp": "〜にしても",
-          "en": "even granting that",
-          "kind": "grammar",
-          "exp": {
-            "what": "One kana away from にしては and a different job. It CONCEDES a point and then presses on anyway: 忙しいにしても、連絡ぐらいできるでしょう — even granting you were busy, you could have sent a message.",
-            "build": "Plain form or noun + にしても. The doubled form にしても〜にしても means whichever of two: 行くにしても行かないにしても.",
-            "when": "Disagreement that grants the other person's excuse before overriding it — which is how an adult argument in Japanese is conducted.",
-            "watch": "The は/も swap is the whole difference and it is easy to mishear. にしては measures against a standard; にしても grants and overrides. 学生にしては安い is cheap for a student; 学生にしても払うべきだ says even being a student, you should pay."
-          },
-          "ex": [
-            [
-              "忙しいにしても、連絡はできたはずです。",
-              "Busy or not, you could have got in touch."
-            ],
-            [
-              "行くにしても行かないにしても、早く決めて。",
-              "Going or not, decide soon."
-            ],
-            [
-              "高いにしても、必要なものです。",
-              "Expensive though it may be, we need it."
-            ]
-          ]
-        },
-        {
-          "id": "kawarini",
-          "jp": "〜代わりに",
-          "en": "instead of, and in return for",
-          "kind": "grammar",
-          "exp": {
-            "what": "Two senses that are easier together than apart. SUBSTITUTION — this rather than that. And EXCHANGE — this, but in return that. 手伝う代わりに、夕食をおごって: I'll help, but you're buying dinner.",
-            "build": "Dictionary or plain form + 代わりに, or noun + の + 代わりに. Which sense is running is decided by whether the two halves are alternatives or a trade.",
-            "when": "Everyday negotiation and everyday substitution — an ingredient you did not have, a favour with a price, a plan changed.",
-            "watch": "Step 37's にかわって is not this. にかわって is taking somebody's ROLE — speaking on their behalf. 代わりに is the ordinary instead of, including for objects and actions, which にかわって cannot do."
-          },
-          "ex": [
-            [
-              "バターの代わりに油を使いました。",
-              "I used oil instead of butter."
-            ],
-            [
-              "手伝う代わりに、夕食をおごってください。",
-              "I'll help — in return, dinner's on you."
-            ],
-            [
-              "行けない代わりに、手紙を書きます。",
-              "Since I can't go, I'll write instead."
-            ]
-          ]
-        },
-        {
-          "id": "sb-setsuzoku",
-          "jp": "段落のつくり方",
-          "en": "how a paragraph holds together",
-          "kind": "skill",
-          "exp": {
-            "what": "Sentences you can already build. What this step adds is the JOINTS — and Japanese puts most of them at the head of a sentence rather than between clauses, which is why learner writing so often reads as a list of correct sentences that do not add up to anything.",
-            "build": "Restate: つまり. Reverse: ところが. Balance: 一方で / 一方. Justify: なぜなら〜からです. Add: それに / さらに. Conclude: そのため / その結果.",
-            "when": "Every paragraph you write from now on. This is the difference between passing a writing task and being read.",
-            "watch": "Do not join everything with が and から. A sentence with three が in it is grammatical and exhausting; breaking it into two sentences with ところが between them says the same thing and reads like Japanese."
-          },
-          "ex": [
-            [
-              "安いと思った。ところが、高かった。",
-              "Reverse — the expectation broke."
-            ],
-            [
-              "便利な一方で、高いです。",
-              "Balance — both true at once."
-            ],
-            [
-              "反対です。なぜなら、時間がないからです。",
-              "Justify — claim first, reason after."
-            ]
-          ]
-        },
-        {
-          "id": "cc-fukushi",
-          "jp": "副詞のひきだし",
-          "en": "the drawer of small words",
-          "kind": "culture",
-          "exp": "Every JLPT grammar list carries a tier of words that are not grammar at all. おそらく. もしかしたら. 確かに. めったに. なるべく. ふと. 別に. 決して. They have no conjugation and no structure — they are adverbs, and a list will hand you eight definitions that are all approximately \"probably\" or \"hardly\".\n\nDefinitions are the wrong instrument. What these words actually do is set a TEMPERATURE, and the way to learn them is to watch the same sentence change as you swap them.\n\nTake 雨が降ります.\n\nおそらく雨が降るでしょう — probably, and I have a reason. This is the forecaster's word: measured, slightly formal, and it implies evidence behind it.\n\nもしかしたら雨が降るかもしれません — maybe, and I have no idea really. Where おそらく leans toward yes, もしかしたら raises a possibility precisely because it is unlikely. It nearly always wants かもしれない at the end.\n\n確かに雨は降りました。でも — certainly, it did rain. This one is a concession, not a claim. When a Japanese speaker opens with 確かに, a but is coming, and hearing that lets you know a disagreement is on its way before it arrives.\n\nめったに雨が降りません — hardly ever, and it takes a negative. So does 決して, which is stronger and more absolute: 決して雨が降らない would be a claim about the climate rather than the month.\n\n別に is the one that will be said TO you most. 別に、大丈夫です — not particularly, it's fine. It softens a refusal and it also, said flatly, signals that something is not fine at all. Tone does all the work.\n\nなるべく早く来てください — as much as possible. It is the polite way to ask for speed without setting a deadline, and it is on half the notices you will read.\n\nふと belongs to a different register entirely — it is narrative. ふと思い出した, the memory that arrives unbidden. You will read it far more than you say it.\n\nThe useful move is not to memorise these. It is to notice, next time you read a Japanese sentence, that one of them is there and that removing it would leave the sentence true and flat. That is what they are for.",
-          "ex": [
-            [
-              "おそらく雨が降るでしょう。",
-              "Probably — measured, with reason behind it."
-            ],
-            [
-              "確かに高いです。でも、質がいいです。",
-              "Certainly — and a 'but' is coming."
-            ],
-            [
-              "なるべく早くお願いします。",
-              "As soon as you can — a request without a deadline."
-            ]
-          ]
-        },
-        {
-          "id": "cc-kaiwa",
-          "jp": "話し言葉のつなぎ",
-          "en": "the connectors nobody writes down",
-          "kind": "culture",
-          "exp": "This step taught you the joints of written Japanese. Spoken Japanese uses almost none of them, and a learner who has only the written set sounds like a well-written report walking around.\n\nなぜなら becomes だって. 「なぜなら時間がないからです」 is what you write. 「だって時間ないもん」 is what a friend says, and もん at the end is a small childish complaint that a dictionary will not tell you about.\n\nしかし and ところが become でも and けど. けど at the END of a sentence, trailing off, is one of the most common things in spoken Japanese and it means nothing more than a softening — 「ちょっと難しいんですけど…」 leaves the refusal unsaid so that nobody has to hear it.\n\nそれから and さらに become あと. 「あと、これもお願いします」 — and also this.\n\nThen there are the fillers, and they are not laziness. なんか is the most common word in casual Japanese that no textbook teaches: 「なんか、疲れた」 — I'm sort of tired. It hedges, it buys a second, and its absence is what makes careful learner speech sound strained.\n\nなんて and なんか also do a dismissive job: 「宿題なんてやりたくない」 — homework and things like it, said with a wave of the hand.\n\nっけ is the memory particle, and it is enormously useful: 「名前、何だっけ？」 — what was your name again? It admits you have forgotten in a way that is charming rather than rude, because the particle itself carries the apology.\n\nてごらん is what an adult says to a child or a teacher to a student: 「食べてごらん」 — go on, try it. Warm, and firmly downward — you will hear it far more often than you should say it.\n\nAnd たとえば survives unchanged into speech, which makes it the most useful word in this lesson: 「たとえば？」 as a one-word question — for example? — will get you a concrete answer out of any explanation that has gone abstract.\n\nThe point is not that written Japanese is formal and speech is sloppy. They are two different systems, and the connectors are where they diverge most visibly. Knowing that the register has changed is more useful than knowing any single word here.",
-          "ex": [
-            [
-              "ちょっと難しいんですけど…",
-              "Trailing けど — the refusal that never has to be said."
-            ],
-            [
-              "なんか、疲れた。",
-              "なんか hedging — the filler that makes speech sound like speech."
-            ],
-            [
-              "名前、何だっけ？",
-              "っけ — forgetting, charmingly."
-            ]
-          ]
-        },
-        {
-          "id": "b-s43",
-          "jp": "Composition · 意見文",
-          "en": "one opinion, properly joined",
-          "kind": "build",
-          "requires": [
-            "sb-setsuzoku",
-            "ippoude",
-            "nazenara"
-          ],
-          "brief": "Take a position on something small and real — whether a city is a good place to live, whether learning kanji early is worth it. State it, justify it with なぜなら〜からです, concede the other side with 〜一方で, and close with つまり. Five or six sentences, and no sentence joined with が.",
-          "exp": {
-            "what": "The stage's final composition and the level's exit exam: a paragraph that holds together, rather than five correct sentences in a row.",
-            "build": "Position → reason → the other side → restatement. Head-of-sentence connectors, not clause joiners.",
-            "when": "This is the shape of the JLPT reading passages you have been struggling with, written from the inside. Producing one is the fastest way to stop finding them opaque.",
-            "watch": "The ban on が is the exercise. It is grammatical and it is a crutch — it lets a paragraph run on without ever committing to what relation the parts bear to each other."
-          },
-          "ex": []
-        }
+      [
+       "ついでにこれもお願いできますか。",
+       "Could you do this too while you're at it?"
       ],
-      "deep": {}
+      [
+       "散歩のついでにパンを買ってきます。",
+       "I'll pick up bread on my walk."
+      ]
+     ]
     },
     {
-      "cat": "Checkpoint 9 · Stage review",
-      "level": "S10",
-      "after_step": "Step 43 · The connectors",
-      "note": "The real end of N3. ms-n3 lives here now — it sat at the end of Stage 9 telling the learner they had covered the level, which was false from the day it shipped and was caught because a capability claim is falsifiable in a way a stage label is not.",
-      "points": [
-        {
-          "id": "rc9",
-          "jp": "復習 · Stage 10",
-          "en": "checkpoint: the full stage",
-          "kind": "review",
-          "covers": [
-            "toiukoto",
-            "toiuto",
-            "toiunowa",
-            "toiuyori",
-            "toittemo",
-            "sb-toiu2",
-            "niyoruto",
-            "nikanshite",
-            "nikurabete",
-            "nitsurete",
-            "nikakete",
-            "tomoni",
-            "sb-hikaku",
-            "wohajime",
-            "wochuushin",
-            "nikawatte",
-            "mukimuke",
-            "chuujuu",
-            "tochuu",
-            "sb-hanni",
-            "shikanai",
-            "baii",
-            "sae",
-            "kotoda",
-            "kotohanai",
-            "naikotohanai",
-            "temokamawanai",
-            "sb-sentaku",
-            "wakeganai",
-            "wakeniwaikanai",
-            "towakagiranai",
-            "soumonai",
-            "sb-hitei",
-            "bayokatta",
-            "taraii",
-            "toshitara",
-            "zuniwairarenai",
-            "younakigasuru",
-            "marude",
-            "sb-katei",
-            "darake",
-            "ppoi",
-            "gatai",
-            "kirenai",
-            "kiri",
-            "ippouda",
-            "sb-teido2",
-            "uchini",
-            "tabini",
-            "tsuideni",
-            "tehajimete",
-            "kekka",
-            "tameni",
-            "sb-toki2",
-            "tsumari",
-            "tokoroga",
-            "ippoude",
-            "nazenara",
-            "nishiteha",
-            "nishitemo",
-            "kawarini",
-            "sb-setsuzoku",
-            "sb-kyoudai"
-          ],
-          "exp": "The precision stage, reviewed — and the review is deliberately about DISTINGUISHING rather than producing, because almost every error left at this level is a near-miss between two patterns that differ by one kana.\n\nThe pairs worth arriving able to separate: にしては against にしても. 向き against 向け. うちに against 間に. によると against によって. 一方だ against 一方で. としたら against たら. And the whole という family, told apart by what follows it.\n\nNone of these are difficult once seen side by side. All of them are invisible if you only ever meet them one at a time, which is what a grammar list does to a learner and what this checkpoint exists to undo.",
-          "ex": []
-        },
-        {
-          "id": "ms-n3",
-          "jp": "N3の範囲、ぜんぶ",
-          "en": "everything the N3 syllabus expects",
-          "kind": "review",
-          "exp": "Now it is true.\n\nThis lesson used to sit at the end of Stage 9, and it was wrong. Stage 9 closed the argument layer — cause with an owner, the compound particles, conclusions drawn and denied — and that was real work, but an audit against a full N3 list found eighty-four patterns still missing. A milestone that states a capability can be checked, and this one failed the check. It moved here, where it holds.\n\nWhat you can now do that you could not at N4:\n\nYou can say a thing and then say it better — define it, correct the word, and take it back a size. You can attach a claim to its source, measure it against a baseline, and describe two things changing in step. You can say who something is for and whether anybody meant it that way. You can express that there is nothing else for it, and that this much is already enough. You can deny an inference without denying a fact, which is the most useful thing in this stage and the hardest to do in a second language. You can regret, hope, suppose and compare to something that is not so. And you can join a paragraph at the head of its sentences, which is what makes writing read as writing.\n\nThe honest description of the change: at N5 you could say what things were. At N4 you could say things about things. At N3 you can say exactly how much you mean it — and that is the whole difference between being understood and being believed.\n\nWhat sits above this is not a new kind of grammar. N2 and N1 are a longer tail of the same machinery, plus a great deal of reading. From here the most useful thing is not another stage but a habit: read something every day that was not written for learners, and let the patterns you have just met show you how often they were there all along.",
-          "ex": []
-        }
+     "id": "tehajimete",
+     "jp": "〜て初めて",
+     "en": "not until — the thing you only learn by doing",
+     "kind": "grammar",
+     "exp": {
+      "what": "The realisation that requires the experience. 住んでみて初めて分かりました — I didn't understand until I'd actually lived there. It says the knowledge was unavailable in advance, which is a different claim from simply doing one thing then another.",
+      "build": "て-form + 初めて, then almost always 分かる, 気づく or a verb of realisation.",
+      "when": "Reflecting on anything you learned the hard way — a country, a job, a language. For a foreign resident this is close to a default sentence shape.",
+      "watch": "It needs a realisation on the other side. 食べて初めて美味しかった is odd; 食べて初めて分かりました works, because the second half has to be understanding rather than an ordinary next event."
+     },
+     "ex": [
+      [
+       "日本に住んでみて初めて分かりました。",
+       "I didn't really understand until I lived in Japan."
       ],
-      "deep": {}
+      [
+       "失って初めて、大切さに気づきます。",
+       "You only realise the value once it's gone."
+      ],
+      [
+       "自分でやって初めて、難しさが分かった。",
+       "Only doing it myself showed me how hard it was."
+      ]
+     ]
+    },
+    {
+     "id": "kekka",
+     "jp": "〜た結果・その結果",
+     "en": "as a result of — the reported outcome",
+     "kind": "grammar",
+     "exp": {
+      "what": "The written register's because-therefore. 話し合った結果 — after discussion, and here is what came of it. It reports the outcome of a deliberate process, which is why it belongs to reports, minutes and news rather than to conversation.",
+      "build": "Past plain form + 結果, or noun + の + 結果. その結果 stands alone at the head of the following sentence.",
+      "when": "Any account of something decided, investigated or tested. It is a staple of the reading section for exactly this reason.",
+      "watch": "The cause has to be an EFFORT, not an accident. 雨が降った結果 is odd, because rain is not a process anyone conducted; 調べた結果 and 相談した結果 are natural because somebody did them on purpose."
+     },
+     "ex": [
+      [
+       "よく話し合った結果、こうなりました。",
+       "After a good discussion, this is where we landed."
+      ],
+      [
+       "調査の結果、原因が分かりました。",
+       "The investigation identified the cause."
+      ],
+      [
+       "その結果、参加者が増えました。",
+       "As a result, attendance rose."
+      ]
+     ]
+    },
+    {
+     "id": "tameni",
+     "jp": "〜ために",
+     "en": "for the sake of, and because of",
+     "kind": "grammar",
+     "exp": {
+      "what": "One shape, two jobs, and which one is running depends on whether the verb is something you CONTROL. 勉強するために来ました — in order to study, a purpose. 雪のために遅れました — because of snow, a cause. Volition splits them.",
+      "build": "Purpose: dictionary form or noun + の + ために. Cause: past or state form, or a noun that names something that happened. The written 〜ため is the same word with the に dropped.",
+      "when": "Purpose in everyday speech; cause in notices and announcements, where 事故のため and 工事のため explain most of what has gone wrong on any given day.",
+      "watch": "Step 6's ように does purposes you cannot control — 分かるように, so that it will be understood. ために needs a purpose you can actually aim at. 上手になるために is odd because becoming good is not an act; 上手になるように is right."
+     },
+     "ex": [
+      [
+       "日本語を勉強するために来ました。",
+       "I came in order to study Japanese."
+      ],
+      [
+       "事故のため、電車が遅れています。",
+       "Trains are delayed because of an accident."
+      ],
+      [
+       "家族のために働いています。",
+       "I work for my family's sake."
+      ]
+     ]
+    },
+    {
+     "id": "sb-toki2",
+     "jp": "いつ、の残り",
+     "en": "the rest of when",
+     "kind": "skill",
+     "exp": {
+      "what": "You now hold most of the time system, and the distinctions are fine ones. A neutral span. A closing window. A reliable recurrence. An errand carried along. A realisation that needed the experience. English uses while for the first three of those.",
+      "build": "Neutral span: 間に. Closing window: うちに. Every occurrence: たびに. Piggybacked errand: ついでに. Only after doing: て初めて. Mid-action: 途中で / 最中に.",
+      "when": "Constantly, and the payoff is that a listener can tell which one you meant. Saying 間に where you meant うちに loses the urgency entirely.",
+      "watch": "うちに against 間に is the pair that matters. 若い間に旅行した describes when the travelling happened. 若いうちに旅行しなさい says youth is running out. Only one of them is advice."
+     },
+     "ex": [
+      [
+       "熱いうちにどうぞ。",
+       "The window is closing."
+      ],
+      [
+       "会うたびに大きくなるね。",
+       "Every occurrence, without exception."
+      ],
+      [
+       "住んで初めて分かりました。",
+       "The knowledge needed the experience."
+      ]
+     ]
+    },
+    {
+     "id": "b-s42",
+     "jp": "Composition · 住んでみて",
+     "en": "what you only learned by being here",
+     "kind": "build",
+     "requires": [
+      "tehajimete",
+      "uchini",
+      "tabini"
+     ],
+     "brief": "Write about something you only understood after arriving somewhere new — a place, a job, a language. Use 〜て初めて for the realisation, 〜たびに for something that happens reliably, and 〜うちに for advice to someone who hasn't arrived yet. Four or five sentences.",
+     "exp": {
+      "what": "The step's time grammar aimed at the one subject every learner of this course actually has: what living somewhere teaches that reading about it does not.",
+      "build": "The realisation → the recurring thing → the advice. Ending on advice to somebody who has not arrived is what turns a reflection into a piece of writing.",
+      "when": "This is the most-written paragraph in the entire foreign-resident genre, and being able to write it in Japanese is a real milestone.",
+      "watch": "て初めて needs a realisation verb behind it. If your second clause is an ordinary event rather than an understanding, the pattern is the wrong one."
+     },
+     "ex": []
     }
-  ]
+   ],
+   "deep": {}
+  },
+  {
+   "cat": "Step 43 · The connectors",
+   "level": "S11",
+   "after_step": "Step 42 · Occasions and consequences",
+   "note": "The last step of the level, and the one that makes a paragraph rather than a sentence. Also the home of the two gathering lessons: Lloyd's ruling was that patterns get lessons and the adverb tier gets a culture connection, because a list of eight adverbs with eight definitions teaches nothing that one scene showing them working does not teach better.",
+   "bank": [
+    [
+     "意見",
+     "an opinion"
+    ],
+    [
+     "理由",
+     "a reason"
+    ],
+    [
+     "反対",
+     "the opposite"
+    ],
+    [
+     "確か",
+     "certain"
+    ],
+    [
+     "立場",
+     "a position"
+    ],
+    [
+     "段落",
+     "a paragraph"
+    ],
+    [
+     "流れ",
+     "the flow"
+    ],
+    [
+     "話題",
+     "a topic"
+    ]
+   ],
+   "points": [
+    {
+     "id": "tsumari",
+     "jp": "つまり",
+     "en": "in other words — the restatement",
+     "kind": "grammar",
+     "exp": {
+      "what": "Says the same thing again, shorter and clearer. It is the single most useful word for a learner in the room, because it lets you check that you understood by restating — つまり、明日は休みですか.",
+      "build": "Sentence-initial adverb. Often paired with ということです at the end of the restatement, which is Step 35's pattern doing its job.",
+      "when": "Confirming, summarising and rescuing yourself when a long explanation has lost you. It is the politest way to say I want to check I have this right.",
+      "watch": "What follows must be SHORTER and no newer. Adding a fresh point after つまり confuses the listener badly, because they were waiting for a compression and got an expansion."
+     },
+     "ex": [
+      [
+       "つまり、明日は休みということですか。",
+       "So what you mean is tomorrow's a day off?"
+      ],
+      [
+       "つまり、行けないんですね。",
+       "In other words, you can't come."
+      ],
+      [
+       "つまり、そういうことです。",
+       "That, in short, is the situation."
+      ]
+     ]
+    },
+    {
+     "id": "tokoroga",
+     "jp": "ところが",
+     "en": "and yet — the turn you didn't see coming",
+     "kind": "grammar",
+     "exp": {
+      "what": "Sentence-initial but, and specifically the surprising one. Step 11's でも is neutral contrast; ところが says what follows overturned an expectation the speaker actually held, which is why it belongs to storytelling.",
+      "build": "Stands alone at the head of a sentence. The clause before it has to have set up an expectation for it to break.",
+      "when": "Anecdotes, and any account where something went differently from planned. It is the hinge of almost every story told at a Japanese dinner table.",
+      "watch": "It cannot join clauses inside one sentence — that is が or けど. And it needs a genuine reversal: using it for an ordinary contrast is like saying but to my astonishment about a change in the weather."
+     },
+     "ex": [
+      [
+       "早く出ました。ところが、間に合いませんでした。",
+       "I left early. And yet I didn't make it."
+      ],
+      [
+       "ところが、誰も来なかったんです。",
+       "But then — nobody came."
+      ],
+      [
+       "安いと思いました。ところが、高かった。",
+       "I thought it'd be cheap. It wasn't."
+      ]
+     ]
+    },
+    {
+     "id": "ippoude",
+     "jp": "〜一方で",
+     "en": "on the other hand — holding both",
+     "kind": "grammar",
+     "exp": {
+      "what": "Two true things about the same subject that pull in different directions. 父は自分に厳しい一方で、他人には優しい. Not a contradiction — a balance, stated deliberately, and it is what a fair piece of writing is made of.",
+      "build": "Plain form + 一方で, or as a sentence-initial 一方. Both halves must describe the SAME subject; that is what separates it from ordinary contrast.",
+      "when": "Any writing that weighs something up. This is the pattern that most reliably makes an opinion piece read as considered rather than one-sided.",
+      "watch": "Do not confuse it with Step 41's 一方だ, which is a one-way change and means almost the opposite thing. 増える一方だ says only ever up; 増える一方で says while it rises, something else is also true."
+     },
+     "ex": [
+      [
+       "便利になった一方で、人と話さなくなりました。",
+       "It's got convenient, and on the other hand we talk less."
+      ],
+      [
+       "父は厳しい一方で、優しいところもあります。",
+       "My father is strict, but he has a kind side too."
+      ],
+      [
+       "給料はいい。一方、休みが少ない。",
+       "The pay is good. On the other hand, there's little time off."
+      ]
+     ]
+    },
+    {
+     "id": "nazenara",
+     "jp": "なぜなら〜からだ",
+     "en": "the reason being — explanation after the fact",
+     "kind": "grammar",
+     "exp": {
+      "what": "The written way to give a reason AFTER you have made the claim. から and ので put the reason first; なぜなら lets you state your position, then justify it, which is the order an argument wants.",
+      "build": "Claim, full stop, then なぜなら + reason + からです. The closing からです is not optional in careful writing — the pair opens and closes together.",
+      "when": "Essays, opinion pieces, and any explanation long enough that burying the reason in front of the claim would lose the reader.",
+      "watch": "In speech it is stiff. Spoken Japanese would use だって or, more often, just から. Using なぜなら at a dinner table sounds like you are reading from a report."
+     },
+     "ex": [
+      [
+       "私は反対です。なぜなら、時間がないからです。",
+       "I'm against it, because there isn't time."
+      ],
+      [
+       "これが一番いいです。なぜなら、安全だからです。",
+       "This is best, the reason being it's safe."
+      ],
+      [
+       "なぜかというと、経験がないからです。",
+       "The reason is that I have no experience."
+      ]
+     ]
+    },
+    {
+     "id": "nishiteha",
+     "jp": "〜にしては",
+     "en": "for a — measured against its own kind",
+     "kind": "grammar",
+     "exp": {
+      "what": "Judges something against the standard for its own category and finds it off that standard. 初心者にしては上手です — good, for a beginner. The compliment and the limit arrive together, which is exactly what the English for a does.",
+      "build": "Noun or plain form + にしては. What follows must be a departure from expectation; a sentence that meets expectation has nothing for it to do.",
+      "when": "Assessment of any kind, and it is everywhere in feedback. Learners hear it about their own Japanese constantly.",
+      "watch": "It always contains a small put-down. 日本語にしては上手 means good for a Japanese person, which is not a compliment; 日本人にしては is a different and stranger claim. Check what category you have put the person in before you say it."
+     },
+     "ex": [
+      [
+       "初めてにしては、よくできました。",
+       "For a first attempt, that went well."
+      ],
+      [
+       "冬にしては暖かいですね。",
+       "It's warm for winter."
+      ],
+      [
+       "値段にしては、いい品物です。",
+       "For the price, it's a good item."
+      ]
+     ]
+    },
+    {
+     "id": "nishitemo",
+     "jp": "〜にしても",
+     "en": "even granting that",
+     "kind": "grammar",
+     "exp": {
+      "what": "One kana away from にしては and a different job. It CONCEDES a point and then presses on anyway: 忙しいにしても、連絡ぐらいできるでしょう — even granting you were busy, you could have sent a message.",
+      "build": "Plain form or noun + にしても. The doubled form にしても〜にしても means whichever of two: 行くにしても行かないにしても.",
+      "when": "Disagreement that grants the other person's excuse before overriding it — which is how an adult argument in Japanese is conducted.",
+      "watch": "The は/も swap is the whole difference and it is easy to mishear. にしては measures against a standard; にしても grants and overrides. 学生にしては安い is cheap for a student; 学生にしても払うべきだ says even being a student, you should pay."
+     },
+     "ex": [
+      [
+       "忙しいにしても、連絡はできたはずです。",
+       "Busy or not, you could have got in touch."
+      ],
+      [
+       "行くにしても行かないにしても、早く決めて。",
+       "Going or not, decide soon."
+      ],
+      [
+       "高いにしても、必要なものです。",
+       "Expensive though it may be, we need it."
+      ]
+     ]
+    },
+    {
+     "id": "kawarini",
+     "jp": "〜代わりに",
+     "en": "instead of, and in return for",
+     "kind": "grammar",
+     "exp": {
+      "what": "Two senses that are easier together than apart. SUBSTITUTION — this rather than that. And EXCHANGE — this, but in return that. 手伝う代わりに、夕食をおごって: I'll help, but you're buying dinner.",
+      "build": "Dictionary or plain form + 代わりに, or noun + の + 代わりに. Which sense is running is decided by whether the two halves are alternatives or a trade.",
+      "when": "Everyday negotiation and everyday substitution — an ingredient you did not have, a favour with a price, a plan changed.",
+      "watch": "Step 37's にかわって is not this. にかわって is taking somebody's ROLE — speaking on their behalf. 代わりに is the ordinary instead of, including for objects and actions, which にかわって cannot do."
+     },
+     "ex": [
+      [
+       "バターの代わりに油を使いました。",
+       "I used oil instead of butter."
+      ],
+      [
+       "手伝う代わりに、夕食をおごってください。",
+       "I'll help — in return, dinner's on you."
+      ],
+      [
+       "行けない代わりに、手紙を書きます。",
+       "Since I can't go, I'll write instead."
+      ]
+     ]
+    },
+    {
+     "id": "sb-setsuzoku",
+     "jp": "段落のつくり方",
+     "en": "how a paragraph holds together",
+     "kind": "skill",
+     "exp": {
+      "what": "Sentences you can already build. What this step adds is the JOINTS — and Japanese puts most of them at the head of a sentence rather than between clauses, which is why learner writing so often reads as a list of correct sentences that do not add up to anything.",
+      "build": "Restate: つまり. Reverse: ところが. Balance: 一方で / 一方. Justify: なぜなら〜からです. Add: それに / さらに. Conclude: そのため / その結果.",
+      "when": "Every paragraph you write from now on. This is the difference between passing a writing task and being read.",
+      "watch": "Do not join everything with が and から. A sentence with three が in it is grammatical and exhausting; breaking it into two sentences with ところが between them says the same thing and reads like Japanese."
+     },
+     "ex": [
+      [
+       "安いと思った。ところが、高かった。",
+       "Reverse — the expectation broke."
+      ],
+      [
+       "便利な一方で、高いです。",
+       "Balance — both true at once."
+      ],
+      [
+       "反対です。なぜなら、時間がないからです。",
+       "Justify — claim first, reason after."
+      ]
+     ]
+    },
+    {
+     "id": "cc-fukushi",
+     "jp": "副詞のひきだし",
+     "en": "the drawer of small words",
+     "kind": "culture",
+     "exp": "Every JLPT grammar list carries a tier of words that are not grammar at all. おそらく. もしかしたら. 確かに. めったに. なるべく. ふと. 別に. 決して. They have no conjugation and no structure — they are adverbs, and a list will hand you eight definitions that are all approximately \"probably\" or \"hardly\".\n\nDefinitions are the wrong instrument. What these words actually do is set a TEMPERATURE, and the way to learn them is to watch the same sentence change as you swap them.\n\nTake 雨が降ります.\n\nおそらく雨が降るでしょう — probably, and I have a reason. This is the forecaster's word: measured, slightly formal, and it implies evidence behind it.\n\nもしかしたら雨が降るかもしれません — maybe, and I have no idea really. Where おそらく leans toward yes, もしかしたら raises a possibility precisely because it is unlikely. It nearly always wants かもしれない at the end.\n\n確かに雨は降りました。でも — certainly, it did rain. This one is a concession, not a claim. When a Japanese speaker opens with 確かに, a but is coming, and hearing that lets you know a disagreement is on its way before it arrives.\n\nめったに雨が降りません — hardly ever, and it takes a negative. So does 決して, which is stronger and more absolute: 決して雨が降らない would be a claim about the climate rather than the month.\n\n別に is the one that will be said TO you most. 別に、大丈夫です — not particularly, it's fine. It softens a refusal and it also, said flatly, signals that something is not fine at all. Tone does all the work.\n\nなるべく早く来てください — as much as possible. It is the polite way to ask for speed without setting a deadline, and it is on half the notices you will read.\n\nふと belongs to a different register entirely — it is narrative. ふと思い出した, the memory that arrives unbidden. You will read it far more than you say it.\n\nThe useful move is not to memorise these. It is to notice, next time you read a Japanese sentence, that one of them is there and that removing it would leave the sentence true and flat. That is what they are for.",
+     "ex": [
+      [
+       "おそらく雨が降るでしょう。",
+       "Probably — measured, with reason behind it."
+      ],
+      [
+       "確かに高いです。でも、質がいいです。",
+       "Certainly — and a 'but' is coming."
+      ],
+      [
+       "なるべく早くお願いします。",
+       "As soon as you can — a request without a deadline."
+      ]
+     ]
+    },
+    {
+     "id": "cc-kaiwa",
+     "jp": "話し言葉のつなぎ",
+     "en": "the connectors nobody writes down",
+     "kind": "culture",
+     "exp": "This step taught you the joints of written Japanese. Spoken Japanese uses almost none of them, and a learner who has only the written set sounds like a well-written report walking around.\n\nなぜなら becomes だって. 「なぜなら時間がないからです」 is what you write. 「だって時間ないもん」 is what a friend says, and もん at the end is a small childish complaint that a dictionary will not tell you about.\n\nしかし and ところが become でも and けど. けど at the END of a sentence, trailing off, is one of the most common things in spoken Japanese and it means nothing more than a softening — 「ちょっと難しいんですけど…」 leaves the refusal unsaid so that nobody has to hear it.\n\nそれから and さらに become あと. 「あと、これもお願いします」 — and also this.\n\nThen there are the fillers, and they are not laziness. なんか is the most common word in casual Japanese that no textbook teaches: 「なんか、疲れた」 — I'm sort of tired. It hedges, it buys a second, and its absence is what makes careful learner speech sound strained.\n\nなんて and なんか also do a dismissive job: 「宿題なんてやりたくない」 — homework and things like it, said with a wave of the hand.\n\nっけ is the memory particle, and it is enormously useful: 「名前、何だっけ？」 — what was your name again? It admits you have forgotten in a way that is charming rather than rude, because the particle itself carries the apology.\n\nてごらん is what an adult says to a child or a teacher to a student: 「食べてごらん」 — go on, try it. Warm, and firmly downward — you will hear it far more often than you should say it.\n\nAnd たとえば survives unchanged into speech, which makes it the most useful word in this lesson: 「たとえば？」 as a one-word question — for example? — will get you a concrete answer out of any explanation that has gone abstract.\n\nThe point is not that written Japanese is formal and speech is sloppy. They are two different systems, and the connectors are where they diverge most visibly. Knowing that the register has changed is more useful than knowing any single word here.",
+     "ex": [
+      [
+       "ちょっと難しいんですけど…",
+       "Trailing けど — the refusal that never has to be said."
+      ],
+      [
+       "なんか、疲れた。",
+       "なんか hedging — the filler that makes speech sound like speech."
+      ],
+      [
+       "名前、何だっけ？",
+       "っけ — forgetting, charmingly."
+      ]
+     ]
+    },
+    {
+     "id": "b-s43",
+     "jp": "Composition · 意見文",
+     "en": "one opinion, properly joined",
+     "kind": "build",
+     "requires": [
+      "sb-setsuzoku",
+      "ippoude",
+      "nazenara"
+     ],
+     "brief": "Take a position on something small and real — whether a city is a good place to live, whether learning kanji early is worth it. State it, justify it with なぜなら〜からです, concede the other side with 〜一方で, and close with つまり. Five or six sentences, and no sentence joined with が.",
+     "exp": {
+      "what": "The stage's final composition and the level's exit exam: a paragraph that holds together, rather than five correct sentences in a row.",
+      "build": "Position → reason → the other side → restatement. Head-of-sentence connectors, not clause joiners.",
+      "when": "This is the shape of the JLPT reading passages you have been struggling with, written from the inside. Producing one is the fastest way to stop finding them opaque.",
+      "watch": "The ban on が is the exercise. It is grammatical and it is a crutch — it lets a paragraph run on without ever committing to what relation the parts bear to each other."
+     },
+     "ex": []
+    }
+   ],
+   "deep": {}
+  },
+  {
+   "cat": "Checkpoint 9 · Stage review",
+   "level": "S11",
+   "after_step": "Step 43 · The connectors",
+   "note": "The real end of N3. ms-n3 lives here now — it sat at the end of Stage 9 telling the learner they had covered the level, which was false from the day it shipped and was caught because a capability claim is falsifiable in a way a stage label is not.",
+   "points": [
+    {
+     "id": "rc9",
+     "jp": "復習 · Stage 10",
+     "en": "checkpoint: the full stage",
+     "kind": "review",
+     "covers": [
+      "toiukoto",
+      "toiuto",
+      "toiunowa",
+      "toiuyori",
+      "toittemo",
+      "sb-toiu2",
+      "niyoruto",
+      "nikanshite",
+      "nikurabete",
+      "nitsurete",
+      "nikakete",
+      "tomoni",
+      "sb-hikaku",
+      "wohajime",
+      "wochuushin",
+      "nikawatte",
+      "mukimuke",
+      "chuujuu",
+      "tochuu",
+      "sb-hanni",
+      "shikanai",
+      "baii",
+      "sae",
+      "kotoda",
+      "kotohanai",
+      "naikotohanai",
+      "temokamawanai",
+      "sb-sentaku",
+      "wakeganai",
+      "wakeniwaikanai",
+      "towakagiranai",
+      "soumonai",
+      "sb-hitei",
+      "bayokatta",
+      "taraii",
+      "toshitara",
+      "zuniwairarenai",
+      "younakigasuru",
+      "marude",
+      "sb-katei",
+      "darake",
+      "ppoi",
+      "gatai",
+      "kirenai",
+      "kiri",
+      "ippouda",
+      "sb-teido2",
+      "uchini",
+      "tabini",
+      "tsuideni",
+      "tehajimete",
+      "kekka",
+      "tameni",
+      "sb-toki2",
+      "tsumari",
+      "tokoroga",
+      "ippoude",
+      "nazenara",
+      "nishiteha",
+      "nishitemo",
+      "kawarini",
+      "sb-setsuzoku",
+      "sb-kyoudai"
+     ],
+     "exp": "The precision stage, reviewed — and the review is deliberately about DISTINGUISHING rather than producing, because almost every error left at this level is a near-miss between two patterns that differ by one kana.\n\nThe pairs worth arriving able to separate: にしては against にしても. 向き against 向け. うちに against 間に. によると against によって. 一方だ against 一方で. としたら against たら. And the whole という family, told apart by what follows it.\n\nNone of these are difficult once seen side by side. All of them are invisible if you only ever meet them one at a time, which is what a grammar list does to a learner and what this checkpoint exists to undo.",
+     "ex": []
+    },
+    {
+     "id": "ms-n3",
+     "jp": "N3の範囲、ぜんぶ",
+     "en": "everything the N3 syllabus expects",
+     "kind": "review",
+     "exp": "Now it is true.\n\nThis lesson used to sit at the end of Stage 9, and it was wrong. Stage 9 closed the argument layer — cause with an owner, the compound particles, conclusions drawn and denied — and that was real work, but an audit against a full N3 list found eighty-four patterns still missing. A milestone that states a capability can be checked, and this one failed the check. It moved here, where it holds.\n\nWhat you can now do that you could not at N4:\n\nYou can say a thing and then say it better — define it, correct the word, and take it back a size. You can attach a claim to its source, measure it against a baseline, and describe two things changing in step. You can say who something is for and whether anybody meant it that way. You can express that there is nothing else for it, and that this much is already enough. You can deny an inference without denying a fact, which is the most useful thing in this stage and the hardest to do in a second language. You can regret, hope, suppose and compare to something that is not so. And you can join a paragraph at the head of its sentences, which is what makes writing read as writing.\n\nThe honest description of the change: at N5 you could say what things were. At N4 you could say things about things. At N3 you can say exactly how much you mean it — and that is the whole difference between being understood and being believed.\n\nWhat sits above this is not a new kind of grammar. N2 and N1 are a longer tail of the same machinery, plus a great deal of reading. From here the most useful thing is not another stage but a habit: read something every day that was not written for learners, and let the patterns you have just met show you how often they were there all along.",
+     "ex": []
+    }
+   ],
+   "deep": {}
+  }
+ ]
 }

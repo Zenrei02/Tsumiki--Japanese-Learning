@@ -1,255 +1,602 @@
 {
-  "_": "Stage 11 · Nuance — N2 opens. Steps 44–46. Spliced by build-stage3.py. Blueprint in stage-11-blueprint-v1.md, approved by Lloyd Session 18.",
-  "_theme": "Stage 9 taught the learner to argue; Stage 10 to say it precisely. Stage 11 is where the language starts holding its shape under pressure — refusing politely, speaking at ceremonies, writing for the record. The register climbs and the stakes are other people's opinion of you.",
-  "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch P. The formal register is where a small wrongness costs most — にあたって vs に際して nuance and かねます in customer speech want the closest native read.",
-  "insert": [],
-  "new_steps": [
+ "_": "Stage 11 · Nuance — N2 opens. Steps 44–46. Spliced by build-stage3.py. Blueprint in stage-11-blueprint-v1.md, approved by Lloyd Session 18.",
+ "_theme": "Stage 9 taught the learner to argue; Stage 10 to say it precisely. Stage 11 is where the language starts holding its shape under pressure — refusing politely, speaking at ceremonies, writing for the record. The register climbs and the stakes are other people's opinion of you.",
+ "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch P. The formal register is where a small wrongness costs most — にあたって vs に際して nuance and かねます in customer speech want the closest native read.",
+ "insert": [],
+ "new_steps": [
+  {
+   "cat": "Step 44 · No way around it",
+   "level": "S12",
+   "after_step": "Step 43 · The connectors",
+   "note": "Stage 11 opens. N3 could refuse (わけにはいかない) and regret (ばよかった). These are the adult forms: obligation you accept with distaste, refusal wrapped for customers, and possibilities you rule out entirely.",
+   "bank": [
+    [
+     "残業",
+     "overtime"
+    ],
+    [
+     "締め切り",
+     "deadline"
+    ],
+    [
+     "断る",
+     "to refuse"
+    ],
+    [
+     "命令",
+     "an order"
+    ],
+    [
+     "引き受ける",
+     "to take (a task) on"
+    ],
+    [
+     "諦める",
+     "to give up"
+    ],
+    [
+     "支払い",
+     "payment"
+    ],
+    [
+     "無理",
+     "impossible; unreasonable"
+    ]
+   ],
+   "points": [
     {
-      "cat": "Step 44 · No way around it",
-      "level": "S11",
-      "after_step": "Step 43 · The connectors",
-      "note": "Stage 11 opens. N3 could refuse (わけにはいかない) and regret (ばよかった). These are the adult forms: obligation you accept with distaste, refusal wrapped for customers, and possibilities you rule out entirely.",
-      "bank": [["残業", "overtime"], ["締め切り", "deadline"], ["断る", "to refuse"], ["命令", "an order"], ["引き受ける", "to take (a task) on"], ["諦める", "to give up"], ["支払い", "payment"], ["無理", "impossible; unreasonable"]],
-      "points": [
-        {
-          "id": "zaruwoenai", "jp": "〜ざるを得ない", "en": "no choice but to — and I mind", "kind": "grammar",
-          "exp": {
-            "what": "しかない said there was no other option and stayed casual about it. ざるを得ない says the same thing in a stiffer collar, and adds a feeling: I am doing this because refusing is not available, and you can hear that I would have refused. ざる is the old negative — 'not-doing' — so the bones read 'cannot get away with not doing.'",
-            "build": "Verb ない-stem + ざるを得ない: 行かざるを得ない, 認めざるを得ない. する becomes せざるを得ない — the same old-Japanese stem that gave you せず. It conjugates like an い-less verb: past 〜ざるを得なかった.",
-            "when": "Written and formal spoken Japanese: reports, apologies, meetings. Accepting overtime, conceding a point, cancelling something you promised. It signals reluctance without complaining — which is exactly the register Japanese workplaces run on.",
-            "watch": "It needs real pressure behind it. 食べざるを得ない about a snack is comedy. And keep the する exception straight: しざるを得ない is wrong, せざるを得ない is the form — the ず/ざる family always reaches back to せ."
-          },
-          "ex": [["予算がないので、計画を諦めざるを得ない。", "With no budget, we have no choice but to give up the plan."], ["部長の命令だから、引き受けざるを得なかった。", "It was the director's order, so I had no choice but to take it on."]]
-        },
-        {
-          "id": "youganai", "jp": "〜ようがない", "en": "there's no way to", "kind": "grammar",
-          "exp": {
-            "what": "Not 'it's hard' and not 'I can't' — the route itself is missing. 直しようがない: there is no way the fixing could even be attempted. The pattern removes the method, not the will.",
-            "build": "Verb ます-stem + ようがない: 言いようがない, 連絡しようがない. The よう here is the same one as in 言いよう — 'way of saying' — with がない bolted on: the way doesn't exist.",
-            "when": "When the missing piece is a means: no address, no parts, no words. 説明しようがない is the honest answer when the facts themselves are missing, and it is gentler than 説明できない because it blames the situation, not your ability.",
-            "watch": "Contrast with できない: 泳げない means you never learned; 泳ぎようがない means the pool is empty. If a listener could reply 'but you could if…', ようがない was the wrong claim."
-          },
-          "ex": [["住所が分からないので、知らせようがない。", "I don't know the address, so there's no way to inform them."], ["ここまで壊れていると、直しようがない。", "Broken this badly, there's no way to fix it."]]
-        },
-        {
-          "id": "kaneru", "jp": "〜かねる／〜かねない", "en": "cannot quite — and its dangerous twin", "kind": "grammar",
-          "exp": {
-            "what": "かねる is refusal in a suit: 分かりかねます means 'I am not in a position to know that,' said across a counter with a bow in it. かねない is its mirror and it flips the meaning entirely — 'might well (do something bad)': 事故になりかねない, this could easily end in an accident.",
-            "build": "Verb ます-stem + かねる for the polite cannot: 致しかねます, お答えしかねます. Same stem + かねない for the might-well: なりかねない, 忘れかねない. The negative-looking one is the affirmative threat — that is the trap.",
-            "when": "かねる is service Japanese: you will hear it every time a clerk refuses you something. かねない belongs in warnings — always about outcomes nobody wants.",
-            "watch": "The pair inverts English instincts: かねる (looks positive) = can't; かねない (looks negative) = might. And かねない never takes good outcomes: 合格しかねない is wrong — the pattern smells of trouble by definition."
-          },
-          "ex": [["その質問にはお答えし かねます。", "I'm afraid I cannot answer that question."], ["このままでは、大きな問題になりかねない。", "At this rate, it could well turn into a serious problem."]]
-        },
-        {
-          "id": "mai", "jp": "〜まい", "en": "surely not / never again", "kind": "grammar",
-          "exp": {
-            "what": "One old ending, two jobs. On your own actions it is a vow of not-doing: 二度と行くまい, I'll never go again. About the world it is a formal 'probably not': 雨は降るまい, it will hardly rain. Both readings share a stiffness — まい belongs to writing and to speeches, not to texting.",
-            "build": "Dictionary form + まい for godan verbs: 行くまい, 言うまい. Ichidan and the irregulars prefer the stem: 食べまい, するまい／しまい, 来るまい／来（こ）まい — variation exists and the dictionary-form version is always safe.",
-            "when": "Resolutions after a bad experience (二度と〜まい is the set shape), and written prediction where だろう would sound too soft. You will read it far more than you will say it.",
-            "watch": "まい is negative already — 行かないまい doubles the negative and breaks. And the vow reading only works on YOUR actions; 彼は行くまい can only be the 'probably not' sense."
-          },
-          "ex": [["あんな店には二度と行くまい。", "I will never go to that place again."], ["彼はもう戻るまいと、みんなが思っていた。", "Everyone thought he would surely not come back."]]
-        },
-        {
-          "id": "nukide", "jp": "〜抜きで／を抜きにして", "en": "leaving X out of it", "kind": "grammar",
-          "exp": {
-            "what": "A subtraction marker for situations: 冗談抜きで, joking aside; 社長抜きで, without the president present. What follows proceeds with the named thing deliberately removed.",
-            "build": "Noun + 抜きで, or Noun + を抜きにして for the heavier version: お世辞を抜きにして言うと… The verb 抜く — pull out — is doing the work: the noun has been pulled out of the situation.",
-            "when": "Setting ground rules for a conversation (formality aside, budget aside), and ordering food without something — わさび抜きで is the everyday face of the same grammar.",
-            "watch": "It removes something expected. 抜きで on a thing nobody assumed was there reads as strange — the pattern implies the default included it."
-          },
-          "ex": [["冗談抜きで、締め切りは明日です。", "Joking aside, the deadline is tomorrow."], ["今日は仕事の話を抜きにして、楽しみましょう。", "Let's leave work talk out of it today and enjoy ourselves."]]
-        },
-        {
-          "id": "sb-zaru", "jp": "ざる・ず・まい", "en": "the old negatives, mapped", "kind": "skill",
-          "exp": {
-            "what": "Three fossils of the classical negative survive in modern formal Japanese, and Stage 11 uses all of them: ず (Step 40's 〜ずに), ざる (ざるを得ない), and まい. They are one system, not three exceptions.",
-            "build": "All three build on the ない-stem: 行かず・行かざる・(行くまい stands apart, taking the dictionary form). する reaches back to せ for the first two — せず, せざる — which is why しざる sounds wrong to every native ear.",
-            "when": "Recognising them turns formal writing from a wall into a pattern: 〜ざる者 in proverbs, 〜ず in headlines, まい in editorials. Producing them, you only need the three fixed shapes this stage teaches.",
-            "watch": "The trap is regularising する: しずに and しざるを得ない are the learner errors the checker will flag. Old grammar keeps old stems."
-          },
-          "ex": [["働かざる者、食うべからず。", "He who does not work shall not eat. (the proverb — ざる in the wild)"], ["何も言わず、部屋を出た。", "Without a word, I left the room."]]
-        },
-        {
-          "id": "b-s44", "jp": "Composition · 断りのメール", "en": "decline, formally, in four lines", "kind": "build",
-          "exp": {
-            "what": "Write a four-line refusal: the situation, the impossibility (ようがない or ざるを得ない), the polite cannot (かねます), and one alternative you CAN offer.",
-            "build": "Line shape to steal: 残念ですが、今回は引き受けざるを得ない事情があり、お受けし かねます。代わりに〜はいかがでしょうか。",
-            "when": "This is the single most reusable email shape in working Japanese — declining without closing the door.",
-            "watch": "Keep the feeling out of the middle lines. The reluctance lives inside ざるを得ない already; adding とても悲しいです on top makes it about you."
-          },
-          "ex": [["申し訳ありませんが、その日は出席し かねます。", "I'm terribly sorry, but I'm unable to attend that day."]]
-        }
+     "id": "zaruwoenai",
+     "jp": "〜ざるを得ない",
+     "en": "no choice but to — and I mind",
+     "kind": "grammar",
+     "exp": {
+      "what": "しかない said there was no other option and stayed casual about it. ざるを得ない says the same thing in a stiffer collar, and adds a feeling: I am doing this because refusing is not available, and you can hear that I would have refused. ざる is the old negative — 'not-doing' — so the bones read 'cannot get away with not doing.'",
+      "build": "Verb ない-stem + ざるを得ない: 行かざるを得ない, 認めざるを得ない. する becomes せざるを得ない — the same old-Japanese stem that gave you せず. It conjugates like an い-less verb: past 〜ざるを得なかった.",
+      "when": "Written and formal spoken Japanese: reports, apologies, meetings. Accepting overtime, conceding a point, cancelling something you promised. It signals reluctance without complaining — which is exactly the register Japanese workplaces run on.",
+      "watch": "It needs real pressure behind it. 食べざるを得ない about a snack is comedy. And keep the する exception straight: しざるを得ない is wrong, せざるを得ない is the form — the ず/ざる family always reaches back to せ."
+     },
+     "ex": [
+      [
+       "予算がないので、計画を諦めざるを得ない。",
+       "With no budget, we have no choice but to give up the plan."
+      ],
+      [
+       "部長の命令だから、引き受けざるを得なかった。",
+       "It was the director's order, so I had no choice but to take it on."
       ]
+     ]
     },
     {
-      "cat": "Step 45 · Occasions",
-      "level": "S11",
-      "after_step": "Step 44 · No way around it",
-      "note": "N5 pinned actions to clock time; Step 19 walked time's edges. This step is about OCCASIONS — the marked moments a life is measured in — and the formal timing grammar that ceremonies, contracts and announcements run on.",
-      "bank": [["面接", "a job interview"], ["入社式", "company entrance ceremony"], ["卒業", "graduation"], ["契約", "a contract"], ["更新", "renewal"], ["引っ越す", "to move house"], ["乾杯", "a toast"], ["司会", "the MC; chairing"]],
-      "points": [
-        {
-          "id": "nisaishite", "jp": "〜に際して", "en": "on the occasion of", "kind": "grammar",
-          "exp": {
-            "what": "とき says when something happens; に際して says the moment is an OCCASION — marked, formal, worth a sentence of its own. 契約に際して is not 'when contracting' but 'on the occasion of entering this contract.'",
-            "build": "Noun or dictionary-form verb + に際して: ご利用に際して, 出発に際して. Written notices prefer に際しての before a noun: 入学に際しての注意.",
-            "when": "Contracts, ceremonies, first days, official notices — anywhere the moment itself has weight. It is the phrase on the first page of every terms-of-service you will never read.",
-            "watch": "Everyday moments reject it: 昼ご飯に際して is a joke. If とき would do, use とき — に際して spends formality, and spending it on lunch reads as sarcasm."
-          },
-          "ex": [["ご契約に際して、以下の書類が必要です。", "On entering the contract, the following documents are required."], ["出発に際して、一言ご挨拶申し上げます。", "On the occasion of departure, allow me a word of greeting."]]
-        },
-        {
-          "id": "niatatte", "jp": "〜にあたって", "en": "at the threshold of", "kind": "grammar",
-          "exp": {
-            "what": "The sibling of に際して, standing a half-step earlier: にあたって faces a significant undertaking about to begin, and usually introduces preparation or resolve. 新学期を迎えるにあたって — as the new term is about to open.",
-            "build": "Noun or dictionary-form verb + にあたって（は）: 開店にあたって, 面接を受けるにあたって. Speeches love it as an opener.",
-            "when": "Kick-off speeches, prefaces, the first slide of a presentation. It frames what follows as the preparation the moment deserves.",
-            "watch": "Both this and に際して need positive-or-neutral undertakings — 事故にあたって is broken, because an accident is not a threshold anyone stands at deliberately. For bad events, plain とき carries no such expectation."
-          },
-          "ex": [["面接を受けるにあたって、会社のことをよく調べた。", "Ahead of the interview, I researched the company thoroughly."], ["新生活を始めるにあたって、荷物を減らした。", "On starting the new life, I cut down my belongings."]]
-        },
-        {
-          "id": "teirai", "jp": "〜て以来", "en": "ever since", "kind": "grammar",
-          "exp": {
-            "what": "てから says 'after'; て以来 says 'ever since — and it has stayed that way.' 引っ越して以来 opens a state that began at the move and still holds at the moment of speaking.",
-            "build": "て-form + 以来: 卒業して以来, 会って以来. Also Noun + 以来: 入社以来, あれ以来. The following clause must describe something continuing, not a one-time event.",
-            "when": "Catching up (あれ以来どう？), résumés and self-introductions (入社以来ずっと営業です), and any sentence whose point is an unbroken stretch.",
-            "watch": "One-time results break it: 引っ越して以来、机を買った is wrong — buying happened once. If the second half could take ずっと, て以来 fits; if not, てから was the word."
-          },
-          "ex": [["日本に来て以来、ずっとこの町に住んでいます。", "Ever since coming to Japan, I've lived in this town."], ["卒業して以来、彼とは会っていない。", "I haven't seen him since graduation."]]
-        },
-        {
-          "id": "kanaikauchini", "jp": "〜か〜ないかのうちに", "en": "barely — before it even finished", "kind": "grammar",
-          "exp": {
-            "what": "Two events packed so close the first hadn't clearly ended: ベルが鳴るか鳴らないかのうちに, before the bell had even finished ringing. The grammar performs the overlap by asking 'did it happen or not yet?' and answering 'both.'",
-            "build": "Same verb, affirmative + ないかのうちに: 言うか言わないかのうちに, 着くか着かないかのうちに. The second event follows immediately.",
-            "when": "Storytelling, mostly — it is the pattern for eagerness and abruptness. The train doors, the starting gun, the child out of the door before goodbye landed.",
-            "watch": "The two verbs must be the SAME verb — 鳴るか終わらないかのうちに breaks the mechanism. And the second event must be actual and instant; a slow consequence wants と or たとたん instead."
-          },
-          "ex": [["乾杯が終わるか終わらないかのうちに、料理が運ばれてきた。", "The food arrived before the toast had even finished."], ["ドアが開くか開かないかのうちに、猫が飛び出した。", "The cat shot out before the door was barely open."]]
-        },
-        {
-          "id": "tekaradenaito", "jp": "〜てからでないと", "en": "not until — the gate", "kind": "grammar",
-          "exp": {
-            "what": "A hard sequencing gate: until X is done, Y cannot happen. 契約してからでないと、鍵は渡せません — no key until the contract is signed. The pattern states a precondition and closes the door on shortcuts.",
-            "build": "て-form + からでないと + a negative or impossible outcome: 確認してからでないと分かりません. The heavier written variant is てからでなければ.",
-            "when": "Rules, procedures, counters — everywhere Japan's love of correct order becomes grammar. It is the polite mechanics behind '手続きが先です.'",
-            "watch": "The second half must be negative or blocked (できない, 分からない, 渡せません). A positive follow-up wants plain てから: 食べてから行く, no gate needed."
-          },
-          "ex": [["上司に相談してからでないと、お返事できません。", "I can't reply until I've consulted my boss."], ["書類が届いてからでないと、更新の手続きは始められない。", "The renewal process can't start until the documents arrive."]]
-        },
-        {
-          "id": "cc-shiki", "jp": "式という一日", "en": "the ceremony day", "kind": "culture",
-          "exp": {
-            "what": "Japan marks thresholds with 式 — a ceremony with assigned seats and a script. 入学式 and 卒業式 bracket every school year; 入社式 opens working life each April 1st, whole cohorts in identical suits; 結婚式 needs no translation. The suffix 式 on a noun is a reliable signal that attendance, dress and timing are all decided for you.",
-            "build": "The vocabulary cluster: 司会 runs the room, 乾杯 is the one moment everyone speaks at once, 挨拶 is the speech genre the timing grammar of this step was built for — に際して and にあたって live in ceremony speeches.",
-            "when": "You will attend more 式 than you expect, and being able to read the程 of one — who speaks, when to clap, that the 乾杯 unfreezes the room — is worth more than any single grammar point in it.",
-            "watch": "April carries the year's thresholds: the school year and the corporate year both begin then, which is why 入学式 and 入社式 photographs both happen under cherry blossoms. That timing is institutional, not symbolic — the fiscal year drives it."
-          },
-          "ex": [["入社式にあたって、社長が挨拶をした。", "At the entrance ceremony, the president gave an address."]]
-        },
-        {
-          "id": "b-s45", "jp": "Composition · スピーチの冒頭", "en": "open a short speech", "kind": "build",
-          "exp": {
-            "what": "Write the first three lines of a ceremony speech: the occasion (にあたって／に際して), one ever-since line (て以来), and a thank-you.",
-            "build": "Shape to steal: 本日、〜にあたって、一言ご挨拶申し上げます。〜て以来、〜。皆様、ありがとうございます。",
-            "when": "The opener transfers to every formal setting — a toast, a first day, a farewell.",
-            "watch": "The occasion grammar carries the formality; the rest of the lines should stay plain or the speech turns to syrup."
-          },
-          "ex": [["本日、開店にあたって、一言ご挨拶申し上げます。", "On the occasion of our opening today, allow me a brief word of greeting."]]
-        }
+     "id": "youganai",
+     "jp": "〜ようがない",
+     "en": "there's no way to",
+     "kind": "grammar",
+     "exp": {
+      "what": "Not 'it's hard' and not 'I can't' — the route itself is missing. 直しようがない: there is no way the fixing could even be attempted. The pattern removes the method, not the will.",
+      "build": "Verb ます-stem + ようがない: 言いようがない, 連絡しようがない. The よう here is the same one as in 言いよう — 'way of saying' — with がない bolted on: the way doesn't exist.",
+      "when": "When the missing piece is a means: no address, no parts, no words. 説明しようがない is the honest answer when the facts themselves are missing, and it is gentler than 説明できない because it blames the situation, not your ability.",
+      "watch": "Contrast with できない: 泳げない means you never learned; 泳ぎようがない means the pool is empty. If a listener could reply 'but you could if…', ようがない was the wrong claim."
+     },
+     "ex": [
+      [
+       "住所が分からないので、知らせようがない。",
+       "I don't know the address, so there's no way to inform them."
+      ],
+      [
+       "ここまで壊れていると、直しようがない。",
+       "Broken this badly, there's no way to fix it."
       ]
+     ]
     },
     {
-      "cat": "Step 46 · Breadth",
-      "level": "S11",
-      "after_step": "Step 45 · Occasions",
-      "note": "Step 37 taught audience and coverage one noun at a time. This step is the wide-angle set: patterns that claim a whole range — regardless of, not only, spanning, throughout — the grammar of job postings, surveys and announcements.",
-      "bank": [["全国", "the whole country"], ["年齢", "age"], ["性別", "sex; gender"], ["分野", "a field (of work/study)"], ["期間", "a period (of time)"], ["対象", "the target; those covered"], ["幅広い", "broad; wide-ranging"], ["国籍", "nationality"]],
-      "points": [
-        {
-          "id": "wotowazu", "jp": "〜を問わず", "en": "regardless of", "kind": "grammar",
-          "exp": {
-            "what": "The recruiting-poster pattern: 年齢を問わず, regardless of age — the named category is declared irrelevant. 問わず is 問う (to ask) in the old negative you met in sb-zaru: 'without asking.'",
-            "build": "Noun + を問わず: 経験を問わず, 昼夜を問わず. The noun is usually a category with obvious alternatives — age, sex, experience, weather, day or night.",
-            "when": "Job ads, event announcements, product claims. 国籍を問わず on a hiring page is the sentence this step's vocabulary was chosen for.",
-            "watch": "The noun must be a dimension, not an individual: 田中さんを問わず fails because 田中さん isn't a category. And it lives in writing — spoken Japanese says に関係なく instead."
-          },
-          "ex": [["年齢や経験を問わず、どなたでも応募できます。", "Anyone may apply, regardless of age or experience."], ["この店は昼夜を問わず、営業している。", "This shop is open day and night."]]
-        },
-        {
-          "id": "nominarazu", "jp": "〜のみならず", "en": "not only — in writing", "kind": "grammar",
-          "exp": {
-            "what": "だけでなく climbed into formal dress. のみならず is 'not only X but also Y' for documents and news copy, and it expects the second half to widen the claim — smaller thing first, bigger thing after.",
-            "build": "Noun／plain clause + のみならず … も／まで: 学生のみならず教師も. のみ is the written だけ; ならず is the old negative again.",
-            "when": "Reports and articles. In speech it sounds recited — だけでなく still does the daily work.",
-            "watch": "Order matters: the のみならず half is the lesser, expected part; the も half is the surprise. Reversing them reads as bathos — 全国のみならず町内も deflates."
-          },
-          "ex": [["この問題は日本のみならず、世界中で起きている。", "This problem is happening not only in Japan but worldwide."], ["彼は英語のみならず、中国語も話せる。", "He speaks not only English but Chinese too."]]
-        },
-        {
-          "id": "hamotoyori", "jp": "〜はもとより", "en": "goes without saying — and also", "kind": "grammar",
-          "exp": {
-            "what": "A cousin of のみならず with a different center of gravity: X はもとより treats X as so obvious it barely needs saying, then adds Y on top. 平日はもとより週末も — weekdays go without saying; weekends too.",
-            "build": "Noun + はもとより … も: 味はもとより見た目も美しい. もとより means 'from the origin' — X was included from the start.",
-            "when": "Praising and describing scope: menus, reviews, introductions. Warmer and slightly less stiff than のみならず.",
-            "watch": "X must actually be obvious to the listener. Opening with a surprise (東京はもとより火星も) burns the pattern's whole premise — save the news for the も half."
-          },
-          "ex": [["この旅館は料理はもとより、温泉も素晴らしい。", "This inn — the food goes without saying, and the baths are superb too."], ["彼は国内はもとより、海外でも有名だ。", "He is famous at home, naturally, and abroad as well."]]
-        },
-        {
-          "id": "niwatatte", "jp": "〜にわたって", "en": "spanning — the full stretch", "kind": "grammar",
-          "exp": {
-            "what": "A range claimed edge to edge: 三日間にわたって, spanning three full days; 全国にわたって, across the whole country. The verb 渡る — to cross — is underneath: the event crosses the entire named span.",
-            "build": "Noun of span + にわたって（は rarely）, or にわたる before a noun: 十年にわたる研究. The noun must have extent — time, area, range, fields.",
-            "when": "News and reports, where scale is the story: works spanning decades, storms spanning regions, an interview series spanning five sessions.",
-            "watch": "It emphasises the WHOLE span, so small stretches ring false — 五分にわたって会議した is mock-epic. で and の間 handle ordinary durations without fanfare."
-          },
-          "ex": [["工事は三か月にわたって行われた。", "The construction was carried out over a span of three months."], ["彼の研究は幅広い分野にわたっている。", "His research spans a broad range of fields."]]
-        },
-        {
-          "id": "wotsuujite", "jp": "〜を通じて／を通して", "en": "through — channel and duration", "kind": "grammar",
-          "exp": {
-            "what": "Two jobs, one shape. Channel: 友人を通じて知り合った — we met through a friend. Duration: 一年を通じて暖かい — warm throughout the year. Both readings pass something through a medium: an introduction through a person, a climate through a calendar.",
-            "build": "Noun + を通じて or を通して — interchangeable in most uses; を通して leans slightly toward deliberate channels, を通じて toward coverage. Both prefer writing to chat.",
-            "when": "Explaining how you know someone, how information travelled, or that something held all year/period long — the two commonest N2 essay needs in one pattern.",
-            "watch": "For the duration sense the period must be complete: 一年を通じて claims all twelve months. If it only held in summer, the pattern has overclaimed and 夏の間 was the honest phrase."
-          },
-          "ex": [["仕事を通じて、多くの人と知り合った。", "Through work, I've come to know many people."], ["この地方は一年を通して雨が少ない。", "This region has little rain throughout the year."]]
-        },
-        {
-          "id": "nikagirazu", "jp": "〜に限らず", "en": "not limited to", "kind": "grammar",
-          "exp": {
-            "what": "The scope-widener: 学生に限らず、誰でも参加できる — not limited to students; anyone can join. It takes a category the listener assumed was the boundary and erases the boundary.",
-            "build": "Noun + に限らず: 平日に限らず, 日本に限らず. Built on 限る, to limit — the same verb Step 47's sb will meet pointing the OTHER way.",
-            "when": "Announcements and corrections of assumption: the sale isn't just weekends, the rule isn't just beginners. Spoken and written both — this one, unlike を問わず, survives conversation.",
-            "watch": "It presupposes the listener expected the limit. Using it where no one assumed one (犬に限らず動物が好き, said apropos of nothing) sounds like answering a question nobody asked."
-          },
-          "ex": [["この問題は若者に限らず、誰にでも関係がある。", "This issue concerns everyone, not just the young."], ["週末に限らず、平日も混んでいる。", "It's crowded on weekdays too, not just weekends."]]
-        },
-        {
-          "id": "sb-kagiru", "jp": "限る一族 — に限って・に限り・に限らず", "en": "the kagiru family, three directions", "kind": "skill",
-          "exp": {
-            "what": "One verb, three particles, three unrelated-looking meanings. に限らず widens (not limited to). に限り narrows officially (本日に限り, today only — coupon language). に限って does two strange things: picks the one exception (うちの子に限って, MY child would never) and marks cursed timing (急いでいる時に限って電車が遅れる — always exactly when I'm rushing).",
-            "build": "All three are Noun + the fixed form. Only に限らず takes the widening; only に限り belongs on posters; に限って carries the emotional readings.",
-            "when": "Reading them correctly matters more than producing: a coupon's に限り and a parent's に限って cannot be swapped, and the timing-lament に限って is one of the most Japanese sentences there is.",
-            "watch": "The two narrow forms split by register: に限り is official and cold; に限って is personal and hot. Mixing them — 本日に限って50%引き — turns a sale into a complaint about fate."
-          },
-          "ex": [["急いでいる日に限って、バスが来ない。", "It's always the days I'm in a hurry that the bus doesn't come."], ["本日に限り、送料無料です。", "Today only: free shipping."]]
-        },
-        {
-          "id": "b-s46", "jp": "Composition · 募集のお知らせ", "en": "write the recruiting notice", "kind": "build",
-          "exp": {
-            "what": "Write a four-line notice for an event or job: who may apply (を問わず／に限らず), the span (にわたって／を通じて), what's included (のみならず・はもとより), and the deadline.",
-            "build": "Shape to steal: 経験を問わず、どなたでも歓迎します。活動は一年を通じて行います。〆切は〜です。",
-            "when": "The notice register is half of written N2 — this is a rehearsal for reading a hundred of them.",
-            "watch": "Notices state scope, never enthusiasm. If your draft contains 楽しい, the register has slipped."
-          },
-          "ex": [["年齢・国籍を問わず、参加者を募集しています。", "We are recruiting participants regardless of age or nationality."]]
-        }
+     "id": "kaneru",
+     "jp": "〜かねる／〜かねない",
+     "en": "cannot quite — and its dangerous twin",
+     "kind": "grammar",
+     "exp": {
+      "what": "かねる is refusal in a suit: 分かりかねます means 'I am not in a position to know that,' said across a counter with a bow in it. かねない is its mirror and it flips the meaning entirely — 'might well (do something bad)': 事故になりかねない, this could easily end in an accident.",
+      "build": "Verb ます-stem + かねる for the polite cannot: 致しかねます, お答えしかねます. Same stem + かねない for the might-well: なりかねない, 忘れかねない. The negative-looking one is the affirmative threat — that is the trap.",
+      "when": "かねる is service Japanese: you will hear it every time a clerk refuses you something. かねない belongs in warnings — always about outcomes nobody wants.",
+      "watch": "The pair inverts English instincts: かねる (looks positive) = can't; かねない (looks negative) = might. And かねない never takes good outcomes: 合格しかねない is wrong — the pattern smells of trouble by definition."
+     },
+     "ex": [
+      [
+       "その質問にはお答えし かねます。",
+       "I'm afraid I cannot answer that question."
+      ],
+      [
+       "このままでは、大きな問題になりかねない。",
+       "At this rate, it could well turn into a serious problem."
       ]
+     ]
+    },
+    {
+     "id": "mai",
+     "jp": "〜まい",
+     "en": "surely not / never again",
+     "kind": "grammar",
+     "exp": {
+      "what": "One old ending, two jobs. On your own actions it is a vow of not-doing: 二度と行くまい, I'll never go again. About the world it is a formal 'probably not': 雨は降るまい, it will hardly rain. Both readings share a stiffness — まい belongs to writing and to speeches, not to texting.",
+      "build": "Dictionary form + まい for godan verbs: 行くまい, 言うまい. Ichidan and the irregulars prefer the stem: 食べまい, するまい／しまい, 来るまい／来（こ）まい — variation exists and the dictionary-form version is always safe.",
+      "when": "Resolutions after a bad experience (二度と〜まい is the set shape), and written prediction where だろう would sound too soft. You will read it far more than you will say it.",
+      "watch": "まい is negative already — 行かないまい doubles the negative and breaks. And the vow reading only works on YOUR actions; 彼は行くまい can only be the 'probably not' sense."
+     },
+     "ex": [
+      [
+       "あんな店には二度と行くまい。",
+       "I will never go to that place again."
+      ],
+      [
+       "彼はもう戻るまいと、みんなが思っていた。",
+       "Everyone thought he would surely not come back."
+      ]
+     ]
+    },
+    {
+     "id": "nukide",
+     "jp": "〜抜きで／を抜きにして",
+     "en": "leaving X out of it",
+     "kind": "grammar",
+     "exp": {
+      "what": "A subtraction marker for situations: 冗談抜きで, joking aside; 社長抜きで, without the president present. What follows proceeds with the named thing deliberately removed.",
+      "build": "Noun + 抜きで, or Noun + を抜きにして for the heavier version: お世辞を抜きにして言うと… The verb 抜く — pull out — is doing the work: the noun has been pulled out of the situation.",
+      "when": "Setting ground rules for a conversation (formality aside, budget aside), and ordering food without something — わさび抜きで is the everyday face of the same grammar.",
+      "watch": "It removes something expected. 抜きで on a thing nobody assumed was there reads as strange — the pattern implies the default included it."
+     },
+     "ex": [
+      [
+       "冗談抜きで、締め切りは明日です。",
+       "Joking aside, the deadline is tomorrow."
+      ],
+      [
+       "今日は仕事の話を抜きにして、楽しみましょう。",
+       "Let's leave work talk out of it today and enjoy ourselves."
+      ]
+     ]
+    },
+    {
+     "id": "sb-zaru",
+     "jp": "ざる・ず・まい",
+     "en": "the old negatives, mapped",
+     "kind": "skill",
+     "exp": {
+      "what": "Three fossils of the classical negative survive in modern formal Japanese, and Stage 11 uses all of them: ず (Step 40's 〜ずに), ざる (ざるを得ない), and まい. They are one system, not three exceptions.",
+      "build": "All three build on the ない-stem: 行かず・行かざる・(行くまい stands apart, taking the dictionary form). する reaches back to せ for the first two — せず, せざる — which is why しざる sounds wrong to every native ear.",
+      "when": "Recognising them turns formal writing from a wall into a pattern: 〜ざる者 in proverbs, 〜ず in headlines, まい in editorials. Producing them, you only need the three fixed shapes this stage teaches.",
+      "watch": "The trap is regularising する: しずに and しざるを得ない are the learner errors the checker will flag. Old grammar keeps old stems."
+     },
+     "ex": [
+      [
+       "働かざる者、食うべからず。",
+       "He who does not work shall not eat. (the proverb — ざる in the wild)"
+      ],
+      [
+       "何も言わず、部屋を出た。",
+       "Without a word, I left the room."
+      ]
+     ]
+    },
+    {
+     "id": "b-s44",
+     "jp": "Composition · 断りのメール",
+     "en": "decline, formally, in four lines",
+     "kind": "build",
+     "exp": {
+      "what": "Write a four-line refusal: the situation, the impossibility (ようがない or ざるを得ない), the polite cannot (かねます), and one alternative you CAN offer.",
+      "build": "Line shape to steal: 残念ですが、今回は引き受けざるを得ない事情があり、お受けし かねます。代わりに〜はいかがでしょうか。",
+      "when": "This is the single most reusable email shape in working Japanese — declining without closing the door.",
+      "watch": "Keep the feeling out of the middle lines. The reluctance lives inside ざるを得ない already; adding とても悲しいです on top makes it about you."
+     },
+     "ex": [
+      [
+       "申し訳ありませんが、その日は出席し かねます。",
+       "I'm terribly sorry, but I'm unable to attend that day."
+      ]
+     ]
     }
-  ]
+   ]
+  },
+  {
+   "cat": "Step 45 · Occasions",
+   "level": "S12",
+   "after_step": "Step 44 · No way around it",
+   "note": "N5 pinned actions to clock time; Step 19 walked time's edges. This step is about OCCASIONS — the marked moments a life is measured in — and the formal timing grammar that ceremonies, contracts and announcements run on.",
+   "bank": [
+    [
+     "面接",
+     "a job interview"
+    ],
+    [
+     "入社式",
+     "company entrance ceremony"
+    ],
+    [
+     "卒業",
+     "graduation"
+    ],
+    [
+     "契約",
+     "a contract"
+    ],
+    [
+     "更新",
+     "renewal"
+    ],
+    [
+     "引っ越す",
+     "to move house"
+    ],
+    [
+     "乾杯",
+     "a toast"
+    ],
+    [
+     "司会",
+     "the MC; chairing"
+    ]
+   ],
+   "points": [
+    {
+     "id": "nisaishite",
+     "jp": "〜に際して",
+     "en": "on the occasion of",
+     "kind": "grammar",
+     "exp": {
+      "what": "とき says when something happens; に際して says the moment is an OCCASION — marked, formal, worth a sentence of its own. 契約に際して is not 'when contracting' but 'on the occasion of entering this contract.'",
+      "build": "Noun or dictionary-form verb + に際して: ご利用に際して, 出発に際して. Written notices prefer に際しての before a noun: 入学に際しての注意.",
+      "when": "Contracts, ceremonies, first days, official notices — anywhere the moment itself has weight. It is the phrase on the first page of every terms-of-service you will never read.",
+      "watch": "Everyday moments reject it: 昼ご飯に際して is a joke. If とき would do, use とき — に際して spends formality, and spending it on lunch reads as sarcasm."
+     },
+     "ex": [
+      [
+       "ご契約に際して、以下の書類が必要です。",
+       "On entering the contract, the following documents are required."
+      ],
+      [
+       "出発に際して、一言ご挨拶申し上げます。",
+       "On the occasion of departure, allow me a word of greeting."
+      ]
+     ]
+    },
+    {
+     "id": "niatatte",
+     "jp": "〜にあたって",
+     "en": "at the threshold of",
+     "kind": "grammar",
+     "exp": {
+      "what": "The sibling of に際して, standing a half-step earlier: にあたって faces a significant undertaking about to begin, and usually introduces preparation or resolve. 新学期を迎えるにあたって — as the new term is about to open.",
+      "build": "Noun or dictionary-form verb + にあたって（は）: 開店にあたって, 面接を受けるにあたって. Speeches love it as an opener.",
+      "when": "Kick-off speeches, prefaces, the first slide of a presentation. It frames what follows as the preparation the moment deserves.",
+      "watch": "Both this and に際して need positive-or-neutral undertakings — 事故にあたって is broken, because an accident is not a threshold anyone stands at deliberately. For bad events, plain とき carries no such expectation."
+     },
+     "ex": [
+      [
+       "面接を受けるにあたって、会社のことをよく調べた。",
+       "Ahead of the interview, I researched the company thoroughly."
+      ],
+      [
+       "新生活を始めるにあたって、荷物を減らした。",
+       "On starting the new life, I cut down my belongings."
+      ]
+     ]
+    },
+    {
+     "id": "teirai",
+     "jp": "〜て以来",
+     "en": "ever since",
+     "kind": "grammar",
+     "exp": {
+      "what": "てから says 'after'; て以来 says 'ever since — and it has stayed that way.' 引っ越して以来 opens a state that began at the move and still holds at the moment of speaking.",
+      "build": "て-form + 以来: 卒業して以来, 会って以来. Also Noun + 以来: 入社以来, あれ以来. The following clause must describe something continuing, not a one-time event.",
+      "when": "Catching up (あれ以来どう？), résumés and self-introductions (入社以来ずっと営業です), and any sentence whose point is an unbroken stretch.",
+      "watch": "One-time results break it: 引っ越して以来、机を買った is wrong — buying happened once. If the second half could take ずっと, て以来 fits; if not, てから was the word."
+     },
+     "ex": [
+      [
+       "日本に来て以来、ずっとこの町に住んでいます。",
+       "Ever since coming to Japan, I've lived in this town."
+      ],
+      [
+       "卒業して以来、彼とは会っていない。",
+       "I haven't seen him since graduation."
+      ]
+     ]
+    },
+    {
+     "id": "kanaikauchini",
+     "jp": "〜か〜ないかのうちに",
+     "en": "barely — before it even finished",
+     "kind": "grammar",
+     "exp": {
+      "what": "Two events packed so close the first hadn't clearly ended: ベルが鳴るか鳴らないかのうちに, before the bell had even finished ringing. The grammar performs the overlap by asking 'did it happen or not yet?' and answering 'both.'",
+      "build": "Same verb, affirmative + ないかのうちに: 言うか言わないかのうちに, 着くか着かないかのうちに. The second event follows immediately.",
+      "when": "Storytelling, mostly — it is the pattern for eagerness and abruptness. The train doors, the starting gun, the child out of the door before goodbye landed.",
+      "watch": "The two verbs must be the SAME verb — 鳴るか終わらないかのうちに breaks the mechanism. And the second event must be actual and instant; a slow consequence wants と or たとたん instead."
+     },
+     "ex": [
+      [
+       "乾杯が終わるか終わらないかのうちに、料理が運ばれてきた。",
+       "The food arrived before the toast had even finished."
+      ],
+      [
+       "ドアが開くか開かないかのうちに、猫が飛び出した。",
+       "The cat shot out before the door was barely open."
+      ]
+     ]
+    },
+    {
+     "id": "tekaradenaito",
+     "jp": "〜てからでないと",
+     "en": "not until — the gate",
+     "kind": "grammar",
+     "exp": {
+      "what": "A hard sequencing gate: until X is done, Y cannot happen. 契約してからでないと、鍵は渡せません — no key until the contract is signed. The pattern states a precondition and closes the door on shortcuts.",
+      "build": "て-form + からでないと + a negative or impossible outcome: 確認してからでないと分かりません. The heavier written variant is てからでなければ.",
+      "when": "Rules, procedures, counters — everywhere Japan's love of correct order becomes grammar. It is the polite mechanics behind '手続きが先です.'",
+      "watch": "The second half must be negative or blocked (できない, 分からない, 渡せません). A positive follow-up wants plain てから: 食べてから行く, no gate needed."
+     },
+     "ex": [
+      [
+       "上司に相談してからでないと、お返事できません。",
+       "I can't reply until I've consulted my boss."
+      ],
+      [
+       "書類が届いてからでないと、更新の手続きは始められない。",
+       "The renewal process can't start until the documents arrive."
+      ]
+     ]
+    },
+    {
+     "id": "cc-shiki",
+     "jp": "式という一日",
+     "en": "the ceremony day",
+     "kind": "culture",
+     "exp": {
+      "what": "Japan marks thresholds with 式 — a ceremony with assigned seats and a script. 入学式 and 卒業式 bracket every school year; 入社式 opens working life each April 1st, whole cohorts in identical suits; 結婚式 needs no translation. The suffix 式 on a noun is a reliable signal that attendance, dress and timing are all decided for you.",
+      "build": "The vocabulary cluster: 司会 runs the room, 乾杯 is the one moment everyone speaks at once, 挨拶 is the speech genre the timing grammar of this step was built for — に際して and にあたって live in ceremony speeches.",
+      "when": "You will attend more 式 than you expect, and being able to read the程 of one — who speaks, when to clap, that the 乾杯 unfreezes the room — is worth more than any single grammar point in it.",
+      "watch": "April carries the year's thresholds: the school year and the corporate year both begin then, which is why 入学式 and 入社式 photographs both happen under cherry blossoms. That timing is institutional, not symbolic — the fiscal year drives it."
+     },
+     "ex": [
+      [
+       "入社式にあたって、社長が挨拶をした。",
+       "At the entrance ceremony, the president gave an address."
+      ]
+     ]
+    },
+    {
+     "id": "b-s45",
+     "jp": "Composition · スピーチの冒頭",
+     "en": "open a short speech",
+     "kind": "build",
+     "exp": {
+      "what": "Write the first three lines of a ceremony speech: the occasion (にあたって／に際して), one ever-since line (て以来), and a thank-you.",
+      "build": "Shape to steal: 本日、〜にあたって、一言ご挨拶申し上げます。〜て以来、〜。皆様、ありがとうございます。",
+      "when": "The opener transfers to every formal setting — a toast, a first day, a farewell.",
+      "watch": "The occasion grammar carries the formality; the rest of the lines should stay plain or the speech turns to syrup."
+     },
+     "ex": [
+      [
+       "本日、開店にあたって、一言ご挨拶申し上げます。",
+       "On the occasion of our opening today, allow me a brief word of greeting."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "cat": "Step 46 · Breadth",
+   "level": "S12",
+   "after_step": "Step 45 · Occasions",
+   "note": "Step 37 taught audience and coverage one noun at a time. This step is the wide-angle set: patterns that claim a whole range — regardless of, not only, spanning, throughout — the grammar of job postings, surveys and announcements.",
+   "bank": [
+    [
+     "全国",
+     "the whole country"
+    ],
+    [
+     "年齢",
+     "age"
+    ],
+    [
+     "性別",
+     "sex; gender"
+    ],
+    [
+     "分野",
+     "a field (of work/study)"
+    ],
+    [
+     "期間",
+     "a period (of time)"
+    ],
+    [
+     "対象",
+     "the target; those covered"
+    ],
+    [
+     "幅広い",
+     "broad; wide-ranging"
+    ],
+    [
+     "国籍",
+     "nationality"
+    ]
+   ],
+   "points": [
+    {
+     "id": "wotowazu",
+     "jp": "〜を問わず",
+     "en": "regardless of",
+     "kind": "grammar",
+     "exp": {
+      "what": "The recruiting-poster pattern: 年齢を問わず, regardless of age — the named category is declared irrelevant. 問わず is 問う (to ask) in the old negative you met in sb-zaru: 'without asking.'",
+      "build": "Noun + を問わず: 経験を問わず, 昼夜を問わず. The noun is usually a category with obvious alternatives — age, sex, experience, weather, day or night.",
+      "when": "Job ads, event announcements, product claims. 国籍を問わず on a hiring page is the sentence this step's vocabulary was chosen for.",
+      "watch": "The noun must be a dimension, not an individual: 田中さんを問わず fails because 田中さん isn't a category. And it lives in writing — spoken Japanese says に関係なく instead."
+     },
+     "ex": [
+      [
+       "年齢や経験を問わず、どなたでも応募できます。",
+       "Anyone may apply, regardless of age or experience."
+      ],
+      [
+       "この店は昼夜を問わず、営業している。",
+       "This shop is open day and night."
+      ]
+     ]
+    },
+    {
+     "id": "nominarazu",
+     "jp": "〜のみならず",
+     "en": "not only — in writing",
+     "kind": "grammar",
+     "exp": {
+      "what": "だけでなく climbed into formal dress. のみならず is 'not only X but also Y' for documents and news copy, and it expects the second half to widen the claim — smaller thing first, bigger thing after.",
+      "build": "Noun／plain clause + のみならず … も／まで: 学生のみならず教師も. のみ is the written だけ; ならず is the old negative again.",
+      "when": "Reports and articles. In speech it sounds recited — だけでなく still does the daily work.",
+      "watch": "Order matters: the のみならず half is the lesser, expected part; the も half is the surprise. Reversing them reads as bathos — 全国のみならず町内も deflates."
+     },
+     "ex": [
+      [
+       "この問題は日本のみならず、世界中で起きている。",
+       "This problem is happening not only in Japan but worldwide."
+      ],
+      [
+       "彼は英語のみならず、中国語も話せる。",
+       "He speaks not only English but Chinese too."
+      ]
+     ]
+    },
+    {
+     "id": "hamotoyori",
+     "jp": "〜はもとより",
+     "en": "goes without saying — and also",
+     "kind": "grammar",
+     "exp": {
+      "what": "A cousin of のみならず with a different center of gravity: X はもとより treats X as so obvious it barely needs saying, then adds Y on top. 平日はもとより週末も — weekdays go without saying; weekends too.",
+      "build": "Noun + はもとより … も: 味はもとより見た目も美しい. もとより means 'from the origin' — X was included from the start.",
+      "when": "Praising and describing scope: menus, reviews, introductions. Warmer and slightly less stiff than のみならず.",
+      "watch": "X must actually be obvious to the listener. Opening with a surprise (東京はもとより火星も) burns the pattern's whole premise — save the news for the も half."
+     },
+     "ex": [
+      [
+       "この旅館は料理はもとより、温泉も素晴らしい。",
+       "This inn — the food goes without saying, and the baths are superb too."
+      ],
+      [
+       "彼は国内はもとより、海外でも有名だ。",
+       "He is famous at home, naturally, and abroad as well."
+      ]
+     ]
+    },
+    {
+     "id": "niwatatte",
+     "jp": "〜にわたって",
+     "en": "spanning — the full stretch",
+     "kind": "grammar",
+     "exp": {
+      "what": "A range claimed edge to edge: 三日間にわたって, spanning three full days; 全国にわたって, across the whole country. The verb 渡る — to cross — is underneath: the event crosses the entire named span.",
+      "build": "Noun of span + にわたって（は rarely）, or にわたる before a noun: 十年にわたる研究. The noun must have extent — time, area, range, fields.",
+      "when": "News and reports, where scale is the story: works spanning decades, storms spanning regions, an interview series spanning five sessions.",
+      "watch": "It emphasises the WHOLE span, so small stretches ring false — 五分にわたって会議した is mock-epic. で and の間 handle ordinary durations without fanfare."
+     },
+     "ex": [
+      [
+       "工事は三か月にわたって行われた。",
+       "The construction was carried out over a span of three months."
+      ],
+      [
+       "彼の研究は幅広い分野にわたっている。",
+       "His research spans a broad range of fields."
+      ]
+     ]
+    },
+    {
+     "id": "wotsuujite",
+     "jp": "〜を通じて／を通して",
+     "en": "through — channel and duration",
+     "kind": "grammar",
+     "exp": {
+      "what": "Two jobs, one shape. Channel: 友人を通じて知り合った — we met through a friend. Duration: 一年を通じて暖かい — warm throughout the year. Both readings pass something through a medium: an introduction through a person, a climate through a calendar.",
+      "build": "Noun + を通じて or を通して — interchangeable in most uses; を通して leans slightly toward deliberate channels, を通じて toward coverage. Both prefer writing to chat.",
+      "when": "Explaining how you know someone, how information travelled, or that something held all year/period long — the two commonest N2 essay needs in one pattern.",
+      "watch": "For the duration sense the period must be complete: 一年を通じて claims all twelve months. If it only held in summer, the pattern has overclaimed and 夏の間 was the honest phrase."
+     },
+     "ex": [
+      [
+       "仕事を通じて、多くの人と知り合った。",
+       "Through work, I've come to know many people."
+      ],
+      [
+       "この地方は一年を通して雨が少ない。",
+       "This region has little rain throughout the year."
+      ]
+     ]
+    },
+    {
+     "id": "nikagirazu",
+     "jp": "〜に限らず",
+     "en": "not limited to",
+     "kind": "grammar",
+     "exp": {
+      "what": "The scope-widener: 学生に限らず、誰でも参加できる — not limited to students; anyone can join. It takes a category the listener assumed was the boundary and erases the boundary.",
+      "build": "Noun + に限らず: 平日に限らず, 日本に限らず. Built on 限る, to limit — the same verb Step 47's sb will meet pointing the OTHER way.",
+      "when": "Announcements and corrections of assumption: the sale isn't just weekends, the rule isn't just beginners. Spoken and written both — this one, unlike を問わず, survives conversation.",
+      "watch": "It presupposes the listener expected the limit. Using it where no one assumed one (犬に限らず動物が好き, said apropos of nothing) sounds like answering a question nobody asked."
+     },
+     "ex": [
+      [
+       "この問題は若者に限らず、誰にでも関係がある。",
+       "This issue concerns everyone, not just the young."
+      ],
+      [
+       "週末に限らず、平日も混んでいる。",
+       "It's crowded on weekdays too, not just weekends."
+      ]
+     ]
+    },
+    {
+     "id": "sb-kagiru",
+     "jp": "限る一族 — に限って・に限り・に限らず",
+     "en": "the kagiru family, three directions",
+     "kind": "skill",
+     "exp": {
+      "what": "One verb, three particles, three unrelated-looking meanings. に限らず widens (not limited to). に限り narrows officially (本日に限り, today only — coupon language). に限って does two strange things: picks the one exception (うちの子に限って, MY child would never) and marks cursed timing (急いでいる時に限って電車が遅れる — always exactly when I'm rushing).",
+      "build": "All three are Noun + the fixed form. Only に限らず takes the widening; only に限り belongs on posters; に限って carries the emotional readings.",
+      "when": "Reading them correctly matters more than producing: a coupon's に限り and a parent's に限って cannot be swapped, and the timing-lament に限って is one of the most Japanese sentences there is.",
+      "watch": "The two narrow forms split by register: に限り is official and cold; に限って is personal and hot. Mixing them — 本日に限って50%引き — turns a sale into a complaint about fate."
+     },
+     "ex": [
+      [
+       "急いでいる日に限って、バスが来ない。",
+       "It's always the days I'm in a hurry that the bus doesn't come."
+      ],
+      [
+       "本日に限り、送料無料です。",
+       "Today only: free shipping."
+      ]
+     ]
+    },
+    {
+     "id": "b-s46",
+     "jp": "Composition · 募集のお知らせ",
+     "en": "write the recruiting notice",
+     "kind": "build",
+     "exp": {
+      "what": "Write a four-line notice for an event or job: who may apply (を問わず／に限らず), the span (にわたって／を通じて), what's included (のみならず・はもとより), and the deadline.",
+      "build": "Shape to steal: 経験を問わず、どなたでも歓迎します。活動は一年を通じて行います。〆切は〜です。",
+      "when": "The notice register is half of written N2 — this is a rehearsal for reading a hundred of them.",
+      "watch": "Notices state scope, never enthusiasm. If your draft contains 楽しい, the register has slipped."
+     },
+     "ex": [
+      [
+       "年齢・国籍を問わず、参加者を募集しています。",
+       "We are recruiting participants regardless of age or nationality."
+      ]
+     ]
+    }
+   ]
+  }
+ ]
 }

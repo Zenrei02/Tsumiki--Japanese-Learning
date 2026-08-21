@@ -4190,9 +4190,30 @@ const CURRICULUM = [
   // happen; this step is for things that did not, will not, and are not — the
   // grammar of wishing, regretting, supposing and comparing to something
   // imaginary.
+  // The seam authored on purpose: Session 18 split the 79-lesson Stage 10 here.
+  // Boundaries live only at checkpoints — so the split got a checkpoint.
+  {
+    cat: "Checkpoint 9 · Stage review",
+    level: "S10",
+    bank: [],
+    points: [
+      {
+        id: "rc9a", jp: "復習 · 言い当てるまで", en: "checkpoint: precision and scope", kind: "review",
+        covers: ["toiukoto", "toiuto", "toiunowa", "toiuyori", "toittemo", "sb-toiu2", "b-s35", "niyoruto", "nikanshite", "nikurabete", "nitsurete", "nikakete", "tomoni", "sb-hikaku", "cc-news", "b-s36", "wohajime", "wochuushin", "nikawatte", "mukimuke", "chuujuu", "tochuu", "sb-hanni", "b-s37", "shikanai", "baii", "sae", "kotoda", "kotohanai", "naikotohanai", "temokamawanai", "sb-sentaku", "cc-shikata", "b-s38", "wakeganai", "wakeniwaikanai", "towakagiranai", "soumonai", "sb-hitei", "b-s39"],
+        exp: {
+          what: "Five steps of saying it precisely: the という family told apart by what follows, sources and proportions, audience and coverage, the no-choice-and-enough shelf, and the art of denying an inference without denying a fact.",
+          build: "The pairs that share a doorway here: というのは／というのも, によると／によって, 向き／向け, しかない／に決まっている's older cousins, わけがない／とは限らない.",
+          when: "Before the stage of the unreal — Steps 40 on assume every scope tool here is load-bearing.",
+          watch: "The half-stage's common error is scope overclaim: にわたって on a small stretch, を中心に on a thing that isn't central. Precision grammar punishes decoration."
+        },
+        ex: [["調査によると、この傾向は全国にわたって見られるという。", "Per the survey, the trend reportedly spans the whole country — three of the five steps in one line."]],
+      },
+    ],
+  },
+
   {
     cat: "Step 40 · Regret, hope, and the unreal",
-    level: "S10",
+    level: "S11",
     bank: [["後悔", "regret"], ["希望", "a hope"], ["夢", "a dream"], ["気持ち", "a feeling"], ["想像", "imagination"], ["過去", "the past"], ["機会", "an opportunity"], ["偶然", "coincidence"]],
     points: [
       {
@@ -4286,7 +4307,7 @@ const CURRICULUM = [
   // hard to guess from English.
   {
     cat: "Step 41 · Quality, quantity, limit",
-    level: "S10",
+    level: "S11",
     bank: [["泥", "mud"], ["傷", "a scratch"], ["間違い", "a mistake"], ["安", "cheap"], ["数", "a number"], ["一人", "one person"], ["表面", "the surface"], ["性格", "character"]],
     points: [
       {
@@ -4380,7 +4401,7 @@ const CURRICULUM = [
   // first became clear.
   {
     cat: "Step 42 · Occasions and consequences",
-    level: "S10",
+    level: "S11",
     bank: [["機会", "an opportunity"], ["用事", "an errand"], ["目的", "a purpose"], ["経験", "experience"], ["以来", "since then"], ["最初", "the first time"], ["原因", "a cause"], ["変化", "a change"]],
     points: [
       {
@@ -4480,7 +4501,7 @@ const CURRICULUM = [
   // one scene showing them working does not teach better.
   {
     cat: "Step 43 · The connectors",
-    level: "S10",
+    level: "S11",
     bank: [["意見", "an opinion"], ["理由", "a reason"], ["反対", "the opposite"], ["確か", "certain"], ["立場", "a position"], ["段落", "a paragraph"], ["流れ", "the flow"], ["話題", "a topic"]],
     points: [
       {
@@ -4603,7 +4624,7 @@ const CURRICULUM = [
   // customers, and possibilities you rule out entirely.
   {
     cat: "Step 44 · No way around it",
-    level: "S11",
+    level: "S12",
     bank: [["残業", "overtime"], ["締め切り", "deadline"], ["断る", "to refuse"], ["命令", "an order"], ["引き受ける", "to take (a task) on"], ["諦める", "to give up"], ["支払い", "payment"], ["無理", "impossible; unreasonable"]],
     points: [
       {
@@ -4684,7 +4705,7 @@ const CURRICULUM = [
   // timing grammar that ceremonies, contracts and announcements run on.
   {
     cat: "Step 45 · Occasions",
-    level: "S11",
+    level: "S12",
     bank: [["面接", "a job interview"], ["入社式", "company entrance ceremony"], ["卒業", "graduation"], ["契約", "a contract"], ["更新", "renewal"], ["引っ越す", "to move house"], ["乾杯", "a toast"], ["司会", "the MC; chairing"]],
     points: [
       {
@@ -4766,7 +4787,7 @@ const CURRICULUM = [
   // announcements.
   {
     cat: "Step 46 · Breadth",
-    level: "S11",
+    level: "S12",
     bank: [["全国", "the whole country"], ["年齢", "age"], ["性別", "sex; gender"], ["分野", "a field (of work/study)"], ["期間", "a period (of time)"], ["対象", "the target; those covered"], ["幅広い", "broad; wide-ranging"], ["国籍", "nationality"]],
     points: [
       {
@@ -4857,7 +4878,7 @@ const CURRICULUM = [
   // all-the-more reason. Reading them is reading between lines.
   {
     cat: "Step 47 · The reason it reads",
-    level: "S11",
+    level: "S12",
     bank: [["評判", "reputation"], ["専門家", "an expert"], ["割引", "a discount"], ["満員", "full (of people)"], ["休業日", "closed day"], ["経験者", "someone with experience"], ["値上げ", "a price rise"], ["行列", "a queue"]],
     points: [
       {
@@ -4948,7 +4969,7 @@ const CURRICULUM = [
   // one pattern for saying it merely looks that way.
   {
     cat: "Step 48 · Committing to the claim",
-    level: "S11",
+    level: "S12",
     bank: [["犯人", "the culprit"], ["真実", "the truth"], ["誤解", "a misunderstanding"], ["判断", "a judgement"], ["印象", "an impression"], ["証言", "testimony"], ["うわさ", "a rumor"], ["当たり前", "obvious; only natural"]],
     points: [
       {
@@ -5030,7 +5051,7 @@ const CURRICULUM = [
   // costume change.
   {
     cat: "Step 49 · On paper",
-    level: "S11",
+    level: "S12",
     bank: [["書類", "documents"], ["申請", "an application"], ["承認", "approval"], ["提出", "submission"], ["増加", "an increase"], ["減少", "a decrease"], ["発表", "an announcement"], ["期限", "a time limit"]],
     points: [
       {
@@ -5141,7 +5162,7 @@ const CURRICULUM = [
   // judged from the evidence, seen from a position, felt from inside a role.
   {
     cat: "Step 50 · Seen from here",
-    level: "S12",
+    level: "S13",
     bank: [["上司", "one's boss"], ["部下", "a subordinate"], ["消費者", "consumers"], ["世代", "a generation"], ["価値観", "values; worldview"], ["態度", "an attitude"], ["意識", "awareness"], ["観点", "a point of view"]],
     points: [
       {
@@ -5212,7 +5233,7 @@ const CURRICULUM = [
   // the meaning.
   {
     cat: "Step 51 · Because, with force",
-    level: "S12",
+    level: "S13",
     bank: [["規則", "a rule"], ["制度", "a system"], ["習慣", "a habit; custom"], ["言い訳", "an excuse"], ["努力家", "a hard worker"], ["本気", "seriousness"], ["覚悟", "readiness; resolve"], ["罰金", "a fine"]],
     points: [
       {
@@ -5293,7 +5314,7 @@ const CURRICULUM = [
   // about it. The grammar of too much.
   {
     cat: "Step 52 · Feelings past containment",
-    level: "S12",
+    level: "S13",
     bank: [["懐かしい", "nostalgic; dearly missed"], ["悔しい", "frustrating; galling"], ["羨ましい", "envious"], ["恋しい", "longed-for"], ["不満", "dissatisfaction"], ["感動", "being moved"], ["涙", "tears"], ["限界", "one's limit"]],
     points: [
       {
@@ -5364,7 +5385,7 @@ const CURRICULUM = [
   // always one remove from its source.
   {
     cat: "Step 53 · Rumor and relay",
-    level: "S12",
+    level: "S13",
     bank: [["情報", "information"], ["事件", "an incident"], ["報道", "news coverage"], ["記者", "a reporter"], ["見出し", "a headline"], ["内緒", "a secret"], ["噂話", "gossip"], ["出来事", "an event; happening"]],
     points: [
       {
@@ -5445,7 +5466,7 @@ const CURRICULUM = [
   // forms that close doors from the other side.
   {
     cat: "Step 54 · Not a chance",
-    level: "S12",
+    level: "S13",
     bank: [["実力", "real ability"], ["実現", "realization; coming true"], ["現実", "reality"], ["理想", "an ideal"], ["予想外", "unexpected"], ["奇跡", "a miracle"], ["才能", "talent"], ["条件付き", "conditional"]],
     points: [
       {
@@ -5526,7 +5547,7 @@ const CURRICULUM = [
   // road. rc11 closes the stage.
   {
     cat: "Step 55 · Moments and aftermaths",
-    level: "S12",
+    level: "S13",
     bank: [["瞬間", "an instant"], ["直後", "just after"], ["直前", "just before"], ["同時", "the same time"], ["結末", "the ending; outcome"], ["再会", "reunion"], ["近所迷惑", "neighborhood nuisance"], ["夜中", "the middle of the night"]],
     points: [
       {
@@ -5608,7 +5629,7 @@ const CURRICULUM = [
   // one of them.
   {
     cat: "Step 56 · Grounds and guides",
-    level: "S13",
+    level: "S14",
     bank: [["基準", "a standard; criterion"], ["方針", "a policy; course"], ["指示", "instructions"], ["要望", "a request; wishes"], ["規定", "regulations"], ["手順", "a procedure"], ["調整", "adjustment"], ["法律", "the law"]],
     points: [
       {
@@ -5678,7 +5699,7 @@ const CURRICULUM = [
   // around, touching upon, leaving out. The prepositions of the editorial page.
   {
     cat: "Step 57 · With, against, around",
-    level: "S13",
+    level: "S14",
     bank: [["対立", "confrontation"], ["協力", "cooperation"], ["方向", "a direction"], ["材料", "materials; ingredients"], ["資料", "documents; data"], ["議論", "debate; discussion"], ["予測", "a forecast"], ["祈り", "a prayer"]],
     points: [
       {
@@ -5749,7 +5770,7 @@ const CURRICULUM = [
   // of pressing on.
   {
     cat: "Step 58 · No matter what",
-    level: "S13",
+    level: "S14",
     bank: [["悪天候", "bad weather"], ["危険", "danger"], ["困難", "difficulty"], ["批判", "criticism"], ["周囲", "one's surroundings; those around"], ["決心", "determination"], ["中止", "cancellation"], ["強行", "forcing through"]],
     points: [
       {
@@ -5820,7 +5841,7 @@ const CURRICULUM = [
   // approves.
   {
     cat: "Step 59 · Only natural",
-    level: "S13",
+    level: "S14",
     bank: [["実績", "a track record"], ["成果", "results; fruits"], ["評価", "evaluation; esteem"], ["納得", "being convinced"], ["無事", "safe and sound"], ["健康", "health"], ["安全", "safety"], ["謙遜", "modesty; humility"]],
     points: [
       {
@@ -5881,7 +5902,7 @@ const CURRICULUM = [
   // frequency.
   {
     cat: "Step 60 · Worth, risk and clean escapes",
-    level: "S13",
+    level: "S14",
     bank: [["価値", "value; worth"], ["危機", "a crisis"], ["被害", "damage; harm"], ["苦労", "hardship"], ["回復", "recovery"], ["予防", "prevention"], ["解決", "a solution"], ["無駄", "waste; futility"]],
     points: [
       {
@@ -5942,7 +5963,7 @@ const CURRICULUM = [
   // the milestone this time has an audit behind it.
   {
     cat: "Step 61 · The last folds",
-    level: "S13",
+    level: "S14",
     bank: [["毎回", "every time"], ["半面", "the other side (of a quality)"], ["経済", "the economy"], ["社会人", "a working adult"], ["新入社員", "a new employee"], ["電子マネー", "electronic money"], ["現金", "cash"], ["時代", "an era"]],
     points: [
       {
@@ -6094,12 +6115,12 @@ const CURRICULUM = [
   // it shipped and was caught because a capability claim is falsifiable in a way
   // a stage label is not.
   {
-    cat: "Checkpoint 9 · Stage review",
-    level: "S10",
+    cat: "Checkpoint 10 · Stage review",
+    level: "S11",
     points: [
       {
         id: "rc9", jp: "復習 · Stage 10", en: "checkpoint: the full stage", kind: "review",
-        covers: ["toiukoto", "toiuto", "toiunowa", "toiuyori", "toittemo", "sb-toiu2", "niyoruto", "nikanshite", "nikurabete", "nitsurete", "nikakete", "tomoni", "sb-hikaku", "wohajime", "wochuushin", "nikawatte", "mukimuke", "chuujuu", "tochuu", "sb-hanni", "shikanai", "baii", "sae", "kotoda", "kotohanai", "naikotohanai", "temokamawanai", "sb-sentaku", "wakeganai", "wakeniwaikanai", "towakagiranai", "soumonai", "sb-hitei", "bayokatta", "taraii", "toshitara", "zuniwairarenai", "younakigasuru", "marude", "sb-katei", "darake", "ppoi", "gatai", "kirenai", "kiri", "ippouda", "sb-teido2", "uchini", "tabini", "tsuideni", "tehajimete", "kekka", "tameni", "sb-toki2", "tsumari", "tokoroga", "ippoude", "nazenara", "nishiteha", "nishitemo", "kawarini", "sb-setsuzoku", "sb-kyoudai"],
+        covers: ["bayokatta", "taraii", "toshitara", "zuniwairarenai", "younakigasuru", "marude", "sb-katei", "b-s40", "darake", "ppoi", "gatai", "kirenai", "kiri", "ippouda", "sb-teido2", "b-s41", "uchini", "tabini", "tsuideni", "tehajimete", "kekka", "tameni", "sb-toki2", "cc-nengajou", "b-s42", "tsumari", "tokoroga", "ippoude", "nazenara", "nishiteha", "nishitemo", "kawarini", "sb-setsuzoku", "sb-kyoudai", "cc-fukushi", "cc-kaiwa", "b-s43"],
         exp: "The precision stage, reviewed — and the review is deliberately about DISTINGUISHING rather than producing, because almost every error left at this level is a near-miss between two patterns that differ by one kana.\n\nThe pairs worth arriving able to separate: にしては against にしても. 向き against 向け. うちに against 間に. によると against によって. 一方だ against 一方で. としたら against たら. And the whole という family, told apart by what follows it.\n\nNone of these are difficult once seen side by side. All of them are invisible if you only ever meet them one at a time, which is what a grammar list does to a learner and what this checkpoint exists to undo.",
         ex: [],
       },
@@ -6667,11 +6688,12 @@ const LEVELS = [
   // absent. ms-n3 sat at the end of Stage 9 claiming otherwise, which is exactly the
   // kind of false claim a capability milestone is meant to make catchable. It now
   // sits at the end of THIS stage, where it is true.
-  { id: "S10", title: "10", subtitle: "Saying it precisely", jlpt: "≈ JLPT N3", markers: "kanji", tagline: "On whose authority, in what proportion, to what extent and how sure — and the point where the language tips from spoken to written.", groups: CURRICULUM.filter((c) => c.level === "S10") },
-  { id: "S11", title: "11", subtitle: "Nuance", jlpt: "≈ JLPT N2", markers: "kanji", tagline: "Refusing politely, speaking at ceremonies, writing for the record — formality as a working tool, not a costume.", groups: CURRICULUM.filter((c) => c.level === "S11") },
-  { id: "S12", title: "12", subtitle: "Standpoints", jlpt: "≈ JLPT N2", markers: "kanji", tagline: "Whose eyes a claim is seen from, reasons with force behind them, feelings past containment, and what cannot happen.", groups: CURRICULUM.filter((c) => c.level === "S12") },
-  { id: "S13", title: "13", subtitle: "The formal lattice", jlpt: "≈ JLPT N2", markers: "kanji", tagline: "Grounds, relations, concessions and judgments — the machinery documents run on, and the door N2 closes behind you.", groups: CURRICULUM.filter((c) => c.level === "S13") },
-  { id: "S14", title: "14", subtitle: "Mastery", jlpt: "≈ JLPT N1", markers: "kanji", locked: true },
+  { id: "S10", title: "10", subtitle: "Saying it precisely", jlpt: "≈ JLPT N3", markers: "kanji", tagline: "The という family, sources, coverage and denial — precision as its own subject.", groups: CURRICULUM.filter((c) => c.level === "S10") },
+  { id: "S11", title: "11", subtitle: "The unreal, and the connectors", jlpt: "≈ JLPT N3", markers: "kanji", tagline: "Regret and hypothesis, quality and limit, occasions, and the joints that hold written Japanese together.", groups: CURRICULUM.filter((c) => c.level === "S11") },
+  { id: "S12", title: "12", subtitle: "Nuance", jlpt: "≈ JLPT N2", markers: "kanji", tagline: "Refusing politely, speaking at ceremonies, writing for the record — formality as a working tool, not a costume.", groups: CURRICULUM.filter((c) => c.level === "S12") },
+  { id: "S13", title: "13", subtitle: "Standpoints", jlpt: "≈ JLPT N2", markers: "kanji", tagline: "Whose eyes a claim is seen from, reasons with force behind them, feelings past containment, and what cannot happen.", groups: CURRICULUM.filter((c) => c.level === "S13") },
+  { id: "S14", title: "14", subtitle: "The formal lattice", jlpt: "≈ JLPT N2", markers: "kanji", tagline: "Grounds, relations, concessions and judgments — the machinery documents run on, and the door N2 closes behind you.", groups: CURRICULUM.filter((c) => c.level === "S14") },
+  { id: "S15", title: "15", subtitle: "Mastery", jlpt: "≈ JLPT N1", markers: "kanji", locked: true },
 ];
 
 // Lesson types. GATING: intentionally none yet — later, skill builders and
