@@ -1,7 +1,7 @@
 {
  "generated": "2026-08-21",
  "note": "Authoritative word set for the app. Input to the word-driven ordering pipeline. Regenerate with build-word-ledger.py.",
- "count": 652,
+ "count": 732,
  "words": [
   {
    "written": "学生",
@@ -5856,6 +5856,806 @@
     "KANJI_DICT"
    ],
    "jlpt": "N2"
+  },
+  {
+   "written": "一瞬",
+   "readings": [],
+   "meanings": [
+    "an instant"
+   ],
+   "sources": [
+    "bank:Step 62"
+   ]
+  },
+  {
+   "written": "一滴",
+   "readings": [],
+   "meanings": [
+    "a single drop"
+   ],
+   "sources": [
+    "bank:Step 62"
+   ]
+  },
+  {
+   "written": "些細",
+   "readings": [],
+   "meanings": [
+    "trivial"
+   ],
+   "sources": [
+    "bank:Step 62"
+   ]
+  },
+  {
+   "written": "膨大",
+   "readings": [],
+   "meanings": [
+    "enormous"
+   ],
+   "sources": [
+    "bank:Step 62"
+   ]
+  },
+  {
+   "written": "一切",
+   "readings": [],
+   "meanings": [
+    "entirely (not)"
+   ],
+   "sources": [
+    "bank:Step 62"
+   ]
+  },
+  {
+   "written": "皆無",
+   "readings": [],
+   "meanings": [
+    "utterly absent"
+   ],
+   "sources": [
+    "bank:Step 62"
+   ]
+  },
+  {
+   "written": "圧倒的",
+   "readings": [],
+   "meanings": [
+    "overwhelming"
+   ],
+   "sources": [
+    "bank:Step 62"
+   ]
+  },
+  {
+   "written": "徹底的",
+   "readings": [],
+   "meanings": [
+    "thorough"
+   ],
+   "sources": [
+    "bank:Step 62"
+   ]
+  },
+  {
+   "written": "結局",
+   "readings": [],
+   "meanings": [
+    "in the end"
+   ],
+   "sources": [
+    "bank:Step 63"
+   ]
+  },
+  {
+   "written": "羽目",
+   "readings": [],
+   "meanings": [
+    "a fix; predicament"
+   ],
+   "sources": [
+    "bank:Step 63"
+   ]
+  },
+  {
+   "written": "失敗続き",
+   "readings": [],
+   "meanings": [
+    "a string of failures"
+   ],
+   "sources": [
+    "bank:Step 63"
+   ]
+  },
+  {
+   "written": "徹夜",
+   "readings": [],
+   "meanings": [
+    "an all-nighter"
+   ],
+   "sources": [
+    "bank:Step 63"
+   ]
+  },
+  {
+   "written": "言い出しっぺ",
+   "readings": [],
+   "meanings": [
+    "the one who suggested it"
+   ],
+   "sources": [
+    "bank:Step 63"
+   ]
+  },
+  {
+   "written": "尻ぬぐい",
+   "readings": [],
+   "meanings": [
+    "cleaning up someone's mess"
+   ],
+   "sources": [
+    "bank:Step 63"
+   ]
+  },
+  {
+   "written": "肝心",
+   "readings": [],
+   "meanings": [
+    "the crucial (part)"
+   ],
+   "sources": [
+    "bank:Step 63"
+   ]
+  },
+  {
+   "written": "台無し",
+   "readings": [],
+   "meanings": [
+    "ruined"
+   ],
+   "sources": [
+    "bank:Step 63"
+   ]
+  },
+  {
+   "written": "功績",
+   "readings": [],
+   "meanings": [
+    "achievements; merit"
+   ],
+   "sources": [
+    "bank:Step 64"
+   ]
+  },
+  {
+   "written": "尊敬",
+   "readings": [],
+   "meanings": [
+    "respect"
+   ],
+   "sources": [
+    "bank:Step 64"
+   ]
+  },
+  {
+   "written": "感激",
+   "readings": [],
+   "meanings": [
+    "deep emotion"
+   ],
+   "sources": [
+    "bank:Step 64"
+   ]
+  },
+  {
+   "written": "光栄",
+   "readings": [],
+   "meanings": [
+    "an honor"
+   ],
+   "sources": [
+    "bank:Step 64"
+   ]
+  },
+  {
+   "written": "鑑賞",
+   "readings": [],
+   "meanings": [
+    "appreciation (of art)"
+   ],
+   "sources": [
+    "bank:Step 64"
+   ]
+  },
+  {
+   "written": "批評",
+   "readings": [],
+   "meanings": [
+    "criticism; review"
+   ],
+   "sources": [
+    "bank:Step 64"
+   ]
+  },
+  {
+   "written": "傑作",
+   "readings": [],
+   "meanings": [
+    "a masterpiece"
+   ],
+   "sources": [
+    "bank:Step 64"
+   ]
+  },
+  {
+   "written": "駄作",
+   "readings": [],
+   "meanings": [
+    "a dud; failure of a work"
+   ],
+   "sources": [
+    "bank:Step 64"
+   ]
+  },
+  {
+   "written": "逆境",
+   "readings": [],
+   "meanings": [
+    "adversity"
+   ],
+   "sources": [
+    "bank:Step 65"
+   ]
+  },
+  {
+   "written": "事態",
+   "readings": [],
+   "meanings": [
+    "the situation; state of affairs"
+   ],
+   "sources": [
+    "bank:Step 65"
+   ]
+  },
+  {
+   "written": "抗議",
+   "readings": [],
+   "meanings": [
+    "a protest"
+   ],
+   "sources": [
+    "bank:Step 65"
+   ]
+  },
+  {
+   "written": "妥協",
+   "readings": [],
+   "meanings": [
+    "compromise"
+   ],
+   "sources": [
+    "bank:Step 65"
+   ]
+  },
+  {
+   "written": "破産",
+   "readings": [],
+   "meanings": [
+    "bankruptcy"
+   ],
+   "sources": [
+    "bank:Step 65"
+   ]
+  },
+  {
+   "written": "最悪",
+   "readings": [],
+   "meanings": [
+    "the worst"
+   ],
+   "sources": [
+    "bank:Step 65"
+   ]
+  },
+  {
+   "written": "賭け",
+   "readings": [],
+   "meanings": [
+    "a gamble"
+   ],
+   "sources": [
+    "bank:Step 65"
+   ]
+  },
+  {
+   "written": "撤退",
+   "readings": [],
+   "meanings": [
+    "withdrawal; pulling out"
+   ],
+   "sources": [
+    "bank:Step 65"
+   ]
+  },
+  {
+   "written": "主張",
+   "readings": [],
+   "meanings": [
+    "an assertion"
+   ],
+   "sources": [
+    "bank:Step 66"
+   ]
+  },
+  {
+   "written": "根拠",
+   "readings": [],
+   "meanings": [
+    "grounds; basis"
+   ],
+   "sources": [
+    "bank:Step 66"
+   ]
+  },
+  {
+   "written": "矛盾",
+   "readings": [],
+   "meanings": [
+    "contradiction"
+   ],
+   "sources": [
+    "bank:Step 66"
+   ]
+  },
+  {
+   "written": "偏見",
+   "readings": [],
+   "meanings": [
+    "prejudice"
+   ],
+   "sources": [
+    "bank:Step 66"
+   ]
+  },
+  {
+   "written": "世論",
+   "readings": [],
+   "meanings": [
+    "public opinion"
+   ],
+   "sources": [
+    "bank:Step 66"
+   ]
+  },
+  {
+   "written": "風潮",
+   "readings": [],
+   "meanings": [
+    "a (social) trend"
+   ],
+   "sources": [
+    "bank:Step 66"
+   ]
+  },
+  {
+   "written": "皮肉",
+   "readings": [],
+   "meanings": [
+    "irony; sarcasm"
+   ],
+   "sources": [
+    "bank:Step 66"
+   ]
+  },
+  {
+   "written": "盲点",
+   "readings": [],
+   "meanings": [
+    "a blind spot"
+   ],
+   "sources": [
+    "bank:Step 66"
+   ]
+  },
+  {
+   "written": "合図",
+   "readings": [],
+   "meanings": [
+    "a signal"
+   ],
+   "sources": [
+    "bank:Step 67"
+   ]
+  },
+  {
+   "written": "気配",
+   "readings": [],
+   "meanings": [
+    "a presence; sign"
+   ],
+   "sources": [
+    "bank:Step 67"
+   ]
+  },
+  {
+   "written": "寸前",
+   "readings": [],
+   "meanings": [
+    "the verge; just before"
+   ],
+   "sources": [
+    "bank:Step 67"
+   ]
+  },
+  {
+   "written": "物音",
+   "readings": [],
+   "meanings": [
+    "a (suspicious) sound"
+   ],
+   "sources": [
+    "bank:Step 67"
+   ]
+  },
+  {
+   "written": "歓声",
+   "readings": [],
+   "meanings": [
+    "a cheer"
+   ],
+   "sources": [
+    "bank:Step 67"
+   ]
+  },
+  {
+   "written": "静寂",
+   "readings": [],
+   "meanings": [
+    "silence; stillness"
+   ],
+   "sources": [
+    "bank:Step 67"
+   ]
+  },
+  {
+   "written": "振り向く",
+   "readings": [],
+   "meanings": [
+    "to turn around"
+   ],
+   "sources": [
+    "bank:Step 67"
+   ]
+  },
+  {
+   "written": "飛び出す",
+   "readings": [],
+   "meanings": [
+    "to dash out"
+   ],
+   "sources": [
+    "bank:Step 67"
+   ]
+  },
+  {
+   "written": "義務",
+   "readings": [],
+   "meanings": [
+    "duty; obligation"
+   ],
+   "sources": [
+    "bank:Step 68"
+   ]
+  },
+  {
+   "written": "違反",
+   "readings": [],
+   "meanings": [
+    "a violation"
+   ],
+   "sources": [
+    "bank:Step 68"
+   ]
+  },
+  {
+   "written": "処分",
+   "readings": [],
+   "meanings": [
+    "disciplinary action"
+   ],
+   "sources": [
+    "bank:Step 68"
+   ]
+  },
+  {
+   "written": "撤回",
+   "readings": [],
+   "meanings": [
+    "retraction"
+   ],
+   "sources": [
+    "bank:Step 68"
+   ]
+  },
+  {
+   "written": "辞任",
+   "readings": [],
+   "meanings": [
+    "resignation (from a post)"
+   ],
+   "sources": [
+    "bank:Step 68"
+   ]
+  },
+  {
+   "written": "責務",
+   "readings": [],
+   "meanings": [
+    "one's charge; responsibility"
+   ],
+   "sources": [
+    "bank:Step 68"
+   ]
+  },
+  {
+   "written": "遺憾",
+   "readings": [],
+   "meanings": [
+    "regrettable (officialese)"
+   ],
+   "sources": [
+    "bank:Step 68"
+   ]
+  },
+  {
+   "written": "容認",
+   "readings": [],
+   "meanings": [
+    "toleration; acceptance"
+   ],
+   "sources": [
+    "bank:Step 68"
+   ]
+  },
+  {
+   "written": "独自",
+   "readings": [],
+   "meanings": [
+    "unique to oneself"
+   ],
+   "sources": [
+    "bank:Step 69"
+   ]
+  },
+  {
+   "written": "唯一",
+   "readings": [],
+   "meanings": [
+    "the one and only"
+   ],
+   "sources": [
+    "bank:Step 69"
+   ]
+  },
+  {
+   "written": "本場",
+   "readings": [],
+   "meanings": [
+    "the authentic home (of a thing)"
+   ],
+   "sources": [
+    "bank:Step 69"
+   ]
+  },
+  {
+   "written": "職人",
+   "readings": [],
+   "meanings": [
+    "an artisan"
+   ],
+   "sources": [
+    "bank:Step 69"
+   ]
+  },
+  {
+   "written": "風格",
+   "readings": [],
+   "meanings": [
+    "dignity; presence"
+   ],
+   "sources": [
+    "bank:Step 69"
+   ]
+  },
+  {
+   "written": "貫禄",
+   "readings": [],
+   "meanings": [
+    "weight; gravitas"
+   ],
+   "sources": [
+    "bank:Step 69"
+   ]
+  },
+  {
+   "written": "面影",
+   "readings": [],
+   "meanings": [
+    "a lingering likeness"
+   ],
+   "sources": [
+    "bank:Step 69"
+   ]
+  },
+  {
+   "written": "名残",
+   "readings": [],
+   "meanings": [
+    "traces; the remains of"
+   ],
+   "sources": [
+    "bank:Step 69"
+   ]
+  },
+  {
+   "written": "泥だらけ",
+   "readings": [],
+   "meanings": [
+    "mud-covered"
+   ],
+   "sources": [
+    "bank:Step 70"
+   ]
+  },
+  {
+   "written": "埃",
+   "readings": [],
+   "meanings": [
+    "dust"
+   ],
+   "sources": [
+    "bank:Step 70"
+   ]
+  },
+  {
+   "written": "汗",
+   "readings": [],
+   "meanings": [
+    "sweat"
+   ],
+   "sources": [
+    "bank:Step 70"
+   ]
+  },
+  {
+   "written": "満面",
+   "readings": [],
+   "meanings": [
+    "the whole face"
+   ],
+   "sources": [
+    "bank:Step 70"
+   ]
+  },
+  {
+   "written": "祝賀",
+   "readings": [],
+   "meanings": [
+    "celebration (formal)"
+   ],
+   "sources": [
+    "bank:Step 70"
+   ]
+  },
+  {
+   "written": "兼業",
+   "readings": [],
+   "meanings": [
+    "a side occupation"
+   ],
+   "sources": [
+    "bank:Step 70"
+   ]
+  },
+  {
+   "written": "相乗効果",
+   "readings": [],
+   "meanings": [
+    "synergy"
+   ],
+   "sources": [
+    "bank:Step 70"
+   ]
+  },
+  {
+   "written": "風物詩",
+   "readings": [],
+   "meanings": [
+    "a seasonal fixture"
+   ],
+   "sources": [
+    "bank:Step 70"
+   ]
+  },
+  {
+   "written": "施行",
+   "readings": [],
+   "meanings": [
+    "coming into force"
+   ],
+   "sources": [
+    "bank:Step 71"
+   ]
+  },
+  {
+   "written": "発足",
+   "readings": [],
+   "meanings": [
+    "inauguration; launch"
+   ],
+   "sources": [
+    "bank:Step 71"
+   ]
+  },
+  {
+   "written": "基盤",
+   "readings": [],
+   "meanings": [
+    "a foundation; base"
+   ],
+   "sources": [
+    "bank:Step 71"
+   ]
+  },
+  {
+   "written": "変遷",
+   "readings": [],
+   "meanings": [
+    "transitions; evolution"
+   ],
+   "sources": [
+    "bank:Step 71"
+   ]
+  },
+  {
+   "written": "先駆け",
+   "readings": [],
+   "meanings": [
+    "a forerunner"
+   ],
+   "sources": [
+    "bank:Step 71"
+   ]
+  },
+  {
+   "written": "節目",
+   "readings": [],
+   "meanings": [
+    "a milestone; juncture"
+   ],
+   "sources": [
+    "bank:Step 71"
+   ]
+  },
+  {
+   "written": "集大成",
+   "readings": [],
+   "meanings": [
+    "a culmination"
+   ],
+   "sources": [
+    "bank:Step 71"
+   ]
+  },
+  {
+   "written": "幕開け",
+   "readings": [],
+   "meanings": [
+    "the curtain's rise"
+   ],
+   "sources": [
+    "bank:Step 71"
+   ]
   },
   {
    "written": "ご飯",

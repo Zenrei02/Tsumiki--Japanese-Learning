@@ -60,6 +60,47 @@ AIが正しい前提では作っていません。むしろ、どこで間違え
 
 ---
 
+## Follow-up — payment
+
+Send shortly after the link, not after the work. Settling terms before she starts is
+cleaner than raising money once she is owed some.
+
+```
+あと、お支払いのことなんですが、PayPayでお送りしようと思っています。
+
+1セット目は¥5,000です。終わったら教えてください、すぐお送りします。
+
+PayPayのIDか受け取り用のリンクを、都合のいいときに送っていただけますか？
+もしPayPayを使っていなければ、銀行振込でもAmazonギフト券でも大丈夫なので、
+やりやすい方を教えてください。
+```
+
+**Three things it does deliberately.**
+
+**It restates ¥5,000.** The figure was agreed in conversation; putting it in writing next to
+the method costs nothing and removes the one ambiguity that sours a first payment.
+
+**It commits to paying on completion, not on some later schedule.** Prompt payment on batch
+one is most of what makes batch two feel safe to agree to — the point is the promptness, so
+it has to be said rather than merely intended.
+
+**It offers a way out of PayPay without making her ask.** PayPay is Japan-domestic and needs
+an account on both ends; assuming she has one puts her in the position of correcting you.
+銀行振込 and Amazonギフト券 are the alternatives already considered, so naming them costs one
+line and saves a round trip.
+
+**What it deliberately leaves out: the ¥300/output correction.** That is a *later* message,
+after B1 lands, framed as fairness — 「バッチごとに問題数が違うことに気づいたので、1問あたりで
+計算し直しました」. Bundling it in now would turn a simple payment note into a negotiation
+about batches she has not agreed to yet, and spend the goodwill of an unprompted raise before
+there is anything to be generous about.
+
+> PayPay person-to-person transfers need her PayPay ID (starts with `@`), her registered
+> phone number, or a link/QR she generates. The message asks for the ID or a link rather than
+> the phone number — same result, less of her personal data moving through a chat.
+
+---
+
 ## What the "different person" fact changed
 
 **The amended-key block now says the opposite of the first draft.** It previously read

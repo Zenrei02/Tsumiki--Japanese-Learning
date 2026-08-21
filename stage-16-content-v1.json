@@ -1,0 +1,532 @@
+{
+ "_": "Stage 16 · The literary machine — N1 closes, and with it the curriculum. Steps 67–69. Spliced by build-stage3.py after stage-15-content-b-v1.json.",
+ "_theme": "The written language's own machinery: instants caught mid-motion, duty in its classical armor, singularity, coverings, and the operators of official prose. After this stage the course's honest advice is the one ms-n1 gives: read.",
+ "_status": "AI-AUTHORED, NOT REVIEWED. Reviewer batch T.",
+ "insert": [],
+ "new_steps": [
+  {
+   "cat": "Step 67 · The instant, in print",
+   "level": "S16",
+   "after_step": "Step 66 · Turns of thought",
+   "note": "Stage 16 opens. Stage 14 timed events for conversation; these are the narrator's instants — the split second between trigger and response, as literature and reportage cut it.",
+   "bank": [
+    [
+     "合図",
+     "a signal"
+    ],
+    [
+     "気配",
+     "a presence; sign"
+    ],
+    [
+     "寸前",
+     "the verge; just before"
+    ],
+    [
+     "物音",
+     "a (suspicious) sound"
+    ],
+    [
+     "歓声",
+     "a cheer"
+    ],
+    [
+     "静寂",
+     "silence; stillness"
+    ],
+    [
+     "振り向く",
+     "to turn around"
+    ],
+    [
+     "飛び出す",
+     "to dash out"
+    ]
+   ],
+   "points": [
+    {
+     "id": "gahayaika",
+     "jp": "〜が早いか・や否や・なり",
+     "en": "the instant — three blades",
+     "kind": "grammar",
+     "exp": {
+      "what": "Three cuts at the same instant. が早いか races the two events to a photo finish: ベルが鳴るが早いか、飛び出した — the bell and the dash, indistinguishable. や否や asks 'had it even happened?' and answers with the next event. なり follows an action with an unexpected next, and can also freeze one: 立ったなり動かない — stood up and stayed that way.",
+      "build": "Dictionary form + が早いか／や否や. Dictionary form + なり for the surprise-next; た form + なり for the frozen state (行ったなり帰らない).",
+      "when": "Narrative prose exclusively — fiction, reportage, anecdote in print. Speech keeps Stage 11's か〜ないかのうちに and とたん.",
+      "watch": "All three need volitional, watchable actions on both sides. なり's two lives split on the verb form in front — the exam tests exactly that hinge. None of the three accept the speaker's own plans; they narrate what was SEEN."
+     },
+     "ex": [
+      [
+       "ドアが開くが早いか、猫が飛び出して行った。",
+       "The instant the door cracked, the cat was gone through it."
+      ],
+      [
+       "彼は電話を切るなり、部屋を出て行った。",
+       "He hung up and, in the same motion, walked out."
+      ]
+     ]
+    },
+    {
+     "id": "sobakara",
+     "jp": "〜そばから・とみるや",
+     "en": "as fast as; seeing which",
+     "kind": "grammar",
+     "exp": {
+      "what": "Two watchers' patterns. そばから catches undoing at the speed of doing, repeatedly: 片付けるそばから散らかす — mess appearing as fast as the tidying; the futility loop as grammar. とみるや narrates a decision made on a read: 形勢不利とみるや、撤退した — judging the position lost, they pulled out.",
+      "build": "Dictionary／た form + そばから + the undoing, habitual. Clause + とみるや + the swift response — third person, reported.",
+      "when": "そばから for Sisyphus at home: laundry, inboxes, toddlers. とみるや in history, sport and market reporting — the grammar of the shrewd read.",
+      "watch": "そばから needs repetition; a single undoing is plain とたん. とみるや's reader is never the speaker mid-action — it is the narrator crediting someone's judgement, sometimes ironically."
+     },
+     "ex": [
+      [
+       "覚えるそばから忘れていく。年は取りたくないものだ。",
+       "It slips away as fast as I learn it — age is a thief."
+      ],
+      [
+       "雲行きが怪しいとみるや、彼はさっさと店をたたんだ。",
+       "Reading the weather as turning, he folded the stall without ceremony."
+      ]
+     ]
+    },
+    {
+     "id": "toomoikiya",
+     "jp": "〜と思いきや・た拍子に",
+     "en": "or so one thought; in the jolt of",
+     "kind": "grammar",
+     "exp": {
+      "what": "Two narrative swerves. と思いきや sets an expectation and enjoys its collapse: 勝ったと思いきや、逆転された — victory, one thought; then the reversal. た拍子に hangs an accident on a movement's jolt: 立ち上がった拍子に、グラスを倒した — in the motion of standing, over went the glass.",
+      "build": "Plain form + と思いきや + the reversal (the きや is classical; the pattern is fixed). た form + 拍子に + the mishap.",
+      "when": "と思いきや in storytelling with a wink — it flags the swerve as entertainment. 拍子に in accident reports domestic and literal: the physics of clumsiness.",
+      "watch": "と思いきや's expectation should be reasonable — a silly premise makes the collapse land flat. 拍子に needs a sharp physical motion as trigger; slow causes take につれて or the plain て-form."
+     },
+     "ex": [
+      [
+       "静かになったと思いきや、子どもたちは壁に絵を描いていた。",
+       "Quiet at last, one thought — they were drawing on the walls."
+      ],
+      [
+       "くしゃみをした拍子に、腰を痛めた。",
+       "In the jolt of a sneeze, my back went."
+      ]
+     ]
+    },
+    {
+     "id": "tekaratoiumono",
+     "jp": "〜てからというもの・折に",
+     "en": "ever since — and everything changed; on occasions of",
+     "kind": "grammar",
+     "exp": {
+      "what": "Two long shadows. てからというもの is て以来 with consequence poured in: 子どもが生まれてからというもの、生活が一変した — since the birth, life entire has changed; the clause after it must show the standing difference. 折に lifts an occasion into formal light: 上京の折には、ぜひお立ち寄りください — when next in Tokyo, do call.",
+      "build": "て form + からというもの + the changed standing state. Noun／dictionary form + 折（おり）に; the letter-writing fossils: この折に, 折に触れて (whenever occasion allows).",
+      "when": "てからというもの opens reflective essays and eulogies. 折に belongs to correspondence and invitations — paper courtesy, still alive in email.",
+      "watch": "てからというもの demands a LARGE change; a small one (コンビニができてからというもの、パンを買っている) is bathos. 折に is gentle — for hard deadlines it is the wrong warmth."
+     },
+     "ex": [
+      [
+       "日本語を始めてからというもの、通勤時間が楽しみになった。",
+       "Ever since starting Japanese, even the commute has become something to look forward to."
+      ],
+      [
+       "お近くにお越しの折には、ぜひご連絡ください。",
+       "Should occasion bring you nearby, do be in touch."
+      ]
+     ]
+    },
+    {
+     "id": "sb-shunkan",
+     "jp": "瞬間の文法・全景",
+     "en": "the instant, mapped end to end",
+     "kind": "skill",
+     "exp": {
+      "what": "Every instant-pattern the course owns, on one timeline by register and grain. Spoken: とたん (the felt instant) → ところに (the interrupted arc) → か〜ないかのうちに (the overlap). Written: と同時に (the neutral tick) → や否や・が早いか (the photo finish) → なり (the same breath) → そばから (the repeating loop) → とみるや (the read and response) → 拍子に (the jolt).",
+      "build": "Choose by three axes: register (kitchen or page), grain (one instant or a loop), and agency (felt, watched, or judged). English 'as soon as' flattens nine machines into three words; the map unflattens them.",
+      "when": "This family is N1 reading's densest cluster — one fiction page can carry four. Production needs only the spoken three; the rest are for recognizing at speed.",
+      "watch": "The register wall is hard: や否や in conversation sounds like reading aloud from a novel, which is the one effect it always achieves."
+     },
+     "ex": [
+      [
+       "着くなり寝た。着いたとたん寝た。着くや否や寝た。",
+       "Same collapse, three registers — the breath, the feeling, the page."
+      ]
+     ]
+    },
+    {
+     "id": "b-s67",
+     "jp": "Composition · 決定的瞬間",
+     "en": "the decisive moment, narrated",
+     "kind": "build",
+     "exp": {
+      "what": "Narrate one dramatic moment in five sentences using five different instant-tools: the setup state, the trigger (が早いか or や否や), the same-breath response (なり), the jolt-accident (拍子に), and the ever-since (てからというもの).",
+      "build": "Write it as reportage — third person, past tense, である register. The constraint that teaches: no instant-tool may repeat.",
+      "when": "This is the page these patterns live on; writing one paragraph of it converts nine recognition items into three production items and six familiar faces.",
+      "watch": "Five instants need one THING happening, seen closely — five events make a summary, not a moment."
+     },
+     "ex": [
+      [
+       "審判が笛を吹くが早いか、観客は総立ちになった。",
+       "The whistle and the crowd rising — a single instant."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "cat": "Step 68 · Duty, in classical armor",
+   "level": "S16",
+   "after_step": "Step 67 · The instant, in print",
+   "note": "The classical stems' last and grandest chapter: purpose and prohibition in armor (べく・べからず・まじき), overflow at the brim (んばかり), and the passives of compulsion. sb-beku closes the thread sb-zaru opened five stages ago.",
+   "bank": [
+    [
+     "義務",
+     "duty; obligation"
+    ],
+    [
+     "違反",
+     "a violation"
+    ],
+    [
+     "処分",
+     "disciplinary action"
+    ],
+    [
+     "撤回",
+     "retraction"
+    ],
+    [
+     "辞任",
+     "resignation (from a post)"
+    ],
+    [
+     "責務",
+     "one's charge; responsibility"
+    ],
+    [
+     "遺憾",
+     "regrettable (officialese)"
+    ],
+    [
+     "容認",
+     "toleration; acceptance"
+    ]
+   ],
+   "points": [
+    {
+     "id": "beku",
+     "jp": "〜べく・べくもない",
+     "en": "so as to — with duty in it; no hope of",
+     "kind": "grammar",
+     "exp": {
+      "what": "Purpose wearing べき's armor: 真相を明らかにすべく、調査が始まった — an inquiry began, that the truth be brought to light; ために with obligation folded in. べくもない denies even the hope: 勝つべくもない — winning was never in reach.",
+      "build": "Dictionary form + べく (する → すべく — the classical stem, again); the FORMS table carries べく from this point. Dictionary form + べくもない for the foreclosed hope.",
+      "when": "べく in reports and mission statements — wherever purpose is also duty. べくもない in retrospective narration of hopeless odds.",
+      "watch": "べく's clause cannot take a request or command after it (すべく、してください breaks) — the duty is the actor's own. And すべく not しべく: the せ/す family's rule holds to the last."
+     },
+     "ex": [
+      [
+       "期限に間に合わせるべく、全員が残業した。",
+       "That the deadline be met, everyone stayed late."
+      ],
+      [
+       "素人の私では、プロに勝つべくもなかった。",
+       "Amateur that I am, beating a professional was never in reach."
+      ]
+     ]
+    },
+    {
+     "id": "bekarazu",
+     "jp": "〜べからず／べからざる・まじき",
+     "en": "shall not; unbecoming of",
+     "kind": "grammar",
+     "exp": {
+      "what": "Prohibition's two stone tablets. べからず ends a posted rule: 芝生に入るべからず — keep off the grass, as the old sign chisels it; べからざる is its adjective form: 欠くべからざる — indispensable (un-lack-able). まじき measures conduct against a role and finds it unbecoming: 教師にあるまじき行為 — behavior unbecoming a teacher.",
+      "build": "Dictionary form + べからず (sign-final) / べからざる + noun. ある／dictionary form + まじき + noun, almost always in 〜にあるまじき.",
+      "when": "Reading old signs, editorials and disciplinary statements. Producing: 欠くべからざる and 許すまじき are the two fossils worth owning; the rest is recognition.",
+      "watch": "べからず on a modern notice is deliberate archaism — a temple or a joke. まじき needs the ROLE named; conduct unbecoming of nobody in particular is just misconduct."
+     },
+     "ex": [
+      [
+       "初心忘るべからず。",
+       "Never forget the beginner's heart. (Zeami's line — the pattern's most famous sighting)"
+      ],
+      [
+       "それは、政治家にあるまじき発言だ。",
+       "That is a remark unbecoming of a politician."
+      ]
+     ]
+    },
+    {
+     "id": "nbakari",
+     "jp": "〜んばかりに・とばかりに",
+     "en": "all but; as if to say",
+     "kind": "grammar",
+     "exp": {
+      "what": "Two brinks. んばかりに holds an action at the very lip of happening: 泣かんばかりに頼んだ — begged all but weeping; the ん is the classical negative, so the bones read 'to the point of not-quite.' とばかりに performs an unspoken line: 今だとばかりに攻めた — attacked as if to say NOW.",
+      "build": "ない-stem + んばかりに（の）(する → せんばかり): あふれんばかりの拍手. Quoted stance + とばかりに + the action that mimes it.",
+      "when": "Both are narrator's tools for faces, crowds and gestures — the brimming hall, the door slammed as-if-to-say. Fiction and color reporting.",
+      "watch": "んばかり stops short — the weeping never quite starts; if it did, plain ながら reports it. とばかりに's quote must be inferable from the action; an arbitrary one breaks the mime."
+     },
+     "ex": [
+      [
+       "会場は、割れんばかりの拍手に包まれた。",
+       "The hall was wrapped in applause fit to split it."
+      ],
+      [
+       "彼女は、帰れとばかりに窓を閉めた。",
+       "She shut the window as if to say: go home."
+      ]
+     ]
+    },
+    {
+     "id": "woyoginaku",
+     "jp": "〜を余儀なくされる・を禁じ得ない",
+     "en": "compelled to; cannot suppress",
+     "kind": "grammar",
+     "exp": {
+      "what": "Two formal passives of the overpowered. を余儀なくされる reports circumstance forcing the unwanted: 中止を余儀なくされた — cancellation was forced upon them (its mirror 余儀なくさせる names the forcer). を禁じ得ない admits an emotion past suppressing, in official dress: 怒りを禁じ得ない — one cannot suppress one's anger.",
+      "build": "Noun + を余儀なくされる／させる. Emotion noun + を禁じ得ない (涙・怒り・同情・驚き — the list is short and dignified).",
+      "when": "Disaster reporting, resignations, editorials. を禁じ得ない is how institutions weep — the phrase does in print what a press-conference bow does in person.",
+      "watch": "される/させる assigns the blame's direction — the exam's favorite flip. 禁じ得ない with cheerful emotions (喜びを禁じ得ない) exists but reads as archly stiff; the pattern's home is grief and indignation."
+     },
+     "ex": [
+      [
+       "台風の接近により、大会は延期を余儀なくされた。",
+       "The typhoon's approach forced the tournament's postponement."
+      ],
+      [
+       "この判決には、疑問を禁じ得ない。",
+       "At this verdict, one cannot suppress one's doubts."
+      ]
+     ]
+    },
+    {
+     "id": "nakushite",
+     "jp": "〜なくして（は）・なしに・ことなしに・ずとも",
+     "en": "without — the formal family",
+     "kind": "grammar",
+     "exp": {
+      "what": "The without-family at full formality. なくして（は） makes the absence fatal: 努力なくして成功はない — no effort, no success. なしに and ことなしに report bypassed steps: 断りなしに, 誰にも知られることなしに. ずとも waives the need: 言わずとも分かる — understood without saying.",
+      "build": "Noun + なくして（は）+ negative. Noun／dictionary form + （こと）なしに. ない-stem + ずとも (せずとも — the classical stem's final cameo).",
+      "when": "なくして in maxims and dedications; なしに in procedure and reproach (無断で's formal twin); ずとも in knowing understatement — 言わずともがな hovers behind it.",
+      "watch": "なくして wants the indispensable — trivial absences (傘なくしては) read as mock-epic. The family completes the classical-negative thread: ず, ざる, ぬ(未見), ん(ばかり), まじ, and now ずとも — sb-beku files them all."
+     },
+     "ex": [
+      [
+       "皆様のご支援なくしては、今日の私はありません。",
+       "Without your support, there would be no me standing here today."
+      ],
+      [
+       "多くを言わずとも、彼には伝わっていた。",
+       "Without many words, he understood."
+      ]
+     ]
+    },
+    {
+     "id": "sb-beku",
+     "jp": "文語の骨 — 総目録",
+     "en": "the classical skeleton, complete catalogue",
+     "kind": "skill",
+     "exp": {
+      "what": "Every classical fossil the course has met, filed as ONE system at last. The negative stem family: ず (without doing) → ざる (formal not-) → ん (the brink: んばかり, んがため) → まじ (must-not: まじき) → ずとも (without needing to). The duty stem: べし's children — べき (should), べく (so as to), べからず (shall not), べくもない (no hope). And the する rule that governs them all: the classical stem is せ／す — せず, せざる, せんばかり, すべく, すまじ.",
+      "build": "Recognition is the skill: meet an unknown -ざる/-べか-/-んば- word in the wild, strip the fossil, and the modern meaning is usually one step away. The catalogue is closed — nothing in N1 adds another stem.",
+      "when": "Newspaper headlines, legal boilerplate, proverbs, and every temple sign in the country. This single builder is the reading key to all of them.",
+      "watch": "The one modern impostor: ん as contraction of の (行くんです) has nothing to do with classical ん. Position tells them apart — the classical one binds to the ない-stem, the modern one floats before です."
+     },
+     "ex": [
+      [
+       "働かざる者食うべからず — ざる and べからず, one proverb, whole system.",
+       "He who does not work shall not eat."
+      ]
+     ]
+    },
+    {
+     "id": "b-s68",
+     "jp": "Composition · 声明文",
+     "en": "the official statement",
+     "kind": "build",
+     "exp": {
+      "what": "Draft a four-line organizational statement about a cancelled event: the compulsion (を余儀なくされ), the purpose going forward (べく), the suppressed feeling (を禁じ得ない), and the indispensable thanks (なくして).",
+      "build": "Shape to steal: 誠に遺憾ながら、中止を余儀なくされました。再開すべく、準備を進めております。皆様のご理解なくしては前に進めません。",
+      "when": "The 声明文 is the most formulaic genre in the language — which makes it the fastest to learn and the most transferable to read.",
+      "watch": "One 遺憾 per statement. It is officialese's strongest spice and its most parodied."
+     },
+     "ex": [
+      [
+       "安全確保のため、開催中止を余儀なくされました。",
+       "For the securing of safety, cancellation has been forced upon us."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "cat": "Step 69 · One and only",
+   "level": "S16",
+   "after_step": "Step 68 · Duty, in classical armor",
+   "note": "Singularity and seeming: what only X could be, what stands in for nothing else, what merely resembles, and the small suffixes that dress nouns in appearances.",
+   "bank": [
+    [
+     "独自",
+     "unique to oneself"
+    ],
+    [
+     "唯一",
+     "the one and only"
+    ],
+    [
+     "本場",
+     "the authentic home (of a thing)"
+    ],
+    [
+     "職人",
+     "an artisan"
+    ],
+    [
+     "風格",
+     "dignity; presence"
+    ],
+    [
+     "貫禄",
+     "weight; gravitas"
+    ],
+    [
+     "面影",
+     "a lingering likeness"
+    ],
+    [
+     "名残",
+     "traces; the remains of"
+    ]
+   ],
+   "points": [
+    {
+     "id": "naradeha",
+     "jp": "〜ならでは・をおいて・きっての",
+     "en": "none but; the finest of",
+     "kind": "grammar",
+     "exp": {
+      "what": "Three crowns. ならでは marks what only X could produce: 本場ならではの味 — a flavor you get nowhere but the source. をおいて…ない rules out all others: 彼をおいて適任者はいない — set him aside and no fit candidate exists. きっての superlativizes within a domain: 町きっての物知り — the town's foremost authority.",
+      "build": "Noun + ならでは（の）. Noun + をおいて + ほかに…ない. Domain noun + きっての + title.",
+      "when": "Praise with provenance: tourism copy, introductions, recommendations. ならでは is the most useful word in the Japanese travel industry and will follow you through it.",
+      "watch": "をおいて demands the negative completion — dropped, it says only 'excluding him.' きっての needs a bounded domain; 世界きっての overreaches the pattern's village-scale charm."
+     },
+     "ex": [
+      [
+       "この祭りには、地元ならではの活気がある。",
+       "This festival has a liveliness that could only be local."
+      ],
+      [
+       "この仕事を任せられるのは、君をおいてほかにいない。",
+       "There is no one this can be entrusted to but you."
+      ]
+     ]
+    },
+    {
+     "id": "gotoki",
+     "jp": "〜ごとき／ごとく・ままに・ながらに",
+     "en": "such as; as it wills; as it was",
+     "kind": "grammar",
+     "exp": {
+      "what": "Three manners from the classical shelf. ごとく is ようだ's ancestor: 矢のごとく — like an arrow; ごとき before nouns, and aimed at persons it belittles (私ごとき humbles, 彼ごとき insults). ままに yields steering: 風の吹くままに — as the wind wills. ながらに holds a state unchanged since origin: 生まれながらに, 涙ながらに.",
+      "build": "Noun + の + ごとく／ごとき + noun. Dictionary form／noun + の + ままに. Noun + ながらに（の）: 昔ながらの町並み.",
+      "when": "All three in written description; 昔ながらの and 生まれながらの are the two everyday survivors — shop signs and character sketches respectively.",
+      "watch": "ごとき's direction of contempt is the exam's favorite: 私ごとき = humble, お前ごとき = fighting words. ままに differs from plain まま (Stage 6) by will — the classical に version has surrender in it."
+     },
+     "ex": [
+      [
+       "時は矢のごとく過ぎ去った。",
+       "Time passed like an arrow."
+      ],
+      [
+       "この通りには、昔ながらの商店が残っている。",
+       "Along this street, shops from the old days remain as they were."
+      ]
+     ]
+    },
+    {
+     "id": "narini",
+     "jp": "〜なりに／なりの・ひとつ・ようによっては",
+     "en": "in one's own way; on a single; depending how",
+     "kind": "grammar",
+     "exp": {
+      "what": "Three modest measures. なりに grants a scaled-to-size effort: 子どもなりに考えた — thought it through, in a child's own way; self-applied (私なりに) it is polite modesty. ひとつ hangs everything on one variable: 言葉ひとつで人は傷つく — a single word can wound. ようによっては pivots on construal: 考えようによっては幸運だった — looked at one way, lucky.",
+      "build": "Noun + なりに／なりの + noun. Noun + ひとつで. ます-stem + ようによっては.",
+      "when": "なりに everywhere — one of N1's few daily-conversation natives; it softens self-praise and dignifies small efforts. The other two in reflective prose and advice.",
+      "watch": "なりに aimed at superiors condescends: 部長なりに頑張った demotes the 部長. ひとつ needs a genuinely small lever — 予算ひとつで is off-pattern because budgets aren't small."
+     },
+     "ex": [
+      [
+       "私なりに精一杯やったつもりです。",
+       "In my own way, I believe I gave it everything."
+      ],
+      [
+       "失敗も、考えようによっては授業料だ。",
+       "Even failure, construed one way, is tuition."
+      ]
+     ]
+    },
+    {
+     "id": "meku",
+     "jp": "〜めく・びる・ぶる・じみた",
+     "en": "the seeming-suffixes",
+     "kind": "grammar",
+     "exp": {
+      "what": "Four small machines that dress nouns in appearances. めく: begins to have the air of — 春めく, the world turning springlike. びる: wears the look — 大人びた子, a child seeming grown. ぶる: AFFECTS the look, always damningly — 上品ぶる, putting on refinement. じみた: stained toward — 芝居じみた, theatrical in the bad way.",
+      "build": "Noun + めく (謎めいた, 皮肉めいた); noun + びる (古びた); noun + ぶる (もったいぶる); noun + じみた (子どもじみた). All conjugate as verbs; びた/じみた live mostly as adjectives.",
+      "when": "Character and scene description. The four rank by sincerity: めく (genuine air) > びる (genuine look) > じみた (unwelcome look) > ぶる (fraudulent look) — a built-in verdict in each suffix.",
+      "watch": "ぶる and じみた are never compliments; 学者ぶった people are, by grammar alone, not scholars. めく keeps to a poetic set (春・謎・冗談・皮肉) — inventing 会議めく is possible and means the day has gone badly."
+     },
+     "ex": [
+      [
+       "日差しがすっかり春めいてきた。",
+       "The light has taken on the full air of spring."
+      ],
+      [
+       "彼の芝居じみた謝罪に、誰も納得しなかった。",
+       "His theatrical apology convinced no one."
+      ]
+     ]
+    },
+    {
+     "id": "tomonaku",
+     "jp": "〜ともなく・ともなると・ともすれば",
+     "en": "the とも drawer",
+     "kind": "grammar",
+     "exp": {
+      "what": "Three tools sharing a hinge. ともなく blurs intent: 見るともなく見ていた — watching without quite watching; どこからともなく, from nowhere in particular. ともなると raises stakes with standing: 十年目ともなると、貫禄が出る — by the tenth year, gravitas arrives. ともすれば names a drift: ともすれば怠けがちだ — apt, left alone, to slacken.",
+      "build": "Dictionary form + ともなく + same verb (見るともなく見る); question word + ともなく. Noun + ともなると／ともなれば. ともすれば + がち・そうになる.",
+      "when": "ともなく in fiction's drifting attention and mysterious arrivals; ともなると in observations about rank and season; ともすれば in self-diagnosis and editorials.",
+      "watch": "ともなく's doubled-verb shape is fixed — collapse it and the absent-mindedness collapses too. ともなると needs a threshold with known expectations; 火曜日ともなると mocks Tuesday for having none."
+     },
+     "ex": [
+      [
+       "ラジオを聞くともなく聞いていたら、懐かしい曲が流れた。",
+       "Half-listening to the radio, I caught a song from the old days."
+      ],
+      [
+       "師走ともなると、町全体が慌ただしくなる。",
+       "Come December, the whole town picks up its pace."
+      ]
+     ]
+    },
+    {
+     "id": "b-s69",
+     "jp": "Composition · 人物紹介",
+     "en": "the profile",
+     "kind": "build",
+     "exp": {
+      "what": "Write a five-line profile of an artisan: the only-here crown (ならでは), the unchanged origin (ながらの), the scaled self-estimate quoted (なりに), the seeming-suffix observation (めく or びた), and the standing-threshold close (ともなると).",
+      "build": "Third person, warm but measured — the magazine-profile register where every one of these patterns natively lives.",
+      "when": "The 人物紹介 is the friendliest N1 genre and the one a learner will write soonest — introducing a colleague, a teacher, a town's last craftsman.",
+      "watch": "ぶる and じみた stay OUT of a warm profile — one seeming-suffix chosen wrong turns the tribute into a hit piece."
+     },
+     "ex": [
+      [
+       "五十年ともなると、手が勝手に動くのだと、職人は笑う。",
+       "Fifty years in, the hands move on their own — the artisan laughs."
+      ]
+     ]
+    }
+   ]
+  }
+ ]
+}

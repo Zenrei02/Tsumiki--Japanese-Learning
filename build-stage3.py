@@ -50,7 +50,12 @@ CONTENT = [HERE / "stage-3-content-v1.json", HERE / "milestone-content-v1.json",
            HERE / "stage-12-content-b-v1.json",
            HERE / "stage-13-content-v1.json",
            HERE / "stage-13-content-b-v1.json",
-           HERE / "stage-13-sweep-v1.json"]
+           HERE / "stage-13-sweep-v1.json",
+           # Stages 15-16 (N1 — the curriculum's close). a/b chain by after_step.
+           HERE / "stage-15-content-v1.json",
+           HERE / "stage-15-content-b-v1.json",
+           HERE / "stage-16-content-v1.json",
+           HERE / "stage-16-content-b-v1.json"]
 
 # ————— emit JS in the module's own house style —————
 def js_str(s):
