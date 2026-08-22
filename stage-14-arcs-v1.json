@@ -1,0 +1,1094 @@
+{
+  "_": "Stage 14 arcs — Steps 56–61. Same schema as lesson-arcs-v1.json items. Authoring unit; merged into lesson-arcs-v1.json which remains the source of truth.",
+  "_status": "AI-AUTHORED, NOT REVIEWED. Queued as reviewer batch U with the rest of the Session 19 arcs.",
+  "items": [
+    {
+      "point": "nimotozuite",
+      "step": "Step 56 · Grounds and guides",
+      "setting": {
+        "scene": "The plan you are presenting is not your hunch — that is the entire strength of it. Last year's survey did the work: the numbers were gathered, the pattern was real, and the plan stands on that ground the way a building stands on a foundation surveyed before the first beam went up. 調査を使って says you used the survey, the way one uses a stapler. The claim you actually need is structural: the survey is what the plan stands on.",
+        "jp": "去年の調査を使って、計画を作りました。",
+        "en": "We made the plan using last year's survey — a tool picked up, where a foundation was laid.",
+        "pattern": "使って"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "に基づいて makes the survey the ground: the plan is based on it, stands on it, claims its legitimacy from it. 基 is base — the named noun is what everything above it rests on, and the sentence says so structurally.",
+          "jp": "この計画は、去年の調査に基づいている。",
+          "en": "This plan is based on last year's survey."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "Officialdom tightens it to に基づき: per the regulations, a fine — the action drawing its authority from the named text, no apology attached, the legitimacy doing all the talking. The bow is in the citation, not the wording.",
+          "jp": "規定に基づき、罰金を科します。",
+          "en": "Per the regulations, a fine will be imposed.",
+          "t": "基づく is to take as one's 基 — base. The named noun is the ground the action stands on, and the action claims LEGITIMACY from it — which is why laws, data and regulations are its natural companions. に基づき is the notice form."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "nisotte",
+      "step": "Step 56 · Grounds and guides",
+      "setting": {
+        "scene": "The rail line runs behind your building, and in April the cherry trees planted beside it bloom in a two-kilometer ribbon you can follow on foot without ever deciding where to walk. That never-leaving-its-side is a specific relation, and Japanese has a verb for it — one that works exactly as well when the line is not a railway but a company policy your redrawn plan is required to keep beside it at every step.",
+        "jp": "線路のそばに、桜の木があります。",
+        "en": "There are cherry trees near the tracks — proximity, without the running-alongside.",
+        "pattern": "そばに"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "に沿って runs alongside: trees planted along the line, keeping its company for the whole length. 沿う is the river-walk verb — the named line is followed continuously, never crossed, never left.",
+          "jp": "線路に沿って、桜の木が植えられている。",
+          "en": "Cherry trees are planted along the rail line."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "The abstract line works identically: a plan redrawn in line with company policy proceeds so as never to leave the policy's side — the same geometry, moved indoors onto paper.",
+          "jp": "会社の方針に沿って、計画を立て直した。",
+          "en": "We redrew the plan in line with company policy.",
+          "t": "沿う is to run alongside — a river, a wall, a plan. Physical (川に沿って歩く) and abstract (方針に沿って進める) are one sense: continuous accompaniment of a line, never leaving its side. Contrast 基づいて, which stands ON rather than walks BESIDE."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "nishitagatte",
+      "step": "Step 56 · Grounds and guides",
+      "setting": {
+        "scene": "The evacuation drill has one rule worth internalizing: when the staff with the armbands speak, everyone moves as told, no debate, deference built into the procedure. And on the long train north that same week, you notice a quieter version of the same relation — as the latitude climbs, the temperature follows it down, one thing trailing another with the obedience of a subordinate. Japanese runs both through a single verb of following.",
+        "jp": "係員の言うとおりに、動いてください。",
+        "en": "Move as the staff say — the instruction relayed, the deference improvised.",
+        "pattern": "とおりに"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "に従って is obedience in its official cut: follow the staff's instructions — 従う is what one does before a superior, and the deference is in the verb itself, not in your tone of voice.",
+          "jp": "係員の指示に従ってください。",
+          "en": "Please follow the staff's instructions."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "Its second reading is lockstep change: as one ages, time feels faster — the second thing following the first the way the subordinate follows the superior, step matched to step across a whole life.",
+          "jp": "年を取るに従って、時間が早く感じられる。",
+          "en": "As one ages, time comes to feel faster.",
+          "t": "従う is to follow a superior, and both readings keep the deference: obedience (指示に従って — per instructions) and lockstep change (北に行くに従って寒くなる — as you go north, it cools). One verb, two speeds of following."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "nioujite",
+      "step": "Step 56 · Grounds and guides",
+      "setting": {
+        "scene": "The job posting is refreshingly honest about the pay: it depends. Not evasively — mechanically. Experience in, salary out, one dial wired to another, more of this yielding more of that. によって would say the pay differs by experience, which is true and inert; what the posting means is livelier: the pay RESPONDS. 応じる is to answer, and this pattern makes one quantity the standing answer to another.",
+        "jp": "経験によって、給料が違います。",
+        "en": "Pay differs by experience — a difference noted, where a dial was wired.",
+        "pattern": "によって"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "に応じて wires the dial: pay set according to experience — the one quantity calibrated to the other, sliding as it slides. Not obedience, not foundation: calibration, the fourth geometry of this step.",
+          "jp": "経験に応じて、給料が決まります。",
+          "en": "Pay is set according to experience."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "Its active sibling 応えて answers demands rather than scales to them: hours extended in answer to customers' wishes — the same responding verb, aimed at a request instead of a variable.",
+          "jp": "お客様のご要望に応えて、営業時間を延ばしました。",
+          "en": "Answering customers' wishes, we extended our hours.",
+          "t": "応じる is to respond: に応じて makes one thing a DIAL for another (収入に応じて税金が変わる). Keep it apart from に応えて, which ANSWERS a specific call or wish — calibration versus response, one kanji family, two tools."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "sb-kijun",
+      "step": "Step 56 · Grounds and guides",
+      "setting": {
+        "scene": "Four patterns in four lessons, and in English they all collapse into the same limp phrase: according to, based on, in line with — prepositions doing four jobs with one face. The exam will hand you a sentence and four choices, and the way through is not memorized translations but geometry: where does the action stand relative to the named thing? On it, beside it, behind it, or wired to it. One workday sentence can use three at once.",
+        "jp": "マニュアルを見て、作業してください。",
+        "en": "Look at the manual and do the work — one flat instruction, three geometries flattened out of it.",
+        "pattern": "見て"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "The toolbox sentence, all three at once: working along the manual, on the regulations, per instructions — 沿って running beside the document, 基づき standing on the rules, 従って walking behind the person with authority.",
+          "jp": "マニュアルに沿って、規定に基づき、指示に従って作業する。",
+          "en": "Working along the manual, on the regulations, per instructions — three geometries, one sentence."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "And the fourth geometry, the dial, completing the set: pay scaling with experience — 応じて, the one that neither stands nor walks but responds, sliding as its input slides. No document needed; the dial turns wherever quantities are wired together.",
+          "jp": "経験に応じて、給料が決まります。",
+          "en": "Pay is set according to experience.",
+          "t": "Four geometries, one English preposition: 基づいて stands ON (foundation), 沿って runs BESIDE (path), 従って walks BEHIND (authority), 応じて scales WITH (dial). Ask where the action stands, and the geometry answers before the grammar does."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "nikuwaete",
+      "step": "Step 57 · With, against, around",
+      "setting": {
+        "scene": "The situation report was already grim at the first line: not enough hands. The second line makes it grimmer: material costs climbing too. And your draft joins them with そして, which adds the way a shopping list adds — item, item — when what the report needs is the sound of weight landing on weight: the first problem was already sufficient, and the second arrived on top of it anyway.",
+        "jp": "人手が足りません。そして、材料費も上がっています。",
+        "en": "Short-handed. And material costs are rising — items on a list, where weight was landing on weight.",
+        "pattern": "そして"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "に加え stacks the second burden on a first that was already enough: added to the labor shortage, costs rising — 加える is to add, and the pile visibly grows in the grammar.",
+          "jp": "人手不足に加え、材料費も上がっている。",
+          "en": "Added to the labor shortage, material costs are rising."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "It stacks good things with the same motion: on top of English, Chinese begun too — ambition loading itself the way problems do, one acquisition landing on another. The first language was already a full load; that is the point.",
+          "jp": "彼は英語に加えて、中国語も勉強し始めた。",
+          "en": "On top of English, he's started Chinese too.",
+          "t": "に加えて loads a SITUATION — weight on weight, the first already sufficient. Its neighbor のみならず widens a CLAIM. Same two-part skeleton; one is about how much is piled up, the other about how far the statement reaches."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "nihanshite",
+      "step": "Step 57 · With, against, around",
+      "setting": {
+        "scene": "Everyone had the final called before it started — the veteran in three sets, the office pool unanimous. The newcomer won in two. Writing it up, でも and けど can register that things went differently, but they cannot perform the measurement the story turns on: the outcome held up against the expectation and found not just different but opposite. The pattern for that carries a 反 — the character of running counter.",
+        "jp": "みんなの予想と違って、新人が優勝しました。",
+        "en": "Differently from everyone's predictions, the newcomer won — different, where the story was opposite.",
+        "pattern": "違って"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "に反して measures the outcome against the forecast and finds it counter: contrary to most predictions, the newcomer took the title — the expectation named, the result running against its grain.",
+          "jp": "大方の予想に反して、新人が優勝した。",
+          "en": "Contrary to most predictions, the newcomer took the title."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "The noun before it always carries an expectation inside: predictions, hopes, wishes, rules. Parents' hopes are exactly that kind of noun — and quitting the company ran straight against theirs.",
+          "jp": "親の期待に反して、彼は会社を辞めた。",
+          "en": "Against his parents' hopes, he quit the company.",
+          "t": "反する is to run counter: に反して takes an expectation-bearing noun — 予想, 期待, 意思, 規則 — and declares the outcome opposite, not merely different. A noun with no expectation in it gives the pattern nothing to defy."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "nimukatte",
+      "step": "Step 57 · With, against, around",
+      "setting": {
+        "scene": "The relay's last leg, and the club's slowest runner is running it: head down, arms wrong, form collapsing, aimed at the tape like a compass needle at north. まで would give the endpoint, へ the direction — but neither carries the FACING, the whole body oriented at the goal for every stride of the way. 向かう faces and heads for at once, and it aims motion, posture, effort, and — sharpened — even insolence.",
+        "jp": "ゴールまで、最後まで走りました。",
+        "en": "Ran to the goal, to the end — endpoint given, the facing lost.",
+        "pattern": "まで"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "に向かって aims the whole runner: flat out toward the goal, to the very end — motion and orientation in one marker, the target held in front of the sentence the whole way.",
+          "jp": "ゴールに向かって、最後まで走り抜いた。",
+          "en": "He ran flat out toward the goal, to the very end."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "に向けて is its planning sibling: the team fine-tuning ahead of the final — effort aimed at an event still weeks out, the arrow drawn but not yet flying. Posters for tournaments and elections run on 向けて.",
+          "jp": "決勝戦に向けて、チームは調整を続けている。",
+          "en": "The team keeps fine-tuning ahead of the final.",
+          "t": "向かう faces and heads for: motion (駅に向かって), orientation (壁に向かって), purpose (目標に向かって) — and the sharp one, TO someone's face: 親に向かって、その口の利き方は何だ marks effrontery. に向けて aims preparation at a future point."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "womegutte",
+      "step": "Step 57 · With, against, around",
+      "setting": {
+        "scene": "The town's noticeboard says only 説明会 — but everyone knows what the meeting is: the factory. Half the residents see jobs, half see truck traffic and night noise, and the factory itself does nothing at all except sit at the center while the arguing goes around it. について would make it a topic. It is not a topic; it is an axle. The discussion has heat, sides, and orbit, and Japanese marks that geometry with a circling verb.",
+        "jp": "新しい工場について、意見が違います。",
+        "en": "Opinions differ about the new factory — a topic discussed, where an axle was being circled.",
+        "pattern": "について"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "をめぐって sets the factory at the still center and the dispute in orbit: residents split over its construction — めぐる is to circle, and what circles is always discussion with heat in it.",
+          "jp": "新しい工場の建設をめぐって、住民の意見が分かれている。",
+          "en": "Residents are split over the new factory's construction."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "Even a written rule can be the axle — its interpretation orbited by argument for weeks. The stiller the center, the better the pattern likes it: the noun does nothing, and that is its whole role.",
+          "jp": "その規則の解釈をめぐって、議論が続いた。",
+          "en": "Debate continued over how to read the rule.",
+          "t": "めぐる is to circle: をめぐって puts the noun at the still center with DISPUTE in orbit — inheritance, construction, interpretation. について merely discusses; をめぐって requires heat and sides. No conflict, wrong pattern."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "wonozoite",
+      "step": "Step 57 · With, against, around",
+      "setting": {
+        "scene": "Three small jobs, one afternoon: the shop sign that must say open daily except holidays; the film poster claiming its story is built from a true one; the thank-you letter that should carry actual gratitude folded into it rather than stapled on. Three different を-patterns finish this step's family — one subtracts, one builds from a source, one pours feeling in — and all three are the kind of Japanese that gets read off walls and envelopes.",
+        "jp": "祝日は休みです。毎日開いています。",
+        "en": "Closed holidays. Open every day — two signs doing badly what one sign says cleanly.",
+        "pattern": "毎日"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "を除いて subtracts cleanly: open every day except holidays — the excluded case named and removed, the rest of the claim standing whole. The shop sign's own grammar — 除く is the formal cut of 抜き, sized for notices.",
+          "jp": "祝日を除いて、毎日開いています。",
+          "en": "Open every day except holidays."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "をこめて pours the feeling into the making: a letter written with gratitude folded in — こめる loads the object with what the writer felt, and the reader is meant to find it there.",
+          "jp": "感謝をこめて、手紙を書いた。",
+          "en": "I wrote the letter with gratitude folded in.",
+          "t": "Three を-patterns finish the family: を除いて subtracts (月曜を除いて営業); をもとに builds from a source (実話をもとにした映画 — note もと, the same base as 基づく, worn casually); をこめて pours feeling in (心をこめて作った)."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "nimokakawarazu",
+      "step": "Step 58 · No matter what",
+      "setting": {
+        "scene": "Two sentences about weather, and they are not the same sentence. The match yesterday: rain fell, real rain, and play went ahead anyway — a fact defied. The festival next month: whatever the sky decides, it will be held — a variable dismissed in advance. Your spoken Japanese covers both with でも, and the exam knows it: these two machines differ by a single も, and confusing them is the most bought wrong answer at this level.",
+        "jp": "雨でも、試合をしました。",
+        "en": "Even with rain, we played — でも covering both machines at once, which is the trap.",
+        "pattern": "でも"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "にもかかわらず overrides a FACT: the weather was foul — that actually happened — and the crowd gathered anyway. The defeated circumstance is real, named, and stepped over — that stepping-over is the pattern's whole drama.",
+          "jp": "悪天候にもかかわらず、多くの人が集まった。",
+          "en": "Despite the foul weather, a crowd gathered."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "にかかわらず dismisses a VARIABLE: experience or none, either value, apply anyway — nothing has happened yet, and the pattern declares in advance that whatever does won't matter. Recruiting posters and event notices live on this machine.",
+          "jp": "経験の有無にかかわらず、応募できます。",
+          "en": "You may apply regardless of experience.",
+          "t": "One も, two machines: にもかかわらず takes a FACT and overrides it (rain fell; played anyway). にかかわらず takes a VARIABLE and declares it irrelevant (rain or shine; held regardless). Check whether the thing already happened."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "nishiro",
+      "step": "Step 58 · No matter what",
+      "setting": {
+        "scene": "The group trip is Sunday and half the chat has not answered. Your message needs to cover both worlds at once — the one where they come and the one where they don't — because the thing you need (an answer by Friday) is owed in both. And separately, about the colleague's joke that landed wrong: even granting it was a joke, some sentences stay unsaid. Two concessions over hypotheticals, and the old imperatives of する carry both.",
+        "jp": "行きますか。行きませんか。金曜日までに教えてください。",
+        "en": "Coming? Not coming? Tell me by Friday — three sentences carrying one two-world demand.",
+        "pattern": "ください"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "にしろ〜にしろ concedes the pair and collects what both owe: going or not going, the contact is due either way — two worlds granted, one obligation surviving in each. The doubled shape is itself the concession.",
+          "jp": "行くにしろ行かないにしろ、金曜までに連絡はください。",
+          "en": "Going or not, let me know by Friday."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "にせよ concedes a single case at its most formal: even granting it was a joke, there are things one says and things one does not — the supposition allowed in, the verdict unmoved.",
+          "jp": "冗談にせよ、言っていいことと悪いことがある。",
+          "en": "Even as a joke, some things shouldn't be said.",
+          "t": "にしろ／にせよ are the old imperatives of する, conceding a case or a pair (行くにしろ行かないにしろ). としても concedes a whole supposition: 本当だとしても、驚かない — even if the entire thing is true, the conclusion stands."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "tedemo",
+      "step": "Step 58 · No matter what",
+      "setting": {
+        "scene": "The deadline is real and the work is behind, and tonight you mean the sentence fully: sleep is on the table as payment. 徹夜します states the plan; what it misses is the structure of the vow — the price named in advance and accepted, whatever-it-takes with the whatever spelled out. And its mirror: the man who went into the pond after a stranger's child named no price at all, because he never once thought about his clothes.",
+        "jp": "今夜は寝ません。仕事を終わらせます。",
+        "en": "No sleep tonight; the work gets finished — the plan, without the price-tag grammar of the vow.",
+        "pattern": "寝ません"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "てでも names the price you would pay: whatever means it takes, the deadline gets met — the cost held up in advance, accepted in grammar before it is paid in fact.",
+          "jp": "どんな手を使ってでも、締め切りには間に合わせる。",
+          "en": "Whatever it takes, I'll make that deadline."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "もかまわず names what was ignored: heedless of his clothes, he pulled the child out — 構う, to mind, refused. Where てでも calculates the price, もかまわず never saw one. That difference is temperament, and the grammar preserves it.",
+          "jp": "彼は服が汚れるのもかまわず、子どもを助けた。",
+          "en": "Heedless of his clothes, he pulled the child out.",
+          "t": "The costs-be-damned pair: てでも names the price you'd pay (徹夜してでも — if it takes all night); もかまわず names what you ignored (人目もかまわず — heedless of watching eyes). One calculates, the other never looked."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "temo2",
+      "step": "Step 58 · No matter what",
+      "setting": {
+        "scene": "The novel you are working through has a sentence your classroom Japanese cannot parse: 誰が何と言おうと — whatever anyone may say — and the hero keeps walking. It is ても's meaning at a height ても does not reach: the concession absolute, the register carved. This is where no-matter goes literary: とも after adjectives, the volitional plus と after verbs, both living in writing, speeches and proverbs — exactly where N2 reading will hand them to you.",
+        "jp": "誰が何を言っても、この道を行きます。",
+        "en": "Whatever anyone says, I take this road — ても carrying a vow it can lift but not crown.",
+        "pattern": "言っても"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "ようと is the written summit: whoever may oppose it, the road is decided — the volitional holds the opposition open as pure hypothesis, and the resolve walks through it untouched.",
+          "jp": "誰に反対されようと、この道を行くと決めた。",
+          "en": "Whoever may oppose it, I've decided on this path."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "とも after an adjective survives mostly in fixed heights: 遅くとも, at the latest — a fossil of the same summit, worn smooth by schedules and still standing in everyday formal mail.",
+          "jp": "遅くとも八時までには着きます。",
+          "en": "I'll arrive by eight at the latest.",
+          "t": "The literary peak of no-matter: とも after adjectives (どんなに苦しくとも), volitional + と after verbs (何と言おうと). Both live in writing, speeches and proverbs — recognize on sight; produce only when the page is formal enough to hold them."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "sb-jouho",
+      "step": "Step 58 · No matter what",
+      "setting": {
+        "scene": "Every but-anyway the course owns has now arrived, and they came in over ten stages wearing ten different faces: the frustrated one, the contemptuous one, the cool written one, the fact-defier, the variable-dismisser, the price-namer, the summit. One ladder, climbed rung by rung without ever seeing the whole. The event notice on the community board — one word different in two printings — is where the finest distinction on it becomes real money.",
+        "jp": "雨でも、行事をします。",
+        "en": "Even if it rains, the event happens — でも, standing in for an entire ladder.",
+        "pattern": "でも"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "The pair that decides what the notice promises: held despite the rain reports a fact survived; held rain or shine commits in advance to ignoring one. One も between them, and the second is the stronger promise.",
+          "jp": "雨天にもかかわらず決行。雨天にかかわらず決行。",
+          "en": "Held despite the rain / held rain or shine — the pair, side by side."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "And the summit above them all, for the sentence that concedes everything and yields nothing: whatever anyone may say — the ladder's top rung, planted in writing. Every rung below it is a register choice.",
+          "jp": "誰が何と言おうと、決めたことは変えない。",
+          "en": "Whatever anyone may say, the decision stands.",
+          "t": "The ladder, complete — feeling it: のに → くせに; recording it: ものの → ながらも; overriding it: にもかかわらず (fact) → にかかわらず・を問わず (variable); supposing it: としても → にしろ／にせよ; paying it: てでも → もかまわず; summit: とも／ようと."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "temouzenda",
+      "step": "Step 59 · Only natural",
+      "setting": {
+        "scene": "The teammate who ran drills every morning for four months took the tournament, and congratulating her, すごい feels subtly off-target — すごい is for surprises, and nothing about this was a surprise. The right sentence approves by inevitability: given that mountain of practice, the winning follows as a matter of course. Japanese keeps a small family of endings for outcomes that arrive with their own receipts attached.",
+        "jp": "たくさん練習したから、勝ちました。",
+        "en": "She practiced a lot, so she won — cause and effect, where a verdict of 'rightly so' was due.",
+        "pattern": "から"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "て当然だ approves by right: with that much training, winning is only proper — the outcome not merely explained but endorsed, deserved, arriving with its paperwork in order. The ending files the win under justice, not luck.",
+          "jp": "あれだけ練習したのだから、勝って当然だ。",
+          "en": "With that much training, winning is only proper."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "のももっともだ adds the nod of agreement: fair enough that he refused — the terms were awful. Not just natural: I would have done the same, says the ending, and sides with him.",
+          "jp": "彼が断ったのももっともだ。条件がひどすぎる。",
+          "en": "Fair enough that he refused — the terms were awful.",
+          "t": "Approval by inevitability, three cuts: のも当然だ — given the facts, of course (怒るのも当然だ); て当然だ — deserved by right (感謝されて当然だ); のももっともだ — fair enough, I'd feel the same. The third one takes sides."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "dakenokotohaaru",
+      "step": "Step 59 · Only natural",
+      "setting": {
+        "scene": "The kitchen knife you finally bought from the old shop cuts tomatoes like they aren't there, and the sentence forming as you cook is a specific kind of praise: not surprise, but confirmation — the shop's hundred years showing up in your hand, the reputation audited against the blade and found fully funded. Step 47 gave you だけあって for this nod mid-sentence; the standalone verdict form is its own small ceremony.",
+        "jp": "この包丁はよく切れます。古い店の物です。",
+        "en": "This knife cuts well. It's from an old shop — two facts side by side, the audit between them missing.",
+        "pattern": "です"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "だけのことはある delivers the audit as its own sentence: cuts beautifully — no wonder, from a shop with that history. The credential is measured against the performance and found worth every bit of it.",
+          "jp": "この包丁はよく切れる。老舗の品だけのことはある。",
+          "en": "This knife cuts beautifully — no wonder, from a shop with that history."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "People earn the same verdict: pronunciation that lovely, and the study abroad visibly showing in it — the effort named as the thing the excellence lives up to. The verdict honors the invoice as much as the result.",
+          "jp": "彼女の発音は美しい。留学しただけのことはある。",
+          "en": "Her pronunciation is lovely; the study abroad shows.",
+          "t": "Step 47's だけあって turned into a standalone verdict: だけのことはある audits the credential against the observed quality and approves the account. さすが loves to open the sentence — さすがプロだけのことはある, that's a pro for you."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "nikoshitakotohanai",
+      "step": "Step 59 · Only natural",
+      "setting": {
+        "scene": "Locking up the shop, your coworker teases you for double-checking the back door you both watched him lock. Your defense wants a particular shape: not that checking was necessary — that carefulness, as a policy, is never beaten. And that evening, first cold night of the year, your other conviction surfaces over the steam of the pot: on such a night, for your money, nothing else is even in the running. Two superlatives, one prudent, one delighted.",
+        "jp": "気をつけたほうがいいです。",
+        "en": "Better to be careful — advice, where a superlative of prudence was meant.",
+        "pattern": "ほうがいい"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "に越したことはない says nothing surpasses it — you can't beat careful — while leaving room for reality: the hedged best, prudence stated as a ceiling no alternative reaches. Insurance brochures and grandmothers share this sentence evenly.",
+          "jp": "用心するに越したことはない。",
+          "en": "It never hurts to be careful."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "に限る is the enthusiast's absolute: a winter night calls for hot nabe and nothing else will do — the 限る family's warmest member, narrowing the field to one beloved option.",
+          "jp": "冬の夜は、温かい鍋に限る。",
+          "en": "On a winter night, nothing beats a hot nabe.",
+          "t": "Two superlatives: に越したことはない — nothing surpasses it, hedged, room left for reality (安全であるに越したことはない); に限る — for my money, nothing else will do (夏はビールに限る). Prudence versus preference, both absolute in tone."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "mononara",
+      "step": "Step 59 · Only natural",
+      "setting": {
+        "scene": "Your friend is describing the week her mother spent in hospital, and the sentence underneath everything she says is the impossible trade: if places could be swapped, she would swap them. Grammar for a wish that knows it cannot be granted. And at work the same week, the other face of the same if: glance at your phone in the director's meeting and see what happens — an if that is not a possibility but a dare.",
+        "jp": "代われないけど、代わりたいです。",
+        "en": "I can't trade places, but I want to — the wish and its impossibility, laid side by side unbraided.",
+        "pattern": "代わりたい"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "ものなら braids them: if do-overs existed, that is the day I would restart from — the potential form in front confessing the impossibility while the wish stands inside it, fragile and complete.",
+          "jp": "やり直せるものなら、あの日からやり直したい。",
+          "en": "If do-overs existed, I'd start from that day."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "ようものなら turns the if into a transgression: so much as glance at your phone in that meeting, and the director's glare finds you — the volitional making the condition a dare with consequences printed.",
+          "jp": "会議中にスマホを見ようものなら、部長ににらまれる。",
+          "en": "So much as glance at your phone in that meeting and the director's glare finds you.",
+          "t": "Two faces of a fragile if: できるものなら — if it were only possible; wistful, potential form in front (代われるものなら代わりたい). （よ）うものなら — should you DARE; the volitional turns the if into a transgression with thunder behind it."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "uru",
+      "step": "Step 60 · Worth, risk and clean escapes",
+      "setting": {
+        "scene": "The risk section of the proposal needs a verb the rest of your Japanese does not have. できる is about someone's ability; this is about the world's permission — problems that could conceivably arise, outcomes that are possible in principle, no agent anywhere in the sentence. The written language keeps a stem-mounted potential exactly for this, with a reading rule attached that trips even advanced learners on the first meeting.",
+        "jp": "その計画で、問題が起こるかもしれません。",
+        "en": "Problems might occur with that plan — a hedge, where the register wanted possibility-in-principle.",
+        "pattern": "かもしれません"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "得る mounts possibility on the stem itself: every conceivable risk, listed — あり得る, what the world's rules permit to exist, personal skill nowhere in the frame. The agent is gone, and the register rises accordingly.",
+          "jp": "その計画には、あり得る危険を全て書き出した。",
+          "en": "For that plan we listed every conceivable risk."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "The negative closes the same register: technology that could not have been imagined ten years ago — 想像し得なかった, impossibility in principle, stamped in the written voice. Ten years of world-change, carried in one auxiliary.",
+          "jp": "十年前には想像し得なかった技術だ。",
+          "en": "Technology unimaginable ten years ago.",
+          "t": "The written can, for POSSIBILITY-IN-PRINCIPLE rather than skill. Reading rule: うる in the dictionary form (あり得る＝ありうる), える in the negative and ます-stem (あり得ない＝ありえない, 得ます＝えます). The split is standard, and tested."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "osoregaaru",
+      "step": "Step 60 · Worth, risk and clean escapes",
+      "setting": {
+        "scene": "The typhoon is two days out and every institution around you has started speaking in the same voice: the rail company, the city mailer, the leaflet inside your cold medicine. The voice never panics and never reassures; it forecasts harm at a fixed, official temperature. かもしれない is your spoken hedge, and it is the wrong instrument here — this register has its own pattern, and it only ever predicts unwelcome things.",
+        "jp": "台風で、電車が止まるかもしれません。",
+        "en": "The trains might stop because of the typhoon — a personal guess, in a sentence institutions own.",
+        "pattern": "かもしれません"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "恐れがある is fear turned institutional: with the typhoon nearing, trains may well stop — harm forecast in the official voice, no panic, no comfort, just the risk entered into the record.",
+          "jp": "台風の接近により、電車が止まる恐れがある。",
+          "en": "With the typhoon nearing, trains may well stop."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "The medicine leaflet uses the identical grammar for the identical job: a risk of drowsiness, declared by the manufacturer at the same fixed temperature as the weather bureau declares rain.",
+          "jp": "この薬は、眠くなる恐れがあります。",
+          "en": "This medicine carries a risk of drowsiness.",
+          "t": "恐れ is fear gone institutional: the pattern only ever predicts UNWELCOME things — weather bulletins, package inserts, disclaimers. A happy sentence with 恐れがある in it is a contradiction the register does not permit."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "kaigaaru",
+      "step": "Step 60 · Worth, risk and clean escapes",
+      "setting": {
+        "scene": "The language exchange partner you meet on Thursdays stops mid-conversation and says your pronunciation has changed — properly changed. Walking home, the feeling is precise: the three months of nightly shadowing practice did not just precede this compliment; they purchased it. Effort, audited and approved, the return delivered on something costly. Japanese has a noun for exactly that return, and it builds the words this project is named for.",
+        "jp": "毎日練習したので、発音がよくなりました。",
+        "en": "I practiced daily, so my pronunciation improved — cause and effect, without the audit's stamp of 'worth it.'",
+        "pattern": "ので"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "かいがあって stamps the audit: the daily practice paid off, the praise its documented return — かい is the yield on something costly, and the sentence celebrates the investment as much as the outcome.",
+          "jp": "毎日練習したかいがあって、発音がほめられた。",
+          "en": "The daily practice paid off — my pronunciation got praised."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "Bolted to a stem, it makes the worth-words: work that is hard and repays the doing — やりがい — and the largest of them all, 生きがい, the thing that makes the living repay itself.",
+          "jp": "この仕事は大変だが、やりがいがある。",
+          "en": "The work is hard, but it repays the doing.",
+          "t": "かい is the return on something costly: かいがある audits effort and approves it. Stem + がい builds the worth-words — やりがい, 生きがい — the feeling that the doing (or the living) repays itself. Cost first, return second, always."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "kotonaku",
+      "step": "Step 60 · Worth, risk and clean escapes",
+      "setting": {
+        "scene": "Two escapes, and they feel nothing alike. The retiring colleague being toasted tonight attended for three years without missing a day — an unbroken record the speech should carry with some ceremony, ないで too casual for the podium. And you, last month, on the other side of luck: the insurance covered it, the enormous bill never arrived, and the whole affair closed without the painful part ever happening. Relief has its own grammar too.",
+        "jp": "彼は三年間、一日も休まないで通いました。",
+        "en": "He attended three years without missing a day — ないで carrying a record the podium wants carried higher.",
+        "pattern": "休まないで"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "ことなく is the written without-ever: three years, not a single absence — ないで's formal cousin with 'not even once' folded in, sized for speeches and citations. The record deserves the register, and this is it.",
+          "jp": "彼は一日も欠席することなく、三年間通い続けた。",
+          "en": "He attended three years without missing a single day."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "ずに済む is the relieved escape: thanks to the insurance, the fortune never had to be paid — 済む, to conclude, closing the matter with the unpleasant thing still unhappened. Relief, entered in the grammar as a closed account.",
+          "jp": "保険のおかげで、大金を払わずに済んだ。",
+          "en": "Thanks to the insurance, I got away without paying a fortune.",
+          "t": "Two clean escapes: ことなく — written without-ever, 'not even once' built in (休むことなく走り続けた); ずに済む — relief, the matter concluded WITHOUT the dreaded thing (並ばずに済んだ). Ceremony and relief, one lesson apart."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "gotoni",
+      "step": "Step 61 · The last folds",
+      "setting": {
+        "scene": "The prescription says every six hours, and the plant-care note you left yourself says every third day — mechanical intervals, a metronome ticking through the calendar. But the song that came on in the supermarket this morning is a different kind of every: every time it reaches you, home arrives with it, unasked. An interval you schedule and a trigger you cannot refuse are two different rhythms, and Japanese gives them two different patterns.",
+        "jp": "六時間で一回、この薬を飲んでください。",
+        "en": "Take this medicine once in six hours — the interval, hand-assembled from parts.",
+        "pattern": "一回"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "ごとに is the metronome: every six hours, tick, the dose — intervals of time, and of space too: 家ごとに, to every single house, the beat landing on each one in turn.",
+          "jp": "この薬は、六時間ごとに飲んでください。",
+          "en": "Take this medicine every six hours."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "につけ is the trigger: every time the blossoms reach your eyes, graduation day returns — the second clause always a feeling arriving unbidden, which is exactly what separates it from the metronome.",
+          "jp": "桜を見るにつけ、卒業の日を思い出す。",
+          "en": "Every time I see cherry blossoms, graduation day returns.",
+          "t": "Two rhythms: ごとに is the metronome — scheduled intervals of time or space (三日ごとに, 家ごとに). につけ is the trigger — each contact sets off a feeling that arrives unbidden. If the second clause isn't an emotion, につけ is the wrong every."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "hanmen",
+      "step": "Step 61 · The last folds",
+      "setting": {
+        "scene": "The e-money app has changed your commute — tap, through, no fumbling — and it has also, you notice at month's end, quietly doubled your small spending. This is not two facts about two things; it is one thing with two faces, and honest description means holding the coin up and showing both sides. 一方で contrasts arenas; what this needs is the pattern that splits a single thing down its own middle.",
+        "jp": "電子マネーは便利です。でも、使いすぎます。",
+        "en": "E-money is convenient. But I overspend — two sentences, when it's one coin with two faces.",
+        "pattern": "でも"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "反面 turns the coin over inside one sentence: convenient — and on the other side of exactly that convenience, the overspending. The two faces belong to the same thing, and the grammar says so.",
+          "jp": "電子マネーは便利な反面、使いすぎる心配がある。",
+          "en": "E-money is convenient — and on the other side of that, easy to overuse."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "People split the same way: severe, and on the other face of that same severity, the fiercest protector his team has. One character, both faces true, neither cancelling the other.",
+          "jp": "彼は厳しい反面、誰よりも部下を守る。",
+          "en": "He's severe, and on the other face of it, protects his people like no one else.",
+          "t": "反面 splits a SINGLE thing down the middle and shows both faces of the same coin. 一方で contrasts two arenas (work versus home); 反面 requires one subject whose virtue and cost are the same trait seen from two sides."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "hatomokaku",
+      "step": "Step 61 · The last folds",
+      "setting": {
+        "scene": "The debrief after the failed pitch keeps snagging on the result — lost, yes, established, can we move on — when the thing worth discussing is what the attempt itself built. You need the meeting's grammar for shelving a topic: not denying it, not settling it, just setting it visibly to one side so the urgent thing can have the table. Japanese keeps two shelving tools, one brisk, one formal, both conceding a little by the act of shelving.",
+        "jp": "結果は残念でした。でも、挑戦は良かったです。",
+        "en": "The result was a shame. But the attempt was good — both topics still on the table, neither shelved.",
+        "pattern": "でも"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "はともかく shelves briskly: whatever about the result — the attempt meant something. The shelved topic is conceded a little by the shelving, and the urgent one takes the table. Meetings run on this small honest move.",
+          "jp": "結果はともかく、挑戦したことに意味がある。",
+          "en": "Whatever about the result, the attempt itself meant something."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "は別として sets a case formally outside the discussion: the cost question, placed apart in its own tray — the plan itself, excellent. The formal version files where the brisk one shoves.",
+          "jp": "費用の問題は別として、計画自体は素晴らしい。",
+          "en": "Cost aside, the plan itself is excellent.",
+          "t": "The agenda-managers: はともかく shelves briskly to reach the urgent thing (味はともかく、量は多い); は別として files a case formally outside the discussion (冗談は別として). Both concede a little about the shelved thing by shelving it."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "temae",
+      "step": "Step 61 · The last folds",
+      "setting": {
+        "scene": "You announced the marathon plan at the welcome dinner — stood up, glass in hand, told the whole department. The training has since gone badly, and quitting would be easy except for one architectural fact: the announcement had witnesses. It is not the goal that binds you now; it is the watching eyes, built into the commitment at the moment you made it in front of them. Japanese puts that audience directly into the grammar.",
+        "jp": "みんなの前で言ったから、やめられません。",
+        "en": "I said it in front of everyone, so I can't quit — the audience as a mere reason, not yet inside the grammar.",
+        "pattern": "から"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "手前 makes the witnesses structural: having declared it before everyone, quitting is not among the available moves — the watching eyes are inside the pattern, holding the exit shut. Save it for commitments that actually had witnesses.",
+          "jp": "みんなの前で宣言した手前、今さらやめられない。",
+          "en": "Having declared it in front of everyone, quitting now isn't available."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "上は is the same bindingness at maximum formality, no audience required: matters having come to this, nothing remains but to see it through — からには's most ceremonial sibling. It opens war councils and closes resignation letters.",
+          "jp": "こうなった上は、最後まで戦うしかない。",
+          "en": "Matters having come to this, there is nothing but to see it through.",
+          "t": "Obligation with an audience: 手前 — having said or done it IN FRONT of them, backing out is structurally gone; the eyes are in the grammar. 上は — からには's most formal sibling, the die cast at ceremony height (こうなった上は)."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "kagiri2",
+      "step": "Step 61 · The last folds",
+      "setting": {
+        "scene": "The old proprietor says it while wrapping your bread, half to you, half to the shop itself: as long as this body moves, the shutters keep opening. The promise has a roof over it — a named state, held open through time, with the commitment lasting exactly as long as the state does. The 限る family gave you widening, narrowing, and cursed exceptions; this last member is the only one that holds TIME open.",
+        "jp": "元気なあいだは、この店を続けます。",
+        "en": "While I'm well, I'll keep the shop going — あいだ marking a span, not holding a roof up.",
+        "pattern": "あいだ"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "限り holds the roof: as long as this body moves, the shop continues — the named state is the roof, and everything promised under it lasts exactly as long as the roof stands.",
+          "jp": "体が動く限り、この店を続けるつもりだ。",
+          "en": "As long as this body moves, I mean to keep the shop going."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "The negative sets the roof's one breach: barring something extraordinary, the plan holds — よほどのことがない限り, the standing condition with its single named exception. Institutions love this shape: commitment with the escape clause visible and small.",
+          "jp": "よほどのことがない限り、計画は変わりません。",
+          "en": "Barring something extraordinary, the plan won't change.",
+          "t": "The 限る family's last member, and the only one holding TIME open: 〜限り（は） makes the named state a roof, the promise lasting while it stands. ない限り states the breach: unless X, the roof holds. Compare に限り, which narrows a rule, not a duration."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "bakarida",
+      "step": "Step 61 · The last folds",
+      "setting": {
+        "scene": "The gap between you and the classmates who kept studying is not static — every month you leave the textbook shut, it opens a little further, change running in exactly one direction with no second gear. And the honest diagnosis has a second half: it is the leaving-shut that feeds it. One pattern tracks the one-way slide; its partner names the habit that keeps the slide sliding. Together they are the language's intervention grammar.",
+        "jp": "何もしないと、差が広がります。",
+        "en": "Do nothing and the gap widens — a conditional, without the one-way slide inside it.",
+        "pattern": "広がります"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "ばかりだ tracks the slide: the gap does nothing but widen — change with a single direction, no reversals scheduled, the grammar itself reporting that things only ever move one way.",
+          "jp": "何もしなければ、差は広がるばかりだ。",
+          "en": "Do nothing, and the gap only ever widens."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "ていては diagnoses the feeding habit: keep fearing failure, and nothing can begin — the continued state named as the thing blocking every exit from itself. The diagnosis points at the habit, never the person.",
+          "jp": "失敗を恐れていては、何も始められない。",
+          "en": "Keep fearing failure, and nothing can begin.",
+          "t": "The downward-spiral pair: ばかりだ tracks a one-way slide — 悪くなるばかりだ, change with no second direction. ていては diagnoses the habit that feeds it — 泣いていては、何も解決しない. Slide and cause, one lesson."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "dokorodehanai",
+      "step": "Step 61 · The last folds",
+      "setting": {
+        "scene": "The invitation to blossom-viewing arrives in the exact week the moving boxes take over your apartment, and your refusal is not a preference — the circumstances themselves forbid the outing. Three written patterns refuse a framing each in their own court: circumstances forbid it, propriety forbids it, and — the subtlest — the logic simply does not carry from the offered premise to the hoped-for conclusion.",
+        "jp": "引っ越しの準備で忙しいので、花見に行けません。",
+        "en": "Too busy with the move to go blossom-viewing — a schedule conflict, where circumstances themselves did the refusing.",
+        "pattern": "行けません"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "どころではない lets the circumstances refuse: with the move to prepare, blossom-viewing was out of the question — not declined but crowded off the table entirely by the situation itself. The refusal blames the calendar, which spares every feeling involved.",
+          "jp": "引っ越しの準備で、花見どころではなかった。",
+          "en": "With the move to prepare, blossom-viewing was out of the question."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "ことにはならない refuses the arithmetic: merely showing up does not add up to taking part — the premise granted, the conclusion denied passage, the sum shown not to balance. Editorials close their arguments with exactly this arithmetic.",
+          "jp": "出席しただけでは、参加したことにはならない。",
+          "en": "Merely showing up doesn't amount to taking part.",
+          "t": "Three refusals of a framing: どころではない — circumstances forbid (旅行どころではない); ものではない — propriety forbids, the general moral with no finger pointed (人を笑うものではない); ことにはならない — the logic doesn't carry from premise to conclusion."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "jouni",
+      "step": "Step 61 · The last folds",
+      "setting": {
+        "scene": "Sick day, taken honestly: fever real, work impossible. Three measurements want making. The job turned out busier than anything you had imagined before starting it — a bar raised past a known mark. The morning greeting to the neighbor, you have never once skipped, whatever else fell away — a minimum carved out and held. And tonight: fever, yes, but the appetite intact, and that floor is worth naming as a mercy.",
+        "jp": "新しい仕事は、思ったよりずっと忙しいです。",
+        "en": "The new job is much busier than I thought — より doing quietly what 以上に does in print.",
+        "pattern": "より"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "以上に raises the bar past the known mark in the written register: busier than imagined — the measured excess, the known quantity named and then exceeded on paper. 想像, 予想, 期待 — the marks it most often passes.",
+          "jp": "新しい仕事は、想像以上に忙しい。",
+          "en": "The new job is busier than imagined."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "だけましだ finds the floor worth gratitude: fever, but the appetite intact — count the mercy. The situation is bad and could be worse, and the pattern thanks the gap between them.",
+          "jp": "熱はあるが、食欲があるだけましだ。",
+          "en": "There's a fever, but at least the appetite's intact — count the mercy.",
+          "t": "Three degree-setters: 以上に raises the bar past a known mark (予想以上に); だけは carves out the held minimum (挨拶だけは欠かさない); だけましだ names the floor worth gratitude — soaked, but the umbrella exists, and that beats the alternative."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    },
+    {
+      "point": "shojou",
+      "step": "Step 61 · The last folds",
+      "setting": {
+        "scene": "The cancellation notice on the community-center door is eleven words long and four of them exist only on paper: permitted rules-wise, cancelled for safety reasons, regrets conveyed in writing, thanks offered for coming through the heat. None of these particles has ever been said across a table. They are the document particles — the last small hardware of written Japanese, and after this lesson the course has handed you all of it.",
+        "jp": "規則では、認められません。",
+        "en": "Under the rules, not permitted — では doing spoken work where 上 stamps the domain.",
+        "pattern": "では"
+      },
+      "extensions": [
+        {
+          "kind": "flip",
+          "wr": null,
+          "scene": "上（じょう） stamps the domain: for safety reasons — 安全上 — today's event is cancelled. The standpoint of a whole field of concern, folded into one character on a notice. 健康上, 教育上, 法律上 — the domains multiply freely.",
+          "jp": "安全上の理由により、本日は中止いたします。",
+          "en": "For safety reasons, today's event is cancelled."
+        },
+        {
+          "kind": "extra",
+          "wr": null,
+          "scene": "中を thanks passage through adversity: for coming through this heat, gratitude — the conditions crossed on the way here, honored in the sentence that receives you at the door. Event hosts open with this bow every summer.",
+          "jp": "暑い中を、ご来場いただきありがとうございます。",
+          "en": "Thank you for coming through this heat.",
+          "t": "Four paper-only particles: 〜上 — domain standpoint (規則上, 安全上); にて — で in a morning coat (書面にて); のもとで — under an auspice (先生のもとで学ぶ); 中を — through adverse conditions (雨の中を、お越しいただき). Read constantly, said almost never."
+        }
+      ],
+      "claims": [],
+      "sources": [],
+      "flags": [
+        "No factual claims — an ordinary situation.",
+        "Stage 14 is written/formal register throughout and necessarily uses kanji outside KANJI_DICT. Furigana needed across this stage — flagged once per lesson rather than per line."
+      ],
+      "review": { "status": "unreviewed" }
+    }
+  ]
+}
