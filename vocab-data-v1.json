@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-21",
+ "generated": "2026-08-23",
  "kanji_order": "kanji-order-v3.json",
  "counts": {
   "total": 763,
@@ -7585,8 +7585,8 @@
   },
   {
    "w": "変",
-   "r": "か",
-   "m": "change",
+   "r": "へん",
+   "m": "strange",
    "k": [
     "変"
    ],

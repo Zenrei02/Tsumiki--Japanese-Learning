@@ -919,7 +919,7 @@ const WORDS = [
   {w:"担当",r:"たんとう",m:"the person in charge",k:["当"],u:["担"]},
   {w:"成功",r:"せいこう",m:"success",k:["成"],u:["功"]},
   {w:"成長",r:"せいちょう",m:"growth",k:["成"],u:["長"]},
-  {w:"変",r:"か",m:"change",k:["変"]},
+  {w:"変",r:"へん",m:"strange",k:["変"]},
   {w:"変わる",r:"かわる",m:"to change (by itself)",k:["変"]},
   {w:"変化",r:"へんか",m:"a change",k:["変"],u:["化"]},
   {w:"変更",r:"へんこう",m:"a change",k:["変"],u:["更"]},

@@ -1,6 +1,9 @@
 import json,re,sys,collections
 D=json.load(open('micro-anecdotes-v1.json',encoding='utf-8'))
 items=D['items']
+# Audit 2026-08-23: a zero-item parse ran no checks and printed the same
+# "FAIL: none — all checks passed" as a clean run. Refuse it instead.
+if not items: print("REFUSED: 0 items in micro-anecdotes-v1.json — an empty read would pass every check."); sys.exit(2)
 src=open('grammar-module.jsx',encoding='utf-8').read()
 
 # build step -> bank words map from the module itself

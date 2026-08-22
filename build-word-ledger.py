@@ -126,6 +126,41 @@ for label, n in (("lesson banks", banks_parsed), ("KANJI_DICT", dict_rows),
         die(f"store '{label}' contributed nothing. A ledger built from two of "
             f"three stores is not a ledger; refusing to write it.")
 
+# ---- adjudicated stem-vs-word exceptions ----
+# KANJI_DICT carries deliberate okurigana-STEM rows for the tap-to-read path
+# (止/と, 出/で, 思/おも … — DICT_SORTED's longest-prefix match glosses 変わる,
+# 変わった, 変えて through the bare-kanji row). Those rows are display shims,
+# not words. 変 is the first stem row to collide with a REAL standalone word
+# (変/へん "strange", kanji-module w:, added with the Aug 21 kanji expansion).
+# Until a second collision motivates a full stem/word distinction — a reviewer
+# question, since some bare rows ARE words (日/ひ, 文/ぶん) — the word-level
+# truth is recorded here explicitly, with its reason. Never add a bare hash or
+# an unexplained entry (the BENIGN-allowlist rule).
+# Adjudicated by Lloyd, Aug 23 2026 (weekly audit).
+RESOLVED = {
+    "変": {"reading": "へん", "meaning": "strange",
+           "note": "KANJI_DICT 変/か is the display stem for 変わる/変える "
+                   "inflections; the standalone WORD is へん (strange)."},
+}
+
+resolved_notes = []
+for _w, _rule in RESOLVED.items():
+    _e = ledger.get(_w)
+    if _e is None:
+        continue
+    if _rule["reading"] not in _e["readings"]:
+        die(f"RESOLVED entry for {_w} names reading '{_rule['reading']}' but the "
+            f"stores now carry {_e['readings']} — the exception has gone stale. "
+            f"Re-adjudicate it; do not let it rot.")
+    _e["readings"].remove(_rule["reading"]); _e["readings"].insert(0, _rule["reading"])
+    if _rule["meaning"] in _e["meanings"]:
+        _e["meanings"].remove(_rule["meaning"]); _e["meanings"].insert(0, _rule["meaning"])
+    _e["resolved"] = _rule["note"]
+    _kept = [c for c in conflicts if not c.startswith(f"READING  {_w}:")]
+    if len(_kept) != len(conflicts):
+        resolved_notes.append(f"{_w}: {_rule['note']} → '{_rule['reading']}' wins.")
+        conflicts[:] = _kept
+
 # ---- report ----
 n_bank = sum(1 for e in ledger.values() if any(s.startswith("bank") for s in e["sources"]))
 n_dict = sum(1 for e in ledger.values() if "KANJI_DICT" in e["sources"])
@@ -156,6 +191,9 @@ if conflicts:
 else:
     lines.append("None. The three stores never disagree on a reading — the "
                  "divergence is in *scope*, not content.")
+if resolved_notes:
+    lines += ["", "## Resolved by adjudicated exception (see RESOLVED in this script)", ""]
+    lines += [f"- {n}" for n in resolved_notes]
 lines += [
     "",
     "## Kanji-containing words with no recorded reading",

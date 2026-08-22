@@ -1,10 +1,14 @@
-# Word ledger report — 2026-08-22
+# Word ledger report — 2026-08-23
 
 **753 distinct words** across the three stores: 489 in lesson banks, 566 in KANJI_DICT, 305 in kanji w: arrays; 513 appear in more than one store.
 
 ## Cross-store reading conflicts
 
-- READING  変: 'か' (KANJI_DICT) vs 'へん' (w:変)
+None. The three stores never disagree on a reading — the divergence is in *scope*, not content.
+
+## Resolved by adjudicated exception (see RESOLVED in this script)
+
+- 変: KANJI_DICT 変/か is the display stem for 変わる/変える inflections; the standalone WORD is へん (strange). → 'へん' wins.
 
 ## Kanji-containing words with no recorded reading
 

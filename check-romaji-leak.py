@@ -154,6 +154,14 @@ def main():
             "English-frequency filter OFF — expect false positives; "
             "pip3 install --break-system-packages wordfreq to sharpen it")
     print(f"Scanned {scanned} feedback cells in {path.name}.  [{mode}]")
+    if scanned == 0:
+        # Audit 2026-08-23: without this, an empty read produced the same
+        # all-clear as a clean run — the ledger's Session-18 trap exactly.
+        # (The missing-file return above is different: it names its reason.)
+        print("REFUSED: 0 feedback cells scanned — the row range or feedback "
+              "column matched nothing, so 'no candidates' would be meaningless. "
+              "Check the sheet name, FEEDBACK_COL, and that the run has outputs.")
+        return 2
     if not found:
         print("No romaji candidates. Containment rule holds for this run.")
         return 0

@@ -447,7 +447,12 @@ function buildOneForm(batch, rows, ss) {{
     .setProperty('EDIT_' + batch, form.getEditUrl());
   form.setDescription(
     'ツール（文法チェッカー）の出力を、確認済みの解答キーと照らして採点していただくフォームです。\\n\\n' +
-    'この' + batch + 'バッチには' + rows.length + '件の出力があります。所要時間は25〜35分ほどです。' +
+    'この' + batch + 'バッチには' + rows.length + '件の出力があります。' +
+    // 所要時間 travels with the batch size (audit 2026-08-23; was hardcoded 25〜35分
+    // for every batch — wrong by 2× on B9's 30). ~1.7–2.3 min per output, rounded
+    // to 5: 15→25〜35, 12→20〜30, 18→30〜45, 30→50〜70.
+    '所要時間は' + (Math.floor(rows.length * 1.7 / 5) * 5) + '〜' +
+    (Math.ceil(rows.length * 2.3 / 5) * 5) + '分ほどです。' +
     '途中保存はできないので、時間のあるときに1回で最後までお願いします。\\n\\n' +
     '同じ文が複数回出てきます。これは意図的なものです（複数の設定で同じ文を処理しているため）。' +
     'どの出力がどの設定によるものかは伏せてあります。前の判断に合わせようとせず、1件ずつ独立して評価してください。\\n\\n' +

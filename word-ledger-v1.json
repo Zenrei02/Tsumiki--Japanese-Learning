@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-22",
+ "generated": "2026-08-23",
  "note": "Authoritative word set for the app. Input to the word-driven ordering pipeline. Regenerate with build-word-ledger.py.",
  "count": 753,
  "words": [
@@ -8824,18 +8824,19 @@
   {
    "written": "変",
    "readings": [
-    "か",
-    "へん"
+    "へん",
+    "か"
    ],
    "meanings": [
-    "change",
-    "strange"
+    "strange",
+    "change"
    ],
    "sources": [
     "KANJI_DICT",
     "w:変"
    ],
-   "jlpt": "N4"
+   "jlpt": "N4",
+   "resolved": "KANJI_DICT 変/か is the display stem for 変わる/変える inflections; the standalone WORD is へん (strange)."
   },
   {
    "written": "綺麗",
