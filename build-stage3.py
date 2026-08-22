@@ -57,7 +57,11 @@ CONTENT = [HERE / "stage-3-content-v1.json", HERE / "milestone-content-v1.json",
            HERE / "stage-16-content-v1.json",
            HERE / "stage-16-content-b-v1.json",
            HERE / "stage-16-sweep-v1.json",
-           HERE / "stage-16-sweep-b-v1.json"]
+           HERE / "stage-16-sweep-b-v1.json",
+           # Session 19: deep-only files — every cat already exists, so the blocks'
+           # empty points are skipped and only the deep dicts splice. Gate first:
+           # python3 check-deep.py stage-9-deep-v1.json
+           HERE / "stage-9-deep-v1.json"]
 
 # ————— emit JS in the module's own house style —————
 def js_str(s):
@@ -271,13 +275,19 @@ def main():
     marker = "  // @@DEEP-END"
     for pid, d in deeps.items():
         line = f'  "{pid}": ' + json.dumps(d, ensure_ascii=False) + ",\n"
-        m = re.search(r'\n(  "%s": \{.*?\n)' % re.escape(pid), src, re.S)
+        # ⚠️ Session 19: search INSIDE the DEEP block only. The ARCS block (added
+        # Session 17, filled Session 19) emits lines in the identical shape —
+        # `  "okage": {...` — so a whole-file search reports a DEEP entry as
+        # "already present" whenever the point merely has an ARC. Every S9 DEEP
+        # insert was silently skipped this way while the log read as success.
+        d0 = src.index("// @@DEEP-START"); d1 = src.index(marker)
+        m = re.search(r'\n(  "%s": \{.*?\n)' % re.escape(pid), src[d0:d1], re.S)
         # The DEEP body is one long JSON line, so the lazy match ends at the newline
         # that closes it. Anchor on the line, not on a brace walk.
         if m:
             old = m.group(1)
             if update and old != line:
-                src = src[:m.start(1)] + line + src[m.end(1):]
+                src = src[:d0 + m.start(1)] + line + src[d0 + m.end(1):]
                 rewritten.append(f"DEEP[{pid}]")
             else:
                 skipped.append(f"DEEP[{pid}]")

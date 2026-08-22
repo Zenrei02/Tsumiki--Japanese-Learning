@@ -18,10 +18,14 @@ Assertions (fail):
   - every covered point id exists in the module
   - seg is a list of [span, gloss(, 1)] with non-empty spans and glosses
   - at most one seg span carries the THE-POINT flag
-  - hl, when present, occurs character-for-character in the joined seg sentence
-  - every wrinkle has teaching text `t` and, when it has hl, hl occurs in its jp
+  - hl occurs in the joined seg sentence, in one of the point's own ex lines
+    (the renderer highlights the "again" page with deep.hl — module line ~8615),
+    or in a wrinkle jp — somewhere the renderer can actually paint it
+  - every wrinkle has teaching text `t`; jp is OPTIONAL (renderer guards w.jp &&);
+    when a wrinkle has both hl and jp, hl occurs in that jp
   - drill items: q present; every `___` blank has at least one accepted answer;
-    `a` non-empty; every accepted answer appears in opts when opts exist;
+    `a` non-empty; at least ONE accepted answer appears in opts when opts exist
+    (a lists every acceptable string — ni-dest offers に while accepting へ too);
     opts contain no duplicates (a distractor equal to an answer is a duplicate);
     at least 2 options when opts exist
   - pending files: no silent overwrite — a pid already in the module's DEEP fails
@@ -43,6 +47,7 @@ src = MODULE.read_text(encoding="utf-8")
 
 # ---- module facts -----------------------------------------------------------
 point_stage, step_points, order = {}, {}, []
+point_ex = {}
 for b in re.split(r'\n  \{\n    cat: "', src)[1:]:
     cat = b.split('"')[0]; order.append(cat)
     lv = re.search(r'level: "([^"]*)"', b)
@@ -51,6 +56,13 @@ for b in re.split(r'\n  \{\n    cat: "', src)[1:]:
     step_points[cat] = (stage, ids)
     for pid in ids:
         point_stage[pid] = stage
+for m in re.finditer(r'id: "([a-z0-9-]+)", jp: "', src):
+    pid = m.group(1)
+    e = src.find('ex: [', m.end())
+    nxt = src.find('id: "', m.end())
+    if e != -1 and (nxt == -1 or e < nxt):
+        e2 = src.find(']],', e)
+        point_ex[pid] = re.findall(r'\["((?:[^"\\]|\\.)*)"', src[e:e2 + 2])
 module_pids = set(point_stage)
 
 
@@ -106,17 +118,17 @@ def check_entry(pid, d, where):
             joined = "".join(c[0] for c in seg if isinstance(c, list) and c and isinstance(c[0], str))
             if joined and joined[-1] not in FINAL:
                 warn.append(f"{tag}: seg sentence ends {joined[-6:]!r} — no final punctuation")
-            hl = d.get("hl")
-            if hl and hl not in joined:
-                fail.append(f"{tag}: hl {hl!r} not found character-for-character in seg sentence")
-    elif d.get("hl"):
-        warn.append(f"{tag}: hl without seg — nothing to highlight")
+    hl = d.get("hl")
+    if hl:
+        joined = "".join(c[0] for c in (seg or []) if isinstance(c, list) and c and isinstance(c[0], str))
+        surfaces = [joined] + point_ex.get(pid, []) + [w.get("jp", "") for w in (d.get("wr") or [])]
+        if not any(hl in s for s in surfaces if s):
+            fail.append(f"{tag}: hl {hl!r} paints nothing — absent from seg, the point's ex lines, and wrinkle jps")
 
     for n, w in enumerate(d.get("wr") or []):
         wtag = f"{tag}.wr[{n}]"
         if not isinstance(w, dict): fail.append(f"{wtag}: not an object"); continue
         if not w.get("t"):  fail.append(f"{wtag}: wrinkle without teaching text t")
-        if not w.get("jp"): fail.append(f"{wtag}: wrinkle without jp")
         if w.get("hl") and w.get("jp") and w["hl"] not in w["jp"]:
             fail.append(f"{wtag}: hl {w['hl']!r} not in its own jp")
 
@@ -142,9 +154,8 @@ def check_entry(pid, d, where):
                     if len(set(opts)) != len(opts):
                         dupes = sorted({o for o in opts if opts.count(o) > 1})
                         fail.append(f"{itag}: duplicate option(s) {dupes} — a distractor equals an answer or itself")
-                    for x in (a or []):
-                        if x not in opts:
-                            fail.append(f"{itag}: accepted answer {x!r} not among opts")
+                    if a and not any(x in opts for x in a):
+                        fail.append(f"{itag}: no accepted answer among opts — the item cannot be answered correctly")
             if not it.get("why"): warn.append(f"{itag}: no why")
             if not it.get("en"):  warn.append(f"{itag}: no en")
 
