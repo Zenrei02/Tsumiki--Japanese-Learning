@@ -407,3 +407,157 @@ Two things do need your eye:
    that in workplaces and schools lateness is treated as requiring an account, and
    a standard form exists for giving one. Is the narrower claim fair? Does the
    refusal read as honest, or as hedging?
+
+---
+
+# Batches U and V — the Session 19 authoring push (added 2026-08-23)
+
+*Both batches were named in the Session 20 handover's "reviewer arithmetic". The
+counts below are re-measured from the files rather than copied from it, and one
+of them differs — see the note under V.*
+
+**Read this before sending either.** These two batches are large, and B1 — the
+calibration batch for the whole paid grading arrangement — went out on Friday
+Aug 21 and has not come back. Nothing from B1–B9 or J–T has returned. The Session
+18 kickoff deliberately gated B2–B9 on B1's return, for a good reason: B1 tells
+you whether the form wording and the price hold up before you commit anyone to
+more. **U and V should sit behind the same gate.** They are drafted here so they
+are ready to send the day it makes sense to send them, not because they should go
+out now.
+
+The sequencing argument in the Session 20 handover cuts the same way and is worth
+restating, because it is about to get expensive: S11–S16 DEEP will add roughly 930
+more drill items. A systematic finding about voice or drill design — the kind a
+single returned batch produces — changes 930 items cheaply before they are
+authored and expensively after. If V comes back saying the drills have a
+recurring problem, that verdict is worth more than another wave of authoring.
+
+## Batch U — the arcs for Stages 12–16 (Session 19)
+
+156 arcs, **468 Japanese lines** (156 settings + 156 `flip` extensions + 156
+`extra` extensions), spanning 28 steps.
+
+| stage | arcs | steps | register |
+|---|---|---|---|
+| S12 | 37 | Step 44 · No way around it → Step 49 · On paper | written / formal |
+| S13 | 33 | Step 50 · Seen from here → Step 55 · Moments and aftermaths | written / formal |
+| S14 | 32 | Step 56 · Grounds and guides → Step 61 · The last folds | written / formal |
+| S15 | 27 | Step 62 · Not even one → Step 66 · Turns of thought | written / literary |
+| S16 | 27 | Step 67 · The instant, in print → Step 71 · The operators of record | literary |
+
+**This batch needs almost no fact-checking, and that is measured, not assumed.**
+Every one of the 156 arcs carries a `flags` entry, and every one of them declares
+no factual claim. 150 read simply "No factual claims — an ordinary situation."
+The other six add a note that one specific line is quoted as language rather than
+asserted: two proverbs, a Zeami attribution, a Descartes line, an Edo-period
+springs line, and a baseball line that is the module's own canonical example of
+its pattern. No arc in this batch carries a source, because none makes a claim
+needing one — there is nothing here of the 回覧板 or 遅延証明書 kind. **The risk in this batch is
+entirely register and naturalness.**
+
+### What to check, by risk
+
+1. **⚠️ The register wall — the single most important thing here.** Stages 12–16
+   are formal, then literary. The house rule is that the Japanese line must match
+   the pattern's register: や否や does not happen in a kitchen. Every scene in
+   S12–S14 was written to live in offices, at counters, and on notices; S15–S16
+   were allowed to lean literary. **Where does a scene put a pattern somewhere it
+   would not appear?** This is the failure a non-native author cannot see and a
+   native reader spots instantly.
+
+2. **⚠️ S15 and S16 — literary, or a textbook doing an impression of literary?**
+   27 arcs each. A learner-facing app written by a non-native speaker reaching for
+   literary register is exactly where prose goes stiff or florid. If a line reads
+   as *written-to-demonstrate-a-pattern* rather than as something someone would
+   write, mark it. Blunt verdicts are more useful than kind ones here.
+
+3. **The `flip` extensions — 156 of them, one per arc.** The flip is the
+   learner's-side use of the pattern: the same structure turned around so the
+   learner produces rather than recognises. Check that the flipped line is
+   something a person would actually say or write, not just a grammatical
+   inversion.
+
+4. **Furigana coverage, flagged once per stage rather than per line.** Every stage
+   in this batch declares that it necessarily uses kanji outside `KANJI_DICT` and
+   needs furigana throughout. You do not need to mark individual characters —
+   what is useful is telling us if any stage's kanji load is simply too heavy for
+   where a learner would be by then, furigana or not.
+
+5. **Scene length.** Scenes have a 30-word floor, and S9/S10 both needed an
+   expansion pass because first drafts came in short. If a scene reads padded
+   rather than expanded — words added to clear a floor — say so.
+
+**Sampling:** 468 lines is too many to read line by line, and reading all of them
+is not the best use of the time. Suggested: read S15 and S16 in full (54 arcs —
+they are the highest-risk and the smallest), then sample 10 arcs from each of
+S12–S14. A recurring problem will show up in a sample; a one-off in S13 matters
+much less than a pattern.
+
+## Batch V — the DEEP drills for Stages 9–10, first tranche (Session 19)
+
+69 teaching points across 11 steps: **345 drill items**, 58 wrinkle lines, 58
+segmented walkthroughs.
+
+| file | points | drill items | wrinkle lines |
+|---|---|---|---|
+| `stage-9-deep-v1.json` | 36 | 180 | 30 |
+| `stage-10-deep-v1.json` | 33 | 165 | 28 |
+
+*Count correction: the Session 20 handover records "345 keyed drill items + 69
+wrinkle lines". 345 is right; 58 is the wrinkle count. 69 is the number of
+teaching points, conflated in the handover. Corrected here rather than in the
+handover, which records what was known at the time.*
+
+**This is the batch where an error actively teaches something false.** Arcs are
+learner-visible prose; a clumsy sentence is a blemish. A drill carries an answer
+key, and a wrong key trains the wrong answer and then rewards it. It is the
+highest-stakes content in the app and it is the reason this batch exists
+separately from U.
+
+**What is already mechanically verified, so you can skip it.** `check-deep.py`
+runs before every splice and enforces: every accepted answer appears in the
+options; no distractor equals an accepted answer; every `___` blank has at least
+one answer; segment spans exist character-for-character in their sentence; every
+covered point id exists in the module. Measured across this batch: 0 items with a
+missing `why`, 0 multi-answer items. **So the mechanics are sound and your time
+should go entirely to whether the Japanese is right.**
+
+### What to check, by risk
+
+1. **⚠️ Is the keyed answer the only defensible one?** The checker proves no
+   distractor is *identical* to the answer. It cannot tell whether a distractor is
+   also acceptable. This is the failure mode that matters most: a learner who
+   picks a perfectly natural alternative and is told they are wrong. Distractors
+   were drawn from step-siblings and the lesson's own examples, which makes them
+   plausible by construction — and therefore occasionally right.
+
+2. **⚠️ The `why` lines — 345 of them, one per item.** Each is a one-line
+   explanation of why the answer is the answer. They are the app's teaching voice
+   at its most compressed, and compression is where an explanation goes from
+   simplified to wrong. Sample these heavily.
+
+3. **⚠️ The etymology and imagery in the `note` lines — 58 of them.** These make
+   claims of a kind nobody on this project can verify. Example, from `okage`:
+   *"おかげ is 御蔭 — honorable shade: the good thing happened standing in someone's
+   shade."* That is either a well-attested etymology or a folk one dressed up, and
+   it is presented to learners as fact. **Please mark any note whose etymology you
+   would not assert in front of a linguist.** A memorable-but-wrong etymology is
+   worse than no etymology.
+
+4. **The wrinkle lines — 58, one per point.** These teach the exception or the
+   edge. Again from `okage`: the claim that おかげで can be aimed ironically at a
+   bad outcome (君のおかげでひどい目にあったよ), and that the irony works *because*
+   the word's home is gratitude. Is that fair, and is 君のおかげで the natural way
+   to land it? Wrinkles are where an author reaches for something clever, so they
+   deserve more suspicion per line than the drills do.
+
+5. **Register in the drill sentences.** The drills reuse the lesson's own example
+   sentences and their step-siblings, so no new vocabulary enters — but a sentence
+   lifted into a fill-in-the-blank can end up in a register that does not suit the
+   blank. Worth a glance.
+
+**Sampling:** do not read all 345. Suggested: take 3 complete points from each of
+the 11 steps — the note, the wrinkle, and all five drill items together, since an
+item reads differently next to the explanation it belongs to. That is 33 points,
+about 165 items, and it covers every step. If the notes turn out to be the weak
+part, we would rather know that from a spread than have all 345 items read once.
