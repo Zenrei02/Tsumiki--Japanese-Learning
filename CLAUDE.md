@@ -136,16 +136,47 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   permission granted, a script that creates and removes its own temp files is cleaner run
   outside the mount. (Session 8 — probe files next to the masters aborted the audio splitter
   on its first clip.)
-- **⚠️ Netlify charges 15 credits per PRODUCTION DEPLOY, and every push to main
-  triggers one.** Ten pushes burned ~150 credits before anyone noticed
-  (Aug 13 2026). **Lloyd's standing rule: at most ONE push per session.**
-  Commits are free — make as many as the work deserves and let them accumulate
-  locally; Lloyd pushes once, at session close. Two duties for the assistant:
-  do NOT write "push when ready" after every commit, and DO remind Lloyd of
-  the single-push rule when the session wraps — he asked to be reminded.
-  netlify.toml now carries a build-ignore rule (`ignore` in [build]) so a push
-  touching nothing under naoshi-app/ skips the build and costs nothing; treat
-  that as a safety net, not a license.
+- **⚠️ Netlify charges 15 credits per PRODUCTION DEPLOY. The rule is ONE
+  DEPLOYING PUSH per session — it was never one push per session.**
+
+  Ten pushes burned ~150 credits before anyone noticed (Aug 13 2026), and the
+  rule written down afterwards said "at most ONE push per session" with the
+  build-ignore rule demoted to "a safety net, not a license." **Lloyd corrected
+  that on Aug 23 2026: the rule was always conditional.** What he is rationing is
+  deployments, not pushes. A push that does not trigger a build is free and
+  needs no rationing at all — and holding those back has a real cost, since it
+  leaves finished work sitting on one machine.
+
+  So: **batch app-touching work, not pushes.** A docs-only or scripts-only push
+  can go out whenever it is ready.
+
+  **Budget as of Aug 23 2026: about 5 deployments left, resetting in ~2 weeks
+  (early September).** Worth asking Lloyd for a current figure rather than
+  trusting this line — it is the sort of number that ages badly.
+
+  **Do not guess whether a push deploys — run Netlify's own check.** The
+  `ignore` command in netlify.toml is
+  `git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF ./ ../netlify.toml`,
+  evaluated from `base = "naoshi-app"`. Reproduce it:
+
+  ```
+  cd naoshi-app
+  git --no-optional-locks diff --quiet origin/main HEAD ./ ../netlify.toml
+  # exit 0 => build SKIPPED (free).  exit 1 => build RUNS (15 credits).
+  ```
+
+  Two things to get right. **Run a control** — the same command against a range
+  that *does* touch `naoshi-app/` must exit 1; an ignore rule that always exits 0
+  looks identical to a free push and would silently suppress every real deploy.
+  And **`$CACHED_COMMIT_REF` is the last commit Netlify actually BUILT**, not
+  `origin/main`; if an app-touching commit was pushed but never built, the diff
+  spans further back and the build runs. Check with
+  `git merge-base --is-ancestor $(git log -1 --format=%H -- naoshi-app/) origin/main`.
+
+  Assistant duties: do NOT write "push when ready" after every commit; DO tell
+  Lloyd at session close whether the pending commits would deploy, having
+  actually run the check — he asked to be reminded, and the useful reminder is
+  the cost, not the count.
 
 - **GitHub raw is blocked** by the sandbox proxy (HTTP 403 from CONNECT). Anything needing
   `raw.githubusercontent.com` — e.g. the scriptin kanji-frequency corpora — must be fetched by
