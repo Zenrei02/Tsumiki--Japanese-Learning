@@ -7,9 +7,12 @@ keyed to a word no card renders is the mca reachability bug again, and this
 script refuses to write it.
 """
 import json, re, sys
+from pathlib import Path
 
-HERE = "/sessions/adoring-upbeat-mayer/mnt/Naoshi - Japanese Learning"
-MOD = f"{HERE}/vocabulary-module.jsx"
+# Audit 2026-08-23 §6.3: this was a hardcoded sandbox path from a session that
+# no longer exists, so the script raised FileNotFoundError in every new one.
+HERE = Path(__file__).resolve().parent
+MOD = HERE / "vocabulary-module.jsx"
 BEGIN = "// ————— Word scenes (SC-BEGIN) —————"
 END = "// ————— SC-END —————"
 

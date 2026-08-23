@@ -9,6 +9,13 @@ import json, re, sys, collections
 
 ARCS = json.load(open('lesson-arcs-v1.json', encoding='utf-8'))
 items = ARCS['items']
+# Audit 2026-08-23 §6.2: an empty arcs file ran no per-item checks and printed
+# "FAIL: none — all checks passed" over "ALL STAGES: 0/441". Coverage is
+# print-only and never reached the exit code, so the arc gate's all-clear
+# survived a read that saw nothing. Refuse it instead.
+if not items:
+    print("REFUSED: 0 items in lesson-arcs-v1.json — an empty read would pass every check.")
+    sys.exit(2)
 src = open('grammar-module.jsx', encoding='utf-8').read()
 
 # ---- module facts -----------------------------------------------------------
@@ -19,6 +26,15 @@ for b in re.split(r'\n  \{\n    cat: "', src)[1:]:
         point_step[pid] = cat
         if not pid.startswith(('b-', 'b1', 'b2', 'b3', 'rc', 'cc-', 'ms-')):
             step_points[cat].append(pid)
+
+# Same audit finding, the partial-parse half of it: a lesson-shape variant the
+# regex above stops matching shrinks the denominator quietly, so a coverage
+# figure can read 100% because the module was barely read. The floors are
+# deliberately loose — they catch "saw nothing / saw almost nothing", not drift.
+if not order or not point_step:
+    print(f"REFUSED: module parse yielded {len(order)} step blocks and {len(point_step)} "
+          f"teaching points — grammar-module.jsx did not parse.")
+    sys.exit(2)
 
 def load_deep():
     i = src.index('{', src.index('const DEEP = '))
@@ -153,6 +169,10 @@ for stage in sorted(set(step_stage.values()), key=lambda x: (len(x), x)):
     for l in lines: print(l)
     grand_done += done; grand_tot += tot
 print(f"\n  ALL STAGES: {grand_done}/{grand_tot} ({grand_done*100//grand_tot}%)")
+# Coverage now reaches the exit code. Previously this number was printed and
+# discarded, so the headline gate could not fail on its own headline figure.
+if grand_tot == 0:
+    fail.append("coverage denominator is 0 — no teaching points found to cover")
 
 print("\nWARN:" if warn else "\nWARN: none")
 for x in warn: print("  -", x)

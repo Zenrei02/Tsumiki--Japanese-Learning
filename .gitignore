@@ -90,6 +90,33 @@ OLD/keycheck-responses-*.xlsx
 # project with no version history, so a bad edit is otherwise unrecoverable.
 backups/
 
+# The Apps Script form sources. SAME RULE AS THE WORKBOOK, arrived at by a
+# different route and missed for months: these are GENERATED from the workbook
+# and each one embeds the key material verbatim, so the four rules above were
+# being enforced on the source and ignored on its output. Found Aug 23 2026 by
+# sweeping every tracked file for the 50 eval sentences rather than by filename.
+#
+#   build-grading-forms.gs     150 records: sentence + key (判定・修正案・理由,
+#                              including the reviewer's Step 2 corrections)
+#                              + the full model output being graded
+#   build-key-check-forms.gs    50 records: sentence + tier + correction +
+#                              rationale + status — status is the ERROR/CORRECT
+#                              ground truth the false-positive rate is measured
+#                              against, so this one leaks the labels too
+#   patch-b7-b8-forms.gs        11 records, same shape
+#   build-b9-form.gs            10 records, same shape
+#
+# The generators (*.py) stay tracked — they carry no key material, and the .gs
+# is reproducible by re-running them against the workbook.
+#
+# THE RULE THIS ENCODES: a file is key material if its CONTENT is, regardless of
+# how it got there. Before tracking anything generated from the workbook, grep it
+# for eval sentences first.
+build-grading-forms.gs
+build-key-check-forms.gs
+patch-b7-b8-forms.gs
+build-b9-form.gs
+
 # ── Local noise ─────────────────────────────────────────────────────────────
 .~lock.*#
 *.tmp

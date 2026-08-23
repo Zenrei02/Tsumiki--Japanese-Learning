@@ -25,7 +25,7 @@ NOTE ON SCOPE: only words the curriculum actually teaches get s. The other
 s=null so the promotion queue is visible in-module, but the module does not
 surface them as vocabulary until they are promoted.
 """
-import json, pathlib, re, datetime
+import json, pathlib, re, sys, datetime
 
 HERE = pathlib.Path(__file__).parent
 LEDGER = json.loads((HERE / "word-ledger-v1.json").read_text(encoding="utf-8"))
@@ -191,4 +191,10 @@ if mod.exists():
         mod.write_text(src, encoding="utf-8")
         print("spliced regenerated WORDS into vocabulary-module.jsx")
     else:
-        print("WARNING: could not locate the WORDS block in vocabulary-module.jsx")
+        # Audit 2026-08-23 §6.4: this printed a WARNING and exited 0, so a
+        # missed marker looked like a successful build — the splice silently
+        # did not happen and the module kept its old WORDS. A splicer that
+        # cannot find its own markers has failed, not warned.
+        print("FAILED: could not locate the WORDS block in vocabulary-module.jsx "
+              f"(start={start}, end={end}) — nothing was spliced.")
+        sys.exit(1)
