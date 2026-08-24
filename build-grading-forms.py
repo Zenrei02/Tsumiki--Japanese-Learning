@@ -445,8 +445,45 @@ function buildOneForm(batch, rows, ss) {{
   // to the orphan instead of an invisible form nobody can find again.
   PropertiesService.getScriptProperties()
     .setProperty('EDIT_' + batch, form.getEditUrl());
+  // ── Rewritten Aug 24 2026, from B1's own feedback. The grader described the page
+  //    as ①間違えた文章 → ②日本人の訂正した正しい文章 → ③また間違えた文章 and could not
+  //    tell whether ③ was hers to correct. Read as a sequence of SENTENCES that is
+  //    exactly what it looks like, and one line saying 「← 採点していただくのはこの部分です」
+  //    did not survive the impression. The blocks are now named by ROLE, the four
+  //    verdicts are defined as a comparison of ② against ③ rather than as
+  //    free-standing judgements, and the "you are not correcting anything" statement
+  //    is the first thing on the page rather than the last.
+  //
+  //    KEEP IN SYNC WITH patch-grading-forms-v2.gs, which applies this same text to
+  //    the nine forms that are already live. If you edit one, edit both — otherwise
+  //    the next regeneration silently reverts the live wording.
   form.setDescription(
-    'ツール（文法チェッカー）の出力を、確認済みの解答キーと照らして採点していただくフォームです。\\n\\n' +
+    'ツール（文法チェッカー）が出した指摘が、確認済みの解答キーとどれくらい合っているかを' +
+    '見ていただくフォームです。\\n\\n' +
+    '⚠️ いちばん大事なこと：日本語を直していただく必要はありません。\\n' +
+    'このフォームに出てくる文は、どれも「直すため」ではなく「見比べるため」に置いてあります。\\n\\n' +
+    '【各ページの3つのブロック】\\n' +
+    '① 学習者が書いた文 … 間違いを含む文です。直さなくて大丈夫です。\\n' +
+    '② 正解 … ネイティブが確認済みの正解です。判断の基準にしてください。直さなくて大丈夫です。\\n' +
+    '③ ツールの答え … ツールが出した指摘です。★評価していただくのは、この③だけです。\\n\\n' +
+    'やっていただくのは「③は②と同じことを言えているか？」の判断だけです。\\n\\n' +
+    '【評価の選び方】（すべて ② と ③ を見比べての判断です）\\n' +
+    '・一致 ＝ ②にある間違いを、③も同じように指摘できている\\n' +
+    '・部分一致 ＝ ③も間違いには気づいているが、種類・箇所・説明のどれかがずれている\\n' +
+    '・見逃し ＝ ②にある間違いを、③が指摘していない\\n' +
+    '・誤指摘 ＝ ②では正しいとされている部分を、③が「間違い」だと言っている' +
+    '（いちばん重要なチェック項目です）\\n\\n' +
+    // The disambiguation B1 actually needed: her 誤指摘 comments were rewrites, so
+    // the verdict may have meant "the tool's FIX is bad Japanese" rather than "the
+    // tool flagged a correct part" — and only the latter belongs in the gate.
+    '※ 「③の指摘は合っているけれど、③が出した直し方が不自然だ」と感じることがあります。' +
+    'その場合、評価は上の4つから選んでいただいたうえで、コメント欄に「直し方が不自然」と' +
+    '書いてください。評価とコメントで別々に受け取れますので、迷わなくて大丈夫です。\\n\\n' +
+    '【③が使うラベルの意味】\\n' +
+    '・FIX ＝ 文法的な誤り（要修正）\\n' +
+    '・UNNATURAL ＝ 文法的には正しいが不自然\\n' +
+    '・WORTH KNOWING ＝ 誤りではないが役立つ指摘（例：かな書き→漢字）\\n' +
+    '・NONE ＝ 指摘なし（正しく自然な文）\\n\\n' +
     'この' + batch + 'バッチには' + rows.length + '件の出力があります。' +
     // 所要時間 travels with the batch size (audit 2026-08-23; was hardcoded 25〜35分
     // for every batch — wrong by 2× on B9's 30). ~1.7–2.3 min per output, rounded
@@ -456,19 +493,7 @@ function buildOneForm(batch, rows, ss) {{
     '途中保存はできないので、時間のあるときに1回で最後までお願いします。\\n\\n' +
     '同じ文が複数回出てきます。これは意図的なものです（複数の設定で同じ文を処理しているため）。' +
     'どの出力がどの設定によるものかは伏せてあります。前の判断に合わせようとせず、1件ずつ独立して評価してください。\\n\\n' +
-    '【評価の選び方】\\n' +
-    '・一致 ＝ ツールの指摘が解答と合っている（種類も内容も正しい）\\n' +
-    '・部分一致 ＝ 間違いがあるのは合っているが、種類・箇所・説明のどれかがずれている\\n' +
-    '・見逃し ＝ 解答にある間違いをツールが指摘していない\\n' +
-    '・誤指摘 ＝ 正しい部分を間違いとして指摘している（いちばん重要なチェック項目です）\\n\\n' +
-    '【ツールの判定ラベルの意味】\\n' +
-    '・FIX ＝ 文法的な誤り（要修正）\\n' +
-    '・UNNATURAL ＝ 文法的には正しいが不自然\\n' +
-    '・WORTH KNOWING ＝ 誤りではないが役立つ指摘（例：かな書き→漢字）\\n' +
-    '・NONE ＝ 指摘なし（正しく自然な文）\\n\\n' +
-    '【採点していただく範囲について】\\n' +
-    'レベル（N5〜N2）と「出題の想定」は出題側の情報で、採点の対象ではありません。' +
-    '【解答キー】は判断の基準としてお使いください。評価していただくのは【ツールの出力】だけです。'
+    'レベル（N5〜N2）と「出題の想定」は出題側の情報で、評価の対象ではありません。'
   );
   try {{ form.setCollectEmail(false); }} catch (e) {{}}
   form.setLimitOneResponsePerUser(false);
@@ -484,11 +509,13 @@ function buildOneForm(batch, rows, ss) {{
 
   rows.forEach(function (row, i) {{
     if (i > 0) form.addPageBreakItem().setTitle(row.oid + ' （' + (i + 1) + '/' + rows.length + '）');
+    // Block labels name a ROLE, not a content type — see the description note above.
+    // KEEP IN SYNC with LABELS in patch-grading-forms-v2.gs.
     var body =
-      '【文】\\n' + row.sentence + '\\n' +
+      '【① 学習者が書いた文】（間違いを含みます。直さなくて大丈夫です）\\n' + row.sentence + '\\n' +
       'レベル: ' + row.level + ' ・ 出題の想定: ' + row.intended + '\\n\\n' +
-      '【解答キー】\\n' + row.key + '\\n\\n' +
-      '【ツールの出力】← 採点していただくのはこの部分です\\n' +
+      '【② 正解 ＝ 判断の基準】（ネイティブ確認済み。直さなくて大丈夫です）\\n' + row.key + '\\n\\n' +
+      '【③ ツールの答え】★評価するのはココだけです ― ②と同じことを言えていますか？\\n' +
       '判定: ' + row.verdict + '\\n' +
       (row.feedback ? row.feedback : '（指摘なし）');
     form.addSectionHeaderItem()
@@ -500,7 +527,9 @@ function buildOneForm(batch, rows, ss) {{
       .setRequired(true);
     form.addParagraphTextItem()
       .setTitle(row.oid + ' ・ コメント')
-      .setHelpText('「部分一致」「誤指摘」の場合は、どこがずれているか一言お願いします。')
+      .setHelpText('「部分一致」「見逃し」「誤指摘」を選んだときは、②と③のどこが違うか一言だけお願いします。' +
+                   '日本語を直していただく必要はありません。' +
+                   '「③の直し方が不自然だ」と感じた場合も、ここに書いてください。')
       .setRequired(false);
   }});
 
