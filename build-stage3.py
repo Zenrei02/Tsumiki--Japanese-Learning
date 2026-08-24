@@ -63,7 +63,8 @@ CONTENT = [HERE / "stage-3-content-v1.json", HERE / "milestone-content-v1.json",
            # python3 check-deep.py stage-9-deep-v1.json
            HERE / "stage-9-deep-v1.json",
            HERE / "stage-10-deep-v1.json",
-           HERE / "stage-11-deep-v1.json"]
+           HERE / "stage-11-deep-v1.json",
+           HERE / "stage-12-deep-v1.json"]
 
 # ————— emit JS in the module's own house style —————
 def js_str(s):
