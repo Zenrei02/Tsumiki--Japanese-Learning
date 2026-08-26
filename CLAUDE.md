@@ -150,9 +150,16 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   So: **batch app-touching work, not pushes.** A docs-only or scripts-only push
   can go out whenever it is ready.
 
-  **Budget as of Aug 23 2026: about 5 deployments left, resetting in ~2 weeks
-  (early September).** Worth asking Lloyd for a current figure rather than
-  trusting this line — it is the sort of number that ages badly.
+  **Budget, from Lloyd, Aug 24 2026: 30 CREDITS = TWO DEPLOYMENTS, resetting
+  early September.** Ask him for the figure in credits and divide by 15; do not
+  carry a deployment count forward.
+
+  The previous line here read "about 5 deployments left" as of Aug 23 and was
+  wrong by more than half one day later — it had been inherited rather than
+  asked for, and a session then reasoned from it and told Lloyd he had 4. **A
+  budget is a reading, not a fact.** Two deployments across roughly a fortnight
+  means app-touching work has to be batched hard; docs- and script-only pushes
+  remain free and unlimited, which is most of what the eval track needs.
 
   **Do not guess whether a push deploys — run Netlify's own check.** The
   `ignore` command in netlify.toml is
