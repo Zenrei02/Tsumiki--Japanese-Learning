@@ -17,3 +17,45 @@ export const T = {
   sub: "#6E7178",
   uiFont: '-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif',
 };
+
+// Section accents. AUTHORED in build-vite-app.py, not unioned from the modules
+// — no module owns a section identity, the shell does.
+//
+// Section accents, added Aug 24 2026 (Lloyd's request: a colour per section, with
+// the kana lighter shades of one family and kanji its darkest).
+// 
+// THE BINDING CONSTRAINT IS THAT FOUR PALETTE COLOURS ALREADY MEAN SOMETHING.
+// The three-tier feedback system spends 朱 #C7351B on FIX, 藍 #3D5A80 on
+// UNNATURAL and 金 #907119 on WORTH KNOWING, and 緑 #3E7C4F is ok/correct. A
+// section accent reusing any of them would make red-means-error unreliable, and
+// that system is the app's most distinctive idea. So accents must come from hues
+// the palette has not already committed. Do not "simplify" this later by reaching
+// for an existing token.
+// 
+// THE SCRIPT TRACK IS ONE FAMILY DEEPENING: 藤 #CFC4E6 -> 藤 #A493CE ->
+// 江戸紫 #5B4A7D. Hiragana, katakana and kanji are not three subjects; they are
+// one writing system getting deeper, which is what the shared hue says and three
+// unrelated colours would not. Purple also happens to sit at the top of the
+// 冠位十二階 court ranks, which makes kanji-as-darkest read as rank rather than
+// as difficulty — the friendlier of the two framings, and consistent with the
+// standing rule against anything that reads as workload.
+// 
+// THE CHECKER IS DELIBERATELY THE QUIETEST (鼠 #C9C6BE) and this is not an
+// oversight. It is the one screen where 朱/藍/金 carry meaning, so a saturated
+// frame there competes with the feedback it exists to present. The near-neutral
+// also separates the tool from the five learning modules, which is a true
+// distinction rather than a cosmetic one.
+// 
+// CONTRAST: these are used as RULES AND BARS ONLY, never behind text, so the
+// 3:1 non-text contrast bar is what applies rather than 4.5:1. If one is ever
+// put behind type, re-check it — #CFC4E6 in particular is far too light for that.
+// Colour is redundant here: every section is also named in the header and drawer,
+// so nothing is conveyed by hue alone.
+export const ACCENT = {
+  hiragana: "#CFC4E6",
+  katakana: "#A493CE",
+  grammar: "#2F6F6B",
+  kanji: "#5B4A7D",
+  vocabulary: "#8A5A3B",
+  checker: "#C9C6BE",
+};
