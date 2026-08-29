@@ -1,0 +1,43 @@
+-- Give anon and authenticated SELECT on public.keepalive.
+--
+-- THE BUG, caught before it shipped. 20260825000000_keepalive.sql creates the
+-- table, enables RLS and adds a permissive SELECT policy — and stops there. A
+-- policy is not a privilege. RLS narrows what a role may see; the table-level
+-- GRANT decides whether the role may look at all, and this project's public
+-- schema does not hand out the DML privileges by default:
+--
+--   relacl after the first migration —
+--     {postgres=arwdDxtm/postgres,anon=Dxtm/postgres,
+--      authenticated=Dxtm/postgres,service_role=Dxtm/postgres}
+--
+-- `Dxtm` is TRUNCATE, REFERENCES, TRIGGER, MAINTAIN. No `r`. So anon held every
+-- privilege it has no use for and not the one thing the keep-alive needs.
+--
+-- Live symptom, Aug 30 2026, running the workflow's own script against the real
+-- endpoint with the anon key:
+--
+--   HTTP 401 {"code":"42501","message":"permission denied for table keepalive",
+--     "hint":"Grant the required privileges to the current role with:
+--             GRANT SELECT ON public.keepalive TO anon;"}
+--
+-- WHY THIS IS WORTH A FILE RATHER THAN AN EDIT TO THE ONE ABOVE. It is the same
+-- statement-shape lesson as 20260814190000_check_usage_grant_service_role.sql:
+-- the role that must HOLD a privilege has to be named, in the ACL, where it can
+-- be read — not left resting on a policy that reads as though it granted access.
+-- pg_policies would have shown keepalive_anon_read present and correct. So would
+-- the security advisors, which answer "can the wrong roles reach this?" and say
+-- nothing about "can the right one?". Only an actual request found it.
+--
+-- HOW THIS ONE WOULD HAVE FAILED IN PRODUCTION. The workflow's guard does fire
+-- on the 401, so the job would have gone red rather than green-for-the-wrong-
+-- reason. But it would have gone red every day while recording no database
+-- activity, and with one restore already spent there is no second unpause to
+-- absorb a week of unread failure mail.
+
+grant select on table public.keepalive to anon, authenticated;
+
+-- Deliberately not `grant all`, and deliberately not service_role: nothing
+-- server-side reads this table, and the write paths must stay closed. RLS
+-- already denies writes for want of a policy; withholding the privilege as
+-- well means both layers say no, which is the arrangement the rest of this
+-- schema uses.
