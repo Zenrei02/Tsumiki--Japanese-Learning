@@ -61,14 +61,25 @@ export function installStorage() {
 // stitching-decision-v1.md). These two functions are the cheap insurance, and
 // they double as the only way to see what a tester actually did.
 
-// Every key the four static modules read or write. Listed explicitly rather than
-// dumping all of localStorage, so an export never carries unrelated site data.
+// Every key the modules read or write. Listed explicitly rather than dumping all
+// of localStorage, so an export never carries unrelated site data.
+//
+// ⚠️ THIS LIST DRIFTED ONCE AND THE FAILURE WAS SILENT. It was written for the
+// four static modules and never updated when the grammar module landed, so
+// `n5-progress-v1` — the biggest module in the app, the one Home calls "the
+// heart of the app" — was omitted from every export. A learner who saved,
+// cleared their browser and restored got ALL of their grammar progress dropped
+// and a message reading "Restored 7 saved items." Success text over a partial
+// restore. Fixed 2026-09-04; `check-storage-keys.py` now fails the build if a
+// module writes a key that is not listed here.
 export const KEYS = [
   "hiragana-progress-v2",
   "katakana-progress-v1",
   "kanji-progress-v1",
   "known-kanji-v1",
   "known-words-v1",
+  "n5-progress-v1",     // grammar — MISSING until 2026-09-04, see above
+  "learner-depth-v1",   // grammar — MISSING until 2026-09-04, see above
   "achievement-points-v1",
   "stroke-data-v1",   // shared handwriting calibration — the reason one origin matters
   "kanji-mode",

@@ -1643,7 +1643,18 @@ async function saveJSON(key, v) {
 // Working name only — flagged for renaming in a later phase (§6.9).
 // Tiers per §6.7: completion carries the weight, the optional exercise is the
 // best RATE rather than the biggest lump. These are starting constants.
-const AP = { complete: 10, kanji: 3, sentence: 2, marker: 2 };
+//
+// LOWERED 2026-09-04 (Lloyd) from 10/3/2/2. Reason, with the arithmetic:
+// the ~385/stage budget the room's pricing bands were priced against predates
+// the Session 14 daily-challenge amendment, which added a second faucet worth
+// up to ~132/stage (11/day cap × 3 days/wk × ~4wk). Nobody folded that back in,
+// so the live economy was running ~517/stage and a 350 capstone came due in
+// 0.68 stages — against a design that says a capstone "should always be visible
+// but rarely affordable," i.e. roughly one stage of work.
+//   5/2/1  ->  211 vocab + 132 challenge = 343/stage  ->  capstone at 1.02 stages.
+// Ratio ordering preserved (complete > kanji > sentence; sentence still the
+// best rate per unit effort). Revert = restore 10/3/2/2 on this line alone.
+const AP = { complete: 5, kanji: 2, sentence: 1, marker: 1 };
 
 // ————— Koban icon (Session 11) —————
 // The currency shows as a coin, never as a word (Lloyd: no high-level Japanese

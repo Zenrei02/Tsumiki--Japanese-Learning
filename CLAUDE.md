@@ -150,9 +150,29 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   So: **batch app-touching work, not pushes.** A docs-only or scripts-only push
   can go out whenever it is ready.
 
-  **Budget, from Lloyd, Aug 24 2026: 30 CREDITS = TWO DEPLOYMENTS, resetting
-  early September.** Ask him for the figure in credits and divide by 15; do not
+  **Budget, from Lloyd, Aug 30 2026: 30 CREDITS = TWO DEPLOYMENTS.** Unchanged
+  from the Aug 24 reading, which means no deploy was spent in those six days —
+  consistent with `3e6e357` (the only app-touching commit in that window) never
+  having been pushed. Ask him for the figure in credits and divide by 15; do not
   carry a deployment count forward.
+
+  **Reset: Lloyd believes the 8th, not the 1st — treat as unconfirmed.** His
+  words, Aug 30: *"I think it's the 8th."* The Netlify team was created
+  2026-08-08, which is consistent with an anniversary cycle rather than a
+  calendar-month one, but the API exposes neither credits nor the reset date
+  (`get-team` returns only `type_name: Free`), so **the billing page is the only
+  place this can actually be checked.** Recorded with the hedge attached on
+  purpose: "early September" is what this line said before, and a vague date is
+  the same species of ages-badly figure as the "about 5 deployments" it already
+  burned this project once. If you need the date to decide something, confirm it
+  — do not promote this sentence into a fact by quoting it.
+
+  Consequence as of Aug 30: **nine days, two deploys.** Both are spoken for —
+  `VITE_CHECKER_URL` is the P0 blocker carried since Session 16 and is the one
+  item that cannot be verified without a production deploy (the endpoint is
+  proven by curl only). Budget one to set it and one for whatever the Checker tab
+  does once it is genuinely wired. `3e6e357`'s section-accent palette is held
+  deliberately — it is inspectable for free with `npm run dev`.
 
   The previous line here read "about 5 deployments left" as of Aug 23 and was
   wrong by more than half one day later — it had been inherited rather than
