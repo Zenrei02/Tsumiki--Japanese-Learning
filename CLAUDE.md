@@ -125,8 +125,14 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   **NEVER put project material in the connector's own Drive without an explicit `parentId`.**
   Side-project IP on employer infrastructure is a live risk, not a tidiness point: the school
   owns data in that domain, and *"Confirm employment contract allows side work"* is still an
-  open Phase 3 task. Backups of the workbook belong in Lloyd's PERSONAL Drive, which means he
-  places them by hand — the connector cannot write there as him.
+  open Phase 3 task.
+
+  ⚠️ **AND IT CANNOT BE UNDONE LATER — OWNERSHIP DOES NOT TRANSFER OUT.** Confirmed by Lloyd
+  Sep 5 2026: he cannot hand a work-account file to `zensoreno`, which is the normal Workspace
+  restriction on transferring to an outside personal account. So writing there is not a staging
+  step on the way to somewhere better; it is a one-way door. Backups of the workbook belong in
+  Lloyd's PERSONAL Drive, which means he places them by hand — the connector cannot write there
+  as him, and no amount of cleverness afterwards moves them.
 
   The connector CAN READ `zensoreno`-owned files that are shared with it: the blind-grading
   response sheet reports `owner: zensoreno@gmail.com` and downloads fine. So read access says
