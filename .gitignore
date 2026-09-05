@@ -85,10 +85,14 @@ bakeoff-parse-failures.jsonl
 *responses*.xlsx
 OLD/keycheck-responses-*.xlsx
 
-# Step 3 reports. Same rule again: these quote eval sentences, the reviewer's
-# comments and the key amendments verbatim, which is the blind material. Added
-# Sep 5 2026 with the first one.
+# Step 3 reports and the rewrite-quality proposals. Same rule again: these quote
+# eval sentences, the reviewer's comments and the key corrections verbatim, which
+# is the blind material. Added Sep 5 2026 with the first of each.
+# (reviewer-content-batches-v1.md is tracked and stays tracked — it is a sending
+# order and carries no key material at all. The test is the content, not the kind
+# of document.)
 step3-import-report-*.md
+rewrite-quality-proposal-*.md
 
 # Workbook snapshots. Same key material as the workbook itself, so same rule.
 # They exist because the workbook is NOT in git — it is the only artefact in this
