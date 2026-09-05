@@ -116,9 +116,25 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   not. Distinguish them by timestamp — compare `stat .git/refs/remotes/origin/main` against
   the commit time — or just ask.
 
+- **⚠️ THE DRIVE CONNECTOR IS THE SCHOOL ACCOUNT — `cmyles@aicwc.ed.jp`, NOT `zensoreno`.**
+  Corrected Sep 5 2026 (Session 22) after this file said `zensoreno` for weeks. Proven the
+  expensive way: `create_file` with no `parentId` created a folder owned by
+  **`cmyles@aicwc.ed.jp`**, Lloyd's EMPLOYER's Workspace — while the folder being created was
+  meant to hold the eval answer key. It was trashed immediately.
+
+  **NEVER put project material in the connector's own Drive without an explicit `parentId`.**
+  Side-project IP on employer infrastructure is a live risk, not a tidiness point: the school
+  owns data in that domain, and *"Confirm employment contract allows side work"* is still an
+  open Phase 3 task. Backups of the workbook belong in Lloyd's PERSONAL Drive, which means he
+  places them by hand — the connector cannot write there as him.
+
+  The connector CAN READ `zensoreno`-owned files that are shared with it: the blind-grading
+  response sheet reports `owner: zensoreno@gmail.com` and downloads fine. So read access says
+  nothing about where a WRITE lands. Check `owner` on anything you create.
+
 - **⚠️ Apps Script must run from — or be shared with — the account Cowork connects as.**
-  Forms are owned by `quantumshifting@gmail.com`; Cowork's Drive connector authenticates as
-  `zensoreno`. B9 was built while signed into the other account and was simply INVISIBLE to a
+  Forms are owned by `quantumshifting@gmail.com`. B9 was built while signed into another
+  account and was simply INVISIBLE to a
   Drive search, so the only evidence it was correct was its execution log — the exact evidence
   this project has twice been burned by. Sharing it fixed that and the form checked out. The
   slip is cheap when caught (share it) and expensive when not: **re-running the script under
