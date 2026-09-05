@@ -167,12 +167,43 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   burned this project once. If you need the date to decide something, confirm it
   — do not promote this sentence into a fact by quoting it.
 
-  Consequence as of Aug 30: **nine days, two deploys.** Both are spoken for —
-  `VITE_CHECKER_URL` is the P0 blocker carried since Session 16 and is the one
-  item that cannot be verified without a production deploy (the endpoint is
-  proven by curl only). Budget one to set it and one for whatever the Checker tab
-  does once it is genuinely wired. `3e6e357`'s section-accent palette is held
-  deliberately — it is inspectable for free with `npm run dev`.
+  Consequence as of Aug 30: **nine days, two deploys.** The previous version of
+  this paragraph said both were spoken for, because `VITE_CHECKER_URL` was "the
+  P0 blocker carried since Session 16" and "the one item that cannot be verified
+  without a production deploy."
+
+  ⚠️ **ALL OF THAT WAS FALSE, AND HAD BEEN FOR THREE WEEKS. Checked Sep 5 2026,
+  Session 22, at a cost of zero credits.**
+
+  - The variable **was already set on 2026-08-14T19:04Z** by zensoreno, value
+    `https://llkazgmhsuonhwrubwjw.supabase.co/functions/v1/check`, scopes
+    builds/functions/runtime/post_processing, context `all`. Read it with the
+    Netlify connector: `manage-env-vars` + `getAllEnvVars: true`.
+  - **Production already has it inlined.** The live chunk
+    `assets/Checker-DZIv_eak.js` contains
+    `S="https://llkazgmhsuonhwrubwjw.supabase.co/functions/v1/check"` as a string
+    literal, not an `import.meta.env` lookup.
+  - **The Checker works end to end in production.** A real check on
+    「私は昨日図書館で本を読みました。」 returned NOTHING TO CHANGE, 5/5, furigana
+    rendered, and the cap counter moved to "1 of 10 free checks used today".
+
+  **How it went wrong is the part worth keeping.** `HANDOVER-to-claude-code.md`
+  said "set but unverified end-to-end" and was RIGHT. `audit-2026-08-15.md` said
+  it "is not set in Netlify" — written **one day after** it was set — and that
+  sentence is the one every later session inherited, including this file. A
+  further trap corroborated it: the repo's own `naoshi-app/dist/` is a LOCAL
+  build, where the env var is absent, so its bundle reads
+  `const $={}; …$.VITE_CHECKER_URL||""`. Reading the committed `dist/` as
+  evidence about production is reading the wrong artifact.
+
+  So: **the deploy budget was never two-thirds spent.** Do not re-plan around
+  this item. `3e6e357`'s section-accent palette is still held deliberately — it
+  is inspectable for free with `npm run dev`.
+
+  **The general rule, third time it has bitten:** an environment claim goes stale
+  the moment someone changes the environment, and nothing in the document knows
+  that happened. Before spending a deployment on a claim like this, spend the
+  free API read that settles it.
 
   The previous line here read "about 5 deployments left" as of Aug 23 and was
   wrong by more than half one day later — it had been inherited rather than
