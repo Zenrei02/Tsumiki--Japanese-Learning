@@ -71,9 +71,12 @@ the tool proposes.
 
 **Changing the prompt invalidates the baseline.** All 150 outputs were produced under the
 current `SYSTEM_PROMPT`. A change means the eval no longer measures the thing that is
-shipping, and re-grading costs Keiko another nine batches — which is not available:
-she has done nine already, declined payment for B1, and is owed ¥6,000 as of this
-writing. **Reviewer time is the scarcest resource in this project and it is nearly spent.**
+shipping, and re-grading costs Keiko another nine batches — which is not available: she has
+done nine already and declined payment for B1 outright, offering a meal instead.
+B2–B9 are settled in full as of Sep 5 2026 (the last ¥6,000 by PayPay), so the
+ledger is square — but goodwill is not a balance you can top up, and hers is what
+paid for the calibration batch. **Reviewer time is the scarcest resource in this
+project and it is nearly spent.**
 
 So the sequence is *instrument first, change second*. The precedent is explicit and is in
 CLAUDE.md: the romaji-leak問題 was routed to `check-romaji-leak.py` rather than to eval

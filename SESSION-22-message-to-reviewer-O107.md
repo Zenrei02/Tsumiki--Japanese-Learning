@@ -53,8 +53,8 @@ preserve now that grading is finished.
 > 長い作業でしたし、日本語の細かいところまで丁寧に見ていただいたのがよく分かりました。
 > いただいたコメントは、どれもツールの改善に直接つながるものばかりです。
 >
-> B8（2,000円）とB9（4,000円）の合計6,000円、近日中にお送りします。
-> 方法はPayPayでも銀行振込でも、ご都合のよい方で大丈夫です。
+> B8（2,000円）とB9（4,000円）の合計6,000円、PayPayでお送りしました。
+> もし届いていないようでしたら、遠慮なく言ってください。
 >
 > 最後に、一問だけ確認させてください。30秒で終わる質問です。
 >
@@ -91,8 +91,8 @@ preserve now that grading is finished.
 > and it's clear you looked closely at the fine details of the Japanese. Every one of
 > your comments feeds directly into improving the tool.
 >
-> I'll send the ¥6,000 for B8 (¥2,000) and B9 (¥4,000) shortly — PayPay or bank
-> transfer, whichever is easier for you.
+> I've sent the ¥6,000 for B8 (¥2,000) and B9 (¥4,000) by PayPay. If it hasn't
+> arrived, just say so.
 >
 > One last thing I'd like to check — a single question, about 30 seconds.
 >
