@@ -1,2 +1,8 @@
 node_modules
 dist
+
+# Local Vite env. Holds the Supabase URL and the PUBLISHABLE key — neither is a
+# secret (see src/lib/supabase.js), but they belong in Netlify for production
+# rather than in the repo, so the file that mirrors them for `npm run dev` is
+# ignored to keep one source of truth.
+.env*.local

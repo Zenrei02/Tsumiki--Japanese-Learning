@@ -418,6 +418,201 @@ await go("checker", null, [], {
   },
 });
 
+// ————— ENGAGEMENT PANEL (Session 23) —————
+// The daily card / weekly rhythm / quest chain, spliced onto Home.
+//
+// ⚠️ WHY THIS CHECKS CSS AND NOT JUST THAT IT RENDERED. engagement-module.jsx is
+// authored in Tailwind and this app has no Tailwind, so build-vite-app.py
+// generates a scoped stand-in stylesheet from the classes the module uses. That
+// generator can be wrong in a way NOTHING ELSE NOTICES: the module renders, the
+// build prints a rule count, every guard goes green, and the card is unstyled.
+//
+// It has already happened once, on the first build. Several selectors need CSS
+// escapes — `.text-\[11px\]`, `.gap-1\.5`, `.from-amber-50\/40`, every
+// `.hover\:…` — and the file emitted them inside a plain JS template literal,
+// where JavaScript ate the backslash before CSS ever saw it. Ten-odd rules
+// shipped as invalid selectors that browsers drop in silence. The build said
+// 107 rules and the file contained 107 rules; both were true and neither was
+// the question.
+//
+// ⚠️ AND THE OBVIOUS CHECK FOR IT DOES NOT WORK HERE. The first version of this
+// compared rules EMITTED against rules the CSS parser ACCEPTED, on the reasoning
+// that a parser is the only thing that can say whether a selector is real. In a
+// browser that is true — Chrome reports 107 emitted, 107 parsed when the escapes
+// are right, and drops the broken ones when they are not. jsdom does not: run
+// against a stylesheet with every escape stripped, it still reported 107 of 107
+// and the whole check passed. It was only found because the negative control was
+// run and was expected to be red.
+//
+// So the assertion is TEXTUAL, and deliberately so: a selector containing
+// [ ] . / % or a variant colon must carry its backslash. That is the exact
+// property the template literal destroyed, it is checkable without a parser, and
+// it cannot be satisfied by a parser being lenient.
+//
+// The real-browser half of this was verified by hand on Sep 6 2026 against
+// `npm run dev`: 107 emitted / 107 parsed, `.text-\[11px\]` computing to 11px
+// and `.from-amber-50\/40` producing rgba(255,251,235,0.4). That is evidence
+// about a browser; the check below is the regression guard that runs every time.
+{
+  const dom = new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',
+    { runScripts: "outside-only", pretendToBeVisual: true, url: "http://localhost/" });
+  const w = dom.window;
+  const errors = [];
+  w.HTMLCanvasElement.prototype.getContext = () => new Proxy({
+    canvas: { width: 300, height: 300 }, measureText: () => ({ width: 0 }),
+  }, { get: (t, k) => (k in t ? t[k] : () => {}), set: (t, k, v) => { t[k] = v; return true; } });
+  w.fetch = () => Promise.resolve({ ok: false, status: 404 });
+  w.console.error = (...a) => {
+    const t = a.join(" ");
+    if (!/Not implemented|jsdom|Could not parse CSS/i.test(t)) errors.push(t);
+  };
+  w.console.warn = () => {};
+  w.addEventListener("error", e => errors.push("UNCAUGHT: " + (e.error?.message || e.message)));
+  // The panel renders nothing for a learner who has started nothing — that is
+  // deliberate, so it has to be given something to have started.
+  w.localStorage.setItem("hiragana-progress-v2", JSON.stringify({ "h-a": { seen: true } }));
+  w.eval(fs.readFileSync(BUNDLE, "utf8"));
+  await new Promise(r => setTimeout(r, 2500));
+
+  console.log("\nENGAGEMENT — daily card on Home");
+  const scope = w.document.querySelector(".eng-scope");
+  if (!scope) {
+    fail("ENGAGEMENT: no .eng-scope on Home — the panel did not mount");
+  } else {
+    const styleEl = scope.querySelector("style");
+    if (!styleEl) {
+      fail("ENGAGEMENT: panel mounted with no stylesheet — it will render unstyled");
+    } else {
+      const css = styleEl.textContent;
+      const emitted = (css.match(/\.eng-scope/g) || []).length;
+      console.log(`  scoped stylesheet: ${emitted} rules`);
+      if (emitted < 50) {
+        fail(`ENGAGEMENT: only ${emitted} rules — the class extractor has stopped finding them`);
+      }
+
+      // Every selector, minus a legitimate trailing pseudo-class, must have its
+      // special characters escaped.
+      const broken = [];
+      for (const line of css.split("\n")) {
+        const sel = line.split("{")[0].trim();
+        if (!sel.startsWith(".eng-scope")) continue;
+        const bare = sel.replace(/:hover$/, "").replace(/\s*>\s*\*\s*\+\s*\*$/, "");
+        // (?<!\\) — the character is a problem only when NOT already escaped.
+        if (/(?<!\\)[[\]/%]/.test(bare) || /(?<!\\):/.test(bare.slice(1))) {
+          broken.push(sel);
+        }
+      }
+      if (broken.length) {
+        fail(`ENGAGEMENT: ${broken.length} selector(s) lost their CSS escapes — ` +
+             `e.g. ${JSON.stringify(broken[0])}. A browser drops these silently ` +
+             `and the card renders unstyled. Check that engagementStyles.js is ` +
+             `emitted with String.raw.`);
+      } else {
+        console.log("  selectors keep their CSS escapes ok");
+      }
+    }
+    // Scoping is the whole safety argument: nothing here may reach the rest of
+    // the app. A bare `.rounded-lg` would restyle five other modules.
+    const unscoped = (scope.querySelector("style")?.textContent || "")
+      .split("\n").filter(l => l.trim() && !l.trim().startsWith(".eng-scope"));
+    if (unscoped.length) {
+      fail(`ENGAGEMENT: ${unscoped.length} rule(s) are not scoped to .eng-scope — ` +
+           `e.g. ${JSON.stringify(unscoped[0].slice(0, 60))}`);
+    } else {
+      console.log("  every rule scoped to .eng-scope ok");
+    }
+    const text = scope.textContent || "";
+    if (text.length < 80) fail(`ENGAGEMENT: panel rendered only ${text.length} chars`);
+    else console.log(`  panel rendered ${text.length} chars`);
+  }
+  if (errors.length) fail("ENGAGEMENT: console errors — " + errors.slice(0, 2).join(" | "));
+}
+
+// ————— ACCOUNTS (Session 23) —————
+// Accounts are OPTIONAL, and this bundle is the un-configured case: esbuild's
+// iife output replaces `import.meta` with {}, so VITE_SUPABASE_URL and
+// VITE_SUPABASE_PUBLISHABLE_KEY are both absent — exactly the shape of a local
+// `npm run dev` with no .env, and of the standalone HTML build.
+//
+// TWO THINGS ARE BEING CHECKED, and the first is the one that would hurt.
+//
+//   1. THE APP STILL WORKS WITHOUT ACCOUNTS. account.jsx is imported by App.jsx
+//      at the top level, not lazily, so anything that throws while it evaluates
+//      takes the WHOLE APP down — every module, on every device, including the
+//      five that have nothing to do with accounts. The specific trap is
+//      `import.meta.env.X` without the optional chain: under iife that is a
+//      property read on undefined and it throws at module load. The Checker
+//      already carries the guarded form for this reason.
+//
+//   2. UNCONFIGURED IS EXPLAINED, NEVER SILENT. Same rule the Checker is held
+//      to above: a sign-in panel that simply does nothing when tapped is
+//      indistinguishable from one that is broken.
+{
+  const dom = new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',
+    { runScripts: "outside-only", pretendToBeVisual: true, url: "http://localhost/" });
+  const w = dom.window;
+  const errors = [];
+  w.HTMLCanvasElement.prototype.getContext = () => new Proxy({
+    canvas: { width: 300, height: 300 }, measureText: () => ({ width: 0 }),
+  }, { get: (t, k) => (k in t ? t[k] : () => {}), set: (t, k, v) => { t[k] = v; return true; } });
+  w.fetch = () => Promise.resolve({ ok: false, status: 404 });
+  w.console.error = (...a) => {
+    const t = a.join(" ");
+    if (!/Not implemented|jsdom|Could not parse CSS/i.test(t)) errors.push(t);
+  };
+  w.console.warn = () => {};
+  w.addEventListener("error", e => errors.push("UNCAUGHT: " + (e.error?.message || e.message)));
+  w.eval(fs.readFileSync(BUNDLE, "utf8"));
+  await new Promise(r => setTimeout(r, 1500));
+
+  console.log("\nACCOUNTS — unconfigured build");
+  const all = () => [...w.document.querySelectorAll("button")];
+
+  if (!all().length) {
+    fail("ACCOUNTS: the app rendered no buttons at all — App.jsx did not mount");
+  } else {
+    all().find(x => x.getAttribute("aria-label") === "Menu")?.click();
+    await new Promise(r => setTimeout(r, 300));
+    const entry = all().find(b => (b.textContent || "").trim() === "Account");
+    if (!entry) {
+      fail("ACCOUNTS: no Account entry in the drawer");
+    } else {
+      console.log("  drawer offers Account");
+      entry.click();
+      await new Promise(r => setTimeout(r, 500));
+      const dlg = [...w.document.querySelectorAll('[role="dialog"]')]
+        .find(d => d.getAttribute("aria-label") === "Account");
+      if (!dlg) {
+        fail("ACCOUNTS: tapping Account opened nothing");
+      } else {
+        const text = (dlg.textContent || "");
+        console.log(`  dialog opens → ${text.length} chars`);
+        const explained = /not switched on|Accounts are not/i.test(text);
+        console.log(`  unconfigured build → ${explained ? "explained to the learner ok" : "❌ SILENT"}`);
+        if (!explained) {
+          fail("ACCOUNTS: unconfigured build says nothing — indistinguishable from broken");
+        }
+        // And it must not offer a sign-in it cannot perform.
+        if (dlg.querySelector('input[type="email"]')) {
+          fail("ACCOUNTS: unconfigured build still offers an email field");
+        }
+        const close = [...dlg.querySelectorAll("button")]
+          .find(b => b.getAttribute("aria-label") === "Close");
+        if (!close) fail("ACCOUNTS: dialog has no close control");
+        else {
+          close.click();
+          await new Promise(r => setTimeout(r, 300));
+          const still = [...w.document.querySelectorAll('[role="dialog"]')]
+            .find(d => d.getAttribute("aria-label") === "Account");
+          if (still) fail("ACCOUNTS: dialog would not close");
+          else console.log("  dialog closes ok");
+        }
+      }
+    }
+  }
+  if (errors.length) fail("ACCOUNTS: console errors — " + errors.slice(0, 2).join(" | "));
+}
+
 console.log("\n" + "─".repeat(60));
 if (failures.length) {
   console.log(`FAILED — ${failures.length} problem${failures.length > 1 ? "s" : ""}:`);

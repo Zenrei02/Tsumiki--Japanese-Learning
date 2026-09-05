@@ -1,0 +1,59 @@
+-- Take EXECUTE on public.naoshi_progress_archive_prev() away from the API roles.
+--
+-- Applying 20260906000000_progress_sync.sql raised two advisors immediately —
+-- 0028 (anon) and 0029 (authenticated), "Public Can Execute SECURITY DEFINER
+-- Function" — because a plpgsql function in schema `public` is exposed at
+-- /rest/v1/rpc/naoshi_progress_archive_prev and the archive trigger has to be
+-- SECURITY DEFINER to write a table whose RLS deliberately has no INSERT policy.
+--
+-- ACTUAL SEVERITY, measured rather than assumed, exactly as
+-- 20260817174150_revoke_public_execute_on_rls_auto_enable.sql measured its own:
+-- the function returns `trigger`, so Postgres refuses a direct call before the
+-- body runs —
+--
+--   0A000 trigger functions can only be called as triggers
+--
+-- So an anon POST to the RPC gets an error, not a way to forge archive rows.
+-- The advisor is still right that the grant is wrong; what was missing is
+-- defence in depth, not a door. Recorded because "flagged by the linter" and
+-- "exploitable" are different claims.
+--
+-- ⚠️ WHY THIS REVOKES FROM `public`. Same trap as the rls_auto_enable migration:
+-- pg_proc.proacl for a fresh function is NULL, which means EXECUTE is held
+-- through the PUBLIC grant and not through any per-role grant. A
+-- `revoke execute ... from anon, authenticated` against a NULL acl is a SILENT
+-- NO-OP — it materialises the default ACL, finds no anon entry to remove, and
+-- leaves `=X/postgres` in place. Postgres does not warn.
+--
+-- ⚠️ AND WHY REVOKING FROM PUBLIC IS SAFE HERE, which is the direction that has
+-- twice caused an outage on this project (20260814190000, 20260825000100).
+-- Nothing calls this function by name. Postgres checks EXECUTE on a trigger
+-- function when the trigger is CREATED, not each time it fires, and the trigger
+-- already exists and is owned by postgres — which keeps EXECUTE implicitly as
+-- the owner and is named below anyway, so the real caller set is in the ACL
+-- where it can be read instead of resting on ownership.
+--
+-- THAT CLAIM WAS EXERCISED, NOT ASSUMED. Advisors answer "can the wrong roles
+-- call this?" and say nothing about "does the right thing still happen" — which
+-- is precisely how the Aug 15 cap outage passed its verification. So after this
+-- migration a real UPDATE was run as a real authenticated user, Sep 6 2026:
+--
+--   proacl before : NULL                  (EXECUTE held via PUBLIC)
+--   proacl after  : {postgres=X/postgres}
+--
+--   has_function_privilege after —
+--     anon false · authenticated false · service_role false · postgres true
+--
+--   trigger exercised after the revoke: an authenticated UPDATE that changed
+--     `data` still bumped version 1 -> 2 and still wrote exactly one
+--     naoshi_progress_archive row holding the OLD document. Probe users and
+--     rows removed; auth.users back to 0.
+--
+--   advisors after: the 0028 and 0029 WARNs for this function are gone, and the
+--     only remaining item is the pre-existing INFO for naoshi_check_usage
+--     ("RLS enabled, no policies"), which is intentional and documented in
+--     20260814180650_check_usage.sql.
+
+revoke execute on function public.naoshi_progress_archive_prev() from public, anon, authenticated;
+
+grant execute on function public.naoshi_progress_archive_prev() to postgres;

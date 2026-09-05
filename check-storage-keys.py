@@ -54,7 +54,12 @@ STORAGE = SRC / "lib" / "storage.js"
 MODULES = SRC / "modules"
 
 # Keys that are UI state, not learner progress, and are deliberately not exported.
-IGNORE = {"naoshi-last-module", "naoshi-open-challenge", "__naoshi_probe__"}
+IGNORE = {"naoshi-last-module", "naoshi-open-challenge", "__naoshi_probe__",
+          # A hand-off buffer, not progress: study reports waiting for the
+          # engagement panel to mount. Emptied the moment it is read, and
+          # meaningless to anyone but the browser that wrote it — exporting it
+          # would carry a pending quest credit into someone else's restore.
+          "naoshi-pending-study"}
 
 
 def declared_keys():

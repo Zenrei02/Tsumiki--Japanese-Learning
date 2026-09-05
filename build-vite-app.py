@@ -436,6 +436,269 @@ for src_name, out_name, comp, label, jp, _accent in MODULES:
     (MODDIR / out_name).write_text(out, encoding="utf-8")
     stats.append((out_name, before, len(out)))
 
+# ── the engagement layer ─────────────────────────────────────────────────────
+#
+# WHY THIS IS NOT JUST ANOTHER ENTRY IN `MODULES`. Two reasons, and the second
+# one is the whole of the work below.
+#
+# 1. IT IS NOT A DOOR. The six modules are places a learner goes. The engagement
+#    layer — daily card, weekly rhythm, quest chain — is what greets them when
+#    they arrive, so it belongs ON Home rather than beside it. Home already
+#    reads `engagement-v1` for its hero card; this is the thing that writes it.
+#
+# 2. ⚠️ IT IS AUTHORED IN TAILWIND AND THIS APP HAS NO TAILWIND.
+#    engagement-module.jsx carries ~110 utility classes (`rounded-lg`,
+#    `text-stone-500`, `space-y-4`); the other six modules style themselves with
+#    inline styles off the `T` tokens plus a handful of hand-named classes in an
+#    inline <style>. Splicing the module as-is compiles cleanly, renders, and
+#    passes every check in this repo — as a wall of unstyled text. That is the
+#    project's recurring failure shape exactly: the log is truthful about what
+#    it did and silent about what it broke.
+#
+# THREE WAYS OUT, and why this one:
+#   · Add Tailwind to the app — its preflight resets styles globally and would
+#     restyle all six existing modules. Largest blast radius of the three, for a
+#     module that occupies one card on one screen.
+#   · Rewrite the module's markup in the T-token house style — correct-looking,
+#     but it forks the authoring artifact, and this pipeline exists precisely so
+#     the artifacts stay the source of truth and never get forked.
+#   · GENERATE A SCOPED SHIM: read the classes the module actually uses, emit
+#     exactly those rules under a `.eng-scope` wrapper, and leave the module
+#     byte-identical. Nothing outside the wrapper can be affected, and the
+#     source stays the source.
+#
+# AND THE SHIM IS A GUARD, NOT JUST A TRANSLATION. Every class the module uses
+# must be in TW below or the build REFUSES. So the failure mode of someone
+# adding `text-rose-500` to the module later is a red build, not a paragraph
+# that silently renders in the wrong colour — which is the only version of this
+# that survives a session that does not know the shim exists.
+
+ENG_SRC = HERE / "engagement-module.jsx"
+ENG_QUOTES = HERE / "quote-bank-v1.js"
+
+# Tailwind's scales, only the values this module actually reaches for.
+_SP = {"0.5": "0.125rem", "1": "0.25rem", "1.5": "0.375rem", "2": "0.5rem",
+       "3": "0.75rem", "4": "1rem", "5": "1.25rem", "6": "1.5rem", "px": "1px"}
+_C = {
+    "stone-50": "#FAFAF9", "stone-100": "#F5F5F4", "stone-200": "#E7E5E4",
+    "stone-300": "#D6D3D1", "stone-400": "#A8A29E", "stone-500": "#78716C",
+    "stone-600": "#57534E", "stone-700": "#44403C", "stone-800": "#292524",
+    "stone-900": "#1C1917",
+    "amber-50": "#FFFBEB", "amber-100": "#FEF3C7", "amber-200": "#FDE68A",
+    "amber-300": "#FCD34D", "amber-600": "#D97706", "amber-700": "#B45309",
+    "amber-800": "#92400E", "amber-900": "#78350F",
+    "orange-800": "#9A3412", "orange-900": "#7C2D12",
+    "white": "#FFFFFF", "transparent": "transparent",
+}
+
+def _tw():
+    m = {}
+    # layout
+    m.update({
+        "flex": "display:flex", "flex-col": "flex-direction:column",
+        "flex-wrap": "flex-wrap:wrap", "flex-1": "flex:1 1 0%",
+        "items-center": "align-items:center", "items-baseline": "align-items:baseline",
+        "justify-between": "justify-content:space-between",
+        "justify-center": "justify-content:center",
+        "relative": "position:relative", "absolute": "position:absolute",
+        "inset-0": "top:0;right:0;bottom:0;left:0",
+        "w-full": "width:100%", "min-w-0": "min-width:0",
+        "shrink-0": "flex-shrink:0", "ml-auto": "margin-left:auto",
+        "mx-auto": "margin-left:auto;margin-right:auto",
+        "max-w-lg": "max-width:32rem",
+        "w-5": "width:1.25rem", "h-5": "height:1.25rem",
+        "w-6": "width:1.5rem", "h-6": "height:1.5rem",
+        "h-px": "height:1px",
+    })
+    # spacing
+    for k, v in _SP.items():
+        m[f"p-{k}"] = f"padding:{v}"
+        m[f"px-{k}"] = f"padding-left:{v};padding-right:{v}"
+        m[f"py-{k}"] = f"padding-top:{v};padding-bottom:{v}"
+        m[f"mt-{k}"] = f"margin-top:{v}"
+        m[f"mb-{k}"] = f"margin-bottom:{v}"
+        m[f"my-{k}"] = f"margin-top:{v};margin-bottom:{v}"
+        m[f"gap-{k}"] = f"gap:{v}"
+    # colours
+    for name, hexv in _C.items():
+        m[f"text-{name}"] = f"color:{hexv}"
+        m[f"bg-{name}"] = f"background-color:{hexv}"
+        m[f"border-{name}"] = f"border-color:{hexv}"
+    m["text-transparent"] = "color:transparent"
+    # type
+    m.update({
+        "text-[10px]": "font-size:10px", "text-[11px]": "font-size:11px",
+        "text-[0.45em]": "font-size:0.45em",
+        "text-xs": "font-size:0.75rem;line-height:1rem",
+        "text-sm": "font-size:0.875rem;line-height:1.25rem",
+        "text-lg": "font-size:1.125rem;line-height:1.75rem",
+        "text-2xl": "font-size:1.5rem;line-height:2rem",
+        "font-normal": "font-weight:400", "font-medium": "font-weight:500",
+        "font-semibold": "font-weight:600",
+        "italic": "font-style:italic", "uppercase": "text-transform:uppercase",
+        "line-through": "text-decoration-line:line-through",
+        "leading-relaxed": "line-height:1.625", "leading-loose": "line-height:2",
+        "tracking-wide": "letter-spacing:0.025em",
+        "tracking-wider": "letter-spacing:0.05em",
+        "tracking-widest": "letter-spacing:0.1em",
+    })
+    # borders / radius
+    m.update({
+        "border": "border-width:1px;border-style:solid",
+        "border-dashed": "border-style:dashed",
+        "rounded": "border-radius:0.25rem", "rounded-md": "border-radius:0.375rem",
+        "rounded-lg": "border-radius:0.5rem", "rounded-xl": "border-radius:0.75rem",
+        "rounded-full": "border-radius:9999px",
+    })
+    # motion / transform
+    m.update({
+        "transition-all": "transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms",
+        "transition-colors": "transition-property:color,background-color,border-color;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:150ms",
+        "duration-700": "transition-duration:700ms",
+        "-rotate-90": "transform:rotate(-90deg)",
+    })
+    # gradient — Tailwind builds these from custom properties; same idea, own names
+    m.update({
+        "bg-gradient-to-b": "background-image:linear-gradient(to bottom,var(--eng-from,transparent),var(--eng-to,transparent))",
+        "from-amber-50/40": "--eng-from:rgba(255,251,235,0.4)",
+        "to-white": "--eng-to:#FFFFFF",
+    })
+    return m
+
+TW = _tw()
+# `font-sans` resolves to the app's own UI stack rather than Tailwind's, so the
+# card matches the five modules around it. Interpolated at render time from T.
+TW_TEMPLATE = {"font-sans": "font-family:${T.uiFont}"}
+
+# Utilities that are a single word. Everything else must contain a hyphen to be
+# considered a class at all — which is what keeps identifiers picked up out of
+# `${open ? "a" : "b"}` ternaries (`open`, `t.bonus`, `?`) from being mistaken
+# for classes and failing the build.
+SINGLE_WORD = {"flex", "relative", "absolute", "border", "italic", "uppercase", "rounded"}
+
+def eng_classes(text):
+    """Every class token the module can put on an element, static or dynamic."""
+    found, i = set(), 0
+    while True:
+        m = re.search(r"className=", text[i:])
+        if not m: break
+        start = i + m.end()
+        if start >= len(text): break
+        if text[start] == '"':
+            end = text.index('"', start + 1)
+            for t in text[start + 1:end].split(): found.add(t)
+            i = end
+        elif text[start] == "{":
+            depth, j = 0, start
+            while j < len(text):
+                if text[j] == "{": depth += 1
+                elif text[j] == "}":
+                    depth -= 1
+                    if depth == 0: break
+                j += 1
+            region = text[start:j + 1]
+            for lit in (re.findall(r'"([^"]*)"', region)
+                        + re.findall(r"`([^`$]*)`", region)
+                        + re.findall(r"'([^']*)'", region)):
+                for t in lit.split(): found.add(t)
+            i = j
+        else:
+            i = start
+    out = set()
+    for t in found:
+        t = t.strip().strip('"\'`}{')
+        if not t: continue
+        if "-" not in t and ":" not in t and t not in SINGLE_WORD: continue
+        if t.startswith("$") or "${" in t: continue
+        out.add(t)
+    return sorted(out)
+
+def css_escape(cls):
+    return re.sub(r"([:.\[\]/%])", r"\\\1", cls)
+
+def eng_css(classes):
+    rules, unmapped = [], []
+    for c in classes:
+        base, suffix = c, ""
+        if c.startswith("hover:"):
+            base, suffix = c[6:], ":hover"
+        decl = TW.get(base) or TW_TEMPLATE.get(base)
+        if decl is None:
+            unmapped.append(c)
+            continue
+        rules.append(f".eng-scope .{css_escape(c)}{suffix}{{{decl}}}")
+    # space-y-N is a child selector, so it cannot come from the flat table above
+    for c in classes:
+        m = re.fullmatch(r"space-y-(.+)", c)
+        if m and m.group(1) in _SP:
+            rules.append(f".eng-scope .{css_escape(c)} > * + *{{margin-top:{_SP[m.group(1)]}}}")
+            if c in unmapped: unmapped.remove(c)
+    return sorted(set(rules)), unmapped
+
+if ENG_SRC.exists() and ENG_QUOTES.exists():
+    eng = ENG_SRC.read_text(encoding="utf-8")
+    classes = eng_classes(eng)
+    rules, unmapped = eng_css(classes)
+    for c in unmapped:
+        problems.append(
+            f"engagement-module.jsx: class {c!r} has no rule in build-vite-app.py's TW table — "
+            "add one, or the card ships unstyled")
+
+    # the quote bank travels with it
+    (DATA / "quote-bank-v1.js").write_text(
+        "// COPIED by build-vite-app.py from quote-bank-v1.js at the repo root,\n"
+        "// which is itself generated by build-quote-bank.py. Edit neither.\n"
+        + ENG_QUOTES.read_text(encoding="utf-8"), encoding="utf-8")
+
+    (LIB / "engagementStyles.js").write_text(
+        "// GENERATED by build-vite-app.py — a scoped stand-in for the Tailwind\n"
+        "// utilities engagement-module.jsx is authored in. See that script for why\n"
+        "// this exists rather than Tailwind itself, or a rewritten module.\n"
+        "//\n"
+        "// Every rule is prefixed `.eng-scope`, so nothing here can reach the rest\n"
+        "// of the app; and every class the module uses must have a rule or the\n"
+        "// build refuses, so this file cannot silently fall behind the module.\n"
+        'import { T } from "./tokens.js";\n\n'
+        # ⚠️ String.raw, NOT a plain template literal. Several of these selectors
+        # carry CSS escapes — `.text-\\[11px\\]`, `.gap-1\\.5`,
+        # `.from-amber-50\\/40`, every `.hover\\:…` — and inside a plain
+        # backtick literal JavaScript eats the backslash before CSS ever sees it.
+        # The result is a selector like `.text-[11px]`, which is invalid, which
+        # the browser DROPS SILENTLY. Caught Sep 6 2026 by reading computed
+        # styles in the browser: the build said "107 rules", the file contained
+        # 107 rules, and roughly ten of them had never applied to anything.
+        # A count is not a check. test/smoke.mjs now compares rules emitted
+        # against rules the CSS parser actually accepted.
+        "export const ENGAGEMENT_CSS = String.raw`\n" + "\n".join(rules) + "\n`;\n",
+        encoding="utf-8")
+
+    # the module itself, transformed the same way the six doors are
+    out = eng
+    out = out.replace('import QUOTES from "./quote-bank-v1.js";',
+                      'import QUOTES from "../data/quote-bank-v1.js";', 1)
+    for fn in ("loadJSON", "saveJSON"):
+        sp = fn_span(out, fn)
+        if sp:
+            start = sp[0]
+            if out[max(0, start - 6):start].strip().endswith("async"):
+                start = out.rindex("async", 0, start)
+            out = out[:start] + out[sp[1]:]
+    out = re.sub(r'^import React, \{[^}]*\} from "react";\s*\n', "", out, count=1, flags=re.M)
+    out = re.sub(r'^import \{[^}]*\} from "react";\s*\n', "", out, count=1, flags=re.M)
+    hooks = sorted({h for h in ["useState", "useEffect", "useRef", "useMemo", "useCallback"]
+                    if re.search(r"\b" + h + r"\s*\(", out)})
+    header = [
+        "// GENERATED from engagement-module.jsx by build-vite-app.py — do not hand-edit.",
+        "// Edit the authoring module at the repo root and re-run.",
+        f'import {{ {", ".join(hooks)} }} from "react";',
+        'import { installStorage } from "../lib/storage.js";',
+        'import { loadJSON, saveJSON } from "../lib/json.js";',
+        "installStorage();\n",
+    ]
+    (MODDIR / "Engagement.jsx").write_text("\n".join(header) + "\n" + out, encoding="utf-8")
+    print(f"engagement: {len(classes)} classes -> {len(rules)} scoped rules"
+          + (f", {len(unmapped)} UNMAPPED" if unmapped else ""))
+
 if problems:
     print("REFUSING TO BUILD:")
     for p in problems: print("  " + p)
@@ -450,6 +713,9 @@ imports = "\n".join(f'const {c[2]} = lazy(() => import("./modules/{c[1]}"));' fo
 (SRC / "App.jsx").write_text('''// GENERATED by build-vite-app.py — do not hand-edit.
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { downloadProgress, importProgress, storage } from "./lib/storage.js";
+import Account from "./lib/account.jsx";
+import EngagementPanel from "./lib/engagementPanel.jsx";
+import { reportStudy } from "./lib/activity.js";
 import { T, ACCENT } from "./lib/tokens.js";
 ''' + imports + '''
 
@@ -587,6 +853,14 @@ function Home({ startedMap, lastMod, nextTask, go }) {
         </button>
       )}
 
+      {/* The daily card, the weekly rhythm and the current quest chain.
+          Renders nothing until something has been started — see
+          lib/engagementPanel.jsx. It sits BELOW the hero and above the doors
+          because the hero answers "what now" and this answers "how am I
+          going"; a learner who has an answer to the first does not need to
+          scroll past the second to act on it. */}
+      <EngagementPanel startedMap={startedMap} />
+
       <div style={{ font: `600 11px ${T.uiFont}`, letterSpacing: ".7px", color: T.sub, marginBottom: 10 }}>
         EVERYWHERE YOU CAN GO
       </div>
@@ -630,7 +904,7 @@ function Home({ startedMap, lastMod, nextTask, go }) {
 // Deliberately not a <dialog>: Safari's support for inert backdrops is still
 // uneven and this needs no form semantics. Scrim + role="dialog" + Escape is
 // the boring version that behaves the same everywhere.
-function Drawer({ open, close, active, go }) {
+function Drawer({ open, close, active, go, onAccount }) {
   const panelRef = useRef(null);
 
   // Escape closes, and the background does not scroll underneath an open
@@ -698,6 +972,16 @@ function Drawer({ open, close, active, go }) {
             </button>
           ))}
         </div>
+
+        {/* Below the rule, not among the destinations: the drawer list answers
+            "where can I go", and an account is not a place. Kept out of the
+            header for the reason the drawer exists at all — the header already
+            carries Save and Restore and wraps to two rows on a phone. */}
+        <div style={{ borderTop: `1px solid ${T.hairline}`, padding: "6px 0" }}>
+          <button onClick={onAccount} style={{ ...row(false), borderLeftColor: "transparent" }}>
+            Account
+          </button>
+        </div>
       </nav>
     </>
   );
@@ -713,6 +997,7 @@ export default function App() {
   const [startedMap, setStartedMap] = useState({});
   const [lastWorked, setLastWorked] = useState(null);
   const [nextTask, setNextTask] = useState(null);
+  const [accountOpen, setAccountOpen] = useState(false);
 
   // Home's data is read through the storage adapter, so it must be async and
   // must refresh whenever we come back to Home — a lesson finished inside a
@@ -765,6 +1050,11 @@ export default function App() {
     if ((r?.value ?? null) !== value) {
       await storage.set("naoshi-last-module", id);
       setLastWorked(id);
+      // Session 23: the same evidence, published for the engagement layer. It
+      // is deliberately inside this branch — the whole point of commitIfWorked
+      // is that the store CHANGED, and marking a day active on navigation is
+      // the exact draft that engagement-module.jsx §5 threw out.
+      reportStudy(id);
     }
     snapRef.current = { id: null, value: null };
   };
@@ -855,7 +1145,14 @@ export default function App() {
         )}
       </header>
 
-      <Drawer open={menuOpen} close={closeMenu} active={active} go={go} />
+      <Drawer open={menuOpen} close={closeMenu} active={active} go={go}
+              onAccount={() => { setMenuOpen(false); setAccountOpen(true); }} />
+
+      {/* Mounted unconditionally and self-gating: it renders nothing until
+          opened, and it opens ITSELF if a sign-in turns up a progress
+          conflict that needs answering. A question about which copy of a
+          learner’s work survives must not sit behind a closed menu. */}
+      <Account open={accountOpen} setOpen={setAccountOpen} />
 
       <main style={{ maxWidth: 900, margin: "0 auto" }}>
         {active === "home" ? (

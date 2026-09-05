@@ -1,0 +1,173 @@
+// Fixtures for test-progress-sync.py. The functions under test are sliced out
+// of naoshi-app/src/lib/sync.js AT RUN TIME and prepended to this file, so these
+// assertions always run against the shipped merge core and never against a copy.
+//
+// The property every one of these exists to protect: SIGNING IN MUST NOT LOSE
+// PROGRESS. Read them as "what a learner would lose if this line were wrong."
+
+let failures = 0;
+const assert = (cond, msg) => {
+  if (!cond) { console.error("FAIL: " + msg); failures++; }
+};
+// Order-insensitive: an object's key order is not part of what is being
+// asserted, and the negative control below showed a correct value reported as a
+// failure purely because `merged` was built in a different order. A test that
+// cries wolf about key order is a test that gets ignored about data loss.
+const canonCmp = (x) => {
+  const sort = (y) => {
+    if (Array.isArray(y)) return y.map(sort);
+    if (y && typeof y === "object") {
+      return Object.keys(y).sort().reduce((o, k) => { o[k] = sort(y[k]); return o; }, {});
+    }
+    return y;
+  };
+  return JSON.stringify(sort(x));
+};
+const eq = (a, b, msg) => assert(canonCmp(a) === canonCmp(b),
+  msg + "  (got " + JSON.stringify(a) + ", wanted " + JSON.stringify(b) + ")");
+
+// ————— 1. nothing anywhere —————
+{
+  const p = mergeProgress({}, {});
+  eq(p.merged, {}, "empty/empty merges to nothing");
+  assert(p.status === "clean", "empty/empty is clean");
+}
+
+// ————— 2. one side only — the two cases that MUST never ask —————
+{
+  const p = mergeProgress({ "kanji-progress-v1": '{"a":1}' }, {});
+  eq(p.pushed, ["kanji-progress-v1"], "local-only key is pushed");
+  eq(p.merged, { "kanji-progress-v1": '{"a":1}' }, "local-only key survives");
+  assert(p.status === "clean", "local-only is not a conflict");
+}
+{
+  const p = mergeProgress({}, { "kanji-progress-v1": '{"a":1}' });
+  eq(p.pulled, ["kanji-progress-v1"], "remote-only key is pulled");
+  eq(p.merged, { "kanji-progress-v1": '{"a":1}' }, "remote-only key survives");
+  assert(p.status === "clean", "remote-only is not a conflict");
+}
+
+// ————— 3. THE HEADLINE CASE —————
+// Kanji on the phone, grammar on the laptop. Two partial states, no genuine
+// disagreement. A whole-document sync would make the learner destroy half of
+// their own work to answer a question they should never have been asked.
+{
+  const local  = { "kanji-progress-v1": '{"k":1}', "known-kanji-v1": '["日"]' };
+  const remote = { "n5-progress-v1": '{"g":1}',   "learner-depth-v1": '{"d":2}' };
+  const p = mergeProgress(local, remote);
+  assert(p.status === "clean", "disjoint devices do not conflict");
+  eq(Object.keys(p.merged).sort(),
+     ["kanji-progress-v1", "known-kanji-v1", "learner-depth-v1", "n5-progress-v1"],
+     "disjoint devices merge to the union");
+  assert(p.merged["kanji-progress-v1"] === '{"k":1}' && p.merged["n5-progress-v1"] === '{"g":1}',
+    "union keeps both sides' values verbatim");
+}
+
+// ————— 4. placeholders are not rivals —————
+// A module that was opened and not used writes "{}". Treating that as a rival
+// to real progress raises a conflict over nothing, and a learner taught to
+// dismiss the question will dismiss the real one too.
+{
+  const p = mergeProgress({ "n5-progress-v1": "{}" }, { "n5-progress-v1": '{"real":1}' });
+  eq(p.pulled, ["n5-progress-v1"], "empty local yields to real remote");
+  assert(p.status === "clean", "placeholder vs real is not a conflict");
+}
+{
+  const p = mergeProgress({ "n5-progress-v1": '{"real":1}' }, { "n5-progress-v1": "[]" });
+  eq(p.pushed, ["n5-progress-v1"], "empty remote yields to real local");
+}
+
+// ————— 5. same state, different serialisation —————
+{
+  const p = mergeProgress({ "known-words-v1": '{"a":1,"b":2}' },
+                          { "known-words-v1": '{"b":2,"a":1}' });
+  eq(p.same, ["known-words-v1"], "key order is not a disagreement");
+  assert(p.conflicts.length === 0, "reordered JSON does not conflict");
+}
+
+// ————— 6. a real disagreement is REPORTED, never settled —————
+// This is the assertion the whole file exists for. If `merged` ever gains a
+// conflicted key, the app will apply it without asking, and one device's work
+// is gone.
+{
+  const local  = { "kanji-progress-v1": '{"traced":["日"]}' };
+  const remote = { "kanji-progress-v1": '{"traced":["月"]}' };
+  const p = mergeProgress(local, remote);
+  assert(p.status === "conflict", "differing content is a conflict");
+  eq(p.conflicts, ["kanji-progress-v1"], "the differing key is named");
+  assert(!("kanji-progress-v1" in p.merged),
+    "A CONFLICTED KEY MUST NOT APPEAR IN merged — that is silent data loss");
+}
+
+// ————— 7. "0" is a value someone earned their way down to —————
+{
+  const p = mergeProgress({ "achievement-points-v1": "0" },
+                          { "achievement-points-v1": "120" });
+  assert(p.status === "conflict", "a spent wallet is not an empty wallet");
+}
+
+// ————— 8. non-JSON values compare as strings —————
+{
+  const p = mergeProgress({ "kanji-mode": "kun" }, { "kanji-mode": "on" });
+  eq(p.conflicts, ["kanji-mode"], "plain strings still compare");
+  const q = mergeProgress({ "kanji-mode": "kun" }, { "kanji-mode": "kun" });
+  eq(q.same, ["kanji-mode"], "identical plain strings agree");
+}
+
+// ————— 9. resolution is explicit or it does not happen —————
+{
+  const local  = { "kanji-progress-v1": "L", "known-words-v1": "shared" };
+  const remote = { "kanji-progress-v1": "R", "known-words-v1": "shared" };
+  const p = mergeProgress(local, remote);
+
+  const keepLocal = resolveConflicts(p, local, remote, "local");
+  eq(keepLocal, { "known-words-v1": "shared", "kanji-progress-v1": "L" },
+     "keeping the device fills conflicts from local");
+
+  const keepRemote = resolveConflicts(p, local, remote, "remote");
+  eq(keepRemote, { "known-words-v1": "shared", "kanji-progress-v1": "R" },
+     "keeping the account fills conflicts from remote");
+
+  let threw = false;
+  try { resolveConflicts(p, local, remote); } catch { threw = true; }
+  assert(threw, "there is no default side — an unspecified choice must throw");
+
+  let threw2 = false;
+  try { resolveConflicts(p, local, remote, "newest"); } catch { threw2 = true; }
+  assert(threw2, "an unrecognised side must throw rather than guess");
+}
+
+// ————— 10. the plan does not mutate what it was given —————
+{
+  const local  = { "kanji-progress-v1": "L" };
+  const remote = { "n5-progress-v1": "R" };
+  const lc = JSON.stringify(local), rc = JSON.stringify(remote);
+  const p = mergeProgress(local, remote);
+  resolveConflicts(p, local, remote, "local");
+  assert(JSON.stringify(local) === lc, "local input untouched");
+  assert(JSON.stringify(remote) === rc, "remote input untouched");
+}
+
+// ————— 11. missing/undefined arguments are survivable —————
+{
+  const p = mergeProgress(null, { "kanji-progress-v1": "R" });
+  eq(p.pulled, ["kanji-progress-v1"], "a null local is an empty local, not a crash");
+  const q = mergeProgress({ "kanji-progress-v1": "L" }, null);
+  eq(q.pushed, ["kanji-progress-v1"], "a null remote is an empty remote, not a crash");
+}
+
+// ————— 12. isEmptyValue, stated directly —————
+{
+  for (const v of ["", "  ", "{}", "[]", "null", "undefined", null, undefined]) {
+    assert(isEmptyValue(v), "empty: " + JSON.stringify(v));
+  }
+  for (const v of ["0", "{\"a\":1}", "[1]", "kun", "false"]) {
+    assert(!isEmptyValue(v), "NOT empty: " + JSON.stringify(v));
+  }
+}
+
+if (failures) {
+  console.error("\n" + failures + " ASSERTION(S) FAILED");
+  process.exit(1);
+}
+console.log("ALL PROGRESS-SYNC TESTS PASS");

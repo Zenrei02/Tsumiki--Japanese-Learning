@@ -1,3 +1,10 @@
+// GENERATED from engagement-module.jsx by build-vite-app.py — do not hand-edit.
+// Edit the authoring module at the repo root and re-run.
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { installStorage } from "../lib/storage.js";
+import { loadJSON, saveJSON } from "../lib/json.js";
+installStorage();
+
 /* ============================================================================
    engagement-module.jsx  —  v3
    Naoshi — daily quote card, weekly rhythm target, quest chains.
@@ -28,8 +35,7 @@
    • ACTIVE DAYS NOW REQUIRE ACTIVITY. See §5 — this was the real bug.
    ========================================================================== */
 
-import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import QUOTES from "./quote-bank-v1.js";
+import QUOTES from "../data/quote-bank-v1.js";
 
 /* ---------------------------------------------------------------------------
    1. STORAGE — window.storage, matching the other five modules.
@@ -38,14 +44,8 @@ import QUOTES from "./quote-bank-v1.js";
 const KEY = "engagement-v1";
 const WALLET_KEY = "achievement-points-v1"; // shared with vocabulary + grammar
 
-async function loadJSON(key, fallback) {
-  try { const r = await window.storage.get(key); return r ? JSON.parse(r.value) : fallback; }
-  catch { return fallback; }
-}
-async function saveJSON(key, v) {
-  try { await window.storage.set(key, JSON.stringify(v)); }
-  catch (e) { console.error("save failed: " + key, e); }
-}
+
+
 
 const BLANK = {
   activeDays: [],  // days with REAL ACTIVITY, not days the app was opened
