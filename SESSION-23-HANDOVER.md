@@ -172,13 +172,28 @@ Desktop. Netlify's own ignore rule was run against the pending commit, in both
 directions:
 
 ```
-naoshi-app/ vs origin/main   -> exit 1   BUILD RUNS
-docs-only control            -> exit 0   build skipped
+origin/main..HEAD  vs ./ ../netlify.toml   -> exit 1   BUILD RUNS
+control A: HEAD~1..HEAD (touches the app)  -> exit 1   (must be 1 — and is)
+control B: HEAD..HEAD   (touches nothing)  -> exit 0   (must be 0 — and is)
 ```
 
+Both controls matter: an ignore rule that always exits 0 is indistinguishable
+from a free push, and one that always exits 1 would make every push look
+expensive.
+
 **So this push costs one deployment — 15 credits.** That is the one you
-authorised. Worth spending only alongside the dashboard change at the top of
-this file: without it the sign-in button is live and dead-ends.
+authorised.
+
+One thing to know before you press it: **`origin/main` is at `bbf15c8`, and four
+commits are waiting, not one.** The three older ones (`0860eae`, `9f433c0`,
+`3fd3e4e`) are docs-only — I checked their file lists rather than trusting their
+subjects — so they were free to hold and are still free now. They go out in the
+same push and it is still **one** build, because Netlify builds the head of a
+push and not each commit in it. Nothing has been silently accruing cost.
+
+Worth spending only alongside the dashboard change at the top of this file.
+Without it the sign-in button is live and dead-ends, which is a worse first
+impression than no sign-in button at all.
 
 ---
 
