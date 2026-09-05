@@ -85,6 +85,11 @@ bakeoff-parse-failures.jsonl
 *responses*.xlsx
 OLD/keycheck-responses-*.xlsx
 
+# Step 3 reports. Same rule again: these quote eval sentences, the reviewer's
+# comments and the key amendments verbatim, which is the blind material. Added
+# Sep 5 2026 with the first one.
+step3-import-report-*.md
+
 # Workbook snapshots. Same key material as the workbook itself, so same rule.
 # They exist because the workbook is NOT in git — it is the only artefact in this
 # project with no version history, so a bad edit is otherwise unrecoverable.
