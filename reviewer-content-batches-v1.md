@@ -561,3 +561,234 @@ the 11 steps — the note, the wrinkle, and all five drill items together, since
 item reads differently next to the explanation it belongs to. That is 33 points,
 about 165 items, and it covers every step. If the notes turn out to be the weak
 part, we would rather know that from a spread than have all 345 items read once.
+
+---
+
+# Batches W and X — added 2026-09-05 by the weekly audit
+
+*Both were carried findings. Batch W had been flagged as an unscoped gap on
+2026-08-29 and again on 2026-09-05; Batch X came out of the quote-bank census in
+`audit-2026-09-05.md`. Lloyd approved scoping both on Sep 5, on the news that the
+first review batches had come back — which is the event the gate below was
+waiting for.*
+
+**The gate that held W has now opened, and that is why it is scoped rather than
+deferred.** The sequencing argument under Batches U and V says a systematic
+finding from a returned batch changes 930 items cheaply before another wave is
+authored and expensively after. That argument was correct and it has now been
+satisfied: the S11–S16 DEEP content is already authored (Session 20, Aug 24), and
+batches have returned. **Read the returned batches' findings before sending W** —
+if they name a recurring problem in drill design or voice, W's 930 items are
+exactly what that finding is worth applying to, and applying it first is cheaper
+than reviewing around it.
+
+## Batch W — the DEEP drills for Stages 11–16 (Session 20)
+
+**186 teaching points, ~930 drill items** — the largest single block of
+unreviewed AI-authored Japanese in the project. Counts re-measured from
+`check-deep.py` at scoping time rather than copied from any handover:
+
+| stage | points | steps |
+|---|---|---|
+| S11 | 30 | the unreal, the suffixes, the connectors |
+| S12 | 37 | the formal lattice |
+| S13 | 33 | standpoints, forceful becauses, overflow, four noes, aftermaths |
+| S14 | 32 | geometries, concessions, worth and the last folds |
+| S15 | 27 | minimums, endings, worth, limits and turns |
+| S16 | 27 | the instant in print, the operators of record |
+| **total** | **186** | **~930 items** |
+
+Everything in these six stages is validated **mechanically** by `check-deep.py`
+— structure, and no distractor identical to the answer — and **not at all
+linguistically**. That is the whole reason this batch exists. A wrong answer key
+here does not merely mislead: it marks the learner wrong for being right, and
+then rewards the wrong answer.
+
+### What to check, by risk
+
+1. **⚠️ The register wall, again, and harder than in Batch U.** S12–S14 are
+   formal, S15–S16 literary. Batch U asked this of *scenes*; here it is the
+   **drill sentences**, which are shorter and have less context to carry a
+   register. A formal pattern in a sentence that would never be written formally
+   is the failure a non-native author cannot see.
+2. **⚠️ The `why` lines — one per item, ~930 of them.** Same risk as Batch V
+   item 2 and the same instruction: compression is where an explanation goes from
+   simplified to wrong. Sample heavily rather than reading all.
+3. **⚠️ The `note` etymology and imagery lines.** Batch V's warning applies
+   unchanged — mark any etymology you would not assert in front of a linguist. A
+   memorable-but-wrong etymology is worse than none.
+4. **The wrinkle lines — one per point, 186 of them.** Wrinkles are where an
+   author reaches for something clever, so they earn more suspicion per line than
+   the drills.
+5. **Distractor plausibility.** `check-deep.py` only proves a distractor is not
+   *identical* to the answer. It cannot tell whether a distractor is in fact
+   also correct — which would make the item unanswerable and the key wrong.
+   **This is the one failure mode no script here can reach**, and it is worth
+   more of the reading time than anything else in the batch.
+
+**Sampling:** do not read 930 items. Suggested, mirroring Batch V's shape: 3
+complete points from each of the ~28 steps — note, wrinkle, and all five drills
+together, since an item reads differently beside the explanation it belongs to.
+That is ~84 points and ~420 items, covering every step. A recurring problem shows
+up in a spread; a one-off in S13 matters much less than a pattern.
+
+## Batch X — the quote-bank readings and glosses (Session 21)
+
+**115 distinct reading/gloss assertions, 117 occurrences, across 52 proverbs.**
+Small, mechanical, and completely unlike every other batch in this file — this is
+dictionary checking, not judgement.
+
+**Why it exists.** The quote card was deliberately built so that it never asserts
+what a proverb *means*: it offers `one_reading` as one possible reading and
+`invite` hands judgment back to the learner. That reframing is what let the bank
+ship without a reviewer, and it holds. But it removes the reviewer from
+**interpretation, not from fact** — the readings and glosses are still
+assertions, and a wrong reading teaches a wrong reading.
+
+39 of the 156 assertions are cross-checked against `word-ledger-v1.json`. The
+other 117 have no independent source. **They cannot be reduced by pointing at
+another local store**: the ledger already unions all three word stores including
+`KANJI_DICT`, so a token missing from the ledger is missing from everything the
+project holds. That is checked, not assumed.
+
+### What to check
+
+Only two questions per row, and "looks right" is a complete answer:
+
+1. **Is the reading correct for this word in this proverb?** Several are stems or
+   archaic readings where the proverb's reading differs from the everyday one —
+   those are the rows worth slowing down on.
+2. **Is the gloss fair in English?** Not elegant, fair. These are shown to a
+   learner who taps a word mid-proverb.
+
+**One row makes a factual claim rather than a linguistic one** and should be
+checked as such: 千里 is glossed *"a thousand ri (~3,900 km)"*. That is a unit
+conversion, and it is the only place in this batch where being wrong is wrong
+about the world rather than about Japanese.
+
+**Where this does NOT go: the informal reviewer sheet.** That sheet is seven
+items, ~20 minutes, no verdicts required, and deliberately kept clear of the
+official queue. 115 dictionary lookups are precisely what it is worst at, and
+adding them would break the thing that makes it answerable. Batch X belongs here.
+
+| surface | reading asserted | gloss asserted | quotes |
+|---|---|---|---|
+| 七 | なな | seven | q01 |
+| 転 | ころ | fall, tumble | q01 |
+| 八 | や | eight | q01 |
+| 石 | いし | stone | q02 |
+| 千里 | せんり | a thousand ri (~3,900 km) | q03 |
+| 道 | みち | road, way | q03 |
+| 一歩 | いっぽ | one step | q03 |
+| 塵 | ちり | dust, specks | q04 |
+| 積 | つ | pile up, accumulate | q04 |
+| 継続 | けいぞく | continuation, keeping on | q05 |
+| 回 | まわ | go around, detour | q06 |
+| 習 | なら | learn, be taught | q07 |
+| 慣 | な | get used to, grow accustomed | q07 |
+| 石橋 | いしばし | stone bridge | q08 |
+| 叩 | たた | tap, strike | q08 |
+| 渡 | わた | cross | q08 |
+| 猿 | さる | monkey | q09 |
+| 落 | お | fall | q09 |
+| 吹 | ふ | blow | q10 |
+| 案 | あん | worry, ponder | q11 |
+| 産 | う | give birth, produce | q11 |
+| 易 | やす | easy | q11 |
+| 一期 | いちご | one lifetime | q13 |
+| 一会 | いちえ | one meeting | q13 |
+| 地 | じ | ground, earth | q14 |
+| 固 | かた | harden, firm up | q14 |
+| 花 | はな | flower, blossom | q15 |
+| 団子 | だんご | dumpling | q15 |
+| 一寸 | いっすん | one sun (~3 cm) | q16 |
+| 先 | さき | ahead, beyond | q16 |
+| 闇 | やみ | darkness | q16 |
+| 転 | ころ | fall over | q17 |
+| 先 | さき | before, ahead of | q17 |
+| 杖 | つえ | walking stick, cane | q17 |
+| 三日 | みっか | three days | q18 |
+| 坊主 | ぼうず | monk, novice | q18 |
+| 光陰 | こういん | light and shade; time | q19 |
+| 矢 | や | arrow | q19 |
+| 如 | ごと | like, as | q19 |
+| 一時 | いっとき | a moment | q20 |
+| 恥 | はじ | shame | q20 |
+| 一生 | いっしょう | a lifetime | q20 |
+| 小判 | こばん | koban (Edo gold coin) | q21 |
+| 塞翁 | さいおう | the old man of the frontier | q22 |
+| 馬 | うま | horse | q22, q48 |
+| 井 | い | well | q23 |
+| 蛙 | かわず | frog | q23 |
+| 大海 | たいかい | the great ocean | q23 |
+| 二兎 | にと | two rabbits | q24 |
+| 追 | お | chase, pursue | q24 |
+| 者 | もの | person, one who | q24 |
+| 一兎 | いっと | one rabbit | q24 |
+| 得 | え | obtain, get | q24 |
+| 杭 | くい | stake, post | q25 |
+| 打 | う | hit, hammer | q25 |
+| 覆水 | ふくすい | spilled water | q26 |
+| 盆 | ぼん | tray | q26 |
+| 返 | かえ | return | q26 |
+| 百聞 | ひゃくぶん | a hundred hearings | q27 |
+| 一見 | いっけん | one look | q27 |
+| 如 | し | equal, match | q27 |
+| 弘法 | こうぼう | Kōbō (a master calligrapher of legend) | q28 |
+| 筆 | ふで | brush | q28 |
+| 誤 | あやま | error, mistake | q28 |
+| 河童 | かっぱ | kappa (a water spirit) | q29 |
+| 川流 | かわなが | being swept down a river | q29 |
+| 泣 | な | cry, weep | q30 |
+| 面 | つら | face | q30 |
+| 蜂 | はち | bee, wasp | q30 |
+| 十色 | といろ | ten colours | q31 |
+| 温 | おん | warm, revisit | q32 |
+| 故 | こ | the old | q32 |
+| 新 | しん | the new | q32 |
+| 一石 | いっせき | one stone | q33 |
+| 二鳥 | にちょう | two birds | q33 |
+| 大器 | たいき | a great vessel | q34 |
+| 晩成 | ばんせい | late completion | q34 |
+| 果報 | かほう | good fortune | q35 |
+| 楽 | らく | ease, comfort | q36 |
+| 苦 | く | hardship | q36 |
+| 情 | なさ | kindness, compassion | q37 |
+| 為 | ため | for the sake of | q37 |
+| 郷 | ごう | a village, a region | q38 |
+| 郷 | ごう | the village | q38 |
+| 従 | したが | follow, obey | q38 |
+| 能 | のう | ability, talent | q39 |
+| 鷹 | たか | hawk | q39 |
+| 爪 | つめ | talon, claw | q39 |
+| 隠 | かく | hide, conceal | q39 |
+| 実 | みの | ripen, bear fruit | q40 |
+| 垂 | た | bow, hang down | q40 |
+| 稲穂 | いなほ | ear of rice | q40 |
+| 虎穴 | こけつ | tiger's den | q41 |
+| 虎子 | こじ | tiger cub | q41 |
+| 得 | え | obtain | q41 |
+| 事 | こと | matter, affair | q42 |
+| 仕損 | しそん | botch, bungle | q42 |
+| 棒 | ぼう | stick, pole | q43 |
+| 当 | あ | hit, strike against | q43 |
+| 論 | ろん | argument, theory | q44 |
+| 善 | ぜん | good, a good thing | q45 |
+| 切磋 | せっさ | cutting and polishing | q46 |
+| 琢磨 | たくま | grinding and burnishing | q46 |
+| 日進 | にっしん | daily advance | q47 |
+| 月歩 | げっぽ | monthly step | q47 |
+| 耳 | みみ | ear | q48 |
+| 念仏 | ねんぶつ | Buddhist chant | q48 |
+| 都 | みやこ | the capital | q49 |
+| 灯台 | とうだい | lampstand | q50 |
+| 蓼 | たで | smartweed (a bitter herb) | q51 |
+| 食 | く | eat | q51 |
+| 虫 | むし | insect, bug | q51 |
+| き好 | ずき |  | q51 |
+| 縁 | えん | veranda, engawa | q52 |
+| 力持 | ちからも | strong one, one who bears weight | q52 |
+
+*Regenerate this table with `build-quote-bank.py`, which now prints the ratio
+`39/156` rather than the bare count `39` — a count without its denominator is
+what let 117 unsourced assertions read as a clean result for four days.*

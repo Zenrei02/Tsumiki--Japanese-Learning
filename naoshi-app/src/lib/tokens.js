@@ -46,11 +46,32 @@ export const T = {
 // also separates the tool from the five learning modules, which is a true
 // distinction rather than a cosmetic one.
 // 
-// CONTRAST: these are used as RULES AND BARS ONLY, never behind text, so the
-// 3:1 non-text contrast bar is what applies rather than 4.5:1. If one is ever
-// put behind type, re-check it — #CFC4E6 in particular is far too light for that.
-// Colour is redundant here: every section is also named in the header and drawer,
-// so nothing is conveyed by hue alone.
+// CONTRAST — READ THE WHOLE PARAGRAPH BEFORE QUOTING IT. These accents are
+// DECORATIVE and REDUNDANT, and that is what exempts them: colour carries no
+// information here, because every section is also named in text in the header and
+// the drawer, immediately beside the rule. WCAG 1.4.11 governs colour that is
+// "required to understand the content", so it does not reach them at all. They
+// appear in exactly two places, both non-text and both label-adjacent — a 4px
+// borderTop on the home card and a 3px borderBottom on the section header.
+// 
+// DO NOT read this as "they were measured against 3:1 and passed." Three of them
+// do not: #CFC4E6 is 1.53, #C9C6BE is 1.58 and #A493CE is 2.54 against both
+// T.paper and T.sheet. That is fine while they stay decorative, and it is the
+// whole reason the redundancy above is load-bearing rather than a nicety.
+// 
+// An earlier version of this comment opened by invoking the 3:1 bar as "what
+// applies" and only then gave the reason it may not — so a session reading the
+// first sentence would have believed these colours cleared a bar they miss by a
+// factor of two. Reworded 2026-09-05 on the weekly audit's finding: the palette
+// was never the defect, the sentence was.
+// 
+// THE CONDITION, since the exemption is conditional: the moment an accent goes
+// BEHIND TEXT, or becomes the only thing distinguishing two states, the exemption
+// lapses and the real bar is 4.5:1 — not 3:1. #CFC4E6 is nowhere near either.
+// Darkening hiragana/katakana/checker to roughly #8E7BB8 / #8F8B80 would clear
+// 3:1 while staying inside the 藤 and 鼠 families, and is the fix if that day comes;
+// it is deliberately NOT applied now, because it would cost the lightest-shade
+// reading the script-track argument above depends on.
 export const ACCENT = {
   hiragana: "#CFC4E6",
   katakana: "#A493CE",

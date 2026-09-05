@@ -378,7 +378,7 @@ def main():
         for w in raw.get("words", []):
             ledger[w["written"]] = w
 
-    quotes, problems, reused = [], [], 0
+    quotes, problems, reused, asserted = [], [], 0, 0
     seen_ids = set()
 
     for qid, theme, tokens, literal, one_reading, invite in DATA:
@@ -404,6 +404,11 @@ def main():
                 if surface in ledger:
                     tok["ledger"] = ledger[surface]["meanings"][0]
                     reused += 1
+            # An ASSERTION is any token carrying a reading or a gloss. Bare tokens
+            # (okurigana, particles) assert nothing and must not pad the denominator
+            # — counting them would make the sourced fraction look twice as good.
+            if reading or gloss:
+                asserted += 1
             out_tokens.append(tok)
 
         quotes.append({
@@ -421,12 +426,21 @@ def main():
         "version": 1,
         "generated": f"{date.today().isoformat()} · Session 21",
         "status": (
-            "READY — no reviewer gate. Nothing here asserts what a proverb MEANS: "
+            f"NO REVIEWER GATE ON INTERPRETATION; {asserted - reused} OF {asserted} "
+            f"READING/GLOSS ASSERTIONS ARE UNSOURCED. Read both halves — the earlier "
+            "version of this field opened with the word READY and qualified itself "
+            "two clauses later, which is how a scope note gets read as a clearance. "
+            "WHAT IS CLEARED: nothing here asserts what a proverb MEANS. "
             "`one_reading` is offered as one possible reading and `invite` hands "
-            "judgment back to the learner. Readings and glosses ARE assertions and "
-            "are cross-checked against word-ledger-v1.json where the word exists. "
+            "judgment back to the learner, so interpretation needs no reviewer. "
             "No attribution, no biography, no claims about any named person — that "
-            "material is the part that would need verification, and it is not here."
+            "material would need verification and was deliberately cut from v1. "
+            f"WHAT IS NOT CLEARED: readings and glosses ARE assertions, and a wrong "
+            f"reading teaches a wrong reading. {reused} of {asserted} are cross-checked "
+            "against word-ledger-v1.json; the remainder have no independent source and "
+            "are queued as Batch X in reviewer-content-batches-v1.md. They are "
+            "dictionary facts rather than judgement calls, which is why they belong in "
+            "the official batch queue and NOT on the informal reviewer sheet."
         ),
         "display_rules": [
             "Shown on entering the app. NOT a reward, never earned, never withheld.",
@@ -458,7 +472,15 @@ def main():
 
     print(f"quotes:        {len(quotes)}")
     print(f"themes:        {len(themes)}  {', '.join(themes)}")
-    print(f"glossed tokens cross-checked against ledger: {reused}")
+    # A COUNT WITHOUT ITS DENOMINATOR IS THE PROJECT'S RECURRING FAILURE SHAPE.
+    # This line used to print `39` alone, which reads as reassurance; the number
+    # that matters is that 39 of 156 reading/gloss assertions have a source and
+    # 117 do not. Print the ratio, always.
+    print(f"reading/gloss assertions:  {asserted}")
+    print(f"  cross-checked vs ledger: {reused}/{asserted} "
+          f"({reused * 100 // max(asserted, 1)}%)")
+    print(f"  UNSOURCED:               {asserted - reused}/{asserted} "
+          f"— queued for the reviewer, see reviewer-content-batches-v1.md Batch X")
     print(f"wrote:         {OUT.name}")
     if problems:
         print(f"\n!! {len(problems)} STRUCTURAL PROBLEMS")

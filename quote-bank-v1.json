@@ -1,7 +1,7 @@
 {
  "version": 1,
- "generated": "2026-09-04 · Session 21",
- "status": "READY — no reviewer gate. Nothing here asserts what a proverb MEANS: `one_reading` is offered as one possible reading and `invite` hands judgment back to the learner. Readings and glosses ARE assertions and are cross-checked against word-ledger-v1.json where the word exists. No attribution, no biography, no claims about any named person — that material is the part that would need verification, and it is not here.",
+ "generated": "2026-09-05 · Session 21",
+ "status": "NO REVIEWER GATE ON INTERPRETATION; 117 OF 156 READING/GLOSS ASSERTIONS ARE UNSOURCED. Read both halves — the earlier version of this field opened with the word READY and qualified itself two clauses later, which is how a scope note gets read as a clearance. WHAT IS CLEARED: nothing here asserts what a proverb MEANS. `one_reading` is offered as one possible reading and `invite` hands judgment back to the learner, so interpretation needs no reviewer. No attribution, no biography, no claims about any named person — that material would need verification and was deliberately cut from v1. WHAT IS NOT CLEARED: readings and glosses ARE assertions, and a wrong reading teaches a wrong reading. 39 of 156 are cross-checked against word-ledger-v1.json; the remainder have no independent source and are queued as Batch X in reviewer-content-batches-v1.md. They are dictionary facts rather than judgement calls, which is why they belong in the official batch queue and NOT on the informal reviewer sheet.",
  "display_rules": [
   "Shown on entering the app. NOT a reward, never earned, never withheld.",
   "One per local day, deterministic per date, no repeat within 12 days.",

@@ -72,6 +72,16 @@ export function installStorage() {
 // and a message reading "Restored 7 saved items." Success text over a partial
 // restore. Fixed 2026-09-04; `check-storage-keys.py` now fails the build if a
 // module writes a key that is not listed here.
+//
+// ⚠️ AND IT WAS ABOUT TO HAPPEN AGAIN, one file away. `engagement-v1` is written
+// by engagement-module.jsx, which is AUTHORED AT THE REPO ROOT and not yet
+// spliced into naoshi-app/ — so the new check could not see it either, because
+// its first version scanned only src/modules/*.jsx. The key is listed here BEFORE
+// the splice, deliberately: the fix lands ahead of the bug rather than behind it.
+// (2026-09-05 audit. The check now scans the root authoring modules too.)
+//
+// THE GENERAL RULE, since this has now cost two modules: a key belongs in this
+// list when it is WRITTEN, not when its module reaches a build.
 export const KEYS = [
   "hiragana-progress-v2",
   "katakana-progress-v1",
@@ -81,6 +91,7 @@ export const KEYS = [
   "n5-progress-v1",     // grammar — MISSING until 2026-09-04, see above
   "learner-depth-v1",   // grammar — MISSING until 2026-09-04, see above
   "achievement-points-v1",
+  "engagement-v1",      // streak / rhythm / quests — listed ahead of the splice
   "stroke-data-v1",   // shared handwriting calibration — the reason one origin matters
   "kanji-mode",
 ];

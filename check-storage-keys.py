@@ -23,6 +23,25 @@ Writes are found two ways, because modules use both forms:
   storage.set("literal-key", …)
   const SOME_KEY = "literal-key";  … storage.set(SOME_KEY, …)
 
+WHAT IT SCANS, AND WHY IT IS WIDER THAN IT LOOKS
+The first version of this check globbed naoshi-app/src/modules/*.jsx only, and so
+inherited the exact assumption that caused the bug it was written for: that the
+modules which exist right now are all the modules there are. Two consequences,
+both found by the 2026-09-05 audit:
+
+  · engagement-module.jsx is AUTHORED AT THE REPO ROOT and not yet spliced into
+    naoshi-app/, so its "engagement-v1" was invisible — a real missing key that
+    this check reported clean.
+  · stroke-data-v1 was reported as "listed but not written" because the thing
+    that writes it is lib/strokeEngine.jsx, also outside the old glob.
+
+So the scan now covers three places, and the root authoring files are the point:
+a key should be caught when it is WRITTEN, not when it reaches a build.
+
+  · naoshi-app/src/**/*.jsx and *.js   — the generated app, lib and data
+  · <root>/*-module.jsx                — the authoring modules, spliced or not
+  · <root>/naoshi-prototype.jsx, checker-module.jsx
+
 Exit 0 clean, 1 on any finding. Run before any deploy that touches the app.
 """
 
@@ -47,10 +66,30 @@ def declared_keys():
     return set(re.findall(r'"([^"]+)"', m.group(1)))
 
 
+def sources():
+    """Every file that could write a storage key — see the header for why."""
+    files = set()
+    if SRC.exists():
+        files |= set(SRC.rglob("*.jsx"))
+        files |= set(SRC.rglob("*.js"))
+    files |= set(HERE.glob("*-module.jsx"))
+    files |= {HERE / "naoshi-prototype.jsx", HERE / "checker-module.jsx"}
+    files.discard(STORAGE)          # KEYS itself is the thing being checked against
+    return sorted(f for f in files if f.exists())
+
+
+def label(f):
+    """Path as reported: root files bare, app files relative to naoshi-app/src."""
+    try:
+        return str(f.relative_to(SRC))
+    except ValueError:
+        return f.name
+
+
 def written_keys():
     """Keys any module passes to storage.set(), directly or via a const."""
     found = {}
-    for f in sorted(MODULES.glob("*.jsx")):
+    for f in sources():
         text = f.read_text(encoding="utf-8")
 
         # const NAME = "key";  -> resolve identifiers used in storage.set(NAME)
@@ -58,19 +97,19 @@ def written_keys():
 
         # direct literals
         for k in re.findall(r'storage\.set\(\s*"([^"]+)"', text):
-            found.setdefault(k, set()).add(f.name)
+            found.setdefault(k, set()).add(label(f))
 
         # via a const identifier
         for ident in re.findall(r'storage\.set\(\s*([A-Za-z_][A-Za-z0-9_]*)\s*[,)]', text):
             if ident in consts:
-                found.setdefault(consts[ident], set()).add(f.name)
+                found.setdefault(consts[ident], set()).add(label(f))
 
         # saveJSON(KEY, …) / saveJSON("key", …) — the wrapper the modules use
         for k in re.findall(r'saveJSON\(\s*"([^"]+)"', text):
-            found.setdefault(k, set()).add(f.name)
+            found.setdefault(k, set()).add(label(f))
         for ident in re.findall(r'saveJSON\(\s*([A-Za-z_][A-Za-z0-9_]*)\s*,', text):
             if ident in consts:
-                found.setdefault(consts[ident], set()).add(f.name)
+                found.setdefault(consts[ident], set()).add(label(f))
 
     return {k: v for k, v in found.items() if k not in IGNORE}
 

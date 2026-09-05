@@ -149,7 +149,11 @@ keys = {}
 for m, s in SRC.items():
     for k in set(re.findall(r'"([a-z0-9-]+-v\d)"', s)):
         keys.setdefault(k, []).append(m)
-for k, ms in sorted(keys.items(), key=lambda kv: -len(kv[1])):
+# Sort by module count descending, then by key name — the name is the tiebreak so
+# the table is BYTE-STABLE between runs. Without it, ties fell out in whatever order
+# set() iteration and dict insertion happened to produce, so re-running the audit
+# reshuffled rows and made the report's diffs noisier than the changes they carried.
+for k, ms in sorted(keys.items(), key=lambda kv: (-len(kv[1]), kv[0])):
     mark = " ⚠️ shared" if len(ms) > 1 else ""
     lines.append(f"| `{k}` | {', '.join(sorted(ms))}{mark} |")
 
