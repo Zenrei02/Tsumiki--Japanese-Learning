@@ -94,6 +94,7 @@ export const KEYS = [
   "engagement-v1",      // streak / rhythm / quests — listed ahead of the splice
   "stroke-data-v1",   // shared handwriting calibration — the reason one origin matters
   "kanji-mode",
+  "module-recency-v1",  // when each section was last WORKED IN — orders Home
 ];
 
 export function exportProgress() {

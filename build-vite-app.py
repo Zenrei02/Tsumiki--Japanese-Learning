@@ -716,6 +716,8 @@ import { downloadProgress, importProgress, storage } from "./lib/storage.js";
 import Account from "./lib/account.jsx";
 import EngagementPanel from "./lib/engagementPanel.jsx";
 import { reportStudy } from "./lib/activity.js";
+import { markWorked, readRecency, orderByRecency, readWallet,
+         daysSinceLastWorked, DORMANT_DAYS } from "./lib/stats.js";
 import { T, ACCENT } from "./lib/tokens.js";
 ''' + imports + '''
 
@@ -778,7 +780,7 @@ async function readNextTask() {
   } catch (e) { return null; }
 }
 
-function Home({ startedMap, lastMod, nextTask, go }) {
+function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays, openAccount }) {
   const fresh = !MODULES.some((m) => startedMap[m.id]);
   const started = (id) => Boolean(startedMap[id]);
 
@@ -786,6 +788,14 @@ function Home({ startedMap, lastMod, nextTask, go }) {
   // Session 21 — Home answered "where can I go" six times over and "what should
   // I do" not at all, so every session opened with a decision. A module name is
   // not an action: "Continue › Kanji" still leaves the choosing to the learner.
+  // Started sections, most recently worked first. A section with progress but
+  // no recency stamp (it was studied before this was recorded) sorts last
+  // rather than vanishing — absent evidence is not evidence of absence.
+  const startedIds = MODULES.filter((m) => started(m.id)).map((m) => m.id);
+  const shownModules = fresh
+    ? MODULES
+    : orderByRecency(startedIds, recency || {}).map((id) => MODULES.find((m) => m.id === id));
+
   const taskMod = nextTask ? MODULES.find((m) => m.id === nextTask.module) : null;
   const hero = taskMod || lastMod || MODULES[0];
   const heroLabel = taskMod ? "NEXT ON YOUR PATH"
@@ -853,6 +863,28 @@ function Home({ startedMap, lastMod, nextTask, go }) {
         </button>
       )}
 
+      {/* ⚠️ A REMINDER, NOT A DEADLINE. Nothing in this app expires, and the
+          note says so in as many words — the point is to tell someone who has
+          been away for a month that starting a section again is allowed, not
+          to imply that their progress has gone stale. Three weeks is the bar
+          (DORMANT_DAYS); it is a long enough gap that "where was I" is a real
+          question and short enough to catch someone before they give up. */}
+      {dormantDays != null && dormantDays >= DORMANT_DAYS && (
+        <button onClick={openAccount} style={{
+          ...cardBase, border: `1px solid ${T.note}55`, background: T.noteBg,
+          marginBottom: 22,
+        }}>
+          <div style={{ font: `600 14px ${T.uiFont}`, color: T.note }}>
+            Welcome back
+          </div>
+          <p style={{ font: `13px/1.6 ${T.uiFont}`, color: T.ink, margin: "6px 0 0" }}>
+            It has been a while. Everything is exactly where you left it — and if
+            you would rather start a section again from the beginning, you can
+            clear just that one. Nothing here expires on its own.
+          </p>
+        </button>
+      )}
+
       {/* The daily card, the weekly rhythm and the current quest chain.
           Renders nothing until something has been started — see
           lib/engagementPanel.jsx. It sits BELOW the hero and above the doors
@@ -861,11 +893,22 @@ function Home({ startedMap, lastMod, nextTask, go }) {
           scroll past the second to act on it. */}
       <EngagementPanel startedMap={startedMap} />
 
+      {/* ————— Where you have been, most recent first (Session 23) —————
+          Lloyd: once someone has started something, the front door should be
+          THEIR sections in the order they last used them, not the same six
+          doors in the same order forever. A learner three weeks into kanji does
+          not need Hiragana offered first every single time.
+
+          Everything else stays one tap away in the drawer, and the line below
+          says so — a shorter front door is only an improvement if the rest of
+          the app is still visibly reachable. Someone who has started nothing
+          still gets the full list, because for them the six doors ARE the
+          information. */}
       <div style={{ font: `600 11px ${T.uiFont}`, letterSpacing: ".7px", color: T.sub, marginBottom: 10 }}>
-        EVERYWHERE YOU CAN GO
+        {fresh ? "EVERYWHERE YOU CAN GO" : "WHERE YOU LEFT OFF"}
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {MODULES.map((m) => (
+        {shownModules.map((m) => (
           // The accent rule sits on the card too, not only inside the section,
           // so the mapping is learned on the way in rather than discovered after.
           <button key={m.id} onClick={() => go(m.id)}
@@ -890,6 +933,13 @@ function Home({ startedMap, lastMod, nextTask, go }) {
           </button>
         ))}
       </div>
+
+      {!fresh && (
+        <p style={{ font: `13px/1.6 ${T.uiFont}`, color: T.sub, margin: "16px 2px 0" }}>
+          Want to try something new? Everything else is in the menu — the
+          <span aria-hidden="true"> ☰ </span> at the top left.
+        </p>
+      )}
     </div>
   );
 }
@@ -998,6 +1048,9 @@ export default function App() {
   const [lastWorked, setLastWorked] = useState(null);
   const [nextTask, setNextTask] = useState(null);
   const [accountOpen, setAccountOpen] = useState(false);
+  const [recency, setRecency] = useState({});
+  const [wallet, setWallet] = useState(0);
+  const [dormantDays, setDormantDays] = useState(null);
 
   // Home's data is read through the storage adapter, so it must be async and
   // must refresh whenever we come back to Home — a lesson finished inside a
@@ -1006,13 +1059,17 @@ export default function App() {
     if (active !== "home") return undefined;
     let alive = true;
     (async () => {
-      const [s, t, last] = await Promise.all([
+      const [s, t, last, rec, w, dorm] = await Promise.all([
         readStarted(), readNextTask(), storage.get("naoshi-last-module"),
+        readRecency(), readWallet(), daysSinceLastWorked(),
       ]);
       if (!alive) return;
       setStartedMap(s);
       setNextTask(t);
       setLastWorked(last?.value ?? null);
+      setRecency(rec);
+      setWallet(w);
+      setDormantDays(dorm);
     })();
     return () => { alive = false; };
   }, [active]);
@@ -1050,6 +1107,10 @@ export default function App() {
     if ((r?.value ?? null) !== value) {
       await storage.set("naoshi-last-module", id);
       setLastWorked(id);
+      // Same evidence, recorded per section so Home can order by what is
+      // actually being used, and so a three-week gap can be noticed.
+      await markWorked(id);
+      setWallet(await readWallet());
       // Session 23: the same evidence, published for the engagement layer. It
       // is deliberately inside this branch — the whole point of commitIfWorked
       // is that the store CHANGED, and marking a day active on navigation is
@@ -1124,6 +1185,22 @@ export default function App() {
             font: `14px ${T.uiFont}`, color: T.sub, marginLeft: 2,
           }}>{active === "home" ? "" : current.label}</span>
           <span style={{ flex: 1 }} />
+          {/* ⚠️ THIS REVERSES A RECORDED DECISION, deliberately and on Lloyd's
+              instruction (Session 23). reward-system-design-v1.md §1 and the
+              engagement module both say the balance is NOT shown in the header
+              and is checked in the room/shop. That was written when the room
+              existed as a plan; with no room yet, koban were being earned and
+              were literally unseeable, which is worse than the problem the rule
+              was avoiding. Revisit when the room ships — the original reasoning
+              is sound once there is somewhere to spend them. */}
+          {wallet > 0 && (
+            <span title="Koban you have earned" style={{
+              font: `13px ${T.uiFont}`, color: T.note, marginRight: 4,
+              whiteSpace: "nowrap",
+            }}>
+              <span style={{ fontFamily: T.jpFont }}>小判</span> {wallet}
+            </span>
+          )}
           <button onClick={downloadProgress} title="Save your progress to a file" style={{
             ...btn, border: `1px solid ${T.hairline}`, padding: "6px 12px",
             font: `13px ${T.uiFont}`, color: T.sub,
@@ -1157,6 +1234,8 @@ export default function App() {
       <main style={{ maxWidth: 900, margin: "0 auto" }}>
         {active === "home" ? (
           <Home startedMap={startedMap} nextTask={nextTask} go={go}
+                recency={recency} wallet={wallet} dormantDays={dormantDays}
+                openAccount={() => setAccountOpen(true)}
                 lastMod={MODULES.find((m) => m.id === lastWorked) || null} />
         ) : (
           <Suspense fallback={
