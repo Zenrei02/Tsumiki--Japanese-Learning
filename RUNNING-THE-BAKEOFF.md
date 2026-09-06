@@ -214,4 +214,46 @@ special ones.)
 | `ANTHROPIC_API_KEY is not set` | Run the `read -rs` line again in the SAME window you run the script from. |
 | `credit balance is too low` | Add usage credits at console.anthropic.com. |
 | `ABORT ... requested X, answered Y` | A model substitution — stop and flag it in the tracker. This check exists because it happened silently once before. |
+| `API error 401 … Unauthorized` **inside a Cowork session** | Not your key. See below — the sandbox blocks it. |
 | Anything else | Copy the error message into a Cowork session and I'll sort it. |
+
+---
+
+## ⚠️ The bake-off CANNOT be run from inside a Cowork session
+
+Found Sep 6 2026, after a 401 was misread as a rotated key and nearly sent
+someone to the Console to make a new one.
+
+**The Cowork sandbox's egress layer rejects any request to `api.anthropic.com`
+that carries an `x-api-key` or an `authorization` header.** It is a credential
+control, not a key check — it never looks at the value. So the request never
+reaches Anthropic, and the harness reports a 401 that has nothing to do with
+your key. **A perfectly valid key fails exactly the same way.**
+
+### How to tell this apart from a real auth failure, in one look
+
+| | intercepted by the sandbox | genuinely from Anthropic |
+|---|---|---|
+| body | `Unauthorized` — plain text, 12 bytes | `{"type":"error","error":{"type":"authentication_error",…},"request_id":"req_…"}` |
+| headers | `Connection`, `Content-Type`, `Transfer-Encoding` — that is all | includes `Request-Id`, `Cf-Ray`, `Server`, `Date`, `X-Should-Retry` |
+
+**A 401 with no `request-id` header never reached Anthropic.** Their API always
+stamps one, on errors as much as on successes.
+
+### The discriminating test, if you ever need to re-confirm it
+
+Send the same request with the key in a header the proxy does not police:
+
+```python
+# x-api-key -> intercepted, bare "Unauthorized"
+# x-foo     -> sails through; Anthropic replies "x-api-key header is required"
+```
+
+If a made-up header carrying the same key-shaped string gets a real JSON answer
+and `x-api-key` does not, the key is not the problem and never was.
+
+### Where to run it instead
+
+Anywhere outside the sandbox: your own terminal, or a Claude Code session on
+your machine. Nothing about the harness changes — `python3 bakeoff-harness.py
+--smoke` then `--run --key-verified`, exactly as above.
