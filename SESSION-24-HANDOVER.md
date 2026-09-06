@@ -152,7 +152,43 @@ what they can do and read back their own work. Behind a sign-in-shaped door it
 read as account administration.
 
 Moved with it: the capability list, the koban, the dormancy nudge, the reset.
-Stayed in Account: who you are, the two settings, Save/Restore.
+Stayed in Account: who you are and the two settings.
+
+### Save/Restore was retired as furniture — and one Restore had to survive
+
+Accounts do the job those buttons were invented for, so they came out of the
+header (where they sat above every lesson on every screen) and out of the YOUR
+DATA block under the sign-in panel. A permanent pair of file buttons is a
+permanent reminder that the app might lose your work.
+
+**⚠️ Two Save buttons are not furniture and stayed:** beside the sign-in
+conflict choice, and beside the reset confirm. The guarantee is **asymmetric** —
+the account's losing copy is archived by the database trigger and cannot be
+skipped; the device's copy has had no net since the automatic download was
+removed. Those buttons are the only undo those two paths have.
+
+**And Restore lived only in the two surfaces being deleted.** Removing it with
+them would leave both surviving Save buttons handing the learner a file the app
+can no longer read — **an undo that produces a souvenir**. Every button still
+works on its own, nothing throws, and no existing check would have caught it. So
+exactly one import path survives, in **Progress, beside the reset**, under *"IF
+YOU SAVED A COPY"* — standing rather than inside the confirm, because a save is
+something you do before and a restore is something you reach for after something
+has already gone wrong.
+
+`smoke.mjs` asserts all three halves and the middle one is verified red by
+deleting that last Restore.
+
+**⚠️ Seeding that test broke two of my own assertions, both "passing for the
+wrong reason".** The reset confirm had never been *reachable* in this bundle —
+nothing was started, so `Clear selected…` was disabled and the assertion was
+being **skipped**, not passing. Seeding a section made it run, and made *"Progress
+must not be modal"* fail — with progress on disk the once-a-day Goals dialog
+opens itself, and the check asked whether **any** modal was open rather than
+whether **Progress's** content was in one. Both were green only because the
+fixture was empty. Modal check now scoped to Progress's own content, the
+checkbox is ticked before the gated button, and an unreachable confirm is a
+failure rather than a console note.
 
 **⚠️ The move had a trap that was nearly shipped.** Restore-from-a-file reported
 its result through the Progress tab's message slot. That tab left and took the
@@ -289,8 +325,9 @@ npm run smoke                       PASSED — 6 modules, accounts, engagement, 
 vite build                          clean
 ```
 
-**First load: 187.41 → 195.21 kB raw (59.90 → 62.42 kB gzip)** across the whole
-session; the first pass accounted for 189.70 of it. Measured against a build of
+**First load: 187.41 → 194.75 kB raw (59.90 → 62.45 kB gzip)** across the whole
+session; 189.70 after the first pass, 195.21 after the second, and back a little
+once Save/Restore came out. Measured against a build of
 `HEAD` in a throwaway worktree, not estimated. Progress is in the entry chunk
 **deliberately** — it is not lazy, because it is the screen a learner opens to
 be reassured about their own work and a spinner there reads as "gone". The
@@ -327,3 +364,8 @@ for the rest.
   first surface in this app built out of stored data rather than live data, and
   jsdom does not tell you whether a group of forty sentences is pleasant to
   scroll.
+- **The file is still the only rollback a learner has.** Retiring it properly
+  means giving the account a real undo: `naoshi_progress_archive` already holds
+  every replaced document, and surfacing it as *"restore an earlier version"*
+  would let the last Restore go too. That is the honest end of this thread and
+  it is not built.
