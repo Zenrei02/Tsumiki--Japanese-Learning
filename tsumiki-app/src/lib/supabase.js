@@ -55,7 +55,7 @@ export function getClient() {
 }
 
 // Where the emailed link should land. Deliberately this origin and nothing
-// hard-coded: the same build serves tsumiki.netlify.app, the branch deploy and a
+// hard-coded: the same build serves tsumiki-jp.netlify.app, the branch deploy and a
 // local dev server, and a baked-in URL would send a laptop's link to production.
 //
 // ⚠️ EVERY ORIGIN USED HERE MUST BE LISTED IN SUPABASE'S REDIRECT ALLOW-LIST

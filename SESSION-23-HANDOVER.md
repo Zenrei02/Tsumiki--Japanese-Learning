@@ -72,8 +72,8 @@ Supabase → **Authentication → URL Configuration**:
 
 | field | is now | must be |
 |---|---|---|
-| Site URL | `http://localhost:3000` | `https://tsumiki.netlify.app` |
-| Redirect URLs | (localhost only) | add `https://tsumiki.netlify.app/**` |
+| Site URL | `http://localhost:3000` | `https://naoshi.netlify.app` |
+| Redirect URLs | (localhost only) | add `https://naoshi.netlify.app/**` |
 
 **This was measured, not guessed, and it cost nothing to find.** `/auth/v1/verify`
 resolves `redirect_to` before it looks at the token, so an invalid token is a
@@ -81,7 +81,7 @@ free, side-effect-free probe of the allow-list. Asking it where three different
 URLs would land:
 
 ```
-asked https://tsumiki.netlify.app   ->  location: http://localhost:3000#error=…   ← NOT allow-listed
+asked https://naoshi.netlify.app   ->  location: http://localhost:3000#error=…   ← NOT allow-listed
 asked http://localhost:5173        ->  location: http://localhost:5173#error=…   ← allow-listed
 asked https://example.invalid/steal->  location: http://localhost:3000#error=…   ← correctly refused
 ```
