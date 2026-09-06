@@ -49,6 +49,7 @@ const WALLET_KEY = "achievement-points-v1"; // shared with vocabulary + grammar
 
 const BLANK = {
   activeDays: [],  // days with REAL ACTIVITY, not days the app was opened
+  weekStart: null, // first day of the current 7-day window; set by ACTIVITY
   chain: null,     // { startedOn, tasks[], claimed, bonus, bonusClaimed }
   recent: [],      // recently shown quote ids
   lastSeen: null,  // last day the card rotated
@@ -78,20 +79,55 @@ const dayKey = (d = new Date()) => {
   return `${y}-${m}-${day}`;
 };
 
-const weekDayKeys = (d = new Date()) => {
-  const s = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  s.setDate(s.getDate() - ((s.getDay() + 6) % 7)); // Monday-start
-  return Array.from({ length: 7 }, (_, i) => {
-    const x = new Date(s);
-    x.setDate(s.getDate() + i);
-    return dayKey(x);
+const WEEK_LEN = 7;
+
+/* THE WEEK IS THE LEARNER'S, NOT THE CALENDAR'S (Lloyd, Session 23).
+   v3 used the calendar week with a Monday start, which had two problems.
+
+   The small one: 月火水木金土日 puts 日 last, and a Japanese calendar puts it
+   first. Fixed for good below by deriving each label from the date it sits on,
+   so the row can never disagree with the dates it is showing.
+
+   The real one: a fixed week hands out partial windows. Start on a Saturday and
+   "any three days" means three days out of two — the target is unreachable
+   before the learner has done anything wrong, on their first day. That is the
+   same cliff a daily streak has, which is the thing this feature was chosen
+   INSTEAD OF (see the tracker row: daily streaks punish normal life and produce
+   quit-on-break). So the window is seven days anchored on the day they start,
+   and every learner gets seven. */
+const windowDayKeys = (startKey) =>
+  Array.from({ length: WEEK_LEN }, (_, i) => {
+    // Noon, not midnight: adding days across a DST boundary from 00:00 can land
+    // on the same date twice, which would silently give someone a six-day week.
+    const d = new Date(`${startKey}T12:00:00`);
+    d.setDate(d.getDate() + i);
+    return dayKey(d);
   });
-};
 
 const daysBetween = (a, b) =>
   Math.round((new Date(`${b}T00:00:00`) - new Date(`${a}T00:00:00`)) / 86400000);
 
-const DAY_LABELS = ["月", "火", "水", "木", "金", "土", "日"];
+// getDay() order — 日 first, as a Japanese calendar prints it.
+const WEEKDAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
+const weekdayLabel = (key) => WEEKDAY_LABELS[new Date(`${key}T12:00:00`).getDay()];
+
+/** Is a window open, and is today inside it? */
+const windowLive = (startKey, today) => {
+  if (!startKey) return false;
+  const gap = daysBetween(startKey, today);
+  return gap >= 0 && gap < WEEK_LEN;
+};
+
+/* Upgrading state written before weekStart existed. Anchoring to today would
+   throw away days the learner had already earned and show them 0 of 3 for no
+   reason they could see, so the window is anchored to the EARLIEST of their
+   recent active days — the reading most favourable to them that is still true. */
+const inferWeekStart = (activeDays, today) => {
+  const recent = (activeDays || [])
+    .filter((k) => { const g = daysBetween(k, today); return g >= 0 && g < WEEK_LEN; })
+    .sort();
+  return recent.length ? recent[0] : null;
+};
 
 /* ---------------------------------------------------------------------------
    4. QUEST GENERATION
@@ -206,7 +242,12 @@ function useEngagement(unlocked, due, simulatedDate) {
     let alive = true;
     (async () => {
       const [s, w] = await Promise.all([loadJSON(KEY, BLANK), loadJSON(WALLET_KEY, 0)]);
-      if (alive) { setState({ ...BLANK, ...s }); setWallet(w || 0); setReady(true); }
+      if (!alive) return;
+      const merged = { ...BLANK, ...s };
+      // State written before the rolling window existed carries active days and
+      // no anchor. Infer one rather than resetting their count to zero.
+      if (!merged.weekStart) merged.weekStart = inferWeekStart(merged.activeDays, dayKey());
+      setState(merged); setWallet(w || 0); setReady(true);
     })();
     return () => { alive = false; };
   }, []);
@@ -260,12 +301,18 @@ function useEngagement(unlocked, due, simulatedDate) {
     [state.recent, today]
   );
 
-  const weekDays = useMemo(() => {
-    const keys = simulatedDate ? weekDayKeys(new Date(`${simulatedDate}T12:00:00`)) : weekDayKeys();
-    return keys.map((k) => ({
+  // Before the first day of work there is no anchor, so the row shows the seven
+  // days that WOULD follow if they started now. Provisional and unsaved: it
+  // moves with the date until something actually anchors it, which is the honest
+  // way to show a window that has not begun.
+  const weekStart = windowLive(state.weekStart, today) ? state.weekStart : today;
+
+  const weekDays = useMemo(
+    () => windowDayKeys(weekStart).map((k) => ({
       key: k, active: state.activeDays.includes(k), isToday: k === today, future: k > today,
-    }));
-  }, [state.activeDays, today, simulatedDate]);
+    })),
+    [state.activeDays, today, weekStart]
+  );
 
   const weekCount = weekDays.filter((d) => d.active).length;
 
@@ -279,7 +326,14 @@ function useEngagement(unlocked, due, simulatedDate) {
         ? prev.activeDays
         : [...prev.activeDays, today].slice(-120);
 
-      if (!prev.chain) return { ...prev, activeDays };
+      // A finished window is not extended, it is replaced — and the new one
+      // opens HERE, on a day with real work in it, not on the day the app was
+      // opened. Anchoring on arrival would let someone burn five of their seven
+      // days by looking at the app and closing it, which is the failure §5 is
+      // about and the reason a rolling window is worth having at all.
+      const weekStart = windowLive(prev.weekStart, today) ? prev.weekStart : today;
+
+      if (!prev.chain) return { ...prev, activeDays, weekStart };
 
       let credited = false;
       const tasks = prev.chain.tasks.map((t) => {
@@ -290,7 +344,7 @@ function useEngagement(unlocked, due, simulatedDate) {
         }
         return t;
       });
-      return { ...prev, activeDays, chain: { ...prev.chain, tasks } };
+      return { ...prev, activeDays, weekStart, chain: { ...prev.chain, tasks } };
     });
   }, [save, today]);
 
@@ -424,7 +478,7 @@ function WeeklyTarget({ weekDays, count }) {
           {met ? "Anything further is yours to enjoy." : "Any three days. They don't need to be in a row."}
         </p>
         <div className="mt-2 flex gap-1.5">
-          {weekDays.map((d, i) => (
+          {weekDays.map((d) => (
             <div key={d.key} className="flex flex-col items-center gap-1">
               <div className={[
                 "h-6 w-6 rounded-md border transition-colors",
@@ -432,7 +486,7 @@ function WeeklyTarget({ weekDays, count }) {
                   : d.isToday ? "border-dashed border-stone-400 bg-white"
                   : d.future ? "border-stone-200 bg-stone-50" : "border-stone-200 bg-stone-100",
               ].join(" ")} />
-              <span className="text-[10px] text-stone-400">{DAY_LABELS[i]}</span>
+              <span className="text-[10px] text-stone-400">{weekdayLabel(d.key)}</span>
             </div>
           ))}
         </div>
