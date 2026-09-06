@@ -298,14 +298,39 @@ def main():
                  "verified the answer key (README Step 2). Outputs produced before "
                  "key verification can leak into the key and compromise the blind.")
 
+    # ⚠️ THE RESUME SET IS SCOPED TO THE CURRENT SCHEMA, AND IT WAS NOT.
+    #
+    # `done` used to be built from output_id alone. output_ids are O001…O150 and
+    # do not vary with the prompt, so after a SYSTEM_PROMPT change the harness
+    # would print "resuming — 150 rows already logged", make ZERO calls, exit
+    # successfully, and rewrite the workbook from the OLD outputs. Every
+    # downstream counter would then be identical to the baseline — which reads
+    # exactly like "the prompt change did nothing", the one conclusion the
+    # instrument exists to draw. A silent no-op that impersonates a measurement.
+    #
+    # Found Sep 6 2026 when naoshi-4 → naoshi-5 was about to be measured. The
+    # harness already stamped `schema` on every row; the resume logic simply did
+    # not read it. Same shape as the count-is-not-a-check finding in Session 23:
+    # the evidence was present and nothing consulted it.
     done = set()
+    other_schema = 0
     if LOG.exists():
         for line in LOG.read_text(encoding="utf-8").splitlines():
             try:
-                done.add(json.loads(line)["output_id"])
+                rec = json.loads(line)
             except Exception:
-                pass
-        print(f"resuming — {len(done)} rows already logged")
+                continue
+            if rec.get("schema") == schema:
+                done.add(rec["output_id"])
+            else:
+                other_schema += 1
+        if done:
+            print(f"resuming — {len(done)} rows already logged under {schema}")
+        if other_schema:
+            # Said out loud rather than skipped silently: these are a previous
+            # prompt's outputs and they are being re-run ON PURPOSE.
+            print(f"note — {other_schema} row(s) in the log came from a different "
+                  f"prompt version and do NOT count as done; {schema} will be run fresh")
 
     usage = {c: [0, 0] for c in models}
     results = {}
@@ -356,10 +381,15 @@ def main():
             print(f"  {oid} ({eid}×{code}): {verdict}")
             time.sleep(1)  # sequential, gently — a rate limit mid-run reads as model failure
 
-    # merge log (incl. prior runs) into the output workbook copy
+    # Merge prior runs OF THIS SCHEMA into the output workbook copy. Filtering
+    # here matters as much as it does in the resume set: without it a log holding
+    # two prompt generations fills the workbook with whichever line was read
+    # last, and the blind grading sheet would carry a mixture nobody could see.
     for line in LOG.read_text(encoding="utf-8").splitlines():
         try:
             rec = json.loads(line)
+            if rec.get("schema") != schema:
+                continue
             row = next((r for r, o, *_ in runnable if o == rec["output_id"]), None)
             if row:
                 results[rec["output_id"]] = (row, rec["verdict"], rec["feedback"])
