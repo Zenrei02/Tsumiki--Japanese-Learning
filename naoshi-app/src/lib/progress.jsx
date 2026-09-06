@@ -19,7 +19,7 @@ import {
   SECTIONS, readSectionStats, readWallet, resetEverywhere,
   daysSinceLastWorked, DORMANT_DAYS,
 } from "./stats.js";
-import { storage, downloadProgress, importProgress } from "./storage.js";
+import { storage, downloadProgress } from "./storage.js";
 import { summarise, readHistory } from "./errorHistory.js";
 
 const OPEN_REVIEW = "naoshi-open-review";
@@ -47,7 +47,6 @@ export default function Progress({ go }) {
   const [confirming, setConfirming] = useState(false);
   const [resetMsg, setResetMsg] = useState(null);
   const [savedCopy, setSavedCopy] = useState(null);
-  const [fileMsg, setFileMsg] = useState(null);
 
   const refresh = useCallback(async () => {
     const [s, w, d, h] = await Promise.all([
@@ -84,23 +83,6 @@ export default function Progress({ go }) {
             "sign in later, progress saved to your account will come back.") +
       " Reload to see it."
     );
-  };
-
-  // ⚠️ THE COUNTERPART TO THE SAVE BUTTONS, AND THE REASON IT STILL EXISTS.
-  // Session 24 removed Save/Restore from the header and from Account, because
-  // an account is the backup now. But two Save buttons survived — beside the
-  // sign-in conflict choice, and beside the reset confirm — and those are the
-  // only net the DEVICE's copy has. Take the last Restore out and both of them
-  // hand the learner a file the app can no longer read: an undo that produces
-  // a souvenir. So exactly one import path stays, HERE, beside the destructive
-  // action rather than up in the furniture.
-  const restore = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const r = new FileReader();
-    r.onload = () => { setFileMsg(importProgress(String(r.result)).message); refresh(); };
-    r.readAsText(file);
-    e.target.value = "";
   };
 
   const started = stats.filter((s) => s.started);
@@ -261,27 +243,12 @@ export default function Progress({ go }) {
         }}>{resetMsg}</p>
       )}
 
-      {/* Standing, rather than offered inside the confirm like the Save is.
-          A save is something you do BEFORE; a restore is something you reach
-          for after something has already gone wrong, and it is no use behind a
-          button you have to know to press first. */}
-      <h2 style={{ ...h3, margin: "26px 0 8px" }}>IF YOU SAVED A COPY</h2>
-      <p style={{ ...quiet, marginTop: 0 }}>
-        Signing in keeps your progress across devices, so you should not need
-        this. It is here for a copy you saved before clearing something, or
-        before letting your account replace what was on this device.
-      </p>
-      <label style={{ ...ghost, display: "inline-block", marginTop: 8 }}>
-        Restore from a file
-        <input type="file" accept="application/json" onChange={restore}
-               style={{ display: "none" }} />
-      </label>
-      {fileMsg && (
-        <p role="status" style={{
-          font: `13px/1.6 ${T.uiFont}`, color: T.note, background: T.noteBg,
-          borderRadius: 8, padding: "10px 12px", marginTop: 10,
-        }}>{fileMsg}</p>
-      )}
+      {/* The way BACK from a saved file is in Account, under BACKUP, next to
+          the Save it belongs with. A restore button here on its own was the
+          worse half of a split feature: the reset's "Save a copy first" below
+          is a shortcut to that same download, and a person looking for how to
+          put it back should find both halves in one place rather than
+          discovering them on separate screens. */}
     </div>
   );
 }

@@ -154,30 +154,30 @@ read as account administration.
 Moved with it: the capability list, the koban, the dormancy nudge, the reset.
 Stayed in Account: who you are and the two settings.
 
-### Save/Restore was retired as furniture — and one Restore had to survive
+### Save/Restore: out of the header, whole in Account
 
-Accounts do the job those buttons were invented for, so they came out of the
-header (where they sat above every lesson on every screen) and out of the YOUR
-DATA block under the sign-in panel. A permanent pair of file buttons is a
-permanent reminder that the app might lose your work.
+They came out of the header — above every lesson on every screen — because
+accounts do the job they were invented for, and a permanent pair of file buttons
+is a permanent hint that the app might lose your work.
 
-**⚠️ Two Save buttons are not furniture and stayed:** beside the sign-in
-conflict choice, and beside the reset confirm. The guarantee is **asymmetric** —
+**They live in Account under BACKUP: both halves, together, named as the thing a
+person would call it.** Not gated on being signed in — a learner with no account
+is exactly the one whose progress lives in a single browser, and the file is the
+only thing that survives clearing it.
+
+**⚠️ They were briefly split across two screens, and that was worse than either
+end-state.** Save stayed at the danger points, Restore moved to Progress, on the
+reasoning that each belongs where it is reached for. But a backup you take on
+one screen and put back on another is not a feature, it is two loose ends — and
+**both halves passed their own check the whole time.** `smoke.mjs` now asserts
+they appear *in the same element*, and the control splits them again to prove it
+fires.
+
+**Two Save buttons stay elsewhere**, as shortcuts to the same download at the two
+moments something is about to be overwritten: beside the sign-in conflict choice
+and beside the reset confirm. They matter because the guarantee is asymmetric —
 the account's losing copy is archived by the database trigger and cannot be
-skipped; the device's copy has had no net since the automatic download was
-removed. Those buttons are the only undo those two paths have.
-
-**And Restore lived only in the two surfaces being deleted.** Removing it with
-them would leave both surviving Save buttons handing the learner a file the app
-can no longer read — **an undo that produces a souvenir**. Every button still
-works on its own, nothing throws, and no existing check would have caught it. So
-exactly one import path survives, in **Progress, beside the reset**, under *"IF
-YOU SAVED A COPY"* — standing rather than inside the confirm, because a save is
-something you do before and a restore is something you reach for after something
-has already gone wrong.
-
-`smoke.mjs` asserts all three halves and the middle one is verified red by
-deleting that last Restore.
+skipped; the device's has had no net since the automatic download was removed.
 
 **⚠️ Seeding that test broke two of my own assertions, both "passing for the
 wrong reason".** The reset confirm had never been *reachable* in this bundle —
@@ -189,18 +189,6 @@ whether **Progress's** content was in one. Both were green only because the
 fixture was empty. Modal check now scoped to Progress's own content, the
 checkbox is ticked before the gated button, and an unreachable confirm is a
 failure rather than a console note.
-
-**⚠️ The move had a trap that was nearly shipped.** Restore-from-a-file reported
-its result through the Progress tab's message slot. That tab left and took the
-slot with it — **Restore would have silently succeeded**, which is the exact
-failure this app already shipped once and which `account.jsx`'s own header is
-about. It has its own state and its own place now.
-
-**The reset goes through `resetEverywhere()` in `stats.js`**, not
-`resetSections()`. Clearing only the browser while signed in undoes itself on
-the next sign-in, silently and with a success message. With the reset in one
-file and Account in another, two copies of that rule is exactly how the account
-half gets left behind in one of them.
 
 ---
 
@@ -325,9 +313,9 @@ npm run smoke                       PASSED — 6 modules, accounts, engagement, 
 vite build                          clean
 ```
 
-**First load: 187.41 → 194.75 kB raw (59.90 → 62.45 kB gzip)** across the whole
-session; 189.70 after the first pass, 195.21 after the second, and back a little
-once Save/Restore came out. Measured against a build of
+**First load: 187.41 → 194.91 kB raw** across the whole session; 189.70 after
+the first pass, 195.21 after the second, and roughly flat through the
+Save/Restore rearrangement. Measured against a build of
 `HEAD` in a throwaway worktree, not estimated. Progress is in the entry chunk
 **deliberately** — it is not lazy, because it is the screen a learner opens to
 be reassured about their own work and a spinner there reads as "gone". The
@@ -364,8 +352,7 @@ for the rest.
   first surface in this app built out of stored data rather than live data, and
   jsdom does not tell you whether a group of forty sentences is pleasant to
   scroll.
-- **The file is still the only rollback a learner has.** Retiring it properly
-  means giving the account a real undo: `naoshi_progress_archive` already holds
-  every replaced document, and surfacing it as *"restore an earlier version"*
-  would let the last Restore go too. That is the honest end of this thread and
-  it is not built.
+- **The file is still the only rollback a learner has.** The account has no
+  undo of its own: `naoshi_progress_archive` already holds every replaced
+  document, and surfacing it as *"restore an earlier version"* is what would
+  make the file genuinely optional rather than merely tidier. Not built.

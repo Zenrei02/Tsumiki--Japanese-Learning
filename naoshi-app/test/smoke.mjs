@@ -652,6 +652,22 @@ await go("checker", null, [], {
         if (dlg.querySelector('input[type="email"]')) {
           fail("ACCOUNTS: unconfigured build still offers an email field");
         }
+
+        // ————— BACKUP: BOTH HALVES, IN ONE PLACE (Session 24) —————
+        // ⚠️ THE ASSERTION IS THAT THEY ARE TOGETHER, not merely that each
+        // exists. Save and Restore were split across two screens for one
+        // commit — a backup you take on one screen and put back on another is
+        // not a feature, it is two loose ends, and BOTH halves passed their own
+        // check the whole time. So this looks in one element for both.
+        //
+        // Not gated on being signed in: a learner with no account is exactly
+        // the one whose progress lives in a single browser.
+        const hasSave = /Save to a file/i.test(text);
+        const hasRestore = /Restore from a file/i.test(text);
+        if (!hasSave || !hasRestore) {
+          fail(`ACCOUNTS: backup is incomplete here — save:${hasSave} restore:${hasRestore}. ` +
+               "Both halves belong in Account, together.");
+        } else console.log("  backup: save and restore, both here, unsigned-in");
         const close = [...dlg.querySelectorAll("button")]
           .find(b => b.getAttribute("aria-label") === "Close");
         if (!close) fail("ACCOUNTS: dialog has no close control");
@@ -722,21 +738,22 @@ await go("checker", null, [], {
       // the second is the one that would quietly break:
       //
       //   1. the routine surfaces are gone
-      //   2. ⚠️ EXACTLY ONE IMPORT PATH SURVIVES. Two Save buttons remain, at
-      //      the two moments something can be overwritten — the sign-in
-      //      conflict and the reset. If the last Restore ever goes with the
-      //      rest, both of those hand the learner a file the app cannot read:
-      //      an undo that produces a souvenir. Nothing else in the suite would
-      //      notice, because each button still works on its own.
+      //   2. ⚠️ THE SAVE OFFERED AT THE DANGER POINTS STILL EXISTS. Two Save
+      //      buttons remain, at the two moments something can be overwritten —
+      //      the sign-in conflict and the reset. They are shortcuts to the same
+      //      download Account offers; if one goes, that path silently loses its
+      //      only undo while every other button still works.
       if (/\bSave\b|\bRestore\b/.test(header)) {
         fail("PROGRESS: the header still carries Save/Restore — they were retired");
       } else console.log("  header no longer carries Save/Restore");
 
+      // Restore is NOT here. It belongs beside the Save it undoes, in Account
+      // under BACKUP — the version of this that put a lone restore button on
+      // this screen is the split the Account check above is guarding against.
       const t2 = (w.document.querySelector("main")?.textContent || "");
-      if (!/Restore from a file/i.test(t2)) {
-        fail("PROGRESS: no Restore anywhere — the surviving Save buttons now " +
-             "produce a file nothing can read back");
-      } else console.log("  the one surviving Restore is here, beside the reset");
+      if (/Restore from a file/i.test(t2)) {
+        fail("PROGRESS: a lone Restore is here — backup belongs in Account, whole");
+      } else console.log("  no lone Restore here — backup lives in Account");
 
       // And the Save it is the counterpart to, at the moment of danger.
       // "Clear selected…" is disabled until something IS selected, so the

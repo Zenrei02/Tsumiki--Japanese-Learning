@@ -292,22 +292,30 @@ administration. It now sits among the destinations, above the rule.
 What moved with it: the capability list, the koban, the dormancy nudge and the
 reset. What stayed in Account: who you are and the two settings.
 
-**Save/Restore was retired as furniture in the same session.** It sat in the
-header on every screen and again under the sign-in panel; it existed because
-progress lived in one browser on one device and nothing else was keeping it,
-which is exactly what an account is for now. A pair of file buttons above every
-lesson is a standing reminder that the app might lose your work.
+**Save/Restore came out of the header in the same session** — it sat above every
+lesson on every screen, and a permanent pair of file buttons is a permanent hint
+that the app might lose your work, which is not what shipping accounts should
+say.
 
-⚠️ **But the file is not gone, and the reason is a trap worth naming.** Two Save
-buttons remain, at the two moments something can be overwritten — beside the
-sign-in conflict choice, and beside the reset confirm. Those are not a backup
-feature; they are the only net the **device's** copy has, because the guarantee
-is asymmetric (the account's losing copy is archived by the database; the
-device's is not). Remove the last Restore along with the routine pair and both
-of those buttons hand the learner a file the app can no longer read — **an undo
-that produces a souvenir**. Nothing else in the suite would notice, because each
-button still works on its own. So exactly one import path survives, in Progress,
-beside the destructive action, and `smoke.mjs` asserts that it is there.
+**It lives in Account, under BACKUP: both halves, together, named as the thing
+it is.** A backup you take and a backup you put back. It is *not* gated on being
+signed in — a learner with no account is exactly the one whose progress lives in
+a single browser, and the file is the only thing that survives clearing it.
+
+⚠️ **It was briefly split across two screens and that was worse than either
+end-state.** Save stayed at the danger points and Restore moved to Progress, on
+the reasoning that each belongs where it is reached for. But a backup you can
+take on one screen and put back on another is not a feature, it is two loose
+ends — and **both halves passed their own check the entire time**. `smoke.mjs`
+now asserts they appear *in the same element*, and the control for it splits
+them again.
+
+The two Save buttons elsewhere — beside the sign-in conflict choice and beside
+the reset confirm — stay, as shortcuts to that same download at the two moments
+something is about to be overwritten. They matter because the guarantee is
+asymmetric: the account's losing copy is archived by the database trigger and
+cannot be skipped; the device's has had no net since the automatic download was
+removed.
 
 ⚠️ **The reset now goes through `resetEverywhere()` in `stats.js`, not
 `resetSections()`.** Clearing only the browser while signed in undoes itself on
