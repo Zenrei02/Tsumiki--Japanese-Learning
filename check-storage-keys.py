@@ -63,7 +63,11 @@ IGNORE = {"naoshi-last-module", "naoshi-open-challenge", "__naoshi_probe__",
           # Which day this device last showed the Goals dialog. Per-device UI
           # state: exporting it would carry "already seen today" onto a
           # machine that has not seen it.
-          "naoshi-goals-seen"}
+          "naoshi-goals-seen",
+          # A one-shot "open Review when you get there" flag, written by
+          # Progress and cleared the moment the checker reads it. Navigation,
+          # not progress — same class as naoshi-open-challenge.
+          "naoshi-open-review"}
 
 
 def declared_keys():

@@ -59,15 +59,21 @@ if START not in src or END not in src:
     sys.exit(2)
 
 core = src[src.index(START) + len(START):src.index(END)]
-for needed in ("function foldCheck", "function unionHistory", "function trim"):
+for needed in ("function foldCheck", "function unionHistory", "function trim",
+               "function byErrorType", "function recentChecks"):
     if needed not in core:
         print(f"!! the extracted slice does not contain {needed} — extraction is wrong")
         sys.exit(2)
 
 # Constants the fixtures use live above the core (they are exported API, not
 # internals), so they are prepended rather than moved into it.
+def const(name):
+    return src.split(f"export const {name} = ")[1].split(";")[0]
+
 PRELUDE = "\n".join([
-    f"const MAX_ENTRIES = {MOD.read_text(encoding='utf-8').split('export const MAX_ENTRIES = ')[1].split(';')[0]};",
+    f"const MAX_ENTRIES = {const('MAX_ENTRIES')};",
+    f"const MAX_CHECK_BYTES = {const('MAX_CHECK_BYTES')};",
+    f"const MAX_CHECKS = {const('MAX_CHECKS')};",
     'const CHECKS = "_checks";',
 ])
 

@@ -1,10 +1,10 @@
 // GENERATED from checker-module.jsx by build-vite-app.py — do not hand-edit.
 // Edit the source module and re-run. The single-file artifact stays the
 // source of truth so the reviewer's grading path keeps working.
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { installStorage } from "../lib/storage.js";
 import { T } from "../lib/tokens.js";
-import { recordCheck } from "../lib/errorHistory.js";
+import { recordCheck, readHistory, byErrorType } from "../lib/errorHistory.js";
 installStorage();
 
 // Naoshi — the checker. The sixth door, and the one the product is named for.
@@ -41,15 +41,23 @@ const CHECKER_URL = import.meta.env?.VITE_CHECKER_URL || "";  // wired by build-
 
 const MAX_CHARS = 600;
 
+// One-shot navigation flag, written by Progress and cleared the moment it is
+// read. UI state, not progress — deliberately absent from storage.js KEYS, and
+// listed in check-storage-keys.py's IGNORE for the same reason
+// naoshi-open-challenge is: exporting it would carry "jump to Review" into
+// someone else's restore.
+const OPEN_REVIEW = "naoshi-open-review";
+
 // ————— Error history —————
-// A NO-OP HERE, ON PURPOSE. build-vite-app.py deletes this declaration and
-// imports the real recorder from lib/errorHistory.js, so there is exactly ONE
+// NO-OPS HERE, ON PURPOSE. build-vite-app.py deletes these three declarations
+// and imports the real ones from lib/errorHistory.js, so there is exactly ONE
 // implementation and it cannot drift from a second copy living in this file.
 //
-// It stays a no-op in the standalone artifact because that build is the
-// reviewer's grading path: no account, no history, nothing to keep. What it
-// must never do is throw — a store that cannot record is not a reason to fail
-// a check the learner already paid for.
+// They stay inert in the standalone artifact because that build is the
+// reviewer's grading path: no account, no history, nothing to keep. Review
+// therefore renders its empty state there, which is true rather than broken.
+// What they must never do is throw — a store that cannot record is not a
+// reason to fail a check the learner already paid for.
 
 
 // Register is undecidable without knowing the intended reader — "この資料を見て"
@@ -201,6 +209,225 @@ function IssueCard({ issue, active, setActive, readings, furigana }) {
   );
 }
 
+// ── review: the learner's own back catalogue ────────────────────────────────
+//
+// ⭐ ORGANISED BY ERROR TYPE, NOT BY DATE, and a sentence with three kinds of
+// error appears under all three. The repetition is the feature. Someone asking
+// "what do I keep doing wrong with particles" is not helped by a chronological
+// list they have to hunt through — they should open the particle group and find
+// their own particle sentences in it.
+//
+// Chronology is still one tap away, because "what did I write last week" is a
+// different and equally real question. It is the second view, not the first.
+
+// Stored issues are compact (see foldCheck). Marked and IssueCard want the
+// shape the API returns, so one rehydrate lives here rather than two shapes
+// living in the renderers.
+function rehydrate(check) {
+  return (check.issues || []).map((x, i) => ({
+    _id: i,
+    type: x.t,
+    pattern_name: x.p,
+    span: x.span,
+    correction: x.corr,
+    explanation: x.exp,
+    start: x.start,
+    end: x.end,
+    located: !!x.loc && Number.isFinite(x.start) && Number.isFinite(x.end),
+  }));
+}
+
+const niceDay = (d) => {
+  const t = new Date(d + "T00:00:00");
+  return Number.isNaN(t.getTime()) ? d
+    : t.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+};
+
+// One past submission, rendered the way it was when it came back. `focus` is
+// the issue this card is being shown FOR — inside an error-type group the
+// learner is looking for one particular thing, and highlighting all six issues
+// equally would make them find it again by eye.
+function PastCheck({ check, focus = null, furigana }) {
+  const [open, setOpen] = useState(focus != null);
+  const issues = rehydrate(check);
+  const ctx = CONTEXTS.find((c) => c.id === check.c);
+  const shown = focus != null && issues[focus] ? [issues[focus]] : issues;
+
+  return (
+    <div style={{
+      border: `1px solid ${T.hairline}`, borderRadius: 10, background: T.sheet,
+      padding: "12px 14px", marginBottom: 10,
+    }}>
+      <div style={{
+        display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap",
+        marginBottom: 8, font: `12px ${T.uiFont}`, color: T.sub,
+      }}>
+        <span>{niceDay(check.d)}</span>
+        {ctx && <span>· written for {ctx.hint}</span>}
+        {check.score != null && <span>· sounds natural {check.score} / 5</span>}
+      </div>
+
+      <Marked
+        text={check.text}
+        issues={shown}
+        readings={check.readings}
+        furigana={furigana}
+        active={null}
+        setActive={() => {}}
+      />
+
+      {focus != null && issues[focus] && (
+        <div style={{ marginTop: 10 }}>
+          <IssueCard issue={issues[focus]} active={issues[focus]._id}
+                     setActive={() => {}} readings={check.readings}
+                     furigana={furigana} />
+        </div>
+      )}
+
+      {focus == null && (
+        <>
+          <button onClick={() => setOpen((o) => !o)} aria-expanded={open} style={{
+            marginTop: 10, background: "none", border: "none", cursor: "pointer",
+            padding: 0, font: `13px ${T.uiFont}`, color: T.sub,
+          }}>
+            {open ? "Hide" : issues.length
+              ? `Show ${issues.length} ${issues.length === 1 ? "note" : "notes"}`
+              : "Nothing was flagged"}
+          </button>
+          {open && issues.map((issue) => (
+            <div key={issue._id} style={{ marginTop: 8 }}>
+              <IssueCard issue={issue} active={issue._id} setActive={() => {}}
+                         readings={check.readings} furigana={furigana} />
+            </div>
+          ))}
+          {open && check.rewrite && check.rewrite !== check.text && (
+            <p style={{
+              font: `17px/2 ${T.jpFont}`, color: T.ink, background: T.paper,
+              border: `1px solid ${T.hairline}`, borderRadius: 8,
+              padding: "10px 12px", margin: "8px 0 0",
+            }}>
+              <span style={{
+                display: "block", font: `600 11px ${T.uiFont}`, letterSpacing: ".06em",
+                textTransform: "uppercase", color: T.sub, marginBottom: 4,
+              }}>One natural version</span>
+              <Ruby text={check.rewrite} readings={check.readings} on={furigana} />
+            </p>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+function ErrorTypeGroup({ group, furigana }) {
+  const [open, setOpen] = useState(false);
+  const tier = tierOf(group.tier);
+  return (
+    <div style={{
+      border: `1px solid ${T.hairline}`, borderLeft: `3px solid ${tier.rule}`,
+      borderRadius: 8, background: T.sheet, marginBottom: 10, overflow: "hidden",
+    }}>
+      <button onClick={() => setOpen((o) => !o)} aria-expanded={open} style={{
+        width: "100%", textAlign: "left", background: "none", border: "none",
+        cursor: "pointer", padding: "12px 14px", display: "flex",
+        alignItems: "baseline", gap: 10, flexWrap: "wrap",
+      }}>
+        <span style={{
+          font: `600 11px ${T.uiFont}`, letterSpacing: "0.06em",
+          textTransform: "uppercase", color: tier.color,
+        }}>{tier.label}</span>
+        <span style={{ font: `15px ${T.uiFont}`, color: T.ink }}>{group.pattern}</span>
+        <span style={{ flex: 1 }} />
+        <span style={{ font: `13px ${T.uiFont}`, color: T.sub }}>
+          {group.total}{group.total === 1 ? " time" : " times"} · last {niceDay(group.last)}
+        </span>
+      </button>
+      {open && (
+        <div style={{ padding: "0 14px 12px" }}>
+          {group.examples.map((ex) => (
+            <PastCheck key={ex.entry.id} check={ex.check} focus={ex.ix}
+                       furigana={furigana} />
+          ))}
+          {/* Said plainly rather than left as a silently shorter list. The
+              count above is the truth; the examples are only what is still
+              kept, and a group that quietly shrank would read as an error
+              that stopped happening. */}
+          {group.missing > 0 && (
+            <p style={{ font: `12px/1.6 ${T.uiFont}`, color: T.sub, margin: "2px 0 0" }}>
+              {group.missing} older {group.missing === 1 ? "sentence is" : "sentences are"} no
+              longer kept — the count above still includes {group.missing === 1 ? "it" : "them"}.
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Review({ furigana, setFurigana, btn }) {
+  const [history, setHistory] = useState(null);
+  const [mode, setMode] = useState("type");   // type | time
+
+  useEffect(() => { readHistory().then(setHistory); }, []);
+
+  if (history === null) {
+    return <p style={{ font: `14px ${T.uiFont}`, color: T.sub }}>Looking…</p>;
+  }
+
+  const groups = byErrorType(history);
+  const checks = [...(history._checks || [])].reverse();
+
+  if (!checks.length) {
+    return (
+      <div style={{
+        border: `1px solid ${T.hairline}`, borderRadius: 10, background: T.sheet,
+        padding: "18px 16px", font: `15px/1.7 ${T.uiFont}`, color: T.ink,
+      }}>
+        <p style={{ margin: "0 0 8px" }}>Nothing here yet.</p>
+        <p style={{ margin: 0, color: T.sub, font: `14px/1.7 ${T.uiFont}` }}>
+          Everything you check is kept here — the sentence you wrote and what came
+          back — grouped by the kind of thing it was. It is your own writing, so
+          you can clear it whenever you like from Progress.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 }}>
+        <button onClick={() => setMode("type")} aria-pressed={mode === "type"}
+                style={btn(mode === "type")}>By what went wrong</button>
+        <button onClick={() => setMode("time")} aria-pressed={mode === "time"}
+                style={btn(mode === "time")}>By when</button>
+        <span style={{ flex: 1 }} />
+        <button onClick={() => setFurigana((f) => !f)} style={btn(furigana)}>ふりがな</button>
+      </div>
+
+      {mode === "type" ? (
+        groups.length ? (
+          <>
+            <p style={{ font: `13px/1.7 ${T.uiFont}`, color: T.sub, margin: "0 0 12px" }}>
+              A sentence appears under every kind of thing that was flagged in it,
+              so whichever one you came looking for, your own examples are there.
+            </p>
+            {groups.map((g) => (
+              <ErrorTypeGroup key={g.pattern} group={g} furigana={furigana} />
+            ))}
+          </>
+        ) : (
+          <p style={{ font: `15px/1.7 ${T.uiFont}`, color: T.ink }}>
+            Nothing has been flagged in what you have written so far. Your
+            sentences are still under <em>By when</em>.
+          </p>
+        )
+      ) : (
+        checks.map((c) => <PastCheck key={c.id} check={c} furigana={furigana} />)
+      )}
+    </div>
+  );
+}
+
 // ── the module ──────────────────────────────────────────────────────────────
 export default function CheckerModule() {
   const [text, setText] = useState("");
@@ -210,6 +437,29 @@ export default function CheckerModule() {
   const [error, setError] = useState(null);
   const [active, setActive] = useState(null);
   const [furigana, setFurigana] = useState(true);
+  const [view, setView] = useState("write");   // write | review
+
+  // Progress sends learners straight here — "show me my particle mistakes" is
+  // a question you ask from a progress screen, and landing them on a blank
+  // writing box would make them navigate twice for one thought. Same one-shot
+  // flag pattern Home already uses to open the grammar challenge, and read
+  // through `storage` rather than localStorage directly (Session 21: the
+  // adapter falls back to memory where site data is blocked, and reading
+  // around it is how Home once showed START HERE to someone mid-course).
+  useEffect(() => {
+    let live = true;
+    (async () => {
+      try {
+        const r = await window.storage.get(OPEN_REVIEW);
+        if (!r?.value) return;
+        // Cleared on arrival, not on leaving: a flag that survives the visit
+        // hijacks every later one.
+        await window.storage.set(OPEN_REVIEW, "");
+        if (live) setView("review");
+      } catch { /* no flag, no problem */ }
+    })();
+    return () => { live = false; };
+  }, []);
 
   const count = [...text].length;
   const over = count > MAX_CHARS;
@@ -238,7 +488,10 @@ export default function CheckerModule() {
       // that failed to reach the backend is not evidence about anyone's
       // Japanese. Awaited so the store is written before the learner can
       // navigate away — commitIfWorked() reads it on the way out.
-      try { await recordCheck(context, data.issues); }
+      // The WHOLE result, not a summary of it — Review re-renders what the
+      // learner saw rather than a lossy retelling of it. Lloyd's call, and the
+      // reasoning is in the header of lib/errorHistory.js.
+      try { await recordCheck(context, submitted, data); }
       catch (e) { console.error("error history not recorded", e); }
     } catch (e) {
       setError(String(e.message || e));
@@ -274,6 +527,30 @@ export default function CheckerModule() {
         technically fine but sounds off, and why — in English.
       </p>
 
+      {/* Two views, not two pages. Review is the same module because it is the
+          same material — the checker is where you write Japanese and where you
+          go back and look at the Japanese you wrote. */}
+      <div style={{
+        display: "flex", gap: 18, borderBottom: `1px solid ${T.hairline}`,
+        margin: "0 0 18px",
+      }}>
+        {[["write", "Write"], ["review", "Your sentences"]].map(([id, label]) => (
+          <button key={id} onClick={() => setView(id)} aria-pressed={view === id}
+            style={{
+              background: "none", border: "none", padding: "0 0 8px", cursor: "pointer",
+              font: `${view === id ? 600 : 400} 14px ${T.uiFont}`,
+              color: view === id ? T.ink : T.sub,
+              borderBottom: `2px solid ${view === id ? T.ink : "transparent"}`,
+              marginBottom: -1,
+            }}>{label}</button>
+        ))}
+      </div>
+
+      {view === "review" && (
+        <Review furigana={furigana} setFurigana={setFurigana} btn={btn} />
+      )}
+
+      {view === "write" && (<>
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
         {CONTEXTS.map((c) => (
           <button key={c.id} onClick={() => setContext(c.id)}
@@ -419,6 +696,7 @@ export default function CheckerModule() {
           )}
         </div>
       )}
+      </>)}
     </div>
   );
 }

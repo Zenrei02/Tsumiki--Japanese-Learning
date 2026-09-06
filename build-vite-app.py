@@ -313,7 +313,7 @@ stats = []
 for src_name, out_name, comp, label, jp, _accent in MODULES:
     src = (HERE / src_name).read_text(encoding="utf-8")
     before = len(src)
-    needs_history = False
+    history_imports = []
 
     # strip the API implementation entirely — see module docstring
     if re.search(r"async function callClaude", src):
@@ -349,14 +349,28 @@ for src_name, out_name, comp, label, jp, _accent in MODULES:
     # substitution silently stops happening and the app records nothing, so the
     # miss is reported rather than tolerated.
     if src_name == "checker-module.jsx":
-        stub = re.search(r"^async function recordCheck\(\) \{[^\n]*\}\n", src, re.M)
-        if not stub:
-            problems.append(f"{src_name}: the recordCheck no-op is gone — "
-                            "the app build has nothing to replace, so checks "
-                            "would be graded and never recorded")
-        else:
-            src = src[:stub.start()] + src[stub.end():]
-            needs_history = True
+        # Each no-op is matched on its own so a partial rename is reported as a
+        # partial rename. Matching them as one block would let two survive
+        # silently the moment one changed.
+        HISTORY_STUBS = [
+            (r"^async function recordCheck\(\) \{[^\n]*\}\n", "recordCheck",
+             "checks would be graded and never recorded"),
+            (r"^async function readHistory\(\) \{[^\n]*\}\n", "readHistory",
+             "Review would always render its empty state"),
+            (r"^function byErrorType\(\) \{[^\n]*\}\n", "byErrorType",
+             "Review would show no error types at all"),
+        ]
+        found = []
+        for pattern, name, consequence in HISTORY_STUBS:
+            m = re.search(pattern, src, re.M)
+            if not m:
+                problems.append(f"{src_name}: the {name} no-op is gone — the app "
+                                f"build has nothing to replace, so {consequence}")
+            else:
+                src = src[:m.start()] + src[m.end():]
+                found.append(name)
+        if found:
+            history_imports = found
 
     # flip the static flag: the flag gates the UI (self-mark stand-ins for the
     # quiz and both graders), while the strips above and below keep the BUNDLE
@@ -450,7 +464,9 @@ for src_name, out_name, comp, label, jp, _accent in MODULES:
     if used_json:
         header.append('import { ' + ", ".join(used_json) + ' } from "../lib/json.js";')
     if needs_strokes: header.append('import { STROKES } from "../lib/strokeData.js";')
-    if needs_history: header.append('import { recordCheck } from "../lib/errorHistory.js";')
+    if history_imports:
+        header.append('import { ' + ", ".join(history_imports)
+                      + ' } from "../lib/errorHistory.js";')
     if data_import: header.append(data_import.rstrip())
     header.append("installStorage();\n")
 
@@ -736,6 +752,7 @@ imports = "\n".join(f'const {c[2]} = lazy(() => import("./modules/{c[1]}"));' fo
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { downloadProgress, importProgress, storage } from "./lib/storage.js";
 import Account from "./lib/account.jsx";
+import Progress from "./lib/progress.jsx";
 import GoalsDialog from "./lib/engagementPanel.jsx";
 import { reportStudy } from "./lib/activity.js";
 import { markWorked, readRecency, orderByRecency, readWallet,
@@ -1083,6 +1100,15 @@ function Drawer({ open, close, active, go, onAccount }) {
               <span style={{ font: `14px ${T.jpFont}`, color: T.sub }}>{m.jp}</span>
             </button>
           ))}
+          {/* ABOVE the rule, among the destinations, and that is the whole
+              point of moving it (Session 24). The note below says an account is
+              not a place; progress IS one — it is where you go to see what you
+              can do and to read back your own writing. Behind a sign-in-shaped
+              door it looked like account administration. */}
+          <button onClick={() => go("progress")} style={row(active === "progress")}>
+            Progress
+            <span style={{ font: `14px ${T.jpFont}`, color: T.sub }}>きろく</span>
+          </button>
         </div>
 
         {/* Below the rule, not among the destinations: the drawer list answers
@@ -1137,6 +1163,12 @@ export default function App() {
     return () => { alive = false; };
   }, [active]);
   const current = MODULES.find((m) => m.id === active) || MODULES[0];
+  // `current` exists to name the module being rendered, and it falls back to
+  // MODULES[0] for anything it does not know — which would have put "Hiragana"
+  // in the header above the Progress screen. Named destinations that are not
+  // modules get their title from here instead.
+  const NON_MODULE_TITLES = { progress: "Progress" };
+  const headerTitle = active === "home" ? "" : (NON_MODULE_TITLES[active] || current.label);
   const menuBtnRef = useRef(null);
 
   const closeMenu = () => {
@@ -1246,7 +1278,7 @@ export default function App() {
           }}>直</button>
           <span style={{
             font: `14px ${T.uiFont}`, color: T.sub, marginLeft: 2,
-          }}>{active === "home" ? "" : current.label}</span>
+          }}>{headerTitle}</span>
           <span style={{ flex: 1 }} />
           <button onClick={downloadProgress} title="Save your progress to a file" style={{
             ...btn, border: `1px solid ${T.hairline}`, padding: "6px 12px",
@@ -1289,6 +1321,10 @@ export default function App() {
                 openAccount={() => setAccountOpen(true)}
                 openGoals={() => setGoalsOpen(true)}
                 lastMod={MODULES.find((m) => m.id === lastWorked) || null} />
+        ) : active === "progress" ? (
+          // Not lazy: it is small, and it is the screen a learner opens to be
+          // reassured about their own work. A spinner there reads as "gone".
+          <Progress go={go} />
         ) : (
           <Suspense fallback={
             <p style={{ padding: "40px 18px", color: T.sub, font: `14px ${T.uiFont}` }}>Loading…</p>

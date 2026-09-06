@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { downloadProgress, importProgress, storage } from "./lib/storage.js";
 import Account from "./lib/account.jsx";
+import Progress from "./lib/progress.jsx";
 import GoalsDialog from "./lib/engagementPanel.jsx";
 import { reportStudy } from "./lib/activity.js";
 import { markWorked, readRecency, orderByRecency, readWallet,
@@ -359,6 +360,15 @@ function Drawer({ open, close, active, go, onAccount }) {
               <span style={{ font: `14px ${T.jpFont}`, color: T.sub }}>{m.jp}</span>
             </button>
           ))}
+          {/* ABOVE the rule, among the destinations, and that is the whole
+              point of moving it (Session 24). The note below says an account is
+              not a place; progress IS one — it is where you go to see what you
+              can do and to read back your own writing. Behind a sign-in-shaped
+              door it looked like account administration. */}
+          <button onClick={() => go("progress")} style={row(active === "progress")}>
+            Progress
+            <span style={{ font: `14px ${T.jpFont}`, color: T.sub }}>きろく</span>
+          </button>
         </div>
 
         {/* Below the rule, not among the destinations: the drawer list answers
@@ -413,6 +423,12 @@ export default function App() {
     return () => { alive = false; };
   }, [active]);
   const current = MODULES.find((m) => m.id === active) || MODULES[0];
+  // `current` exists to name the module being rendered, and it falls back to
+  // MODULES[0] for anything it does not know — which would have put "Hiragana"
+  // in the header above the Progress screen. Named destinations that are not
+  // modules get their title from here instead.
+  const NON_MODULE_TITLES = { progress: "Progress" };
+  const headerTitle = active === "home" ? "" : (NON_MODULE_TITLES[active] || current.label);
   const menuBtnRef = useRef(null);
 
   const closeMenu = () => {
@@ -522,7 +538,7 @@ export default function App() {
           }}>直</button>
           <span style={{
             font: `14px ${T.uiFont}`, color: T.sub, marginLeft: 2,
-          }}>{active === "home" ? "" : current.label}</span>
+          }}>{headerTitle}</span>
           <span style={{ flex: 1 }} />
           <button onClick={downloadProgress} title="Save your progress to a file" style={{
             ...btn, border: `1px solid ${T.hairline}`, padding: "6px 12px",
@@ -565,6 +581,10 @@ export default function App() {
                 openAccount={() => setAccountOpen(true)}
                 openGoals={() => setGoalsOpen(true)}
                 lastMod={MODULES.find((m) => m.id === lastWorked) || null} />
+        ) : active === "progress" ? (
+          // Not lazy: it is small, and it is the screen a learner opens to be
+          // reassured about their own work. A spinner there reads as "gone".
+          <Progress go={go} />
         ) : (
           <Suspense fallback={
             <p style={{ padding: "40px 18px", color: T.sub, font: `14px ${T.uiFont}` }}>Loading…</p>

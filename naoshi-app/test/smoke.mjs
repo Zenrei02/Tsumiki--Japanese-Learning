@@ -660,6 +660,63 @@ await go("checker", null, [], {
         }
       }
     }
+
+    // ————— PROGRESS, ITS OWN DESTINATION (Session 24) —————
+    // It was a tab inside the Account dialog. Two things have to be true now
+    // and neither is implied by the other: it must be reachable as a PLACE
+    // from the drawer, and the Account dialog must no longer be the way in.
+    console.log("\nPROGRESS — its own destination");
+    all().find(x => x.getAttribute("aria-label") === "Menu")?.click();
+    await new Promise(r => setTimeout(r, 300));
+    const prog = all().find(b => (b.textContent || "").trim().startsWith("Progress"));
+    if (!prog) {
+      fail("PROGRESS: no Progress entry in the drawer — it is unreachable");
+    } else {
+      console.log("  drawer offers Progress, among the destinations");
+      prog.click();
+      await new Promise(r => setTimeout(r, 600));
+      const main = w.document.querySelector("main");
+      const t = (main?.textContent || "");
+      console.log(`  rendered ${t.length} chars`);
+      // It is a page, not a dialog. If it opened a modal the move did not
+      // happen — it was only relabelled.
+      if ([...w.document.querySelectorAll('[role="dialog"][aria-modal="true"]')].length) {
+        fail("PROGRESS: opening Progress opened a dialog — it is still modal");
+      }
+      if (t.length < MIN_VIEW) fail("PROGRESS: rendered almost nothing");
+      for (const [needle, why] of [
+        ["WHAT YOU CAN DO", "the capability list is missing"],
+        ["WHAT YOU HAVE WRITTEN", "the connection to the checked sentences is missing"],
+        ["START A SECTION AGAIN", "the reset did not come across with it"],
+      ]) {
+        if (!t.includes(needle)) fail(`PROGRESS: ${why}`);
+      }
+      // A learner with no history must be told where the sentences come from,
+      // not shown an empty box.
+      if (!/Nothing checked yet/i.test(t)) {
+        fail("PROGRESS: the empty state does not explain what would appear here");
+      }
+      console.log("  capability list, checked-sentence link and reset all present");
+      // The header must name the place. `current` falls back to MODULES[0] for
+      // any id it does not know, which would have written "Hiragana" above it.
+      const header = w.document.querySelector("header")?.textContent || "";
+      if (!header.includes("Progress")) {
+        fail("PROGRESS: the header does not name it — it inherits a module's title");
+      } else console.log("  header names it ok");
+    }
+
+    // And it is gone from where it used to live.
+    all().find(x => x.getAttribute("aria-label") === "Menu")?.click();
+    await new Promise(r => setTimeout(r, 300));
+    all().find(b => (b.textContent || "").trim() === "Account")?.click();
+    await new Promise(r => setTimeout(r, 500));
+    const acct = [...w.document.querySelectorAll('[role="dialog"]')]
+      .find(d => d.getAttribute("aria-label") === "Account");
+    if (acct && /WHAT YOU CAN DO|START A SECTION AGAIN/.test(acct.textContent || "")) {
+      fail("PROGRESS: the Account dialog still carries the progress tab — it was copied, not moved");
+    } else {
+      console.log("  Account no longer carries it");
+    }
   }
   if (errors.length) fail("ACCOUNTS: console errors — " + errors.slice(0, 2).join(" | "));
 }

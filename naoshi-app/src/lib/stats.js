@@ -177,6 +177,42 @@ const EMPTY_FOR = (key) =>
 // it routinely trains people to ignore it — which is the opposite of what a
 // backup is for. The UI now offers the save as a button beside the confirm, and
 // the confirmation text says plainly that clearing cannot be undone without one.
+// ⚠️ THE ONLY RESET ANY UI SHOULD CALL. resetSections() clears the browser;
+// this clears the browser AND the account, which the long note above says is
+// not optional. It exists as a function rather than as a block inside a
+// component because the reset moved out of Account and into Progress
+// (Session 24), and the two copies that would otherwise have existed are
+// exactly how the account half gets left behind in one of them.
+//
+// Returns what happened rather than a sentence, so the caller can word it — but
+// `signedIn` and `pushed` are both reported, because "cleared" means something
+// different depending on them and a UI that cannot tell will say the wrong one.
+export async function resetEverywhere(sectionIds) {
+  const res = await resetSections(sectionIds);
+  if (!res.ok) return { ...res, signedIn: false, pushed: false };
+
+  let signedIn = false, pushed = false, error = null;
+  try {
+    const { accountsConfigured, getClient } = await import("./supabase.js");
+    if (accountsConfigured()) {
+      const client = await getClient();
+      const { data } = await client.auth.getSession();
+      const user = data?.session?.user;
+      if (user) {
+        signedIn = true;
+        const { pushRemote, readLocal } = await import("./sync.js");
+        await pushRemote(client, user.id, readLocal());
+        pushed = true;
+      }
+    }
+  } catch (e) {
+    // Cleared locally either way. Saying so is the whole point: a silent
+    // failure here is the landmine the note above describes.
+    error = e?.message || String(e);
+  }
+  return { ...res, signedIn, pushed, error };
+}
+
 export async function resetSections(sectionIds, { backupFirst = false } = {}) {
   const ids = new Set(sectionIds);
   const chosen = SECTIONS.filter((s) => ids.has(s.id));

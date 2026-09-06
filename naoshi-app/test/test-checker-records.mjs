@@ -11,6 +11,9 @@
 //   · the call passes `context`, which is the register selector's state. Pass
 //     the wrong variable and every entry is filed under a register the learner
 //     did not choose, which is not visible anywhere.
+//   · Review reads the store back and groups it. A shape that records fine
+//     and renders as an empty list is indistinguishable from not recording,
+//     and only driving the UI can tell the two apart.
 //
 // Session 23's lesson, three times over: the only thing that caught anything
 // was exercising the artifact. So this drives the real generated module in a
@@ -32,14 +35,27 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const APP = path.join(HERE, "..");
 const SELF_CHECK = process.argv.includes("--self-check");
 
+// ⚠️ THE SPANS AND THE OFFSETS MUST AGREE WITH THE TEXT, and getting that wrong
+// the first time is what proved the render assertions below are worth having.
+// Marked() renders `text.slice(cursor, issue.start)` between issues and then the
+// issue's own `span` — so if a span does not sit at its offsets, the rendered
+// sentence is not the sentence that was submitted. It read 私は本見ててです.
+//
+// That is not a quirk of the harness: the checker's own header says spans arrive
+// "already verified character-for-character against the submitted text", so
+// agreement is a real property of a real response, and an assertion that
+// compares the RENDERED text against the submission is checking that rehydrate()
+// still carries the offsets through. Left as a working fixture and a note rather
+// than as a weaker assertion.
+const SUBMITTED = "私は本を見てです";   // 私0 は1 本2 を3 見4 て5 で6 す7
 const RESPONSE = {
   issues: [
     { type: "fix", span: "は", start: 1, end: 2, located: true,
-      pattern_name: "particle-wa-vs-ga", note: "…" },
-    { type: "unnatural", span: "見て", start: 3, end: 5, located: true,
-      pattern_name: "te-form-request", note: "…" },
+      pattern_name: "particle-wa-vs-ga", explanation: "…" },
+    { type: "unnatural", span: "見て", start: 4, end: 6, located: true,
+      pattern_name: "te-form-request", explanation: "…" },
     { type: "note", span: "です", start: 6, end: 8, located: true,
-      pattern_name: "particle-wa-vs-ga", note: "…" },
+      pattern_name: "particle-wa-vs-ga", explanation: "…" },
   ],
   readings: [],
 };
@@ -66,7 +82,7 @@ if (SELF_CHECK) {
   fs.mkdirSync(modDir, { recursive: true });
   const real = path.join(APP, "src/modules/Checker.jsx");
   let src = fs.readFileSync(real, "utf8");
-  const call = /\s*try \{ await recordCheck\(context, data\.issues\); \}\n\s*catch \(e\) \{[^\n]*\n/;
+  const call = /\s*try \{ await recordCheck\(context, submitted, data\); \}\n\s*catch \(e\) \{[^\n]*\n/;
   if (!call.test(src)) {
     console.error("!! self-check landmark not found — the control cannot be trusted");
     process.exit(2);
@@ -129,7 +145,7 @@ await new Promise((r) => setTimeout(r, 100));
 const box = w.document.querySelector("textarea");
 if (!box) { console.error("!! no input — the module did not render"); process.exit(2); }
 const setter = Object.getOwnPropertyDescriptor(w.HTMLTextAreaElement.prototype, "value").set;
-setter.call(box, "私は本を見てです");
+setter.call(box, SUBMITTED);
 box.dispatchEvent(new w.Event("input", { bubbles: true }));
 await new Promise((r) => setTimeout(r, 100));
 
@@ -138,7 +154,7 @@ if (!check) { console.error("!! no Check button"); process.exit(2); }
 check.click();
 await new Promise((r) => setTimeout(r, 900));
 
-ok("the check actually reached the (stubbed) backend", posted && posted.text === "私は本を見てです");
+ok("the check actually reached the (stubbed) backend", posted && posted.text === SUBMITTED);
 
 const raw = w.localStorage.getItem("checker-history-v1");
 ok("a graded check writes checker-history-v1", raw != null);
@@ -150,10 +166,55 @@ ok("a pattern seen twice in one check gets two entries",
    (map["particle-wa-vs-ga"] || []).length === 2);
 ok("the tier is recorded per occurrence, not per pattern",
    (map["particle-wa-vs-ga"] || []).map((e) => e.t).sort().join(",") === "fix,note");
+
+// ⭐ Lloyd's instruction: store all of it. A record that kept the pattern name
+// and threw the sentence away would make Review a list of labels.
+const stored = (map._checks || [])[0] || {};
+ok("the learner's sentence is stored", stored.text === SUBMITTED);
+ok("the spans and explanations are stored, so review can re-render the result",
+   (stored.issues || []).length === 3 && stored.issues[0].span === "は" &&
+   stored.issues[0].exp === "…" && stored.issues[0].start === 1);
+ok("the readings are stored, so furigana still works in review",
+   Array.isArray(stored.readings));
 ok("the denominator is recorded", (map._checks || []).length === 1 && map._checks[0].n === 3);
 // The whole point of choosing Casual above.
 ok("the entry carries the register the LEARNER chose, not the default",
    (map._checks || [])[0]?.c === "casual");
+// ————— Review, driven rather than reasoned about —————
+const reviewTab = byText("Your sentences");
+ok("the checker offers a Review view", !!reviewTab);
+if (reviewTab) {
+  reviewTab.click();
+  await new Promise((r) => setTimeout(r, 500));
+  const text = () => w.document.querySelector("main, #root").textContent || "";
+
+  ok("Review lists the error types, not just the sentences",
+     text().includes("particle-wa-vs-ga") && text().includes("te-form-request"));
+
+  // ⭐ THE POINT OF THE WHOLE VIEW. One sentence, two kinds of thing wrong with
+  // it, and it must be findable under BOTH — a learner looking for their
+  // te-form mistakes should not have to know it was also a particle sentence.
+  for (const pattern of ["particle-wa-vs-ga", "te-form-request"]) {
+    const group = buttons().find((b) => (b.textContent || "").includes(pattern));
+    if (!group) { ok(`a group exists for ${pattern}`, false); continue; }
+    group.click();
+    await new Promise((r) => setTimeout(r, 250));
+    ok(`the learner's own sentence is an example under ${pattern}`,
+       text().includes(SUBMITTED));
+    group.click();
+    await new Promise((r) => setTimeout(r, 200));
+  }
+
+  const byWhen = byText("By when");
+  ok("the chronological view is still one tap away", !!byWhen);
+  if (byWhen) {
+    byWhen.click();
+    await new Promise((r) => setTimeout(r, 300));
+    ok("the chronological view shows the sentence too",
+       text().includes(SUBMITTED));
+  }
+}
+
 ok("nothing threw on the way", errors.length === 0 || (console.log(errors), false));
 
 fs.unlinkSync(out);

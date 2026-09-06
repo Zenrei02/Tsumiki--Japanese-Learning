@@ -4,6 +4,14 @@ Session 24, 2026-09-06. The Notion row is *Per-user error history keyed by
 `pattern_name`* (P1, Phase 1 — MVP). Session 23's brief gated it on accounts
 landing and being verified; that gate is open.
 
+> **⭐ REVISED THE SAME DAY, and §3 is the part that changed.** v1 of this
+> document argued for storing counts and withholding the learner's sentence.
+> Lloyd overruled it: the examples are the teaching, and a learner cannot review
+> what was never kept. A check is now stored whole, and the review surface that
+> follows from it is §7. The original §3 argument is kept below rather than
+> deleted — it is what the decision was made against, and a design doc that
+> quietly agrees with the code has stopped being evidence of anything.
+
 The purpose is one sentence, and it was written into `checker-module.jsx` long
 before anything stored it:
 
@@ -65,27 +73,44 @@ union is doing something other than uniting and the exemption is void.
 
 ## 2. Shape
 
-One key, `checker-history-v1`, holding an object keyed by `pattern_name`:
+One key, `checker-history-v1`, holding two things of very different weight.
+
+**The ledger** — one entry per issue, keyed by `pattern_name`. Light, and what
+trends are made of.
+
+**The checks** — the whole result, under the reserved `_checks` bucket. Heavy,
+and what review is made of.
 
 ```json
 {
-  "_checks":            [{ "d": "2026-09-06", "c": "polite", "n": 2, "id": "…" }],
-  "particle-wa-vs-ga":  [{ "d": "2026-09-06", "c": "polite", "t": "fix", "id": "…" }],
-  "te-form-request":    [{ "d": "2026-09-04", "c": "casual", "t": "unnatural", "id": "…" }]
+  "_checks": [{
+    "id": "k3f9x2ab8h1", "d": "2026-09-06", "c": "polite", "n": 2,
+    "text": "私は本を見てです",
+    "verdict": "FIX", "score": 4, "summary": "…", "rewrite": "私が本を見ます",
+    "readings": [["本", "ほん"]],
+    "issues": [{ "t": "fix", "p": "particle-wa-vs-ga", "span": "は",
+                 "corr": "が", "exp": "…", "start": 1, "end": 2, "loc": true }]
+  }],
+  "particle-wa-vs-ga": [{ "d": "2026-09-06", "c": "polite", "t": "fix",
+                          "id": "k3f9x2ab8h1#0" }]
 }
 ```
 
-Per entry:
+**A ledger entry's id is `<checkId>#<issueIndex>`.** That is what lets the
+ledger point at its own example without storing the link twice — and the ledger
+is the half that has to survive longest, so its weight is the one that matters.
+It also keeps every entry id unique, which the union depends on: the same
+pattern flagged twice in one check is two events, and two entries.
 
 | field | is | why it is here |
 |---|---|---|
 | `d` | day, `YYYY-MM-DD` | Trends are measured in weeks and months. A full timestamp would be a finer record of *when this person was writing* than any feature needs. |
 | `c` | the register context of the check | Register errors are context-specific. A business-register note is not a fact about someone's grammar, and rolling it in with one would report a learner as getting worse for writing to a client. |
 | `t` | tier — `fix` / `unnatural` / `note` | **A note is not an error.** Counting "worth knowing" alongside "fix" would make a learner who is being told more interesting things look like a learner who is making more mistakes. |
-| `id` | stable, created once, on the device where the check happened | The whole basis of the union. |
-| `n` | *(`_checks` only)* how many issues that check returned | The denominator. See §4. |
+| `n` | *(checks)* how many issues came back | The denominator. See §4. |
+| `text`, `issues`, `readings`, `rewrite` | *(checks)* the result, whole | So Review re-renders **what the learner saw**, not a summary of it. See §3. |
 
-### Why keyed by pattern, and not a flat list
+### Why the ledger is keyed by pattern
 
 Three things fall out of it for free rather than being built:
 
@@ -97,32 +122,67 @@ Three things fall out of it for free rather than being built:
    turns out to be exactly the escape hatch this needs.
 3. "How am I doing on は vs が" is a lookup, not a scan.
 
----
+### Two budgets, because the halves weigh differently
 
-## 3. What is deliberately NOT stored, and this is the part to argue with
+`MAX_ENTRIES = 800` caps the ledger **by count**. `MAX_CHECK_BYTES = 400_000`
+and `MAX_CHECKS = 300` cap the checks **by bytes first**, because the count says
+nothing about the weight — 300 haiku and 300 essays are the same number and a
+hundredfold apart in what they cost a sign-in.
 
-**The learner's sentence. Not the submission, and not the span.**
+**The ledger outlives the checks, on purpose.** When an old check ages out, its
+ledger entries stay, so "you have made this error 40 times since May" is still
+true after the earliest examples are gone. The UI says how many sentences are no
+longer kept rather than showing a group that quietly shrank — a shrinking group
+reads as an error that stopped happening.
 
-The feature named at the top needs counts of patterns over time. It does not
-need the text. And the text is the most sensitive thing this app touches: the
-checker is where someone writes the Japanese they are *unsure about* — a message
-to a landlord, an apology to a colleague, something they would not post. Keeping
-every one of those forever, and syncing them to a server under an account, is a
-far larger promise than "we remember what you got wrong", and it is not a promise
-this row asked to make.
+Both numbers are constants at the top of `errorHistory.js` and are meant to be
+raised if learners are losing examples they wanted. The cost is paid at sign-in,
+where the whole document is fetched and upserted, not on every page load.
 
-**The span is the genuine judgement call, and it is being declined for now.** It
-is only a few characters, and it would let the app show a learner the actual
-shape they keep getting wrong instead of a category name — which is more
-teaching, not less. But spans are slices of the sentence, and enough of them
-across enough checks reconstruct a good deal of it. That is a decision about
-someone's private writing and it should be made deliberately, once, in daylight —
-not arrived at because storing it was convenient in Session 24.
+## 3. ⭐ What is stored — the decision that reversed
 
-**It is recorded here as an open question rather than omitted silently**, which
-is the difference this repo keeps paying for.
+**Everything. The submission, every issue with its span, correction and
+explanation, the natural rewrite, the readings.** Enough to re-render exactly
+what the learner saw.
 
----
+### The original argument, kept because it is what was overruled
+
+> The feature named at the top needs counts of patterns over time. It does not
+> need the text. And the text is the most sensitive thing this app touches: the
+> checker is where someone writes the Japanese they are *unsure about* — a
+> message to a landlord, an apology to a colleague, something they would not
+> post. Keeping every one of those forever, and syncing them to a server under
+> an account, is a far larger promise than "we remember what you got wrong".
+>
+> The span is the genuine judgement call… spans are slices of the sentence, and
+> enough of them across enough checks reconstruct a good deal of it.
+
+### Why Lloyd overruled it, and why he is right
+
+**A learner told "you make particle errors", with no examples, has been given a
+label rather than a lesson.** The examples *are* the teaching. Withholding
+someone's own writing from them protects them from nobody — it is their
+sentence, they wrote it, and they came here to be shown what was wrong with it.
+
+The privacy instinct in the original argument was aimed at the wrong target. The
+risk it names is real for *sharing* — a leak, a third party, an unrelated
+service. It is not a reason to keep a learner's own writing from the learner.
+
+**And a truncated record would have been the worst of both.** Storing the span
+but not the sentence, or the pattern but not the explanation, would make Review
+a lossy retelling of the result screen instead of the same screen again — while
+still storing the learner's Japanese. All of the exposure, less of the use.
+
+### What that obliges, and none of it is optional
+
+- **It syncs to the account**, so it is under the same RLS as everything else
+  and lands in the archive on every replace.
+- **It is in `KEYS`**, so Save-to-file carries it and Restore brings it back.
+- **The learner can delete it.** The checker is a section in `stats.js`, so it
+  appears in Progress's reset list — and the confirmation names it in plain
+  words, because "Checker" does not obviously mean *every sentence you have ever
+  written*. Deleting your own writing should never be something you discover you
+  did.
 
 ## 4. Why `_checks` exists
 
@@ -154,10 +214,11 @@ that has already gone.
   Adding `checker` to `PROGRESS_KEYS` lights up the quest-chain task and lets a
   check count toward the weekly rhythm target.
 
-- **The Checker becomes a section in `stats.js`**, so it appears on the Progress
-  tab and — this is the part that matters — **can be reset**. A learner must be
-  able to delete their own record of their own mistakes. Being unable to is worse
-  here than for any other key in the app.
+- **The Checker becomes a section in `stats.js`**, so it appears in Progress
+  and — this is the part that matters — **can be reset**. A learner must be able
+  to delete their own record of their own mistakes. That mattered when this was
+  counts; now that it holds their sentences it matters far more, and the
+  confirmation names what is being cleared in plain words (§3).
 
 - **The count is stated as capability, per the standing rule.** The unit is
   `N patterns you've met` — the same voice as "31 kanji you can read" and "n
@@ -165,16 +226,75 @@ that has already gone.
   them, not a tally of failures. `${n} corrections` would be the same arithmetic
   and the opposite message, which is the entire reason that rule exists.
 
-- **The cap is 800 entries, trimmed after union, deterministically** (sort by
-  day then id, keep the newest). Trimming before the union would make the result
-  depend on which device trimmed first, and the union would stop being
-  order-independent — which is the one property the sync exemption rests on.
+- **Both caps are applied after the union, deterministically** (sort by day then
+  id, keep the newest). Trimming before the union would make the result depend on
+  which device trimmed first, and the union would stop being order-independent —
+  which is the one property the sync exemption rests on. The assertions for it
+  are AT each cap rather than on a small map, because the small case passes under
+  a wrong implementation.
 
 ---
 
 ## 6. What is not built here
 
-Stats screens, practice suggestions and reminders are all downstream of this and
-are their own rows. This session builds the record and the merge, and stops. A
-store that is wrong is cheap to fix while nothing reads it and expensive
-afterwards, so the record goes in first and alone.
+Trend lines, practice suggestions and reminders are all downstream of this and
+are their own rows.
+
+---
+
+## 7. ⭐ Review: organised by error type
+
+Lloyd's instruction, and the shape follows from it directly:
+
+> whenever they are looking for the types of errors they're making, they should
+> always have the ability to find examples of their own mistakes.
+
+**Grouped by error type, and a sentence appears under every type it was flagged
+for.** One sentence with a particle problem, a te-form problem and a keigo note
+appears in all three groups. **The repetition is the feature.** Someone asking
+"what do I keep doing wrong with particles" is not helped by a chronological
+list they have to hunt through — they open the particle group and their own
+particle sentences are in it.
+
+Inside a group, each example is shown **with only the issue that group is
+about** highlighted. A learner opening "te-form" is looking for one thing, and
+lighting up all six issues equally would make them find it again by eye.
+
+Groups are ordered by how often the type has come up, newest example first. A
+group's tier badge is the tier it comes back as **most often** — reporting a
+forty-times `fix` as a `note` because one of them was is how a real problem gets
+a soft label.
+
+Chronology is the second view, one tap away, because *"what did I write last
+week"* is a different and equally real question.
+
+**Two doors, one surface.** Review lives inside the Checker, because it is the
+same material — the checker is where you write Japanese and where you look back
+at the Japanese you wrote. Progress links through to it with a one-shot flag
+(`naoshi-open-review`, cleared by the reader), the same pattern Home already
+uses to open the grammar challenge. A progress screen that reports "you have met
+12 patterns" and offers no way to see them has, again, given the learner a label
+instead of a lesson.
+
+---
+
+## 8. Progress became its own destination
+
+It was a tab inside the Account dialog. The drawer's own comment explains why
+that was wrong, in a line written before this change:
+
+> the drawer list answers "where can I go", and an account is not a place.
+
+**Progress is a place.** It is where a learner goes to see what they can do and
+to read back their own work. Behind a sign-in-shaped door it read as account
+administration. It now sits among the destinations, above the rule.
+
+What moved with it: the capability list, the koban, the dormancy nudge and the
+reset. What stayed in Account: who you are, the two settings, and Save/Restore.
+
+⚠️ **The reset now goes through `resetEverywhere()` in `stats.js`, not
+`resetSections()`.** Clearing only the browser while signed in undoes itself on
+the next sign-in — silently, with a success message, because the merge rule
+treats an empty value as absent and lets the account's real value win. That trap
+is written out at length in `stats.js`; the single entry point exists so that
+Account and Progress cannot drift apart on it.

@@ -3,53 +3,79 @@
 //
 // The record behind the sentence at the top of checker-module.jsx: "your
 // particle errors are down forty percent since May" instead of correcting the
-// same mistake forever. Nothing reads it yet — stats, practice suggestions and
-// reminders are separate rows. This file is the record and the merge, and it
-// stops there deliberately: a store that is wrong is cheap to fix while nothing
-// reads it and expensive afterwards.
+// same mistake forever — and, since Lloyd's decision below, the learner's own
+// back catalogue of what they wrote and what came back.
 //
-// Full write-up, including what is deliberately NOT stored and why:
-// error-history-design-v1.md
+// Full write-up: error-history-design-v1.md
 //
-// ⚠️ THIS IS THE FIRST LOG IN THE APP, AND THAT IS THE WHOLE DESIGN. Every
-// other key is STATE — where the learner is. Two devices holding different
-// state means one of them is behind, which is why sync.js asks. This is a LOG —
-// what the learner did. Two devices holding different logs means BOTH ARE TRUE.
-// Asking "which history do you want to keep?" has no right answer, and the
-// wrong ones delete writing the learner actually did — out of a number they
-// will later be shown as fact. So this key is UNIONED, never chosen between,
-// and sync.js names it explicitly rather than inferring it.
+// ⚠️ THIS IS THE FIRST LOG IN THE APP, AND THAT IS THE WHOLE MERGE DESIGN.
+// Every other key is STATE — where the learner is. Two devices holding
+// different state means one of them is behind, which is why sync.js asks. This
+// is a LOG — what the learner did. Two devices holding different logs means
+// BOTH ARE TRUE. Asking "which history do you want to keep?" has no right
+// answer, and the wrong ones delete writing the learner actually did. So this
+// key is UNIONED, never chosen between, and sync.js names it explicitly.
 //
-// ————— WHAT IS NOT IN HERE —————
-// The learner's sentence, and the span. The checker is where someone writes the
-// Japanese they are UNSURE about — a message to a landlord, an apology to a
-// colleague. Keeping every one forever under an account is a far bigger promise
-// than "we remember what you got wrong". The span is the real judgement call
-// (it would teach better than a category name), and it is declined for v1
-// rather than omitted quietly: enough spans reconstruct the sentence. See §3 of
-// the design doc — that decision is meant to be argued with, not inherited.
+// ————— ⭐ WHAT IS STORED, AND THE DECISION THAT REVERSED —————
+// v1 stored counts only. It deliberately withheld the learner's sentence and
+// even the span, on the grounds that the checker is where someone writes the
+// Japanese they are unsure about. LLOYD OVERRULED THAT, and the reasoning is
+// better than mine was: a learner looking at "you make particle errors" with no
+// examples has been given a label, not a lesson. The examples ARE the teaching.
+// Withholding someone's own writing from them protects them from nobody.
+//
+// So a check is stored whole — the submission, every issue with its span,
+// correction and explanation, the natural rewrite, the readings. Enough to
+// re-render exactly what they saw, because a truncated record would make Review
+// a worse version of the result screen instead of the same one.
+//
+// WHAT THAT OBLIGES, and none of it is optional:
+//   · it syncs to the account, so it is covered by the same RLS as everything
+//     else and lands in the archive on every replace
+//   · it is in KEYS, so Save-to-file carries it and Restore brings it back
+//   · the checker is a SECTION in stats.js, so a learner can DELETE it. That
+//     mattered when this was counts; it matters far more now.
 
 import { storage } from "./storage.js";
 
 export const HISTORY_KEY = "checker-history-v1";
 
-// Entries are cheap (~40 bytes) but the whole store rides inside ONE JSONB
-// document per learner, so it cannot grow without limit. Trimming happens AFTER
-// a union and is deterministic — see trim().
+// ————— Budgets —————
+// Two, because the store now holds two things with very different weights.
+//
+// The PATTERN LEDGER is a few dozen bytes per entry and is what trends are made
+// of, so it is capped by count and kept long.
 export const MAX_ENTRIES = 800;
+// The CHECKS are the heavy half — a 600-character submission with a dozen
+// explained issues runs to several KB. Capped by BYTES rather than by count,
+// because the count says nothing about the weight: 300 haiku and 300 essays are
+// the same number and a hundredfold apart in what they cost a sign-in.
+//
+// ⚠️ THE LEDGER OUTLIVES THE CHECKS ON PURPOSE. When an old check is dropped,
+// its pattern entries stay, so "you have made this error 40 times since May"
+// stays true after the earliest examples are gone. The UI says the sentence is
+// no longer kept rather than pretending the error never happened.
+//
+// Raise these if learners are losing examples they wanted. The cost is paid at
+// sign-in (the whole document is fetched and upserted), not on every page load.
+export const MAX_CHECK_BYTES = 400_000;
+export const MAX_CHECKS = 300;
 
 // `_checks` is not a pattern. The leading underscore is load-bearing:
 // countProgress() in stats.js skips keys beginning with "_", so the Progress
-// tab counts distinct PATTERNS MET and never counts this bucket as one of them.
+// section counts distinct PATTERNS MET and never counts this bucket as one.
 export const CHECKS = "_checks";
 
 const today = () => new Date().toISOString().slice(0, 10);
 
 // Created once, on the device where the check happened, and never recomputed.
-// NOT a hash of the entry: a learner can genuinely make the same error twice in
-// one day in one context, and those are two events, not one. A content hash
-// would silently merge them and undercount exactly the learner who most needs
-// the count to be right.
+// NOT a hash of the content: a learner can genuinely make the same error twice
+// in one day in one context, and those are two events. A content hash would
+// merge them and undercount exactly the learner who most needs the count right.
+//
+// ⚠️ MUST NOT CONTAIN "#". A pattern entry's id is `<checkId>#<issueIndex>`,
+// which is what lets the ledger point at its example without storing the link
+// twice. base36 of a random and a timestamp cannot produce one.
 function newId() {
   return Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
 }
@@ -69,27 +95,59 @@ async function writeHistory(map) {
 
 // ——— PURE CORE (extracted verbatim at run time by test-error-history.py) ———
 
-// One graded check plus its issues, folded into the map. Pure so the test can
-// drive it without a browser, and so the ordering rules below are checkable.
+// A pattern entry's id encodes the check it came from and which issue it was.
+// Storing the link instead of duplicating it keeps the ledger — the half that
+// has to survive longest — as light as it was when it held counts alone.
+const refOf = (id) => String(id).split("#")[0];
+const ixOf = (id) => Number(String(id).split("#")[1]);
+
+// One graded check plus its result, folded into the map. Pure so the test can
+// drive it without a browser.
 //
 // A check with NO issues still writes a _checks entry, and that is not
-// bookkeeping: it is the only way a perfect sentence counts as work. App.jsx's
-// commitIfWorked() uses "the store changed" as its evidence, so without this
-// the best thing a learner can do would register as nothing at all.
-function foldCheck(map, { day, context, issues, ids }) {
+// bookkeeping. It is the only way a perfect sentence counts as work —
+// App.jsx's commitIfWorked() uses "the store changed" as its evidence — and it
+// is the DENOMINATOR: "eight particle errors in May, five in September" is not
+// improvement if the learner also wrote half as much.
+function foldCheck(map, { day, context, checkId, submitted, result }) {
   const out = { ...map };
   const push = (k, entry) => { out[k] = [...(out[k] || []), entry]; };
+  const list = Array.isArray(result?.issues) ? result.issues : [];
 
-  const list = Array.isArray(issues) ? issues : [];
-  push(CHECKS, { d: day, c: context, n: list.length, id: ids[0] });
+  // Stored whole, so Review can re-render what the learner saw rather than a
+  // summary of it. Field names are short because this is the heavy half; the
+  // shape is documented in error-history-design-v1.md §2.
+  push(CHECKS, {
+    id: checkId,
+    d: day,
+    c: context,
+    text: String(submitted ?? ""),
+    verdict: result?.verdict ?? null,
+    score: result?.overall?.natural_score ?? null,
+    summary: result?.overall?.summary ?? null,
+    rewrite: result?.model_rewrite ?? null,
+    readings: Array.isArray(result?.readings) ? result.readings : [],
+    n: list.length,
+    issues: list.map((x) => ({
+      t: x?.type || "note",
+      p: typeof x?.pattern_name === "string" ? x.pattern_name.trim() : "",
+      span: x?.span ?? "",
+      corr: x?.correction ?? null,
+      exp: x?.explanation ?? "",
+      start: Number.isFinite(x?.start) ? x.start : null,
+      end: Number.isFinite(x?.end) ? x.end : null,
+      loc: !!x?.located,
+    })),
+  });
 
   list.forEach((issue, i) => {
-    // An issue with no pattern_name is not filed under a made-up one. It still
-    // counts toward `n` above, so the denominator stays honest even when the
-    // numerator cannot be attributed.
+    // An issue with no pattern_name is not filed under a made-up one. It is
+    // still in the check's own `issues` and still counts toward `n`, so the
+    // example survives and the denominator stays honest — only the ledger,
+    // which is indexed BY pattern, has nothing to file it under.
     const p = typeof issue?.pattern_name === "string" ? issue.pattern_name.trim() : "";
     if (!p || p.startsWith("_")) return;
-    push(p, { d: day, c: context, t: issue.type || "note", id: ids[i + 1] });
+    push(p, { d: day, c: context, t: issue.type || "note", id: `${checkId}#${i}` });
   });
 
   return trim(out);
@@ -125,26 +183,101 @@ function unionHistory(a, b) {
 // alone is the same requirement: ties must break the same way on both devices,
 // and `id` is the only field guaranteed to differ.
 function trim(map) {
+  const out = {};
+
+  // The heavy half, by bytes. Newest kept. Measured per entry rather than by
+  // stringifying the whole array each round, because that is quadratic and this
+  // runs on every check.
+  const checks = order([...(map[CHECKS] || [])]);
+  const kept = [];
+  let bytes = 0;
+  for (let i = checks.length - 1; i >= 0; i--) {
+    const size = JSON.stringify(checks[i]).length;
+    if (kept.length >= MAX_CHECKS || bytes + size > MAX_CHECK_BYTES) break;
+    bytes += size;
+    kept.push(checks[i]);
+  }
+  if (kept.length) out[CHECKS] = kept.reverse();
+
+  // The light half, by count.
   const flat = [];
   for (const [k, list] of Object.entries(map)) {
+    if (k === CHECKS || !Array.isArray(list)) continue;
     for (const e of list) flat.push([k, e]);
   }
-  if (flat.length <= MAX_ENTRIES) {
-    const sorted = {};
-    for (const k of Object.keys(map).sort()) sorted[k] = order(map[k]);
-    return sorted;
-  }
-  flat.sort((x, y) => cmp(x[1], y[1]));
-  const keep = flat.slice(flat.length - MAX_ENTRIES);
-  const out = {};
-  for (const [k, e] of keep) (out[k] || (out[k] = [])).push(e);
+  const ledger = flat.length <= MAX_ENTRIES
+    ? flat
+    : flat.sort((x, y) => cmp(x[1], y[1])).slice(flat.length - MAX_ENTRIES);
+  const byKey = {};
+  for (const [k, e] of ledger) (byKey[k] || (byKey[k] = [])).push(e);
+
   const sorted = {};
-  for (const k of Object.keys(out).sort()) sorted[k] = order(out[k]);
+  for (const k of Object.keys(out).concat(Object.keys(byKey)).sort()) {
+    sorted[k] = order(k === CHECKS ? out[k] : byKey[k]);
+  }
   return sorted;
 }
 
 const cmp = (x, y) => String(x.d).localeCompare(String(y.d)) || String(x.id).localeCompare(String(y.id));
-const order = (list) => [...list].sort(cmp);
+const order = (list) => [...(list || [])].sort(cmp);
+
+// ⭐ THE VIEW LLOYD ASKED FOR: grouped by error type, and a sentence with three
+// kinds of error appears under all three. That repetition is the point — a
+// learner looking for "what do I keep doing with particles" should find their
+// own particle sentences there, not be sent to a chronological list to hunt.
+//
+// Newest first inside a group, most frequent group first. A pattern whose
+// examples have aged past the byte budget still appears, with its count intact
+// and `missing` saying how many sentences are no longer kept — the alternative
+// is a group that silently shrinks and makes the learner think the error
+// stopped happening.
+function byErrorType(map, { since = null, until = null } = {}) {
+  const inRange = (e) => (!since || e.d >= since) && (!until || e.d <= until);
+  const checks = new Map((map?.[CHECKS] || []).map((c) => [c.id, c]));
+  const groups = [];
+
+  for (const [pattern, list] of Object.entries(map || {})) {
+    if (pattern === CHECKS || !Array.isArray(list)) continue;
+    const hits = list.filter(inRange);
+    if (!hits.length) continue;
+
+    const examples = [];
+    let missing = 0;
+    for (const e of [...hits].reverse()) {
+      const check = checks.get(refOf(e.id));
+      if (!check) { missing++; continue; }
+      const ix = ixOf(e.id);
+      examples.push({
+        entry: e, check, ix,
+        issue: Number.isFinite(ix) ? check.issues?.[ix] ?? null : null,
+      });
+    }
+
+    const tiers = {};
+    for (const e of hits) tiers[e.t] = (tiers[e.t] || 0) + 1;
+    groups.push({
+      pattern,
+      total: hits.length,
+      errors: hits.filter((e) => e.t === "fix" || e.t === "unnatural").length,
+      notes: hits.filter((e) => e.t === "note").length,
+      // The tier a learner would call this: the one it comes back as most
+      // often. Reporting a pattern as a "note" because one of forty was is how
+      // a real problem gets a soft label.
+      tier: Object.entries(tiers).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0][0],
+      last: hits.reduce((m, e) => (e.d > m ? e.d : m), ""),
+      examples, missing,
+    });
+  }
+
+  return groups.sort((a, b) => b.total - a.total || a.pattern.localeCompare(b.pattern));
+}
+
+// Every check, newest first — the chronological view, for "what did I write
+// last week". byErrorType is the default because it answers a question the
+// learner actually has; this answers a different one and both are cheap.
+function recentChecks(map, limit = 50) {
+  return [...(map?.[CHECKS] || [])].reverse().slice(0, limit);
+}
 
 // ——— END PURE CORE ———
 
@@ -153,11 +286,10 @@ const order = (list) => [...list].sort(cmp);
  * never on an error — a check that failed to reach the backend is not evidence
  * about anyone's Japanese.
  */
-export async function recordCheck(context, issues) {
-  const list = Array.isArray(issues) ? issues : [];
-  const ids = Array.from({ length: list.length + 1 }, newId);
+export async function recordCheck(context, submitted, result) {
   const next = foldCheck(await readHistory(), {
-    day: today(), context: String(context || "polite"), issues: list, ids,
+    day: today(), context: String(context || "polite"),
+    checkId: newId(), submitted, result: result || {},
   });
   await writeHistory(next);
   return next;
@@ -177,7 +309,7 @@ export async function recordCheck(context, issues) {
  */
 export function summarise(map, { since = null, until = null } = {}) {
   const inRange = (e) => (!since || e.d >= since) && (!until || e.d <= until);
-  const checks = (map[CHECKS] || []).filter(inRange);
+  const checks = (map?.[CHECKS] || []).filter(inRange);
   const patterns = {};
   for (const [k, list] of Object.entries(map || {})) {
     if (k === CHECKS || !Array.isArray(list)) continue;
@@ -193,4 +325,4 @@ export function summarise(map, { since = null, until = null } = {}) {
   return { checks: checks.length, issues: checks.reduce((n, e) => n + (e.n || 0), 0), patterns };
 }
 
-export { foldCheck, unionHistory, trim };
+export { foldCheck, unionHistory, trim, byErrorType, recentChecks, refOf, ixOf };
