@@ -6,11 +6,61 @@ brief's own condition — see the bottom.
 
 ---
 
-## ⚠️ BEFORE THIS CAN WORK IN PRODUCTION — 30 seconds in the Supabase dashboard
+## ✅ DONE AND VERIFIED — sign-in was exercised for real on Sep 6
 
-**Magic-link sign-in will dead-end on the live site until you change one
-setting.** The code is correct; this is configuration, and it is the single
-thing standing between what shipped and a working sign-in.
+Lloyd set the URL configuration and the whole flow was driven end to end against
+the live Supabase project. **The section below is kept because it records what
+was wrong and how it was found, not because it is still outstanding.**
+
+What was actually proven, from the API logs and the row rather than from the
+screen:
+
+```
+POST /auth/v1/otp ?redirect_to=http://localhost:5173/   200
+GET  /auth/v1/verify ?type=signup                       303
+GET  /rest/v1/naoshi_progress ...                       200   fetchRemote
+POST /rest/v1/naoshi_progress ?on_conflict=user_id      201   pushRemote
+```
+
+- RLS and the grants held under a real JWT — 200/201 throughout, no 42501.
+- **The conflict path stops and asks.** With four keys in play the dialog named
+  exactly one: kanji (genuinely different), while known-words (byte-identical),
+  hiragana (device-only) and engagement (equal) were all settled silently. A
+  whole-document design would have asked one crude question and taken the
+  hiragana progress as collateral.
+- **Nothing is written while the question is open.** The conflicting load shows
+  a GET with no POST, and the row's `updated_at` did not move. That sentence was
+  in the migration comments and the design doc as an intention; it is now an
+  observation.
+- **Both preservation halves ran.** Choosing the account's copy dropped
+  `naoshi-progress-2026-09-06.json` into Downloads before overwriting anything
+  local, and the archive table holds versions 1–3. The device-only key survived
+  into version 4 even though the account won the disputed one.
+- Supabase's built-in mailer **does** deliver.
+
+No real progress was ever at risk: the browser used for the test held nothing —
+the first sync pushed `{}`, which is the evidence for that.
+
+**One bug was found this way and fixed** (commit below): the sign-in sync ran
+TWICE per load. StrictMode made it visible, but the race is real without it,
+because `setPhase()` does not take effect until the next render. It was harmless
+only because that account was empty — with data on both sides, run B reads the
+remote that run A has just written, finds it identical to local, and reports
+"clean", **silently settling a genuine conflict**. The guard is now a ref,
+checked and set synchronously. Confirmed fixed by the logs: one GET per load
+across three loads, where there had been two.
+
+Still not proven, and only a deploy can: that the **production bundle** inlines
+the two `VITE_SUPABASE_*` vars. Both are set and scoped correctly, and the local
+build reads them, but the committed `dist/` is a local artifact and says nothing
+about Netlify's.
+
+---
+
+## How the production blocker was found — kept for the method
+
+**Magic-link sign-in dead-ended on the live site until one setting changed.**
+The code was correct; this was configuration.
 
 Supabase → **Authentication → URL Configuration**:
 
@@ -200,9 +250,9 @@ impression than no sign-in button at all.
 ## Not done, and why
 
 **Task 3 (per-user error history keyed by `pattern_name`)** — the brief gates it
-on task 1 landing *and being verified*, and the honest reading is that sign-in
-has not been exercised by a real user yet. Starting a table that hangs off it
-tonight would be building on the one thing not yet proven.
+on task 1 landing *and being verified*. At the time this was written sign-in had
+not been exercised; it has been since (see the top), so the gate is now open and
+task 3 is simply the next thing rather than a blocked thing.
 
 **Two observations, neither acted on, both authoring decisions rather than bugs:**
 

@@ -19,7 +19,7 @@
 // The rule itself lives in sync.js and is tested by test-progress-sync.py.
 // Everything here is presentation of that rule.
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { T } from "./tokens.js";
 import { accountsConfigured, getClient, redirectTo } from "./supabase.js";
 import {
@@ -141,11 +141,38 @@ export default function Account({ open, setOpen }) {
     }
   }, [setOpen]);
 
+  // ⚠️ THE GUARD IS A REF, NOT `phase`. `phase` is state, so two invocations of
+  // this effect in the same tick both read "idle" and both start a sync — which
+  // is exactly what happened on the first real sign-in, Sep 6 2026. The API log
+  // shows the whole cycle twice:
+  //
+  //   GET  /rest/v1/naoshi_progress ...  02:06:47.592
+  //   GET  /rest/v1/naoshi_progress ...  02:06:48.686
+  //   POST /rest/v1/naoshi_progress  201 02:06:48.739
+  //   POST /rest/v1/naoshi_progress  200 02:06:49.509
+  //
+  // StrictMode double-invokes effects in dev, so that is the visible cause; but
+  // the race is real without it, because setPhase() does not take effect until
+  // the next render either way.
+  //
+  // IT WAS HARMLESS ONLY BECAUSE THAT ACCOUNT WAS EMPTY. With progress on both
+  // sides it corrupts the one rule this file exists to enforce: run A reads an
+  // empty remote, merges, and pushes; run B then reads the remote A just wrote,
+  // finds it identical to local, and reports "clean" — so a genuine conflict is
+  // silently settled instead of asked about. The second read makes the first
+  // write look like agreement.
+  //
+  // A ref is checked and set synchronously, so the second invocation cannot get
+  // past it. Keyed by user id so that signing out and back in as someone else
+  // still syncs.
+  const syncedFor = useRef(null);
+
   useEffect(() => {
     if (!client || !session?.user) return;
-    if (phase === "syncing" || phase === "conflict" || phase === "done") return;
+    if (syncedFor.current === session.user.id) return;
+    syncedFor.current = session.user.id;
     runSync(client, session.user);
-  }, [client, session, phase, runSync]);
+  }, [client, session, runSync]);
 
   // ————— settling a question —————
   const choose = async (side) => {
@@ -187,6 +214,7 @@ export default function Account({ open, setOpen }) {
     // merges rather than replaces. Clearing here would turn "sign out" into
     // "delete my work", which is not what the words mean.
     await client?.auth.signOut();
+    syncedFor.current = null;
     setSession(null); setPhase("idle"); setNote(null); setPlan(null); setSides(null);
   };
 
