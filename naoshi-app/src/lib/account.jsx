@@ -12,9 +12,10 @@
 //
 //   · nothing local is written until the merge has been settled
 //   · a genuine disagreement is a QUESTION, with no default and no timer
-//   · the side that loses a question is preserved either way — the account's
-//     copy by the database's archive trigger, the device's by writing a file
-//     before it is overwritten
+//   · the account's copy of a losing side is preserved automatically, by the
+//     database's archive trigger. The DEVICE's copy is not — saving it is a
+//     button the learner presses, offered beside the choice that would
+//     overwrite it (Session 23: nothing downloads without being asked for)
 //
 // The rule itself lives in sync.js and is tested by test-progress-sync.py.
 // Everything here is presentation of that rule, plus the settings and stats a
@@ -86,6 +87,7 @@ export default function Account({ open, setOpen }) {
   const [picked, setPicked] = useState([]);     // sections selected for reset
   const [confirming, setConfirming] = useState(false);
   const [resetMsg, setResetMsg] = useState(null);
+  const [savedCopy, setSavedCopy] = useState(null);
 
   // ————— an auth callback that came back as an error —————
   // Supabase returns failures in the URL FRAGMENT, not as a status code:
@@ -203,13 +205,12 @@ export default function Account({ open, setOpen }) {
     try {
       // The account's copy is preserved by the archive trigger either way. The
       // DEVICE's copy has no such net, so it gets one before being overwritten.
-      if (side === "remote") preserveLocalToFile();
       const settled = resolveConflicts(plan, sides.local, sides.remote, side);
       writeLocal(settled);
       await pushRemote(client, session.user.id, settled);
       setPhase("done");
       setNote(side === "remote"
-        ? "Your account's version is now on this device. This device's previous version was saved to a file first, in your downloads."
+        ? "Your account's version is now on this device."
         : "This device's version is now on your account. The version it replaced is kept in your account's history.");
     } catch (e) {
       setPhase("done");
@@ -250,7 +251,8 @@ export default function Account({ open, setOpen }) {
   // ————— reset —————
   const doReset = async () => {
     setConfirming(false);
-    const res = await resetSections(picked);
+    setSavedCopy(null);
+    const res = await resetSections(picked);   // no automatic download
     if (!res.ok) { setResetMsg(res.message); return; }
 
     // ⚠️ CLEAR THE ACCOUNT TOO, OR THE RESET UNDOES ITSELF. sync.js treats an
@@ -268,7 +270,6 @@ export default function Account({ open, setOpen }) {
     await refresh();
     setResetMsg(
       `Cleared ${res.sections.join(" and ")}` +
-      (res.backedUp ? ", after saving a copy to your downloads" : "") +
       (pushed ? ", on this device and in your account." :
         session ? "." :
         ". You are not signed in, so this cleared this device only — if you sign in later, progress saved to your account will come back.") +
@@ -332,11 +333,23 @@ export default function Account({ open, setOpen }) {
               <button onClick={() => choose("remote")} style={ghost}>
                 Keep what is in my account
               </button>
+              {/* Offered BEFORE the choice, not fired after it. The asymmetry
+                  below is real and is stated rather than papered over. */}
+              <button onClick={() => {
+                const ok = preserveLocalToFile();
+                setSavedCopy(ok ? "Saved. The file is in your downloads." :
+                                  "The browser would not save the file.");
+              }} style={{ ...ghost, borderStyle: "dashed" }}>
+                Save this device's version to a file first
+              </button>
             </div>
+            {savedCopy && (
+              <p role="status" style={{ ...quiet, color: T.ok, marginTop: 8 }}>{savedCopy}</p>
+            )}
             <p style={{ ...quiet, marginTop: 12 }}>
-              Whichever you choose, the other version is kept — your account
-              keeps its own history, and this device's version is written to a
-              file before anything is replaced.
+              Your account keeps its own history either way, so choosing this
+              device is always reversible. Choosing your account replaces what is
+              here — save a copy first if you are not sure.
             </p>
           </>
         ) : (
@@ -503,8 +516,8 @@ export default function Account({ open, setOpen }) {
                 <h3 style={{ font: `600 13px ${T.uiFont}`, letterSpacing: ".4px",
                              color: T.sub, margin: "18px 0 8px" }}>START A SECTION AGAIN</h3>
                 <p style={{ ...quiet, marginTop: 0 }}>
-                  Choose what to clear. A copy of everything is saved to a file
-                  first, so this can be undone with Restore.
+                  Choose what to clear. Nothing is downloaded automatically — if
+                  you want to be able to undo this, save a copy first.
                 </p>
                 <div style={{ margin: "10px 0" }}>
                   {stats.map((s) => (
@@ -537,13 +550,23 @@ export default function Account({ open, setOpen }) {
                     <p style={{ font: `14px/1.6 ${T.uiFont}`, margin: "0 0 10px" }}>
                       Clear <strong>{stats.filter((s) => picked.includes(s.id))
                         .map((s) => s.label).join(" and ")}</strong>? This cannot be
-                      undone except from the file that is about to be saved.
+                      undone unless you save a copy first.
                       {!session && " You are not signed in, so this clears this device only."}
                     </p>
                     <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      <button onClick={() => {
+                        const ok = preserveLocalToFile();
+                        setSavedCopy(ok ? "Saved. The file is in your downloads." :
+                                          "The browser would not save the file.");
+                      }} style={{ ...ghost, borderStyle: "dashed" }}>
+                        Save a copy first
+                      </button>
                       <button onClick={doReset} style={danger}>Yes, clear it</button>
                       <button onClick={() => setConfirming(false)} style={ghost}>Cancel</button>
                     </div>
+                    {savedCopy && (
+                      <p role="status" style={{ ...quiet, color: T.ok, marginTop: 8 }}>{savedCopy}</p>
+                    )}
                   </div>
                 )}
 

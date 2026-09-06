@@ -418,8 +418,14 @@ await go("checker", null, [], {
   },
 });
 
-// ————— ENGAGEMENT PANEL (Session 23) —————
-// The daily card / weekly rhythm / quest chain, spliced onto Home.
+// ————— GOALS, THE ONCE-A-DAY DIALOG (Session 23) —————
+// The daily card / weekly rhythm / quest chain. It was inline on Home; Lloyd
+// moved it behind a dialog that opens ITSELF on the first visit of each day
+// and is reachable afterwards from the Goals button.
+//
+// The behaviour worth guarding is the ONCE part. An "open every load" bug
+// looks identical on the first run of the day and is only visible on the
+// second, so both are exercised below.
 //
 // ⚠️ WHY THIS CHECKS CSS AND NOT JUST THAT IT RENDERED. engagement-module.jsx is
 // authored in Tailwind and this app has no Tailwind, so build-vite-app.py
@@ -468,16 +474,21 @@ await go("checker", null, [], {
   };
   w.console.warn = () => {};
   w.addEventListener("error", e => errors.push("UNCAUGHT: " + (e.error?.message || e.message)));
-  // The panel renders nothing for a learner who has started nothing — that is
-  // deliberate, so it has to be given something to have started.
+  // It shows nothing to a learner who has started nothing — deliberate, so it
+  // has to be given something to have started.
   w.localStorage.setItem("hiragana-progress-v2", JSON.stringify({ "h-a": { seen: true } }));
   w.eval(fs.readFileSync(BUNDLE, "utf8"));
   await new Promise(r => setTimeout(r, 2500));
 
-  console.log("\nENGAGEMENT — daily card on Home");
+  console.log("\nGOALS — the once-a-day dialog");
+  const goalsDlg = () => [...w.document.querySelectorAll('[role="dialog"]')]
+    .find(d => d.getAttribute("aria-label") === "Goals");
+  if (!goalsDlg()) fail("GOALS: did not open itself on the first visit of the day");
+  else console.log("  opens itself on the first visit of the day");
+
   const scope = w.document.querySelector(".eng-scope");
   if (!scope) {
-    fail("ENGAGEMENT: no .eng-scope on Home — the panel did not mount");
+    fail("GOALS: no .eng-scope — the engagement module did not mount");
   } else {
     const styleEl = scope.querySelector("style");
     if (!styleEl) {
@@ -525,7 +536,47 @@ await go("checker", null, [], {
     if (text.length < 80) fail(`ENGAGEMENT: panel rendered only ${text.length} chars`);
     else console.log(`  panel rendered ${text.length} chars`);
   }
-  if (errors.length) fail("ENGAGEMENT: console errors — " + errors.slice(0, 2).join(" | "));
+  if (errors.length) fail("GOALS: console errors — " + errors.slice(0, 2).join(" | "));
+}
+
+// Second visit, same day: it must NOT reopen. Fresh window, same marker.
+{
+  const dom = new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',
+    { runScripts: "outside-only", pretendToBeVisual: true, url: "http://localhost/" });
+  const w = dom.window;
+  w.HTMLCanvasElement.prototype.getContext = () => new Proxy({
+    canvas: { width: 300, height: 300 }, measureText: () => ({ width: 0 }),
+  }, { get: (t, k) => (k in t ? t[k] : () => {}), set: (t, k, v) => { t[k] = v; return true; } });
+  w.fetch = () => Promise.resolve({ ok: false, status: 404 });
+  w.console.error = () => {}; w.console.warn = () => {};
+  w.localStorage.setItem("hiragana-progress-v2", JSON.stringify({ "h-a": { seen: true } }));
+  const d = new Date();
+  const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  w.localStorage.setItem("naoshi-goals-seen", today);
+  w.eval(fs.readFileSync(BUNDLE, "utf8"));
+  await new Promise(r => setTimeout(r, 2500));
+
+  const reopened = [...w.document.querySelectorAll('[role="dialog"]')]
+    .find(x => x.getAttribute("aria-label") === "Goals");
+  if (reopened) {
+    fail("GOALS: opened again on a second visit the same day — the marker is not being read");
+  } else {
+    console.log("  stays shut on a second visit the same day");
+  }
+
+  // …and the Goals button is still there to open it on purpose.
+  const btn = [...w.document.querySelectorAll("button")]
+    .find(b => (b.textContent || "").trim() === "Goals");
+  if (!btn) {
+    fail("GOALS: no Goals button on Home — the dialog would be unreachable after the first visit");
+  } else {
+    btn.click();
+    await new Promise(r => setTimeout(r, 900));
+    const opened = [...w.document.querySelectorAll('[role="dialog"]')]
+      .find(x => x.getAttribute("aria-label") === "Goals");
+    if (!opened) fail("GOALS: the Goals button did not open the dialog");
+    else console.log("  the Goals button reopens it on demand");
+  }
 }
 
 // ————— ACCOUNTS (Session 23) —————

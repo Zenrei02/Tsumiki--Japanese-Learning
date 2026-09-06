@@ -36,6 +36,7 @@ export const ENGAGEMENT_CSS = String.raw`
 .eng-scope .font-medium{font-weight:500}
 .eng-scope .font-normal{font-weight:400}
 .eng-scope .font-sans{font-family:${T.uiFont}}
+.eng-scope .font-semibold{font-weight:600}
 .eng-scope .from-amber-50\/40{--eng-from:rgba(255,251,235,0.4)}
 .eng-scope .gap-1\.5{gap:0.375rem}
 .eng-scope .gap-1{gap:0.25rem}

@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { downloadProgress, importProgress, storage } from "./lib/storage.js";
 import Account from "./lib/account.jsx";
-import EngagementPanel from "./lib/engagementPanel.jsx";
+import GoalsDialog from "./lib/engagementPanel.jsx";
 import { reportStudy } from "./lib/activity.js";
 import { markWorked, readRecency, orderByRecency, readWallet,
          daysSinceLastWorked, DORMANT_DAYS } from "./lib/stats.js";
@@ -78,7 +78,7 @@ async function readNextTask() {
   } catch (e) { return null; }
 }
 
-function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays, openAccount }) {
+function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays, openAccount, openGoals }) {
   const fresh = !MODULES.some((m) => startedMap[m.id]);
   const started = (id) => Boolean(startedMap[id]);
 
@@ -183,13 +183,45 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
         </button>
       )}
 
-      {/* The daily card, the weekly rhythm and the current quest chain.
-          Renders nothing until something has been started — see
-          lib/engagementPanel.jsx. It sits BELOW the hero and above the doors
-          because the hero answers "what now" and this answers "how am I
-          going"; a learner who has an answer to the first does not need to
-          scroll past the second to act on it. */}
-      <EngagementPanel startedMap={startedMap} />
+      {/* ————— Goals and koban, on Home only (Lloyd, Session 23) —————
+          The balance was briefly in the header, which put it on top of every
+          lesson screen too. A currency counter visible while you are practising
+          is a scoreboard, and this app deliberately does not keep score during
+          the work — the same instinct as the standing rule against workload
+          numbers. On Home it answers "what have I earned"; over a kanji drill it
+          would be answering a question nobody asked.
+
+          ⚠️ SHOWING IT AT ALL STILL REVERSES A RECORDED DECISION, deliberately.
+          reward-system-design-v1.md §1 and the engagement module both say the
+          balance is not displayed and is checked in the room/shop. That was
+          written when the room existed as a plan; with no room yet the koban
+          were being earned and were literally unseeable, which is worse than the
+          problem the rule was avoiding. Revisit when the room ships — the
+          original reasoning is sound once there is somewhere to spend them.
+
+          The daily card, the weekly rhythm and the quest chain now live behind
+          the Goals button rather than inline here: see lib/engagementPanel.jsx
+          for why once-a-day beats always-on-screen. */}
+      {!fresh && (
+        <div style={{
+          display: "flex", alignItems: "center", gap: 12,
+          marginBottom: 22, flexWrap: "wrap",
+        }}>
+          <button onClick={openGoals} style={{
+            ...cardBase, width: "auto", padding: "10px 16px",
+            font: `600 14px ${T.uiFont}`,
+          }}>
+            Goals
+          </button>
+          {wallet > 0 && (
+            <span title="Koban you have earned" style={{
+              font: `14px ${T.uiFont}`, color: T.note, whiteSpace: "nowrap",
+            }}>
+              <span style={{ fontFamily: T.jpFont }}>小判</span> {wallet}
+            </span>
+          )}
+        </div>
+      )}
 
       {/* ————— Where you have been, most recent first (Session 23) —————
           Lloyd: once someone has started something, the front door should be
@@ -346,6 +378,7 @@ export default function App() {
   const [lastWorked, setLastWorked] = useState(null);
   const [nextTask, setNextTask] = useState(null);
   const [accountOpen, setAccountOpen] = useState(false);
+  const [goalsOpen, setGoalsOpen] = useState(false);
   const [recency, setRecency] = useState({});
   const [wallet, setWallet] = useState(0);
   const [dormantDays, setDormantDays] = useState(null);
@@ -483,22 +516,6 @@ export default function App() {
             font: `14px ${T.uiFont}`, color: T.sub, marginLeft: 2,
           }}>{active === "home" ? "" : current.label}</span>
           <span style={{ flex: 1 }} />
-          {/* ⚠️ THIS REVERSES A RECORDED DECISION, deliberately and on Lloyd's
-              instruction (Session 23). reward-system-design-v1.md §1 and the
-              engagement module both say the balance is NOT shown in the header
-              and is checked in the room/shop. That was written when the room
-              existed as a plan; with no room yet, koban were being earned and
-              were literally unseeable, which is worse than the problem the rule
-              was avoiding. Revisit when the room ships — the original reasoning
-              is sound once there is somewhere to spend them. */}
-          {wallet > 0 && (
-            <span title="Koban you have earned" style={{
-              font: `13px ${T.uiFont}`, color: T.note, marginRight: 4,
-              whiteSpace: "nowrap",
-            }}>
-              <span style={{ fontFamily: T.jpFont }}>小判</span> {wallet}
-            </span>
-          )}
           <button onClick={downloadProgress} title="Save your progress to a file" style={{
             ...btn, border: `1px solid ${T.hairline}`, padding: "6px 12px",
             font: `13px ${T.uiFont}`, color: T.sub,
@@ -529,11 +546,16 @@ export default function App() {
           learner’s work survives must not sit behind a closed menu. */}
       <Account open={accountOpen} setOpen={setAccountOpen} />
 
+      {/* Mounted always, not only on Home: it opens ITSELF once a day, and a
+          learner may well arrive straight into a module. */}
+      <GoalsDialog open={goalsOpen} setOpen={setGoalsOpen} startedMap={startedMap} />
+
       <main style={{ maxWidth: 900, margin: "0 auto" }}>
         {active === "home" ? (
           <Home startedMap={startedMap} nextTask={nextTask} go={go}
                 recency={recency} wallet={wallet} dormantDays={dormantDays}
                 openAccount={() => setAccountOpen(true)}
+                openGoals={() => setGoalsOpen(true)}
                 lastMod={MODULES.find((m) => m.id === lastWorked) || null} />
         ) : (
           <Suspense fallback={

@@ -437,17 +437,33 @@ function QuoteCard({ quote }) {
 
       <div className="my-4 h-px bg-stone-200" />
 
-      <p className="text-xs uppercase tracking-wider text-stone-400">Word for word</p>
+      {/* ⚠️ THE THREE LABELS ARE A SEQUENCE, NOT A LIST (Lloyd, Session 23).
+          They walk from what the words certainly say, to what they might mean,
+          to the learner's own reading — and the last step is the one the card
+          exists for. The previous version put the invitation in 11px grey at
+          the bottom, which is where a disclaimer goes, not a question. An
+          invitation that looks like small print gets read as small print.
+
+          This is also what keeps the card off the reviewer's desk: an
+          invitation cannot be wrong the way an assertion can, so nothing here
+          needs a native-speaker ruling. Do not "improve" these into a stated
+          meaning — that would put every card in the review queue. */}
+      <p className="text-xs uppercase tracking-wider text-stone-400">Literally</p>
       <p className="mt-1 text-sm italic text-stone-600">{quote.literal}</p>
 
-      <p className="mt-4 text-xs uppercase tracking-wider text-stone-400">One way to read it</p>
+      <p className="mt-4 text-xs uppercase tracking-wider text-stone-400">It might mean</p>
       <p className="mt-1 text-sm leading-relaxed text-stone-700">{quote.one_reading}</p>
 
       <p className="mt-4 rounded-lg bg-stone-100 px-3 py-2 text-sm text-stone-700">
         {quote.invite}
       </p>
-      <p className="mt-2 text-[11px] text-stone-400">
-        This is one reading, not the answer. Yours may be better.
+
+      <p className="mt-4 text-sm leading-relaxed text-stone-800">
+        But what do <span className="font-semibold italic">you</span> think it is
+        trying to say?
+      </p>
+      <p className="mt-1 text-xs text-stone-500">
+        There is no answer waiting behind this. Yours may be the better one.
       </p>
     </div>
   );

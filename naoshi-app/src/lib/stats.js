@@ -154,13 +154,20 @@ export async function daysSinceLastWorked() {
 const EMPTY_FOR = (key) =>
   (key === "known-kanji-v1" || key === "known-words-v1") ? "[]" : "{}";
 
-export async function resetSections(sectionIds, { backupFirst = true } = {}) {
+// ⚠️ backupFirst DEFAULTS TO FALSE. It used to default to true and fire a
+// download on every reset. Lloyd removed that (Session 23): a file landing in
+// someone's Downloads without being asked for is intrusive, and an app that does
+// it routinely trains people to ignore it — which is the opposite of what a
+// backup is for. The UI now offers the save as a button beside the confirm, and
+// the confirmation text says plainly that clearing cannot be undone without one.
+export async function resetSections(sectionIds, { backupFirst = false } = {}) {
   const ids = new Set(sectionIds);
   const chosen = SECTIONS.filter((s) => ids.has(s.id));
   if (!chosen.length) return { ok: false, message: "Nothing was selected." };
 
-  // A file before anything is cleared — the same promise the sign-in merge
-  // makes, and the only recovery a signed-out learner has.
+  // Only when the caller asked for it. For a signed-out learner this file is
+  // the ONLY recovery there is, which is why the UI offers it prominently
+  // rather than quietly doing it for them.
   let backedUp = false;
   if (backupFirst) {
     try { downloadProgress(); backedUp = true; } catch { backedUp = false; }

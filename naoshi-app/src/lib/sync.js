@@ -35,12 +35,25 @@
 // real value that a learner earned their way down to.
 //
 //   4. On a conflict the app asks, with no default and no timer, and names the
-//      items that differ. Whichever side loses is PRESERVED, not discarded:
-//        · the device's version is written to a file first (downloadProgress)
-//        · the account's version is kept by the database, which archives every
-//          document it replaces (see the archive trigger in
-//          supabase/migrations/20260906000000_progress_sync.sql)
-//      So "wrong button at 1am" is a support question, not a bereavement.
+//      items that differ.
+//
+// WHAT HAPPENS TO THE SIDE THAT LOSES — and note the asymmetry, because it is
+// the thing to keep in mind before touching this:
+//        · the ACCOUNT's version is kept automatically, by the database, which
+//          archives every document it replaces (see the archive trigger in
+//          supabase/migrations/20260906000000_progress_sync.sql). Nothing the
+//          client does can skip it.
+//        · the DEVICE's version has no such net. It used to be downloaded
+//          automatically before an overwrite; Lloyd removed that (Session 23)
+//          on the grounds that a file appearing in someone's Downloads without
+//          being asked for is intrusive, and he is right that it is. The save
+//          is now a button the learner presses, offered right next to the
+//          choice that would overwrite it.
+//
+// ⚠️ SO THE GUARANTEE IS NOW ASYMMETRIC, AND ANY COPY SAYING OTHERWISE IS
+// STALE. Choosing "keep my account" without pressing Save first really does
+// discard this device's differing keys, and no wording should imply otherwise.
+// The UI says so plainly instead of promising a rescue that no longer happens.
 //
 // Full write-up, including what was considered and rejected:
 // auth-progress-sync-design-v1.md
@@ -166,9 +179,9 @@ export async function pushRemote(client, userId, map) {
   return clean;
 }
 
-// The losing side of a conflict is never simply dropped. The account's version
-// is kept by the database's archive trigger; the DEVICE's version has no such
-// safety net, so it gets one here — a file, before anything is overwritten.
+// Offered as a button, not fired automatically — see the note at the top of this
+// file. Returns false if the browser refused the download, so a caller can say
+// so rather than claiming a save that did not happen.
 export function preserveLocalToFile() {
   try { downloadProgress(); return true; } catch { return false; }
 }

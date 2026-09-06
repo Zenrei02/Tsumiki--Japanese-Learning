@@ -61,23 +61,37 @@ their own work to answer a question they should never have seen.
 - Everything that was **not** in dispute is already settled and is said to be,
   so the choice is visibly about three items rather than about everything.
 
-## Nothing that loses is destroyed
+## What happens to the side that loses
 
-This is what makes a wrong answer survivable rather than final.
+The two sides are protected differently, and the asymmetry is deliberate rather
+than an oversight. Say it plainly wherever it comes up; do not let a comment or
+a sentence of UI copy imply symmetry it does not have.
 
-- **The account's copy** is kept by the database. `naoshi_progress` has a
+- **The account's copy is kept automatically.** `naoshi_progress` has a
   `BEFORE UPDATE` trigger that files the outgoing document into
   `naoshi_progress_archive` under the version it had. No client involvement, and
   no way for a client to skip it — see
-  `supabase/migrations/20260906000000_progress_sync.sql`.
-- **The device's copy** has no such net, so it is given one: `downloadProgress()`
-  writes a file *before* anything local is overwritten. That is what
-  `exportProgress` / `importProgress` were built for, and it is why the merge
-  writes back through `importProgress` rather than growing a second write path
-  with subtly different filtering.
+  `supabase/migrations/20260906000000_progress_sync.sql`. So choosing *this
+  device* is always reversible.
 
-So the worst realistic outcome — wrong button, one in the morning — is a support
-question, not a bereavement.
+- **The device's copy is not.** It is saved only if the learner presses the
+  button offered beside the choice, and the copy is a file written by
+  `downloadProgress()` — which is what `exportProgress` / `importProgress` were
+  built for, and why the merge writes back through `importProgress` rather than
+  growing a second write path with subtly different filtering.
+
+**This changed on 2026-09-06.** The first version downloaded the file
+automatically before any local overwrite, and the reset did the same. Lloyd
+removed both: a file appearing in someone's Downloads without being asked for is
+intrusive, and an app that does it routinely teaches people to ignore the files
+it produces — which is precisely the opposite of what a backup is for.
+
+The cost of that decision is honest and worth stating: **choosing "keep my
+account" without saving first really does discard this device's differing keys.**
+The UI says so at the point of choosing rather than promising a rescue that no
+longer happens. A promise that used to be true and quietly stopped being true is
+the most expensive kind of comment in this repo, which is why this section names
+the date.
 
 ## Order of operations, and why
 

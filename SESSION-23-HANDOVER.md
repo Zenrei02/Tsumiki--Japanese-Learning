@@ -36,6 +36,12 @@ POST /rest/v1/naoshi_progress ?on_conflict=user_id      201   pushRemote
   `naoshi-progress-2026-09-06.json` into Downloads before overwriting anything
   local, and the archive table holds versions 1–3. The device-only key survived
   into version 4 even though the account won the disputed one.
+
+  ⚠️ **That automatic download was removed later the same day**, on Lloyd's
+  instruction — nothing should land in someone's Downloads unasked. The file is
+  now a button offered beside the choice. The paragraph above records what was
+  tested on the day and is left as written; the current behaviour is in
+  `auth-progress-sync-design-v1.md`.
 - Supabase's built-in mailer **does** deliver.
 
 No real progress was ever at risk: the browser used for the test held nothing —
