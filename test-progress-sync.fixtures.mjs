@@ -1,5 +1,5 @@
 // Fixtures for test-progress-sync.py. The functions under test are sliced out
-// of naoshi-app/src/lib/sync.js AT RUN TIME and prepended to this file, so these
+// of tsumiki-app/src/lib/sync.js AT RUN TIME and prepended to this file, so these
 // assertions always run against the shipped merge core and never against a copy.
 //
 // The property every one of these exists to protect: SIGNING IN MUST NOT LOSE
@@ -35,15 +35,15 @@ const eq = (a, b, msg) => assert(canonCmp(a) === canonCmp(b),
 
 // ————— 2. one side only — the two cases that MUST never ask —————
 {
-  const p = mergeProgress({ "kanji-progress-v1": '{"a":1}' }, {});
-  eq(p.pushed, ["kanji-progress-v1"], "local-only key is pushed");
-  eq(p.merged, { "kanji-progress-v1": '{"a":1}' }, "local-only key survives");
+  const p = mergeProgress({ "tsumiki-kanji-progress-v1": '{"a":1}' }, {});
+  eq(p.pushed, ["tsumiki-kanji-progress-v1"], "local-only key is pushed");
+  eq(p.merged, { "tsumiki-kanji-progress-v1": '{"a":1}' }, "local-only key survives");
   assert(p.status === "clean", "local-only is not a conflict");
 }
 {
-  const p = mergeProgress({}, { "kanji-progress-v1": '{"a":1}' });
-  eq(p.pulled, ["kanji-progress-v1"], "remote-only key is pulled");
-  eq(p.merged, { "kanji-progress-v1": '{"a":1}' }, "remote-only key survives");
+  const p = mergeProgress({}, { "tsumiki-kanji-progress-v1": '{"a":1}' });
+  eq(p.pulled, ["tsumiki-kanji-progress-v1"], "remote-only key is pulled");
+  eq(p.merged, { "tsumiki-kanji-progress-v1": '{"a":1}' }, "remote-only key survives");
   assert(p.status === "clean", "remote-only is not a conflict");
 }
 
@@ -52,14 +52,14 @@ const eq = (a, b, msg) => assert(canonCmp(a) === canonCmp(b),
 // disagreement. A whole-document sync would make the learner destroy half of
 // their own work to answer a question they should never have been asked.
 {
-  const local  = { "kanji-progress-v1": '{"k":1}', "known-kanji-v1": '["日"]' };
-  const remote = { "n5-progress-v1": '{"g":1}',   "learner-depth-v1": '{"d":2}' };
+  const local  = { "tsumiki-kanji-progress-v1": '{"k":1}', "tsumiki-known-kanji-v1": '["日"]' };
+  const remote = { "tsumiki-n5-progress-v1": '{"g":1}',   "tsumiki-learner-depth-v1": '{"d":2}' };
   const p = mergeProgress(local, remote);
   assert(p.status === "clean", "disjoint devices do not conflict");
   eq(Object.keys(p.merged).sort(),
-     ["kanji-progress-v1", "known-kanji-v1", "learner-depth-v1", "n5-progress-v1"],
+     ["tsumiki-kanji-progress-v1", "tsumiki-known-kanji-v1", "tsumiki-learner-depth-v1", "tsumiki-n5-progress-v1"],
      "disjoint devices merge to the union");
-  assert(p.merged["kanji-progress-v1"] === '{"k":1}' && p.merged["n5-progress-v1"] === '{"g":1}',
+  assert(p.merged["tsumiki-kanji-progress-v1"] === '{"k":1}' && p.merged["tsumiki-n5-progress-v1"] === '{"g":1}',
     "union keeps both sides' values verbatim");
 }
 
@@ -68,20 +68,20 @@ const eq = (a, b, msg) => assert(canonCmp(a) === canonCmp(b),
 // to real progress raises a conflict over nothing, and a learner taught to
 // dismiss the question will dismiss the real one too.
 {
-  const p = mergeProgress({ "n5-progress-v1": "{}" }, { "n5-progress-v1": '{"real":1}' });
-  eq(p.pulled, ["n5-progress-v1"], "empty local yields to real remote");
+  const p = mergeProgress({ "tsumiki-n5-progress-v1": "{}" }, { "tsumiki-n5-progress-v1": '{"real":1}' });
+  eq(p.pulled, ["tsumiki-n5-progress-v1"], "empty local yields to real remote");
   assert(p.status === "clean", "placeholder vs real is not a conflict");
 }
 {
-  const p = mergeProgress({ "n5-progress-v1": '{"real":1}' }, { "n5-progress-v1": "[]" });
-  eq(p.pushed, ["n5-progress-v1"], "empty remote yields to real local");
+  const p = mergeProgress({ "tsumiki-n5-progress-v1": '{"real":1}' }, { "tsumiki-n5-progress-v1": "[]" });
+  eq(p.pushed, ["tsumiki-n5-progress-v1"], "empty remote yields to real local");
 }
 
 // ————— 5. same state, different serialisation —————
 {
-  const p = mergeProgress({ "known-words-v1": '{"a":1,"b":2}' },
-                          { "known-words-v1": '{"b":2,"a":1}' });
-  eq(p.same, ["known-words-v1"], "key order is not a disagreement");
+  const p = mergeProgress({ "tsumiki-known-words-v1": '{"a":1,"b":2}' },
+                          { "tsumiki-known-words-v1": '{"b":2,"a":1}' });
+  eq(p.same, ["tsumiki-known-words-v1"], "key order is not a disagreement");
   assert(p.conflicts.length === 0, "reordered JSON does not conflict");
 }
 
@@ -90,42 +90,42 @@ const eq = (a, b, msg) => assert(canonCmp(a) === canonCmp(b),
 // conflicted key, the app will apply it without asking, and one device's work
 // is gone.
 {
-  const local  = { "kanji-progress-v1": '{"traced":["日"]}' };
-  const remote = { "kanji-progress-v1": '{"traced":["月"]}' };
+  const local  = { "tsumiki-kanji-progress-v1": '{"traced":["日"]}' };
+  const remote = { "tsumiki-kanji-progress-v1": '{"traced":["月"]}' };
   const p = mergeProgress(local, remote);
   assert(p.status === "conflict", "differing content is a conflict");
-  eq(p.conflicts, ["kanji-progress-v1"], "the differing key is named");
-  assert(!("kanji-progress-v1" in p.merged),
+  eq(p.conflicts, ["tsumiki-kanji-progress-v1"], "the differing key is named");
+  assert(!("tsumiki-kanji-progress-v1" in p.merged),
     "A CONFLICTED KEY MUST NOT APPEAR IN merged — that is silent data loss");
 }
 
 // ————— 7. "0" is a value someone earned their way down to —————
 {
-  const p = mergeProgress({ "achievement-points-v1": "0" },
-                          { "achievement-points-v1": "120" });
+  const p = mergeProgress({ "tsumiki-achievement-points-v1": "0" },
+                          { "tsumiki-achievement-points-v1": "120" });
   assert(p.status === "conflict", "a spent wallet is not an empty wallet");
 }
 
 // ————— 8. non-JSON values compare as strings —————
 {
-  const p = mergeProgress({ "kanji-mode": "kun" }, { "kanji-mode": "on" });
-  eq(p.conflicts, ["kanji-mode"], "plain strings still compare");
-  const q = mergeProgress({ "kanji-mode": "kun" }, { "kanji-mode": "kun" });
-  eq(q.same, ["kanji-mode"], "identical plain strings agree");
+  const p = mergeProgress({ "tsumiki-kanji-mode": "kun" }, { "tsumiki-kanji-mode": "on" });
+  eq(p.conflicts, ["tsumiki-kanji-mode"], "plain strings still compare");
+  const q = mergeProgress({ "tsumiki-kanji-mode": "kun" }, { "tsumiki-kanji-mode": "kun" });
+  eq(q.same, ["tsumiki-kanji-mode"], "identical plain strings agree");
 }
 
 // ————— 9. resolution is explicit or it does not happen —————
 {
-  const local  = { "kanji-progress-v1": "L", "known-words-v1": "shared" };
-  const remote = { "kanji-progress-v1": "R", "known-words-v1": "shared" };
+  const local  = { "tsumiki-kanji-progress-v1": "L", "tsumiki-known-words-v1": "shared" };
+  const remote = { "tsumiki-kanji-progress-v1": "R", "tsumiki-known-words-v1": "shared" };
   const p = mergeProgress(local, remote);
 
   const keepLocal = resolveConflicts(p, local, remote, "local");
-  eq(keepLocal, { "known-words-v1": "shared", "kanji-progress-v1": "L" },
+  eq(keepLocal, { "tsumiki-known-words-v1": "shared", "tsumiki-kanji-progress-v1": "L" },
      "keeping the device fills conflicts from local");
 
   const keepRemote = resolveConflicts(p, local, remote, "remote");
-  eq(keepRemote, { "known-words-v1": "shared", "kanji-progress-v1": "R" },
+  eq(keepRemote, { "tsumiki-known-words-v1": "shared", "tsumiki-kanji-progress-v1": "R" },
      "keeping the account fills conflicts from remote");
 
   let threw = false;
@@ -139,8 +139,8 @@ const eq = (a, b, msg) => assert(canonCmp(a) === canonCmp(b),
 
 // ————— 10. the plan does not mutate what it was given —————
 {
-  const local  = { "kanji-progress-v1": "L" };
-  const remote = { "n5-progress-v1": "R" };
+  const local  = { "tsumiki-kanji-progress-v1": "L" };
+  const remote = { "tsumiki-n5-progress-v1": "R" };
   const lc = JSON.stringify(local), rc = JSON.stringify(remote);
   const p = mergeProgress(local, remote);
   resolveConflicts(p, local, remote, "local");
@@ -150,10 +150,10 @@ const eq = (a, b, msg) => assert(canonCmp(a) === canonCmp(b),
 
 // ————— 11. missing/undefined arguments are survivable —————
 {
-  const p = mergeProgress(null, { "kanji-progress-v1": "R" });
-  eq(p.pulled, ["kanji-progress-v1"], "a null local is an empty local, not a crash");
-  const q = mergeProgress({ "kanji-progress-v1": "L" }, null);
-  eq(q.pushed, ["kanji-progress-v1"], "a null remote is an empty remote, not a crash");
+  const p = mergeProgress(null, { "tsumiki-kanji-progress-v1": "R" });
+  eq(p.pulled, ["tsumiki-kanji-progress-v1"], "a null local is an empty local, not a crash");
+  const q = mergeProgress({ "tsumiki-kanji-progress-v1": "L" }, null);
+  eq(q.pushed, ["tsumiki-kanji-progress-v1"], "a null remote is an empty remote, not a crash");
 }
 
 // ————— 12. isEmptyValue, stated directly —————
@@ -184,8 +184,8 @@ const eq = (a, b, msg) => assert(canonCmp(a) === canonCmp(b),
 
   // An UNREGISTERED key with the same shape must still ask. If this ever goes
   // green the exemption has stopped being a named list and become a behaviour.
-  const q = mergeProgress({ "kanji-progress-v1": '["a"]' }, { "kanji-progress-v1": '["b"]' });
-  eq(q.conflicts, ["kanji-progress-v1"], "an unregistered key still asks");
+  const q = mergeProgress({ "tsumiki-kanji-progress-v1": '["a"]' }, { "tsumiki-kanji-progress-v1": '["b"]' });
+  eq(q.conflicts, ["tsumiki-kanji-progress-v1"], "an unregistered key still asks");
 
   // ⚠️ WRONG TOWARD ASKING, NEVER TOWARD INVENTING. A merger that cannot do its
   // job must fall back to the question, not to a document it made up.

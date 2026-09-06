@@ -3,10 +3,10 @@
 check-storage-keys.py — guard against the export/import key list drifting.
 
 WHY THIS EXISTS
-The KEYS list in naoshi-app/src/lib/storage.js is hand-maintained and is the
+The KEYS list in tsumiki-app/src/lib/storage.js is hand-maintained and is the
 ONLY thing Save/Restore copies. It was written for the four static modules and
-never updated when the grammar module arrived, so `n5-progress-v1` and
-`learner-depth-v1` were silently absent from every export for weeks. Restore
+never updated when the grammar module arrived, so `tsumiki-n5-progress-v1` and
+`tsumiki-learner-depth-v1` were silently absent from every export for weeks. Restore
 then reported "Restored 7 saved items" — a success message over a restore that
 had dropped the largest module in the app.
 
@@ -24,13 +24,13 @@ Writes are found two ways, because modules use both forms:
   const SOME_KEY = "literal-key";  … storage.set(SOME_KEY, …)
 
 WHAT IT SCANS, AND WHY IT IS WIDER THAN IT LOOKS
-The first version of this check globbed naoshi-app/src/modules/*.jsx only, and so
+The first version of this check globbed tsumiki-app/src/modules/*.jsx only, and so
 inherited the exact assumption that caused the bug it was written for: that the
 modules which exist right now are all the modules there are. Two consequences,
 both found by the 2026-09-05 audit:
 
   · engagement-module.jsx is AUTHORED AT THE REPO ROOT and not yet spliced into
-    naoshi-app/, so its "engagement-v1" was invisible — a real missing key that
+    tsumiki-app/, so its "tsumiki-engagement-v1" was invisible — a real missing key that
     this check reported clean.
   · stroke-data-v1 was reported as "listed but not written" because the thing
     that writes it is lib/strokeEngine.jsx, also outside the old glob.
@@ -38,9 +38,9 @@ both found by the 2026-09-05 audit:
 So the scan now covers three places, and the root authoring files are the point:
 a key should be caught when it is WRITTEN, not when it reaches a build.
 
-  · naoshi-app/src/**/*.jsx and *.js   — the generated app, lib and data
+  · tsumiki-app/src/**/*.jsx and *.js   — the generated app, lib and data
   · <root>/*-module.jsx                — the authoring modules, spliced or not
-  · <root>/naoshi-prototype.jsx, checker-module.jsx
+  · <root>/tsumiki-prototype.jsx, checker-module.jsx
 
 Exit 0 clean, 1 on any finding. Run before any deploy that touches the app.
 """
@@ -49,25 +49,25 @@ import re, sys
 from pathlib import Path
 
 HERE = Path(__file__).parent
-SRC = HERE / "naoshi-app" / "src"
+SRC = HERE / "tsumiki-app" / "src"
 STORAGE = SRC / "lib" / "storage.js"
 MODULES = SRC / "modules"
 
 # Keys that are UI state, not learner progress, and are deliberately not exported.
-IGNORE = {"naoshi-last-module", "naoshi-open-challenge", "__naoshi_probe__",
+IGNORE = {"tsumiki-last-module", "tsumiki-open-challenge", "__tsumiki_probe__",
           # A hand-off buffer, not progress: study reports waiting for the
           # engagement panel to mount. Emptied the moment it is read, and
           # meaningless to anyone but the browser that wrote it — exporting it
           # would carry a pending quest credit into someone else's restore.
-          "naoshi-pending-study",
+          "tsumiki-pending-study",
           # Which day this device last showed the Goals dialog. Per-device UI
           # state: exporting it would carry "already seen today" onto a
           # machine that has not seen it.
-          "naoshi-goals-seen",
+          "tsumiki-goals-seen",
           # A one-shot "open Review when you get there" flag, written by
           # Progress and cleared the moment the checker reads it. Navigation,
-          # not progress — same class as naoshi-open-challenge.
-          "naoshi-open-review"}
+          # not progress — same class as tsumiki-open-challenge.
+          "tsumiki-open-review"}
 
 
 def declared_keys():
@@ -86,13 +86,13 @@ def sources():
         files |= set(SRC.rglob("*.jsx"))
         files |= set(SRC.rglob("*.js"))
     files |= set(HERE.glob("*-module.jsx"))
-    files |= {HERE / "naoshi-prototype.jsx", HERE / "checker-module.jsx"}
+    files |= {HERE / "tsumiki-prototype.jsx", HERE / "checker-module.jsx"}
     files.discard(STORAGE)          # KEYS itself is the thing being checked against
     return sorted(f for f in files if f.exists())
 
 
 def label(f):
-    """Path as reported: root files bare, app files relative to naoshi-app/src."""
+    """Path as reported: root files bare, app files relative to tsumiki-app/src."""
     try:
         return str(f.relative_to(SRC))
     except ValueError:
@@ -129,7 +129,7 @@ def written_keys():
 
 def main():
     if not STORAGE.exists() or not MODULES.exists():
-        print("naoshi-app/src not found — nothing to check")
+        print("tsumiki-app/src not found — nothing to check")
         return 0
 
     declared = declared_keys()

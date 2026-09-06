@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Naoshi — Room demo</title>
+<title>tsumiki — Room demo</title>
 <!--
-  Naoshi room demo, Session 11 (revision 2, same session).
+  tsumiki room demo, Session 11 (revision 2, same session).
   Standalone: no network requests, no module code touched.
 
   Revision 2, per Lloyd:
@@ -158,7 +158,7 @@ const store = (() => {
     return { get: k => localStorage.getItem(k), set: (k, v) => localStorage.setItem(k, v) };
   } catch (e) { return { get: k => mem[k] ?? null, set: (k, v) => { mem[k] = v; } }; }
 })();
-const KEY = "naoshi-room-demo-v1";
+const KEY = "tsumiki-room-demo-v1";
 
 /* ---------- iso geometry ---------- */
 const N = 8;

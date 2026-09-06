@@ -18,8 +18,8 @@ screen:
 ```
 POST /auth/v1/otp ?redirect_to=http://localhost:5173/   200
 GET  /auth/v1/verify ?type=signup                       303
-GET  /rest/v1/naoshi_progress ...                       200   fetchRemote
-POST /rest/v1/naoshi_progress ?on_conflict=user_id      201   pushRemote
+GET  /rest/v1/tsumiki_progress ...                       200   fetchRemote
+POST /rest/v1/tsumiki_progress ?on_conflict=user_id      201   pushRemote
 ```
 
 - RLS and the grants held under a real JWT — 200/201 throughout, no 42501.
@@ -33,7 +33,7 @@ POST /rest/v1/naoshi_progress ?on_conflict=user_id      201   pushRemote
   in the migration comments and the design doc as an intention; it is now an
   observation.
 - **Both preservation halves ran.** Choosing the account's copy dropped
-  `naoshi-progress-2026-09-06.json` into Downloads before overwriting anything
+  `tsumiki-progress-2026-09-06.json` into Downloads before overwriting anything
   local, and the archive table holds versions 1–3. The device-only key survived
   into version 4 even though the account won the disputed one.
 
@@ -72,8 +72,8 @@ Supabase → **Authentication → URL Configuration**:
 
 | field | is now | must be |
 |---|---|---|
-| Site URL | `http://localhost:3000` | `https://naoshi.netlify.app` |
-| Redirect URLs | (localhost only) | add `https://naoshi.netlify.app/**` |
+| Site URL | `http://localhost:3000` | `https://tsumiki.netlify.app` |
+| Redirect URLs | (localhost only) | add `https://tsumiki.netlify.app/**` |
 
 **This was measured, not guessed, and it cost nothing to find.** `/auth/v1/verify`
 resolves `redirect_to` before it looks at the token, so an invalid token is a
@@ -81,7 +81,7 @@ free, side-effect-free probe of the allow-list. Asking it where three different
 URLs would land:
 
 ```
-asked https://naoshi.netlify.app   ->  location: http://localhost:3000#error=…   ← NOT allow-listed
+asked https://tsumiki.netlify.app   ->  location: http://localhost:3000#error=…   ← NOT allow-listed
 asked http://localhost:5173        ->  location: http://localhost:5173#error=…   ← allow-listed
 asked https://example.invalid/steal->  location: http://localhost:3000#error=…   ← correctly refused
 ```
@@ -110,14 +110,14 @@ anything in the code.
 
 Two migrations, both applied to the live project and both verified:
 
-- `20260906000000_progress_sync.sql` — `naoshi_progress` (one JSONB document per
-  learner, stored verbatim as key → string) and `naoshi_progress_archive`. RLS
+- `20260906000000_progress_sync.sql` — `tsumiki_progress` (one JSONB document per
+  learner, stored verbatim as key → string) and `tsumiki_progress_archive`. RLS
   and the table-level GRANTs are in the same migration that creates the tables.
 - `20260906000100_revoke_public_execute_on_progress_trigger.sql` — the archive
   trigger is `SECURITY DEFINER`, so it raised advisors 0028/0029 on sight. Same
   shape, and the same `revoke … from public` subtlety, as
   `20260817174150`. Both WARNs are now gone; the only remaining item is the
-  pre-existing intentional INFO on `naoshi_check_usage`.
+  pre-existing intentional INFO on `tsumiki_check_usage`.
 
 **The server never parses a module's value**, so it cannot drop a field it does
 not recognise. Merging is the client's job, per key. The rule — including the

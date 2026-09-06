@@ -35,7 +35,7 @@ bundle.
 import re, pathlib, sys
 
 HERE = pathlib.Path(__file__).parent
-APP = HERE / "naoshi-app"
+APP = HERE / "tsumiki-app"
 SRC = APP / "src"
 LIB = SRC / "lib"
 DATA = SRC / "data"
@@ -482,7 +482,7 @@ for src_name, out_name, comp, label, jp, _accent in MODULES:
 # 1. IT IS NOT A DOOR. The six modules are places a learner goes. The engagement
 #    layer — daily card, weekly rhythm, quest chain — is what greets them when
 #    they arrive, so it belongs ON Home rather than beside it. Home already
-#    reads `engagement-v1` for its hero card; this is the thing that writes it.
+#    reads `tsumiki-engagement-v1` for its hero card; this is the thing that writes it.
 #
 # 2. ⚠️ IT IS AUTHORED IN TAILWIND AND THIS APP HAS NO TAILWIND.
 #    engagement-module.jsx carries ~110 utility classes (`rounded-lg`,
@@ -785,8 +785,8 @@ const HOME_INVITE = {
   checker: "Do you have Japanese experience? Try out the checker! Write a sentence and find out what is wrong, what merely sounds off, and why.",
 };
 const PROGRESS_KEYS = {
-  hiragana: "hiragana-progress-v2", katakana: "katakana-progress-v1",
-  grammar: "n5-progress-v1", kanji: "kanji-progress-v1", vocabulary: "known-words-v1",
+  hiragana: "tsumiki-hiragana-progress-v2", katakana: "tsumiki-katakana-progress-v1",
+  grammar: "tsumiki-n5-progress-v1", kanji: "tsumiki-kanji-progress-v1", vocabulary: "tsumiki-known-words-v1",
   // Session 24. The checker had no progress key, so commitIfWorked() could not
   // see it and "write and check one sentence" stayed dark in the quest chain —
   // the gap activity.js used to list under "what is not covered". A check now
@@ -794,7 +794,7 @@ const PROGRESS_KEYS = {
   // module's own store is for every other section. Note that a check finding NO
   // issues still writes (a _checks entry), so a perfect sentence counts as work
   // rather than as nothing.
-  checker: "checker-history-v1",
+  checker: "tsumiki-checker-history-v1",
 };
 
 // Read through `storage`, NOT localStorage directly (Session 21). The old
@@ -819,7 +819,7 @@ async function readStarted() {
 // continue card, so this is dark rather than broken until then.
 async function readNextTask() {
   try {
-    const r = await storage.get("engagement-v1");
+    const r = await storage.get("tsumiki-engagement-v1");
     const chain = r ? JSON.parse(r.value)?.chain : null;
     const t = chain?.tasks?.find((x) => x.done < x.target);
     if (!t) return null;
@@ -897,7 +897,7 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
         // grammar has begun — before that it would only point at an empty
         // pool. The flag routes the grammar module straight to the challenge.
         <button
-          onClick={() => { try { localStorage.setItem("naoshi-open-challenge", "1"); } catch (e) {} go("grammar"); }}
+          onClick={() => { try { localStorage.setItem("tsumiki-open-challenge", "1"); } catch (e) {} go("grammar"); }}
           style={{ ...cardBase, border: `1px solid ${T.shu}55`, marginBottom: 22 }}
         >
           <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
@@ -1127,7 +1127,7 @@ function Drawer({ open, close, active, go, onAccount }) {
 }
 
 export default function App() {
-  // Land on Home. It remembers where they were (naoshi-last-module) and
+  // Land on Home. It remembers where they were (tsumiki-last-module) and
   // offers it as the continue card, rather than teleporting them there —
   // Session 13: the doors deserve a hallway.
   const [active, setActive] = useState("home");
@@ -1149,7 +1149,7 @@ export default function App() {
     let alive = true;
     (async () => {
       const [s, t, last, rec, w, dorm] = await Promise.all([
-        readStarted(), readNextTask(), storage.get("naoshi-last-module"),
+        readStarted(), readNextTask(), storage.get("tsumiki-last-module"),
         readRecency(), readWallet(), daysSinceLastWorked(),
       ]);
       if (!alive) return;
@@ -1200,7 +1200,7 @@ export default function App() {
     const key = PROGRESS_KEYS[id];
     const r = await storage.get(key);
     if ((r?.value ?? null) !== value) {
-      await storage.set("naoshi-last-module", id);
+      await storage.set("tsumiki-last-module", id);
       setLastWorked(id);
       // Same evidence, recorded per section so Home can order by what is
       // actually being used, and so a three-week gap can be noticed.

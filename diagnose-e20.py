@@ -18,10 +18,10 @@ SENTENCE = "参考書をご覧になりますか？"
 N = int(sys.argv[1]) if len(sys.argv) > 1 else 6
 
 def load_prompt():
-    src = (HERE / "naoshi-prototype.jsx").read_text(encoding="utf-8")
+    src = (HERE / "tsumiki-prototype.jsx").read_text(encoding="utf-8")
     m = re.search(r"const SYSTEM_PROMPT = `(.*?)`;", src, re.S)
     if not m:
-        sys.exit("Could not extract SYSTEM_PROMPT from naoshi-prototype.jsx")
+        sys.exit("Could not extract SYSTEM_PROMPT from tsumiki-prototype.jsx")
     return m.group(1)
 
 def call(key, system_prompt):

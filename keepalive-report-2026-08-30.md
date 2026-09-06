@@ -72,7 +72,7 @@ no activity, and the first news would be a pause email.
 
 Privileges now: anon and authenticated SELECT true; anon INSERT, UPDATE, DELETE
 false. One row, one policy. Advisors report nothing new — only the pre-existing,
-documented `naoshi_check_usage` INFO.
+documented `tsumiki_check_usage` INFO.
 
 ## Netlify
 
@@ -85,11 +85,11 @@ Both controls run: a known app-touching range exits 1, an empty range exits 0,
 so the rule can say both things rather than always saying skip.
 
 The keep-alive work is free. **The push is not.** `3e6e357` is the oldest
-unpushed commit and touches `naoshi-app/`, so the diff spans it regardless of
+unpushed commit and touches `tsumiki-app/`, so the diff spans it regardless of
 what sits on top. 15 credits, one of two.
 
 Consequence worth acting on: `VITE_CHECKER_URL` is inlined at BUILD time
-(`import.meta.env` in `naoshi-app/src/modules/Checker.jsx:39`). Setting it in
+(`import.meta.env` in `tsumiki-app/src/modules/Checker.jsx:39`). Setting it in
 Netlify's environment BEFORE this push makes the one unavoidable build carry
 both the section accents and the P0 blocker carried since Session 16. Setting it
 afterwards costs the second deployment.
@@ -107,7 +107,7 @@ No check ran at all, so none ran unbounded. The ~$0.80 was never at risk.
 ## Model
 
 `supabase/functions/check/index.ts:39` —
-`Deno.env.get("NAOSHI_MODEL") ?? "claude-sonnet-5"`. The only model literal in
+`Deno.env.get("TSUMIKI_MODEL") ?? "claude-sonnet-5"`. The only model literal in
 the function. So Sonnet 5 unless a dashboard secret overrides it; Edge Function
 secret VALUES are not readable through the API, so the effective model can only
 be confirmed by a real check, whose response carries `model` as answered

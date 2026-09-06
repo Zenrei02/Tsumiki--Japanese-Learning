@@ -1,10 +1,10 @@
 {
- "format": "naoshi-progress",
+ "format": "tsumiki-progress",
  "version": 1,
  "exported": "2026-09-06T02:19:08Z",
  "keys": 2,
  "data": {
-  "kanji-progress-v1": "{\"k-t1\": {\"traced\": [\"日:trace\"], \"note\": \"from-the-account\"}}",
-  "known-words-v1": "[\"言う\", \"本\"]"
+  "tsumiki-kanji-progress-v1": "{\"k-t1\": {\"traced\": [\"日:trace\"], \"note\": \"from-the-account\"}}",
+  "tsumiki-known-words-v1": "[\"言う\", \"本\"]"
  }
 }

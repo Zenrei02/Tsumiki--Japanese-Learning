@@ -68,7 +68,7 @@ reachability guard: the check first, so a green result can mean something.
    each lesson's own bank vocabulary so no new words enter the ledger.
 6. Full verify chain: preview, drift, smoke, stage-view, golden forms,
    arc/scene/mca checks, DEEP checker.
-7. ONE push at close (Netlify: every push to main that touches naoshi-app/
+7. ONE push at close (Netlify: every push to main that touches tsumiki-app/
    costs a build; this one will).
 
 ## The review interaction — decided, not drifted into

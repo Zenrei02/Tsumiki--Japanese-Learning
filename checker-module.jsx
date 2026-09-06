@@ -1,4 +1,4 @@
-// Naoshi — the checker. The sixth door, and the one the product is named for.
+// tsumiki — the checker. The sixth door, and the one the product is named for.
 //
 // The learner writes Japanese; this returns corrections that TEACH rather than
 // merely fix. Every issue carries a pattern_name, which is the pedagogical
@@ -10,7 +10,7 @@
 // anyone would actually say — is the tier a proofreader cannot give you and a
 // textbook cannot either, and it is why this exists.
 //
-// NO API KEY LIVES HERE. This module calls the Naoshi backend on Supabase,
+// NO API KEY LIVES HERE. This module calls the tsumiki backend on Supabase,
 // which holds the key. build-vite-app.py's purity check refuses to build if
 // this file names the model vendor's endpoint or key variable at all — and it
 // caught this very comment block on the first attempt, which is the check
@@ -49,9 +49,9 @@ const MAX_CHARS = 600;
 // One-shot navigation flag, written by Progress and cleared the moment it is
 // read. UI state, not progress — deliberately absent from storage.js KEYS, and
 // listed in check-storage-keys.py's IGNORE for the same reason
-// naoshi-open-challenge is: exporting it would carry "jump to Review" into
+// tsumiki-open-challenge is: exporting it would carry "jump to Review" into
 // someone else's restore.
-const OPEN_REVIEW = "naoshi-open-review";
+const OPEN_REVIEW = "tsumiki-open-review";
 
 // ————— Error history —————
 // NO-OPS HERE, ON PURPOSE. build-vite-app.py deletes these three declarations
@@ -528,7 +528,7 @@ export default function CheckerModule() {
   return (
     <div style={{ padding: "18px 16px 60px", maxWidth: 720, margin: "0 auto" }}>
       <h1 style={{ font: `600 22px ${T.uiFont}`, color: T.ink, margin: "0 0 4px" }}>
-        Naoshi <span style={{ font: `20px ${T.jpFont}`, color: T.sub }}>直し</span>
+        tsumiki <span style={{ font: `20px ${T.jpFont}`, color: T.sub }}>つみき</span>
       </h1>
       <p style={{ font: `14px/1.6 ${T.uiFont}`, color: T.sub, margin: "0 0 20px" }}>
         Write something in Japanese. You'll get back what's wrong, what's

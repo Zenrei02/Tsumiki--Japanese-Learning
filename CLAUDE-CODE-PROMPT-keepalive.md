@@ -2,7 +2,7 @@
 
 ## Context
 
-The Naoshi Supabase project (`llkazgmhsuonhwrubwjw`, `ca-central-1`) was paused
+The tsumiki Supabase project (`llkazgmhsuonhwrubwjw`, `ca-central-1`) was paused
 today by the free-tier inactivity timer. I have used my one restore. **There is
 no second unpause**, so a repeat is not recoverable — treat this as a
 correctness task, not a convenience one.
@@ -173,7 +173,7 @@ class five separate times.
 - **The workflow's own failure path works.** Point the URL at a nonexistent
   table, confirm the step fails, then revert. A guard that has never fired is a
   guard that has never been tested.
-- **No Netlify build was triggered.** This touches neither `naoshi-app/` nor
+- **No Netlify build was triggered.** This touches neither `tsumiki-app/` nor
   `netlify.toml`, so it should cost no deploy credit. Confirm rather than assume.
 
 ## Also while you're in there

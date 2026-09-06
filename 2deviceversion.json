@@ -1,11 +1,11 @@
 {
- "format": "naoshi-progress",
+ "format": "tsumiki-progress",
  "version": 1,
  "exported": "2026-09-06T02:19:08Z",
  "keys": 3,
  "data": {
-  "kanji-progress-v1": "{\"k-t1\": {\"traced\": [\"月:trace\"], \"note\": \"from-this-device\"}}",
-  "hiragana-progress-v2": "{\"h-a\": {\"seen\": true}}",
-  "known-words-v1": "[\"言う\", \"本\"]"
+  "tsumiki-kanji-progress-v1": "{\"k-t1\": {\"traced\": [\"月:trace\"], \"note\": \"from-this-device\"}}",
+  "tsumiki-hiragana-progress-v2": "{\"h-a\": {\"seen\": true}}",
+  "tsumiki-known-words-v1": "[\"言う\", \"本\"]"
  }
 }

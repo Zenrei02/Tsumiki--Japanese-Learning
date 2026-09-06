@@ -26,7 +26,7 @@ but not unlink", which is half right:
 
 So superseded files cannot be deleted but **can** be renamed and moved into `OLD/`, which is
 the right disposal route and keeps the working directory honest. `CLAUDE.md` now says so.
-Two stale comment references (in `hiragana-module.jsx` and `naoshi-prototype.jsx`) were
+Two stale comment references (in `hiragana-module.jsx` and `tsumiki-prototype.jsx`) were
 updated to the new name at the same time; both were comments, not code.
 
 ---

@@ -63,7 +63,7 @@ session. Coupling the product's traffic to the deploy allowance means a busy wee
 testing can silently make a deploy unaffordable.
 
 Third, small but real: `netlify.toml`'s build-ignore rule is
-`git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF ./`, relative to `base = "naoshi-app"`.
+`git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF ./`, relative to `base = "tsumiki-app"`.
 Functions living at the repo root in `netlify/functions/` are **outside that path**, so a
 functions-only change would skip the build and deploy nothing, reporting success. Fixable
 in one line, but it is exactly the shape of failure this project keeps getting bitten by —

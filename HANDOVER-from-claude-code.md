@@ -30,7 +30,7 @@ prior deploy — this is the intentional anonymous-checker design documented in
 the deploy log — two things came back that resolve open items from the
 previous handover:
 
-- `access-control-allow-origin: https://naoshi.netlify.app` — `NAOSHI_ALLOWED_ORIGIN`
+- `access-control-allow-origin: https://tsumiki.netlify.app` — `TSUMIKI_ALLOWED_ORIGIN`
   turned out to be already narrowed, not `*`. **Resolved**, no action needed.
 - `"cap":{"used":1,"limit":10}` — the daily-cap `service_role` grant fix
   (`351c7b4`) is proven live. First successful reserve ever recorded.

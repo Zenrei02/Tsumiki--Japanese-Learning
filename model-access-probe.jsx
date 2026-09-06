@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-// Naoshi's own tokens — this is an internal instrument for the project, so it
+// tsumiki's own tokens — this is an internal instrument for the project, so it
 // should look like it belongs to it rather than inventing a second identity.
 const T = {
   paper: "#F7F6F2",

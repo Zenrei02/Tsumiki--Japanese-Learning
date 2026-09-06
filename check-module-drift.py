@@ -29,7 +29,7 @@ of four is solved.
 import re, sys, pathlib, hashlib
 
 HERE = pathlib.Path(__file__).parent
-MODULES = ["naoshi-prototype.jsx", "grammar-module.jsx", "kanji-module.jsx",
+MODULES = ["tsumiki-prototype.jsx", "grammar-module.jsx", "kanji-module.jsx",
            "hiragana-module.jsx", "katakana-module.jsx", "vocabulary-module.jsx"]
 SRC = {m: (HERE / m).read_text(encoding="utf-8") for m in MODULES if (HERE / m).exists()}
 
@@ -163,12 +163,12 @@ lines += ["", f"{shared} of {len(keys)} keys are shared across modules.", ""]
 
 # ---- the kana sprite exists in two committed places ----
 # audio/ is what the single-file artifacts and standalone builds fetch;
-# naoshi-app/public/audio/ is what the Vite app serves. Same bytes today. If the
+# tsumiki-app/public/audio/ is what the Vite app serves. Same bytes today. If the
 # sprite is ever rebuilt and only one copy updated, testers and the reviewer hear
 # different audio — the exact silent-divergence class this tool exists for.
 import hashlib as _h
-pairs = [("audio/kana-sprite.mp3", "naoshi-app/public/audio/kana-sprite.mp3"),
-         ("audio/kana-sprite.json", "naoshi-app/public/audio/kana-sprite.json")]
+pairs = [("audio/kana-sprite.mp3", "tsumiki-app/public/audio/kana-sprite.mp3"),
+         ("audio/kana-sprite.json", "tsumiki-app/public/audio/kana-sprite.json")]
 lines += ["", "## Kana audio sprite", ""]
 for a, b in pairs:
     pa, pb = HERE / a, HERE / b
@@ -181,7 +181,7 @@ for a, b in pairs:
         lines.append(f"- ✅ `{pa.name}` identical in both locations (`{ha}`)")
     else:
         problems.append(f"kana sprite {pa.name} differs between copies")
-        lines.append(f"- ❌ **`{pa.name}` DIFFERS** — audio/ `{ha}` vs naoshi-app/public/audio/ `{hb}`")
+        lines.append(f"- ❌ **`{pa.name}` DIFFERS** — audio/ `{ha}` vs tsumiki-app/public/audio/ `{hb}`")
 lines.append("")
 lines.append("If these diverge, re-run `Audio/build-kana-sprite.py` and copy the result to")
 lines.append("both locations, rather than editing either by hand.")

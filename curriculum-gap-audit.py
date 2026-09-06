@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Curriculum-gap audit: probe grammar-module.jsx's CURRICULUM against the
-checker's SYSTEM_PROMPT (naoshi-prototype.jsx).
+checker's SYSTEM_PROMPT (tsumiki-prototype.jsx).
 
 Re-run this after ANY SYSTEM_PROMPT change. It answers one question: is the
 checker grading on anything the curriculum never teaches?
@@ -21,7 +21,7 @@ import re, sys, datetime, pathlib
 
 HERE = pathlib.Path(__file__).parent
 PRACTICE = (HERE / "grammar-module.jsx").read_text(encoding="utf-8")
-CHECKER = (HERE / "naoshi-prototype.jsx").read_text(encoding="utf-8")
+CHECKER = (HERE / "tsumiki-prototype.jsx").read_text(encoding="utf-8")
 
 # ---- sanity: which prompt version is this audit running against? ----
 m = re.search(r'SCHEMA_VERSION = "([^"]+)"', CHECKER)

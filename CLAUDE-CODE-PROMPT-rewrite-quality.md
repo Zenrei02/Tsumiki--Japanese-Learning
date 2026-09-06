@@ -145,13 +145,13 @@ in batches and yen, at ¥2,000/batch.
   workbooks are gitignored and untracked; `backups/` is the only history they have.
 - **Do not rebuild any Google Form.** They hold live responses.
 - **One deploying push per session, and app-touching work must be batched.** This task
-  touches no `naoshi-app/` file, so its commits are free. Verify rather than assume:
+  touches no `tsumiki-app/` file, so its commits are free. Verify rather than assume:
   ```
-  cd naoshi-app
+  cd tsumiki-app
   git --no-optional-locks diff --quiet origin/main HEAD ./ ../netlify.toml
   # exit 0 => build SKIPPED (free).  exit 1 => build RUNS (15 credits).
   ```
-  Run the control too — a range that *does* touch `naoshi-app/` must exit 1.
+  Run the control too — a range that *does* touch `tsumiki-app/` must exit 1.
 - **Read the modules, not the specs.** Parse `checker-module.jsx` for the live
   `SYSTEM_PROMPT`; the design docs drift within days.
 

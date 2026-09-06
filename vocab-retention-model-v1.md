@@ -5,9 +5,9 @@ below and fitted to the return mechanic decided in `order-decisions-v1.md` §6.4
 
 ---
 
-## 0. The thing that makes Naoshi's case unusual
+## 0. The thing that makes tsumiki's case unusual
 
-Most vocabulary apps have exactly one recurrence system: an interval scheduler. **Naoshi
+Most vocabulary apps have exactly one recurrence system: an interval scheduler. **tsumiki
 already has a second one**, and it arrived from the curriculum rather than from memory science.
 A word returns to the vocabulary module every time one of its kanji comes due (§6.4). That is a
 spacing schedule — it is just driven by the kanji order instead of by a forgetting curve.
@@ -51,7 +51,7 @@ of spacing produced large effect sizes in the same study.
 **4 · Modern schedulers beat fixed ladders — once you have data.** FSRS, now Anki's default,
 fits a model per user and needs 20–30% fewer reviews than SM-2 for the same retention. But it
 is fitted to review history: FSRS-6 has 21 trainable parameters trained on ~700 million
-reviews. **Naoshi has no users and no review history**, so this is a Phase 2+ option, not a
+reviews. **tsumiki has no users and no review history**, so this is a Phase 2+ option, not a
 starting point. Worth designing so it can be swapped in later — which mainly means storing
 per-review outcomes and timestamps from day one, not just a current interval.
 

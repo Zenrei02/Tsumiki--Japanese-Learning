@@ -271,7 +271,7 @@ week"* is a different and equally real question.
 **Two doors, one surface.** Review lives inside the Checker, because it is the
 same material — the checker is where you write Japanese and where you look back
 at the Japanese you wrote. Progress links through to it with a one-shot flag
-(`naoshi-open-review`, cleared by the reader), the same pattern Home already
+(`tsumiki-open-review`, cleared by the reader), the same pattern Home already
 uses to open the grammar challenge. A progress screen that reports "you have met
 12 patterns" and offers no way to see them has, again, given the learner a label
 instead of a lesson.

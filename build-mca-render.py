@@ -17,7 +17,7 @@ same text either way. The uniqueness is asserted below, so if a future wave
 ever anchors one word twice this script fails instead of silently dropping one.
 
 Idempotent. Re-run after editing micro-anecdotes-v1.json, then re-run
-build-vite-app.py to mirror both modules into naoshi-app/.
+build-vite-app.py to mirror both modules into tsumiki-app/.
 """
 
 import json
@@ -118,7 +118,7 @@ def main():
             sys.exit(f"FAIL: {t.name} carries {found} anecdotes, expected {len(items)}.")
         print(f"  {t.name}: census OK ({found})")
 
-    print("\nNext: re-run build-vite-app.py to mirror both modules into naoshi-app/.")
+    print("\nNext: re-run build-vite-app.py to mirror both modules into tsumiki-app/.")
 
 
 if __name__ == "__main__":

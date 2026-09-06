@@ -502,12 +502,12 @@ let KNOWN_KANJI = new Set();
 let KANA_FLUENT = false;
 async function loadIntegrationState() {
   try {
-    const r = await window.storage.get("known-kanji-v1");
+    const r = await window.storage.get("tsumiki-known-kanji-v1");
     const v = r ? JSON.parse(r.value) : [];
     KNOWN_KANJI = new Set(Array.isArray(v) ? v : []);
   } catch { KNOWN_KANJI = new Set(); }
   try {
-    const r = await window.storage.get("hiragana-progress-v2");
+    const r = await window.storage.get("tsumiki-hiragana-progress-v2");
     const p = r ? JSON.parse(r.value) : {};
     KANA_FLUENT = !!(p && p.cp2 && Object.keys(p.cp2).length);
   } catch { KANA_FLUENT = false; }
@@ -8145,7 +8145,7 @@ Respond with ONLY valid JSON, no fences:
 // ————— Storage (progress) —————
 async function loadProgress() {
   try {
-    const r = await window.storage.get("n5-progress-v1");
+    const r = await window.storage.get("tsumiki-n5-progress-v1");
     return r ? JSON.parse(r.value) : {};
   } catch {
     return {};
@@ -8153,7 +8153,7 @@ async function loadProgress() {
 }
 async function saveProgress(p) {
   try {
-    await window.storage.set("n5-progress-v1", JSON.stringify(p));
+    await window.storage.set("tsumiki-n5-progress-v1", JSON.stringify(p));
   } catch (e) {
     console.error("progress save failed", e);
   }
@@ -8702,12 +8702,12 @@ function Build({ point, bank = [], progress, onProgress, mode, onTapWord }) {
 // achievement-points-v1. Copy of KobanIcon kept byte-identical to the
 // vocabulary module's for a future hoist into lib/.
 async function loadWallet() {
-  try { const r = await window.storage.get("achievement-points-v1"); return r ? JSON.parse(r.value) : 0; }
+  try { const r = await window.storage.get("tsumiki-achievement-points-v1"); return r ? JSON.parse(r.value) : 0; }
   catch { return 0; }
 }
 async function addKoban(n) {
   const v = (await loadWallet()) + n;
-  try { await window.storage.set("achievement-points-v1", JSON.stringify(v)); } catch (e) { console.error("koban save failed", e); }
+  try { await window.storage.set("tsumiki-achievement-points-v1", JSON.stringify(v)); } catch (e) { console.error("koban save failed", e); }
   return v;
 }
 function KobanIcon({ size = 13 }) {
@@ -9534,15 +9534,15 @@ export default function GrammarPractice() {
     // once they load so everything annotated re-renders against real data.
     loadIntegrationState().then(() => setIntegrationTick((t) => t + 1));
     (async () => {
-      try { const r = await window.storage.get("kanji-mode"); if (r && (r.value === "kana" || r.value === "kanji")) setKanjiMode(r.value); } catch {}
-      try { const r = await window.storage.get("learner-depth-v1"); if (r && (r.value === "full" || r.value === "spine")) setDepth(r.value); } catch {}
+      try { const r = await window.storage.get("tsumiki-kanji-mode"); if (r && (r.value === "kana" || r.value === "kanji")) setKanjiMode(r.value); } catch {}
+      try { const r = await window.storage.get("tsumiki-learner-depth-v1"); if (r && (r.value === "full" || r.value === "spine")) setDepth(r.value); } catch {}
     })();
     // Home's challenge card sets this flag before navigating here. localStorage
     // rather than window.storage because it is the app shell's medium; guarded
     // because the artifact iframe may deny it.
     try {
-      if (localStorage.getItem("naoshi-open-challenge")) {
-        localStorage.removeItem("naoshi-open-challenge");
+      if (localStorage.getItem("tsumiki-open-challenge")) {
+        localStorage.removeItem("tsumiki-open-challenge");
         setChallenge(true);
       }
     } catch {}
@@ -9550,13 +9550,13 @@ export default function GrammarPractice() {
 
   const setMode = (m) => {
     setKanjiMode(m);
-    try { window.storage.set("kanji-mode", m); } catch {}
+    try { window.storage.set("tsumiki-kanji-mode", m); } catch {}
   };
 
   const setDepthPref = (d) => {
     setDepth(d);
     setFullSteps(new Set());
-    try { window.storage.set("learner-depth-v1", d); } catch {}
+    try { window.storage.set("tsumiki-learner-depth-v1", d); } catch {}
   };
 
   const updateProgress = (p) => {

@@ -67,7 +67,7 @@ thing you think it tests.
 `sb-waga2`, `sb-pronouns2`, `sb-omou`
 
 **`prim-shape` and `prim-drop` are the first two lessons in the entire course.** A learner
-opening Naoshi for the first time gets the one screen where none of this shows.
+opening tsumiki for the first time gets the one screen where none of this shows.
 
 The pattern is not random: these are the `sb-` skill lessons, which drill a distinction
 rather than dissect one sentence, so they never had a `seg`. That is correct authoring —

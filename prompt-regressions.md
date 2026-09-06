@@ -147,7 +147,7 @@ issue card is tappable and highlighted.
 
 **Fails if:** one span swallows most of the sentence, or a card exists that cannot
 be reached by tapping, or a card lands in the "not highlighted" list. Source:
-`SAMPLES[1]` in `naoshi-prototype.jsx` — already a built-in sample.
+`SAMPLES[1]` in `tsumiki-prototype.jsx` — already a built-in sample.
 
 ---
 
@@ -168,7 +168,7 @@ claim rests on.
 
 **Fails if:** either is missed, or `pattern_name` is absent (per-user error
 history is keyed on it, so a blank breaks a Phase 1 feature downstream).
-Source: `SAMPLES[4]` in `naoshi-prototype.jsx`.
+Source: `SAMPLES[4]` in `tsumiki-prototype.jsx`.
 
 ---
 

@@ -17,8 +17,8 @@ import { writeFileSync, mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const ESBUILD = "./naoshi-app/node_modules/.bin/esbuild";
-const out = join(mkdtempSync(join(tmpdir(), "naoshi-spans-")), "spans.mjs");
+const ESBUILD = "./tsumiki-app/node_modules/.bin/esbuild";
+const out = join(mkdtempSync(join(tmpdir(), "tsumiki-spans-")), "spans.mjs");
 execFileSync(ESBUILD, [
   "supabase/functions/check/spans.ts",
   "--bundle", "--format=esm", `--outfile=${out}`,

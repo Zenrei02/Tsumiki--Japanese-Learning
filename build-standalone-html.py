@@ -52,7 +52,7 @@ STORAGE_SHIM = """
 (function () {
   var mem = {}, backing = null;
   try {
-    var probe = "__naoshi_probe__";
+    var probe = "__tsumiki_probe__";
     window.localStorage.setItem(probe, "1");
     window.localStorage.removeItem(probe);
     backing = window.localStorage;
@@ -112,9 +112,9 @@ def build(module_path, node_modules, esbuild, minify):
               f"Audio/build-artifact-bundle.py first, or this build will fall "
               f"back to speech synthesis")
     title = re.sub(r"-artifact$", "", name.replace(".jsx", ""))
-    title = title.replace("-module", "").replace("-", " ").strip().title() + " — Naoshi"
+    title = title.replace("-module", "").replace("-", " ").strip().title() + " — tsumiki"
 
-    with tempfile.TemporaryDirectory(prefix="naoshi-html-") as tmp:
+    with tempfile.TemporaryDirectory(prefix="tsumiki-html-") as tmp:
         # Build inside node_modules' directory tree so esbuild resolves react
         # without a symlink dance.
         work = os.path.join(os.path.dirname(node_modules), "_build")
@@ -163,14 +163,14 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--module", action="append")
     ap.add_argument("--node-modules",
-                    default=os.environ.get("NAOSHI_NODE_MODULES", ""))
-    ap.add_argument("--esbuild", default=os.environ.get("NAOSHI_ESBUILD", "esbuild"))
+                    default=os.environ.get("TSUMIKI_NODE_MODULES", ""))
+    ap.add_argument("--esbuild", default=os.environ.get("TSUMIKI_ESBUILD", "esbuild"))
     ap.add_argument("--no-minify", action="store_true")
     args = ap.parse_args()
 
     if not args.node_modules or not os.path.isdir(args.node_modules):
         sys.exit("error: --node-modules must point at a directory containing "
-                 "react and react-dom (or set NAOSHI_NODE_MODULES)")
+                 "react and react-dom (or set TSUMIKI_NODE_MODULES)")
     if not shutil.which(args.esbuild) and not os.path.isfile(args.esbuild):
         sys.exit(f"error: esbuild not found at {args.esbuild}")
 

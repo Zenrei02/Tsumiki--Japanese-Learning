@@ -135,7 +135,7 @@ def build(kana_dir, outdir):
         mp3 = os.path.join(outdir, "kana-sprite.mp3")
         r = run(["ffmpeg", "-nostdin", "-v", "error", "-y", "-i", wav,
                  "-c:a", "libmp3lame", "-b:a", MP3_BITRATE, "-write_xing", "1",
-                 "-metadata", "album=Naoshi Kana", "-metadata", "title=kana sprite",
+                 "-metadata", "album=tsumiki Kana", "-metadata", "title=kana sprite",
                  mp3])
         if r.returncode != 0:
             sys.exit(f"error: sprite encode failed\n{r.stderr[-2000:]}")

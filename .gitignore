@@ -1,5 +1,5 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# Naoshi — what does not belong in version control
+# tsumiki — what does not belong in version control
 #
 # ⚠️ MAKE THE REPOSITORY PRIVATE. Not a preference. See "Never public" below —
 # the folder contains a third party's personal messages and another person's
@@ -8,13 +8,13 @@
 
 # ── Build output and dependencies ───────────────────────────────────────────
 node_modules/
-naoshi-app/node_modules/
-naoshi-app/dist/
+tsumiki-app/node_modules/
+tsumiki-app/dist/
 dist/
 
 # ── The Vite app's generated source IS COMMITTED. Do not ignore it. ─────────
 #
-# An earlier version of this file excluded naoshi-app/src/App.jsx, main.jsx,
+# An earlier version of this file excluded tsumiki-app/src/App.jsx, main.jsx,
 # modules/, data/ and the generated lib/ files, on the ordinary principle that
 # generated output does not belong in version control.
 #

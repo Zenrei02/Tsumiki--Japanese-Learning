@@ -201,7 +201,7 @@ const K = {
   "現": { m: "to appear; present", on: "ゲン", kun: "あらわ(れる)", story: "The king's jewel 王 beside seeing 見 — polish the stone until what was hidden shows. 現実 is what has appeared: reality; 現金 the money actually present; 実現 the appearing of the real.", w: [["現実","げんじつ","reality"],["現金","げんきん","cash"],["表現","ひょうげん","an expression"]] },
   "度": { m: "degree; time (occasion)", on: "ド", kun: "たび", story: "The lean-to 广 over a measuring hand 又 — a scale on the wall. Degrees of temperature, of attitude (態度), of system (制度), and the counting of occasions: 一度, 今度 — and 〜たびに, which your grammar met at Step 42, is this character read たび.", w: [["一度","いちど","once"],["態度","たいど","an attitude"],["制度","せいど","a system"]] },
   "値": { m: "value; price", on: "チ", kun: "ね・あたい", story: "A person 亻 beside 直 — what someone judges straight-on: worth. 値段 the price, 価値 the value, 値上げ the rise you met on Stage 12's posters. 直 arrived one lesson ago; here is its first customer.", w: [["値段","ねだん","price"],["価値","かち","value"],["値上げ","ねあげ","a price rise"]] },
-  "直": { m: "straight; direct; fix", on: "チョク", kun: "なお(す)・なお(る)", story: "An eye 目 sighting down a straight line — directness itself. 直前・直後 bracket a moment, 直す repairs (straightens), and the app's own name hides here: naoshi, the fixing.", sentence: true, w: [["直す","なおす","to fix"],["直前","ちょくぜん","just before"],["直後","ちょくご","just after"]] },
+  "直": { m: "straight; direct; fix", on: "チョク", kun: "なお(す)・なお(る)", story: "An eye 目 sighting down a straight line — directness itself. 直前・直後 bracket a moment, 直す repairs (straightens) — which is exactly what the checker does to a sentence.", sentence: true, w: [["直す","なおす","to fix"],["直前","ちょくぜん","just before"],["直後","ちょくご","just after"]] },
   "想": { m: "to imagine; thought", on: "ソウ", story: "A tree 木 and an eye 目 over the heart 心 — looking at something and letting the heart work on it. 想像 imagines, 予想 forecasts, 感想 is what the heart made of it. Every part already yours.", w: [["想像","そうぞう","imagination"],["予想","よそう","a forecast"],["感想","かんそう","impressions"]] },
   "対": { m: "opposite; versus", on: "タイ", story: "Two sides facing across a line — versus, toward, matched against. 反対 opposes, 対立 confronts, 対象 is who a thing is aimed at — the small print Stage 12's posters kept defining.", w: [["反対","はんたい","opposition"],["対象","たいしょう","the target; those covered"],["対立","たいりつ","confrontation"]] },
   "判": { m: "to judge", on: "ハン", story: "A half 半 cut by the side-knife 刂 — dividing a matter cleanly down the middle, which is what judging is. 判断 the judgement, 評判 the public's verdict: the reputation.", w: [["判断","はんだん","a judgement"],["評判","ひょうばん","reputation"]] },
@@ -689,10 +689,10 @@ function coverageAtRank(n) {
 }
 
 // ————— Storage —————
-const KEY = "kanji-progress-v1";
-const KNOWN_KEY = "known-kanji-v1";      // written here, read by the grammar module
-const GRAMMAR_KEY = "n5-progress-v1";    // read here, written by the grammar module
-const SD_KEY = "stroke-data-v1";         // SHARED with the kana modules — the
+const KEY = "tsumiki-kanji-progress-v1";
+const KNOWN_KEY = "tsumiki-known-kanji-v1";      // written here, read by the grammar module
+const GRAMMAR_KEY = "tsumiki-n5-progress-v1";    // read here, written by the grammar module
+const SD_KEY = "tsumiki-stroke-data-v1";         // SHARED with the kana modules — the
                                          // handwriting floor calibrated there
                                          // applies here without recalibrating.
 async function loadJSON(key, fallback) {

@@ -12,7 +12,7 @@ written to any file, log, chat, or tracker. Set it for the single command only:
     ANTHROPIC_API_KEY=sk-... python3 bakeoff-harness.py --run
 
 What it does:
-  1. Extracts SYSTEM_PROMPT live from naoshi-prototype.jsx (no drift — the
+  1. Extracts SYSTEM_PROMPT live from tsumiki-prototype.jsx (no drift — the
      prompt under test is the prompt in the file, and the run is stamped with
      its SCHEMA_VERSION).
   2. Reads sentences from naoshi-eval-v1.xlsx / Eval Set (skips EXAMPLE + blanks).
@@ -62,11 +62,11 @@ API = "https://api.anthropic.com/v1/messages"
 
 # ---------- prompt, straight from the checker file ----------
 def load_prompt():
-    src = (HERE / "naoshi-prototype.jsx").read_text(encoding="utf-8")
+    src = (HERE / "tsumiki-prototype.jsx").read_text(encoding="utf-8")
     schema = re.search(r'SCHEMA_VERSION = "([^"]+)"', src).group(1)
     m = re.search(r"const SYSTEM_PROMPT = `(.*?)`;", src, re.S)
     if not m:
-        sys.exit("Could not extract SYSTEM_PROMPT from naoshi-prototype.jsx")
+        sys.exit("Could not extract SYSTEM_PROMPT from tsumiki-prototype.jsx")
     return m.group(1), schema
 
 # ---------- workbook ----------

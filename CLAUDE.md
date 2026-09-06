@@ -1,4 +1,4 @@
-# Naoshi — working conventions
+# tsumiki — working conventions
 
 Read at session start. Operational facts that have cost time when forgotten.
 
@@ -25,7 +25,7 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
 
 ## Notion IDs
 
-- Tracker data source: `collection://b15af8b2-c2ce-4c50-9b21-8bd175341d7b` ("Naoshi — Dev Tasks")
+- Tracker data source: `collection://b15af8b2-c2ce-4c50-9b21-8bd175341d7b` ("tsumiki — Dev Tasks")
 - Session journals parent page: `3aa264372ce081ef8990e539282b9bfe` ("📝 Japanese Grammar App — Project Breakdown")
 - `Area` accepts only: `Product`, `Prompt & Eval`, `Content & Community`, `Business & Admin`
 - Batched `create-pages` fails silently when a `Notes` string runs long — keep notes under
@@ -213,7 +213,7 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   said "set but unverified end-to-end" and was RIGHT. `audit-2026-08-15.md` said
   it "is not set in Netlify" — written **one day after** it was set — and that
   sentence is the one every later session inherited, including this file. A
-  further trap corroborated it: the repo's own `naoshi-app/dist/` is a LOCAL
+  further trap corroborated it: the repo's own `tsumiki-app/dist/` is a LOCAL
   build, where the env var is absent, so its bundle reads
   `const $={}; …$.VITE_CHECKER_URL||""`. Reading the committed `dist/` as
   evidence about production is reading the wrong artifact.
@@ -237,21 +237,21 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   **Do not guess whether a push deploys — run Netlify's own check.** The
   `ignore` command in netlify.toml is
   `git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF ./ ../netlify.toml`,
-  evaluated from `base = "naoshi-app"`. Reproduce it:
+  evaluated from `base = "tsumiki-app"`. Reproduce it:
 
   ```
-  cd naoshi-app
+  cd tsumiki-app
   git --no-optional-locks diff --quiet origin/main HEAD ./ ../netlify.toml
   # exit 0 => build SKIPPED (free).  exit 1 => build RUNS (15 credits).
   ```
 
   Two things to get right. **Run a control** — the same command against a range
-  that *does* touch `naoshi-app/` must exit 1; an ignore rule that always exits 0
+  that *does* touch `tsumiki-app/` must exit 1; an ignore rule that always exits 0
   looks identical to a free push and would silently suppress every real deploy.
   And **`$CACHED_COMMIT_REF` is the last commit Netlify actually BUILT**, not
   `origin/main`; if an app-touching commit was pushed but never built, the diff
   spans further back and the build runs. Check with
-  `git merge-base --is-ancestor $(git log -1 --format=%H -- naoshi-app/) origin/main`.
+  `git merge-base --is-ancestor $(git log -1 --format=%H -- tsumiki-app/) origin/main`.
 
   Assistant duties: do NOT write "push when ready" after every commit; DO tell
   Lloyd at session close whether the pending commits would deploy, having
@@ -390,7 +390,7 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
 
 ## The audit task
 
-`naoshi-weekly-audit` runs Saturdays 07:00 against this folder and logs to the Notion
+`tsumiki-weekly-audit` runs Saturdays 07:00 against this folder and logs to the Notion
 "🔍 Audit log" page. It reports; it does not act. No `.jsx` edits ever, no `SYSTEM_PROMPT`
 changes while Phase 0 is live, content corrections routed to the reviewer. It may fix stale
 **tracker rows** at source, but must **never rewrite a session journal** — a journal records

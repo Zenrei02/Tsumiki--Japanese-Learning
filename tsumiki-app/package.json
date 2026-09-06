@@ -1,0 +1,23 @@
+{
+  "name": "tsumiki-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "smoke": "esbuild test/entry.jsx --bundle --loader:.jsx=jsx --format=iife --jsx=automatic --outfile=/tmp/test-bundle.js --define:process.env.NODE_ENV='\"development\"' && node test/smoke.mjs",
+    "stage-view": "esbuild test/entry.jsx --bundle --loader:.jsx=jsx --format=iife --jsx=automatic --outfile=/tmp/test-bundle.js --define:process.env.NODE_ENV='\"development\"' && node test/stage-view.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.115.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "vite": "^6.0.7"
+  }
+}

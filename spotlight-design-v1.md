@@ -5,7 +5,7 @@
 
 ## The gap
 
-Naoshi has four verdicts — FIX, UNNATURAL, WORTH KNOWING, NONE — and all four are
+tsumiki has four verdicts — FIX, UNNATURAL, WORTH KNOWING, NONE — and all four are
 **grades**. Each answers "how wrong was this?"
 
 That leaves no way to say something that isn't a grade at all. When a learner

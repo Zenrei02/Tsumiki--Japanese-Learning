@@ -29,8 +29,8 @@ the Checker was exercised end-to-end against production.
 
 ## ⚠️ What this session does NOT touch
 
-- **`SYSTEM_PROMPT` / `naoshi-prototype.jsx`.** The prompt that produced all 150 eval outputs
-  lives at `naoshi-prototype.jsx:56` — *not* `checker-module.jsx`, which has no such constant —
+- **`SYSTEM_PROMPT` / `tsumiki-prototype.jsx`.** The prompt that produced all 150 eval outputs
+  lives at `tsumiki-prototype.jsx:56` — *not* `checker-module.jsx`, which has no such constant —
   and `supabase/functions/check/_prompt.ts` is **generated** from it by `build-checker-endpoint.py`.
   They are currently byte-identical, sha `0f9310266962`, both `SCHEMA_VERSION = naoshi-4`.
   Changing either invalidates the eval baseline. Leave both alone.
@@ -53,7 +53,7 @@ history, `checks/user` and return-rate metrics, and opening the capped free tier
 
 Ground truth, checked Sep 6:
 
-- **The app has no Supabase client at all.** `naoshi-app/package.json` dependencies are exactly
+- **The app has no Supabase client at all.** `tsumiki-app/package.json` dependencies are exactly
   `react` and `react-dom`. Adding `@supabase/supabase-js` is part of this task.
 - **No auth or profile tables exist.** `supabase/migrations/` holds only `check_usage`,
   `keepalive`, and an RLS revoke. Auth tables are new work.
@@ -66,7 +66,7 @@ Ground truth, checked Sep 6:
 🚩 **THE CONSTRAINT THAT MATTERS MOST: AUTH MUST NOT ORPHAN LOCAL PROGRESS.**
 
 Every learner's progress currently lives in `localStorage` under the eleven keys in
-`naoshi-app/src/lib/storage.js`. **Twelve days of silent grammar-progress loss just shipped to
+`tsumiki-app/src/lib/storage.js`. **Twelve days of silent grammar-progress loss just shipped to
 production** because two keys were missing from `KEYS` — that is `e78ba96`, fixed last week.
 Introducing accounts is the single most likely way to do it again, at larger scale.
 
@@ -85,13 +85,13 @@ Introducing accounts is the single most likely way to do it again, at larger sca
 Staged and dark, waiting only on integration:
 
 - `engagement-module.jsx` is authored at the repo root (24 KB) and **not** in
-  `naoshi-app/src/modules/`.
+  `tsumiki-app/src/modules/`.
 - `engagement-v1` is **already in `KEYS`** — added ahead of the splice in `c828e3e`, precisely
   so the fix landed before the bug could.
 - `App.jsx:63-68` already reads the key defensively and says so in a comment.
 
 So the remaining work is the splice itself. `check-storage-keys.py` must stay green afterwards —
-it now scans `naoshi-app/src/**` plus the root `*-module.jsx` files, so it will see this module
+it now scans `tsumiki-app/src/**` plus the root `*-module.jsx` files, so it will see this module
 once it moves.
 
 Note the design decision recorded on that row and do not undo it: **opening the app is not
@@ -120,13 +120,13 @@ don't care if it spends a deployment with only 3 days to go"*). Roughly one of t
 the Aug 30 reading, and the reset is *believed* to be the 8th — his hedge, unconfirmed, and
 CLAUDE.md says not to promote it into a fact.
 
-So: **batch tasks 1 and 2 into a single deploying push.** Both touch `naoshi-app/`. Do not
+So: **batch tasks 1 and 2 into a single deploying push.** Both touch `tsumiki-app/`. Do not
 push after each one.
 
 Verify rather than assume, with the control in both directions:
 
 ```
-cd naoshi-app
+cd tsumiki-app
 git --no-optional-locks diff --quiet origin/main HEAD ./ ../netlify.toml
 # exit 0 => build SKIPPED (free).  exit 1 => build RUNS (15 credits).
 ```
@@ -142,7 +142,7 @@ behind and his GitHub Desktop reports the repo as locked.
 ```
 python3 check-storage-keys.py      # 11/11 keys, exit 0 — will grow with auth
 python3 check-module-drift.py      # byte-stable between runs
-npm run smoke                      # in naoshi-app; never run node test/smoke.mjs directly
+npm run smoke                      # in tsumiki-app; never run node test/smoke.mjs directly
 ```
 
 The smoke trap is worth re-reading in CLAUDE.md: run directly, it reads whatever bundle is
@@ -154,7 +154,7 @@ writable** — which is how that stale-bundle bug was finally exposed. Running i
 build to `$HOME` and pass the override instead:
 
 ```
-cd naoshi-app
+cd tsumiki-app
 npx esbuild test/entry.jsx --bundle --loader:.jsx=jsx --format=iife --jsx=automatic \
   --outfile=$HOME/test-bundle.js --define:process.env.NODE_ENV='"development"'
 SMOKE_BUNDLE=$HOME/test-bundle.js node test/smoke.mjs

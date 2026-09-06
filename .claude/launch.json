@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "naoshi-app",
+      "name": "tsumiki-app",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "cwd": "naoshi-app",
+      "cwd": "tsumiki-app",
       "port": 5173
     }
   ]

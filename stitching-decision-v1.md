@@ -78,7 +78,7 @@ not apply evenly.
 
 | | Depends on the go/tune outcome? | Gated? |
 |---|---|---|
-| **The checker** (`naoshi-prototype.jsx`) | **Yes** — the decision may rewrite `SYSTEM_PROMPT`, the tier model, or the whole pipeline | **Yes.** Porting it now risks porting something that changes. |
+| **The checker** (`tsumiki-prototype.jsx`) | **Yes** — the decision may rewrite `SYSTEM_PROMPT`, the tier model, or the whole pipeline | **Yes.** Porting it now risks porting something that changes. |
 | **The four learning modules** (kana ×2, kanji, grammar, vocabulary) | **No** — none of them calls the checker, none reads `SYSTEM_PROMPT`, none is affected by the eval result | **Only by the letter of the rule, not its reason.** |
 
 The gate exists so that engineering effort is not spent on a pipeline that might be replaced.

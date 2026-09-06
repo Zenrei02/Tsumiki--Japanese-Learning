@@ -25,8 +25,8 @@ import { mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-const ESBUILD = "./naoshi-app/node_modules/.bin/esbuild";
-const dir = mkdtempSync(join(tmpdir(), "naoshi-stream-"));
+const ESBUILD = "./tsumiki-app/node_modules/.bin/esbuild";
+const dir = mkdtempSync(join(tmpdir(), "tsumiki-stream-"));
 const bundle = (src, name) => {
   const out = join(dir, name);
   execFileSync(ESBUILD, [src, "--bundle", "--format=esm", `--outfile=${out}`]);

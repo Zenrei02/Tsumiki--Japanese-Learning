@@ -1,5 +1,5 @@
 // Fixtures for test-error-history.py. Appended to the PURE CORE sliced out of
-// naoshi-app/src/lib/errorHistory.js at run time, so these assertions run
+// tsumiki-app/src/lib/errorHistory.js at run time, so these assertions run
 // against the shipping code and not against a copy of it.
 
 let fails = 0;

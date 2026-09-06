@@ -147,7 +147,7 @@ const VERB_DATA = {
 // make good distractors, and those are the mistakes the grammar teaches
 // against: applying the ichidan rule to a godan verb (帰る → 帰て), the wrong
 // te-row (書く → 書って), and ら抜き potential (食べれる).
-// Unit-tested from naoshi-app/test/verb-forms.mjs, which evals exactly this
+// Unit-tested from tsumiki-app/test/verb-forms.mjs, which evals exactly this
 // marker-delimited block — one source, no drift.
 const GODAN = {
   u:   { a: "わ", i: "い", e: "え", o: "お", te: "って", ta: "った" },
@@ -1161,14 +1161,14 @@ const STEP_POINTS = {"Step 0 · Before any Japanese": ["prim-shape", "prim-drop"
 //
 // The kanji module is the single source of truth for the Trace → Guided →
 // Blank engine, per-stroke scoring, direction and out-of-order detection.
-// Calibration is shared through `stroke-data-v1`, so the handwriting floor
+// Calibration is shared through `tsumiki-stroke-data-v1`, so the handwriting floor
 // a learner sets in one module applies in the other without recalibrating.
 //
 // KanjiVG (Ulrich Apel), CC BY-SA 3.0 — http://kanjivg.tagaini.net
 // 27 characters, 163 paths — only those reachable through taught vocabulary.
 
 const STROKE_BOX = 109;
-const SD_KEY = "stroke-data-v1";
+const SD_KEY = "tsumiki-stroke-data-v1";
 
 const STROKES = {
   "一": ["M11,54.25c3.19,0.62,6.25,0.75,9.73,0.5c20.64-1.5,50.39-5.12,68.58-5.24c3.6-0.02,5.77,0.24,7.57,0.49"],
@@ -1622,12 +1622,12 @@ function StrokePractice({ chars, modId, progress, onProgress, startCh }) {
 // window.storage, matching the kanji and kana modules. NOT localStorage: the
 // artifact host provides window.storage and a plain browser does not, so
 // standalone builds need the shim in build-standalone-html.py.
-const KEY = "known-words-v1";            // this module's own progress
-const KNOWN_KANJI_KEY = "known-kanji-v1"; // written by the kanji module, read here
-const AP_KEY = "achievement-points-v1";
-const GRAMMAR_KEY = "n5-progress-v1";    // read here, written by the grammar module —
+const KEY = "tsumiki-known-words-v1";            // this module's own progress
+const KNOWN_KANJI_KEY = "tsumiki-known-kanji-v1"; // written by the kanji module, read here
+const AP_KEY = "tsumiki-achievement-points-v1";
+const GRAMMAR_KEY = "tsumiki-n5-progress-v1";    // read here, written by the grammar module —
                                          // gates kana-only words on "step reached" (Session 10)
-const KATA_KEY = "katakana-progress-v1"; // read here, written by the katakana module —
+const KATA_KEY = "tsumiki-katakana-progress-v1"; // read here, written by the katakana module —
                                          // its CC/SB lessons trigger early katakana vocabulary
 
 async function loadJSON(key, fallback) {

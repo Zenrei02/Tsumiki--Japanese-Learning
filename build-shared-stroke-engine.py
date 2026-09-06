@@ -8,7 +8,7 @@ direction and out-of-order detection, and the KanjiVG stroke paths all live in
 artifacts cannot import, so the choice was: duplicate it, or generate it.
 
 Duplicating would give two engines that drift apart, and the handwriting floor
-is calibrated once and shared through `stroke-data-v1` — two scoring
+is calibrated once and shared through `tsumiki-stroke-data-v1` — two scoring
 implementations would calibrate against each other's mistakes. So: ONE source
 of truth (the kanji module), extracted mechanically at build time.
 
@@ -76,7 +76,7 @@ n_paths = sum(len(re.findall(r'"[Mm]', v)) for v in kept.values())
 # are declared above it. Emitting either twice is a redeclaration error.
 prelude = []
 for decl in (re.search(r"const STROKE_BOX = [^\n]*\n", KMOD).group(0).rstrip(),
-             'const SD_KEY = "stroke-data-v1";',
+             'const SD_KEY = "tsumiki-stroke-data-v1";',
              re.search(r"const CAL_MIN = [^\n]*\n", KMOD).group(0).rstrip()):
     name = decl.split()[1]
     if not re.search(r"\bconst\s+" + re.escape(name) + r"\b", engine):
@@ -89,7 +89,7 @@ out = [
     "//",
     "// The kanji module is the single source of truth for the Trace → Guided →",
     "// Blank engine, per-stroke scoring, direction and out-of-order detection.",
-    "// Calibration is shared through `stroke-data-v1`, so the handwriting floor",
+    "// Calibration is shared through `tsumiki-stroke-data-v1`, so the handwriting floor",
     "// a learner sets in one module applies in the other without recalibrating.",
     "//",
     "// KanjiVG (Ulrich Apel), CC BY-SA 3.0 — http://kanjivg.tagaini.net",
@@ -125,7 +125,7 @@ if vm.exists():
 # separate regions with ~32 KB of unrelated code between them.
 #
 # Safe to overwrite because the engine is meant to be identical: calibration is
-# shared through `stroke-data-v1` precisely so a floor set in hiragana applies
+# shared through `tsumiki-stroke-data-v1` precisely so a floor set in hiragana applies
 # in kanji. Two modules sharing a calibration key while scoring differently is
 # the bug this prevents.
 ENGINE_FNS = ["strokeStart", "resample", "samplePath", "scoreStroke",

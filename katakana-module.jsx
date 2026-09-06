@@ -520,7 +520,7 @@ function KindBadge({ kind, size = 11 }) {
 const hasJP = (t) => /[\u3040-\u30FF\u3400-\u9FFF]/.test(t);
 
 // ————— Storage —————
-const KEY = "katakana-progress-v1";
+const KEY = "tsumiki-katakana-progress-v1";
 async function loadProgress() {
   try { const r = await window.storage.get(KEY); return r ? JSON.parse(r.value) : {}; }
   catch { return {}; }
@@ -1549,7 +1549,7 @@ function scoreStroke(userPts, refPts) {
 // Raw points are logged too, resampled but not scored, so attempts can be
 // re-scored offline with any algorithm later. Logging only the score would mean
 // re-collecting from scratch every time the maths changes.
-const SD_KEY = "stroke-data-v1";
+const SD_KEY = "tsumiki-stroke-data-v1";
 const CAL_MIN = 8;        // samples before the floor is trusted
 const CAL_KEEP = 60;      // rolling calibration window
 const LOG_KEEP = 400;     // rolling attempt log

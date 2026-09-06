@@ -21,10 +21,10 @@ it belongs in Claude Code. **Design and planning stay in Cowork.**
   (`"cap": null`, `CAP DISABLED` in the logs). Migration
   `20260814190000_check_usage_grant_service_role.sql` fixes it. **No successful
   reserve has happened yet** — the next real check proves it or doesn't.
-- **App: live at naoshi.netlify.app**, six modules behind a side menu.
+- **App: live at tsumiki.netlify.app**, six modules behind a side menu.
   **The Checker tab has never been used.** The endpoint shows one invocation
   ever, the curl. `VITE_CHECKER_URL` set but unverified end-to-end.
-- **`NAOSHI_ALLOWED_ORIGIN` may still be `*`.** Check it. Wide open means anyone
+- **`TSUMIKI_ALLOWED_ORIGIN` may still be `*`.** Check it. Wide open means anyone
   can spend the API budget.
 
 ## The bake-off — 149/150, and the missing one is the finding

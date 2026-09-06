@@ -67,9 +67,9 @@ The two sides are protected differently, and the asymmetry is deliberate rather
 than an oversight. Say it plainly wherever it comes up; do not let a comment or
 a sentence of UI copy imply symmetry it does not have.
 
-- **The account's copy is kept automatically.** `naoshi_progress` has a
+- **The account's copy is kept automatically.** `tsumiki_progress` has a
   `BEFORE UPDATE` trigger that files the outgoing document into
-  `naoshi_progress_archive` under the version it had. No client involvement, and
+  `tsumiki_progress_archive` under the version it had. No client involvement, and
   no way for a client to skip it — see
   `supabase/migrations/20260906000000_progress_sync.sql`. So choosing *this
   device* is always reversible.
@@ -126,7 +126,7 @@ mean "delete my work", which is not what the words say.
 ## What was tested, and how it was proven able to fail
 
 `test-progress-sync.py` slices the merge core out of
-`naoshi-app/src/lib/sync.js` **at run time**, so it can never test a stale copy —
+`tsumiki-app/src/lib/sync.js` **at run time**, so it can never test a stale copy —
 the same trick, for the same reason, as `test-progress-migration.py`.
 
 The control, run before the first green run: `mergeProgress` was changed to

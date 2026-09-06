@@ -15,7 +15,7 @@ Your job ends at a **single standalone `.html` file Lloyd can open anywhere** (s
 Lloyd actually sees this" below). Commit if you like — commits are free. Do not push, and
 do not suggest pushing.
 
-`netlify.toml` carries a build-ignore rule so a push touching nothing under `naoshi-app/`
+`netlify.toml` carries a build-ignore rule so a push touching nothing under `tsumiki-app/`
 skips the build. That is a safety net, not a licence.
 
 ---

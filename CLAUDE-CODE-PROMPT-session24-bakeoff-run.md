@@ -26,12 +26,12 @@ prompt change did nothing" having changed nothing and called nothing.
 
 ### 2. Do NOT run this while the rename is in flight
 
-The rename (Naoshi → its real name) is happening in a separate session. The
-harness extracts `SYSTEM_PROMPT` live from `naoshi-prototype.jsx` and stamps
+The rename (tsumiki → its real name) is happening in a separate session. The
+harness extracts `SYSTEM_PROMPT` live from `tsumiki-prototype.jsx` and stamps
 `SCHEMA_VERSION` on every logged row — **the rename touches both.**
 
 The dangerous case is not the version changing. It is the rename editing the
-**prompt text** (there are "Naoshi" mentions inside the prompt string) while
+**prompt text** (there are "tsumiki" mentions inside the prompt string) while
 leaving `SCHEMA_VERSION` alone: two different prompts then share one stamp and
 nothing downstream can separate the rows. **Run before the rename lands, or
 after. Never across.**

@@ -50,7 +50,7 @@ snapshot is needed for this operation.
 
 ## Step 2 — Get a real `.xlsx`
 
-In **Naoshi — ブラインド採点 responses (all batches)**
+In **tsumiki — ブラインド採点 responses (all batches)**
 (`1QxPjAXNtCIwuB8m6eBCMP8mWWcKWln7zYIZCXBLNLP8`, owned by zensoreno@gmail.com):
 
 > File → Download → Microsoft Excel (.xlsx)

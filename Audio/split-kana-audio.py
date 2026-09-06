@@ -241,7 +241,7 @@ def cut(src, dst, start, end, pad, gain, mp3=False):
     if mp3:
         cmd += ["-c:a", "libmp3lame", "-b:a", MP3_BITRATE, "-write_xing", "1",
                 "-metadata", f"title={os.path.basename(dst).rsplit('.', 1)[0]}",
-                "-metadata", "album=Naoshi Kana"]
+                "-metadata", "album=tsumiki Kana"]
     else:
         cmd += ["-c:a", "pcm_s16le"]
     cmd.append(dst)

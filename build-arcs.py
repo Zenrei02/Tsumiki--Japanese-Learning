@@ -143,7 +143,7 @@ def main():
         return
     MODULE.write_text(out, encoding="utf-8")
     print(f"wrote {MODULE.name}: {where}")
-    print("  next: python3 build-vite-app.py   (regenerates naoshi-app/src/modules/Grammar.jsx)")
+    print("  next: python3 build-vite-app.py   (regenerates tsumiki-app/src/modules/Grammar.jsx)")
 
 
 if __name__ == "__main__":

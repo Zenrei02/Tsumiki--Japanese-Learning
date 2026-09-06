@@ -4,7 +4,7 @@ test-error-history.py — the error-history store, and the union sync.js relies 
 
 WHY THIS EXISTS, AND WHAT IT IS REALLY GUARDING
 
-`checker-history-v1` is the first key in the app that is a LOG rather than
+`tsumiki-checker-history-v1` is the first key in the app that is a LOG rather than
 STATE, and it is the ONLY key exempt from sync.js's ask-on-conflict rule: when
 two devices hold different histories it unions them instead of asking the
 learner to choose. That exemption is not a preference. It is earned by two
@@ -46,7 +46,7 @@ Exit 0 = all assertions pass.
 import subprocess, sys, pathlib, tempfile, os
 
 HERE = pathlib.Path(__file__).parent
-MOD = HERE / "naoshi-app" / "src" / "lib" / "errorHistory.js"
+MOD = HERE / "tsumiki-app" / "src" / "lib" / "errorHistory.js"
 FIXTURES = HERE / "test-error-history.fixtures.mjs"
 
 START = "// ——— PURE CORE (extracted verbatim at run time by test-error-history.py) ———"

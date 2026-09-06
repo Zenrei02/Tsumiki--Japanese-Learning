@@ -49,7 +49,7 @@ wrong is cheap to fix while nothing reads it and expensive afterwards.
 New key `checker-history-v1`: an object keyed by `pattern_name`, each entry
 holding the day (day-resolution, not a timestamp), the register context, the
 tier, and an id. A reserved `_checks` bucket holds one entry per graded check.
-Store in `naoshi-app/src/lib/errorHistory.js`; design in
+Store in `tsumiki-app/src/lib/errorHistory.js`; design in
 `error-history-design-v1.md`.
 
 ---
@@ -256,8 +256,8 @@ the store's only non-pattern bucket.
 ```
 python3 test-error-history.py                    52 assertions, exit 0
 python3 test-error-history.py --self-check       4 red — control fires
-node naoshi-app/test/test-checker-records.mjs                17 assertions, exit 0
-node naoshi-app/test/test-checker-records.mjs --self-check   13 red — control fires
+node tsumiki-app/test/test-checker-records.mjs                17 assertions, exit 0
+node tsumiki-app/test/test-checker-records.mjs --self-check   13 red — control fires
 ```
 
 `npm run smoke` gained a **PROGRESS** block: reachable from the drawer, renders
@@ -358,7 +358,7 @@ for the rest.
   jsdom does not tell you whether a group of forty sentences is pleasant to
   scroll.
 - **The file is still the only rollback a learner has.** The account has no
-  undo of its own: `naoshi_progress_archive` already holds every replaced
+  undo of its own: `tsumiki_progress_archive` already holds every replaced
   document, and surfacing it as *"restore an earlier version"* is what would
   make the file genuinely optional rather than merely tidier. Not built.
 
@@ -440,7 +440,7 @@ them only fires because the suite asserts the *message* names where to look —
 the exit code alone stayed red for the wrong reason.
 
 **Rename notes** (`8454191`) — `RENAME-NOTES.md`, five verified hazards for the
-next session, chief among them that `"naoshi-progress"` is an export **file
+next session, chief among them that `"tsumiki-progress"` is an export **file
 format** checked on every import, and that the Supabase redirect allow-list is a
 dashboard setting no find-and-replace can reach.
 
@@ -449,6 +449,6 @@ dashboard setting no find-and-replace can reach.
 - **21 commits unpushed**, `origin/main` at `bbf15c8`. Production has no
   accounts, no Review, no Progress. One build for all of it.
 - **`naoshi-5` unmeasured.** Needs a run outside the sandbox.
-- **The account still has no undo of its own.** `naoshi_progress_archive` holds
+- **The account still has no undo of its own.** `tsumiki_progress_archive` holds
   every replaced document; surfacing it would make the backup file optional.
 - **Nothing has been seen in a real browser** — jsdom only.
