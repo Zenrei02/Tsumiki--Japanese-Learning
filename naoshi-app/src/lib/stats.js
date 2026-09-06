@@ -39,6 +39,23 @@ export const SECTIONS = [
   { id: "vocabulary", label: "Vocabulary", jp: "ことば",
     keys: ["known-words-v1"], countFrom: "known-words-v1",
     unit: (n) => `${n} words you have met` },
+  // The checker's first store (Session 24). Two things make it belong here and
+  // neither is bookkeeping:
+  //
+  // 1. RESET. A learner must be able to delete their own record of their own
+  //    mistakes, and being unable to would be worse here than for any other key
+  //    in the app. A section is how reset reaches a key.
+  // 2. THE COUNT COMES OUT RIGHT FOR FREE. countProgress() skips keys beginning
+  //    with "_", and the store's only non-pattern bucket is "_checks" — so this
+  //    counts DISTINCT PATTERNS MET without knowing anything about the shape.
+  //
+  // The unit is capability voice, per the rule at the top of this file: these
+  // are things that have been EXPLAINED to the learner, not a tally of their
+  // failures. "N corrections" would be the same arithmetic and the opposite
+  // message, which is the whole reason that rule exists.
+  { id: "checker", label: "Checker", jp: "直し",
+    keys: ["checker-history-v1"], countFrom: "checker-history-v1",
+    unit: (n) => `${n} patterns you have met` },
 ];
 
 // Real settings, discovered by reading the modules rather than the specs: both

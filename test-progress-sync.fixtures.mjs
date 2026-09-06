@@ -166,6 +166,45 @@ const eq = (a, b, msg) => assert(canonCmp(a) === canonCmp(b),
   }
 }
 
+// ————— 13. THE ONE EXEMPTION: a log key unions instead of asking —————
+//
+// The registry is EMPTY in the extracted core on purpose, so a test has to opt
+// a key in deliberately — which is also what makes these assertions about
+// DISPATCH rather than about any particular merger. The union's own properties
+// (order-independence, idempotence) are test-error-history.py's job.
+{
+  registerLogMerger("log-key-v1", (l, r) => JSON.stringify(
+    [...new Set([...JSON.parse(l), ...JSON.parse(r)])].sort()));
+
+  const p = mergeProgress({ "log-key-v1": '["a","b"]' }, { "log-key-v1": '["b","c"]' });
+  eq(p.conflicts, [], "a registered log key does NOT raise a conflict");
+  eq(p.unioned, ["log-key-v1"], "...it is reported as unioned, not as clean");
+  assert(p.status === "clean", "a unioned key leaves the plan clean");
+  assert(p.merged["log-key-v1"] === '["a","b","c"]', "both sides survive the union");
+
+  // An UNREGISTERED key with the same shape must still ask. If this ever goes
+  // green the exemption has stopped being a named list and become a behaviour.
+  const q = mergeProgress({ "kanji-progress-v1": '["a"]' }, { "kanji-progress-v1": '["b"]' });
+  eq(q.conflicts, ["kanji-progress-v1"], "an unregistered key still asks");
+
+  // ⚠️ WRONG TOWARD ASKING, NEVER TOWARD INVENTING. A merger that cannot do its
+  // job must fall back to the question, not to a document it made up.
+  registerLogMerger("broken-v1", () => null);
+  const r = mergeProgress({ "broken-v1": "x" }, { "broken-v1": "y" });
+  eq(r.conflicts, ["broken-v1"], "a merger returning null falls back to asking");
+
+  registerLogMerger("throws-v1", () => { throw new Error("boom"); });
+  const t = mergeProgress({ "throws-v1": "x" }, { "throws-v1": "y" });
+  eq(t.conflicts, ["throws-v1"], "a merger that THROWS falls back to asking");
+
+  // The exemption must not reach the other rules: one side only still wins
+  // outright, and equal sides are still 'same', not 'unioned'.
+  const u = mergeProgress({ "log-key-v1": '["a"]' }, {});
+  eq(u.pushed, ["log-key-v1"], "one side only is still a push, not a union");
+  const v = mergeProgress({ "log-key-v1": '["a"]' }, { "log-key-v1": '["a"]' });
+  eq(v.same, ["log-key-v1"], "identical sides are still 'same', not a union");
+}
+
 if (failures) {
   console.error("\n" + failures + " ASSERTION(S) FAILED");
   process.exit(1);

@@ -313,6 +313,7 @@ stats = []
 for src_name, out_name, comp, label, jp, _accent in MODULES:
     src = (HERE / src_name).read_text(encoding="utf-8")
     before = len(src)
+    needs_history = False
 
     # strip the API implementation entirely — see module docstring
     if re.search(r"async function callClaude", src):
@@ -336,6 +337,26 @@ for src_name, out_name, comp, label, jp, _accent in MODULES:
                  'const CHECKER_URL = import.meta.env?.VITE_CHECKER_URL || "";'
                  '  // wired by build-vite-app.py',
                  src, count=1, flags=re.M)
+
+    # The checker's error-history recorder. The source module carries a NO-OP
+    # so the standalone artifact stays loadable and the reviewer's grading path
+    # keeps working with no account and no store; the app build swaps in the
+    # real one. Deleting the declaration rather than copying an implementation
+    # into the module is the point — checker-module.jsx and lib/errorHistory.js
+    # cannot drift, because there is only ever one implementation.
+    #
+    # If the no-op is ever renamed or removed from the source module this
+    # substitution silently stops happening and the app records nothing, so the
+    # miss is reported rather than tolerated.
+    if src_name == "checker-module.jsx":
+        stub = re.search(r"^async function recordCheck\(\) \{[^\n]*\}\n", src, re.M)
+        if not stub:
+            problems.append(f"{src_name}: the recordCheck no-op is gone — "
+                            "the app build has nothing to replace, so checks "
+                            "would be graded and never recorded")
+        else:
+            src = src[:stub.start()] + src[stub.end():]
+            needs_history = True
 
     # flip the static flag: the flag gates the UI (self-mark stand-ins for the
     # quiz and both graders), while the strips above and below keep the BUNDLE
@@ -429,6 +450,7 @@ for src_name, out_name, comp, label, jp, _accent in MODULES:
     if used_json:
         header.append('import { ' + ", ".join(used_json) + ' } from "../lib/json.js";')
     if needs_strokes: header.append('import { STROKES } from "../lib/strokeData.js";')
+    if needs_history: header.append('import { recordCheck } from "../lib/errorHistory.js";')
     if data_import: header.append(data_import.rstrip())
     header.append("installStorage();\n")
 
@@ -748,6 +770,14 @@ const HOME_INVITE = {
 const PROGRESS_KEYS = {
   hiragana: "hiragana-progress-v2", katakana: "katakana-progress-v1",
   grammar: "n5-progress-v1", kanji: "kanji-progress-v1", vocabulary: "known-words-v1",
+  // Session 24. The checker had no progress key, so commitIfWorked() could not
+  // see it and "write and check one sentence" stayed dark in the quest chain —
+  // the gap activity.js used to list under "what is not covered". A check now
+  // writes checker-history-v1, and that write IS the evidence, exactly as a
+  // module's own store is for every other section. Note that a check finding NO
+  // issues still writes (a _checks entry), so a perfect sentence counts as work
+  // rather than as nothing.
+  checker: "checker-history-v1",
 };
 
 // Read through `storage`, NOT localStorage directly (Session 21). The old

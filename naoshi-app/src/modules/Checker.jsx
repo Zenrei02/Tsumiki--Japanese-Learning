@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { installStorage } from "../lib/storage.js";
 import { T } from "../lib/tokens.js";
+import { recordCheck } from "../lib/errorHistory.js";
 installStorage();
 
 // Naoshi — the checker. The sixth door, and the one the product is named for.
@@ -39,6 +40,17 @@ installStorage();
 const CHECKER_URL = import.meta.env?.VITE_CHECKER_URL || "";  // wired by build-vite-app.py
 
 const MAX_CHARS = 600;
+
+// ————— Error history —————
+// A NO-OP HERE, ON PURPOSE. build-vite-app.py deletes this declaration and
+// imports the real recorder from lib/errorHistory.js, so there is exactly ONE
+// implementation and it cannot drift from a second copy living in this file.
+//
+// It stays a no-op in the standalone artifact because that build is the
+// reviewer's grading path: no account, no history, nothing to keep. What it
+// must never do is throw — a store that cannot record is not a reason to fail
+// a check the learner already paid for.
+
 
 // Register is undecidable without knowing the intended reader — "この資料を見て"
 // is fine to a friend and rude to a client. Asking is cheaper than guessing,
@@ -222,6 +234,12 @@ export default function CheckerModule() {
       // the learner may have kept typing, and offsets belong to the submission.
       data.submitted = submitted;
       setResult(data);
+      // AFTER the result is on screen, and never on the error path: a check
+      // that failed to reach the backend is not evidence about anyone's
+      // Japanese. Awaited so the store is written before the learner can
+      // navigate away — commitIfWorked() reads it on the way out.
+      try { await recordCheck(context, data.issues); }
+      catch (e) { console.error("error history not recorded", e); }
     } catch (e) {
       setError(String(e.message || e));
     } finally {

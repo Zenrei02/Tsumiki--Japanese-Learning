@@ -46,6 +46,14 @@ const HOME_INVITE = {
 const PROGRESS_KEYS = {
   hiragana: "hiragana-progress-v2", katakana: "katakana-progress-v1",
   grammar: "n5-progress-v1", kanji: "kanji-progress-v1", vocabulary: "known-words-v1",
+  // Session 24. The checker had no progress key, so commitIfWorked() could not
+  // see it and "write and check one sentence" stayed dark in the quest chain —
+  // the gap activity.js used to list under "what is not covered". A check now
+  // writes checker-history-v1, and that write IS the evidence, exactly as a
+  // module's own store is for every other section. Note that a check finding NO
+  // issues still writes (a _checks entry), so a perfect sentence counts as work
+  // rather than as nothing.
+  checker: "checker-history-v1",
 };
 
 // Read through `storage`, NOT localStorage directly (Session 21). The old

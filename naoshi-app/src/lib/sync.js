@@ -37,6 +37,30 @@
 //   4. On a conflict the app asks, with no default and no timer, and names the
 //      items that differ.
 //
+// ————— THE ONE EXEMPTION, AND WHY IT IS NOT A LOOPHOLE —————
+//
+// Rule 3 is right because every key above is STATE — where the learner is — and
+// two different states mean one device is behind. `checker-history-v1` is not
+// state, it is a LOG: what the learner did, and when. Two devices with
+// different logs means BOTH ARE TRUE and neither is behind, so asking "which
+// history do you want to keep?" has no right answer — and every wrong answer
+// deletes writing the learner really did, out of a number they will later be
+// shown as fact ("your particle errors are down forty percent since May").
+// That is rule 3's own failure mode, one level down.
+//
+// So a LOG key is UNIONED instead of chosen between. This is narrower than it
+// looks, and safe for a structural reason rather than a hopeful one: entries
+// are immutable and carry their own id, so a union invents nothing and drops
+// nothing, and `union(A,B) === union(B,A)` is asserted by test-error-history.py
+// rather than assumed. If that property ever fails, the exemption is unearned.
+//
+// A merger that cannot do its job (unparseable value on either side) returns
+// null and the key FALLS BACK TO ASKING. Wrong toward asking, never toward
+// quietly inventing a merged document.
+//
+// Registration is explicit and lives just below the core, so the exempt list is
+// a thing you can read rather than a behaviour you have to infer.
+//
 // WHAT HAPPENS TO THE SIDE THAT LOSES — and note the asymmetry, because it is
 // the thing to keep in mind before touching this:
 //        · the ACCOUNT's version is kept automatically, by the database, which
@@ -64,6 +88,16 @@
 // progress. Deliberately a short, literal list: anything cleverer starts
 // discarding real state. "0" is absent from it on purpose.
 const EMPTY_VALUES = new Set(["", "{}", "[]", "null", "undefined"]);
+
+// Keys whose values are logs, not state — see THE ONE EXEMPTION above. Empty
+// here on purpose: the entries are registered below the core, so the extracted
+// slice starts with no exemptions and a test must opt one in deliberately.
+const LOG_MERGERS = {};
+
+// fn(localString, remoteString) -> merged string, or null to fall back to
+// asking. Never register something that can throw: mergeProgress is the last
+// thing standing between a sign-in and someone's progress.
+function registerLogMerger(key, fn) { LOG_MERGERS[key] = fn; }
 
 function isEmptyValue(v) {
   if (v === null || v === undefined) return true;
@@ -99,6 +133,7 @@ function mergeProgress(local, remote) {
   const pushed = [];   // this device had it, the account did not
   const pulled = [];   // the account had it, this device did not
   const same = [];
+  const unioned = [];  // logs merged without asking — see THE ONE EXEMPTION
   const conflicts = [];
 
   for (const k of [...keys].sort()) {
@@ -111,11 +146,19 @@ function mergeProgress(local, remote) {
     if (rEmpty) { merged[k] = l; pushed.push(k); continue; }
     if (lEmpty) { merged[k] = r; pulled.push(k); continue; }
     if (canon(l) === canon(r)) { merged[k] = l; same.push(k); continue; }
+
+    // Both sides real and different. A log unions; everything else asks.
+    if (LOG_MERGERS[k]) {
+      let u = null;
+      try { u = LOG_MERGERS[k](l, r); } catch { u = null; }
+      if (u != null) { merged[k] = u; unioned.push(k); continue; }
+      // fell through on purpose — see the note about falling back to asking
+    }
     conflicts.push(k);
   }
 
   return {
-    merged, pushed, pulled, same, conflicts,
+    merged, pushed, pulled, same, unioned, conflicts,
     status: conflicts.length ? "conflict" : "clean",
   };
 }
@@ -135,6 +178,19 @@ function resolveConflicts(plan, local, remote, side) {
 // ——— END PURE MERGE CORE ———
 
 import { KEYS, exportProgress, importProgress, downloadProgress } from "./storage.js";
+import { HISTORY_KEY, unionHistory } from "./errorHistory.js";
+
+// THE EXEMPT LIST, in full. One entry. Adding a second is a decision about
+// someone's data, not a refactor: the key must be an append-only log of
+// immutable, id-carrying entries, or the union silently starts losing things.
+registerLogMerger(HISTORY_KEY, (l, r) => {
+  try {
+    const a = JSON.parse(l), b = JSON.parse(r);
+    const obj = (x) => x && typeof x === "object" && !Array.isArray(x);
+    if (!obj(a) || !obj(b)) return null;      // not the shape we own -> ask
+    return JSON.stringify(unionHistory(a, b));
+  } catch { return null; }                    // unreadable -> ask
+});
 
 // What this browser holds, in the shape mergeProgress wants. exportProgress()
 // already filters to KEYS, so a key no module owns can never reach the server.
@@ -151,7 +207,7 @@ export function writeLocal(map) {
   }));
 }
 
-export { mergeProgress, resolveConflicts, isEmptyValue, canon };
+export { mergeProgress, resolveConflicts, isEmptyValue, canon, registerLogMerger };
 
 // ————— The server side —————
 // The row is `data jsonb` holding exactly this map. The server never parses a

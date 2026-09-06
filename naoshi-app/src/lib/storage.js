@@ -95,6 +95,10 @@ export const KEYS = [
   "stroke-data-v1",   // shared handwriting calibration — the reason one origin matters
   "kanji-mode",
   "module-recency-v1",  // when each section was last WORKED IN — orders Home
+  // The checker's first store, and the app's first LOG rather than STATE.
+  // It is exempt from the ask-on-conflict rule in sync.js and unioned
+  // instead — see LOG_KEYS there and error-history-design-v1.md.
+  "checker-history-v1",
 ];
 
 export function exportProgress() {

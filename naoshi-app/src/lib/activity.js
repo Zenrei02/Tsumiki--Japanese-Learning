@@ -16,14 +16,22 @@ import { storage } from "./storage.js";
 // the way out: the store changing IS the evidence, and the module already
 // writes it without being asked.
 //
-// WHAT IS NOT COVERED, so nobody reads a quiet quest chain as a bug:
-//   · the Checker writes no progress key, so "write and check one sentence"
-//     cannot be credited this way and stays dark
+// ✅ THE CHECKER IS NOW COVERED (Session 24), and this note is corrected here
+// rather than left to rot — a promise that used to be true and quietly stopped
+// being true is the most expensive kind of comment in this repo. It used to
+// read: "the Checker writes no progress key, so 'write and check one sentence'
+// cannot be credited this way and stays dark." It writes checker-history-v1 as
+// of the error-history row, so commitIfWorked() sees it like any other section.
+// A check that finds NO issues still writes (a _checks entry), which is the
+// reason that bucket exists at all: otherwise the best sentence a learner can
+// write would be the one thing that counts as nothing.
+//
+// WHAT IS STILL NOT COVERED, so nobody reads a quiet quest chain as a bug:
 //   · a key change cannot tell a finished SET from a cleared REVIEW, so
 //     reportActivity is called without a `kind` — the module credits the first
 //     unfinished task for that module, which is right for chains built from one
 //     task per module and approximate for chains that are not
-// Closing both needs the seven call sites listed in §5 of engagement-module.jsx,
+// Closing that one needs the call sites listed in §5 of engagement-module.jsx,
 // inside the modules themselves. That is a bigger, riskier change than this one
 // and is deliberately not bundled with it.
 
