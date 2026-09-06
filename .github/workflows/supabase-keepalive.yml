@@ -1,7 +1,25 @@
 name: Supabase keep-alive
 
-# Reads one row from public.keepalive so the free-tier inactivity timer resets.
-# Daily against a ~7-day window: six consecutive failures before anything breaks.
+# TWO JOBS, WATCHING TWO DIFFERENT THINGS.
+#
+# `ping` reads one row from public.keepalive so the free-tier inactivity timer
+# resets. Daily against a ~7-day window: six consecutive failures before
+# anything breaks.
+#
+# `checker` sends ONE REAL CHECK through /functions/v1/check. Added Sep 6 2026,
+# after a rotated ANTHROPIC_API_KEY made the question urgent: the key the app
+# uses lives in the Edge Function's environment, and nothing anywhere would have
+# told us it had stopped working. A dead upstream key returns `upstream-error`,
+# which the app words as "The checker could not be reached just now" — polite,
+# and indistinguishable from a blip. The product's core feature can be dead for
+# a week and the only visible symptom is quiet.
+#
+# LOW TRAFFIC CANNOT SUBSTITUTE FOR THIS. keepalive-report-2026-08-30.md records
+# ZERO requests to /functions/v1/check across its whole window, so "no errors in
+# the logs" and "nobody tried" look identical.
+#
+# They are separate JOBS, not steps, so a checker outage is legible by name and
+# does not make the database ping look like the thing that failed.
 #
 # Minute offset is deliberate. Scheduled runs at :00 sit in GitHub's most
 # contended slot and are routinely delayed or dropped.
@@ -75,3 +93,123 @@ jobs:
 
           echo "---"
           echo "OK - row read, database activity recorded."
+
+  checker:
+    name: Checker end-to-end
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+
+    steps:
+      - name: Send one real check
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${SUPABASE_URL:-}" ]; then
+            echo "FAIL: SUPABASE_URL is unset."
+            exit 1
+          fi
+
+          # No auth header on purpose: this is the learner's path exactly as the
+          # browser calls it. A probe that authenticates differently from the
+          # product can pass while the product is broken.
+          #
+          # The sentence is deliberately CORRECT Japanese, so a healthy response
+          # is `issues: []`. We are testing that the pipe works, not what it says
+          # — asserting on the content would make this fail whenever the model
+          # has an opinion, and a monitor that cries wolf gets muted.
+          #
+          # Cost: one Sonnet call a day. The daily cap keys on a salted hash of
+          # the CALLER's IP, so this spends the GitHub runner's quota and never
+          # a learner's.
+          probe() {
+            curl -sS \
+              -o "$1" \
+              -w '%{http_code}' \
+              --max-time 130 \
+              -X POST \
+              -H 'content-type: application/json' \
+              -d '{"text":"私は本を読みます。","context":"polite"}' \
+              "${SUPABASE_URL}/functions/v1/check"
+          }
+
+          body_file="$(mktemp)"
+          status="$(probe "$body_file")"
+          body="$(cat "$body_file")"
+          echo "HTTP status: ${status}"
+          echo "Response body: ${body}"
+
+          # ⚠️ 429 daily-cap IS A PASS, AND THIS IS THE NON-OBVIOUS ONE.
+          # It means the function ran, the cap table was reachable and the limit
+          # did its job. Treating it as a failure would page us for the system
+          # working, and the first fix anyone reached for would be to raise or
+          # remove the cap — breaking the thing that bounds our spend in order
+          # to silence a monitor that was wrong.
+          if [ "${status}" = "429" ] && printf '%s' "${body}" | grep -q 'daily-cap'; then
+            echo "---"
+            echo "OK - daily cap reached. The function ran and the cap held; nothing is broken."
+            exit 0
+          fi
+
+          # A timeout is retried ONCE before it is called an outage. The measured
+          # p90 is ~52s against a 150s wall clock, so a single slow call is
+          # weather; two in a row is not.
+          if printf '%s' "${body}" | grep -q 'upstream-timeout'; then
+            echo "--- upstream-timeout on the first attempt; retrying once in 30s"
+            sleep 30
+            status="$(probe "$body_file")"
+            body="$(cat "$body_file")"
+            echo "HTTP status (retry): ${status}"
+            echo "Response body (retry): ${body}"
+          fi
+
+          # Two in a row is not weather. Said in its own words, because the
+          # generic "expected 200" below would send someone looking for a
+          # deploy problem when the function is up and Anthropic is slow.
+          if printf '%s' "${body}" | grep -q 'upstream-timeout'; then
+            echo "---"
+            echo "FAIL: the check timed out twice, 30s apart."
+            echo "The function is reachable and answering - it is the upstream"
+            echo "call that is not returning inside ${UPSTREAM_NOTE:-120s}."
+            echo "Not a key problem: a dead key returns upstream-error, not a timeout."
+            exit 1
+          fi
+
+          if printf '%s' "${body}" | grep -q 'upstream-error'; then
+            echo "---"
+            echo "FAIL: the function reached Anthropic and the call was refused."
+            echo ""
+            echo "MOST LIKELY: the ANTHROPIC_API_KEY secret in the Edge Function's"
+            echo "environment has been rotated or revoked. A 401 upstream surfaces"
+            echo "here as upstream-error, and to a learner as 'The checker could not"
+            echo "be reached just now'."
+            echo ""
+            echo "Check: Supabase -> Edge Functions -> check -> Secrets."
+            echo "This is the failure this job exists for."
+            exit 1
+          fi
+
+          if [ "${status}" != "200" ]; then
+            echo "---"
+            echo "FAIL: expected HTTP 200, got ${status}."
+            case "${status}" in
+              404) echo "Function not found - has \`supabase functions deploy check\` been run?" ;;
+              5*)  echo "Server error - the project may be paused, or the function failed to boot." ;;
+              000) echo "No response at all - DNS, TLS, or the project is gone." ;;
+            esac
+            exit 1
+          fi
+
+          # The failure that looks like success, same shape as the ping job's
+          # empty-array case: 200 with a body that is not a check result. A
+          # status-only assertion would go green on an error page.
+          if ! printf '%s' "${body}" | grep -q '"issues"'; then
+            echo "---"
+            echo "FAIL: HTTP 200 but the body is not a check result."
+            echo "No \"issues\" key - the function answered with something else."
+            exit 1
+          fi
+
+          echo "---"
+          echo "OK - a real check went end to end. Upstream key is live."
