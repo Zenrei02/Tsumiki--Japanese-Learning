@@ -2,7 +2,13 @@
 
 2026-09-06. One row: **Per-user error history keyed by `pattern_name`** (P1,
 Phase 1 — MVP), which was task 3 of the Session 23 brief. Lloyd chose it over
-the deploy. Commit `923c138`.
+the deploy.
+
+**Two passes.** `923c138` built the store and the merge. `eedd400` is Lloyd's
+revision: store everything, give the learner a way back to their own sentences,
+and move Progress out of the Account dialog into its own destination. **The
+second pass reverses a decision the first one made** — that is §"What is stored"
+below, and it is the part to read if you only read one.
 
 ---
 
@@ -79,22 +85,108 @@ than on a small map.
 
 ---
 
-## What is deliberately not stored — argue with this
+## ⭐ What is stored — and the decision that reversed
 
-**The learner's sentence, and the span.**
+**Everything.** The submission, every issue with its span, correction and
+explanation, the natural rewrite, the readings. Enough to re-render exactly what
+the learner saw.
 
-The feature needs counts of patterns over time; it does not need the text. And
-the text is the most sensitive thing this app touches: the checker is where
-someone writes the Japanese they are *unsure about* — a message to a landlord,
-an apology to a colleague. Keeping every one forever, synced under an account,
-is a far larger promise than "we remember what you got wrong".
+The first pass stored counts only, and argued for withholding the sentence —
+the checker is where someone writes the Japanese they are *unsure about*, so
+keeping every one forever under an account is a large promise. **Lloyd overruled
+it, and the reasoning is better than mine was:** a learner told "you make
+particle errors", with no examples, has been given a label rather than a lesson.
+The examples *are* the teaching. The privacy instinct was aimed at the wrong
+target — the risk it names is real for *sharing*, not a reason to keep someone's
+own writing from them.
 
-⭐ **The span is the real judgement call and it is an open question for Lloyd**
-(§3 of the design doc). It is only a few characters and it would let the app show
-a learner the actual shape they keep getting wrong instead of a category name —
-more teaching, not less. But spans are slices of the sentence and enough of them
-reconstruct a good deal of it. Declined for v1 and **written down rather than
-omitted silently**, which is the difference this repo keeps paying for.
+A truncated record would have been the worst of both, so there isn't one:
+storing the span but not the sentence would make Review a lossy retelling of the
+result screen *while still holding their Japanese*. All of the exposure, less of
+the use.
+
+The original argument is quoted in §3 of `error-history-design-v1.md` rather
+than deleted. A design doc that quietly agrees with the code has stopped being
+evidence of anything, and what a decision was made *against* is the part worth
+keeping.
+
+**What it obliges, none of it optional:** it syncs under the same RLS as
+everything else and lands in the archive on every replace; it is in `KEYS`, so
+Save/Restore carries it; and the learner can delete it — the confirmation names
+it in plain words, because "Checker" does not obviously mean *every sentence you
+have ever written*, and deleting your own writing should never be something you
+discover you did.
+
+---
+
+## ⭐ Review, and why it repeats itself
+
+**Grouped by error type, and a sentence appears under every type it was flagged
+for.** One sentence with a particle problem, a te-form problem and a keigo note
+appears in all three groups. **The repetition is the feature** — someone asking
+"what do I keep doing wrong with particles" should not have to hunt through a
+chronological list.
+
+Inside a group, each example highlights **only the issue that group is about**.
+A learner opening te-form is looking for one thing; lighting up all six issues
+equally makes them find it again by eye.
+
+Groups order by frequency. A group's tier badge is the tier it comes back as
+**most often** — calling a forty-times `fix` a "note" because one of them was is
+how a real problem gets a soft label. Chronology is the second view, one tap
+away, because *"what did I write last week"* is a different and equally real
+question.
+
+**Two doors, one surface.** Review lives inside the Checker, because it is the
+same material. Progress links through with a one-shot flag cleared by the
+reader — the same pattern Home already uses for the grammar challenge.
+
+---
+
+## Progress is a place now
+
+It was a tab inside the Account dialog. The drawer's own comment, written before
+this change, is the argument: *"the drawer list answers 'where can I go', and an
+account is not a place."* Progress **is** a place — where a learner goes to see
+what they can do and read back their own work. Behind a sign-in-shaped door it
+read as account administration.
+
+Moved with it: the capability list, the koban, the dormancy nudge, the reset.
+Stayed in Account: who you are, the two settings, Save/Restore.
+
+**⚠️ The move had a trap that was nearly shipped.** Restore-from-a-file reported
+its result through the Progress tab's message slot. That tab left and took the
+slot with it — **Restore would have silently succeeded**, which is the exact
+failure this app already shipped once and which `account.jsx`'s own header is
+about. It has its own state and its own place now.
+
+**The reset goes through `resetEverywhere()` in `stats.js`**, not
+`resetSections()`. Clearing only the browser while signed in undoes itself on
+the next sign-in, silently and with a success message. With the reset in one
+file and Account in another, two copies of that rule is exactly how the account
+half gets left behind in one of them.
+
+---
+
+## Two budgets, because the halves weigh differently
+
+The **ledger** — one light entry per issue, keyed by pattern — is capped by
+**count** at 800. The **checks** are capped by **bytes** first: 400 KB, 300 max.
+The count says nothing about the weight; 300 haiku and 300 essays are the same
+number and a hundredfold apart in what they cost a sign-in. Both are constants
+at the top of `errorHistory.js`, meant to be raised if learners lose examples
+they wanted.
+
+**⚠️ The ledger outlives the checks on purpose.** When a check ages out its
+ledger entries stay, so "you have made this error 40 times since May" is still
+true after the earliest examples are gone. The group still appears with its full
+count and **says** how many sentences are no longer kept — a group that quietly
+shrank would read as an error that stopped happening.
+
+A ledger entry's id is `<checkId>#<issueIndex>`: it points the light half at its
+own example without storing the link twice, and keeps every id unique, which the
+union depends on. The same pattern flagged twice in **one** check is two events
+and must not collide.
 
 ---
 
@@ -133,11 +225,29 @@ the store's only non-pattern bucket.
 ## Tests, and both controls fire
 
 ```
-python3 test-error-history.py                    30 assertions, exit 0
-python3 test-error-history.py --self-check       3 red — control fires
-node naoshi-app/test/test-checker-records.mjs                exit 0
-node naoshi-app/test/test-checker-records.mjs --self-check   6 red — control fires
+python3 test-error-history.py                    52 assertions, exit 0
+python3 test-error-history.py --self-check       4 red — control fires
+node naoshi-app/test/test-checker-records.mjs                17 assertions, exit 0
+node naoshi-app/test/test-checker-records.mjs --self-check   13 red — control fires
 ```
+
+`npm run smoke` gained a **PROGRESS** block: reachable from the drawer, renders
+as a **page and not a dialog** (a modal would mean it was relabelled rather than
+moved), carries all three of its parts, names itself in the header, and is
+**gone from the Account dialog** — copied-not-moved is the failure that would
+otherwise pass in both places. Verified red by making the progress branch
+unreachable: 4 assertions fire.
+
+**⚠️ The integration test caught a real inconsistency — in my own fixture**,
+which is the more useful kind. Its issue spans did not sit at the offsets it
+gave them, so the rendered sentence came out 私は本見ててです and three assertions
+went red. `Marked()` renders `text.slice(cursor, issue.start)` between issues
+and then the issue's own `span`, so a span that disagrees with its offsets
+renders as a different sentence. Not a harness quirk: the checker's own header
+says spans arrive *"already verified character-for-character"*, so agreement is
+a real property of a real response — which makes comparing the **rendered** text
+against the submission a check that `rehydrate()` still carries offsets through.
+Fixture fixed, assertion kept, reason written down.
 
 **Why there are two.** `test-error-history.py` slices the pure core out of the
 shipping module and proves the merge is sound. It says **nothing about whether
@@ -179,9 +289,12 @@ npm run smoke                       PASSED — 6 modules, accounts, engagement, 
 vite build                          clean
 ```
 
-**First load: 187.41 kB → 189.70 kB raw (59.90 → 60.68 kB gzip).** Measured
-against a build of `HEAD` in a throwaway worktree, not estimated. The checker's
-own chunk moves 9,411 → 9,469 bytes.
+**First load: 187.41 → 195.21 kB raw (59.90 → 62.42 kB gzip)** across the whole
+session; the first pass accounted for 189.70 of it. Measured against a build of
+`HEAD` in a throwaway worktree, not estimated. Progress is in the entry chunk
+**deliberately** — it is not lazy, because it is the screen a learner opens to
+be reassured about their own work and a spinner there reads as "gone". The
+Checker's chunk carries Review and is still deferred: 9.47 → 15.43 kB.
 
 **Note the baseline moved.** The Session 23 handover's 174.93 kB is not the
 figure to compare against any more — the three commits written after it account
@@ -202,9 +315,15 @@ for the rest.
 ## Not done
 
 - **Not deployed.** See the top.
-- **The span question** (§3 of the design doc) is Lloyd's, and nothing should be
-  built on top of the store until it is answered — adding spans later is easy,
-  removing them from histories already synced to accounts is not.
-- **Nothing reads the store.** Deliberate, and the next rows in line: *Stats &
-  progress tracking dashboard* and *Practice suggestion engine*, both currently
-  Phase 3.
+- **The span question is answered** — everything is stored. What is now worth
+  a second look instead is the two budgets: 400 KB / 300 checks is a guess about
+  how much of their own writing a learner wants kept, and the honest way to
+  settle it is to watch a real one fill up.
+- **No trend line yet.** `summarise()` takes a window and returns errors per
+  check, so "down forty percent since May" is a query away, but nothing renders
+  it. The next rows in line: *Stats & progress tracking dashboard* and *Practice
+  suggestion engine*, both currently Phase 3.
+- **Nothing has been seen in a real browser**, only in jsdom. Review is the
+  first surface in this app built out of stored data rather than live data, and
+  jsdom does not tell you whether a group of forty sentences is pleasant to
+  scroll.
