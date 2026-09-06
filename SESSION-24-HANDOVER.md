@@ -4,11 +4,16 @@
 Phase 1 — MVP), which was task 3 of the Session 23 brief. Lloyd chose it over
 the deploy.
 
-**Two passes.** `923c138` built the store and the merge. `eedd400` is Lloyd's
-revision: store everything, give the learner a way back to their own sentences,
-and move Progress out of the Account dialog into its own destination. **The
-second pass reverses a decision the first one made** — that is §"What is stored"
-below, and it is the part to read if you only read one.
+**The session ran long and covered four things.** The error-history row is the
+bulk of it (§§ below). After it: Save/Restore was rearranged, the rewrite-quality
+P0 was unfrozen and changed, and two bugs were found that would each have made a
+measurement lie. Those are at the bottom under **Second half**.
+
+**Two passes on the store.** `923c138` built it and the merge. `eedd400` is
+Lloyd's revision: store everything, give the learner a way back to their own
+sentences, and move Progress out of the Account dialog into its own destination.
+**The second pass reverses a decision the first one made** — that is §"What is
+stored" below, and it is the part to read if you only read one.
 
 ---
 
@@ -356,3 +361,94 @@ for the rest.
   undo of its own: `naoshi_progress_archive` already holds every replaced
   document, and surfacing it as *"restore an earlier version"* is what would
   make the file genuinely optional rather than merely tidier. Not built.
+
+---
+---
+
+# Second half — rewrite quality, and two lies caught
+
+## The `SYSTEM_PROMPT` freeze is lifted. `naoshi-5` exists and is UNMEASURED.
+
+Lloyd lifted it. The prompt change is `2a7c878`: a new `## The rewrite` section
+written from `rewrite-quality-proposal-v1.md`, all five proposals as scoped —
+**R1** minimum edit *that resolves the diagnosis*, **R2** apply every `fix` and
+`unnatural` issue and nothing else (`note` excluded), **R3** P3+P5 as **one**
+rule (form or word, repair that one), **R4** no kana→kanji on the model's own
+initiative. `SCHEMA_VERSION` → `naoshi-5`.
+
+One clause is not from the proposal: **R3 states the asymmetry** — substitution
+where a form of the writer's own word would serve is named as the more frequent
+and more damaging failure. The proposal establishes both directions are real but
+not which way to lean when they conflict, and a two-halved rule with no tiebreak
+is the kind that bends.
+
+**The predictions are committed in `2a7c878`, before any result existed.** That
+ordering is the only thing separating a measurement from a story.
+
+## ⚠️ Bug one: the harness would have faked the measurement
+
+`bakeoff-harness.py` built its resume set from `output_id` alone. Output ids are
+O001–O150 and do not vary with the prompt, so after **any** prompt change it
+would have printed *"resuming — 150 rows already logged"*, made **zero calls**,
+exited green, and rewritten the workbook from the OLD outputs.
+
+Every counter would have come back byte-identical — which reads as *"the prompt
+change did nothing"*, the single conclusion the instrument exists to draw. It
+costs $0, so nothing would have questioned it. **The harness already stamped
+`schema` on every row; the resume logic never read it.** Fixed in two places —
+the merge that fills Blind Grading was equally unfiltered, and would have
+produced a *mixture* that survives into grading. `e035556`.
+
+## ⚠️ Bug two: my own diagnosis of the 401
+
+The bake-off could not run: `--smoke` returned 401. I reported the key had been
+rotated. **That was wrong, and acting on it meant revoking a working credential.**
+
+The Cowork sandbox's egress layer rejects any request to `api.anthropic.com`
+carrying an `x-api-key` or `authorization` header. It never inspects the value —
+valid key and garbage key fail identically, because neither is forwarded.
+
+**The evidence was in the first response I read.** Body: the bare string
+`Unauthorized`, 12 bytes, three headers. Anthropic answers a 401 with JSON and a
+`request_id`. I read the status code and stopped. **A 401 with no `request-id`
+never reached Anthropic** — that rule and the discriminating probe are now in
+`RUNNING-THE-BAKEOFF.md`. Correction: `4240ccb`.
+
+**Do not revoke the key.** It has still never been tested by anything.
+
+## The bake-off has to run elsewhere
+
+`CLAUDE-CODE-PROMPT-session24-bakeoff-run.md` (`f01ad84`) is the brief: four
+preconditions with the command that checks each, the naoshi-4 baseline as a
+table, the committed predictions, three readings that are **not** success, and
+the limit stated plainly — **this run can reject the change and cannot accept
+it**, because the instrument scores whether the rewrite hit the key, not whether
+it is natural Japanese.
+
+## Also shipped
+
+**A checker health job on the keepalive workflow** (`5757ccd`). The app never
+holds the Anthropic key — verified three ways — but the Edge Function has its
+own copy, and nothing watched it. A dead key there returns `upstream-error`,
+which reads to a learner as "The checker could not be reached just now": the
+core feature can be dead for a week with no symptom but quiet, and the Aug 30
+report shows zero checker requests in its window, so traffic would not flag it.
+**429 `daily-cap` is a PASS** — failing there would page us for the system
+working, and the first fix anyone reaches for is to raise the cap.
+`test-keepalive-checker.py` drives 13 scenarios; both controls fire, and one of
+them only fires because the suite asserts the *message* names where to look —
+the exit code alone stayed red for the wrong reason.
+
+**Rename notes** (`8454191`) — `RENAME-NOTES.md`, five verified hazards for the
+next session, chief among them that `"naoshi-progress"` is an export **file
+format** checked on every import, and that the Supabase redirect allow-list is a
+dashboard setting no find-and-replace can reach.
+
+## Where it stands
+
+- **21 commits unpushed**, `origin/main` at `bbf15c8`. Production has no
+  accounts, no Review, no Progress. One build for all of it.
+- **`naoshi-5` unmeasured.** Needs a run outside the sandbox.
+- **The account still has no undo of its own.** `naoshi_progress_archive` holds
+  every replaced document; surfacing it would make the backup file optional.
+- **Nothing has been seen in a real browser** — jsdom only.
