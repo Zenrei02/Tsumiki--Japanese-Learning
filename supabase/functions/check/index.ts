@@ -36,9 +36,9 @@ const ANTHROPIC_API = "https://api.anthropic.com/v1/messages";
 // Model is an env var on purpose. The bake-off verdict gates LAUNCH, not
 // building — so the endpoint is model-agnostic and the winner is a dashboard
 // setting, not a deploy.
-const MODEL = Deno.env.get("NAOSHI_MODEL") ?? "claude-sonnet-5";
-const DAILY_CAP = Number(Deno.env.get("NAOSHI_DAILY_CAP") ?? "10");
-const MAX_CHARS = Number(Deno.env.get("NAOSHI_MAX_CHARS") ?? "600");
+const MODEL = (Deno.env.get("TSUMIKI_MODEL") ?? Deno.env.get("NAOSHI_MODEL")) ?? "claude-sonnet-5";
+const DAILY_CAP = Number((Deno.env.get("TSUMIKI_DAILY_CAP") ?? Deno.env.get("NAOSHI_DAILY_CAP")) ?? "10");
+const MAX_CHARS = Number((Deno.env.get("TSUMIKI_MAX_CHARS") ?? Deno.env.get("NAOSHI_MAX_CHARS")) ?? "600");
 
 // Supabase's own wall clock is 150s on the free plan. The measured p90 for a
 // Claude 5 check is ~52s and the observed maximum ~63s, so 120s is generous
@@ -46,7 +46,7 @@ const MAX_CHARS = Number(Deno.env.get("NAOSHI_MAX_CHARS") ?? "600");
 const UPSTREAM_TIMEOUT_MS = 120_000;
 
 const CORS = {
-  "Access-Control-Allow-Origin": Deno.env.get("NAOSHI_ALLOWED_ORIGIN") ?? "*",
+  "Access-Control-Allow-Origin": (Deno.env.get("TSUMIKI_ALLOWED_ORIGIN") ?? Deno.env.get("NAOSHI_ALLOWED_ORIGIN")) ?? "*",
   "Access-Control-Allow-Headers": "content-type, authorization, apikey",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
@@ -76,7 +76,7 @@ const CONTEXTS: Record<string, string> = {
 // cross-day identifier either. When accounts land, the subject becomes the user
 // id and nothing else about this changes.
 async function subjectOf(req: Request, day: string): Promise<string> {
-  const salt = Deno.env.get("NAOSHI_CAP_SALT") ?? "";
+  const salt = (Deno.env.get("TSUMIKI_CAP_SALT") ?? Deno.env.get("NAOSHI_CAP_SALT")) ?? "";
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
     req.headers.get("cf-connecting-ip") ?? "unknown";
   const data = new TextEncoder().encode(`${salt}:${day}:${ip}`);
@@ -103,7 +103,7 @@ async function reserve(subject: string, day: string): Promise<number | null> {
     return null;
   }
   try {
-    const r = await fetch(`${url}/rest/v1/rpc/naoshi_reserve_check`, {
+    const r = await fetch(`${url}/rest/v1/rpc/tsumiki_reserve_check`, {
       method: "POST",
       headers: {
         apikey: key,
@@ -129,7 +129,7 @@ async function release(subject: string, day: string): Promise<void> {
   const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
   if (!url || !key) return;
   try {
-    await fetch(`${url}/rest/v1/rpc/naoshi_release_check`, {
+    await fetch(`${url}/rest/v1/rpc/tsumiki_release_check`, {
       method: "POST",
       headers: {
         apikey: key,

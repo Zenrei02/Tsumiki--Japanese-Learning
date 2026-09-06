@@ -101,7 +101,7 @@ The salt has no such problem, because it is generated in place and never
 appears as a literal:
 
 ```
-supabase secrets set NAOSHI_CAP_SALT="$(openssl rand -hex 32)"
+supabase secrets set TSUMIKI_CAP_SALT="$(openssl rand -hex 32)"
 ```
 
 ⚠️ **Set the salt once and leave it.** Changing it re-keys every subject hash,
@@ -115,10 +115,10 @@ Optional, all with working defaults:
 
 | Secret | Default | What it does |
 |---|---|---|
-| `NAOSHI_MODEL` | `claude-sonnet-5` | Which model answers. Change it when the bake-off returns a verdict — no redeploy of anything else needed. |
-| `NAOSHI_DAILY_CAP` | `10` | Checks per client per day. This is the cost bound. |
-| `NAOSHI_MAX_CHARS` | `600` | Longest text accepted. Caps the per-call cost. |
-| `NAOSHI_ALLOWED_ORIGIN` | `*` | Set to the deployed site's origin before real traffic. |
+| `TSUMIKI_MODEL` | `claude-sonnet-5` | Which model answers. Change it when the bake-off returns a verdict — no redeploy of anything else needed. |
+| `TSUMIKI_DAILY_CAP` | `10` | Checks per client per day. This is the cost bound. |
+| `TSUMIKI_MAX_CHARS` | `600` | Longest text accepted. Caps the per-call cost. |
+| `TSUMIKI_ALLOWED_ORIGIN` | `*` | Set to the deployed site's origin before real traffic. |
 
 **4. Deploy:**
 
@@ -135,7 +135,7 @@ exchange for an extra env var and a 401 the day someone forgets it.
 
 The controls that actually do the work here are server-side and already built:
 the daily cap (a real cost bound, enforced in Postgres) and
-`NAOSHI_ALLOWED_ORIGIN`. **Narrow that origin from `*` to the deployed site
+`TSUMIKI_ALLOWED_ORIGIN`. **Narrow that origin from `*` to the deployed site
 before the URL is public** — with it wide open, anyone can spend your API
 budget up to ten checks per IP per day.
 
@@ -260,7 +260,7 @@ node test-stream-extract.mjs
 ## Things that will bite
 
 - **`_prompt.ts` is generated.** Editing `SYSTEM_PROMPT` in
-  `naoshi-prototype.jsx` and redeploying without re-running
+  `tsumiki-prototype.jsx` and redeploying without re-running
   `python3 build-checker-endpoint.py` ships the old prompt. The generator
   refuses to write a prompt under 2,000 chars or one missing the JSON contract,
   so a broken extraction fails loudly rather than silently.
