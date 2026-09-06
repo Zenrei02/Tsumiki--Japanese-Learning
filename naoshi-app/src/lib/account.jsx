@@ -18,10 +18,15 @@
 //     overwrite it (Session 23: nothing downloads without being asked for)
 //
 // The rule itself lives in sync.js and is tested by test-progress-sync.py.
-// Everything here is presentation of that rule, plus the two settings and
-// Save/Restore. WHAT IS NO LONGER HERE: progress, counts and the reset, which
-// moved to lib/progress.jsx in Session 24 — the drawer's own note says an
-// account is not a place, and progress is one.
+// Everything here is presentation of that rule, plus the two settings.
+//
+// WHAT IS NO LONGER HERE, both Session 24: progress, counts and the reset moved
+// to lib/progress.jsx (the drawer's own note says an account is not a place,
+// and progress is one); and Save/Restore came out entirely, because an account
+// IS the backup and file buttons under a sign-in panel read as a hedge against
+// it. The one file affordance left in this file is the Save offered beside the
+// conflict choice — which is not a backup feature, it is the only net the
+// device's losing copy has.
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { T } from "./tokens.js";
@@ -31,7 +36,7 @@ import {
   fetchRemote, pushRemote, preserveLocalToFile,
 } from "./sync.js";
 import { SECTIONS, SETTINGS } from "./stats.js";
-import { storage, downloadProgress, importProgress } from "./storage.js";
+import { storage } from "./storage.js";
 
 // Storage keys are not learner-facing language. Names, never counts.
 const KEY_LABELS = {
@@ -80,11 +85,6 @@ export default function Account({ open, setOpen }) {
 
   const [settings, setSettings] = useState({});
   const [savedCopy, setSavedCopy] = useState(null);
-  // ⚠️ Restore's result used to be shown by the Progress tab's message slot.
-  // That tab left in Session 24 and took the slot with it, which would have
-  // made Restore silently succeed — the exact failure shape this file's header
-  // is about. It has its own state and its own place below now.
-  const [fileMsg, setFileMsg] = useState(null);
 
   // ————— an auth callback that came back as an error —————
   // Supabase returns failures in the URL FRAGMENT, not as a status code:
@@ -230,15 +230,6 @@ export default function Account({ open, setOpen }) {
     await client?.auth.signOut();
     syncedFor.current = null;
     setSession(null); setPhase("idle"); setNote(null); setPlan(null); setSides(null);
-  };
-
-  const restore = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const r = new FileReader();
-    r.onload = () => { setFileMsg(importProgress(String(r.result)).message); refresh(); };
-    r.readAsText(file);
-    e.target.value = "";
   };
 
   // The reset moved to Progress (Session 24) and goes through
@@ -413,22 +404,23 @@ export default function Account({ open, setOpen }) {
                   A change here applies the next time you open that section.
                 </p>
 
-                <h3 style={{ font: `600 13px ${T.uiFont}`, letterSpacing: ".4px",
-                             color: T.sub, margin: "18px 0 8px" }}>YOUR DATA</h3>
-                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                  <button onClick={downloadProgress} style={ghost}>Save to a file</button>
-                  <label style={{ ...ghost, display: "inline-block" }}>
-                    Restore from a file
-                    <input type="file" accept="application/json" onChange={restore}
-                           style={{ display: "none" }} />
-                  </label>
-                  {session && <button onClick={signOut} style={ghost}>Sign out</button>}
-                </div>
-                {fileMsg && (
-                  <p role="status" style={{
-                    font: `13px/1.6 ${T.uiFont}`, color: T.note, background: T.noteBg,
-                    borderRadius: 8, padding: "10px 12px", marginTop: 10,
-                  }}>{fileMsg}</p>
+                {/* ⚠️ SAVE TO A FILE AND RESTORE FROM A FILE WERE HERE, and
+                    they came out in Session 24 once accounts were real. They
+                    existed because progress lived in one browser on one device
+                    and nothing else was keeping it; that is what an account is
+                    for now, and a pair of file buttons under the sign-in panel
+                    reads as "we might still lose this".
+                    The file is NOT gone — it moved to the two places it is
+                    actually recovery: the Save offered beside the conflict
+                    choice below, and the Save-and-Restore pair beside the reset
+                    in Progress. Both sit at the moment the file is needed
+                    rather than sitting around suggesting it might be. */}
+                {session && (
+                  <>
+                    <h3 style={{ font: `600 13px ${T.uiFont}`, letterSpacing: ".4px",
+                                 color: T.sub, margin: "18px 0 8px" }}>THIS DEVICE</h3>
+                    <button onClick={signOut} style={ghost}>Sign out</button>
+                  </>
                 )}
                 {session && (
                   <p style={{ ...quiet, marginTop: 10 }}>

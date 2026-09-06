@@ -290,7 +290,24 @@ to read back their own work. Behind a sign-in-shaped door it read as account
 administration. It now sits among the destinations, above the rule.
 
 What moved with it: the capability list, the koban, the dormancy nudge and the
-reset. What stayed in Account: who you are, the two settings, and Save/Restore.
+reset. What stayed in Account: who you are and the two settings.
+
+**Save/Restore was retired as furniture in the same session.** It sat in the
+header on every screen and again under the sign-in panel; it existed because
+progress lived in one browser on one device and nothing else was keeping it,
+which is exactly what an account is for now. A pair of file buttons above every
+lesson is a standing reminder that the app might lose your work.
+
+⚠️ **But the file is not gone, and the reason is a trap worth naming.** Two Save
+buttons remain, at the two moments something can be overwritten — beside the
+sign-in conflict choice, and beside the reset confirm. Those are not a backup
+feature; they are the only net the **device's** copy has, because the guarantee
+is asymmetric (the account's losing copy is archived by the database; the
+device's is not). Remove the last Restore along with the routine pair and both
+of those buttons hand the learner a file the app can no longer read — **an undo
+that produces a souvenir**. Nothing else in the suite would notice, because each
+button still works on its own. So exactly one import path survives, in Progress,
+beside the destructive action, and `smoke.mjs` asserts that it is there.
 
 ⚠️ **The reset now goes through `resetEverywhere()` in `stats.js`, not
 `resetSections()`.** Clearing only the browser while signed in undoes itself on

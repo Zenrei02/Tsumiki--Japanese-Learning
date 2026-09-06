@@ -613,6 +613,11 @@ await go("checker", null, [], {
   };
   w.console.warn = () => {};
   w.addEventListener("error", e => errors.push("UNCAUGHT: " + (e.error?.message || e.message)));
+  // Seeded so a section counts as STARTED. Without it the Progress reset has
+  // nothing to select, "Clear selected…" stays disabled, and the assertion that
+  // the confirm still offers a save is skipped — a check that quietly does not
+  // run is the failure mode this file's header is about.
+  w.localStorage.setItem("hiragana-progress-v2", JSON.stringify({ "あ": { seen: 1 } }));
   w.eval(fs.readFileSync(BUNDLE, "utf8"));
   await new Promise(r => setTimeout(r, 1500));
 
@@ -678,10 +683,17 @@ await go("checker", null, [], {
       const main = w.document.querySelector("main");
       const t = (main?.textContent || "");
       console.log(`  rendered ${t.length} chars`);
-      // It is a page, not a dialog. If it opened a modal the move did not
-      // happen — it was only relabelled.
-      if ([...w.document.querySelectorAll('[role="dialog"][aria-modal="true"]')].length) {
-        fail("PROGRESS: opening Progress opened a dialog — it is still modal");
+      // It is a page, not a dialog. If PROGRESS'S OWN CONTENT is inside a
+      // modal the move did not happen — it was only relabelled.
+      //
+      // ⚠️ Scoped to Progress's own content on purpose. The first version asked
+      // whether ANY modal was open, which passed only because nothing had been
+      // started yet: seed a section and the once-a-day Goals dialog opens
+      // itself, and the assertion "failed" over a dialog it was never about.
+      const inModal = [...w.document.querySelectorAll('[role="dialog"][aria-modal="true"]')]
+        .some(d => /WHAT YOU CAN DO/.test(d.textContent || ""));
+      if (inModal) {
+        fail("PROGRESS: its content is inside a dialog — it is still modal");
       }
       if (t.length < MIN_VIEW) fail("PROGRESS: rendered almost nothing");
       for (const [needle, why] of [
@@ -703,6 +715,52 @@ await go("checker", null, [], {
       if (!header.includes("Progress")) {
         fail("PROGRESS: the header does not name it — it inherits a module's title");
       } else console.log("  header names it ok");
+
+      // ————— SAVE/RESTORE, RETIRED AS FURNITURE (Session 24) —————
+      // The pair used to sit in the header on every screen and again under the
+      // sign-in panel. Accounts do that job now. Two things have to hold, and
+      // the second is the one that would quietly break:
+      //
+      //   1. the routine surfaces are gone
+      //   2. ⚠️ EXACTLY ONE IMPORT PATH SURVIVES. Two Save buttons remain, at
+      //      the two moments something can be overwritten — the sign-in
+      //      conflict and the reset. If the last Restore ever goes with the
+      //      rest, both of those hand the learner a file the app cannot read:
+      //      an undo that produces a souvenir. Nothing else in the suite would
+      //      notice, because each button still works on its own.
+      if (/\bSave\b|\bRestore\b/.test(header)) {
+        fail("PROGRESS: the header still carries Save/Restore — they were retired");
+      } else console.log("  header no longer carries Save/Restore");
+
+      const t2 = (w.document.querySelector("main")?.textContent || "");
+      if (!/Restore from a file/i.test(t2)) {
+        fail("PROGRESS: no Restore anywhere — the surviving Save buttons now " +
+             "produce a file nothing can read back");
+      } else console.log("  the one surviving Restore is here, beside the reset");
+
+      // And the Save it is the counterpart to, at the moment of danger.
+      // "Clear selected…" is disabled until something IS selected, so the
+      // checkbox has to be ticked first — the first version of this check
+      // clicked a disabled button and reported the confirm unreachable.
+      const box = [...w.document.querySelectorAll('input[type="checkbox"]')]
+        .find(c => !c.disabled);
+      if (box) {
+        box.click();
+        await new Promise(r => setTimeout(r, 200));
+      }
+      const anyStarted = all().find(b => b.textContent === "Clear selected…");
+      if (anyStarted && !anyStarted.disabled) {
+        anyStarted.click();
+        await new Promise(r => setTimeout(r, 250));
+        const t3 = (w.document.querySelector("main")?.textContent || "");
+        if (!/Save a copy first/i.test(t3)) {
+          fail("PROGRESS: the reset confirm no longer offers a save — the reset " +
+               "became unrecoverable");
+        } else console.log("  the reset confirm still offers a save");
+      } else {
+        fail("PROGRESS: the reset confirm could not be reached — a section is " +
+             "seeded as started precisely so this assertion runs");
+      }
     }
 
     // And it is gone from where it used to live.
