@@ -81,20 +81,6 @@ Analyze the submitted Japanese text and identify issues in these categories:
    This changes the TIER, not just the wording. If the writer's version is defensible, it is not a "fix". A "fix" means genuinely wrong, and asserting one answer where the language permits several is the most damaging error this tool can make: it teaches a false rule and it does so confidently. When in doubt between "fix" and "unnatural" on a phrasing that a native might plausibly use, choose "unnatural" and explain the difference.
    Do not manufacture alternatives. Most errors have exactly one correct repair, and inventing a second option for those is worse than offering none.
 
-## The rewrite
-"model_rewrite" is not a second opinion about the sentence. It is what the writer would have written had they applied the issues YOU just listed — no more and no less. Four rules govern it.
-
-R1. MAKE THE MINIMUM EDIT THAT RESOLVES THE DIAGNOSIS. Change what your issues require; preserve every token they do not implicate — same words, same order, same script. This is not a licence to leave a diagnosed problem standing, and it is not an instruction to shorten or simplify. A rewrite that resolves nothing is worse than no rewrite at all.
-
-R2. APPLY EVERY "fix" AND "unnatural" ISSUE, AND CHANGE NOTHING ELSE. If you stated a correction, make it. If you did not state it, do not make it. "note" issues are deliberately excluded: a note is a growth observation, not a correction, and silently applying one changes the writer's register without being asked. If the issues array is empty, "model_rewrite" is the input text, character for character.
-
-R3. DECIDE WHETHER THE FAULT IS IN THE FORM OR IN THE WORD. Repair that one and leave the other alone.
-   - The right word in the wrong FORM: fix the form, keep the word. If 会い is wanted as a nominalised 会うの, nominalise the writer's own verb — do not reach for 会議 or 待ち合わせ. If 孤立な is wanted as 孤立した, conjugate it — do not swap in 孤独.
-   - The wrong WORD: replace it, and say so in the explanation. Do not adjust a particle beside a wrong word and leave the word standing; a sentence whose grammar has been tidied around the wrong word has not been corrected.
-   Both directions are real, but they are not equally common. Substituting a different content word where a form of the writer's own word would serve is the more frequent failure and the more damaging one, because it quietly changes what they said.
-
-R4. TREAT KANA AS THE WRITER WROTE IT UNLESS AN ISSUE NAMES THAT EXACT TOKEN. Never convert a run of kana to kanji inside the rewrite on your own initiative. A kana run may be a name — えり and とも are people, not 襟 and 友達 — and you frequently cannot tell which from the sentence alone. This does not disable the "note" tier: a note names the token it is about, and R2 already keeps notes out of the rewrite.
-
 ## L1-interference watchlist
 English speakers make these errors constantly because English requires structures Japanese does not. Actively check for each of these — they are high priority even when the sentence is technically grammatical:
 - PRONOUN OVERUSE: repeated 私/僕 etc. when the subject is clear from context (English requires a subject in every clause; Japanese drops it). Flag as "naturalness". Also flag unnecessary 私の when the possessor is obvious.
@@ -120,7 +106,7 @@ Respond with ONLY valid JSON, no markdown fences, no preamble:
       "jlpt": "N5" | "N4" | "N3" | "N2" | "N1"
     }
   ],
-  "model_rewrite": "<the full text with your issues applied — see THE REWRITE rules R1-R4 above>",
+  "model_rewrite": "<the full text rewritten naturally, changing as little as possible>",
   "readings": [["<kanji run>", "<hiragana reading>"], ...]
 }
 The "span" field must match the input text exactly, character for character.
@@ -351,7 +337,7 @@ const feedbackUrlFor = (id) => FEEDBACK_FORM_URL + encodeURIComponent(id || "");
 
 // Bump this whenever SYSTEM_PROMPT changes, so rows in the sheet stay traceable
 // to the prompt that produced them.
-const SCHEMA_VERSION = "naoshi-5";
+const SCHEMA_VERSION = "naoshi-4";
 
 // Math.random().toString(36).slice(2, 8) is not fixed-width — 0.5 yields "0.i",
 // giving a one-character id, and 0 yields none at all. Always six.
