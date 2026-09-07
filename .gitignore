@@ -135,3 +135,9 @@ __pycache__/
 OLD/*.scratch*
 ANTHROPIC_API_KEY
 SETUP KEY
+
+# npx supabase writes a version-check cache here on every run. The rest of
+# supabase/.temp/ is tracked on purpose (project-ref, linked-project); this one
+# file is churn, and left untracked it reads as a dirty tree to any check that
+# requires a clean one.
+supabase/.temp/cli-latest
