@@ -103,9 +103,16 @@ python3 bakeoff-harness.py --run --key-verified
 ```
 
 The `--key-verified` flag is you asserting the reviewer has checked the
-answer key — the script refuses to run without it, on purpose. Takes a few
-minutes: **150 calls** (50 sentences x 3 models), one per second, each result
-printed as it lands. Total cost **~US$2.00**, less with caching.
+answer key — the script refuses to run without it, on purpose. **150 calls**
+(50 sentences x 3 models), each result printed as it lands.
+
+**Budget ~35 minutes and ~US$4.20.** Both figures are measured, not estimated:
+the naoshi-4 run cost $4.11 and the naoshi-5 run $4.23, and the naoshi-5 run
+took 13.5 seconds per row wall-clock. The older "~US$2.00, a few minutes" here
+dated from the 40-sentence set and from before `max_tokens` went to 8000 — the
+Claude 5 family spends adaptive-thinking tokens inside that budget, so both the
+clock and the bill roughly doubled. Cost splits very unevenly by model:
+M1 ~$0.21, M2 ~$1.68, M3 ~$2.34.
 
 (It was 120 calls / ~$1.60 when the set was 40 sentences. The set grew to 50 on
 Aug 12 2026 — six REAL clean controls, two WORTH KNOWING, two UNNATURAL. The
@@ -115,6 +122,30 @@ and at most 1 the stretch bar.)
 **If it crashes or you close the window mid-run: just run the same command
 again.** Every completed call is already saved in `bakeoff-log.jsonl`; the
 script picks up where it stopped and re-runs nothing.
+
+### A run can finish with rows missing — and retrying only fixes some of them
+
+The naoshi-5 run ended `⚠️ RUN INCOMPLETE — 6 of 150 rows missing`. Re-running
+recovered five. The sixth never will, and the difference is worth knowing before
+you burn calls on it.
+
+- **Five were Opus/Sonnet returning a thinking block and NO text block at all**
+  — nothing to parse, not malformed output. One had spent all 8000 tokens
+  thinking (`stop_reason: max_tokens`); the other four simply stopped
+  (`end_turn`) after 358–1529 thinking tokens. **These recover on retry**,
+  because M2 and M3 reject the `temperature` parameter and so run at the model
+  default — a retry is genuinely a different sample.
+- **One was Haiku emitting invalid JSON** — an unescaped `"` inside a gloss
+  (`出す (transitive, "to produce/put out")`), which breaks the object. **This
+  will never recover**, because M1 is the only model that still accepts
+  `temperature=0`, so it reproduces its output byte for byte. It failed
+  identically three times.
+
+So: retry once. If a row fails twice and it is an **M1** row, stop retrying —
+it is deterministic. **Do not hand-repair the JSON to rescue it**; that
+manufactures a parse the harness never made. Leave the row out, and say so — it
+costs that model one row of denominator (M1's key-edit rate was reported 17/41,
+not /42).
 
 When it finishes you get `naoshi-eval-v1-with-outputs.xlsx` — the workbook
 copy with the Blind Grading sheet filled in — plus token totals to paste into
@@ -163,6 +194,39 @@ conflicts if a sentence was graded twice.
 Then open the workbook so the formulas recalculate, and read the **Results**
 sheet: agreement rate, invented-error rate, the two invented-error gates, and the
 GO / TUNE verdict per model.
+
+### ⚠️ A NEW `--run` WIPES THE IMPORTED GRADES. They are not lost, but they do not carry over.
+
+`--run` rebuilds `naoshi-eval-v1-with-outputs.xlsx` **from
+`naoshi-eval-v1.xlsx`**, which has never held grades — they only ever existed in
+the with-outputs copy, put there by `import-grading-responses.py`. So the moment
+you re-run the harness, columns G–H are blank again.
+
+Nothing is destroyed: the grades are in the response spreadsheet and in
+`backups/`. What bites is how the loss *presents*. `check-rewrite-quality.py`
+then reports:
+
+```
+Reviewer-derived positives: 0
+precision 0%   recall 0%
+```
+
+which reads like a catastrophic collapse in quality and is actually a missing
+join. **Do not quote precision, recall or row-level agreement from a run whose
+outputs have not been graded.** The per-model and per-signal counts above that
+block are still valid — they are computed from source, key and rewrite only, and
+never touch a grade.
+
+**And do not "fix" it by re-importing the old grades onto new outputs.** Those
+grades describe the *text the previous prompt produced*. Attaching them to
+different text would silently fabricate agreement. New outputs need new grading,
+which costs reviewer time — that is the real reason a prompt change is expensive,
+and why the instrument exists.
+
+**Before any re-run, snapshot the graded workbook into `backups/`** with the
+prompt version in the name, the way `naoshi-eval-v1-with-outputs.08-naoshi-4-final.xlsx`
+was. It is the only copy of the old prompt's scored results, and the naoshi-4
+baseline was re-derivable in Session 26 purely because that snapshot existed.
 
 ---
 
@@ -215,6 +279,9 @@ special ones.)
 | `credit balance is too low` | Add usage credits at console.anthropic.com. |
 | `ABORT ... requested X, answered Y` | A model substitution — stop and flag it in the tracker. This check exists because it happened silently once before. |
 | `API error 401 … Unauthorized` **inside a Cowork session** | Not your key. See below — the sandbox blocks it. |
+| `⚠️ RUN INCOMPLETE — N rows missing` | Re-run the same command once. M2/M3 rows usually recover; an **M1** row that fails twice is deterministic and never will. See "A run can finish with rows missing" above. Never hand-edit the JSON to rescue one. |
+| `check-rewrite-quality.py` reports `precision 0%  recall 0%` | Not a quality collapse — the outputs are ungraded. `--run` rebuilds the workbook and clears the imported grades. See the warning in §4. The per-model and per-signal counts above that block are still valid. |
+| `note: <model> rejects 'temperature' — retrying without it` | Expected, not an error. The Claude 5 family dropped the parameter, so those models run at their API default — which is also how production calls them. Only M1 still runs at `temperature=0`. |
 | Anything else | Copy the error message into a Cowork session and I'll sort it. |
 
 ---
@@ -257,3 +324,25 @@ and `x-api-key` does not, the key is not the problem and never was.
 Anywhere outside the sandbox: your own terminal, or a Claude Code session on
 your machine. Nothing about the harness changes — `python3 bakeoff-harness.py
 --smoke` then `--run --key-verified`, exactly as above.
+
+### ✅ CONFIRMED Sep 8 2026 (Session 26): the key is fine and always was
+
+The diagnosis above was written from inside the sandbox, where it could only be
+argued from response headers. It has now been settled the direct way. Run from a
+Claude Code session on Lloyd's own machine, the key in `ANTHROPIC_API_KEY`:
+
+- passed `--smoke` — **no 401 at all**, all three models answered under their own
+  names;
+- completed a full 150-call run.
+
+**The key had never been tested by anything until this run** — the Session 24
+brief said so in as many words, and a Sep 6 reading of the same 401 had already
+concluded it was rotated and nearly sent someone to the Console to replace it.
+**Revoking it would have destroyed a working credential to fix a problem it did
+not have.**
+
+Keep this paragraph next to the diagnosis above, because the two are only
+convincing together: the sandbox 401 is real, *and* the key behind it is good.
+The wider habit is the one CLAUDE.md keeps relearning — a limitation written
+down outlives the mistake that produced it, so when the cheap direct test
+becomes available, run it and date the answer.
