@@ -1298,9 +1298,9 @@ function needsRuby(word, known) {
 }
 function WordText({ word, known, size = 22, rt = ".5em" }) {
   const show = needsRuby(word, known) && word.r;
-  if (!show) return <span style={{ font: `${size}px ${T.jpFont}` }}>{word.w}</span>;
+  if (!show) return <span style={{ font: `${size / 16}rem ${T.jpFont}` }}>{word.w}</span>;
   return (
-    <ruby style={{ fontFamily: T.jpFont, fontSize: size, rubyPosition: "over" }}>
+    <ruby style={{ fontFamily: T.jpFont, fontSize: `${size / 16}rem`, rubyPosition: "over" }}>
       {word.w}<rt style={{ fontSize: rt, color: T.sub }}>{word.r}</rt>
     </ruby>
   );
@@ -1571,8 +1571,8 @@ export default function VocabularyModule() {
   return (
     <Shell>
       <header style={{ marginBottom: 20 }}>
-        <h1 style={{ font: `600 22px ${T.uiFont}`, color: T.ink, margin: "0 0 4px" }}>Vocabulary</h1>
-        <p style={{ font: `14px ${T.uiFont}`, color: T.sub, margin: 0 }}>
+        <h1 style={{ font: `600 1.375rem ${T.uiFont}`, color: T.ink, margin: "0 0 4px" }}>Vocabulary</h1>
+        <p style={{ font: `0.875rem ${T.uiFont}`, color: T.sub, margin: 0 }}>
           Words come back when there is more of them you can write.
         </p>
       </header>
@@ -1590,19 +1590,19 @@ export default function VocabularyModule() {
           background: T.noteBg, border: `1px solid ${T.note}`, borderRadius: 10,
           padding: "12px 16px", marginBottom: 22,
         }}>
-          <div style={{ font: `600 14px ${T.uiFont}`, color: T.ink }}>
+          <div style={{ font: `600 0.875rem ${T.uiFont}`, color: T.ink }}>
             You have now {offer.kind === "prac" ? "practised with" : "met"} {offer.t} words.
           </div>
-          <div style={{ font: `13px/1.5 ${T.uiFont}`, color: T.sub, marginTop: 2 }}>
+          <div style={{ font: `0.8125rem/1.5 ${T.uiFont}`, color: T.sub, marginTop: 2 }}>
             Fancy a two-minute check-in? Remembering pays <KobanIcon size={11} />. Skipping costs nothing.
           </div>
           <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
             <button onClick={() => startMarkerQuiz(offer.kind, offer.t)} style={{
-              font: `600 13px ${T.uiFont}`, padding: "8px 14px", borderRadius: 8, cursor: "pointer",
+              font: `600 0.8125rem ${T.uiFont}`, padding: "8px 14px", borderRadius: 8, cursor: "pointer",
               background: T.ink, color: T.sheet, border: `1px solid ${T.ink}`,
             }}>Sure — check me</button>
             <button onClick={() => recordMarker(offer.kind, offer.t, 0)} style={{
-              font: `600 13px ${T.uiFont}`, padding: "8px 14px", borderRadius: 8, cursor: "pointer",
+              font: `600 0.8125rem ${T.uiFont}`, padding: "8px 14px", borderRadius: 8, cursor: "pointer",
               background: "none", color: T.sub, border: `1px solid ${T.hairline}`,
             }}>Not now</button>
           </div>
@@ -1623,19 +1623,19 @@ export default function VocabularyModule() {
             background: T.noteBg, border: `1px solid ${T.note}`, borderRadius: 10,
             padding: "12px 16px", marginBottom: 22,
           }}>
-            <div style={{ font: `600 14px ${T.uiFont}`, color: T.ink }}>
+            <div style={{ font: `600 0.875rem ${T.uiFont}`, color: T.ink }}>
               Your grammar finished the {fresh.label}.
             </div>
-            <div style={{ font: `13px/1.5 ${T.uiFont}`, color: T.sub, marginTop: 2 }}>
+            <div style={{ font: `0.8125rem/1.5 ${T.uiFont}`, color: T.sub, marginTop: 2 }}>
               Six verbs from the pool, mixed conjugation rules — see if the form holds away from the lesson.
             </div>
             <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
               <button onClick={() => setFormDrill({ form: fresh, items: sampleDrill(fresh.id) })} style={{
-                font: `600 13px ${T.uiFont}`, padding: "8px 14px", borderRadius: 8, cursor: "pointer",
+                font: `600 0.8125rem ${T.uiFont}`, padding: "8px 14px", borderRadius: 8, cursor: "pointer",
                 background: T.ink, color: T.sheet, border: `1px solid ${T.ink}`,
               }}>Drill it</button>
               <button onClick={() => persist({ ...progress, _formsSeen: [...seen, fresh.id] }, 0)} style={{
-                font: `600 13px ${T.uiFont}`, padding: "8px 14px", borderRadius: 8, cursor: "pointer",
+                font: `600 0.8125rem ${T.uiFont}`, padding: "8px 14px", borderRadius: 8, cursor: "pointer",
                 background: "none", color: T.sub, border: `1px solid ${T.hairline}`,
               }}>Skip</button>
             </div>
@@ -1667,7 +1667,7 @@ export default function VocabularyModule() {
         <div role="status" style={{
           position: "fixed", left: "50%", transform: "translateX(-50%)", bottom: 28,
           background: T.ink, color: T.sheet, padding: "10px 18px", borderRadius: 999,
-          font: `600 14px ${T.uiFont}`, boxShadow: "0 4px 14px rgba(0,0,0,.18)",
+          font: `600 0.875rem ${T.uiFont}`, boxShadow: "0 4px 14px rgba(0,0,0,.18)",
         }}>{toast}</div>
       )}
     </Shell>
@@ -1696,33 +1696,33 @@ function MarkerQuiz({ quiz, onDone, onBack }) {
       <button className="btn-ghost" onClick={onBack} style={{ marginBottom: 14 }}>← Not now</button>
       <div style={{ background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 10,
                     padding: 22, textAlign: "center" }}>
-        <div style={{ font: `12px ${T.uiFont}`, color: T.sub, marginBottom: 10 }}>
+        <div style={{ font: `0.75rem ${T.uiFont}`, color: T.sub, marginBottom: 10 }}>
           check-in · {i + 1} of {quiz.words.length}
         </div>
         {isPrac
-          ? <div style={{ font: `600 20px ${T.uiFont}`, color: T.ink }}>{w.m}</div>
-          : <div style={{ fontFamily: T.jpFont, fontSize: 34, color: T.ink }}>{w.w}</div>}
+          ? <div style={{ font: `600 1.25rem ${T.uiFont}`, color: T.ink }}>{w.m}</div>
+          : <div style={{ fontFamily: T.jpFont, fontSize: "2.125rem", color: T.ink }}>{w.w}</div>}
         {!revealed ? (
           <button onClick={() => setRevealed(true)} style={{
-            font: `600 13px ${T.uiFont}`, padding: "9px 16px", borderRadius: 8, cursor: "pointer",
+            font: `600 0.8125rem ${T.uiFont}`, padding: "9px 16px", borderRadius: 8, cursor: "pointer",
             background: T.ink, color: T.sheet, border: `1px solid ${T.ink}`, marginTop: 16,
           }}>{isPrac ? "Show the word" : "Show the meaning"}</button>
         ) : (
           <>
             <div style={{ marginTop: 12 }}>
               {isPrac
-                ? <div style={{ fontFamily: T.jpFont, fontSize: 34, color: T.ink }}>{w.w}
-                    <span style={{ fontSize: 15, color: T.sub, marginLeft: 10 }}>{w.r}</span></div>
-                : <div style={{ font: `600 18px ${T.uiFont}`, color: T.ink }}>{w.m}
-                    <span style={{ font: `14px ${T.uiFont}`, color: T.sub, marginLeft: 10 }}>{w.r}</span></div>}
+                ? <div style={{ fontFamily: T.jpFont, fontSize: "2.125rem", color: T.ink }}>{w.w}
+                    <span style={{ fontSize: "0.9375rem", color: T.sub, marginLeft: 10 }}>{w.r}</span></div>
+                : <div style={{ font: `600 1.125rem ${T.uiFont}`, color: T.ink }}>{w.m}
+                    <span style={{ font: `0.875rem ${T.uiFont}`, color: T.sub, marginLeft: 10 }}>{w.r}</span></div>}
             </div>
             <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 16 }}>
               <button onClick={() => next(true)} style={{
-                font: `600 13px ${T.uiFont}`, padding: "9px 16px", borderRadius: 8, cursor: "pointer",
+                font: `600 0.8125rem ${T.uiFont}`, padding: "9px 16px", borderRadius: 8, cursor: "pointer",
                 background: T.ok, color: T.sheet, border: `1px solid ${T.ok}`,
               }}>I had it</button>
               <button className="btn-ghost" onClick={() => next(false)} style={{
-                font: `600 13px ${T.uiFont}`, padding: "9px 16px", borderRadius: 8, cursor: "pointer",
+                font: `600 0.8125rem ${T.uiFont}`, padding: "9px 16px", borderRadius: 8, cursor: "pointer",
                 background: "none", color: T.sub, border: `1px solid ${T.hairline}`,
               }}>Not yet</button>
             </div>
@@ -1752,17 +1752,17 @@ function FormRow({ w, cls, form }) {
   }, [w, form.id, done, correct, cls]);
   return (
     <div style={{ display: "flex", alignItems: "baseline", gap: 10, padding: "7px 0", borderBottom: `1px solid ${T.hairline}`, flexWrap: "wrap" }}>
-      <span style={{ font: `12px ${T.uiFont}`, color: T.sub, minWidth: 128 }}>{form.label}</span>
+      <span style={{ font: `0.75rem ${T.uiFont}`, color: T.sub, minWidth: 128 }}>{form.label}</span>
       {!done ? (
-        <span style={{ font: `16px ${T.jpFont}` }}>{correct}</span>
+        <span style={{ font: `1rem ${T.jpFont}` }}>{correct}</span>
       ) : state ? (
-        <span style={{ font: `16px ${T.jpFont}`, color: state === "right" ? T.ink : T.note }}>
+        <span style={{ font: `1rem ${T.jpFont}`, color: state === "right" ? T.ink : T.note }}>
           {correct}{state === "wrong" ? " ←" : ""}
         </span>
       ) : (
         <span style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
           {opts.map((o) => (
-            <button key={o} className="btn-ghost" style={{ padding: "3px 10px", font: `15px ${T.jpFont}` }}
+            <button key={o} className="btn-ghost" style={{ padding: "3px 10px", font: `0.9375rem ${T.jpFont}` }}
               onClick={() => setState(o === correct ? "right" : "wrong")}>{o}</button>
           ))}
         </span>
@@ -1777,7 +1777,7 @@ function FormsBlock({ word }) {
   const quizzed = visible.filter((f) => GRAMMAR_DONE.has(f.pt)).length;
   return (
     <Card title="Forms">
-      <p style={{ ...p14, color: T.sub, fontSize: 13 }}>
+      <p style={{ ...p14, color: T.sub, fontSize: "0.8125rem" }}>
         {quizzed
           ? <>The forms your grammar has finished are questions now — that's the point. The rest are here to read.</>
           : <>Every form this verb takes, as the grammar teaches each one.</>}
@@ -1809,14 +1809,14 @@ function FormDrill({ form, items, onDone, onBack }) {
       <Card title={`New form: ${form.label}`}>
         <p style={p14}>Your grammar just finished this form. Six verbs from the pool, mixed rules — conjugate each one.</p>
         <div style={{ textAlign: "center", margin: "18px 0" }}>
-          <span style={{ font: `34px ${T.jpFont}` }}>{it.w}</span>
-          <span style={{ font: `14px ${T.uiFont}`, color: T.sub, marginLeft: 12 }}>→ {form.label}?</span>
+          <span style={{ font: `2.125rem ${T.jpFont}` }}>{it.w}</span>
+          <span style={{ font: `0.875rem ${T.uiFont}`, color: T.sub, marginLeft: 12 }}>→ {form.label}?</span>
         </div>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
           {opts.map((o) => (
             <button key={o} className="btn-ghost" disabled={picked != null}
               style={{
-                padding: "8px 14px", font: `17px ${T.jpFont}`,
+                padding: "8px 14px", font: `1.0625rem ${T.jpFont}`,
                 background: picked == null ? undefined : o === it.correct ? T.noteBg : undefined,
                 borderColor: picked != null && o === it.correct ? T.note : undefined,
                 opacity: picked != null && o !== it.correct && o !== picked ? 0.45 : 1,
@@ -1827,7 +1827,7 @@ function FormDrill({ form, items, onDone, onBack }) {
         {picked != null && (
           <div style={{ textAlign: "center", marginTop: 14 }}>
             <p style={{ ...p14, color: T.sub }}>
-              {picked === it.correct ? "Right." : <>It's <b style={{ font: `16px ${T.jpFont}` }}>{it.correct}</b>.</>}
+              {picked === it.correct ? "Right." : <>It's <b style={{ font: `1rem ${T.jpFont}` }}>{it.correct}</b>.</>}
               {it.trap ? " (One of the Godan look-alikes.)" : ""}
             </p>
             <Primary onClick={next}>{i + 1 < items.length ? "Next" : "Finish"}</Primary>
@@ -1858,13 +1858,13 @@ function Practice({ word, pend, prog, known, onDone, onBack }) {
           flagged for the reviewer. Always shown, never dismissible. */}
       {VOCAB_SCENES[word.w] && (
         <div style={{ margin: "14px 0 0", padding: "0 4px" }}>
-          <p style={{ font: `14px/1.7 ${T.uiFont}`, color: T.sub, margin: 0 }}>
+          <p style={{ font: `0.875rem/1.7 ${T.uiFont}`, color: T.sub, margin: 0 }}>
             {VOCAB_SCENES[word.w].scene}
           </p>
-          <p style={{ font: `17px/1.9 ${T.jpFont}`, color: T.ink, margin: "8px 0 0" }}>
+          <p style={{ font: `1.0625rem/1.9 ${T.jpFont}`, color: T.ink, margin: "8px 0 0" }}>
             {VOCAB_SCENES[word.w].jp}
           </p>
-          <p style={{ font: `13px ${T.uiFont}`, color: T.sub, margin: "2px 0 0" }}>
+          <p style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, margin: "2px 0 0" }}>
             {VOCAB_SCENES[word.w].en}
           </p>
         </div>
@@ -1878,11 +1878,11 @@ function Practice({ word, pend, prog, known, onDone, onBack }) {
           <WordText word={word} known={known} size={40} />
         </div>
         {word.r && !needsRuby(word, known) && (
-          <div style={{ font: `16px ${T.jpFont}`, color: T.sub, marginTop: 6 }}>{word.r}</div>
+          <div style={{ font: `1rem ${T.jpFont}`, color: T.sub, marginTop: 6 }}>{word.r}</div>
         )}
-        {word.m && <div style={{ font: `15px ${T.uiFont}`, color: T.sub, marginTop: 4 }}>{word.m}</div>}
+        {word.m && <div style={{ font: `0.9375rem ${T.uiFont}`, color: T.sub, marginTop: 4 }}>{word.m}</div>}
         {word.j && (
-          <div style={{ font: `13px ${T.uiFont}`, color: T.note, marginTop: 10 }}>
+          <div style={{ font: `0.8125rem ${T.uiFont}`, color: T.note, marginTop: 10 }}>
             This word's reading belongs to the whole word, not to its characters separately.
           </div>
         )}
@@ -1899,7 +1899,7 @@ function Practice({ word, pend, prog, known, onDone, onBack }) {
                 around {stepShort(word.s)}. Either way, here it is properly.</>
             ) : (
               <>You met this one before. Since then you have learned{" "}
-                <b style={{ font: `18px ${T.jpFont}` }}>{pend.join("、")}</b>, so more of it
+                <b style={{ font: `1.125rem ${T.jpFont}` }}>{pend.join("、")}</b>, so more of it
                 is yours to write than last time.</>
             )}
           </p>
@@ -1994,7 +1994,7 @@ function Practice({ word, pend, prog, known, onDone, onBack }) {
           {/* TODO(post-Phase 0): grade this via the checker once SYSTEM_PROMPT is
               unfrozen. Self-assessment until then — no new prompt surface. */}
           <textarea rows={3} aria-label={`Your sentence using ${word.w}`} style={{
-            width: "100%", boxSizing: "border-box", font: `17px ${T.jpFont}`,
+            width: "100%", boxSizing: "border-box", font: `1.0625rem ${T.jpFont}`,
             padding: 10, borderRadius: 8, border: `1px solid ${T.hairline}`,
             background: T.sheet, color: T.ink, resize: "vertical",
           }} />
@@ -2027,7 +2027,7 @@ function Review({ items, known, onOpen, onUnlearn }) {
     <div>
       <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Find a word"
              aria-label="Find a word" style={{
-        width: "100%", boxSizing: "border-box", font: `15px ${T.uiFont}`, padding: "9px 12px",
+        width: "100%", boxSizing: "border-box", font: `0.9375rem ${T.uiFont}`, padding: "9px 12px",
         borderRadius: 8, border: `1px solid ${T.hairline}`, background: T.sheet,
         color: T.ink, marginBottom: 14,
       }} />
@@ -2040,10 +2040,10 @@ function Review({ items, known, onOpen, onUnlearn }) {
             <div style={{ color: T.ink, lineHeight: 1.9 }}>
               <WordText word={word} known={known} size={20} />
               {isComplete(word, known) && (
-                <span title="you can write all of this" style={{ color: T.ok, marginLeft: 8, fontSize: 14 }}>✓</span>
+                <span title="you can write all of this" style={{ color: T.ok, marginLeft: 8, fontSize: "0.875rem" }}>✓</span>
               )}
             </div>
-            <div style={{ font: `13px ${T.uiFont}`, color: T.sub, overflow: "hidden", textOverflow: "ellipsis" }}>
+            <div style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, overflow: "hidden", textOverflow: "ellipsis" }}>
               {word.m}
             </div>
           </div>
@@ -2056,7 +2056,7 @@ function Review({ items, known, onOpen, onUnlearn }) {
 }
 
 // ————— Small pieces —————
-const p14 = { font: `14px/1.6 ${T.uiFont}`, color: T.ink, margin: "0 0 4px" };
+const p14 = { font: `0.875rem/1.6 ${T.uiFont}`, color: T.ink, margin: "0 0 4px" };
 
 // Step labels are long ("Step 6 · Invitations, desire & intention"). In the
 // vocabulary module the learner wants a rough where-abouts, not the full title.
@@ -2070,14 +2070,14 @@ function stepShort(s) {
 function Note({ children }) {
   return (
     <p style={{
-      font: `13px/1.6 ${T.uiFont}`, color: T.ink, background: T.noteBg,
+      font: `0.8125rem/1.6 ${T.uiFont}`, color: T.ink, background: T.noteBg,
       border: `1px solid ${T.note}`, borderRadius: 8, padding: "9px 12px", margin: "10px 0 0",
     }}>{children}</p>
   );
 }
 const linkBtn = {
   background: "none", border: "none", padding: 4, cursor: "pointer",
-  font: `13px ${T.uiFont}`, color: T.ai, textDecoration: "underline",
+  font: `0.8125rem ${T.uiFont}`, color: T.ai, textDecoration: "underline",
 };
 
 function Shell({ children }) {
@@ -2093,8 +2093,8 @@ function Stat({ label, value, accent }) {
       background: accent ? T.noteBg : T.sheet, border: `1px solid ${accent ? T.note : T.hairline}`,
       borderRadius: 10, padding: "8px 14px", minWidth: 84,
     }}>
-      <div style={{ font: `600 20px ${T.uiFont}`, color: accent ? T.note : T.ink }}>{value}</div>
-      <div style={{ font: `12px ${T.uiFont}`, color: T.sub }}>{label}</div>
+      <div style={{ font: `600 1.25rem ${T.uiFont}`, color: accent ? T.note : T.ink }}>{value}</div>
+      <div style={{ font: `0.75rem ${T.uiFont}`, color: T.sub }}>{label}</div>
     </div>
   );
 }
@@ -2102,7 +2102,7 @@ function Tabs({ view, setView, reviewCount }) {
   const tab = (id, label) => (
     <button onClick={() => setView(id)} style={{
       background: "none", border: "none", cursor: "pointer", padding: "8px 2px", marginRight: 18,
-      font: `${view === id ? 600 : 400} 15px ${T.uiFont}`,
+      font: `${view === id ? 600 : 400} 0.9375rem ${T.uiFont}`,
       color: view === id ? T.ink : T.sub,
       borderBottom: `2px solid ${view === id ? T.ink : "transparent"}`,
     }}>{label}</button>
@@ -2118,14 +2118,14 @@ function Queue({ title, hint, items, onOpen, badge, known }) {
   if (!items.length) return null;
   return (
     <section style={{ marginBottom: 22 }}>
-      <h2 style={{ font: `600 15px ${T.uiFont}`, color: T.ink, margin: "0 0 2px" }}>
+      <h2 style={{ font: `600 0.9375rem ${T.uiFont}`, color: T.ink, margin: "0 0 2px" }}>
         {title}
         {badge && <span style={{
           marginLeft: 8, background: T.note, color: T.sheet, borderRadius: 999,
-          padding: "1px 8px", font: `600 11px ${T.uiFont}`, verticalAlign: "middle",
+          padding: "1px 8px", font: `600 0.6875rem ${T.uiFont}`, verticalAlign: "middle",
         }}>more</span>}
       </h2>
-      <p style={{ font: `13px ${T.uiFont}`, color: T.sub, margin: "0 0 10px" }}>{hint}</p>
+      <p style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, margin: "0 0 10px" }}>{hint}</p>
       {items.map(({ word, pend }) => (
         <button key={word.w} onClick={() => onOpen({ word, pend })} style={{
           display: "flex", alignItems: "center", gap: 12, width: "100%", textAlign: "left",
@@ -2133,9 +2133,9 @@ function Queue({ title, hint, items, onOpen, badge, known }) {
           marginBottom: 8, background: T.sheet, cursor: "pointer",
         }}>
           <span style={{ color: T.ink, lineHeight: 1.9 }}><WordText word={word} known={known} size={22} /></span>
-          <span style={{ flex: 1, font: `13px ${T.uiFont}`, color: T.sub }}>{word.m}</span>
+          <span style={{ flex: 1, font: `0.8125rem ${T.uiFont}`, color: T.sub }}>{word.m}</span>
           {pend.length > 0 && (
-            <span style={{ font: `18px ${T.jpFont}`, color: T.note }}>{pend.join("")}</span>
+            <span style={{ font: `1.125rem ${T.jpFont}`, color: T.note }}>{pend.join("")}</span>
           )}
         </button>
       ))}
@@ -2148,7 +2148,7 @@ function Card({ title, children }) {
       background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 12,
       padding: "18px 18px 20px", marginBottom: 14,
     }}>
-      <h2 style={{ font: `600 15px ${T.uiFont}`, color: T.ink, margin: "0 0 8px" }}>{title}</h2>
+      <h2 style={{ font: `600 0.9375rem ${T.uiFont}`, color: T.ink, margin: "0 0 8px" }}>{title}</h2>
       {children}
     </section>
   );
@@ -2156,18 +2156,18 @@ function Card({ title, children }) {
 function Primary({ children, onClick }) {
   return <button onClick={onClick} style={{
     background: T.ink, color: T.sheet, border: "none", borderRadius: 8,
-    padding: "10px 18px", font: `600 14px ${T.uiFont}`, cursor: "pointer",
+    padding: "10px 18px", font: `600 0.875rem ${T.uiFont}`, cursor: "pointer",
   }}>{children}</button>;
 }
 function Secondary({ children, onClick }) {
   return <button onClick={onClick} style={{
     background: T.sheet, color: T.ink, border: `1px solid ${T.hairline}`, borderRadius: 8,
-    padding: "10px 18px", font: `500 14px ${T.uiFont}`, cursor: "pointer",
+    padding: "10px 18px", font: `500 0.875rem ${T.uiFont}`, cursor: "pointer",
   }}>{children}</button>;
 }
 function Empty({ children }) {
   return <p style={{
-    font: `14px ${T.uiFont}`, color: T.sub, background: T.sheet, borderRadius: 10,
+    font: `0.875rem ${T.uiFont}`, color: T.sub, background: T.sheet, borderRadius: 10,
     border: `1px dashed ${T.hairline}`, padding: "18px 16px", textAlign: "center",
   }}>{children}</p>;
 }

@@ -65,17 +65,17 @@ const box = {
 };
 const primary = {
   background: T.ink, color: T.paper, border: "none", borderRadius: 8,
-  padding: "10px 16px", cursor: "pointer", font: `600 14px ${T.uiFont}`,
+  padding: "10px 16px", cursor: "pointer", font: `600 0.875rem ${T.uiFont}`,
 };
 const ghost = {
   background: "none", color: T.ink, border: `1px solid ${T.hairline}`,
   borderRadius: 8, padding: "10px 16px", cursor: "pointer",
-  font: `14px ${T.uiFont}`,
+  font: `0.875rem ${T.uiFont}`,
 };
 const danger = {
   ...primary, background: T.shu,
 };
-const quiet = { font: `12px/1.6 ${T.uiFont}`, color: T.sub };
+const quiet = { font: `0.75rem/1.6 ${T.uiFont}`, color: T.sub };
 
 export default function Account({ open, setOpen }) {
   const [client, setClient] = useState(null);
@@ -265,11 +265,11 @@ export default function Account({ open, setOpen }) {
         maxHeight: "86vh", overflowY: "auto", ...box,
       }}>
         <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
-          <h2 style={{ font: `600 17px ${T.uiFont}`, margin: 0 }}>Account</h2>
+          <h2 style={{ font: `600 1.0625rem ${T.uiFont}`, margin: 0 }}>Account</h2>
           {phase !== "conflict" && (
             <button onClick={close} aria-label="Close" style={{
               background: "none", border: "none", cursor: "pointer",
-              padding: 8, font: `16px ${T.uiFont}`, color: T.sub,
+              padding: 8, font: `1rem ${T.uiFont}`, color: T.sub,
             }}>✕</button>
           )}
         </div>
@@ -278,15 +278,15 @@ export default function Account({ open, setOpen }) {
             that must be answered before anything else can be done. */}
         {phase === "conflict" && plan ? (
           <>
-            <p style={{ font: `14px/1.6 ${T.uiFont}`, color: T.ink, marginTop: 8 }}>
+            <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.ink, marginTop: 8 }}>
               This device and your account both have progress, and they do not
               match. Nothing has been changed yet.
             </p>
-            <ul style={{ font: `14px/1.7 ${T.uiFont}`, color: T.ink, paddingLeft: 20, margin: "10px 0" }}>
+            <ul style={{ font: `0.875rem/1.7 ${T.uiFont}`, color: T.ink, paddingLeft: 20, margin: "10px 0" }}>
               {plan.conflicts.map((k) => <li key={k}>{label(k)}</li>)}
             </ul>
             {(plan.pushed.length > 0 || plan.pulled.length > 0) && (
-              <p style={{ font: `13px/1.6 ${T.uiFont}`, color: T.sub }}>
+              <p style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub }}>
                 Everything else is kept from both sides either way — only the
                 items above have to be decided.
               </p>
@@ -326,7 +326,7 @@ export default function Account({ open, setOpen }) {
             {true && (
               <>
                 {!accountsConfigured() && (
-                  <p style={{ font: `14px/1.6 ${T.uiFont}`, color: T.sub }}>
+                  <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub }}>
                     Accounts are not switched on in this build. Your progress is
                     saved in this browser, and Save still writes it to a file you
                     can keep.
@@ -335,7 +335,7 @@ export default function Account({ open, setOpen }) {
 
                 {accountsConfigured() && !session && phase !== "sent" && (
                   <>
-                    <p style={{ font: `14px/1.6 ${T.uiFont}`, color: T.sub, marginTop: 0 }}>
+                    <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub, marginTop: 0 }}>
                       Sign in and your progress follows you to any device. Right
                       now it lives only in this browser — clearing it would clear
                       your work.
@@ -348,7 +348,7 @@ export default function Account({ open, setOpen }) {
                         style={{
                           flex: "1 1 200px", minWidth: 0, padding: "10px 12px",
                           border: `1px solid ${T.hairline}`, borderRadius: 8,
-                          font: `14px ${T.uiFont}`, color: T.ink, background: T.paper,
+                          font: `0.875rem ${T.uiFont}`, color: T.ink, background: T.paper,
                         }}
                       />
                       <button type="submit" disabled={phase === "sending"} style={primary}>
@@ -362,14 +362,14 @@ export default function Account({ open, setOpen }) {
                 )}
 
                 {phase === "sent" && !session && (
-                  <p style={{ font: `14px/1.6 ${T.uiFont}`, color: T.ink, marginTop: 8 }}>
+                  <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.ink, marginTop: 8 }}>
                     Check <strong>{email}</strong>. The link signs you in on this
                     device — open it in this browser rather than another one.
                   </p>
                 )}
 
                 {session && (
-                  <dl style={{ margin: "0 0 14px", font: `14px/1.7 ${T.uiFont}` }}>
+                  <dl style={{ margin: "0 0 14px", font: `0.875rem/1.7 ${T.uiFont}` }}>
                     <div style={{ display: "flex", gap: 10 }}>
                       <dt style={{ color: T.sub, minWidth: 96 }}>Signed in as</dt>
                       <dd style={{ margin: 0, wordBreak: "break-all" }}>{session.user.email}</dd>
@@ -385,7 +385,7 @@ export default function Account({ open, setOpen }) {
 
                 {note && (
                   <p role="status" style={{
-                    font: `13px/1.6 ${T.uiFont}`, color: T.note,
+                    font: `0.8125rem/1.6 ${T.uiFont}`, color: T.note,
                     background: T.noteBg, borderRadius: 8, padding: "10px 12px",
                   }}>{note}</p>
                 )}
@@ -393,12 +393,12 @@ export default function Account({ open, setOpen }) {
                 {/* ————— Settings ————— */}
                 {/* Both of these were only reachable from inside the grammar
                     module, which is a strange place for a preference to live. */}
-                <h3 style={{ font: `600 13px ${T.uiFont}`, letterSpacing: ".4px",
+                <h3 style={{ font: `600 0.8125rem ${T.uiFont}`, letterSpacing: ".4px",
                              color: T.sub, margin: "18px 0 8px" }}>SETTINGS</h3>
                 {SETTINGS.map((s) => (
                   <div key={s.key} style={{ marginBottom: 12 }}>
                     <label htmlFor={`set-${s.key}`}
-                           style={{ display: "block", font: `14px ${T.uiFont}`, marginBottom: 5 }}>
+                           style={{ display: "block", font: `0.875rem ${T.uiFont}`, marginBottom: 5 }}>
                       {s.label}
                     </label>
                     <select id={`set-${s.key}`} value={settings[s.key] ?? s.fallback}
@@ -406,7 +406,7 @@ export default function Account({ open, setOpen }) {
                             style={{
                               width: "100%", padding: "9px 10px", borderRadius: 8,
                               border: `1px solid ${T.hairline}`, background: T.paper,
-                              font: `14px ${T.uiFont}`, color: T.ink,
+                              font: `0.875rem ${T.uiFont}`, color: T.ink,
                             }}>
                       {s.options.map((o) => (
                         <option key={o.value} value={o.value}>{o.label}</option>
@@ -437,7 +437,7 @@ export default function Account({ open, setOpen }) {
                     shortcuts to this same download, offered at the two moments
                     something is about to be overwritten. This is where the way
                     BACK lives, for all three of them. */}
-                <h3 style={{ font: `600 13px ${T.uiFont}`, letterSpacing: ".4px",
+                <h3 style={{ font: `600 0.8125rem ${T.uiFont}`, letterSpacing: ".4px",
                              color: T.sub, margin: "18px 0 8px" }}>BACKUP</h3>
                 <p style={{ ...quiet, marginTop: 0 }}>
                   {session
@@ -454,14 +454,14 @@ export default function Account({ open, setOpen }) {
                 </div>
                 {fileMsg && (
                   <p role="status" style={{
-                    font: `13px/1.6 ${T.uiFont}`, color: T.note, background: T.noteBg,
+                    font: `0.8125rem/1.6 ${T.uiFont}`, color: T.note, background: T.noteBg,
                     borderRadius: 8, padding: "10px 12px", marginTop: 10,
                   }}>{fileMsg}</p>
                 )}
 
                 {session && (
                   <>
-                    <h3 style={{ font: `600 13px ${T.uiFont}`, letterSpacing: ".4px",
+                    <h3 style={{ font: `600 0.8125rem ${T.uiFont}`, letterSpacing: ".4px",
                                  color: T.sub, margin: "18px 0 8px" }}>THIS DEVICE</h3>
                     <button onClick={signOut} style={ghost}>Sign out</button>
                   </>
@@ -479,7 +479,7 @@ export default function Account({ open, setOpen }) {
 
         {error && (
           <p role="alert" style={{
-            font: `13px/1.6 ${T.uiFont}`, color: T.shu, marginTop: 12,
+            font: `0.8125rem/1.6 ${T.uiFont}`, color: T.shu, marginTop: 12,
           }}>{error}</p>
         )}
       </div>

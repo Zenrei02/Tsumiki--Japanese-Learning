@@ -565,7 +565,7 @@ def _tw():
     m["text-transparent"] = "color:transparent"
     # type
     m.update({
-        "text-[10px]": "font-size:10px", "text-[11px]": "font-size:11px",
+        "text-[10px]": "font-size:0.625rem", "text-[11px]": "font-size:0.6875rem",
         "text-[0.45em]": "font-size:0.45em",
         "text-xs": "font-size:0.75rem;line-height:1rem",
         "text-sm": "font-size:0.875rem;line-height:1.25rem",
@@ -855,7 +855,7 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
   };
   const chip = (text, color) => (
     <span style={{
-      font: `600 10px ${T.uiFont}`, letterSpacing: ".5px", color: T.paper,
+      font: `600 0.625rem ${T.uiFont}`, letterSpacing: ".5px", color: T.paper,
       background: color, borderRadius: 999, padding: "3px 9px", marginLeft: 8,
       verticalAlign: "middle",
     }}>{text}</span>
@@ -865,31 +865,31 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
       <button onClick={() => go(hero.id)} style={{
         ...cardBase, border: `2px solid ${T.ink}`, padding: "18px 18px 16px", marginBottom: 22,
       }}>
-        <div style={{ font: `600 11px ${T.uiFont}`, letterSpacing: ".7px", color: T.sub }}>
+        <div style={{ font: `600 0.6875rem ${T.uiFont}`, letterSpacing: ".7px", color: T.sub }}>
           {heroLabel}
         </div>
         {taskMod ? (
           // The action is the headline; the module name demotes to a subtitle.
           <>
-            <div style={{ font: `600 22px/1.4 ${T.uiFont}`, marginTop: 8 }}>
+            <div style={{ font: `600 1.375rem/1.4 ${T.uiFont}`, marginTop: 8 }}>
               {nextTask.label}
             </div>
-            <p style={{ font: `13px ${T.uiFont}`, color: T.sub, margin: "8px 0 12px" }}>
+            <p style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, margin: "8px 0 12px" }}>
               in {hero.label} <span style={{ fontFamily: T.jpFont }}>{hero.jp}</span>
             </p>
           </>
         ) : (
           <>
             <div style={{ marginTop: 8, display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
-              <span style={{ font: `600 24px ${T.uiFont}` }}>{hero.label}</span>
-              <span style={{ font: `20px ${T.jpFont}`, color: T.sub }}>{hero.jp}</span>
+              <span style={{ font: `600 1.5rem ${T.uiFont}` }}>{hero.label}</span>
+              <span style={{ font: `1.25rem ${T.jpFont}`, color: T.sub }}>{hero.jp}</span>
             </div>
-            <p style={{ font: `14px/1.6 ${T.uiFont}`, color: T.sub, margin: "8px 0 12px" }}>
+            <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub, margin: "8px 0 12px" }}>
               {HOME_WHY[hero.id]}
             </p>
           </>
         )}
-        <div style={{ font: `600 15px ${T.uiFont}` }}>{heroCta}</div>
+        <div style={{ font: `600 0.9375rem ${T.uiFont}` }}>{heroCta}</div>
       </button>
 
       {started("grammar") && (
@@ -901,10 +901,10 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
           style={{ ...cardBase, border: `1px solid ${T.shu}55`, marginBottom: 22 }}
         >
           <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
-            <span style={{ font: `600 16px ${T.uiFont}` }}>Review challenge</span>
-            <span style={{ font: `15px ${T.jpFont}`, color: T.shu, marginLeft: 8 }}>腕試し</span>
+            <span style={{ font: `600 1rem ${T.uiFont}` }}>Review challenge</span>
+            <span style={{ font: `0.9375rem ${T.jpFont}`, color: T.shu, marginLeft: 8 }}>腕試し</span>
           </div>
-          <p style={{ font: `13px/1.6 ${T.uiFont}`, color: T.sub, margin: "6px 0 0" }}>
+          <p style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, margin: "6px 0 0" }}>
             Draw a grammar point you've learned and write with it. A fresh challenge every day — the day turns at midnight, Tokyo time.
           </p>
         </button>
@@ -921,10 +921,10 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
           ...cardBase, border: `1px solid ${T.note}55`, background: T.noteBg,
           marginBottom: 22,
         }}>
-          <div style={{ font: `600 14px ${T.uiFont}`, color: T.note }}>
+          <div style={{ font: `600 0.875rem ${T.uiFont}`, color: T.note }}>
             Welcome back
           </div>
-          <p style={{ font: `13px/1.6 ${T.uiFont}`, color: T.ink, margin: "6px 0 0" }}>
+          <p style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.ink, margin: "6px 0 0" }}>
             It has been a while. Everything is exactly where you left it — and if
             you would rather start a section again from the beginning, you can
             clear just that one. Nothing here expires on its own.
@@ -958,13 +958,13 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
         }}>
           <button onClick={openGoals} style={{
             ...cardBase, width: "auto", padding: "10px 16px",
-            font: `600 14px ${T.uiFont}`,
+            font: `600 0.875rem ${T.uiFont}`,
           }}>
             Goals
           </button>
           {wallet > 0 && (
             <span title="Koban you have earned" style={{
-              font: `14px ${T.uiFont}`, color: T.note, whiteSpace: "nowrap",
+              font: `0.875rem ${T.uiFont}`, color: T.note, whiteSpace: "nowrap",
             }}>
               <span style={{ fontFamily: T.jpFont }}>小判</span> {wallet}
             </span>
@@ -983,7 +983,7 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
           the app is still visibly reachable. Someone who has started nothing
           still gets the full list, because for them the six doors ARE the
           information. */}
-      <div style={{ font: `600 11px ${T.uiFont}`, letterSpacing: ".7px", color: T.sub, marginBottom: 10 }}>
+      <div style={{ font: `600 0.6875rem ${T.uiFont}`, letterSpacing: ".7px", color: T.sub, marginBottom: 10 }}>
         {fresh ? "EVERYWHERE YOU CAN GO" : "WHERE YOU LEFT OFF"}
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -993,14 +993,14 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
           <button key={m.id} onClick={() => go(m.id)}
                   style={{ ...cardBase, borderTop: `4px solid ${m.accent}` }}>
             <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
-              <span style={{ font: `600 16px ${T.uiFont}` }}>{m.label}</span>
-              <span style={{ font: `15px ${T.jpFont}`, color: T.sub, marginLeft: 8 }}>{m.jp}</span>
+              <span style={{ font: `600 1rem ${T.uiFont}` }}>{m.label}</span>
+              <span style={{ font: `0.9375rem ${T.jpFont}`, color: T.sub, marginLeft: 8 }}>{m.jp}</span>
               {m.id === "hiragana" && fresh && chip("START HERE", T.ok)}
               {m.id === "checker" && fresh && chip("ALREADY STUDIED?", T.note)}
               {lastMod?.id === m.id && chip("LAST WORKED ON", T.ink)}
               {lastMod?.id !== m.id && started(m.id) && chip("IN PROGRESS", T.sub)}
             </div>
-            <p style={{ font: `13px/1.6 ${T.uiFont}`, color: T.sub, margin: "6px 0 0" }}>
+            <p style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, margin: "6px 0 0" }}>
               {/* Session 21 (Lloyd): a day-one learner sees the Checker as a
                   peer of Hiragana and bounces off a tool built for people who
                   can already write — a bad first impression, and a real API
@@ -1014,7 +1014,7 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
       </div>
 
       {!fresh && (
-        <p style={{ font: `13px/1.6 ${T.uiFont}`, color: T.sub, margin: "16px 2px 0" }}>
+        <p style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, margin: "16px 2px 0" }}>
           Want to try something new? Everything else is in the menu — the
           <span aria-hidden="true"> ☰ </span> at the top left.
         </p>
@@ -1061,7 +1061,7 @@ function Drawer({ open, close, active, go, onAccount }) {
     background: selected ? T.paper : "none",
     border: "none", borderLeft: `3px solid ${selected ? T.ink : "transparent"}`,
     cursor: "pointer", textAlign: "left", padding: "14px 18px",
-    font: `${selected ? 600 : 400} 16px ${T.uiFont}`,
+    font: `${selected ? 600 : 400} 1rem ${T.uiFont}`,
     color: selected ? T.ink : T.sub,
   });
 
@@ -1083,10 +1083,10 @@ function Drawer({ open, close, active, go, onAccount }) {
           display: "flex", alignItems: "center", justifyContent: "space-between",
           padding: "14px 12px 14px 18px", borderBottom: `1px solid ${T.hairline}`,
         }}>
-          <span style={{ font: `600 19px ${T.jpFont}`, color: T.ink }}>直</span>
+          <span style={{ font: `600 1.1875rem ${T.jpFont}`, color: T.ink }}>つ</span>
           <button onClick={close} aria-label="Close menu" style={{
             background: "none", border: "none", cursor: "pointer",
-            padding: 10, font: `18px ${T.uiFont}`, color: T.sub, lineHeight: 1,
+            padding: 10, font: `1.125rem ${T.uiFont}`, color: T.sub, lineHeight: 1,
           }}>✕</button>
         </div>
 
@@ -1097,7 +1097,7 @@ function Drawer({ open, close, active, go, onAccount }) {
           {MODULES.map((m) => (
             <button key={m.id} onClick={() => go(m.id)} style={row(active === m.id)}>
               {m.label}
-              <span style={{ font: `14px ${T.jpFont}`, color: T.sub }}>{m.jp}</span>
+              <span style={{ font: `0.875rem ${T.jpFont}`, color: T.sub }}>{m.jp}</span>
             </button>
           ))}
           {/* ABOVE the rule, among the destinations, and that is the whole
@@ -1107,7 +1107,7 @@ function Drawer({ open, close, active, go, onAccount }) {
               door it looked like account administration. */}
           <button onClick={() => go("progress")} style={row(active === "progress")}>
             Progress
-            <span style={{ font: `14px ${T.jpFont}`, color: T.sub }}>きろく</span>
+            <span style={{ font: `0.875rem ${T.jpFont}`, color: T.sub }}>きろく</span>
           </button>
         </div>
 
@@ -1265,10 +1265,10 @@ export default function App() {
           </button>
           <button onClick={() => go("home")} aria-label="Home" style={{
             background: "none", border: "none", cursor: "pointer", padding: "4px 8px",
-            font: `600 17px ${T.jpFont}`, color: T.ink, borderRadius: 8,
-          }}>直</button>
+            font: `600 1.0625rem ${T.jpFont}`, color: T.ink, borderRadius: 8,
+          }}>つ</button>
           <span style={{
-            font: `14px ${T.uiFont}`, color: T.sub, marginLeft: 2,
+            font: `0.875rem ${T.uiFont}`, color: T.sub, marginLeft: 2,
           }}>{headerTitle}</span>
           <span style={{ flex: 1 }} />
           {/* Session 24: Save and Restore used to live here, on every screen.
@@ -1306,7 +1306,7 @@ export default function App() {
           <Progress go={go} />
         ) : (
           <Suspense fallback={
-            <p style={{ padding: "40px 18px", color: T.sub, font: `14px ${T.uiFont}` }}>Loading…</p>
+            <p style={{ padding: "40px 18px", color: T.sub, font: `0.875rem ${T.uiFont}` }}>Loading…</p>
           }>
             <current.Comp />
           </Suspense>

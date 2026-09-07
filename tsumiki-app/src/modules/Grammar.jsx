@@ -8062,7 +8062,7 @@ function Explanation({ exp, mode, onTapWord }) {
   if (!exp) return null;
   if (typeof exp === "string") {
     return (
-      <p style={{ fontSize: 15, lineHeight: 1.7, marginTop: 0 }}>
+      <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, marginTop: 0 }}>
         <JPText text={exp} mode={mode} onTap={onTapWord} />
       </p>
     );
@@ -8073,12 +8073,12 @@ function Explanation({ exp, mode, onTapWord }) {
       {beats.map(([k, label], i) => (
         <div key={k} style={{ marginTop: i === 0 ? 0 : 18 }}>
           <div style={{
-            fontSize: 11, fontWeight: 600, letterSpacing: ".6px",
+            fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".6px",
             color: k === "watch" ? T.shu : T.sub, marginBottom: 5,
           }}>
             {label}
           </div>
-          <p style={{ fontSize: 15, lineHeight: 1.75, margin: 0 }}>
+          <p style={{ fontSize: "0.9375rem", lineHeight: 1.75, margin: 0 }}>
             <JPText text={exp[k]} mode={mode} onTap={onTapWord} />
           </p>
         </div>
@@ -8146,7 +8146,7 @@ function useRotating(messages, active) {
 function Chip({ children, color }) {
   return (
     <span style={{
-      display: "inline-block", fontSize: 11, letterSpacing: ".4px", padding: "2px 8px",
+      display: "inline-block", fontSize: "0.6875rem", letterSpacing: ".4px", padding: "2px 8px",
       borderRadius: 999, border: `1px solid ${color || T.hairline}`, color: color || T.sub,
     }}>{children}</span>
   );
@@ -8161,12 +8161,12 @@ function StaticMark({ point, progress, onProgress }) {
   const done = !!(p.studied || p.quizBest != null);
   return (
     <div style={{ textAlign: "center", padding: "24px 0" }}>
-      <p style={{ fontSize: 14, color: T.sub, marginTop: 0 }}>
+      <p style={{ fontSize: "0.875rem", color: T.sub, marginTop: 0 }}>
         Quizzes are generated fresh by the grader, which is not part of this static
         preview — it arrives with the full app.
       </p>
       {done ? (
-        <p style={{ fontSize: 14, color: T.ok }}>Marked as studied ✓</p>
+        <p style={{ fontSize: "0.875rem", color: T.ok }}>Marked as studied ✓</p>
       ) : (
         <button className="btn-primary"
           onClick={() => onProgress({ ...progress, [point.id]: { ...p, studied: true, at: Date.now() } })}>
@@ -8226,15 +8226,15 @@ function Quiz({ point, progress, onProgress, mode, onTapWord }) {
     if (STATIC_BUILD) return <StaticMark point={point} progress={progress} onProgress={onProgress} />;
     return (
       <div style={{ textAlign: "center", padding: "24px 0" }}>
-        <p style={{ fontSize: 14, color: T.sub, marginTop: 0 }}>
+        <p style={{ fontSize: "0.875rem", color: T.sub, marginTop: 0 }}>
           Five fresh questions on {point.jp}, generated each time.
         </p>
-        {err && <p style={{ color: T.shu, fontSize: 14 }}>{err}</p>}
+        {err && <p style={{ color: T.shu, fontSize: "0.875rem" }}>{err}</p>}
         <button className="btn-primary" onClick={start} disabled={state === "loading"}>
           {state === "loading" ? "One moment…" : "Start quiz"}
         </button>
         {state === "loading" && (
-          <p style={{ fontSize: 13, color: T.sub, fontStyle: "italic" }} aria-live="polite">{quizMsg}</p>
+          <p style={{ fontSize: "0.8125rem", color: T.sub, fontStyle: "italic" }} aria-live="polite">{quizMsg}</p>
         )}
       </div>
     );
@@ -8243,10 +8243,10 @@ function Quiz({ point, progress, onProgress, mode, onTapWord }) {
   if (state === "done") {
     return (
       <div style={{ textAlign: "center", padding: "24px 0" }}>
-        <div style={{ fontFamily: T.jpFont, fontSize: 34, color: score >= 4 ? T.ok : T.ink }}>
+        <div style={{ fontFamily: T.jpFont, fontSize: "2.125rem", color: score >= 4 ? T.ok : T.ink }}>
           {score} / {questions.length}
         </div>
-        <p style={{ fontSize: 14, color: T.sub }}>
+        <p style={{ fontSize: "0.875rem", color: T.sub }}>
           {score === questions.length ? "Perfect — try writing your own sentence in Practice." :
            score >= 3 ? "Solid. Reread the misses, then try Practice." :
            "Worth rereading the Learn tab before Practice."}
@@ -8259,8 +8259,8 @@ function Quiz({ point, progress, onProgress, mode, onTapWord }) {
   const q = questions[qi];
   return (
     <div>
-      <div style={{ fontSize: 12, color: T.sub, marginBottom: 10 }}>Question {qi + 1} of {questions.length} · Score {score}</div>
-      <div style={{ fontFamily: T.jpFont, fontSize: 18, lineHeight: 1.9, marginBottom: 14 }}><JPText text={q.q} mode={mode} onTap={onTapWord} /></div>
+      <div style={{ fontSize: "0.75rem", color: T.sub, marginBottom: 10 }}>Question {qi + 1} of {questions.length} · Score {score}</div>
+      <div style={{ fontFamily: T.jpFont, fontSize: "1.125rem", lineHeight: 1.9, marginBottom: 14 }}><JPText text={q.q} mode={mode} onTap={onTapWord} /></div>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {q.options.map((opt, i) => {
           const isPicked = picked === i;
@@ -8271,7 +8271,7 @@ function Quiz({ point, progress, onProgress, mode, onTapWord }) {
               key={i}
               onClick={() => pick(i)}
               style={{
-                textAlign: "left", padding: "10px 14px", borderRadius: 6, fontSize: 16,
+                textAlign: "left", padding: "10px 14px", borderRadius: 6, fontSize: "1rem",
                 fontFamily: T.jpFont, cursor: picked === null ? "pointer" : "default",
                 background: isRight ? "#EDF4EE" : isWrongPick ? "#FBEDEA" : T.sheet,
                 border: `1px solid ${isRight ? T.ok : isWrongPick ? T.shu : T.hairline}`,
@@ -8284,7 +8284,7 @@ function Quiz({ point, progress, onProgress, mode, onTapWord }) {
         })}
       </div>
       {picked !== null && (
-        <div style={{ marginTop: 12, fontSize: 14, lineHeight: 1.6 }}>
+        <div style={{ marginTop: 12, fontSize: "0.875rem", lineHeight: 1.6 }}>
           <span style={{ color: picked === q.answer ? T.ok : T.shu, fontWeight: 600 }}>
             {picked === q.answer ? "Correct. " : "Not quite. "}
           </span>
@@ -8314,10 +8314,10 @@ function IssueList({ issues, mode, onTapWord }) {
             border: `1px solid ${T.hairline}`, borderLeft: `3px solid ${accent}`,
             borderRadius: 6, padding: "12px 16px", background: isNote ? T.noteBg : T.sheet,
           }}>
-            <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".5px", color: accent, marginBottom: 6 }}>
+            <div style={{ fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".5px", color: accent, marginBottom: 6 }}>
               {label}
             </div>
-            <div style={{ fontFamily: T.jpFont, fontSize: 16, marginBottom: 6 }}>
+            <div style={{ fontFamily: T.jpFont, fontSize: "1rem", marginBottom: 6 }}>
               <span style={
                 isNote ? { color: T.ink }
                 : isUnnatural ? { borderBottom: `2px dotted ${T.ai}`, color: T.ink }
@@ -8328,7 +8328,7 @@ function IssueList({ issues, mode, onTapWord }) {
               <span style={{ margin: "0 8px", color: T.sub }}>→</span>
               <span>{stripB(iss.correction)}</span>
             </div>
-            <div style={{ fontSize: 14, lineHeight: 1.6 }}><JPText text={iss.explanation} mode={mode} onTap={onTapWord} /></div>
+            <div style={{ fontSize: "0.875rem", lineHeight: 1.6 }}><JPText text={iss.explanation} mode={mode} onTap={onTapWord} /></div>
           </div>
         );
       })}
@@ -8389,7 +8389,7 @@ function Practice({ point, bank = [], progress, onProgress, mode, onTapWord }) {
 
   return (
     <div>
-      <p style={{ fontSize: 14, color: T.sub, marginTop: 0 }}>
+      <p style={{ fontSize: "0.875rem", color: T.sub, marginTop: 0 }}>
         {point.practicePrompt || (
           <>Write one sentence of your own using <span style={{ fontFamily: T.jpFont, color: T.ink }}>{point.jp}</span>.</>
         )}
@@ -8401,19 +8401,19 @@ function Practice({ point, bank = [], progress, onProgress, mode, onTapWord }) {
         rows={2}
         style={{
           width: "100%", boxSizing: "border-box", border: `1px solid ${T.hairline}`, borderRadius: 6,
-          padding: 12, fontSize: 18, lineHeight: 1.9, fontFamily: T.jpFont, background: T.paper, resize: "vertical",
+          padding: 12, fontSize: "1.125rem", lineHeight: 1.9, fontFamily: T.jpFont, background: T.paper, resize: "vertical",
         }}
       />
       {bank.length > 0 && (
         <div style={{ margin: "8px 0 2px", display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
-          <span style={{ fontSize: 12, color: T.sub }}>Need words? Tap to add:</span>
+          <span style={{ fontSize: "0.75rem", color: T.sub }}>Need words? Tap to add:</span>
           {bank.map(([jp, en]) => {
             const entry = KANJI_DICT.find((d) => d[0] === jp);
             const disp = entry ? wordDisplay(entry, mode) : jp;
             return (
               <button key={jp} className="btn-ghost" style={{ padding: "4px 10px" }} onClick={() => setText((t) => (t + dispText(disp)).slice(0, 200))}>
-                <span style={{ fontFamily: T.jpFont, fontSize: 14 }}><DispSpan d={disp} /></span>
-                <span style={{ fontSize: 11, marginLeft: 6 }}>{en}</span>
+                <span style={{ fontFamily: T.jpFont, fontSize: "0.875rem" }}><DispSpan d={disp} /></span>
+                <span style={{ fontSize: "0.6875rem", marginLeft: 6 }}>{en}</span>
               </button>
             );
           })}
@@ -8424,14 +8424,14 @@ function Practice({ point, bank = [], progress, onProgress, mode, onTapWord }) {
           {loading ? "Grading…" : STATIC_BUILD ? "I wrote it — log practice" : "Grade my sentence"}
         </button>
         {loading && (
-          <span style={{ fontSize: 13, color: T.sub, fontStyle: "italic" }} aria-live="polite">
+          <span style={{ fontSize: "0.8125rem", color: T.sub, fontStyle: "italic" }} aria-live="polite">
             {gradingMsg}
           </span>
         )}
       </div>
-      {err && <p style={{ color: T.shu, fontSize: 14 }}>{err}</p>}
+      {err && <p style={{ color: T.shu, fontSize: "0.875rem" }}>{err}</p>}
       {logged && (
-        <p style={{ color: T.ok, fontSize: 14 }} role="status">
+        <p style={{ color: T.ok, fontSize: "0.875rem" }} role="status">
           Logged. Check your sentence against the examples in Learn — the grader arrives with the full app.
         </p>
       )}
@@ -8439,7 +8439,7 @@ function Practice({ point, bank = [], progress, onProgress, mode, onTapWord }) {
         <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 10 }}>
           <div style={{
             padding: "12px 16px", borderRadius: 6, background: result.uses_target ? "#EDF4EE" : "#FBEDEA",
-            border: `1px solid ${result.uses_target ? T.ok : T.shu}55`, fontSize: 14, lineHeight: 1.6,
+            border: `1px solid ${result.uses_target ? T.ok : T.shu}55`, fontSize: "0.875rem", lineHeight: 1.6,
           }}>
             <strong style={{ color: result.uses_target ? T.ok : T.shu }}>
               {result.uses_target ? "Target pattern used. " : "Target pattern missing or off. "}
@@ -8448,10 +8448,10 @@ function Practice({ point, bank = [], progress, onProgress, mode, onTapWord }) {
           </div>
           <IssueList issues={result.issues} mode={mode} onTapWord={onTapWord} />
           <div style={{ border: `1px solid ${T.hairline}`, borderRadius: 6, padding: "12px 16px", background: T.sheet }}>
-            <div style={{ fontSize: 12, color: T.ok, fontWeight: 600, letterSpacing: ".5px", marginBottom: 6 }}>
+            <div style={{ fontSize: "0.75rem", color: T.ok, fontWeight: 600, letterSpacing: ".5px", marginBottom: 6 }}>
               NATURAL VERSION · {result.score}/5
             </div>
-            <div style={{ fontFamily: T.jpFont, fontSize: 17, lineHeight: 1.9 }}><JPText text={result.rewrite} mode={mode} onTap={onTapWord} /></div>
+            <div style={{ fontFamily: T.jpFont, fontSize: "1.0625rem", lineHeight: 1.9 }}><JPText text={result.rewrite} mode={mode} onTap={onTapWord} /></div>
           </div>
         </div>
       )}
@@ -8526,13 +8526,13 @@ function Build({ point, bank = [], progress, onProgress, mode, onTapWord }) {
         background: T.paper, border: `1px solid ${T.hairline}`, borderRadius: 6,
         padding: "14px 16px", marginBottom: 16,
       }}>
-        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".6px", color: T.sub, marginBottom: 6 }}>
+        <div style={{ fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".6px", color: T.sub, marginBottom: 6 }}>
           YOUR BRIEF
         </div>
-        <p style={{ fontSize: 15, lineHeight: 1.7, margin: 0 }}>{point.brief}</p>
+        <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, margin: 0 }}>{point.brief}</p>
       </div>
 
-      <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".6px", color: T.sub, marginBottom: 8 }}>
+      <div style={{ fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".6px", color: T.sub, marginBottom: 8 }}>
         USE ALL {required.length}
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 16 }}>
@@ -8543,15 +8543,15 @@ function Build({ point, bank = [], progress, onProgress, mode, onTapWord }) {
           const glyph = state === "ok" ? "✓" : state === "off" ? "△" : state === "miss" ? "—" : "○";
           return (
             <div key={p.id} style={{
-              display: "flex", alignItems: "baseline", gap: 10, fontSize: 14,
+              display: "flex", alignItems: "baseline", gap: 10, fontSize: "0.875rem",
               padding: "8px 12px", background: T.sheet,
               border: `1px solid ${state === "todo" ? T.hairline : color + "66"}`, borderRadius: 6,
             }}>
               <span style={{ color, minWidth: 14, fontFamily: T.jpFont }}>{glyph}</span>
-              <span style={{ fontFamily: T.jpFont, fontSize: 15 }}>{p.jp}</span>
-              <span style={{ color: T.sub, fontSize: 13, flex: 1 }}>{p.en}</span>
+              <span style={{ fontFamily: T.jpFont, fontSize: "0.9375rem" }}>{p.jp}</span>
+              <span style={{ color: T.sub, fontSize: "0.8125rem", flex: 1 }}>{p.en}</span>
               {r && r.evidence && (
-                <span style={{ fontFamily: T.jpFont, fontSize: 14, color }}>{stripB(r.evidence)}</span>
+                <span style={{ fontFamily: T.jpFont, fontSize: "0.875rem", color }}>{stripB(r.evidence)}</span>
               )}
             </div>
           );
@@ -8560,7 +8560,7 @@ function Build({ point, bank = [], progress, onProgress, mode, onTapWord }) {
       {result && (result.elements || []).some((e) => e.note && !e.correct) && (
         <div style={{ marginBottom: 16, display: "flex", flexDirection: "column", gap: 6 }}>
           {result.elements.filter((e) => e.note && !e.correct).map((e, i) => (
-            <div key={i} style={{ fontSize: 13, color: T.sub, lineHeight: 1.6 }}>
+            <div key={i} style={{ fontSize: "0.8125rem", color: T.sub, lineHeight: 1.6 }}>
               <span style={{ fontFamily: T.jpFont, color: T.ink }}>
                 {(required.find((p) => p.id === e.id) || {}).jp}
               </span>{" — "}{e.note}
@@ -8576,19 +8576,19 @@ function Build({ point, bank = [], progress, onProgress, mode, onTapWord }) {
         rows={4}
         style={{
           width: "100%", boxSizing: "border-box", border: `1px solid ${T.hairline}`, borderRadius: 6,
-          padding: 12, fontSize: 18, lineHeight: 1.9, fontFamily: T.jpFont, background: T.paper, resize: "vertical",
+          padding: 12, fontSize: "1.125rem", lineHeight: 1.9, fontFamily: T.jpFont, background: T.paper, resize: "vertical",
         }}
       />
       {bank.length > 0 && (
         <div style={{ margin: "8px 0 2px", display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
-          <span style={{ fontSize: 12, color: T.sub }}>Need words? Tap to add:</span>
+          <span style={{ fontSize: "0.75rem", color: T.sub }}>Need words? Tap to add:</span>
           {bank.map(([jp, en]) => {
             const entry = KANJI_DICT.find((d) => d[0] === jp);
             const disp = entry ? wordDisplay(entry, mode) : jp;
             return (
               <button key={jp} className="btn-ghost" style={{ padding: "4px 10px" }} onClick={() => setText((t) => (t + dispText(disp)).slice(0, 400))}>
-                <span style={{ fontFamily: T.jpFont, fontSize: 14 }}><DispSpan d={disp} /></span>
-                <span style={{ fontSize: 11, marginLeft: 6 }}>{en}</span>
+                <span style={{ fontFamily: T.jpFont, fontSize: "0.875rem" }}><DispSpan d={disp} /></span>
+                <span style={{ fontSize: "0.6875rem", marginLeft: 6 }}>{en}</span>
               </button>
             );
           })}
@@ -8599,13 +8599,13 @@ function Build({ point, bank = [], progress, onProgress, mode, onTapWord }) {
           {loading ? "Reading…" : STATIC_BUILD ? "I wrote it — log this build" : "Check my sentences"}
         </button>
         {loading && (
-          <span style={{ fontSize: 13, color: T.sub, fontStyle: "italic" }} aria-live="polite">{msg}</span>
+          <span style={{ fontSize: "0.8125rem", color: T.sub, fontStyle: "italic" }} aria-live="polite">{msg}</span>
         )}
-        <span style={{ fontSize: 12, color: T.sub, marginLeft: "auto" }}>{text.length}/400</span>
+        <span style={{ fontSize: "0.75rem", color: T.sub, marginLeft: "auto" }}>{text.length}/400</span>
       </div>
-      {err && <p style={{ color: T.shu, fontSize: 14 }}>{err}</p>}
+      {err && <p style={{ color: T.shu, fontSize: "0.875rem" }}>{err}</p>}
       {logged && (
-        <p style={{ color: T.ok, fontSize: 14 }} role="status">
+        <p style={{ color: T.ok, fontSize: "0.875rem" }} role="status">
           Logged. Walk the checklist above yourself — is each required element present, and does it do its job?
         </p>
       )}
@@ -8615,7 +8615,7 @@ function Build({ point, bank = [], progress, onProgress, mode, onTapWord }) {
           <div style={{
             padding: "12px 16px", borderRadius: 6,
             background: result.combined ? "#EDF4EE" : T.noteBg,
-            border: `1px solid ${result.combined ? T.ok : T.note}55`, fontSize: 14, lineHeight: 1.6,
+            border: `1px solid ${result.combined ? T.ok : T.note}55`, fontSize: "0.875rem", lineHeight: 1.6,
           }}>
             <strong style={{ color: result.combined ? T.ok : T.note }}>
               {(result.elements || []).filter((e) => e.correct).length}/{required.length} patterns
@@ -8625,10 +8625,10 @@ function Build({ point, bank = [], progress, onProgress, mode, onTapWord }) {
           </div>
           <IssueList issues={result.issues} mode={mode} onTapWord={onTapWord} />
           <div style={{ border: `1px solid ${T.hairline}`, borderRadius: 6, padding: "12px 16px", background: T.sheet }}>
-            <div style={{ fontSize: 12, color: T.ok, fontWeight: 600, letterSpacing: ".5px", marginBottom: 6 }}>
+            <div style={{ fontSize: "0.75rem", color: T.ok, fontWeight: 600, letterSpacing: ".5px", marginBottom: 6 }}>
               NATURAL VERSION · {result.score}/5
             </div>
-            <div style={{ fontFamily: T.jpFont, fontSize: 17, lineHeight: 1.9 }}>
+            <div style={{ fontFamily: T.jpFont, fontSize: "1.0625rem", lineHeight: 1.9 }}>
               <JPText text={result.rewrite} mode={mode} onTap={onTapWord} />
             </div>
           </div>
@@ -8738,14 +8738,14 @@ function Walkthrough({ point, deep, progress, onProgress, mode, onTapWord, goTab
   }, [page, point.id]);
 
   const H = ({ children }) => (
-    <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".6px", color: T.sub, marginBottom: 8 }}>{children}</div>
+    <div style={{ fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".6px", color: T.sub, marginBottom: 8 }}>{children}</div>
   );
   const exBox = ([jp, en], i, hl) => (
     <div key={i} style={{ marginTop: 12, paddingLeft: 14, borderLeft: `3px solid ${T.hairline}` }}>
-      <div style={{ fontFamily: T.jpFont, fontSize: 18, lineHeight: 1.9 }}>
+      <div style={{ fontFamily: T.jpFont, fontSize: "1.125rem", lineHeight: 1.9 }}>
         <HL text={jp} hl={hl} mode={mode} onTap={onTapWord} />
       </div>
-      <div style={{ fontSize: 13, color: T.sub }}>{en}</div>
+      <div style={{ fontSize: "0.8125rem", color: T.sub }}>{en}</div>
     </div>
   );
 
@@ -8754,7 +8754,7 @@ function Walkthrough({ point, deep, progress, onProgress, mode, onTapWord, goTab
       {page === "setting" && (
         <div>
           <H>THE SITUATION</H>
-          <p style={{ fontSize: 15, lineHeight: 1.75, marginTop: 0 }}><JPText text={arc.setting.scene} mode={mode} onTap={onTapWord} /></p>
+          <p style={{ fontSize: "0.9375rem", lineHeight: 1.75, marginTop: 0 }}><JPText text={arc.setting.scene} mode={mode} onTap={onTapWord} /></p>
           {exBox([arc.setting.jp, arc.setting.en], 0, arc.setting.pattern)}
         </div>
       )}
@@ -8765,9 +8765,9 @@ function Walkthrough({ point, deep, progress, onProgress, mode, onTapWord, goTab
               ? "THE SAME SITUATION, YOUR SIDE"
               : <span style={{ color: T.shu }}>THE SITUATION DEVELOPS</span>}
           </H>
-          <p style={{ fontSize: 15, lineHeight: 1.75, marginTop: 0 }}><JPText text={ext.scene} mode={mode} onTap={onTapWord} /></p>
+          <p style={{ fontSize: "0.9375rem", lineHeight: 1.75, marginTop: 0 }}><JPText text={ext.scene} mode={mode} onTap={onTapWord} /></p>
           {extText && (
-            <p style={{ fontSize: 15, lineHeight: 1.75, marginTop: 14, marginBottom: 0 }}><JPText text={extText} mode={mode} onTap={onTapWord} /></p>
+            <p style={{ fontSize: "0.9375rem", lineHeight: 1.75, marginTop: 14, marginBottom: 0 }}><JPText text={extText} mode={mode} onTap={onTapWord} /></p>
           )}
           {exBox([ext.jp, ext.en], 0, pickHl(ext.jp, arc.setting.pattern, ext.kind === "wrinkle" ? (wr[ext.wr] || {}).hl : null))}
         </div>
@@ -8775,11 +8775,11 @@ function Walkthrough({ point, deep, progress, onProgress, mode, onTapWord, goTab
       {page === "idea" && (
         <div>
           <H>THE IDEA</H>
-          <p style={{ fontSize: 15, lineHeight: 1.75, marginTop: 0 }}><JPText text={exp.what || ""} mode={mode} onTap={onTapWord} /></p>
+          <p style={{ fontSize: "0.9375rem", lineHeight: 1.75, marginTop: 0 }}><JPText text={exp.what || ""} mode={mode} onTap={onTapWord} /></p>
           {exp.when && (
             <>
               <H>WHEN YOU'D USE IT</H>
-              <p style={{ fontSize: 15, lineHeight: 1.75, marginTop: 0 }}><JPText text={exp.when} mode={mode} onTap={onTapWord} /></p>
+              <p style={{ fontSize: "0.9375rem", lineHeight: 1.75, marginTop: 0 }}><JPText text={exp.when} mode={mode} onTap={onTapWord} /></p>
             </>
           )}
         </div>
@@ -8787,10 +8787,10 @@ function Walkthrough({ point, deep, progress, onProgress, mode, onTapWord, goTab
       {page === "apart" && (
         <div>
           <H>ONE SENTENCE, TAKEN APART</H>
-          <div style={{ fontFamily: T.jpFont, fontSize: 22, lineHeight: 1.9, marginBottom: 2 }}>
+          <div style={{ fontFamily: T.jpFont, fontSize: "1.375rem", lineHeight: 1.9, marginBottom: 2 }}>
             <JPText text={point.ex[0][0]} mode={mode} onTap={onTapWord} />
           </div>
-          <div style={{ fontSize: 13, color: T.sub, marginBottom: 14 }}>{point.ex[0][1]}</div>
+          <div style={{ fontSize: "0.8125rem", color: T.sub, marginBottom: 14 }}>{point.ex[0][1]}</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {deep.seg.map(([surf, gloss, target], i) => (
               <div key={i} style={{
@@ -8798,10 +8798,10 @@ function Walkthrough({ point, deep, progress, onProgress, mode, onTapWord, goTab
                 borderRadius: 6, border: `1px solid ${target ? T.shu + "66" : T.hairline}`,
                 background: target ? "#FBEDEA" : T.sheet,
               }}>
-                <span style={{ fontFamily: T.jpFont, fontSize: 18, color: target ? T.shu : T.ink, fontWeight: target ? 600 : 400, flexShrink: 0 }}>
+                <span style={{ fontFamily: T.jpFont, fontSize: "1.125rem", color: target ? T.shu : T.ink, fontWeight: target ? 600 : 400, flexShrink: 0 }}>
                   <JPText text={surf} mode={mode} onTap={onTapWord} />
                 </span>
-                <span style={{ fontSize: 13, color: T.sub, lineHeight: 1.6 }}>
+                <span style={{ fontSize: "0.8125rem", color: T.sub, lineHeight: 1.6 }}>
                   {target ? <strong style={{ color: T.shu, letterSpacing: ".4px" }}>THE POINT · </strong> : null}
                   {gloss}
                 </span>
@@ -8813,18 +8813,18 @@ function Walkthrough({ point, deep, progress, onProgress, mode, onTapWord, goTab
       {page === "again" && (
         <div>
           <H>HOW IT'S BUILT — AND SIGHTED AGAIN</H>
-          {exp.build && <p style={{ fontSize: 15, lineHeight: 1.75, marginTop: 0 }}><JPText text={exp.build} mode={mode} onTap={onTapWord} /></p>}
+          {exp.build && <p style={{ fontSize: "0.9375rem", lineHeight: 1.75, marginTop: 0 }}><JPText text={exp.build} mode={mode} onTap={onTapWord} /></p>}
           {point.ex.slice(1).map((e, i) => exBox(e, i, deep.hl))}
-          {deep.note && <p style={{ fontSize: 13, color: T.sub, marginTop: 12 }}>{deep.note}</p>}
+          {deep.note && <p style={{ fontSize: "0.8125rem", color: T.sub, marginTop: 12 }}>{deep.note}</p>}
         </div>
       )}
       {page === "watch" && (
         <div>
           <H><span style={{ color: T.shu }}>THE WRINKLES</span></H>
-          {exp.watch && <p style={{ fontSize: 15, lineHeight: 1.75, marginTop: 0 }}><JPText text={exp.watch} mode={mode} onTap={onTapWord} /></p>}
+          {exp.watch && <p style={{ fontSize: "0.9375rem", lineHeight: 1.75, marginTop: 0 }}><JPText text={exp.watch} mode={mode} onTap={onTapWord} /></p>}
           {leftover.map(([w, i]) => (
             <div key={i} style={{ marginTop: 14 }}>
-              <p style={{ fontSize: 15, lineHeight: 1.75, margin: 0 }}><JPText text={w.t} mode={mode} onTap={onTapWord} /></p>
+              <p style={{ fontSize: "0.9375rem", lineHeight: 1.75, margin: 0 }}><JPText text={w.t} mode={mode} onTap={onTapWord} /></p>
               {w.jp && exBox([w.jp, w.en], i, w.hl)}
             </div>
           ))}
@@ -8832,8 +8832,8 @@ function Walkthrough({ point, deep, progress, onProgress, mode, onTapWord, goTab
       )}
       {page === "try" && (
         <div style={{ textAlign: "center", padding: "10px 0" }}>
-          <div style={{ fontFamily: T.jpFont, fontSize: 26, marginBottom: 8 }}>{point.jp}</div>
-          <p style={{ fontSize: 14, color: T.sub, maxWidth: 420, margin: "0 auto 18px", lineHeight: 1.7 }}>
+          <div style={{ fontFamily: T.jpFont, fontSize: "1.625rem", marginBottom: 8 }}>{point.jp}</div>
+          <p style={{ fontSize: "0.875rem", color: T.sub, maxWidth: 420, margin: "0 auto 18px", lineHeight: 1.7 }}>
             You've seen it, seen it taken apart, and seen its edges. Now it's yours:
             first with the training wheels on, then free.
           </p>
@@ -8885,7 +8885,7 @@ function shuffled(arr) {
 function Blankline({ q, fill, ok, mode, onTap }) {
   const [before, after] = q.split("___");
   return (
-    <div style={{ fontFamily: T.jpFont, fontSize: 20, lineHeight: 2 }}>
+    <div style={{ fontFamily: T.jpFont, fontSize: "1.25rem", lineHeight: 2 }}>
       <JPText text={before} mode={mode} onTap={onTap} />
       {fill == null ? (
         <span style={{ display: "inline-block", minWidth: 52, borderBottom: `2px solid ${T.ink}`, margin: "0 3px" }}>&nbsp;</span>
@@ -8944,11 +8944,11 @@ function Drill({ point, deep, progress, onProgress, mode, onTapWord }) {
   if (!run) {
     return (
       <div style={{ textAlign: "center", padding: "20px 0" }}>
-        <p style={{ fontSize: 14, color: T.sub, maxWidth: 420, margin: "0 auto 6px", lineHeight: 1.7 }}>
+        <p style={{ fontSize: "0.875rem", color: T.sub, maxWidth: 420, margin: "0 auto 6px", lineHeight: 1.7 }}>
           {d.note || <>Just the mechanic, nothing else: fill each blank with <span style={{ fontFamily: T.jpFont, color: T.ink }}>{point.jp}</span> doing its job.</>}
         </p>
         {d.pool && (
-          <p style={{ fontSize: 12, color: T.sub, margin: "0 0 14px" }}>
+          <p style={{ fontSize: "0.75rem", color: T.sub, margin: "0 0 14px" }}>
             Each round draws {Math.min(DRILL_DRAW, d.items.length)} from a pool of {d.items.length} — no two rounds need be the same.
           </p>
         )}
@@ -8956,7 +8956,7 @@ function Drill({ point, deep, progress, onProgress, mode, onTapWord }) {
           {p.drillRuns ? "Another round" : "Start"}
         </button>
         {p.drillBest != null && (
-          <p style={{ fontSize: 12, color: T.sub, marginTop: 10 }}>Best so far: {p.drillBest}/{p.drillTotal}</p>
+          <p style={{ fontSize: "0.75rem", color: T.sub, marginTop: 10 }}>Best so far: {p.drillBest}/{p.drillTotal}</p>
         )}
       </div>
     );
@@ -8964,12 +8964,12 @@ function Drill({ point, deep, progress, onProgress, mode, onTapWord }) {
   if (i === -1) {
     return (
       <div style={{ textAlign: "center", padding: "20px 0" }}>
-        <div style={{ fontFamily: T.jpFont, fontSize: 30, color: right === (run.length || right) ? T.ok : T.ink, marginBottom: 6 }}>
+        <div style={{ fontFamily: T.jpFont, fontSize: "1.875rem", color: right === (run.length || right) ? T.ok : T.ink, marginBottom: 6 }}>
           {right === (run.length || right) ? "花丸" : "済"}
         </div>
-        <p style={{ fontSize: 15, margin: "0 0 4px" }}>{right} of {run.length || right} — {right === (run.length || right) ? "clean sweep." : "the misses are the lesson."}</p>
+        <p style={{ fontSize: "0.9375rem", margin: "0 0 4px" }}>{right} of {run.length || right} — {right === (run.length || right) ? "clean sweep." : "the misses are the lesson."}</p>
         {d.pool && (
-          <p style={{ fontSize: 13, color: T.sub, maxWidth: 400, margin: "6px auto 0", lineHeight: 1.7 }}>
+          <p style={{ fontSize: "0.8125rem", color: T.sub, maxWidth: 400, margin: "6px auto 0", lineHeight: 1.7 }}>
             Other words are still waiting in the pool — come back any time for another round with a different draw.
           </p>
         )}
@@ -8982,13 +8982,13 @@ function Drill({ point, deep, progress, onProgress, mode, onTapWord }) {
   }
   return (
     <div>
-      <div style={{ fontSize: 12, color: T.sub, marginBottom: 10 }}>{i + 1} of {run.length}</div>
+      <div style={{ fontSize: "0.75rem", color: T.sub, marginBottom: 10 }}>{i + 1} of {run.length}</div>
       <Blankline q={item.q} fill={answered ? (answered.ok ? answered.given : item.a[0]) : null} ok={answered ? answered.ok : null} mode={mode} onTap={onTapWord} />
-      {item.en && <div style={{ fontSize: 13, color: T.sub, marginTop: 4 }}>{item.en}</div>}
+      {item.en && <div style={{ fontSize: "0.8125rem", color: T.sub, marginTop: 4 }}>{item.en}</div>}
       {!answered && item.opts && (
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 16 }}>
           {opts.map((o) => (
-            <button key={o} className="btn-ghost" style={{ fontFamily: T.jpFont, fontSize: 17, padding: "9px 18px" }} onClick={() => answer(o)}>
+            <button key={o} className="btn-ghost" style={{ fontFamily: T.jpFont, fontSize: "1.0625rem", padding: "9px 18px" }} onClick={() => answer(o)}>
               <JPText text={o} mode={mode} onTap={() => {}} />
             </button>
           ))}
@@ -9003,7 +9003,7 @@ function Drill({ point, deep, progress, onProgress, mode, onTapWord }) {
             placeholder="ここに…"
             style={{
               flex: 1, border: `1px solid ${T.hairline}`, borderRadius: 6, padding: "10px 12px",
-              fontSize: 18, fontFamily: T.jpFont, background: T.paper,
+              fontSize: "1.125rem", fontFamily: T.jpFont, background: T.paper,
             }}
           />
           <button className="btn-primary" disabled={!typed.trim()} onClick={() => answer(typed)}>Check</button>
@@ -9012,7 +9012,7 @@ function Drill({ point, deep, progress, onProgress, mode, onTapWord }) {
       {answered && (
         <div style={{ marginTop: 14 }}>
           <div style={{
-            padding: "10px 14px", borderRadius: 6, fontSize: 14, lineHeight: 1.65,
+            padding: "10px 14px", borderRadius: 6, fontSize: "0.875rem", lineHeight: 1.65,
             background: answered.ok ? "#EDF4EE" : "#FBEDEA",
             border: `1px solid ${answered.ok ? T.ok : T.shu}55`,
           }}>
@@ -9021,7 +9021,7 @@ function Drill({ point, deep, progress, onProgress, mode, onTapWord }) {
             </strong>
             <JPText text={item.why || ""} mode={mode} onTap={onTapWord} />
             {!answered.ok && !item.opts && normJP(answered.given) !== "" && (
-              <div style={{ fontSize: 13, color: T.sub, marginTop: 6 }}>
+              <div style={{ fontSize: "0.8125rem", color: T.sub, marginTop: 6 }}>
                 You wrote: <span style={{ fontFamily: T.jpFont }}>{answered.given}</span>
               </div>
             )}
@@ -9108,62 +9108,62 @@ function ReviewChallenge({ progress, onProgress, isDone, mode, onTapWord, onBack
     <div>
       <button className="btn-ghost" onClick={onBack} style={{ marginBottom: 16 }}>← All grammar</button>
       <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
-        <h2 style={{ fontFamily: T.jpFont, fontSize: 26, margin: 0 }}>腕試し</h2>
-        <span style={{ fontSize: 14, color: T.sub }}>review challenge — a test of your arm</span>
+        <h2 style={{ fontFamily: T.jpFont, fontSize: "1.625rem", margin: 0 }}>腕試し</h2>
+        <span style={{ fontSize: "0.875rem", color: T.sub }}>review challenge — a test of your arm</span>
       </div>
       {!drawn && (
         <div style={{ marginTop: 16 }}>
-          <p style={{ fontSize: 14, color: T.sub, lineHeight: 1.7, marginTop: 0 }}>
+          <p style={{ fontSize: "0.875rem", color: T.sub, lineHeight: 1.7, marginTop: 0 }}>
             Draw from everything you've learned, write, and see if it lands. Each tier pays
             once per day — the day turns over at midnight in Tokyo.
           </p>
           {pool.length === 0 ? (
-            <p style={{ fontSize: 14, lineHeight: 1.7 }}>
+            <p style={{ fontSize: "0.875rem", lineHeight: 1.7 }}>
               Nothing in the pool yet — the challenge draws only from lessons you've finished.
               Complete a grammar point or two and come back.
             </p>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               <button className="point-row" onClick={() => draw("single")}>
-                <span style={{ fontFamily: T.jpFont, fontSize: 20, color: T.shu }}>一</span>
+                <span style={{ fontFamily: T.jpFont, fontSize: "1.25rem", color: T.shu }}>一</span>
                 <span style={{ flex: 1, textAlign: "left" }}>
-                  <span style={{ display: "block", fontSize: 15, fontWeight: 600 }}>Single mechanic</span>
-                  <span style={{ display: "block", fontSize: 13, color: T.sub }}>One pattern, one sentence.</span>
+                  <span style={{ display: "block", fontSize: "0.9375rem", fontWeight: 600 }}>Single mechanic</span>
+                  <span style={{ display: "block", fontSize: "0.8125rem", color: T.sub }}>One pattern, one sentence.</span>
                 </span>
-                <span style={{ fontSize: 13, color: T.sub }}>
+                <span style={{ fontSize: "0.8125rem", color: T.sub }}>
                   {claimed("single") ? <span style={{ color: T.ok }}>済 today</span> : <>{CH_PAY.single} <KobanIcon size={11} /></>}
                 </span>
               </button>
               <button className="point-row" onClick={() => draw("multi")} disabled={pool.length < 2} style={pool.length < 2 ? { opacity: .55, cursor: "default" } : undefined}>
-                <span style={{ fontFamily: T.jpFont, fontSize: 20, color: T.shu }}>組</span>
+                <span style={{ fontFamily: T.jpFont, fontSize: "1.25rem", color: T.shu }}>組</span>
                 <span style={{ flex: 1, textAlign: "left" }}>
-                  <span style={{ display: "block", fontSize: 15, fontWeight: 600 }}>Multi mechanic</span>
-                  <span style={{ display: "block", fontSize: 13, color: T.sub }}>
+                  <span style={{ display: "block", fontSize: "0.9375rem", fontWeight: 600 }}>Multi mechanic</span>
+                  <span style={{ display: "block", fontSize: "0.8125rem", color: T.sub }}>
                     {s2live ? "Three or four patterns, woven together — Stage 2 rules." : "Two patterns in one piece of writing."}
                   </span>
                 </span>
-                <span style={{ fontSize: 13, color: T.sub }}>
+                <span style={{ fontSize: "0.8125rem", color: T.sub }}>
                   {claimed("multi") ? <span style={{ color: T.ok }}>済 today</span> : <>{s2live ? CH_PAY.multi4 : CH_PAY.multi} <KobanIcon size={11} /></>}
                 </span>
               </button>
             </div>
           )}
-          <p style={{ fontSize: 12, color: T.sub, marginTop: 14 }}>
+          <p style={{ fontSize: "0.75rem", color: T.sub, marginTop: 14 }}>
             済 means today's koban for that tier are already claimed — the writing itself is unlimited.
           </p>
         </div>
       )}
       {drawn && (
         <div style={{ marginTop: 16 }}>
-          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".6px", color: T.sub, marginBottom: 8 }}>
+          <div style={{ fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".6px", color: T.sub, marginBottom: 8 }}>
             YOUR DRAW — {drawn.length === 1 ? "USE THIS PATTERN" : `WEAVE ALL ${drawn.length} TOGETHER`}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {drawn.map((pt) => (
               <div key={pt.id} style={{ display: "flex", alignItems: "center", gap: 10, background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 6, padding: "10px 14px" }}>
                 <KindMarker kind={pt.kind} script="en" />
-                <span style={{ fontFamily: T.jpFont, fontSize: 17 }}>{pt.jp}</span>
-                <span style={{ fontSize: 13, color: T.sub, flex: 1 }}>{pt.en}</span>
+                <span style={{ fontFamily: T.jpFont, fontSize: "1.0625rem" }}>{pt.jp}</span>
+                <span style={{ fontSize: "0.8125rem", color: T.sub, flex: 1 }}>{pt.en}</span>
               </div>
             ))}
           </div>
@@ -9176,7 +9176,7 @@ function ReviewChallenge({ progress, onProgress, isDone, mode, onTapWord, onBack
                 rows={drawn.length > 1 ? 4 : 2}
                 style={{
                   width: "100%", boxSizing: "border-box", border: `1px solid ${T.hairline}`, borderRadius: 6,
-                  padding: 12, fontSize: 18, lineHeight: 1.9, fontFamily: T.jpFont, background: T.paper,
+                  padding: 12, fontSize: "1.125rem", lineHeight: 1.9, fontFamily: T.jpFont, background: T.paper,
                   resize: "vertical", marginTop: 12,
                 }}
               />
@@ -9185,16 +9185,16 @@ function ReviewChallenge({ progress, onProgress, isDone, mode, onTapWord, onBack
                   {loading ? "Grading…" : "Submit"}
                 </button>
                 <button className="btn-ghost" onClick={() => draw(tier)} disabled={loading}>Draw again</button>
-                {loading && <span style={{ fontSize: 13, color: T.sub, fontStyle: "italic" }} aria-live="polite">{gradingMsg}</span>}
+                {loading && <span style={{ fontSize: "0.8125rem", color: T.sub, fontStyle: "italic" }} aria-live="polite">{gradingMsg}</span>}
               </div>
-              {err && <p style={{ color: T.shu, fontSize: 14 }}>{err}</p>}
+              {err && <p style={{ color: T.shu, fontSize: "0.875rem" }}>{err}</p>}
             </>
           )}
           {result && result.static && (
-            <div style={{ marginTop: 14, padding: "12px 16px", borderRadius: 6, background: T.sheet, border: `1px solid ${T.hairline}`, fontSize: 14, lineHeight: 1.7 }}>
+            <div style={{ marginTop: 14, padding: "12px 16px", borderRadius: 6, background: T.sheet, border: `1px solid ${T.hairline}`, fontSize: "0.875rem", lineHeight: 1.7 }}>
               Written — now hold it against the drawn pattern{drawn.length > 1 ? "s" : ""} in Learn.
               The grader, and the koban it pays, arrive with the full app.
-              <div style={{ marginTop: 10, fontFamily: T.jpFont, fontSize: 17, lineHeight: 1.9 }}>
+              <div style={{ marginTop: 10, fontFamily: T.jpFont, fontSize: "1.0625rem", lineHeight: 1.9 }}>
                 <JPText text={text} mode={mode} onTap={onTapWord} />
               </div>
               <div style={{ marginTop: 12 }}>
@@ -9206,7 +9206,7 @@ function ReviewChallenge({ progress, onProgress, isDone, mode, onTapWord, onBack
             <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 10 }}>
               <div style={{
                 padding: "12px 16px", borderRadius: 6, background: result.ok ? "#EDF4EE" : "#FBEDEA",
-                border: `1px solid ${result.ok ? T.ok : T.shu}55`, fontSize: 14, lineHeight: 1.6,
+                border: `1px solid ${result.ok ? T.ok : T.shu}55`, fontSize: "0.875rem", lineHeight: 1.6,
               }}>
                 <strong style={{ color: result.ok ? T.ok : T.shu }}>
                   {result.ok ? "Challenge complete. " : "Not yet — the pattern didn't land. "}
@@ -9222,7 +9222,7 @@ function ReviewChallenge({ progress, onProgress, isDone, mode, onTapWord, onBack
                   {result.data.elements.map((el) => {
                     const pt = drawn.find((x) => x.id === el.id);
                     return (
-                      <div key={el.id} style={{ display: "flex", gap: 10, alignItems: "baseline", fontSize: 13, padding: "6px 10px", borderRadius: 6, background: T.sheet, border: `1px solid ${T.hairline}` }}>
+                      <div key={el.id} style={{ display: "flex", gap: 10, alignItems: "baseline", fontSize: "0.8125rem", padding: "6px 10px", borderRadius: 6, background: T.sheet, border: `1px solid ${T.hairline}` }}>
                         <span style={{ color: el.correct ? T.ok : T.shu }}>{el.correct ? "✓" : "✗"}</span>
                         <span style={{ fontFamily: T.jpFont }}>{pt ? pt.jp : el.id}</span>
                         <span style={{ color: T.sub, flex: 1 }}>{el.note}</span>
@@ -9234,10 +9234,10 @@ function ReviewChallenge({ progress, onProgress, isDone, mode, onTapWord, onBack
               <IssueList issues={result.data.issues} mode={mode} onTapWord={onTapWord} />
               {result.data.rewrite && (
                 <div style={{ border: `1px solid ${T.hairline}`, borderRadius: 6, padding: "12px 16px", background: T.sheet }}>
-                  <div style={{ fontSize: 12, color: T.ok, fontWeight: 600, letterSpacing: ".5px", marginBottom: 6 }}>
+                  <div style={{ fontSize: "0.75rem", color: T.ok, fontWeight: 600, letterSpacing: ".5px", marginBottom: 6 }}>
                     NATURAL VERSION{result.data.score ? ` · ${result.data.score}/5` : ""}
                   </div>
-                  <div style={{ fontFamily: T.jpFont, fontSize: 17, lineHeight: 1.9 }}><JPText text={result.data.rewrite} mode={mode} onTap={onTapWord} /></div>
+                  <div style={{ fontFamily: T.jpFont, fontSize: "1.0625rem", lineHeight: 1.9 }}><JPText text={result.data.rewrite} mode={mode} onTap={onTapWord} /></div>
                 </div>
               )}
               <div>
@@ -9279,11 +9279,11 @@ function Module({ point, progress, onProgress, onBack, mode, onTapWord, script =
     <div>
       <button className="btn-ghost" onClick={onBack} style={{ marginBottom: 16 }}>← All grammar points</button>
       <div style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
-        <h2 style={{ fontFamily: T.jpFont, fontSize: 26, margin: 0 }}>{point.jp}</h2>
-        <span style={{ fontSize: 14, color: T.sub }}>{point.en}</span>
+        <h2 style={{ fontFamily: T.jpFont, fontSize: "1.625rem", margin: 0 }}>{point.jp}</h2>
+        <span style={{ fontSize: "0.875rem", color: T.sub }}>{point.en}</span>
         <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
           <KindMarker kind={point.kind} script={script} />
-          <span style={{ fontSize: 12, color: T.sub }}>{kind.label}</span>
+          <span style={{ fontSize: "0.75rem", color: T.sub }}>{kind.label}</span>
         </span>
         {/* The "Stage 2 stress test" chip retired in Session 14 — Stage 2 is
             a real stage now; the n4 flags stay harmlessly on the old points. */}
@@ -9294,7 +9294,7 @@ function Module({ point, progress, onProgress, onBack, mode, onTapWord, script =
             key={id}
             onClick={() => setTab(id)}
             style={{
-              padding: "7px 16px", borderRadius: 999, fontSize: 13, cursor: "pointer", fontFamily: T.uiFont,
+              padding: "7px 16px", borderRadius: 999, fontSize: "0.8125rem", cursor: "pointer", fontFamily: T.uiFont,
               background: tab === id ? T.ink : "none", color: tab === id ? T.paper : T.sub,
               border: `1px solid ${tab === id ? T.ink : T.hairline}`,
             }}
@@ -9324,11 +9324,11 @@ function Module({ point, progress, onProgress, onBack, mode, onTapWord, script =
             )}
             {point.ex.map(([jp, en], i) => (
               <div key={i} style={{ marginTop: 12, paddingLeft: 14, borderLeft: `3px solid ${T.hairline}` }}>
-                <div style={{ fontFamily: T.jpFont, fontSize: 18, lineHeight: 1.9 }}><JPText text={jp} mode={mode} onTap={onTapWord} /></div>
-                <div style={{ fontSize: 13, color: T.sub }}>{en}</div>
+                <div style={{ fontFamily: T.jpFont, fontSize: "1.125rem", lineHeight: 1.9 }}><JPText text={jp} mode={mode} onTap={onTapWord} /></div>
+                <div style={{ fontSize: "0.8125rem", color: T.sub }}>{en}</div>
               </div>
             ))}
-            <p style={{ fontSize: 12, color: T.sub, marginBottom: 0, marginTop: 18 }}>
+            <p style={{ fontSize: "0.75rem", color: T.sub, marginBottom: 0, marginTop: 18 }}>
               {point.kind === "primer"
                 ? "That's the whole primer — nothing to answer, nothing to write. Step 1 starts the actual Japanese."
                 : point.kind === "build"
@@ -9429,12 +9429,12 @@ function StageWelcome({ greeting, onDismiss }) {
         borderRadius: 8, padding: "14px 16px", marginBottom: 16,
       }}
     >
-      <span style={{ fontFamily: T.jpFont, fontSize: 26, color: accent, lineHeight: 1.1 }}>
+      <span style={{ fontFamily: T.jpFont, fontSize: "1.625rem", color: accent, lineHeight: 1.1 }}>
         {greeting.mark}
       </span>
       <span style={{ flex: 1, minWidth: 0 }}>
-        <span style={{ display: "block", fontSize: 14, fontWeight: 600 }}>{greeting.head}</span>
-        <span style={{ display: "block", fontSize: 13, color: T.sub, marginTop: 3, lineHeight: 1.5 }}>
+        <span style={{ display: "block", fontSize: "0.875rem", fontWeight: 600 }}>{greeting.head}</span>
+        <span style={{ display: "block", fontSize: "0.8125rem", color: T.sub, marginTop: 3, lineHeight: 1.5 }}>
           {greeting.body}
         </span>
       </span>
@@ -9570,13 +9570,13 @@ export default function GrammarPractice() {
     <div style={{ minHeight: "100vh", background: T.paper, fontFamily: T.uiFont, color: T.ink }}>
       <style>{`
         .btn-primary { background: ${T.ink}; color: ${T.paper}; border: none; padding: 9px 20px;
-          border-radius: 6px; font-size: 14px; cursor: pointer; font-family: inherit; }
+          border-radius: 6px; font-size: 0.875rem; cursor: pointer; font-family: inherit; }
         .btn-primary:disabled { opacity: .5; cursor: default; }
         .btn-ghost { background: none; border: 1px solid ${T.hairline}; color: ${T.sub};
-          padding: 6px 12px; border-radius: 6px; font-size: 13px; cursor: pointer; font-family: inherit; }
+          padding: 6px 12px; border-radius: 6px; font-size: 0.8125rem; cursor: pointer; font-family: inherit; }
         .btn-ghost:hover { color: ${T.ink}; border-color: #CFCDC4; }
         .kind-mark ruby { ruby-position: over; }
-        .kind-mark rt { font-size: 8px; font-weight: 400; letter-spacing: 0; line-height: 1.1;
+        .kind-mark rt { font-size: 0.5rem; font-weight: 400; letter-spacing: 0; line-height: 1.1;
           color: rgba(255,255,255,.8); }
         .step-head { display: flex; align-items: center; gap: 10px; width: 100%; background: none;
           border: none; border-bottom: 1px solid ${T.hairline}; padding: 10px 2px; cursor: pointer;
@@ -9595,10 +9595,10 @@ export default function GrammarPractice() {
       `}</style>
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px 80px" }}>
         <header style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 6 }}>
-          <div style={{ fontFamily: T.jpFont, fontSize: 34, color: T.shu, lineHeight: 1 }}>学</div>
+          <div style={{ fontFamily: T.jpFont, fontSize: "2.125rem", color: T.shu, lineHeight: 1 }}>学</div>
           <div>
-            <div style={{ fontSize: 20, fontWeight: 600 }}>Grammar Practice</div>
-            <div style={{ fontSize: 13, color: T.sub }}>
+            <div style={{ fontSize: "1.25rem", fontWeight: 600 }}>Grammar Practice</div>
+            <div style={{ fontSize: "0.8125rem", color: T.sub }}>
               {level ? `Stage ${level.title} · ${level.subtitle} (${level.jlpt})` : "Pick your stage · learn → quiz → write"}
             </div>
           </div>
@@ -9608,7 +9608,7 @@ export default function GrammarPractice() {
                 key={m}
                 onClick={() => setMode(m)}
                 style={{
-                  border: "none", cursor: "pointer", fontFamily: T.jpFont, fontSize: 13, padding: "6px 12px",
+                  border: "none", cursor: "pointer", fontFamily: T.jpFont, fontSize: "0.8125rem", padding: "6px 12px",
                   background: kanjiMode === m ? T.ink : "none", color: kanjiMode === m ? T.paper : T.sub,
                 }}
               >
@@ -9629,10 +9629,10 @@ export default function GrammarPractice() {
               ← All stages
             </button>
             {showGreeting && <StageWelcome greeting={greeting} onDismiss={dismissGreeting} />}
-            {level.tagline && <p style={{ fontSize: 14, color: T.sub, marginTop: 0 }}>{level.tagline}</p>}
+            {level.tagline && <p style={{ fontSize: "0.875rem", color: T.sub, marginTop: 0 }}>{level.tagline}</p>}
             {level.pace && (
               <p style={{
-                fontSize: 13, color: T.sub, lineHeight: 1.6, margin: "0 0 14px",
+                fontSize: "0.8125rem", color: T.sub, lineHeight: 1.6, margin: "0 0 14px",
                 borderLeft: `2px solid ${T.note}`, paddingLeft: 12,
               }}>
                 {level.pace}
@@ -9644,7 +9644,7 @@ export default function GrammarPractice() {
               placeholder={`Search Stage ${level.title}…`}
               style={{
                 width: "100%", boxSizing: "border-box", border: `1px solid ${T.hairline}`, borderRadius: 6,
-                padding: "10px 14px", fontSize: 14, marginBottom: 14, background: T.sheet, fontFamily: "inherit",
+                padding: "10px 14px", fontSize: "0.875rem", marginBottom: 14, background: T.sheet, fontFamily: "inherit",
               }}
             />
             <div style={{
@@ -9652,15 +9652,15 @@ export default function GrammarPractice() {
               paddingBottom: 14, marginBottom: 16, borderBottom: `1px solid ${T.hairline}`,
             }}>
               {KIND_ORDER.map((k) => (
-                <span key={k} style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 12, color: T.sub }}>
+                <span key={k} style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: "0.75rem", color: T.sub }}>
                   <KindMarker kind={k} script={level.markers} />
                   {KINDS[k].label}
                 </span>
               ))}
-              <span style={{ fontSize: 12, color: T.hairline, marginLeft: "auto" }}>nothing is gated yet</span>
+              <span style={{ fontSize: "0.75rem", color: T.hairline, marginLeft: "auto" }}>nothing is gated yet</span>
             </div>
             {spine && !q && (
-              <p style={{ fontSize: 13, color: T.sub, margin: "-4px 0 14px", lineHeight: 1.5 }}>
+              <p style={{ fontSize: "0.8125rem", color: T.sub, margin: "-4px 0 14px", lineHeight: 1.5 }}>
                 Showing the spine of this stage — the compositions and the checkpoints, the
                 lessons that ask you to produce rather than read. Open any step to see
                 everything inside it.{" "}
@@ -9694,13 +9694,13 @@ export default function GrammarPractice() {
                     aria-expanded={spine && !q ? !folded : open}
                     aria-label={`${cat.cat} — ${complete ? "complete" : done ? "in progress" : "not started"}`}
                   >
-                    <span style={{ color: T.sub, fontSize: 11, width: 10, transition: "transform .15s",
+                    <span style={{ color: T.sub, fontSize: "0.6875rem", width: 10, transition: "transform .15s",
                       display: "inline-block", transform: (spine && !q ? !folded : open) ? "rotate(90deg)" : "none" }}>▶</span>
-                    <span style={{ fontSize: 13, letterSpacing: ".5px", color: T.ink, textTransform: "uppercase", flex: 1, textAlign: "left" }}>
+                    <span style={{ fontSize: "0.8125rem", letterSpacing: ".5px", color: T.ink, textTransform: "uppercase", flex: 1, textAlign: "left" }}>
                       {cat.cat}
                     </span>
                     {complete ? (
-                      <span style={{ fontFamily: T.jpFont, fontSize: 14, color: T.ok }}>済</span>
+                      <span style={{ fontFamily: T.jpFont, fontSize: "0.875rem", color: T.ok }}>済</span>
                     ) : done > 0 ? (
                       // Progress without a number: a bare count of lessons is
                       // discouraging, a part-filled bar is not.
@@ -9720,13 +9720,13 @@ export default function GrammarPractice() {
                         const started = pr.quizBest != null || pr.practiced || pr.built;
                         return (
                           <button key={p.id} className="point-row" onClick={() => setCurrent(p.id)}>
-                            <span style={{ fontSize: 12, color: T.sub, minWidth: 16, textAlign: "right" }}>
+                            <span style={{ fontSize: "0.75rem", color: T.sub, minWidth: 16, textAlign: "right" }}>
                               {cat.points.indexOf(p) + 1}
                             </span>
                             <KindMarker kind={p.kind} script={level.markers} />
-                            <span style={{ fontFamily: T.jpFont, fontSize: 17, minWidth: 0 }}>{p.jp}</span>
-                            <span style={{ fontSize: 13, color: T.sub, flex: 1 }}>{p.en}</span>
-                            <span style={{ fontSize: 13, color: isComplete ? T.ok : started ? T.note : T.hairline }}>
+                            <span style={{ fontFamily: T.jpFont, fontSize: "1.0625rem", minWidth: 0 }}>{p.jp}</span>
+                            <span style={{ fontSize: "0.8125rem", color: T.sub, flex: 1 }}>{p.en}</span>
+                            <span style={{ fontSize: "0.8125rem", color: isComplete ? T.ok : started ? T.note : T.hairline }}>
                               {isComplete ? "済" : started ? "…" : "○"}
                             </span>
                           </button>
@@ -9750,7 +9750,7 @@ export default function GrammarPractice() {
                 </section>
               );
             })}
-            <p style={{ fontSize: 12, color: T.sub, textAlign: "center", marginTop: 4 }}>
+            <p style={{ fontSize: "0.75rem", color: T.sub, textAlign: "center", marginTop: 4 }}>
               Lesson content is AI-authored and pending native-speaker review. Progress is saved on this device's account.
             </p>
           </div>
@@ -9758,8 +9758,8 @@ export default function GrammarPractice() {
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {depth === null ? (
               <div style={{ background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 8, padding: "16px 18px" }}>
-                <div style={{ fontSize: 14, fontWeight: 600 }}>How much Japanese do you already have?</div>
-                <div style={{ fontSize: 13, color: T.sub, marginTop: 4, lineHeight: 1.5 }}>
+                <div style={{ fontSize: "0.875rem", fontWeight: 600 }}>How much Japanese do you already have?</div>
+                <div style={{ fontSize: "0.8125rem", color: T.sub, marginTop: 4, lineHeight: 1.5 }}>
                   This only changes how much of a stage is on screen at once. Nothing is
                   hidden from you and nothing is locked either way.
                 </div>
@@ -9769,7 +9769,7 @@ export default function GrammarPractice() {
                 </div>
               </div>
             ) : (
-              <p style={{ fontSize: 12, color: T.sub, margin: "0 0 2px" }}>
+              <p style={{ fontSize: "0.75rem", color: T.sub, margin: "0 0 2px" }}>
                 {spine ? "Stages open on their compositions and checkpoints." : "Stages open in full."}{" "}
                 <button
                   onClick={() => setDepthPref(spine ? "full" : "spine")}
@@ -9780,16 +9780,16 @@ export default function GrammarPractice() {
               </p>
             )}
             <button className="level-card" onClick={() => setChallenge(true)} style={{ border: `1px solid ${T.shu}55` }}>
-              <span style={{ fontFamily: T.jpFont, fontSize: 26, color: T.shu, minWidth: 54 }}>腕</span>
+              <span style={{ fontFamily: T.jpFont, fontSize: "1.625rem", color: T.shu, minWidth: 54 }}>腕</span>
               <span style={{ flex: 1 }}>
-                <span style={{ display: "block", fontSize: 15, fontWeight: 600 }}>Review challenge</span>
-                <span style={{ display: "block", fontSize: 13, color: T.sub, marginTop: 2 }}>
+                <span style={{ display: "block", fontSize: "0.9375rem", fontWeight: 600 }}>Review challenge</span>
+                <span style={{ display: "block", fontSize: "0.8125rem", color: T.sub, marginTop: 2 }}>
                   Draw from what you've learned and write. Fresh koban daily — the day turns at midnight, Tokyo time.
                 </span>
               </span>
-              <span style={{ fontSize: 13, color: T.sub }}>›</span>
+              <span style={{ fontSize: "0.8125rem", color: T.sub }}>›</span>
             </button>
-            <p style={{ fontSize: 13, color: T.sub, margin: "0 0 4px" }}>
+            <p style={{ fontSize: "0.8125rem", color: T.sub, margin: "0 0 4px" }}>
               {stagesComplete === 0
                 ? `No stages finished yet · ${LEVELS.length} to go`
                 : `${stagesComplete} of ${LEVELS.length} stages complete`}
@@ -9804,17 +9804,17 @@ export default function GrammarPractice() {
                   disabled={!!l.locked}
                   onClick={() => !l.locked && setLevelId(l.id)}
                 >
-                  <span style={{ fontFamily: T.jpFont, fontSize: 30, color: l.locked ? T.sub : T.shu, minWidth: 54 }}>
+                  <span style={{ fontFamily: T.jpFont, fontSize: "1.875rem", color: l.locked ? T.sub : T.shu, minWidth: 54 }}>
                     {l.title}
                   </span>
                   <span style={{ flex: 1 }}>
-                    <span style={{ display: "block", fontSize: 15, fontWeight: 600 }}>{l.subtitle}</span>
-                    <span style={{ display: "block", fontSize: 13, color: T.sub, marginTop: 2 }}>
+                    <span style={{ display: "block", fontSize: "0.9375rem", fontWeight: 600 }}>{l.subtitle}</span>
+                    <span style={{ display: "block", fontSize: "0.8125rem", color: T.sub, marginTop: 2 }}>
                       {l.locked ? `Coming soon · ${l.jlpt}` : l.jlpt}
                     </span>
                   </span>
                   {!l.locked && done > 0 && done === pts.length && (
-                    <span style={{ fontFamily: T.jpFont, color: T.ok, fontSize: 20 }}>済</span>
+                    <span style={{ fontFamily: T.jpFont, color: T.ok, fontSize: "1.25rem" }}>済</span>
                   )}
                 </button>
               );
@@ -9825,18 +9825,18 @@ export default function GrammarPractice() {
       {popup && (
         <div onClick={() => setPopup(null)} style={{ position: "fixed", inset: 0, background: "#22252B66", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 50 }}>
           <div onClick={(e) => e.stopPropagation()} style={{ background: T.sheet, borderRadius: 10, padding: "22px 28px", maxWidth: MICRO_ANECDOTES[popup[0]] ? 380 : 300, maxHeight: "82vh", overflowY: "auto", textAlign: "center", border: `1px solid ${T.hairline}` }}>
-            <div style={{ fontFamily: T.jpFont, fontSize: 40 }}>{popup[0]}</div>
-            <div style={{ fontFamily: T.jpFont, fontSize: 18, color: T.sub, marginTop: 4 }}>{popup[1]}</div>
-            {popup[2] ? <div style={{ fontSize: 14, marginTop: 6 }}>{popup[2]}</div> : null}
+            <div style={{ fontFamily: T.jpFont, fontSize: "2.5rem" }}>{popup[0]}</div>
+            <div style={{ fontFamily: T.jpFont, fontSize: "1.125rem", color: T.sub, marginTop: 4 }}>{popup[1]}</div>
+            {popup[2] ? <div style={{ fontSize: "0.875rem", marginTop: 6 }}>{popup[2]}</div> : null}
             <div style={{ marginTop: 10 }}>
               <Chip color={popup[3] === "KNOWN" ? undefined : T.note}>
                 {popup[3] === "KNOWN" ? "You know this one" : popup[3] === "UNK" ? "Not in dictionary yet" : "Reading shown for now"}
               </Chip>
             </div>
             {popup[3] === "UNK" ? (
-              <p style={{ fontSize: 12, color: T.sub, marginTop: 10, marginBottom: 0 }}>Prototype dictionary gap — the full tokenizer pipeline will cover every word.</p>
+              <p style={{ fontSize: "0.75rem", color: T.sub, marginTop: 10, marginBottom: 0 }}>Prototype dictionary gap — the full tokenizer pipeline will cover every word.</p>
             ) : popup[3] !== "KNOWN" ? (
-              <p style={{ fontSize: 12, color: T.sub, marginTop: 10, marginBottom: 0 }}>The kanji module teaches this one — until then it keeps its reading.</p>
+              <p style={{ fontSize: "0.75rem", color: T.sub, marginTop: 10, marginBottom: 0 }}>The kanji module teaches this one — until then it keeps its reading.</p>
             ) : null}
             {/* The micro anecdote, if this word carries one. Sits under the gloss in
                 the ochre note style, left-aligned because it is prose and the rest of
@@ -9845,7 +9845,7 @@ export default function GrammarPractice() {
                 simply here (mca-design-v1.md). */}
             {MICRO_ANECDOTES[popup[0]] ? (
               <p style={{
-                font: `13px/1.65 ${T.uiFont}`, color: T.ink, background: T.noteBg,
+                font: `0.8125rem/1.65 ${T.uiFont}`, color: T.ink, background: T.noteBg,
                 border: `1px solid ${T.note}`, borderRadius: 8, padding: "11px 13px",
                 margin: "14px 0 0", textAlign: "left",
               }}>{MICRO_ANECDOTES[popup[0]]}</p>

@@ -27,15 +27,15 @@ const OPEN_REVIEW = "tsumiki-open-review";
 const ghost = {
   background: "none", color: T.ink, border: `1px solid ${T.hairline}`,
   borderRadius: 8, padding: "10px 16px", cursor: "pointer",
-  font: `14px ${T.uiFont}`,
+  font: `0.875rem ${T.uiFont}`,
 };
 const danger = {
   background: T.shu, color: T.sheet, border: "none", borderRadius: 8,
-  padding: "10px 16px", cursor: "pointer", font: `600 14px ${T.uiFont}`,
+  padding: "10px 16px", cursor: "pointer", font: `600 0.875rem ${T.uiFont}`,
 };
-const quiet = { font: `12px/1.6 ${T.uiFont}`, color: T.sub };
+const quiet = { font: `0.75rem/1.6 ${T.uiFont}`, color: T.sub };
 const h3 = {
-  font: `600 13px ${T.uiFont}`, letterSpacing: ".4px", color: T.sub, margin: 0,
+  font: `600 0.8125rem ${T.uiFont}`, letterSpacing: ".4px", color: T.sub, margin: 0,
 };
 
 export default function Progress({ go }) {
@@ -89,16 +89,16 @@ export default function Progress({ go }) {
 
   return (
     <div style={{ padding: "18px 16px 60px", maxWidth: 720, margin: "0 auto" }}>
-      <h1 style={{ font: `600 22px ${T.uiFont}`, color: T.ink, margin: "0 0 4px" }}>
-        Progress <span style={{ font: `20px ${T.jpFont}`, color: T.sub }}>きろく</span>
+      <h1 style={{ font: `600 1.375rem ${T.uiFont}`, color: T.ink, margin: "0 0 4px" }}>
+        Progress <span style={{ font: `1.25rem ${T.jpFont}`, color: T.sub }}>きろく</span>
       </h1>
-      <p style={{ font: `14px/1.6 ${T.uiFont}`, color: T.sub, margin: "0 0 22px" }}>
+      <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub, margin: "0 0 22px" }}>
         What you can do so far, and everything you have written and had checked.
       </p>
 
       {dormantDays != null && dormantDays >= DORMANT_DAYS && (
         <p role="status" style={{
-          font: `13px/1.6 ${T.uiFont}`, color: T.note, background: T.noteBg,
+          font: `0.8125rem/1.6 ${T.uiFont}`, color: T.note, background: T.noteBg,
           borderRadius: 8, padding: "10px 12px", margin: "0 0 18px",
         }}>
           It has been about {Math.floor(dormantDays / 7)} weeks since you last
@@ -111,7 +111,7 @@ export default function Progress({ go }) {
       <div style={{ display: "flex", alignItems: "baseline",
                     justifyContent: "space-between", marginBottom: 10 }}>
         <h2 style={h3}>WHAT YOU CAN DO</h2>
-        <span style={{ font: `13px ${T.uiFont}`, color: T.note }}>
+        <span style={{ font: `0.8125rem ${T.uiFont}`, color: T.note }}>
           <span style={{ fontFamily: T.jpFont }}>小判</span> {wallet}
         </span>
       </div>
@@ -122,11 +122,11 @@ export default function Progress({ go }) {
             display: "flex", alignItems: "baseline", justifyContent: "space-between",
             padding: "9px 0", borderBottom: `1px solid ${T.hairline}`,
           }}>
-            <span style={{ font: `14px ${T.uiFont}` }}>
+            <span style={{ font: `0.875rem ${T.uiFont}` }}>
               {s.label}{" "}
-              <span style={{ font: `13px ${T.jpFont}`, color: T.sub }}>{s.jp}</span>
+              <span style={{ font: `0.8125rem ${T.jpFont}`, color: T.sub }}>{s.jp}</span>
             </span>
-            <span style={{ font: `13px ${T.uiFont}`, color: s.started ? T.ink : T.sub }}>
+            <span style={{ font: `0.8125rem ${T.uiFont}`, color: s.started ? T.ink : T.sub }}>
               {s.started ? s.unit(s.count) : "not started"}
             </span>
           </li>
@@ -143,7 +143,7 @@ export default function Progress({ go }) {
           border: `1px solid ${T.hairline}`, borderRadius: 10, background: T.sheet,
           padding: "14px 16px", marginBottom: 26,
         }}>
-          <p style={{ font: `15px/1.7 ${T.uiFont}`, color: T.ink, margin: "0 0 4px" }}>
+          <p style={{ font: `0.9375rem/1.7 ${T.uiFont}`, color: T.ink, margin: "0 0 4px" }}>
             {checker.checks} {checker.checks === 1 ? "sentence" : "sentences"} checked
             {Object.keys(checker.patterns).length > 0 && <>
               {" "}· {Object.keys(checker.patterns).length}{" "}
@@ -164,7 +164,7 @@ export default function Progress({ go }) {
           </button>
         </div>
       ) : (
-        <p style={{ font: `14px/1.7 ${T.uiFont}`, color: T.sub, margin: "0 0 26px" }}>
+        <p style={{ font: `0.875rem/1.7 ${T.uiFont}`, color: T.sub, margin: "0 0 26px" }}>
           Nothing checked yet. Anything you write in the{" "}
           <button onClick={() => go("checker")} style={{
             background: "none", border: "none", padding: 0, cursor: "pointer",
@@ -183,7 +183,7 @@ export default function Progress({ go }) {
         {stats.map((s) => (
           <label key={s.id} style={{
             display: "flex", alignItems: "center", gap: 9, padding: "6px 0",
-            font: `14px ${T.uiFont}`, color: s.started ? T.ink : T.sub,
+            font: `0.875rem ${T.uiFont}`, color: s.started ? T.ink : T.sub,
             cursor: s.started ? "pointer" : "default",
           }}>
             <input
@@ -210,7 +210,7 @@ export default function Progress({ go }) {
         </button>
       ) : (
         <div style={{ border: `1px solid ${T.shu}55`, borderRadius: 8, padding: 12 }}>
-          <p style={{ font: `14px/1.6 ${T.uiFont}`, margin: "0 0 10px" }}>
+          <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, margin: "0 0 10px" }}>
             Clear <strong>{stats.filter((s) => picked.includes(s.id))
               .map((s) => s.label).join(" and ")}</strong>? This cannot be undone
             unless you save a copy first.
@@ -238,7 +238,7 @@ export default function Progress({ go }) {
 
       {resetMsg && (
         <p role="status" style={{
-          font: `13px/1.6 ${T.uiFont}`, color: T.note, background: T.noteBg,
+          font: `0.8125rem/1.6 ${T.uiFont}`, color: T.note, background: T.noteBg,
           borderRadius: 8, padding: "10px 12px", marginTop: 12,
         }}>{resetMsg}</p>
       )}

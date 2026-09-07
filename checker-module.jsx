@@ -146,7 +146,7 @@ function Marked({ text, issues, readings, furigana, active, setActive }) {
   }
   return (
     <p style={{
-      font: `19px/2.1 ${T.jpFont}`, color: T.ink, margin: 0,
+      font: `1.1875rem/2.1 ${T.jpFont}`, color: T.ink, margin: 0,
       wordBreak: "break-all",
     }}>{parts}</p>
   );
@@ -171,16 +171,16 @@ function IssueCard({ issue, active, setActive, readings, furigana }) {
         }}
       >
         <span style={{
-          font: `600 11px ${T.uiFont}`, letterSpacing: "0.06em",
+          font: `600 0.6875rem ${T.uiFont}`, letterSpacing: "0.06em",
           textTransform: "uppercase", color: tier.color,
         }}>{tier.label}</span>
-        <span style={{ font: `17px ${T.jpFont}`, color: T.ink }}>
+        <span style={{ font: `1.0625rem ${T.jpFont}`, color: T.ink }}>
           <Ruby text={issue.span} readings={readings} on={furigana} />
         </span>
         {issue.correction && (
           <>
-            <span style={{ color: T.sub, font: `14px ${T.uiFont}` }}>→</span>
-            <span style={{ font: `17px ${T.jpFont}`, color: tier.color }}>
+            <span style={{ color: T.sub, font: `0.875rem ${T.uiFont}` }}>→</span>
+            <span style={{ font: `1.0625rem ${T.jpFont}`, color: tier.color }}>
               <Ruby text={issue.correction} readings={readings} on={furigana} />
             </span>
           </>
@@ -189,24 +189,24 @@ function IssueCard({ issue, active, setActive, readings, furigana }) {
           // Honesty rather than silence. The advice may be sound; we simply
           // could not prove where it points, so we do not point.
           <span style={{
-            font: `11px ${T.uiFont}`, color: T.sub, background: T.paper,
+            font: `0.6875rem ${T.uiFont}`, color: T.sub, background: T.paper,
             border: `1px solid ${T.hairline}`, borderRadius: 4, padding: "2px 6px",
           }}>not highlighted — couldn't locate this exactly</span>
         )}
       </button>
       {open && (
-        <div style={{ padding: "0 14px 14px", font: `14px/1.65 ${T.uiFont}`, color: T.ink }}>
+        <div style={{ padding: "0 14px 14px", font: `0.875rem/1.65 ${T.uiFont}`, color: T.ink }}>
           <p style={{ margin: "0 0 10px" }}>{issue.explanation}</p>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {issue.pattern_name && (
               <span style={{
-                font: `12px ${T.uiFont}`, color: tier.color, background: tier.bg,
+                font: `0.75rem ${T.uiFont}`, color: tier.color, background: tier.bg,
                 borderRadius: 999, padding: "3px 10px",
               }}>{issue.pattern_name}</span>
             )}
             {issue.jlpt && (
               <span style={{
-                font: `12px ${T.uiFont}`, color: T.sub, background: T.paper,
+                font: `0.75rem ${T.uiFont}`, color: T.sub, background: T.paper,
                 border: `1px solid ${T.hairline}`, borderRadius: 999, padding: "3px 10px",
               }}>{issue.jlpt}</span>
             )}
@@ -268,7 +268,7 @@ function PastCheck({ check, focus = null, furigana }) {
     }}>
       <div style={{
         display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap",
-        marginBottom: 8, font: `12px ${T.uiFont}`, color: T.sub,
+        marginBottom: 8, font: `0.75rem ${T.uiFont}`, color: T.sub,
       }}>
         <span>{niceDay(check.d)}</span>
         {ctx && <span>· written for {ctx.hint}</span>}
@@ -296,7 +296,7 @@ function PastCheck({ check, focus = null, furigana }) {
         <>
           <button onClick={() => setOpen((o) => !o)} aria-expanded={open} style={{
             marginTop: 10, background: "none", border: "none", cursor: "pointer",
-            padding: 0, font: `13px ${T.uiFont}`, color: T.sub,
+            padding: 0, font: `0.8125rem ${T.uiFont}`, color: T.sub,
           }}>
             {open ? "Hide" : issues.length
               ? `Show ${issues.length} ${issues.length === 1 ? "note" : "notes"}`
@@ -310,12 +310,12 @@ function PastCheck({ check, focus = null, furigana }) {
           ))}
           {open && check.rewrite && check.rewrite !== check.text && (
             <p style={{
-              font: `17px/2 ${T.jpFont}`, color: T.ink, background: T.paper,
+              font: `1.0625rem/2 ${T.jpFont}`, color: T.ink, background: T.paper,
               border: `1px solid ${T.hairline}`, borderRadius: 8,
               padding: "10px 12px", margin: "8px 0 0",
             }}>
               <span style={{
-                display: "block", font: `600 11px ${T.uiFont}`, letterSpacing: ".06em",
+                display: "block", font: `600 0.6875rem ${T.uiFont}`, letterSpacing: ".06em",
                 textTransform: "uppercase", color: T.sub, marginBottom: 4,
               }}>One natural version</span>
               <Ruby text={check.rewrite} readings={check.readings} on={furigana} />
@@ -341,12 +341,12 @@ function ErrorTypeGroup({ group, furigana }) {
         alignItems: "baseline", gap: 10, flexWrap: "wrap",
       }}>
         <span style={{
-          font: `600 11px ${T.uiFont}`, letterSpacing: "0.06em",
+          font: `600 0.6875rem ${T.uiFont}`, letterSpacing: "0.06em",
           textTransform: "uppercase", color: tier.color,
         }}>{tier.label}</span>
-        <span style={{ font: `15px ${T.uiFont}`, color: T.ink }}>{group.pattern}</span>
+        <span style={{ font: `0.9375rem ${T.uiFont}`, color: T.ink }}>{group.pattern}</span>
         <span style={{ flex: 1 }} />
-        <span style={{ font: `13px ${T.uiFont}`, color: T.sub }}>
+        <span style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub }}>
           {group.total}{group.total === 1 ? " time" : " times"} · last {niceDay(group.last)}
         </span>
       </button>
@@ -361,7 +361,7 @@ function ErrorTypeGroup({ group, furigana }) {
               kept, and a group that quietly shrank would read as an error
               that stopped happening. */}
           {group.missing > 0 && (
-            <p style={{ font: `12px/1.6 ${T.uiFont}`, color: T.sub, margin: "2px 0 0" }}>
+            <p style={{ font: `0.75rem/1.6 ${T.uiFont}`, color: T.sub, margin: "2px 0 0" }}>
               {group.missing} older {group.missing === 1 ? "sentence is" : "sentences are"} no
               longer kept — the count above still includes {group.missing === 1 ? "it" : "them"}.
             </p>
@@ -379,7 +379,7 @@ function Review({ furigana, setFurigana, btn }) {
   useEffect(() => { readHistory().then(setHistory); }, []);
 
   if (history === null) {
-    return <p style={{ font: `14px ${T.uiFont}`, color: T.sub }}>Looking…</p>;
+    return <p style={{ font: `0.875rem ${T.uiFont}`, color: T.sub }}>Looking…</p>;
   }
 
   const groups = byErrorType(history);
@@ -389,10 +389,10 @@ function Review({ furigana, setFurigana, btn }) {
     return (
       <div style={{
         border: `1px solid ${T.hairline}`, borderRadius: 10, background: T.sheet,
-        padding: "18px 16px", font: `15px/1.7 ${T.uiFont}`, color: T.ink,
+        padding: "18px 16px", font: `0.9375rem/1.7 ${T.uiFont}`, color: T.ink,
       }}>
         <p style={{ margin: "0 0 8px" }}>Nothing here yet.</p>
-        <p style={{ margin: 0, color: T.sub, font: `14px/1.7 ${T.uiFont}` }}>
+        <p style={{ margin: 0, color: T.sub, font: `0.875rem/1.7 ${T.uiFont}` }}>
           Everything you check is kept here — the sentence you wrote and what came
           back — grouped by the kind of thing it was. It is your own writing, so
           you can clear it whenever you like from Progress.
@@ -415,7 +415,7 @@ function Review({ furigana, setFurigana, btn }) {
       {mode === "type" ? (
         groups.length ? (
           <>
-            <p style={{ font: `13px/1.7 ${T.uiFont}`, color: T.sub, margin: "0 0 12px" }}>
+            <p style={{ font: `0.8125rem/1.7 ${T.uiFont}`, color: T.sub, margin: "0 0 12px" }}>
               A sentence appears under every kind of thing that was flagged in it,
               so whichever one you came looking for, your own examples are there.
             </p>
@@ -424,7 +424,7 @@ function Review({ furigana, setFurigana, btn }) {
             ))}
           </>
         ) : (
-          <p style={{ font: `15px/1.7 ${T.uiFont}`, color: T.ink }}>
+          <p style={{ font: `0.9375rem/1.7 ${T.uiFont}`, color: T.ink }}>
             Nothing has been flagged in what you have written so far. Your
             sentences are still under <em>By when</em>.
           </p>
@@ -522,15 +522,15 @@ export default function CheckerModule() {
     border: `1px solid ${on ? T.ink : T.hairline}`,
     background: on ? T.ink : T.sheet, color: on ? T.sheet : T.sub,
     borderRadius: 999, padding: "7px 14px", cursor: "pointer",
-    font: `13px ${T.uiFont}`,
+    font: `0.8125rem ${T.uiFont}`,
   });
 
   return (
     <div style={{ padding: "18px 16px 60px", maxWidth: 720, margin: "0 auto" }}>
-      <h1 style={{ font: `600 22px ${T.uiFont}`, color: T.ink, margin: "0 0 4px" }}>
-        tsumiki <span style={{ font: `20px ${T.jpFont}`, color: T.sub }}>つみき</span>
+      <h1 style={{ font: `600 1.375rem ${T.uiFont}`, color: T.ink, margin: "0 0 4px" }}>
+        tsumiki <span style={{ font: `1.25rem ${T.jpFont}`, color: T.sub }}>つみき</span>
       </h1>
-      <p style={{ font: `14px/1.6 ${T.uiFont}`, color: T.sub, margin: "0 0 20px" }}>
+      <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub, margin: "0 0 20px" }}>
         Write something in Japanese. You'll get back what's wrong, what's
         technically fine but sounds off, and why — in English.
       </p>
@@ -546,7 +546,7 @@ export default function CheckerModule() {
           <button key={id} onClick={() => setView(id)} aria-pressed={view === id}
             style={{
               background: "none", border: "none", padding: "0 0 8px", cursor: "pointer",
-              font: `${view === id ? 600 : 400} 14px ${T.uiFont}`,
+              font: `${view === id ? 600 : 400} 0.875rem ${T.uiFont}`,
               color: view === id ? T.ink : T.sub,
               borderBottom: `2px solid ${view === id ? T.ink : "transparent"}`,
               marginBottom: -1,
@@ -566,7 +566,7 @@ export default function CheckerModule() {
                   title={`Written for ${c.hint}`}
                   style={btn(context === c.id)}>
             {c.label}
-            <span style={{ font: `12px ${T.jpFont}`, marginLeft: 6, opacity: 0.75 }}>{c.jp}</span>
+            <span style={{ font: `0.75rem ${T.jpFont}`, marginLeft: 6, opacity: 0.75 }}>{c.jp}</span>
           </button>
         ))}
       </div>
@@ -579,7 +579,7 @@ export default function CheckerModule() {
         style={{
           width: "100%", boxSizing: "border-box", padding: 14,
           border: `1px solid ${over ? T.shu : T.hairline}`, borderRadius: 10,
-          font: `18px/1.9 ${T.jpFont}`, color: T.ink, background: T.sheet,
+          font: `1.125rem/1.9 ${T.jpFont}`, color: T.ink, background: T.sheet,
           resize: "vertical",
         }}
       />
@@ -592,16 +592,16 @@ export default function CheckerModule() {
           background: canCheck ? T.ink : T.hairline,
           color: canCheck ? T.sheet : T.sub,
           cursor: canCheck ? "pointer" : "default",
-          font: `600 15px ${T.uiFont}`,
+          font: `600 0.9375rem ${T.uiFont}`,
         }}>{busy ? "Checking…" : "Check"}</button>
         <span style={{ flex: 1 }} />
-        <span style={{ font: `12px ${T.uiFont}`, color: over ? T.shu : T.sub }}>
+        <span style={{ font: `0.75rem ${T.uiFont}`, color: over ? T.shu : T.sub }}>
           {count} / {MAX_CHARS}
         </span>
       </div>
 
       {busy && (
-        <p style={{ font: `14px ${T.uiFont}`, color: T.sub }}>
+        <p style={{ font: `0.875rem ${T.uiFont}`, color: T.sub }}>
           Reading it properly — this usually takes a few seconds, sometimes up to a minute
           for longer writing.
         </p>
@@ -611,7 +611,7 @@ export default function CheckerModule() {
         <div role="alert" style={{
           border: `1px solid ${T.hairline}`, borderLeft: `3px solid ${T.shu}`,
           borderRadius: 8, background: T.sheet, padding: "12px 14px",
-          font: `14px/1.6 ${T.uiFont}`, color: T.ink,
+          font: `0.875rem/1.6 ${T.uiFont}`, color: T.ink,
         }}>{ERRORS[error] || "Something went wrong. Try again in a moment."}</div>
       )}
 
@@ -622,7 +622,7 @@ export default function CheckerModule() {
             marginBottom: 14,
           }}>
             <span style={{
-              font: `600 12px ${T.uiFont}`, letterSpacing: "0.06em",
+              font: `600 0.75rem ${T.uiFont}`, letterSpacing: "0.06em",
               textTransform: "uppercase",
               color: result.verdict === "NONE" ? T.ok : tierOf(
                 result.verdict === "FIX" ? "fix"
@@ -631,7 +631,7 @@ export default function CheckerModule() {
               {result.verdict === "NONE" ? "Nothing to change" : result.verdict}
             </span>
             {result.overall?.natural_score != null && (
-              <span style={{ font: `13px ${T.uiFont}`, color: T.sub }}>
+              <span style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub }}>
                 Sounds natural: {result.overall.natural_score} / 5
               </span>
             )}
@@ -643,7 +643,7 @@ export default function CheckerModule() {
 
           {result.overall?.summary && (
             <p style={{
-              font: `15px/1.65 ${T.uiFont}`, color: T.ink, margin: "0 0 16px",
+              font: `0.9375rem/1.65 ${T.uiFont}`, color: T.ink, margin: "0 0 16px",
             }}>{result.overall.summary}</p>
           )}
 
@@ -664,7 +664,7 @@ export default function CheckerModule() {
           {result.issues.length === 0 && (
             <div style={{
               background: T.okBg, border: `1px solid ${T.ok}33`, borderRadius: 10,
-              padding: "14px 16px", font: `15px/1.6 ${T.uiFont}`, color: T.ink,
+              padding: "14px 16px", font: `0.9375rem/1.6 ${T.uiFont}`, color: T.ink,
             }}>
               Nothing to correct here. That is a real result, not a shrug — the
               checker is built to return nothing when there is nothing wrong.
@@ -680,17 +680,17 @@ export default function CheckerModule() {
           {result.model_rewrite && result.model_rewrite !== result.submitted && (
             <div style={{ marginTop: 18 }}>
               <h2 style={{
-                font: `600 12px ${T.uiFont}`, letterSpacing: "0.06em",
+                font: `600 0.75rem ${T.uiFont}`, letterSpacing: "0.06em",
                 textTransform: "uppercase", color: T.sub, margin: "0 0 8px",
               }}>One natural version</h2>
               <p style={{
-                font: `18px/2 ${T.jpFont}`, color: T.ink, background: T.sheet,
+                font: `1.125rem/2 ${T.jpFont}`, color: T.ink, background: T.sheet,
                 border: `1px solid ${T.hairline}`, borderRadius: 10,
                 padding: "14px 16px", margin: 0,
               }}>
                 <Ruby text={result.model_rewrite} readings={result.readings} on={furigana} />
               </p>
-              <p style={{ font: `13px/1.6 ${T.uiFont}`, color: T.sub, margin: "8px 0 0" }}>
+              <p style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, margin: "8px 0 0" }}>
                 Changed as little as possible — it is one way to say it, not the
                 only correct one.
               </p>
@@ -698,7 +698,7 @@ export default function CheckerModule() {
           )}
 
           {result.cap && (
-            <p style={{ font: `12px ${T.uiFont}`, color: T.sub, marginTop: 22 }}>
+            <p style={{ font: `0.75rem ${T.uiFont}`, color: T.sub, marginTop: 22 }}>
               {result.cap.used} of {result.cap.limit} free checks used today.
             </p>
           )}

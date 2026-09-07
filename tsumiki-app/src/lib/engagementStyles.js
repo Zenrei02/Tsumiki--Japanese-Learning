@@ -91,8 +91,8 @@ export const ENGAGEMENT_CSS = String.raw`
 .eng-scope .space-y-4 > * + *{margin-top:1rem}
 .eng-scope .text-2xl{font-size:1.5rem;line-height:2rem}
 .eng-scope .text-\[0\.45em\]{font-size:0.45em}
-.eng-scope .text-\[10px\]{font-size:10px}
-.eng-scope .text-\[11px\]{font-size:11px}
+.eng-scope .text-\[10px\]{font-size:0.625rem}
+.eng-scope .text-\[11px\]{font-size:0.6875rem}
 .eng-scope .text-amber-800{color:#92400E}
 .eng-scope .text-amber-900{color:#78350F}
 .eng-scope .text-orange-800{color:#9A3412}

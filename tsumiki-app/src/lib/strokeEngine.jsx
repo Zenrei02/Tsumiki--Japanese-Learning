@@ -102,7 +102,7 @@ function StrokeView({ ch, size = 132, numbers, auto }) {
           );
         })}
       </svg>
-      <div style={{ fontSize: 11, color: T.sub, marginTop: 4 }}>
+      <div style={{ fontSize: "0.6875rem", color: T.sub, marginTop: 4 }}>
         {idle ? "tap to write" : `${paths.length} stroke${paths.length === 1 ? "" : "s"}`}
       </div>
     </div>
@@ -342,8 +342,8 @@ function StrokePractice({ chars, modId, progress, onProgress, startCh }) {
     }
   };
 
-  if (!chars.length) return <p style={{ fontSize: 14, color: T.sub }}>No characters to practise in this lesson.</p>;
-  if (!paths.length) return <p style={{ fontSize: 14, color: T.sub }}>No stroke data for this character yet.</p>;
+  if (!chars.length) return <p style={{ fontSize: "0.875rem", color: T.sub }}>No characters to practise in this lesson.</p>;
+  if (!paths.length) return <p style={{ fontSize: "0.875rem", color: T.sub }}>No stroke data for this character yet.</p>;
 
   const finished = strokeIdx >= paths.length;
   const tierColour = feedback
@@ -356,7 +356,7 @@ function StrokePractice({ chars, modId, progress, onProgress, startCh }) {
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
         {chars.map((c) => (
           <button key={c} onClick={() => setCh(c)} style={{
-            fontFamily: T.jpFont, fontSize: 22, padding: "6px 12px", borderRadius: 4, cursor: "pointer",
+            fontFamily: T.jpFont, fontSize: "1.375rem", padding: "6px 12px", borderRadius: 4, cursor: "pointer",
             background: ch === c ? T.ink : T.sheet, color: ch === c ? T.paper : T.ink,
             border: `1px solid ${ch === c ? T.ink : T.hairline}`,
           }}>{c}</button>
@@ -368,13 +368,13 @@ function StrokePractice({ chars, modId, progress, onProgress, startCh }) {
           <button key={s.id} onClick={() => setStageIdx(i)} style={{
             border: `1px solid ${stageIdx === i ? T.ink : T.hairline}`, borderRadius: 999,
             background: stageIdx === i ? T.ink : "none", color: stageIdx === i ? T.paper : T.sub,
-            fontSize: 12, padding: "5px 14px", cursor: "pointer", fontFamily: "inherit",
+            fontSize: "0.75rem", padding: "5px 14px", cursor: "pointer", fontFamily: "inherit",
           }}>
             {s.label}{doneSet.has(ch + ":" + s.id) ? " ✓" : ""}
           </button>
         ))}
       </div>
-      <p style={{ fontSize: 13, color: T.sub, margin: "0 0 12px" }}>{stage.blurb}</p>
+      <p style={{ fontSize: "0.8125rem", color: T.sub, margin: "0 0 12px" }}>{stage.blurb}</p>
 
       <div style={{ display: "flex", gap: 20, flexWrap: "wrap", alignItems: "flex-start" }}>
         <div>
@@ -400,22 +400,22 @@ function StrokePractice({ chars, modId, progress, onProgress, startCh }) {
         </div>
 
         <div style={{ flex: 1, minWidth: 190 }}>
-          <div style={{ fontSize: 13, color: T.sub, marginBottom: 8 }}>
+          <div style={{ fontSize: "0.8125rem", color: T.sub, marginBottom: 8 }}>
             {finished ? "Finished." : `Stroke ${strokeIdx + 1} of ${paths.length}`}
           </div>
           {feedback && (
-            <p style={{ fontSize: 14, lineHeight: 1.6, color: tierColour, margin: "0 0 12px" }}>
+            <p style={{ fontSize: "0.875rem", lineHeight: 1.6, color: tierColour, margin: "0 0 12px" }}>
               {feedback.msg}
             </p>
           )}
           {hint && !finished && (
-            <p style={{ fontSize: 12, color: T.sub, margin: "0 0 12px" }}>
+            <p style={{ fontSize: "0.75rem", color: T.sub, margin: "0 0 12px" }}>
               Just this stroke. It clears once you land it.
             </p>
           )}
           <StrokeView ch={ch} size={110} numbers auto={false} />
           {!tol.calibrated && (
-            <p style={{ fontSize: 11, color: T.sub, marginTop: 10 }}>
+            <p style={{ fontSize: "0.6875rem", color: T.sub, marginTop: 10 }}>
               Still learning your handwriting — tolerance loosens or tightens to suit your hand and device.
             </p>
           )}

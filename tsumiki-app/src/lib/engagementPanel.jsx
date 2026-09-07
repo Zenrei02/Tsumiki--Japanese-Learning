@@ -83,17 +83,17 @@ export default function GoalsDialog({ open, setOpen, startedMap }) {
         padding: "14px 14px 18px", fontFamily: T.uiFont, color: T.ink,
       }}>
         <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between" }}>
-          <h2 style={{ font: `600 17px ${T.uiFont}`, margin: 0 }}>Goals</h2>
+          <h2 style={{ font: `600 1.0625rem ${T.uiFont}`, margin: 0 }}>Goals</h2>
           <button onClick={() => setOpen(false)} aria-label="Close" style={{
             background: "none", border: "none", cursor: "pointer",
-            padding: 8, font: `16px ${T.uiFont}`, color: T.sub,
+            padding: 8, font: `1rem ${T.uiFont}`, color: T.sub,
           }}>✕</button>
         </div>
 
         <div className="eng-scope">
           <style>{ENGAGEMENT_CSS}</style>
           <Suspense fallback={
-            <p style={{ padding: "24px 4px", color: T.sub, font: `14px ${T.uiFont}` }}>Loading…</p>
+            <p style={{ padding: "24px 4px", color: T.sub, font: `0.875rem ${T.uiFont}` }}>Loading…</p>
           }>
             <EngagementModule
               unlocked={{

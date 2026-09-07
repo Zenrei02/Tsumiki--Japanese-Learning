@@ -7,6 +7,17 @@
     <meta name="description" content="Japanese reading and writing practice." />
     <style>
       html, body, #root { height: 100%; margin: 0; }
+
+      /* ⭐ THE TEXT SCALE — the whole app's type size is this one number.
+         Every font size in the app is rem, so changing this percentage
+         rescales all of them together. 112.5% puts the base at 18px, which
+         lands 13px→14.6, 14px→15.75, 16px→18.
+         TO REVERT THE ENTIRE TEXT SCALE, set this back to 100%.
+         It MUST stay a percentage: a px root is exactly what stops the
+         browser's own text-size setting working, which is the point of
+         having done this at all. */
+      html { font-size: 112.5%; }
+
       body { background: #F7F6F2; -webkit-text-size-adjust: 100%; }
     </style>
   </head>

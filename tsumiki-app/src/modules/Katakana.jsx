@@ -553,7 +553,7 @@ function KanaPad({ onInsert, onModify, onBack, onClear, enabled }) {
         <button className="pad-key" onClick={onBack} aria-label="backspace">⌫</button>
         <button className="pad-ghost" onClick={onClear}>Clear</button>
       </div>
-      <p style={{ fontSize: 11, color: T.sub, marginTop: 8, marginBottom: 0 }}>
+      <p style={{ fontSize: "0.6875rem", color: T.sub, marginTop: 8, marginBottom: 0 }}>
         Greyed keys are characters you haven't met yet. ヴ is ウ with a dakuten.
       </p>
     </div>
@@ -570,7 +570,7 @@ function Squares({ value, length, reveal }) {
           width: 46, height: 46, borderRadius: 2,
           border: `1px solid ${i >= length ? T.shu : T.hairline}`,
           background: T.sheet, display: "flex", alignItems: "center", justifyContent: "center",
-          fontFamily: T.jpFont, fontSize: 26, color: reveal ? T.ok : T.ink,
+          fontFamily: T.jpFont, fontSize: "1.625rem", color: reveal ? T.ok : T.ink,
         }}>{chars[i] || ""}</div>
       ))}
     </div>
@@ -603,14 +603,14 @@ function SoundHeader({ ch }) {
         style={{
           width: 64, height: 64, borderRadius: 999, cursor: able ? "pointer" : "default",
           border: `1px solid ${able ? T.ink : T.hairline}`, background: T.sheet,
-          color: T.ink, fontSize: 26, opacity: able ? 1 : 0.45, flex: "0 0 auto",
+          color: T.ink, fontSize: "1.625rem", opacity: able ? 1 : 0.45, flex: "0 0 auto",
         }}>♪</button>
-      <span style={{ fontFamily: T.jpFont, fontSize: 44, lineHeight: 1 }}>{ch}</span>
-      <span style={{ fontSize: 20, letterSpacing: ".5px", color: T.ink }}>
+      <span style={{ fontFamily: T.jpFont, fontSize: "2.75rem", lineHeight: 1 }}>{ch}</span>
+      <span style={{ fontSize: "1.25rem", letterSpacing: ".5px", color: T.ink }}>
         {ALT_SOUND[ch] ? `${ALT_SOUND[ch]} · ${soundFor(ch)}` : soundFor(ch)}
       </span>
       {ALT_SOUND[ch] && canPlaySound(ALT_SOUND[ch]) && (
-        <button className="btn-ghost" style={{ padding: "4px 12px", fontSize: 13 }}
+        <button className="btn-ghost" style={{ padding: "4px 12px", fontSize: "0.8125rem" }}
           onClick={() => playSound(ALT_SOUND[ch], ch)}>▶ {ALT_SOUND[ch]}</button>
       )}
     </div>
@@ -643,10 +643,10 @@ function StrokePanel({ ch, onClose, onPractise }) {
       <SoundHeader ch={ch} />
       <div style={{ display: "flex", gap: 18, alignItems: "flex-start", flexWrap: "wrap", marginTop: 14 }}>
         {known ? <StrokeView key={ch + replay} ch={ch} auto numbers={numbers} /> : (
-          <div style={{ fontSize: 13, color: T.sub }}>No stroke data for this character yet.</div>
+          <div style={{ fontSize: "0.8125rem", color: T.sub }}>No stroke data for this character yet.</div>
         )}
         <div style={{ flex: 1, minWidth: 160 }}>
-          <p style={{ fontSize: 13, color: T.sub, lineHeight: 1.6, marginTop: 0, marginBottom: 10 }}>
+          <p style={{ fontSize: "0.8125rem", color: T.sub, lineHeight: 1.6, marginTop: 0, marginBottom: 10 }}>
             Tap the square to watch it written again. Stroke order is most of what makes
             handwriting readable — worth copying the sequence, not just the shape.
           </p>
@@ -691,19 +691,19 @@ function YouonChart() {
         padding: "10px 4px", textAlign: "center", cursor: canPlaySound(sound) ? "pointer" : "default",
         fontFamily: "inherit", opacity: canPlaySound(sound) ? 1 : 0.5,
       }}>
-      <div style={{ fontFamily: T.jpFont, fontSize: 27, lineHeight: 1.15 }}>{k}</div>
-      <div style={{ fontSize: 12, color: T.sub, letterSpacing: ".5px", marginTop: 3 }}>{sound}</div>
+      <div style={{ fontFamily: T.jpFont, fontSize: "1.6875rem", lineHeight: 1.15 }}>{k}</div>
+      <div style={{ fontSize: "0.75rem", color: T.sub, letterSpacing: ".5px", marginTop: 3 }}>{sound}</div>
     </button>
   );
   return (
     <div style={{ margin: "18px 0 0" }}>
-      <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".5px", color: T.sub, marginBottom: 8 }}>
+      <div style={{ fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".5px", color: T.sub, marginBottom: 8 }}>
         EVERY COMBINED SOUND
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6 }}>
         {YOUON.map(([, kana, sounds]) => kana.map((k, i) => cell(k, sounds[i])))}
       </div>
-      <p style={{ fontSize: 11, color: T.sub, marginTop: 8, marginBottom: 0 }}>
+      <p style={{ fontSize: "0.6875rem", color: T.sub, marginTop: 8, marginBottom: 0 }}>
         Tap any one to hear it. Each is a single beat, however long the romaji looks.
       </p>
     </div>
@@ -754,8 +754,8 @@ function Learn({ mod, progress, onProgress, onPractise, onFinish, finishLabel })
         background: T.sheet, borderRadius: 3, padding: "12px 4px", textAlign: "center",
         cursor: "pointer", fontFamily: "inherit",
       }}>
-      <div style={{ fontFamily: T.jpFont, fontSize: 38, lineHeight: 1.1 }}>{k}</div>
-      <div style={{ fontSize: 13, color: T.sub, letterSpacing: ".5px", marginTop: 4 }}>
+      <div style={{ fontFamily: T.jpFont, fontSize: "2.375rem", lineHeight: 1.1 }}>{k}</div>
+      <div style={{ fontSize: "0.8125rem", color: T.sub, letterSpacing: ".5px", marginTop: 4 }}>
         {ALT_SOUND[k] ? `${ALT_SOUND[k]} · ${sound}` : sound}
       </div>
     </button>
@@ -770,7 +770,7 @@ function Learn({ mod, progress, onProgress, onPractise, onFinish, finishLabel })
           {pages.map((pg, n) => pg.ch ? (
             <button key={pg.id} onClick={() => setPage(n)} style={{
               width: 28, height: 28, borderRadius: 999, padding: 0, cursor: "pointer",
-              fontFamily: T.jpFont, fontSize: 14, lineHeight: 1,
+              fontFamily: T.jpFont, fontSize: "0.875rem", lineHeight: 1,
               background: n === page ? T.ink : walked.includes(pg.ch) ? T.ok : "none",
               color: n === page || walked.includes(pg.ch) ? T.paper : T.sub,
               border: `1px solid ${n === page ? T.ink : walked.includes(pg.ch) ? T.ok : T.hairline}`,
@@ -789,7 +789,7 @@ function Learn({ mod, progress, onProgress, onPractise, onFinish, finishLabel })
       {cur.id === "about" && (
         <div>
           {String(mod.exp).split("\n\n").map((para, i) => (
-            <p key={i} style={{ fontSize: 15, lineHeight: 1.75, marginTop: i === 0 ? 0 : 14 }}>{para}</p>
+            <p key={i} style={{ fontSize: "0.9375rem", lineHeight: 1.75, marginTop: i === 0 ? 0 : 14 }}>{para}</p>
           ))}
         </div>
       )}
@@ -807,13 +807,13 @@ function Learn({ mod, progress, onProgress, onPractise, onFinish, finishLabel })
               k ? charBtn(k, i, col.sounds[i]) : (
                 <div key={i} style={{
                   flex: "1 1 80px", border: `1px dashed ${T.hairline}`, borderRadius: 3, padding: "12px 4px",
-                  textAlign: "center", color: "#C9C7BF", fontSize: 12,
+                  textAlign: "center", color: "#C9C7BF", fontSize: "0.75rem",
                   display: "flex", alignItems: "center", justifyContent: "center",
                 }}>none</div>
               )
             )}
           </div>
-          <p style={{ fontSize: 11, color: T.sub, marginTop: 8, marginBottom: 0 }}>
+          <p style={{ fontSize: "0.6875rem", color: T.sub, marginTop: 8, marginBottom: 0 }}>
             Tap any character to watch it written.{CHART_NOTE ? " " + CHART_NOTE : ""}
           </p>
           <StrokePanel ch={sel} onClose={() => setSel(null)} onPractise={onPractise} />
@@ -824,13 +824,13 @@ function Learn({ mod, progress, onProgress, onPractise, onFinish, finishLabel })
 
       {cur.id === "traps" && (
         <div>
-          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".5px", color: T.sub, marginBottom: 8 }}>
+          <div style={{ fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".5px", color: T.sub, marginBottom: 8 }}>
             WATCH THEM WRITTEN
           </div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {traps.map((k, i) => charBtn(k, i, soundFor(k)))}
           </div>
-          <p style={{ fontSize: 11, color: T.sub, marginTop: 8, marginBottom: 0 }}>
+          <p style={{ fontSize: "0.6875rem", color: T.sub, marginTop: 8, marginBottom: 0 }}>
             The difference is in the movement, not the finished shape. Tap each one.
           </p>
           <StrokePanel ch={sel} onClose={() => setSel(null)} onPractise={onPractise} />
@@ -845,10 +845,10 @@ function Learn({ mod, progress, onProgress, onPractise, onFinish, finishLabel })
               background: T.sheet, borderRadius: 4, padding: "12px 16px",
             }}>
               <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
-                <span style={{ fontFamily: T.jpFont, fontSize: 22 }}>{w.kana}</span>
-                <span style={{ fontSize: 14, color: T.ink, fontWeight: 600 }}>{w.en}</span>
+                <span style={{ fontFamily: T.jpFont, fontSize: "1.375rem" }}>{w.kana}</span>
+                <span style={{ fontSize: "0.875rem", color: T.ink, fontWeight: 600 }}>{w.en}</span>
               </div>
-              <div style={{ fontSize: 13, color: T.sub, lineHeight: 1.6, marginTop: 5 }}>{w.note}</div>
+              <div style={{ fontSize: "0.8125rem", color: T.sub, lineHeight: 1.6, marginTop: 5 }}>{w.note}</div>
             </div>
           ))}
         </div>
@@ -859,11 +859,11 @@ function Learn({ mod, progress, onProgress, onPractise, onFinish, finishLabel })
           background: T.noteBg, border: `1px solid ${T.note}44`, borderLeft: `3px solid ${T.note}`,
           borderRadius: 4, padding: "12px 16px",
         }}>
-          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".5px", color: T.note, marginBottom: 8 }}>
+          <div style={{ fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".5px", color: T.note, marginBottom: 8 }}>
             WORTH KNOWING
           </div>
           {mod.notes.map((n, i) => (
-            <div key={i} style={{ fontSize: 14, lineHeight: 1.6, marginBottom: 5 }}>{n}</div>
+            <div key={i} style={{ fontSize: "0.875rem", lineHeight: 1.6, marginBottom: 5 }}>{n}</div>
           ))}
         </div>
       )}
@@ -944,7 +944,7 @@ function Drill({ mod, idx, progress, onProgress, onGoTrace }) {
     const pct = queue.length ? score / queue.length : 0;
     return (
       <div style={{ textAlign: "center", padding: "20px 0" }}>
-        <div style={{ fontFamily: T.jpFont, fontSize: 34, color: pct >= 0.8 ? T.ok : T.ink }}>
+        <div style={{ fontFamily: T.jpFont, fontSize: "2.125rem", color: pct >= 0.8 ? T.ok : T.ink }}>
           {score} / {queue.length}
         </div>
         <Flourish
@@ -973,9 +973,9 @@ function Drill({ mod, idx, progress, onProgress, onGoTrace }) {
 
   return (
     <div>
-      <div style={{ fontSize: 12, color: T.sub, marginBottom: 14 }}>{i + 1} of {queue.length} · Score {score}</div>
+      <div style={{ fontSize: "0.75rem", color: T.sub, marginBottom: 14 }}>{i + 1} of {queue.length} · Score {score}</div>
       <div style={{ textAlign: "center", marginBottom: 20 }}>
-        <div style={{ fontSize: 13, color: T.sub, marginBottom: 10 }}>Tap the character you hear</div>
+        <div style={{ fontSize: "0.8125rem", color: T.sub, marginBottom: 10 }}>Tap the character you hear</div>
         {/* drill-audio-v1 — prompting in romaji taught the romaji: the learner read
             "ka" and matched letters. The prompt is now the sound itself. Romaji
             stays one tap away, because a learner on a silent bus or a device with
@@ -984,19 +984,19 @@ function Drill({ mod, idx, progress, onProgress, onGoTrace }) {
                 disabled={!canPlaySound(soundFor(target))}
                 aria-label="Play the sound again"
                 style={{
-                  fontSize: 30, padding: "14px 30px", borderRadius: 999, cursor: "pointer",
+                  fontSize: "1.875rem", padding: "14px 30px", borderRadius: 999, cursor: "pointer",
                   border: `1px solid ${T.hairline}`, background: T.sheet, color: T.ink,
                   opacity: canPlaySound(soundFor(target)) ? 1 : 0.45,
                 }}>♪</button>
         {!canPlaySound(soundFor(target)) ? (
-          <div style={{ fontSize: 34, letterSpacing: "2px", fontWeight: 300, marginTop: 10 }}>
+          <div style={{ fontSize: "2.125rem", letterSpacing: "2px", fontWeight: 300, marginTop: 10 }}>
             {soundFor(target)}
           </div>
         ) : (
           <div style={{ marginTop: 8, minHeight: 26 }}>
             {showRomaji
-              ? <span style={{ fontSize: 22, letterSpacing: "2px", fontWeight: 300 }}>{soundFor(target)}</span>
-              : <button className="btn-ghost" style={{ fontSize: 12 }}
+              ? <span style={{ fontSize: "1.375rem", letterSpacing: "2px", fontWeight: 300 }}>{soundFor(target)}</span>
+              : <button className="btn-ghost" style={{ fontSize: "0.75rem" }}
                         onClick={() => setShowRomaji(true)}>Show the romaji</button>}
           </div>
         )}
@@ -1007,7 +1007,7 @@ function Drill({ mod, idx, progress, onProgress, onGoTrace }) {
           const wrongPick = picked === k && k !== target;
           return (
             <button key={n} onClick={() => pick(k)} style={{
-              padding: "16px 0", fontFamily: T.jpFont, fontSize: 32, borderRadius: 4,
+              padding: "16px 0", fontFamily: T.jpFont, fontSize: "2rem", borderRadius: 4,
               cursor: picked ? "default" : "pointer",
               background: right ? "#EDF4EE" : wrongPick ? "#FBEDEA" : T.sheet,
               border: `1px solid ${right ? T.ok : wrongPick ? T.shu : T.hairline}`, color: T.ink,
@@ -1016,11 +1016,11 @@ function Drill({ mod, idx, progress, onProgress, onGoTrace }) {
         })}
       </div>
       {picked && (
-        <div style={{ marginTop: 16, fontSize: 14, lineHeight: 1.6 }}>
+        <div style={{ marginTop: 16, fontSize: "0.875rem", lineHeight: 1.6 }}>
           {picked === target ? <span style={{ color: T.ok, fontWeight: 600 }}>Correct.</span> : (
             <span>
               <span style={{ color: T.shu, fontWeight: 600 }}>Not quite. </span>
-              <span style={{ fontFamily: T.jpFont, fontSize: 17 }}>{picked}</span> is {soundFor(picked)}.
+              <span style={{ fontFamily: T.jpFont, fontSize: "1.0625rem" }}>{picked}</span> is {soundFor(picked)}.
               {isConfusable(picked, target) && (
                 <span style={{ color: T.note }}> These two are near-twins — the difference is stroke direction, not outline.</span>
               )}
@@ -1189,7 +1189,7 @@ function Write({ mod, idx, progress, onProgress, listen }) {
 
   useEffect(() => { setWi(0); setVal(""); setResult(null); setCleared(0); }, [mod.id]);
   if (!words.length) {
-    return <p style={{ fontSize: 14, color: T.sub }}>
+    return <p style={{ fontSize: "0.875rem", color: T.sub }}>
       No words yet — five vowels aren't enough to spell a katakana word. The next lesson opens this up.
     </p>;
   }
@@ -1237,21 +1237,21 @@ function Write({ mod, idx, progress, onProgress, listen }) {
 
   return (
     <div>
-      <div style={{ fontSize: 12, color: T.sub, marginBottom: 12 }}>Word {wi + 1} of {words.length}</div>
-      <div style={{ fontSize: 13, color: T.sub, marginBottom: 8 }}>
+      <div style={{ fontSize: "0.75rem", color: T.sub, marginBottom: 12 }}>Word {wi + 1} of {words.length}</div>
+      <div style={{ fontSize: "0.8125rem", color: T.sub, marginBottom: 8 }}>
         {listen ? "Listen, then tap out what you hear" : "Assemble this word — one character per box"}
       </div>
       {listen ? (
         <div style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
           {supported && (voice || !checked) ? (
             <button className="btn-primary" onClick={() => speak(w.kana, voice)}
-              style={{ fontSize: 15, padding: "10px 24px" }}>
+              style={{ fontSize: "0.9375rem", padding: "10px 24px" }}>
               ▶ Play{result?.ok ? " again" : ""}
             </button>
           ) : (
             <div style={{
               padding: "12px 16px", borderRadius: 4, background: T.noteBg,
-              border: `1px solid ${T.note}44`, fontSize: 13, lineHeight: 1.6,
+              border: `1px solid ${T.note}44`, fontSize: "0.8125rem", lineHeight: 1.6,
             }}>
               No Japanese voice is available on this device, so this activity can't run here.
               Listen &amp; Write covers the same words and falls back to their meaning
@@ -1259,16 +1259,16 @@ function Write({ mod, idx, progress, onProgress, listen }) {
               does not gate finishing the lesson.
             </div>
           )}
-          {result?.ok && <span style={{ fontSize: 14, color: T.sub }}>{w.en}</span>}
+          {result?.ok && <span style={{ fontSize: "0.875rem", color: T.sub }}>{w.en}</span>}
         </div>
       ) : (
         <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 14, flexWrap: "wrap" }}>
-          <div style={{ fontSize: 25, letterSpacing: "1px" }}>
+          <div style={{ fontSize: "1.5625rem", letterSpacing: "1px" }}>
             {w.mora.map((m, i) => (
               <span key={i}>{i > 0 && <span style={{ color: "#C9C7BF", margin: "0 7px" }}>·</span>}{m}</span>
             ))}
           </div>
-          <div style={{ fontSize: 14, color: T.sub }}>{w.en}</div>
+          <div style={{ fontSize: "0.875rem", color: T.sub }}>{w.en}</div>
         </div>
       )}
 
@@ -1285,7 +1285,7 @@ function Write({ mod, idx, progress, onProgress, listen }) {
         ) : (
           <div>
             <div style={{
-              padding: "12px 16px", borderRadius: 4, fontSize: 14, lineHeight: 1.6, marginBottom: 12,
+              padding: "12px 16px", borderRadius: 4, fontSize: "0.875rem", lineHeight: 1.6, marginBottom: 12,
               background: result.ok ? "#EDF4EE" : "#FBEDEA",
               border: `1px solid ${result.ok ? T.ok : T.shu}55`,
             }}>
@@ -1319,10 +1319,10 @@ function Judge({ mod, progress, onProgress }) {
     const perfect = score === items.length;
     return (
       <div style={{ textAlign: "center", padding: "20px 0" }}>
-        <div style={{ fontFamily: T.jpFont, fontSize: 34, color: perfect ? T.ok : T.ink }}>
+        <div style={{ fontFamily: T.jpFont, fontSize: "2.125rem", color: perfect ? T.ok : T.ink }}>
           {score} / {items.length}
         </div>
-        <p style={{ fontSize: 14, color: T.sub }}>
+        <p style={{ fontSize: "0.875rem", color: T.sub }}>
           {perfect ? "Nothing left to hold over you." : "Count the strokes, then check the direction. Run it again."}
         </p>
         <button className="btn-ghost" onClick={() => { setI(0); setPicked(null); setScore(0); setDone(false); }}>Again</button>
@@ -1344,16 +1344,16 @@ function Judge({ mod, progress, onProgress }) {
 
   return (
     <div>
-      <div style={{ fontSize: 12, color: T.sub, marginBottom: 16 }}>{i + 1} of {items.length} · Score {score}</div>
+      <div style={{ fontSize: "0.75rem", color: T.sub, marginBottom: 16 }}>{i + 1} of {items.length} · Score {score}</div>
 
       {it.prompt ? (
         <div style={{ textAlign: "center", marginBottom: 20 }}>
-          <div style={{ fontSize: 13, color: T.sub, marginBottom: 6 }}>Which one is</div>
-          <div style={{ fontSize: 42, letterSpacing: "2px", fontWeight: 300 }}>{it.prompt}</div>
+          <div style={{ fontSize: "0.8125rem", color: T.sub, marginBottom: 6 }}>Which one is</div>
+          <div style={{ fontSize: "2.625rem", letterSpacing: "2px", fontWeight: 300 }}>{it.prompt}</div>
         </div>
       ) : (
         <>
-          <div style={{ fontFamily: T.jpFont, fontSize: 30, lineHeight: 1.9, marginBottom: 6, textAlign: "center" }}>
+          <div style={{ fontFamily: T.jpFont, fontSize: "1.875rem", lineHeight: 1.9, marginBottom: 6, textAlign: "center" }}>
             {it.before}
             <span style={{
               display: "inline-block", minWidth: 46, borderBottom: `2px solid ${blankColor}`,
@@ -1361,7 +1361,7 @@ function Judge({ mod, progress, onProgress }) {
             }}>{picked || "＿"}</span>
             {it.after}
           </div>
-          <div style={{ fontSize: 13, color: T.sub, textAlign: "center", marginBottom: 18 }}>{it.en}</div>
+          <div style={{ fontSize: "0.8125rem", color: T.sub, textAlign: "center", marginBottom: 18 }}>{it.en}</div>
         </>
       )}
 
@@ -1371,7 +1371,7 @@ function Judge({ mod, progress, onProgress }) {
           const wrongPick = picked === o && o !== it.answer;
           return (
             <button key={o} onClick={() => pick(o)} style={{
-              padding: "14px 30px", fontFamily: T.jpFont, fontSize: 30, borderRadius: 4,
+              padding: "14px 30px", fontFamily: T.jpFont, fontSize: "1.875rem", borderRadius: 4,
               cursor: picked ? "default" : "pointer",
               background: right ? "#EDF4EE" : wrongPick ? "#FBEDEA" : T.sheet,
               border: `1px solid ${right ? T.ok : wrongPick ? T.shu : T.hairline}`, color: T.ink,
@@ -1381,7 +1381,7 @@ function Judge({ mod, progress, onProgress }) {
       </div>
 
       {picked && (
-        <div style={{ marginTop: 16, fontSize: 14, lineHeight: 1.6, textAlign: "center" }}>
+        <div style={{ marginTop: 16, fontSize: "0.875rem", lineHeight: 1.6, textAlign: "center" }}>
           <span style={{ color: picked === it.answer ? T.ok : T.shu, fontWeight: 600 }}>
             {picked === it.answer ? "Correct. " : "Not quite. "}
           </span>
@@ -1587,8 +1587,8 @@ function FreePad({ onBack, allowed, embedded }) {
       {!embedded && (
         <button className="btn-ghost" onClick={onBack} style={{ marginBottom: 16 }}>← All lessons</button>
       )}
-      <h2 style={{ fontSize: 22, margin: "0 0 6px" }}>Free writing pad</h2>
-      <p style={{ fontSize: 14, color: T.sub, lineHeight: 1.7, marginTop: 0 }}>
+      <h2 style={{ fontSize: "1.375rem", margin: "0 0 6px" }}>Free writing pad</h2>
+      <p style={{ fontSize: "0.875rem", color: T.sub, lineHeight: 1.7, marginTop: 0 }}>
         Open canvas, any character you like. Look one up on the right to put a reference beside you —
         the finished shape to compare against, or the animation to watch the movement again.{" "}
         You can also ask the machine to read your writing back, but treat that as a legibility check
@@ -1616,7 +1616,7 @@ function FreePad({ onBack, allowed, embedded }) {
         </div>
 
         <div style={{ flex: "1 1 300px", minWidth: 260 }}>
-          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".5px", color: T.sub, marginBottom: 8 }}>
+          <div style={{ fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".5px", color: T.sub, marginBottom: 8 }}>
             LOOK UP A CHARACTER
           </div>
           <div style={{
@@ -1625,7 +1625,7 @@ function FreePad({ onBack, allowed, embedded }) {
           }}>
             {LOOKUP_CHARS.filter((c) => !allowed || allowed.has(c)).map((c) => (
               <button key={c} onClick={() => setRef(ref === c ? null : c)} style={{
-                fontFamily: T.jpFont, fontSize: 17, padding: "4px 8px", borderRadius: 3, cursor: "pointer",
+                fontFamily: T.jpFont, fontSize: "1.0625rem", padding: "4px 8px", borderRadius: 3, cursor: "pointer",
                 background: ref === c ? T.ink : T.sheet, color: ref === c ? T.paper : T.ink,
                 border: `1px solid ${ref === c ? T.ink : T.hairline}`, minWidth: 30,
               }}>{c}</button>
@@ -1638,21 +1638,21 @@ function FreePad({ onBack, allowed, embedded }) {
                 <div style={{
                   width: 168, height: 168, borderRadius: 3, background: T.sheet,
                   border: `1px solid ${T.hairline}`, display: "flex", alignItems: "center",
-                  justifyContent: "center", fontFamily: T.jpFont, fontSize: 120, lineHeight: 1,
+                  justifyContent: "center", fontFamily: T.jpFont, fontSize: "7.5rem", lineHeight: 1,
                 }}>{ref}</div>
               ) : (
                 <StrokeView ch={ref} size={168} auto />
               )}
               <div style={{ marginTop: 6, display: "flex", gap: 8, alignItems: "baseline", flexWrap: "wrap" }}>
-                <span style={{ fontSize: 14, color: T.sub }}>{ref} — {soundFor(ref)}</span>
-                <button className="btn-ghost" style={{ fontSize: 11, padding: "3px 10px" }}
+                <span style={{ fontSize: "0.875rem", color: T.sub }}>{ref} — {soundFor(ref)}</span>
+                <button className="btn-ghost" style={{ fontSize: "0.6875rem", padding: "3px 10px" }}
                   onClick={() => setRefMode(refMode === "glyph" ? "animate" : "glyph")}>
                   {refMode === "glyph" ? "watch it written" : "show the character"}
                 </button>
               </div>
             </div>
           ) : (
-            <p style={{ fontSize: 13, color: T.sub, lineHeight: 1.6, marginTop: 12 }}>
+            <p style={{ fontSize: "0.8125rem", color: T.sub, lineHeight: 1.6, marginTop: 12 }}>
               Pick a character to put a reference beside your canvas — either the finished shape to
               compare against, or the animation to watch the movement again.
             </p>
@@ -1663,7 +1663,7 @@ function FreePad({ onBack, allowed, embedded }) {
       {supported === false && (
         <div style={{
           marginTop: 12, padding: "12px 16px", borderRadius: 4, background: T.noteBg,
-          border: `1px solid ${T.note}44`, fontSize: 13, lineHeight: 1.6,
+          border: `1px solid ${T.note}44`, fontSize: "0.8125rem", lineHeight: 1.6,
         }}>
           This browser has no handwriting recognition, so nothing can read it back — the pad still
           works if you just want somewhere to practise. Support is Chromium-only and also depends on
@@ -1673,7 +1673,7 @@ function FreePad({ onBack, allowed, embedded }) {
       {status === "error" && (
         <div style={{
           marginTop: 12, padding: "12px 16px", borderRadius: 4, background: "#FBEDEA",
-          border: `1px solid ${T.shu}44`, fontSize: 13, lineHeight: 1.6,
+          border: `1px solid ${T.shu}44`, fontSize: "0.8125rem", lineHeight: 1.6,
         }}>
           The recogniser refused the request. That happens when Japanese handwriting models aren't
           installed, or when the browser throttles repeated calls.
@@ -1684,17 +1684,17 @@ function FreePad({ onBack, allowed, embedded }) {
           marginTop: 12, padding: "12px 16px", borderRadius: 4, background: T.sheet,
           border: `1px solid ${T.hairline}`,
         }}>
-          <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".5px", color: T.sub, marginBottom: 8 }}>
+          <div style={{ fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".5px", color: T.sub, marginBottom: 8 }}>
             READ AS
           </div>
           {reading.length ? (
-            <div style={{ fontFamily: T.jpFont, fontSize: 26, lineHeight: 1.7 }}>
+            <div style={{ fontFamily: T.jpFont, fontSize: "1.625rem", lineHeight: 1.7 }}>
               {reading.map((r, i) => (
                 <span key={i} style={{ marginRight: 16, color: i === 0 ? T.ink : T.sub }}>{r}</span>
               ))}
             </div>
           ) : (
-            <div style={{ fontSize: 14, color: T.sub }}>Nothing recognisable — try writing larger.</div>
+            <div style={{ fontSize: "0.875rem", color: T.sub }}>Nothing recognisable — try writing larger.</div>
           )}
         </div>
       )}
@@ -1855,19 +1855,19 @@ function TraceBox({ ch, guide = true, onComplete, res = 200, caption }) {
         }}
       />
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 6, minHeight: 20 }}>
-        <span style={{ fontSize: 11, color: T.sub, flex: 1 }}>
+        <span style={{ fontSize: "0.6875rem", color: T.sub, flex: 1 }}>
           {peek
             ? `hint \u00b7 stroke ${strokeIdx + 1} only`
             : caption || `stroke ${strokeIdx + 1} of ${paths.length || 1}`}
         </span>
         {!guide && strokeIdx < paths.length && (
-          <button className="btn-ghost" style={{ padding: "2px 8px", fontSize: 11 }}
+          <button className="btn-ghost" style={{ padding: "2px 8px", fontSize: "0.6875rem" }}
             onClick={() => { setPeek((v) => !v); if (!peek) setHinted(true); }}>
             {peek ? "Hide hint" : "Help me"}
           </button>
         )}
       </div>
-      {feedback && <p style={{ fontSize: 12, color: T.shu, margin: "2px 0 0" }}>{feedback}</p>}
+      {feedback && <p style={{ fontSize: "0.75rem", color: T.shu, margin: "2px 0 0" }}>{feedback}</p>}
     </div>
   );
 }
@@ -1894,17 +1894,17 @@ function PairPractice({ pairs, modId, progress, onProgress }) {
 
   return (
     <div style={{ marginTop: 24, paddingTop: 20, borderTop: `1px solid ${T.hairline}` }}>
-      <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".6px", color: T.sub, marginBottom: 6 }}>
+      <div style={{ fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".6px", color: T.sub, marginBottom: 6 }}>
         WRITE THE COMBINATION
       </div>
-      <p style={{ fontSize: 13, color: T.sub, marginTop: 0, lineHeight: 1.6 }}>
+      <p style={{ fontSize: "0.8125rem", color: T.sub, marginTop: 0, lineHeight: 1.6 }}>
         Two characters, one sound. The second one stays small and sits low — that is the whole
         difference between きや and きゃ.
       </p>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 14 }}>
         {pairs.map((p, n) => (
           <button key={p} onClick={() => setPi(n)} style={{
-            fontFamily: T.jpFont, fontSize: 14, padding: "3px 7px", borderRadius: 4, cursor: "pointer",
+            fontFamily: T.jpFont, fontSize: "0.875rem", padding: "3px 7px", borderRadius: 4, cursor: "pointer",
             background: n === pi ? T.ink : cleared.includes(p) ? "#EDF4EE" : T.sheet,
             color: n === pi ? T.paper : T.ink,
             border: `1px solid ${n === pi ? T.ink : cleared.includes(p) ? T.ok + "66" : T.hairline}`,
@@ -1920,7 +1920,7 @@ function PairPractice({ pairs, modId, progress, onProgress }) {
       </div>
       {doneLeft && doneRight && (
         <div style={{ marginTop: 12, padding: "10px 14px", borderRadius: 4, background: "#EDF4EE",
-          border: `1px solid ${T.ok}55`, fontSize: 14 }}>
+          border: `1px solid ${T.ok}55`, fontSize: "0.875rem" }}>
           <strong style={{ color: T.ok }}>{pair} written. </strong>
           {pi + 1 < pairs.length
             ? <button className="btn-ghost" style={{ marginLeft: 6 }} onClick={() => setPi(pi + 1)}>Next combination</button>
@@ -1948,7 +1948,7 @@ function ListenWrite({ mod, progress, onProgress }) {
   useEffect(() => { setWi(0); setGot([]); setCleared(0); setHelped(false); setReveal(false); }, [mod.id]);
 
   if (!words.length) {
-    return <p style={{ fontSize: 14, color: T.sub }}>
+    return <p style={{ fontSize: "0.875rem", color: T.sub }}>
       No words here yet with full stroke data — Trace is the writing practice for this lesson.
     </p>;
   }
@@ -1979,8 +1979,8 @@ function ListenWrite({ mod, progress, onProgress }) {
 
   return (
     <div>
-      <div style={{ fontSize: 12, color: T.sub, marginBottom: 10 }}>Word {wi + 1} of {words.length}</div>
-      <p style={{ fontSize: 13, color: T.sub, marginTop: 0, lineHeight: 1.6 }}>
+      <div style={{ fontSize: "0.75rem", color: T.sub, marginBottom: 10 }}>Word {wi + 1} of {words.length}</div>
+      <p style={{ fontSize: "0.8125rem", color: T.sub, marginTop: 0, lineHeight: 1.6 }}>
         Listen, then write it one character at a time. Nothing is shown — each finished character
         moves up into the answer.
       </p>
@@ -1988,7 +1988,7 @@ function ListenWrite({ mod, progress, onProgress }) {
         {checked && supported ? (
           <button className="btn-primary" onClick={() => speak(w.kana, voice)}>Play the word</button>
         ) : (
-          <span style={{ fontSize: 13, color: T.sub }}>
+          <span style={{ fontSize: "0.8125rem", color: T.sub }}>
             No Japanese voice on this device — the meaning is the prompt instead.
           </span>
         )}
@@ -1999,7 +1999,7 @@ function ListenWrite({ mod, progress, onProgress }) {
             It is offered rather than applied: silently marking it complete would
             claim they did something they did not. */}
         {!supported && ((progress[mod.id] || {}).lwSkipped ? (
-          <span style={{ fontSize: 13, color: T.ok }}>✓ Counted as done</span>
+          <span style={{ fontSize: "0.8125rem", color: T.ok }}>✓ Counted as done</span>
         ) : (
           <button className="btn-ghost" onClick={() => {
             const prev = progress[mod.id] || {};
@@ -2010,7 +2010,7 @@ function ListenWrite({ mod, progress, onProgress }) {
         <button className="btn-ghost" onClick={() => setReveal((v) => !v)}>
           {reveal ? "hide the word" : "I'm stuck"}
         </button>
-        <span style={{ fontSize: 13, color: T.sub, marginLeft: "auto" }}>{w.en}</span>
+        <span style={{ fontSize: "0.8125rem", color: T.sub, marginLeft: "auto" }}>{w.en}</span>
       </div>
 
       {/* answer strip — filled beats, then empty slots */}
@@ -2018,7 +2018,7 @@ function ListenWrite({ mod, progress, onProgress }) {
         {target.map((c, n) => (
           <span key={n} style={{
             width: 42, height: 48, borderRadius: 4, display: "inline-flex", alignItems: "center",
-            justifyContent: "center", fontFamily: T.jpFont, fontSize: 24,
+            justifyContent: "center", fontFamily: T.jpFont, fontSize: "1.5rem",
             background: n < pos ? T.sheet : "none",
             border: `1px ${n === pos ? "solid" : "dashed"} ${n < pos ? T.ok + "88" : n === pos ? T.ink : T.hairline}`,
             color: T.ink,
@@ -2028,7 +2028,7 @@ function ListenWrite({ mod, progress, onProgress }) {
 
       {complete ? (
         <div style={{ padding: "12px 16px", borderRadius: 4, background: "#EDF4EE",
-          border: `1px solid ${T.ok}55`, fontSize: 14, lineHeight: 1.7 }}>
+          border: `1px solid ${T.ok}55`, fontSize: "0.875rem", lineHeight: 1.7 }}>
           <strong style={{ color: T.ok }}>{w.kana} — {w.en}. </strong>
           {helped ? "Written with a look at the shape, which still counts as practice." : "Written from nothing."}
           <div style={{ marginTop: 10 }}>
@@ -2168,18 +2168,18 @@ function WalkPage({ ch, modId, progress, onProgress, onAdvance }) {
               border: `1px solid ${T.hairline}`, cursor: "crosshair", display: "block",
             }}
             onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} onPointerLeave={up} />
-          <div style={{ fontSize: 11, color: T.sub, marginTop: 4, textAlign: "center" }}>
+          <div style={{ fontSize: "0.6875rem", color: T.sub, marginTop: 4, textAlign: "center" }}>
             trace it — {reps} of {WALK_REPS} done{cleared ? " · already cleared" : ""}
           </div>
         </div>
       </div>
 
-      <div style={{ fontSize: 12, color: T.sub, marginTop: 10 }}>
+      <div style={{ fontSize: "0.75rem", color: T.sub, marginTop: 10 }}>
         {paths.length} stroke{paths.length === 1 ? "" : "s"} · stroke {strokeIdx + 1}
       </div>
 
       {feedback && (
-        <div style={{ marginTop: 10, fontSize: 13, color: T.shu, lineHeight: 1.6 }}>{feedback}</div>
+        <div style={{ marginTop: 10, fontSize: "0.8125rem", color: T.shu, lineHeight: 1.6 }}>{feedback}</div>
       )}
 
       <div style={{ marginTop: 12, display: "flex", gap: 8, flexWrap: "wrap" }}>
@@ -2212,15 +2212,15 @@ function Flourish({ title, detail, milestone, nextLabel, onNext, onAgain }) {
       marginTop: 18, padding: "18px 18px 16px", borderRadius: 10,
       background: T.okBg || "#EDF5EE", border: `1px solid ${T.ok}`, textAlign: "center",
     }}>
-      <div style={{ fontSize: 26, lineHeight: 1 }}>✓</div>
-      <div style={{ font: `600 16px ${T.uiFont}`, color: T.ink, marginTop: 8 }}>{title}</div>
+      <div style={{ fontSize: "1.625rem", lineHeight: 1 }}>✓</div>
+      <div style={{ font: `600 1rem ${T.uiFont}`, color: T.ink, marginTop: 8 }}>{title}</div>
       {detail && (
-        <div style={{ font: `13px/1.6 ${T.uiFont}`, color: T.sub, marginTop: 4 }}>{detail}</div>
+        <div style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, marginTop: 4 }}>{detail}</div>
       )}
       {milestone && (
         <div style={{ marginTop: 12, paddingTop: 12, borderTop: `1px dashed ${T.ok}` }}>
-          <div style={{ fontFamily: T.jpFont, fontSize: 30, color: T.ink }}>{milestone.word}</div>
-          <div style={{ font: `13px/1.6 ${T.uiFont}`, color: T.sub, marginTop: 4 }}>
+          <div style={{ fontFamily: T.jpFont, fontSize: "1.875rem", color: T.ink }}>{milestone.word}</div>
+          <div style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, marginTop: 4 }}>
             You have been building this word since {new Date(milestone.since)
               .toLocaleDateString(undefined, { month: "long", day: "numeric" })}. Today it became yours.
           </div>
@@ -2271,9 +2271,9 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
     <div>
       <button className="btn-ghost" onClick={onBack} style={{ marginBottom: 16 }}>← All lessons</button>
       <div style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
-        <h2 style={{ fontFamily: hasJP(mod.title) ? T.jpFont : T.uiFont, fontSize: 27, margin: 0 }}>{mod.title}</h2>
-        {mod.sounds && <span style={{ fontSize: 15, letterSpacing: ".5px" }}>{mod.sounds}</span>}
-        <span style={{ fontSize: 14, color: T.sub }}>· {mod.en}</span>
+        <h2 style={{ fontFamily: hasJP(mod.title) ? T.jpFont : T.uiFont, fontSize: "1.6875rem", margin: 0 }}>{mod.title}</h2>
+        {mod.sounds && <span style={{ fontSize: "0.9375rem", letterSpacing: ".5px" }}>{mod.sounds}</span>}
+        <span style={{ fontSize: "0.875rem", color: T.sub }}>· {mod.en}</span>
         <KindBadge kind={mod.kind} />
       </div>
 
@@ -2294,7 +2294,7 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
       <div style={{ display: "flex", gap: 6, margin: "16px 0", flexWrap: "wrap" }}>
           {tabs.map(([id, label]) => (
             <button key={id} onClick={() => setTab(id)} style={{
-              padding: "7px 16px", borderRadius: 999, fontSize: 13, cursor: "pointer", fontFamily: T.uiFont,
+              padding: "7px 16px", borderRadius: 999, fontSize: "0.8125rem", cursor: "pointer", fontFamily: T.uiFont,
               background: tab === id ? T.ink : "none", color: tab === id ? T.paper : T.sub,
               border: `1px solid ${tab === id ? T.ink : T.hairline}`,
             }}>
@@ -2318,7 +2318,7 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
         {tab === "listen" && <Write mod={mod} idx={idx} progress={progress} onProgress={onProgress} listen />}
         {tab === "pad" && (
           <div>
-            <p style={{ fontSize: 14, color: T.sub, marginTop: 0, lineHeight: 1.7 }}>
+            <p style={{ fontSize: "0.875rem", color: T.sub, marginTop: 0, lineHeight: 1.7 }}>
               Nothing is scored here. Write whatever you like with the kana you have met so far —
               the reference strip below only offers those.
             </p>
@@ -2523,22 +2523,22 @@ export default function KatakanaModule() {
     <div style={{ minHeight: "100vh", background: T.paper, fontFamily: T.uiFont, color: T.ink }}>
       <style>{`
         .btn-primary { background: ${T.ink}; color: ${T.paper}; border: none; padding: 9px 20px;
-          border-radius: 6px; font-size: 14px; cursor: pointer; font-family: inherit; }
+          border-radius: 6px; font-size: 0.875rem; cursor: pointer; font-family: inherit; }
         .btn-primary:disabled { opacity: .5; cursor: default; }
         .btn-ghost { background: none; border: 1px solid ${T.hairline}; color: ${T.sub};
-          padding: 6px 12px; border-radius: 6px; font-size: 13px; cursor: pointer; font-family: inherit; }
+          padding: 6px 12px; border-radius: 6px; font-size: 0.8125rem; cursor: pointer; font-family: inherit; }
         .btn-ghost:hover { color: ${T.ink}; border-color: #CFCDC4; }
         .pad-key { background: ${T.sheet}; border: 1px solid ${T.hairline}; border-radius: 3px;
-          font-family: ${T.jpFont}; font-size: 19px; padding: 9px 0; cursor: pointer; color: ${T.ink}; min-width: 30px; }
+          font-family: ${T.jpFont}; font-size: 1.1875rem; padding: 9px 0; cursor: pointer; color: ${T.ink}; min-width: 30px; }
         .pad-key:hover { border-color: #CFCDC4; background: #FCFCFA; }
         .pad-dim { background: ${T.paper}; border: 1px solid ${T.hairline}; border-radius: 3px;
-          font-family: ${T.jpFont}; font-size: 19px; padding: 9px 0; color: #C9C7BF; cursor: default; min-width: 30px; }
+          font-family: ${T.jpFont}; font-size: 1.1875rem; padding: 9px 0; color: #C9C7BF; cursor: default; min-width: 30px; }
         .pad-gap { background: none; border: 1px dashed ${T.hairline}; border-radius: 3px; padding: 9px 0; cursor: default; }
         .pad-ghost { background: none; border: 1px solid ${T.hairline}; color: ${T.sub}; border-radius: 3px;
-          font-size: 12px; padding: 0 12px; cursor: pointer; font-family: inherit; }
+          font-size: 0.75rem; padding: 0 12px; cursor: pointer; font-family: inherit; }
         .btn-pad { display: inline-flex; align-items: center; gap: 7px; background: ${T.sheet};
           border: 1px solid ${T.ink}; color: ${T.ink}; padding: 7px 15px; border-radius: 6px;
-          font-size: 13px; cursor: pointer; font-family: inherit; white-space: nowrap; }
+          font-size: 0.8125rem; cursor: pointer; font-family: inherit; white-space: nowrap; }
         .btn-pad svg { stroke: ${T.shu}; transition: stroke .12s ease; }
         .btn-pad:hover { background: ${T.ink}; color: ${T.paper}; }
         .btn-pad:hover svg { stroke: ${T.paper}; }
@@ -2555,10 +2555,10 @@ export default function KatakanaModule() {
 
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px 80px" }}>
         <header style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 6 }}>
-          <div style={{ fontFamily: T.jpFont, fontSize: 34, color: T.shu, lineHeight: 1 }}>ア</div>
+          <div style={{ fontFamily: T.jpFont, fontSize: "2.125rem", color: T.shu, lineHeight: 1 }}>ア</div>
           <div>
-            <div style={{ fontSize: 20, fontWeight: 600 }}>Katakana</div>
-            <div style={{ fontSize: 13, color: T.sub }}>
+            <div style={{ fontSize: "1.25rem", fontWeight: 600 }}>Katakana</div>
+            <div style={{ fontSize: "0.8125rem", color: T.sub }}>
               {mod ? mod.title : "Stage 1 · the second alphabet"}
             </div>
           </div>
@@ -2571,14 +2571,14 @@ export default function KatakanaModule() {
           <Module mod={mod} idx={idx} progress={progress} onProgress={update} onBack={() => setCurrent(null)} />
         ) : (
           <div>
-            <p style={{ fontSize: 14, color: T.sub, marginTop: 0, lineHeight: 1.7 }}>
+            <p style={{ fontSize: "0.875rem", color: T.sub, marginTop: 0, lineHeight: 1.7 }}>
               Same sounds you already know, new shapes — and a running thread of Culture Connection
               lessons about loanwords, because the biggest katakana trap isn't reading the characters.
               It's assuming you know what the word means.
             </p>
             <div style={{ marginTop: 16, paddingBottom: 12, borderBottom: `1px solid ${T.hairline}`,
               display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-              <div style={{ fontSize: 12, color: T.sub, display: "flex", flexWrap: "wrap", alignItems: "center", gap: "6px 0" }}>
+              <div style={{ fontSize: "0.75rem", color: T.sub, display: "flex", flexWrap: "wrap", alignItems: "center", gap: "6px 0" }}>
                 {KIND_ORDER.map((key) => (
                   <span key={key} style={{ display: "inline-flex", alignItems: "center", gap: 5, marginRight: 12 }}>
                     <KindBadge kind={key} size={10} />
@@ -2608,12 +2608,12 @@ export default function KatakanaModule() {
                 >
                   <KindBadge kind="culture" />
                   <span style={{ flex: 1 }}>
-                    <span style={{ display: "block", fontSize: 16, fontWeight: 600 }}>{INTRO.title}</span>
-                    <span style={{ display: "block", fontSize: 13, color: T.sub, marginTop: 2 }}>
+                    <span style={{ display: "block", fontSize: "1rem", fontWeight: 600 }}>{INTRO.title}</span>
+                    <span style={{ display: "block", fontSize: "0.8125rem", color: T.sub, marginTop: 2 }}>
                       Read this first — it is the five minutes that makes the rest make sense.
                     </span>
                   </span>
-                  <span style={{ fontSize: 13, color: introDone ? T.ok : T.note }}>{introDone ? "✓" : "○"}</span>
+                  <span style={{ fontSize: "0.8125rem", color: introDone ? T.ok : T.note }}>{introDone ? "✓" : "○"}</span>
                 </button>
               );
             })()}
@@ -2624,13 +2624,13 @@ export default function KatakanaModule() {
               return (
                 <section key={g.title} style={{ marginBottom: 10 }}>
                   <button className="group-head" onClick={() => toggleGroup(g.title)} aria-expanded={open}>
-                    <span style={{ color: T.sub, fontSize: 11, width: 10, display: "inline-block",
+                    <span style={{ color: T.sub, fontSize: "0.6875rem", width: 10, display: "inline-block",
                       transform: open ? "rotate(90deg)" : "none", transition: "transform .15s" }}>▶</span>
-                    <span style={{ fontSize: 13, letterSpacing: ".5px", textTransform: "uppercase", flex: 1, textAlign: "left" }}>
+                    <span style={{ fontSize: "0.8125rem", letterSpacing: ".5px", textTransform: "uppercase", flex: 1, textAlign: "left" }}>
                       {g.title}
                     </span>
                     {gComplete ? (
-                      <span style={{ fontSize: 13, color: T.ok }}>✓</span>
+                      <span style={{ fontSize: "0.8125rem", color: T.ok }}>✓</span>
                     ) : (
                       <span style={{ width: 44, height: 3, background: T.hairline, borderRadius: 2, overflow: "hidden" }}>
                         <span style={{ display: "block", height: 3, borderRadius: 2,
@@ -2646,12 +2646,12 @@ export default function KatakanaModule() {
                         const started = !!progress[m.id];
                         return (
                           <button key={m.id} className="row-btn" onClick={() => setCurrent(m.id)}>
-                            <span style={{ fontSize: 12, color: T.sub, minWidth: 14, textAlign: "right" }}>{gi + 1}</span>
+                            <span style={{ fontSize: "0.75rem", color: T.sub, minWidth: 14, textAlign: "right" }}>{gi + 1}</span>
                             <KindBadge kind={m.kind} />
-                            <span style={{ fontFamily: hasJP(m.title) ? T.jpFont : T.uiFont, fontSize: 17 }}>{m.title}</span>
-                            {m.sounds && <span style={{ fontSize: 13, letterSpacing: ".4px" }}>{m.sounds}</span>}
-                            <span style={{ fontSize: 13, color: T.sub, flex: 1 }}>· {m.en}</span>
-                            <span style={{ fontSize: 13, color: done ? T.ok : started ? T.note : "#C9C7BF" }}>
+                            <span style={{ fontFamily: hasJP(m.title) ? T.jpFont : T.uiFont, fontSize: "1.0625rem" }}>{m.title}</span>
+                            {m.sounds && <span style={{ fontSize: "0.8125rem", letterSpacing: ".4px" }}>{m.sounds}</span>}
+                            <span style={{ fontSize: "0.8125rem", color: T.sub, flex: 1 }}>· {m.en}</span>
+                            <span style={{ fontSize: "0.8125rem", color: done ? T.ok : started ? T.note : "#C9C7BF" }}>
                               {done ? "✓" : started ? "…" : "○"}
                             </span>
                           </button>
@@ -2662,7 +2662,7 @@ export default function KatakanaModule() {
                 </section>
               );
             })}
-            <p style={{ fontSize: 12, color: T.sub, textAlign: "center", marginTop: 4 }}>
+            <p style={{ fontSize: "0.75rem", color: T.sub, textAlign: "center", marginTop: 4 }}>
               Lesson content is AI-authored and pending native-speaker review. Etymology and usage claims
               in the culture lessons need the closest read.
             </p>
