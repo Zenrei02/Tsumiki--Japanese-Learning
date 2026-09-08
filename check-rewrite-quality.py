@@ -130,6 +130,7 @@ import-grading-responses.py has written Blind Grading G–H.
 
 Exit codes: 0 nothing flagged · 1 flagged rows to read · 2 refused (nothing scanned)
 """
+import json
 import re
 import sys
 import unicodedata
@@ -163,7 +164,18 @@ NO_CORRECTION = '—'          # what col H holds on a CORRECT row
 # See "HOW THE PRIMARY SET WAS CHOSEN" above. Primary signals set the headline
 # flag; secondary ones are printed beside them and excluded from the count.
 PRIMARY = ['TARGET_MISSED', 'LEXICAL_MISS', 'SUBSTITUTION', 'ECHOED', 'NAME_KANJIFIED']
-SECONDARY = ['SELF_INCONSISTENT', 'TARGET_PARTIAL', 'EXTRA_EDIT']
+SECONDARY = ['SELF_INCONSISTENT', 'SELF_NOTE_ONLY', 'TARGET_PARTIAL', 'EXTRA_EDIT']
+
+# ⚠ THE TIER SPLIT THAT SESSION 27 HAD TO DO BY HAND.
+# A rewrite is only ever ASKED to apply fix- and unnatural-tier issues; `note` is
+# a growth observation and applying one silently changes the writer's register,
+# so the two-pass build filters notes out IN CODE before the rewrite call. That
+# means an unapplied NOTE is the architecture working as designed, and an
+# unapplied FIX is the failure this signal exists to catch. Summed together they
+# are not a quantity — Session 27's SELF_INCONSISTENT read 23 -> 36 and looked
+# like a regression, while the half that means anything read 19 -> 14 and had
+# IMPROVED. Anything that mixes the tiers has to report them apart.
+APPLIED_TIERS = ('FIX', 'UNNATURAL')
 KANJI = re.compile(r'[一-鿿㐀-䶿]')
 KATAKANA = re.compile(r'[゠-ヿ]')
 HIRAGANA_ONLY = re.compile(r'^[぀-ゟ]+$')
@@ -204,6 +216,18 @@ def unapplied_issues(issues, rewrite):
             continue
         out.append((tier, before, after))
     return out
+
+
+def split_unapplied(unapplied):
+    """(asked-for, note-only) — the split that stops this counter from lying.
+
+    See APPLIED_TIERS. The first element is the one that carries a claim about
+    quality; the second counts issues the rewrite was never sent and therefore
+    could not have applied.
+    """
+    asked = [u for u in unapplied if u[0].upper() in APPLIED_TIERS]
+    notes = [u for u in unapplied if u[0].upper() not in APPLIED_TIERS]
+    return asked, notes
 
 
 def parse_rewrite(feedback):
@@ -373,6 +397,70 @@ def read_eval_set(ws):
     return rows
 
 
+# ⚠ THE GRADES DESCRIBE naoshi-4 TEXT AND ONLY naoshi-4 TEXT.
+# Keiko graded the outputs of the naoshi-4 run across nine batches. If a later
+# run's feedback is imported into this workbook, the grades stay where they are
+# and silently stop describing the text beside them — at which point precision
+# and recall against those grades are a number about nothing. The figure used to
+# print anyway, next to real ones, and Session 27 had to remember not to quote
+# it. Now it is detected and refused.
+GRADED_SCHEMA = 'naoshi-4'
+LOG = 'bakeoff-log.jsonl'
+
+
+def find_log(workbook_path):
+    """The bake-off log, looked for beside the workbook and then beside THIS file.
+
+    The second place matters: a workbook copied elsewhere for a comparison is
+    the normal case, and resolving the log only against the workbook's own
+    directory makes the schema check answer "unknown" for a reason that has
+    nothing to do with the data. That failure is indistinguishable from a real
+    mismatch, so it would quietly disable the guard — which is how the check
+    this file already carries got caught being decorative.
+    """
+    for cand in (Path(workbook_path).parent / LOG, Path(__file__).resolve().parent / LOG):
+        if cand.exists():
+            return cand
+    return Path(workbook_path).parent / LOG
+
+
+def detect_scored_schema(bg, log_path):
+    """Which run produced the feedback currently in column F.
+
+    Answered by matching the cell against the bake-off log rather than trusting a
+    label, because the workbook carries no schema stamp of its own. Returns
+    (schema, matched, total) with schema None when nothing matches — an unknown
+    provenance is reported as unknown, never assumed to be the graded one.
+    """
+    if not Path(log_path).exists():
+        return None, 0, 0
+    by_oid = defaultdict(dict)
+    with open(log_path, encoding='utf-8') as fh:
+        for line in fh:
+            line = line.strip()
+            if not line:
+                continue
+            rec = json.loads(line)
+            by_oid[rec.get('output_id')][rec.get('schema')] = norm(rec.get('feedback'))
+    hits, total = Counter(), 0
+    for r in range(BG_FIRST, bg.max_row + 1):
+        oid = bg.cell(row=r, column=B_OID).value
+        oid = str(oid).strip() if oid is not None else ''
+        if not OID_RE.match(oid):
+            continue
+        cell = norm(bg.cell(row=r, column=B_FEEDBACK).value)
+        if not cell:
+            continue
+        total += 1
+        for schema, text in by_oid.get(oid, {}).items():
+            if text and text == cell:
+                hits[schema] += 1
+    if not hits:
+        return None, 0, total
+    schema, matched = hits.most_common(1)[0]
+    return schema, matched, total
+
+
 def reviewer_flagged(path):
     """The Output IDs check-unnatural-rewrite.py derives from Keiko's comments.
 
@@ -389,6 +477,18 @@ def reviewer_flagged(path):
     except Exception as exc:                       # noqa: BLE001 — reported, not raised
         return None, f'{type(exc).__name__}: {exc}'
     return mod, None
+
+
+def _signal_rows(results, theirs, signals, primary):
+    """The per-signal precision/recall rows. Split out so the guard above can
+    decline to call it without leaving a half-printed table behind."""
+    for s in signals:
+        fires = {x['oid'] for x in results if s in x['flags']}
+        hit = fires & theirs
+        p = len(hit) / len(fires) if fires else 0.0
+        rc = len(hit) / len(theirs) if theirs else 0.0
+        print(f'   {"*" if s in primary else " "}{s:<16}'
+              f'{len(fires):>6}{len(hit):>6}{p:>6.0%}{rc:>8.0%}')
 
 
 def main():
@@ -464,8 +564,16 @@ def main():
             flags.append('ECHOED')
         if names:
             flags.append('NAME_KANJIFIED')
-        if unapplied:
+        asked_unapplied, note_unapplied = split_unapplied(unapplied)
+        # ⚠ SELF_INCONSISTENT NO LONGER MEANS WHAT IT MEANT BEFORE SESSION 28.
+        # It now counts ONLY the tiers a rewrite was actually asked to apply, so
+        # it is not comparable with the summed figures in the Session 24/26/27
+        # journals (Session 27's "23 -> 36" is the old definition). The note-only
+        # residue is counted beside it rather than inside it.
+        if asked_unapplied:
             flags.append('SELF_INCONSISTENT')
+        if note_unapplied and not asked_unapplied:
+            flags.append('SELF_NOTE_ONLY')
         if extras:
             flags.append('EXTRA_EDIT')
 
@@ -478,6 +586,7 @@ def main():
             'edits': edits, 'verdicts': verdicts, 'kept': kept_by_edit,
             'subs': subs, 'extras': extras, 'lex_miss': lex_miss,
             'issues': issues, 'unapplied': unapplied,
+            'unapplied_asked': asked_unapplied, 'unapplied_note': note_unapplied,
             'names': names, 'echoed': echoed, 'flags': flags,
         })
 
@@ -536,8 +645,12 @@ def main():
             for s_span, r_span in x['names']:
                 print(f"      ⚠ NAME      {s_span} → {r_span}  (key left {s_span} alone)")
             for tier, before, after in x['unapplied']:
-                print(f"      ⚠ SELF      tool said [{tier}] {before} → {after}, "
-                      f"then did not do it in its own rewrite")
+                asked = tier.upper() in APPLIED_TIERS
+                mark = 'SELF' if asked else 'self'
+                tail = ('then did not do it in its own rewrite' if asked else
+                        'a NOTE — never sent to the rewrite, so this is by design')
+                print(f"      ⚠ {mark}      tool said [{tier}] {before} → {after}, "
+                      f"{tail}")
             for s_span, r_span in x['extras']:
                 print(f"      ⚠ EXTRA     {s_span} → {r_span}  (the key left this alone)")
             if x['echoed']:
@@ -561,6 +674,20 @@ def main():
               f"{sum(1 for x in rows if set(x['flags']) & set(PRIMARY)):>8}"
               + ''.join(f"{sum(1 for x in rows if s in x['flags']):>11}" for s in SIGNALS)
               + f"{ap:>14}/{tot:<6}")
+
+    print()
+    print('SELF-INCONSISTENCY BY ISSUE TIER — the summed form is not a quantity')
+    n_asked = sum(len(x['unapplied_asked']) for x in results)
+    n_note = sum(len(x['unapplied_note']) for x in results)
+    r_asked = sum(1 for x in results if x['unapplied_asked'])
+    r_note = sum(1 for x in results if x['unapplied_note'])
+    print(f"  asked-for tiers {'/'.join(APPLIED_TIERS):<20} "
+          f"{n_asked:>4} issue(s) across {r_asked:>3} row(s)   ← the real signal")
+    print(f"  note tier (never sent to the rewrite) {n_note:>4} issue(s) across "
+          f"{r_note:>3} row(s)   ← by design, not a fault")
+    print(f"  summed (the pre-Session-28 headline)  "
+          f"{n_asked + n_note:>4} issue(s) across "
+          f"{sum(1 for x in results if x['unapplied']):>3} row(s)   ← do not quote")
 
     print()
     print('BY TOOL TIER — where the damage sits')
@@ -606,21 +733,58 @@ def main():
         print(f'  This script flags:                                      {len(mine)}')
         print(f'  Both:  {len(both):>3}   only this script: {len(only_m):>3}   '
               f'only reviewer: {len(only_t):>3}')
-        print(f'  Row-level agreement: {agree}/{n} = {agree / n:.0%}   '
-              f'precision {prec:.0%}   recall {rec:.0%}')
+        scored_schema, matched, tot_cells = detect_scored_schema(bg, find_log(path))
+        if scored_schema == GRADED_SCHEMA and theirs:
+            print(f'  Row-level agreement: {agree}/{n} = {agree / n:.0%}   '
+                  f'precision {prec:.0%}   recall {rec:.0%}')
+            print(f'  (feedback in this workbook matches {matched}/{tot_cells} '
+                  f'{GRADED_SCHEMA} log rows — the grades describe this text)')
+        elif scored_schema == GRADED_SCHEMA:
+            # Right text, no grades. Two ways to reach a meaningless 0% and the
+            # schema check only closes one of them; a reference class of zero
+            # produces the identical number for an unrelated reason.
+            print('  ⛔ PRECISION AND RECALL NOT SHOWN.')
+            print(f'     The feedback is {GRADED_SCHEMA} as it should be, but NO '
+                  'GRADED ROWS were read,')
+            print('     so the reference class is empty and both figures would be '
+                  '0% by construction.')
+            print('     Run import-grading-responses.py against this workbook first.')
+        else:
+            # THE GUARD. Printing 0% next to real figures is how this went wrong
+            # before; a reason cannot be mistaken for a measurement.
+            where = (f'is {scored_schema!r}' if scored_schema
+                     else 'could not be identified from the log')
+            print('  ⛔ PRECISION AND RECALL NOT SHOWN.')
+            print(f'     The grades were made against {GRADED_SCHEMA}; the feedback '
+                  f'in this workbook {where}.')
+            if scored_schema:
+                print(f'     {matched}/{tot_cells} cells match {scored_schema} log rows.')
+            print('     Keiko graded the DIAGNOSIS she was shown. Against different '
+                  'text those grades')
+            print('     are not a reference class, and a number computed from them '
+                  'would describe nothing.')
+            print(f'     Row-level overlap with her flags is still {agree}/{n}, '
+                  'reported as an overlap, not as accuracy.')
 
         print()
-        print('  PER SIGNAL, against the same 23. Base rate is '
-              f'{len(theirs)}/{n} = {len(theirs) / n:.0%}; a signal earns a place in')
-        print('  the headline set at twice that. * marks the primary ones.')
-        print(f"    {'signal':<16}{'fires':>6}{'hits':>6}{'prec':>7}{'recall':>8}")
-        for s in SIGNALS:
-            fires = {x['oid'] for x in results if s in x['flags']}
-            hit = fires & theirs
-            p = len(hit) / len(fires) if fires else 0.0
-            rc = len(hit) / len(theirs) if theirs else 0.0
-            print(f'   {"*" if s in PRIMARY else " "}{s:<16}'
-                  f'{len(fires):>6}{len(hit):>6}{p:>6.0%}{rc:>8.0%}')
+        # Same guard, second exit. A per-signal table of 0% is the SHAPE of a
+        # measurement with none of the substance, and it is more misleading than
+        # the headline figure because it fills a whole table. The "23" that used
+        # to be written into this sentence was a stale prose constant; it now
+        # reads the reference class it actually has.
+        if not theirs:
+            print('  PER SIGNAL: NOT SHOWN — the reference class is empty.')
+            print('    No graded rows were read, so every signal would score 0% '
+                  'precision and 0%')
+            print('    recall regardless of how well it works. Import the grades '
+                  '(import-grading-responses.py)')
+            print('    against the run these outputs came from, then re-run.')
+        else:
+            print(f'  PER SIGNAL, against the same {len(theirs)}. Base rate is '
+                  f'{len(theirs)}/{n} = {len(theirs) / n:.0%}; a signal earns a place in')
+            print('  the headline set at twice that. * marks the primary ones.')
+            print(f"    {'signal':<16}{'fires':>6}{'hits':>6}{'prec':>7}{'recall':>8}")
+            _signal_rows(results, theirs, SIGNALS, PRIMARY)
         if only_t:
             print(f'\n  MISSED by this script ({len(only_t)}) — the rows that decide '
                   'whether it measures what she measured:')

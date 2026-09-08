@@ -46,6 +46,20 @@ Modes:
              comparable without a checkout. With --smoke it runs 5 real plan
              rows and projects the full-run cost from measured tokens.
 
+  --schema-stamp=NAME (Session 28) stamp this run's rows NAME instead of the
+             jsx's SCHEMA_VERSION. The resume set keys on the stamp, so this is
+             what lets a prompt be run TWICE: re-running naoshi-4 as naoshi-4
+             finds 150 rows already logged, makes zero calls, costs $0 and exits
+             GREEN — the Session 24 false green reached from the opposite
+             direction. Stamping the replicate naoshi-4r1 gives it its own rows.
+             ⛔ It does NOT change the prompt and must never be used to imply
+             one changed: the md5 logged on every row is the only claim about
+             what text was sent. Editing SCHEMA_VERSION in the jsx to achieve
+             the same thing is the move this option exists to make unnecessary —
+             it dirties the harness's source of truth for a run whose whole
+             premise may be that nothing changed. Refused with --two-pass, which
+             sets its own stamp.
+
 --run also requires --key-verified: per the README protocol, the reviewer must
 verify the answer key (Step 2) BEFORE outputs exist, or they can leak into the
 key. The flag is you asserting Step 2 is done.
@@ -202,6 +216,24 @@ def load_workbook_data():
 
 # ---------- api ----------
 NO_TEMPERATURE = set()  # models whose API rejects the `temperature` param
+
+
+def sampling_of(model):
+    """(temperature actually sent, whether sampling was pinned) for `model`.
+
+    ⚠ RECORDED PER ROW BECAUSE IT WAS INFERRED FROM A JSON ESCAPING BUG ONCE.
+    Session 27 established that M1 is the only model still accepting
+    temperature=0 — and established it by noticing O040 reproduced byte for
+    byte across two runs. Every delta attributed to M2 and M3 since then has
+    carried an unmeasured variance component that nothing in the log recorded.
+    NO_TEMPERATURE is populated at RUN TIME, on the first 400 from each model,
+    so this must be read AFTER a row's calls have returned, not before.
+
+    `deterministic` means "temperature=0 was sent and accepted", not "the output
+    is guaranteed reproducible". It is a statement about the request.
+    """
+    pinned = model not in NO_TEMPERATURE
+    return (0 if pinned else None), pinned
 
 # Headers of the most recent successful call. Anthropic stamps `request-id` on
 # every response, errors included; the Cowork sandbox's egress layer does not.
@@ -374,16 +406,30 @@ def main():
     if not mode:
         sys.exit(__doc__)
     two_pass = "--two-pass" in sys.argv
+    stamp = next((a.split("=", 1)[1] for a in sys.argv
+                  if a.startswith("--schema-stamp=")), None)
+    if stamp is not None and not stamp.strip():
+        sys.exit("--schema-stamp= needs a value, e.g. --schema-stamp=naoshi-4r1")
+    if stamp and two_pass:
+        sys.exit("--schema-stamp and --two-pass both set the stamp; pick one.")
     system_prompt, schema = load_prompt()
     prompt_md5 = hashlib.md5(system_prompt.encode("utf-8")).hexdigest()
     rewrite_md5 = hashlib.md5(REWRITE_SYSTEM_PROMPT.encode("utf-8")).hexdigest()
     jsx_schema = schema
     if two_pass:
         schema = TWO_PASS_SCHEMA
+    elif stamp:
+        schema = stamp
     wb, sentences, models, plan = load_workbook_data()
     runnable = [p for p in plan if p[2] in sentences]
     print(f"prompt {schema} · {len(sentences)} sentences · {len(models)} models · "
           f"{len(runnable)}/{len(plan)} blind-grading rows runnable")
+    if stamp:
+        print(f"  STAMPED {schema} · the prompt is the jsx's {jsx_schema}, "
+              f"unchanged (md5 {prompt_md5[:8]})")
+        if stamp == jsx_schema:
+            print("  ⚠ the stamp equals the jsx's own version, so this run will "
+                  "resume the existing rows rather than produce new ones.")
     if two_pass:
         print(f"  TWO-PASS · pass 1 = {jsx_schema} (md5 {prompt_md5[:8]}) · "
               f"pass 2 = rewrite-only (md5 {rewrite_md5[:8]})")
@@ -705,6 +751,8 @@ def main():
                 # this project has had to reconstruct before.
                 "prompt_md5": prompt_md5,
             }
+            temp, pinned = sampling_of(mstr)
+            rec["temperature"], rec["deterministic"] = temp, pinned
             if two_pass:
                 rec.update({
                     "two_pass": True,
