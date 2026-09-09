@@ -18,10 +18,11 @@ Written Sep 9 2026, Session 31.
    block the reviewer.
 3. **B1–B9 are untouched** and stay that way. B10 has its own form, its own
    response spreadsheet, and its own Script Properties keys.
-4. **Outstanding money.** The tracker records ¥6,000 owed across B8 and B9, with
-   B1 declined by her own choice. Confirm that is settled before asking for a
-   tenth batch — the message below assumes it is. If it is not, pay first and
-   send this afterwards.
+4. **Payment is clear.** Lloyd confirmed Sep 9 2026 that the ¥6,000 for B8 and B9
+   is already paid; B1 was declined by her own choice. Nothing is outstanding, so
+   this message can go as soon as the form is built and checked. (An earlier draft
+   of this line said to settle up first — it was reading a tracker note that had
+   gone stale.)
 
 ## Why this batch, in one paragraph
 
