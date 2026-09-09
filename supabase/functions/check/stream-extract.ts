@@ -21,6 +21,75 @@
 // forget it.
 
 /** One decoded Server-Sent Event. `data` is still a raw string. */
+/**
+ * Escape `"` characters that sit INSIDE a JSON string value.
+ *
+ * THE ROW THIS EXISTS FOR is O040 (E24 × M1) in the bake-off: Haiku writes a
+ * summary that quotes its own glosses —
+ *
+ *     "summary": "... 出す (transitive, "to produce/put out") should be 出る ..."
+ *
+ * — which is valid English and invalid JSON. It reproduced 6 times out of 6
+ * across every run, always `Expecting ',' delimiter`, and the row silently left
+ * the denominator each time. The same output would reach a learner here as
+ * `unparseable` (502), on a check that had actually succeeded, with a cap slot
+ * already spent on it.
+ *
+ * ⚠ THE PROMPT IS NOT CHANGED. Rewording it would need the bake-off
+ * re-measured to say what the rewording cost, and the standing decision is to
+ * stop tuning. This is the parser's side of the problem: a client that accepts
+ * only the output it likes is not robust.
+ *
+ * THE RULE. Walk the text tracking string state. Inside a string, a `"` really
+ * terminates it only if the next non-whitespace character is structural —
+ * one of , } ] : — or the end of input. Anything else is the model quoting
+ * inside its own value, and the quote is escaped.
+ *
+ * THE LIMIT, stated here rather than discovered later: a value that genuinely
+ * closes a quotation immediately before a comma — `"he said "hi", then left"` —
+ * reads as a terminator under this rule and is NOT repaired. That is why it is
+ * ONE attempt: if the repaired text still does not parse, the caller fails
+ * exactly as it did before. Mirrors repair_unescaped_quotes in
+ * bakeoff-harness.py; test-json-repair.py and test-stream-extract.mjs §7 cover
+ * the two copies against the same fixture.
+ */
+export function repairUnescapedQuotes(text: string): string {
+  const STRUCTURAL = new Set([",", "}", "]", ":"]);
+  let out = "";
+  let inString = false;
+  let i = 0;
+  while (i < text.length) {
+    const ch = text[i];
+    if (!inString) {
+      out += ch;
+      if (ch === '"') inString = true;
+      i += 1;
+      continue;
+    }
+    if (ch === "\\") {                      // an escape: copy it and its partner
+      out += ch;
+      if (i + 1 < text.length) out += text[i + 1];
+      i += 2;
+      continue;
+    }
+    if (ch === '"') {
+      let j = i + 1;
+      while (j < text.length && /\s/.test(text[j])) j += 1;
+      if (j >= text.length || STRUCTURAL.has(text[j])) {
+        out += ch;                          // a real end-of-string
+        inString = false;
+      } else {
+        out += '\\"';                       // the model quoting inside its value
+      }
+      i += 1;
+      continue;
+    }
+    out += ch;
+    i += 1;
+  }
+  return out;
+}
+
 export type SseFrame = { event: string; data: string };
 
 /**
@@ -461,7 +530,20 @@ export class JsonStreamExtractor {
     try {
       return JSON.parse(raw);
     } catch (e) {
-      throw new Error(`could not parse ${what}: ${e} · raw=${raw.slice(0, 200)}`);
+      // ONE repair attempt, for the O040 shape — see repairUnescapedQuotes.
+      // ⚠ PARTIAL HERE, unlike the buffered path. The walker decides where a
+      // value ENDS before this runs, and an unescaped quote can fool that
+      // boundary search first, in which case `raw` arrives already truncated
+      // and no amount of escaping recovers it. So this catches the case where
+      // the walker still handed over a complete value, and the buffered path
+      // remains the one that always can. Failing loudly is still the fallback.
+      try {
+        const repaired = JSON.parse(repairUnescapedQuotes(raw));
+        console.log(`stream-extract: repaired ${what} (unescaped quote)`);
+        return repaired;
+      } catch {
+        throw new Error(`could not parse ${what}: ${e} · raw=${raw.slice(0, 200)}`);
+      }
     }
   }
 }

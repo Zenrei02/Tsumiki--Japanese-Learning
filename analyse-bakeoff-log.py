@@ -92,6 +92,7 @@ def load_eval(path):
         key = cq.norm(ws.cell(row=r, column=E_KEY).value)
         out[v.strip()] = {
             'sent': cq.norm(ws.cell(row=r, column=E_SENT).value),
+            'sent_raw': str(ws.cell(row=r, column=E_SENT).value or '').strip(),
             'key': '' if key == cq.NO_CORRECTION else key,
             'status': (ws.cell(row=r, column=E_STATUS).value or '').strip(),
             'level': (ws.cell(row=r, column=E_LEVEL).value or '').strip(),
@@ -151,6 +152,27 @@ def score(src, key, feedback, rewrite):
 
 COUNTERS = ['TARGET_MISSED', 'LEXICAL_MISS', 'SUBSTITUTION', 'NAME_KANJIFIED',
             'SELF_INCONSISTENT', 'SELF_NOTE_ONLY', 'TARGET_PARTIAL', 'EXTRA_EDIT']
+SILENT_COUNTERS = ['SILENT_RESCUE', 'SILENT_RESCUE_TOWARD_KEY', 'SILENT_RESCUE_AWAY']
+
+
+def silent_rescue(verdict, src_raw, rewrite_raw, applied):
+    """None, 'TOWARD_KEY' or 'AWAY' — see check-rewrite-quality.SILENT_TIERS.
+
+    The tool told the learner there was nothing to fix and handed back something
+    different from what they wrote. Compared through cq.norm_punct, so O032's
+    `(笑)` → `（笑）` is not a rescue and a kana-width change still is.
+
+    TOWARD_KEY means at least one key edit came out APPLIED. It is deliberately
+    NOT a synonym for "better": it says the change moved in the direction the
+    answer key asked for, nothing more. Session 27's "7 of 10 repaired" was this
+    counter unsplit, and splitting it turned 7 into 5 toward and 2 away — one of
+    the 2 being O043, which turned the name えり into 襟.
+    """
+    if (verdict or '').upper() not in cq.SILENT_TIERS:
+        return None
+    if not rewrite_raw or cq.norm_punct(rewrite_raw) == cq.norm_punct(src_raw):
+        return None
+    return 'TOWARD_KEY' if applied else 'AWAY'
 
 
 # ── §2a ───────────────────────────────────────────────────────────────────────
@@ -239,6 +261,35 @@ def census(ev, rows, quote=6):
               f"{sum(1 for r in sub if ev[r['eval_id']]['status'] == 'ERROR')} "
               f"ERROR rows   by model: "
               + '  '.join(f'{m} {n}' for m, n in sorted(by_model.items())))
+
+    print('\n  SILENT RESCUES — verdict NONE / WORTH KNOWING, and the rewrite '
+          'changed the sentence')
+    print('  A superset of the rows above: this one does not require the sentence '
+          'to be an ERROR,')
+    print('  because a silent change on a CORRECT sentence is the same unexplained '
+          'edit to the learner.')
+    for schema in SCHEMAS:
+        sub_ = [r for r in rows if r.get('schema') == schema]
+        if not sub_:
+            continue
+        by_model = defaultdict(lambda: {'TOWARD_KEY': [], 'AWAY': []})
+        for r in sorted(sub_, key=lambda r: r['output_id']):
+            e = ev[r['eval_id']]
+            rw_raw = cq.parse_rewrite_raw(r.get('feedback'))
+            sc = score(e['sent'], e['key'], r.get('feedback') or '', cq.norm(rw_raw))
+            v = silent_rescue(r.get('verdict'), e['sent_raw'], rw_raw,
+                              sc['applied'] > 0)
+            if v:
+                by_model[r['model_code']][v].append(r['output_id'])
+        n = sum(len(d[k]) for d in by_model.values() for k in d)
+        print(f'    ── {schema}  {n} silent rescue(s)')
+        for m in sorted(by_model):
+            d = by_model[m]
+            print(f"       {m}  toward {len(d['TOWARD_KEY'])} "
+                  f"[{', '.join(d['TOWARD_KEY']) or '—'}]   "
+                  f"away {len(d['AWAY'])} [{', '.join(d['AWAY']) or '—'}]")
+        if not by_model:
+            print('       none')
 
     print('\n  MISSED BY EVERY MODEL — the rows no model choice can fix')
     for schema in SCHEMAS:
@@ -350,6 +401,8 @@ def floor(ev, rows):
         src, key = e['sent'], e['key']
         wa = cq.norm((ra.get('raw') or {}).get('model_rewrite'))
         wb_ = cq.norm(rb.get('rewrite_pass1'))
+        wa_raw = (ra.get('raw') or {}).get('model_rewrite') or ''
+        wb_raw = rb.get('rewrite_pass1') or ''
         sa = score(src, key, ra.get('feedback') or '', wa)
         sb = score(src, key, rb.get('feedback') or '', wb_)
         m = ra.get('model_code', '?')
@@ -369,19 +422,51 @@ def floor(ev, rows):
             if sc['echoed'] and e['status'] == 'ERROR':
                 tot[tag]['ECHOED'] += 1
                 per_model[m][tag]['ECHOED'] += 1
+        # SILENT_RESCUE on the SAME pass-1 arms as everything else in this table.
+        # Not the same number as the census, which reads the FINAL rewrite; on
+        # naoshi-6 that one is structurally 0 and would not be a floor.
+        for tag, rec, arm_raw, sc in (('a', ra, wa_raw, sa), ('b', rb, wb_raw, sb)):
+            v = silent_rescue(rec.get('verdict'), e['sent_raw'], arm_raw,
+                              sc['applied'] > 0)
+            if v:
+                tot[tag]['SILENT_RESCUE'] += 1
+                per_model[m][tag]['SILENT_RESCUE'] += 1
+                tot[tag][f'SILENT_RESCUE_{v}'] += 1
+                per_model[m][tag][f'SILENT_RESCUE_{v}'] += 1
         if wa and wa == wb_:
             identical_rows += 1
         if ra.get('verdict') != rb.get('verdict'):
             verdict_moved.append((oid, m, ra.get('verdict'), rb.get('verdict')))
 
-    print(f"  {'counter':<20}{'naoshi-4':>10}{'n6 pass1':>10}{'FLOOR':>8}")
-    for c in COUNTERS + ['ECHOED']:
-        print(f"  {c:<20}{tot['a'][c]:>10}{tot['b'][c]:>10}"
+    print(f"  {'counter':<26}{'naoshi-4':>10}{'n6 pass1':>10}{'FLOOR':>8}")
+    for c in COUNTERS + ['ECHOED'] + SILENT_COUNTERS:
+        print(f"  {c:<26}{tot['a'][c]:>10}{tot['b'][c]:>10}"
               f"{tot['b'][c] - tot['a'][c]:>+8}")
-    print(f"  {'key edits applied':<20}{applied['a'][0]:>10}{applied['b'][0]:>10}"
+    print(f"  {'key edits applied':<26}{applied['a'][0]:>10}{applied['b'][0]:>10}"
           f"{applied['b'][0] - applied['a'][0]:>+8}")
-    print(f"  {'identical to source':<20}{ident['a']:>10}{ident['b']:>10}"
+    print(f"  {'identical to source':<26}{ident['a']:>10}{ident['b']:>10}"
           f"{ident['b'] - ident['a']:>+8}")
+    print()
+    print('  ⚠ READ SILENT_RESCUE THROUGH ITS BAND, LIKE EVERY OTHER COUNTER HERE.')
+    print('    Both arms are PASS 1 — the same prompt run 24 days apart — so the '
+          'FLOOR column is')
+    print('    this counter moving while nothing changed. A per-model delta must '
+          'beat 3 and an')
+    print('    aggregate delta 4–6 before it is a result (Session 28).')
+    print('    It is NOT the census figure: that one reads the rewrite the learner '
+          'actually saw, and')
+    print('    on naoshi-6 that is structurally 0, because pass 2 is never called '
+          'when there is')
+    print('    nothing in the FIX/UNNATURAL tiers to apply. A zero by construction '
+          'has no band.')
+    for m in sorted(per_model):
+        d = per_model[m]
+        print(f"    {m}  SILENT_RESCUE {d['a']['SILENT_RESCUE']} → "
+              f"{d['b']['SILENT_RESCUE']} "
+              f"({d['b']['SILENT_RESCUE'] - d['a']['SILENT_RESCUE']:+d}, band ±3)   "
+              f"toward {d['a']['SILENT_RESCUE_TOWARD_KEY']} → "
+              f"{d['b']['SILENT_RESCUE_TOWARD_KEY']}   "
+              f"away {d['a']['SILENT_RESCUE_AWAY']} → {d['b']['SILENT_RESCUE_AWAY']}")
 
     print('\n  PER MODEL — the floor, by model (M1 is the one expected to be 0)')
     print(f"    {'':<4}{'n':>4}" + ''.join(f'{c[:9]:>11}' for c in COUNTERS)

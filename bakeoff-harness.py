@@ -175,12 +175,12 @@ def extract_rewrite(resp):
     tolerance extract_json already has.
     """
     text = "".join(b.get("text", "") for b in resp.get("content", []))
-    data = extract_json(text)
+    data, repaired = extract_json(text)
     rw = data.get("rewrite")
     if not isinstance(rw, str):
         raise ValueError("pass 2 returned no string 'rewrite' key: "
                          f"{text[:200]!r}")
-    return rw
+    return rw, repaired
 
 # ---------- prompt, straight from the checker file ----------
 def load_prompt():
@@ -284,6 +284,75 @@ def call_model(key, model, system_prompt, sentence):
                  "Nothing was lost — completed calls are in bakeoff-log.jsonl; "
                  "re-run the same command to resume.")
 
+# ---------- the one repair the parser is allowed to make ----------
+STRUCTURAL_AFTER_STRING = {",", "}", "]", ":"}
+
+
+def repair_unescaped_quotes(text):
+    """Escape `"` characters that sit INSIDE a JSON string value.
+
+    THE ROW THIS EXISTS FOR is O040 (E24 × M1), reproducible 3 of 3 and 6 of 6
+    across every run in bakeoff-parse-failures.jsonl, always the same error —
+    `Expecting ',' delimiter: line 4 column 81`. Haiku writes a summary that
+    quotes its own glosses:
+
+        "summary": "... 出す (transitive, "to produce/put out") should be 出る ..."
+
+    That is valid English and invalid JSON, and the row drops out of the
+    denominator on every run — which is worse than it sounds, because a row
+    that vanishes is not a row that scores badly. It silently shrinks n for one
+    model only.
+
+    ⚠ THE PROMPT IS DELIBERATELY NOT TOUCHED. Rewording it to forbid inner
+    quotes would need the whole bake-off re-measured to say what the rewording
+    cost, and the standing decision (Session 30) is to stop tuning. This is a
+    parser defect from the parser's side: a client that accepts only the output
+    it likes is not robust, and Haiku is not the product model anyway.
+
+    THE RULE. Walk the text tracking string state. Inside a string, a `"` is a
+    real terminator only if the next non-whitespace character is structural —
+    one of , } ] : — or the end of input. Anything else means the model is
+    quoting inside its own value, and the quote is escaped.
+
+    THE LIMIT, stated rather than discovered later: a value that genuinely ends
+    a quotation right before a comma — `"he said "hi", then left"` — reads as a
+    terminator under this rule and is NOT repaired. That is why this is one
+    attempt and not a loop: if the repaired text still does not parse, the row
+    fails exactly as it did before. Nothing is hand-fixed and nothing is
+    guessed twice.
+    """
+    out, i, n = [], 0, len(text)
+    in_string = False
+    while i < n:
+        ch = text[i]
+        if not in_string:
+            out.append(ch)
+            if ch == '"':
+                in_string = True
+            i += 1
+            continue
+        if ch == "\\":                      # an escape: copy it and its partner
+            out.append(ch)
+            if i + 1 < n:
+                out.append(text[i + 1])
+            i += 2
+            continue
+        if ch == '"':
+            j = i + 1
+            while j < n and text[j].isspace():
+                j += 1
+            if j >= n or text[j] in STRUCTURAL_AFTER_STRING:
+                out.append(ch)              # a real end-of-string
+                in_string = False
+            else:
+                out.append('\\"')           # the model quoting inside its value
+            i += 1
+            continue
+        out.append(ch)
+        i += 1
+    return "".join(out)
+
+
 def extract_json(text):
     """Return the FIRST JSON object in `text`, ignoring anything after it.
 
@@ -312,8 +381,16 @@ def extract_json(text):
     start = text.find("{")
     if start == -1:
         raise ValueError(f"no JSON object in model output: {text[:200]!r}")
-    obj, _end = json.JSONDecoder().raw_decode(text[start:])
-    return obj
+    try:
+        obj, _end = json.JSONDecoder().raw_decode(text[start:])
+        return obj, False
+    except json.JSONDecodeError:
+        # ONE attempt, on the original text, and then the same failure as before.
+        # See repair_unescaped_quotes. A good response never reaches this branch,
+        # so a working row cannot be altered by it.
+        obj, _end = json.JSONDecoder().raw_decode(
+            repair_unescaped_quotes(text[start:]))
+        return obj, True
 
 def log_parse_failure(exc, resp, **ident):
     """Persist the RAW response body when parsing it fails, and say so loudly.
@@ -397,8 +474,8 @@ def render_feedback(data):
 
 def parse_issues(resp):
     text = "".join(b.get("text", "") for b in resp.get("content", []))
-    data = extract_json(text)
-    return verdict_of(data), render_feedback(data), data
+    data, repaired = extract_json(text)
+    return verdict_of(data), render_feedback(data), data, repaired
 
 # ---------- main ----------
 def main():
@@ -497,7 +574,7 @@ def main():
             if not rid1:
                 no_request_id.append(f"{oid} pass 1")
             try:
-                verdict, _, data = parse_issues(resp)
+                verdict, _, data, _rep = parse_issues(resp)
             except Exception as e:
                 print(f"  {oid} ({eid}×{code}): PASS-1 UNPARSEABLE — {e}")
                 log_parse_failure(e, resp, output_id=f"SMOKE-{oid}", eval_id=eid,
@@ -511,7 +588,7 @@ def main():
             if not rid2:
                 no_request_id.append(f"{oid} pass 2")
             try:
-                new_rw = extract_rewrite(resp2)
+                new_rw, _rep2 = extract_rewrite(resp2)
             except Exception as e:
                 print(f"  {oid} ({eid}×{code}): PASS-2 UNPARSEABLE — {e}")
                 log_parse_failure(e, resp2, output_id=f"SMOKE-{oid}", eval_id=eid,
@@ -589,7 +666,7 @@ def main():
             resp = call_model(key, mstr, system_prompt, sent)
             u = resp.get("usage", {})
             try:
-                verdict, _, _ = parse_issues(resp)
+                verdict, _, _, _rep = parse_issues(resp)
             except Exception as e:
                 # Smoke is where an unparseable response is CHEAPEST to
                 # diagnose — one sentence, three calls. It used to die here on a
@@ -677,7 +754,7 @@ def main():
                 time.sleep(2)
                 continue
             try:
-                verdict, feedback, data = parse_issues(resp)
+                verdict, feedback, data, repaired = parse_issues(resp)
             except Exception as e:
                 print(f"  {oid} ({eid}×{code}): UNPARSEABLE — {e}")
                 log_parse_failure(e, resp, output_id=oid, eval_id=eid,
@@ -693,6 +770,7 @@ def main():
 
             # ---- pass 2: the rewrite, from the finalised issues ----
             u2, applied, answered2, rewrite_pass1 = {}, [], "", None
+            repaired2 = False
             if two_pass:
                 applied, content2 = rewrite_user_content(
                     sentences[eid], data.get("issues", []))
@@ -716,7 +794,7 @@ def main():
                              f"answered {answered2}. A silent model "
                              "substitution invalidates the whole run.")
                 try:
-                    new_rewrite = extract_rewrite(resp2)
+                    new_rewrite, repaired2 = extract_rewrite(resp2)
                 except Exception as e:
                     print(f"  {oid} ({eid}×{code}): PASS-2 UNPARSEABLE — {e}")
                     log_parse_failure(e, resp2, output_id=oid, eval_id=eid,
@@ -751,6 +829,8 @@ def main():
                 # this project has had to reconstruct before.
                 "prompt_md5": prompt_md5,
             }
+            if repaired:
+                rec["repaired"] = True
             temp, pinned = sampling_of(mstr)
             rec["temperature"], rec["deterministic"] = temp, pinned
             if two_pass:
@@ -762,6 +842,8 @@ def main():
                     "rewrite_pass1": rewrite_pass1,
                     "issues_sent_to_pass2": len(applied),
                 })
+                if repaired2:
+                    rec["repaired_pass2"] = True
             log.write(json.dumps(rec, ensure_ascii=False) + "\n")
             log.flush()  # durable immediately
             results[oid] = (rowno, verdict, feedback)

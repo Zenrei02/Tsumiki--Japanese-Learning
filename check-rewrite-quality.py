@@ -161,10 +161,19 @@ ISSUE_RE = re.compile(r'^\[([A-Z][A-Z ]*)\]\s*(.+?)\s*[→⇒]\s*(.+?)(?:\s+—|
 
 NO_CORRECTION = '—'          # what col H holds on a CORRECT row
 
+# ⚠ WHICH COLUMN SAYS A KEY WAS AMENDED. Col J is Tomoko's VERDICT on the key;
+# col K is her prose. They are not the same question, and reading K was wrong:
+# E47 is 問題なし — the key stands — with a remark in K saying 見る and 観る are
+# both fine. That is an approval with a note, and it was being reported as
+# "⚠ key amended". One 一部修正 row has an empty K and was being reported clean,
+# the more dangerous direction. Both are now read off J.
+KEY_AMENDED = ('一部修正', '要修正')
+
 # See "HOW THE PRIMARY SET WAS CHOSEN" above. Primary signals set the headline
 # flag; secondary ones are printed beside them and excluded from the count.
 PRIMARY = ['TARGET_MISSED', 'LEXICAL_MISS', 'SUBSTITUTION', 'ECHOED', 'NAME_KANJIFIED']
-SECONDARY = ['SELF_INCONSISTENT', 'SELF_NOTE_ONLY', 'TARGET_PARTIAL', 'EXTRA_EDIT']
+SECONDARY = ['SELF_INCONSISTENT', 'SELF_NOTE_ONLY', 'TARGET_PARTIAL', 'EXTRA_EDIT',
+             'SILENT_RESCUE']
 
 # ⚠ THE TIER SPLIT THAT SESSION 27 HAD TO DO BY HAND.
 # A rewrite is only ever ASKED to apply fix- and unnatural-tier issues; `note` is
@@ -176,6 +185,16 @@ SECONDARY = ['SELF_INCONSISTENT', 'SELF_NOTE_ONLY', 'TARGET_PARTIAL', 'EXTRA_EDI
 # like a regression, while the half that means anything read 19 -> 14 and had
 # IMPROVED. Anything that mixes the tiers has to report them apart.
 APPLIED_TIERS = ('FIX', 'UNNATURAL')
+
+# ⚠ THE TOOL SAID THE SENTENCE WAS FINE AND THEN CHANGED IT ANYWAY.
+# On these two verdicts the learner is told there is nothing to fix (NONE) or is
+# handed an aside (WORTH KNOWING), and the rewrite still differs from what they
+# wrote. Whatever the change is, it arrives unexplained — which is the thing B10
+# asks Keiko about. Session 27 read ten such rows as "7 of 10 repaired"; splitting
+# them showed 5 moving toward the key and 2 away, one of which (O043) turned the
+# name えり into 襟. A silent change is not a silent improvement, and the summed
+# form of this counter is what hid that.
+SILENT_TIERS = ('NONE', 'WORTH KNOWING')
 KANJI = re.compile(r'[一-鿿㐀-䶿]')
 KATAKANA = re.compile(r'[゠-ヿ]')
 HIRAGANA_ONLY = re.compile(r'^[぀-ゟ]+$')
@@ -193,6 +212,31 @@ def norm(s):
         return ''
     s = unicodedata.normalize('NFKC', str(s))
     return re.sub(r'\s+', ' ', s).strip()
+
+
+def norm_punct(s):
+    """Whitespace-collapsed, with ONLY punctuation folded to a common width.
+
+    Why not plain norm(): full NFKC rewrites the Japanese text as well, and a
+    rewrite whose single change is ｱｲｳ → アイウ would then compare EQUAL to its
+    source and vanish from SILENT_RESCUE — an orthography change reported as no
+    change at all. Session 28 pinned divergence to raw strings for the same
+    reason; this keeps that discipline while still folding the one difference
+    that is genuinely not a change.
+
+    The case it exists for is O032 (E02 · M2), whose only edit is `(笑)` →
+    `（笑）`. That is a width change to a punctuation mark, not a rescue, and
+    test-silent-rescue.py asserts it stays out.
+    """
+    if s is None:
+        return ''
+    out = []
+    for ch in str(s):
+        # P* punctuation, S* symbols, Z* separators — everything a width fold
+        # should reach, and nothing a word is made of.
+        out.append(unicodedata.normalize('NFKC', ch)
+                   if unicodedata.category(ch)[0] in 'PSZ' else ch)
+    return re.sub(r'\s+', ' ', ''.join(out)).strip()
 
 
 def parse_issues(feedback):
@@ -236,6 +280,14 @@ def parse_rewrite(feedback):
         return ''
     hits = REWRITE_RE.findall(str(feedback))
     return norm(hits[-1]) if hits else ''
+
+
+def parse_rewrite_raw(feedback):
+    """parse_rewrite without the NFKC — what SILENT_RESCUE compares."""
+    if feedback is None:
+        return ''
+    hits = REWRITE_RE.findall(str(feedback))
+    return re.sub(r'\s+', ' ', hits[-1]).strip() if hits else ''
 
 
 def merged_opcodes(a, b, glue=1):
@@ -388,11 +440,15 @@ def read_eval_set(ws):
             rows[v.strip()] = {
                 'row': r,
                 'sent': norm(ws.cell(row=r, column=E_SENT).value),
+                'sent_raw': re.sub(r'\s+', ' ',
+                                   str(ws.cell(row=r, column=E_SENT).value or '')).strip(),
                 'status': (ws.cell(row=r, column=E_STATUS).value or '').strip(),
                 'tier': (ws.cell(row=r, column=E_TIER).value or '').strip(),
                 'key': norm(ws.cell(row=r, column=E_KEY).value),
                 'keyok': (ws.cell(row=r, column=E_KEYOK).value or '').strip(),
                 'amend': norm(ws.cell(row=r, column=E_AMEND).value),
+                'amended': (ws.cell(row=r, column=E_KEYOK).value or '').strip()
+                           in KEY_AMENDED,
             }
     return rows
 
@@ -528,6 +584,8 @@ def main():
         src = ev['sent']
         key = ev['key'] if ev['key'] != NO_CORRECTION else ''
         rewrite = parse_rewrite(bg.cell(row=r, column=B_FEEDBACK).value)
+        rewrite_raw = parse_rewrite_raw(bg.cell(row=r, column=B_FEEDBACK).value)
+        tool_tier = str(bg.cell(row=r, column=B_TIER).value or '').strip()
         if not rewrite:
             no_rewrite.append(oid)
 
@@ -576,18 +634,29 @@ def main():
             flags.append('SELF_NOTE_ONLY')
         if extras:
             flags.append('EXTRA_EDIT')
+        # SILENT_RESCUE — see SILENT_TIERS. Compared on RAW strings through
+        # norm_punct so a width-only edit is not a change and a kana-width edit
+        # still is. TOWARD_KEY means at least one key edit came out APPLIED; on a
+        # CORRECT row there are no key edits, so a silent change there is AWAY by
+        # construction, which is the right answer — nothing asked for it.
+        silent = (tool_tier.upper() in SILENT_TIERS and bool(rewrite_raw)
+                  and norm_punct(rewrite_raw) != norm_punct(ev['sent_raw']))
+        silent_toward = silent and 'APPLIED' in verdicts
+        if silent:
+            flags.append('SILENT_RESCUE')
 
         results.append({
             'oid': oid, 'eid': eid, 'model': str(bg.cell(row=r, column=B_MODEL).value or ''),
             'tool_tier': str(bg.cell(row=r, column=B_TIER).value or ''),
             'grade': str(bg.cell(row=r, column=B_GRADE).value or ''),
-            'status': ev['status'], 'keyok': ev['keyok'], 'amended': bool(ev['amend']),
-            'src': src, 'key': key, 'rewrite': rewrite,
+            'status': ev['status'], 'keyok': ev['keyok'], 'amended': ev['amended'],
+            'src': src, 'key': key, 'rewrite': rewrite, 'amend_text': bool(ev['amend']),
             'edits': edits, 'verdicts': verdicts, 'kept': kept_by_edit,
             'subs': subs, 'extras': extras, 'lex_miss': lex_miss,
             'issues': issues, 'unapplied': unapplied,
             'unapplied_asked': asked_unapplied, 'unapplied_note': note_unapplied,
             'names': names, 'echoed': echoed, 'flags': flags,
+            'silent': silent, 'silent_toward': silent_toward,
         })
 
     if not results:
@@ -690,6 +759,27 @@ def main():
           f"{sum(1 for x in results if x['unapplied']):>3} row(s)   ← do not quote")
 
     print()
+    print('SILENT RESCUES — verdict said NONE / WORTH KNOWING, the rewrite changed it')
+    sil = [x for x in results if x['silent']]
+    tw = [x for x in sil if x['silent_toward']]
+    aw = [x for x in sil if not x['silent_toward']]
+    print(f'  {len(sil)} row(s): {len(tw)} TOWARD_KEY, {len(aw)} AWAY. '
+          'The split is the point — a')
+    print('  silent change is not a silent improvement, and the summed form hid that.')
+    for m in models:
+        ms = [x for x in sil if x['model'] == m]
+        mt = [x for x in ms if x['silent_toward']]
+        ma = [x for x in ms if not x['silent_toward']]
+        print(f"    {m}  {len(ms):>2} silent  "
+              f"toward {len(mt)} [{', '.join(x['oid'] for x in mt) or '—'}]  "
+              f"away {len(ma)} [{', '.join(x['oid'] for x in ma) or '—'}]")
+    err = [x for x in sil if x['status'] == 'ERROR']
+    print(f'  of these, {len(err)} sit on an ERROR sentence — the under-diagnosis '
+          'census subset;')
+    print(f'  the other {len(sil) - len(err)} are CORRECT rows, where a silent '
+          'change had nothing to move toward.')
+
+    print()
     print('BY TOOL TIER — where the damage sits')
     tiers = defaultdict(lambda: [0, 0])
     for x in results:
@@ -703,6 +793,7 @@ def main():
     print('═' * 78)
     print('AGREEMENT WITH THE REVIEWER — the headline number')
     print('═' * 78)
+    scored_schema, matched, tot_cells = detect_scored_schema(bg, find_log(path))
     sibling = path.parent / 'check-unnatural-rewrite.py'
     if not sibling.exists():
         sibling = Path('check-unnatural-rewrite.py')
@@ -733,7 +824,6 @@ def main():
         print(f'  This script flags:                                      {len(mine)}')
         print(f'  Both:  {len(both):>3}   only this script: {len(only_m):>3}   '
               f'only reviewer: {len(only_t):>3}')
-        scored_schema, matched, tot_cells = detect_scored_schema(bg, find_log(path))
         if scored_schema == GRADED_SCHEMA and theirs:
             print(f'  Row-level agreement: {agree}/{n} = {agree / n:.0%}   '
                   f'precision {prec:.0%}   recall {rec:.0%}')
@@ -811,12 +901,112 @@ def main():
                       f'[{", ".join(f for f in x["flags"] if f in PRIMARY)}]  '
                       f'graded={x["grade"]}')
 
+    # ── key-exact agreement ───────────────────────────────────────────────────
+    # ⚠ TWO NUMBERS THAT MUST NEVER BE QUOTED AS EACH OTHER.
+    # "Raw agreement" is Keiko's 一致 rate — 68/86/82%, the figures the TUNE
+    # decision was made on. "Key-exact agreement" additionally credits rows whose
+    # rewrite matches the reviewer-VERIFIED key character for character and was
+    # still graded 部分一致. Those rows are the ceiling described at the top of
+    # this file: the tool hit the reference and two native speakers disagree about
+    # whether the reference is natural. Crediting them says something real — the
+    # rewriter did what the key asked — but it is NOT the gate, it is not what
+    # Keiko graded, and it must never be reported as her agreement figure.
+    print()
+    print('═' * 78)
+    print('KEY-EXACT AGREEMENT, BESIDE RAW AGREEMENT — not the same number')
+    print('═' * 78)
+    if scored_schema != GRADED_SCHEMA:
+        print(f'  ⛔ NOT SHOWN. The grades were made against {GRADED_SCHEMA}; the '
+              f'feedback here is {scored_schema or "unidentifiable"}.')
+        print('     Both figures below are grade-derived, so neither survives a '
+              'schema change.')
+    elif not any(x['grade'] for x in results):
+        print('  ⛔ NOT SHOWN. No graded rows were read — both figures would be 0% '
+              'by construction.')
+    else:
+        exact = [x for x in results if x['key'] and x['rewrite'] == x['key']]
+        print(f'  {len(exact)} row(s) whose rewrite equals the key character for '
+              'character.')
+        n_amended = sum(1 for x in exact if x['amended'])
+        print(f'  {n_amended} of them sit on a key Tomoko AMENDED — matching such a '
+              'key is matching a')
+        print('  reference the reviewers had already called incomplete, so those '
+              'rows are confounded.')
+        print(f"    {'oid':<6}{'eid':<6}{'model':<7}{'tool':<15}{'graded':<10}key")
+        for x in sorted(exact, key=lambda x: x['oid']):
+            print(f"    {x['oid']:<6}{x['eid']:<6}{x['model']:<7}"
+                  f"{x['tool_tier']:<15}{x['grade'] or '—':<10}"
+                  f"{'⚠ amended (' + x['keyok'] + ')' if x['amended'] else 'clean'}")
+        partial = {x['oid'] for x in exact if x['grade'] == '部分一致'}
+        clean = {x['oid'] for x in exact
+                 if x['grade'] == '部分一致' and not x['amended']}
+        EXPECTED = {'O009', 'O098', 'O120'}          # Session 22.1 named these three
+        print(f'    key-exact but graded 部分一致: {sorted(partial) or "none"}')
+        if partial == EXPECTED:
+            print('      Exactly the three Session 22.1 named.')
+        elif EXPECTED <= partial:
+            print(f'      Session 22.1 named {sorted(EXPECTED)} and all three are '
+                  'here. This block also finds')
+            print(f'      {sorted(partial - EXPECTED)}, which that session did not '
+                  'name — a fourth row where the')
+            print('      rewrite hit the key and was still graded 部分一致.')
+        else:
+            print(f'      ⚠ Session 22.1 named {sorted(EXPECTED)}; '
+                  f'{sorted(EXPECTED - partial)} did NOT come back.')
+            print('      That is a DIFFERENT set and the difference is the finding — '
+                  'do not quote the')
+            print('      Session 22.1 sentence against this run without reading it.')
+        print(f'      of the {len(partial)}, {len(clean)} sit on a key Tomoko '
+              f'approved 問題なし: {sorted(clean) or "none"}.')
+        print(f'      the other {len(partial - clean)} '
+              f'({", ".join(sorted(partial - clean)) or "—"}) sit on a key she '
+              'AMENDED, so the tool')
+        print('      matched a reference that had already moved. The ceiling '
+              'argument at the top of this')
+        print('      file rests on the 問題なし ones; it does not need the others '
+              'and should not claim them.')
+        print()
+        print(f"    {'':<5}{'n':>4}{'一致':>7}{'raw':>8}{'+key-exact':>12}"
+              f"{'key-exact agr':>15}")
+        for m in models:
+            rows = [x for x in results if x['model'] == m]
+            n = len(rows)
+            ichi = {x['oid'] for x in rows if x['grade'] == '一致'}
+            ke = {x['oid'] for x in rows if x['key'] and x['rewrite'] == x['key']}
+            both_ = ichi | ke
+            print(f"    {m:<5}{n:>4}{len(ichi):>7}{len(ichi) / n:>8.0%}"
+                  f"{len(both_ - ichi):>12}{len(both_) / n:>15.0%}")
+        print('    raw = 一致/n, the gate figure. key-exact agr = (一致 ∪ '
+              'key-exact)/n, which is NOT the gate.')
+        print('    ⚠ The gate is 90%. key-exact agr puts M2 at that line and raw '
+              'agreement does not.')
+        print('      They are different questions: raw asks what Keiko graded, '
+              'key-exact asks whether')
+        print('      the rewriter hit the reference. Only the first one is the '
+              'Phase 0 bar.')
+
     # ── confound note ─────────────────────────────────────────────────────────
     amended = [x for x in results if x['amended']]
+    by_prose = [x for x in results if x['amend_text']]
     if amended:
         print()
         print(f'⚠ {len(amended)} of {len(results)} outputs sit on a sentence whose KEY '
               'Tomoko amended.')
+        # ⚠ COMPARED AS SETS, NOT AS COUNTS. Both tests return 45 here — E47
+        # (3 outputs, approved 問題なし with a remark) swaps out and a 一部修正
+        # row with an empty K cell (3 outputs) swaps in. A count check would
+        # have reported no change while six rows moved.
+        a_ids, p_ids = {x['oid'] for x in amended}, {x['oid'] for x in by_prose}
+        if a_ids != p_ids:
+            print(f'  (Read off col J, her verdict. The old test — any text in col K '
+                  f'— also returned {len(by_prose)},')
+            print(f'   but not the same rows: {len(p_ids - a_ids)} out '
+                  f'({", ".join(sorted(p_ids - a_ids))}), '
+                  f'{len(a_ids - p_ids)} in ({", ".join(sorted(a_ids - p_ids))}).')
+            print('   E47 is 問題なし with a remark that 見る and 観る are both fine — '
+                  'an approval, not an')
+            print('   amendment; and a 一部修正 row has an empty K cell. J is the '
+                  'verdict, K is the prose.)')
         print('  On those rows column H is Lloyd\'s expected correction, not the '
               'reviewer-verified one,')
         print('  so a TARGET_MISSED there may be the tool disagreeing with a key that '

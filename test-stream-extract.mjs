@@ -33,7 +33,8 @@ const bundle = (src, name) => {
   return out;
 };
 
-const { JsonStreamExtractor, SseDecoder, textDeltaOf, envelopeOf } =
+const { JsonStreamExtractor, SseDecoder, textDeltaOf, envelopeOf,
+        repairUnescapedQuotes } =
   await import(`file://${bundle("supabase/functions/check/stream-extract.ts", "se.mjs")}`);
 const { placeSpans, SpanPlacer } =
   await import(`file://${bundle("supabase/functions/check/spans.ts", "spans.mjs")}`);
@@ -469,10 +470,98 @@ function runBytes(splits) {
         ["私の", "私の", "散歩します"]);
 }
 
+// ── §7  THE O040 REPAIR ──────────────────────────────────────────────────────
+//
+// Haiku quotes its own glosses inside a JSON string value:
+//
+//     "summary": "... 出す (transitive, "to produce/put out") should be 出る ..."
+//
+// Valid English, invalid JSON. It reproduced 6 of 6 across the bake-off runs and
+// the row left the denominator silently every time; through this endpoint the
+// same output reaches a learner as `unparseable` (502) on a check that worked,
+// with a cap slot already spent.
+//
+// repairUnescapedQuotes is the same rule as repair_unescaped_quotes in
+// bakeoff-harness.py, and BOTH COPIES ARE TESTED AGAINST THE SAME FIXTURE —
+// the one recorded in bakeoff-parse-failures.jsonl, read at run time rather
+// than retyped. Two implementations of one rule drift; a shared fixture is what
+// makes the drift visible.
+//
+// The controls matter more than the fix. A repair pass that rewrites text will
+// look like a success whether it repairs or corrupts, so §7 asserts the fixture
+// was really broken first, and that well-formed JSON comes back byte-identical.
+{
+  console.log("\n§7  the O040 repair — unescaped quotes inside a string value");
+
+  const { readFileSync } = await import("node:fs");
+  let fixture = null;
+  for (const line of readFileSync("bakeoff-parse-failures.jsonl", "utf8").split("\n")) {
+    if (!line.trim()) continue;
+    const r = JSON.parse(line);
+    if (r.output_id === "O040") { fixture = r; break; }
+  }
+  ok("the O040 fixture is still in bakeoff-parse-failures.jsonl", fixture !== null,
+     "restore the fixture rather than deleting this section");
+
+  if (fixture) {
+    const start = fixture.text.indexOf("{");
+    const slice = fixture.text.slice(start, fixture.text.lastIndexOf("}") + 1);
+
+    let brokeFirst = false;
+    try { JSON.parse(slice); } catch { brokeFirst = true; }
+    ok("the raw fixture really does not parse (control)", brokeFirst);
+
+    let parsed = null;
+    try { parsed = JSON.parse(repairUnescapedQuotes(slice)); } catch (e) {
+      ok("the repaired fixture parses", false, String(e));
+    }
+    if (parsed) {
+      ok("the repaired fixture parses", true);
+      check("the top-level keys are the ones a good row has",
+            Object.keys(parsed).sort(),
+            ["issues", "model_rewrite", "overall", "readings"]);
+      ok("the inner quotes survived INSIDE the summary text",
+         parsed.overall.summary.includes('"to produce/put out"'),
+         parsed.overall.summary.slice(0, 120));
+      check("model_rewrite came through intact",
+            parsed.model_rewrite, "え！僕も先週末に熱が出ました。");
+      check("the issue survived", parsed.issues.length, 1);
+      check("...with its span", parsed.issues[0].span, "熱が出しました");
+    }
+  }
+
+  // THE CONTROL. Well-formed JSON must come back byte-identical — including the
+  // shapes a naive scanner trips on. Without this, a repair that mangles every
+  // response would still pass the assertions above.
+  const untouched = [
+    ['an escaped quote inside a value', String.raw`{"a": "he said \"hi\" then left"}`],
+    ['a trailing escaped backslash', String.raw`{"a": "ends with a backslash\\"}`],
+    ['an empty string value', '{"a": ""}'],
+    ['a brace inside a string', '{"a": "not }, an object"}'],
+    ['a colon inside a string', '{"a": "ratio 3:1, roughly"}'],
+    ['nested objects and arrays', '{"a": [{"b": "c"}, {"d": ["e", "f"]}]}'],
+    ['the §1 fixture itself, serialised', JSON_TEXT],
+    ['...and pretty-printed', JSON.stringify(PAYLOAD, null, 2)],
+  ];
+  for (const [label, s] of untouched) {
+    ok(`unchanged: ${label}`, repairUnescapedQuotes(s) === s);
+  }
+
+  // AND THE LIMIT, asserted rather than left as a comment. A value that closes a
+  // real quotation right before a comma reads as a terminator under this rule.
+  // It is not repaired, the caller fails as it did before, and nothing is
+  // guessed twice.
+  const beyond = '{"a": "he said "hi", then left"}';
+  let repairedStillFails = false;
+  try { JSON.parse(repairUnescapedQuotes(beyond)); } catch { repairedStillFails = true; }
+  ok("a quotation ending before a comma is NOT repaired (stated limit)",
+     repairedStillFails);
+}
+
 console.log("\n" + "─".repeat(60));
 if (failures) {
   console.log(`FAILED — ${failures} assertion${failures === 1 ? "" : "s"}`);
   process.exit(1);
 }
-console.log("PASSED — chunk boundaries, UTF-8 splits, truncation and " +
-            "incremental==batch placement all hold.");
+console.log("PASSED — chunk boundaries, UTF-8 splits, truncation, " +
+            "incremental==batch placement and the O040 repair all hold.");

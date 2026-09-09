@@ -388,6 +388,27 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   silently block every outside tester. Load any new form from outside the account before
   sending it.
 
+## Reading a bake-off delta
+
+Five rules, all bought with a session each. They apply to every number
+`analyse-bakeoff-log.py` or `check-rewrite-quality.py` prints.
+
+- **A per-model delta must beat 3, an aggregate delta 4–6, before it is called a
+  result** (Session 28 floor). Print the band beside any delta.
+- **Never print a summed `SELF_INCONSISTENT` beside a tier-aware one.** Session 26
+  scored its own decisive prediction backwards on exactly this.
+- **No precision/recall across a schema change.** The guard in
+  `check-rewrite-quality.py` enforces it; do not bypass it.
+- **M1 is not a control.** Do not reach for "M1 moved / did not move" — only 29 of
+  49 M1 rewrites reproduced under a null re-run.
+- **A guard that has only ever refused has not been tested.** Run a control that
+  makes it print.
+
+And the one that is about files rather than numbers: **restoring the naoshi-4
+outputs means restoring `backups/naoshi-eval-v1-with-outputs.08-naoshi-4-final.xlsx`.**
+The harness filters its workbook merge by schema and will NOT rebuild them from
+`bakeoff-log.jsonl`, even though all 150 rows are sitting there.
+
 ## The audit task
 
 `tsumiki-weekly-audit` runs Saturdays 07:00 against this folder and logs to the Notion

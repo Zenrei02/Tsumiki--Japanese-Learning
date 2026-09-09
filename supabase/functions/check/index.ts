@@ -27,6 +27,7 @@ import { placeSpans, type RawIssue, SpanPlacer, verdictOf } from "./spans.ts";
 import {
   envelopeOf,
   JsonStreamExtractor,
+  repairUnescapedQuotes,
   SseDecoder,
   textDeltaOf,
 } from "./stream-extract.ts";
@@ -268,7 +269,19 @@ function parsePayload(raw: string) {
     if (ch === "{") depth++;
     else if (ch === "}") {
       depth--;
-      if (depth === 0) return JSON.parse(raw.slice(start, i + 1));
+      if (depth === 0) {
+        const slice = raw.slice(start, i + 1);
+        try {
+          return JSON.parse(slice);
+        } catch (e) {
+          // ONE repair attempt for the O040 shape, then the original failure.
+          // A well-formed response never reaches this branch, so a working
+          // check cannot be altered by it. See repairUnescapedQuotes.
+          const repaired = JSON.parse(repairUnescapedQuotes(slice));
+          console.log("parsePayload: repaired an unescaped quote in model output");
+          return repaired;
+        }
+      }
     }
   }
   throw new Error("unterminated JSON object in model output");
