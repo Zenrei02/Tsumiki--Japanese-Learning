@@ -63,10 +63,14 @@ sheet, its own Script Properties keys.
 USAGE
   python3 build-b10-form.py            # writes build-b10-form.gs + prints the manifest
 """
+import html
 import importlib.util
 import json
 import random
+import re
 import sys
+from collections import Counter
+from datetime import datetime
 from pathlib import Path
 
 import openpyxl
@@ -100,10 +104,245 @@ cq = load("_cq", HERE / "check-rewrite-quality.py")
 ab = load("_ab", HERE / "analyse-bakeoff-log.py")
 
 
+def esc(s):
+    """HTML-escape for the preview, keeping newlines visible."""
+    return html.escape(str(s or "")).replace(chr(10), "<br>")
+
+
 def js(s):
     """A JavaScript single-quoted string literal."""
     return ("'" + str(s).replace("\\", "\\\\").replace("'", "\\'")
             .replace("\n", "\\n").replace("\r", "") + "'")
+
+
+# ── the preview ─────────────────────────────────────────────────────────────
+#
+# WHY IT RENDERS FROM THE EMITTED .gs AND NOT FROM MEMORY. The .gs is what Apps
+# Script runs; the in-memory rows are what this script MEANT to write. Rendering
+# the second and calling it a preview of the first is the mistake this project
+# has made three times — a report of the intent, read as a report of the
+# artifact. So the DATA block is parsed back out of the file, decoded, and
+# asserted equal to the rows it was built from. A quoting bug in js() then shows
+# up as a failed round trip instead of as a preview that looks fine beside a
+# form that is broken.
+#
+# ⚠ THE PREVIEW IS NOT REVIEWER-FACING AND IS GITIGNORED. It carries the model
+# code, the role and the previous grade on every row — the blinding annotations
+# — on top of the eval sentences and four answer keys the .gs already holds.
+
+PREVIEW_OUT = HERE / "build-b10-form-preview.html"
+
+_LIT = r"'(?:\\.|[^'\\])*'"
+
+
+def unjs(lit):
+    """Decode a JS single-quoted literal produced by js(). The inverse."""
+    if not (lit.startswith("'") and lit.endswith("'")):
+        die(f"not a JS string literal: {lit[:40]!r}")
+    body, out, i = lit[1:-1], [], 0
+    while i < len(body):
+        if body[i] == "\\" and i + 1 < len(body):
+            out.append({"\\": "\\", "'": "'", "n": "\n"}.get(body[i + 1], body[i + 1]))
+            i += 2
+        else:
+            out.append(body[i])
+            i += 1
+    return "".join(out)
+
+
+def parse_gs_rows(gs):
+    """The DATA block, read back out of the generated file."""
+    m = re.search(r"var DATA = \[\n(.*?)\n\];", gs, re.S)
+    if not m:
+        die("no DATA block in the generated .gs — the template changed shape.")
+    rows = []
+    for line in m.group(1).splitlines():
+        if not line.strip():
+            continue
+        rec = {}
+        for field in ("oid", "sentence", "explanation", "rewrite", "key"):
+            f = re.search(field + r": (" + _LIT + ")", line)
+            if not f:
+                die(f"field {field!r} missing from an emitted DATA row.")
+            rec[field] = unjs(f.group(1))
+        for field in ("showKey", "keyAmended"):
+            f = re.search(field + r": (true|false)", line)
+            if not f:
+                die(f"field {field!r} missing from an emitted DATA row.")
+            rec[field] = f.group(1) == "true"
+        rows.append(rec)
+    return rows
+
+
+def gs_description(gs):
+    """The form description, concatenated from the emitted literals."""
+    m = re.search(r"form\.setDescription\(\n(.*?)\n  \);", gs, re.S)
+    if not m:
+        die("no setDescription block in the generated .gs.")
+    body = m.group(1)
+    if re.search(r"\+\s*[A-Za-z_$]", body):
+        die("the description now interpolates a variable; the preview only "
+            "concatenates literals and would show something the reviewer does not.")
+    text = "".join(unjs(l) for l in re.findall(_LIT, body))
+    if "今回きいていること" not in text:
+        die("the description came back without its own heading — the extraction "
+            "is reading the wrong block.")
+    return text
+
+
+ROLE_LABEL = {
+    "TOWARD_KEY": ("rescue", "SILENT RESCUE · changed TOWARD the key"),
+    "AWAY": ("rescue", "SILENT RESCUE · changed AWAY from the key"),
+    "keyexact": ("keyexact", "KEY-EXACT, and she graded it 部分一致"),
+    "control": ("control", "control"),
+}
+
+
+def render_preview(emitted, rows_by_oid, desc, path):
+    """One page per form page, in order, as the reviewer will meet them."""
+    cards, counts = [], Counter()
+    for i, g in enumerate(emitted, 1):
+        r = rows_by_oid[g["oid"]]
+        role = (r["rescue"] if r["rescue"]
+                else "keyexact" if g["showKey"] else "control")
+        cls, label = ROLE_LABEL[role]
+        counts[cls] += 1
+        key_block = extra_q = ""
+        if g["showKey"]:
+            amend = ('<div class="amend">（※ この正解は、キー確認のときに修正が'
+                     '入ったものです。その点をふまえてご判断ください。）</div>'
+                     if g["keyAmended"] else "")
+            key_block = ('<div class="blk key"><div class="lbl">'
+                         '④ ネイティブ確認済みの正解</div>'
+                         f'<div class="jp">{esc(g["key"])}</div>{amend}</div>')
+            extra_q = ('<div class="q"><div class="qt">③は④とほぼ同じ文ですが、'
+                       '以前の「部分一致」という評価は今もそのままでよいですか</div>'
+                       '<div class="opts"><span>はい、部分一致のままでよい</span>'
+                       '<span>いいえ、一致に変えたい</span>'
+                       '<span>どちらとも言えない</span></div>'
+                       '<div class="qt sub">「部分一致」の理由</div>'
+                       '<div class="free">（自由記述・任意）</div></div>')
+        cards.append(f'''
+<section class="card {cls}">
+  <div class="hdr"><span class="num">{i} / {len(emitted)}</span>
+    <span class="oid">{esc(g["oid"])}</span>
+    <span class="tag {cls}">LLOYD ONLY · {label}</span>
+    <span class="meta">{esc(r["model"])} · tool said <b>{esc(r["tier"])}</b>
+      · previously graded {esc(r["grade"])}
+      · key {"amended" if r["amended"] else "clean"}</span></div>
+  <div class="blk"><div class="lbl">① 学習者が書いた文</div>
+    <div class="jp">{esc(g["sentence"])}</div></div>
+  <div class="blk expl"><div class="lbl">② ツールの説明　★これが適切かどうかを見てください</div>
+    <div class="en">{esc(g["explanation"])}</div></div>
+  <div class="blk"><div class="lbl">③ ツールが提案した文</div>
+    <div class="jp">{esc(g["rewrite"])}</div></div>
+  {key_block}
+  <div class="q"><div class="qt">ツールの説明は学習者にとって適切ですか</div>
+    <div class="opts"><span>適切</span><span>一部適切</span><span>不適切</span>
+      <span>判断できない</span></div>
+    <div class="qt sub">コメント</div>
+    <div class="free">（自由記述・任意）</div></div>
+  {extra_q}
+</section>''')
+
+    doc = (PREVIEW_HTML
+           .replace("__CARDS__", "".join(cards))
+           .replace("__DESC__", esc(desc))
+           .replace("__N__", str(len(emitted)))
+           .replace("__NRES__", str(counts["rescue"]))
+           .replace("__NKE__", str(counts["keyexact"]))
+           .replace("__NCT__", str(counts["control"]))
+           .replace("__STAMP__", datetime.now().strftime("%Y-%m-%d %H:%M")))
+    path.write_text(doc, encoding="utf-8")
+    return counts
+
+
+PREVIEW_HTML = """<!doctype html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B10 — 説明の適切さ</title>
+<style>
+:root{--bg:#faf9f7;--fg:#1c1b19;--mut:#6b6660;--line:#ddd8d1;--card:#fff;
+--res:#b4531f;--ke:#6b4bab;--ct:#5a7a52;--warn:#9c1f1f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+--bg:#16151a;--fg:#eceae6;--mut:#9b958d;--line:#33302c;--card:#1e1d22;
+--res:#e8945c;--ke:#b39ae0;--ct:#93bd86;--warn:#ee7777}}
+:root[data-theme="dark"]{--bg:#16151a;--fg:#eceae6;--mut:#9b958d;--line:#33302c;
+--card:#1e1d22;--res:#e8945c;--ke:#b39ae0;--ct:#93bd86;--warn:#ee7777}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);margin:0;padding:2rem 1rem 5rem;
+font:16px/1.65 -apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",
+system-ui,sans-serif}
+.wrap{max-width:820px;margin:0 auto}
+h1{font-size:1.5rem;margin:0 0 .3rem}
+h2{font-size:1.05rem;margin:2.4rem 0 .8rem}
+.sub{color:var(--mut);font-size:.9rem}
+.banner{border:2px solid var(--warn);border-radius:8px;padding:1rem 1.1rem;
+margin:1.5rem 0;background:color-mix(in srgb,var(--warn) 7%,transparent)}
+.banner b{color:var(--warn)}
+.pre{background:var(--card);border:1px solid var(--line);border-radius:8px;
+padding:1.1rem 1.2rem;white-space:pre-wrap;font-size:.9rem}
+.legend{display:flex;gap:1.2rem;flex-wrap:wrap;margin:1.2rem 0;font-size:.88rem}
+.legend span{display:flex;align-items:center;gap:.4rem}
+.dot{width:.7rem;height:.7rem;border-radius:2px;display:inline-block}
+.card{background:var(--card);border:1px solid var(--line);
+border-left:4px solid var(--line);border-radius:8px;padding:1.1rem 1.2rem;
+margin:1.4rem 0}
+.card.rescue{border-left-color:var(--res)}
+.card.keyexact{border-left-color:var(--ke)}
+.card.control{border-left-color:var(--ct)}
+.hdr{display:flex;gap:.6rem;flex-wrap:wrap;align-items:baseline;
+padding-bottom:.7rem;margin-bottom:.9rem;border-bottom:1px solid var(--line)}
+.num{color:var(--mut);font-size:.8rem}
+.oid{font-weight:700;font-family:ui-monospace,SFMono-Regular,monospace}
+.tag{font-size:.72rem;font-weight:700;letter-spacing:.03em;
+padding:.12rem .45rem;border-radius:3px;border:1px solid currentColor}
+.tag.rescue{color:var(--res)}.tag.keyexact{color:var(--ke)}
+.tag.control{color:var(--ct)}
+.meta{color:var(--mut);font-size:.78rem;width:100%}
+.blk{margin:.85rem 0}
+.lbl{font-size:.8rem;color:var(--mut);margin-bottom:.25rem}
+.jp{font-size:1.12rem}
+.en{font-size:.94rem}
+.expl{background:color-mix(in srgb,var(--fg) 4%,transparent);
+border-radius:6px;padding:.7rem .85rem}
+.key .jp{color:var(--ke)}
+.amend{font-size:.82rem;color:var(--mut);margin-top:.3rem}
+.q{margin-top:1rem;padding-top:.85rem;border-top:1px dashed var(--line)}
+.qt{font-weight:600;font-size:.95rem}
+.qt.sub{margin-top:.8rem;font-weight:500;color:var(--mut)}
+.opts{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
+.opts span{border:1px solid var(--line);border-radius:999px;
+padding:.2rem .7rem;font-size:.88rem}
+.free{border:1px solid var(--line);border-radius:6px;padding:.5rem .7rem;
+color:var(--mut);font-size:.85rem;margin-top:.35rem}
+</style></head><body><div class="wrap">
+<h1>B10 — 説明の適切さ</h1>
+<div class="sub">What <code>build-b10-form.gs</code> will build, read back out of
+that file · __N__ rows · __STAMP__</div>
+
+<div class="banner"><b>⚠️ DO NOT SEND THIS FILE TO KEIKO.</b><br>
+The <b>LLOYD ONLY</b> band on each row names the role, the model code, the tool's
+verdict tier and the previous grade. None of that is on the real form — it would
+destroy the blinding. Everything <i>below</i> each band is exactly what she sees.
+<br><br>
+Four rows show the verified answer key (block ④). That is intended: those are the
+rows where the tool's rewrite matched the key character-for-character and she
+still graded 部分一致, so the question is whether that grade stands.</div>
+
+<div class="legend">
+<span><i class="dot" style="background:var(--res)"></i>silent rescue (__NRES__)</span>
+<span><i class="dot" style="background:var(--ke)"></i>key-exact 部分一致 (__NKE__)</span>
+<span><i class="dot" style="background:var(--ct)"></i>control (__NCT__)</span>
+</div>
+
+<h2>The description she reads first</h2>
+<div class="pre">__DESC__</div>
+
+<h2>The __N__ pages, in order</h2>
+__CARDS__
+</div></body></html>
+"""
 
 
 def main():
@@ -302,6 +541,38 @@ def main():
                 "blind. Fix the generator; do not hand-edit the .gs.")
     GS_OUT.write_text(gs, encoding="utf-8")
     print(f"\nwrote {GS_OUT.name} ({len(gs)} chars) — blinding assertion passed.")
+
+    # ── round trip, then the preview ────────────────────────────────────────
+    # Read the file back and decode it. This is the only thing standing between
+    # a quoting bug in js() and a preview that looks right beside a form that is
+    # not — the artifact, not the intent.
+    written = GS_OUT.read_text(encoding="utf-8")
+    emitted = parse_gs_rows(written)
+    if len(emitted) != len(data):
+        die(f"the .gs holds {len(emitted)} rows, the run built {len(data)}.")
+    by_oid = {r["oid"]: r for r in data}
+    for g in emitted:
+        r = by_oid.get(g["oid"])
+        if r is None:
+            die(f"{g['oid']} is in the .gs but not in this run's rows.")
+        for field, mine in (("sentence", r["sent_raw"]),
+                            ("rewrite", r["rewrite_raw"] or "（提案なし）"),
+                            ("explanation", r["expl"] or "（指摘なし）")):
+            if g[field] != mine:
+                die(f"{g['oid']} {field} did not survive the round trip through "
+                    f"the .gs.\n  wrote  {mine!r}\n  read   {g[field]!r}")
+        if g["showKey"] and g["key"] != r["key_raw"]:
+            die(f"{g['oid']} key did not survive the round trip.")
+    if [g["oid"] for g in emitted] != [r["oid"] for r in data]:
+        die("the .gs row ORDER differs from this run's — the shuffle is the "
+            "blinding, so a reordering is not cosmetic.")
+    print(f"round trip OK: all {len(emitted)} rows decode back to what was built, "
+          "in order.")
+
+    counts = render_preview(emitted, by_oid, gs_description(written), PREVIEW_OUT)
+    print(f"wrote {PREVIEW_OUT.name} — {counts['rescue']} rescue, "
+          f"{counts['keyexact']} key-exact, {counts['control']} control. "
+          "GITIGNORED: it carries the model codes and roles.")
     print("NOTHING WAS SENT. Lloyd reads this and "
           "SESSION-31-message-to-reviewer-B10.md before anything goes to Keiko.")
     return 0

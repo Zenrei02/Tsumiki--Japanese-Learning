@@ -126,6 +126,26 @@ build-key-check-forms.gs
 patch-b7-b8-forms.gs
 build-b9-form.gs
 
+# B10, added Sep 9 2026 (Session 31). ⚠️ THE .gs WAS COMMITTED ONCE, BECAUSE
+# NOBODY RAN THE GREP THE RULE ABOVE ASKS FOR — it holds 24 eval sentences, four
+# answer keys, and the full model output being judged. Caught the same session
+# and REBASED OUT of all three unpushed commits before the push, so it appears
+# nowhere in this history. The near miss is recorded here rather than in a commit
+# message, because the commit that carried it no longer exists.
+#
+# WHAT MADE IT RECOVERABLE was only that nothing had been pushed yet. The rule
+# above is written for the case where that is not true.
+#
+#   build-b10-form.gs           24 records: sentence + the tool's explanation and
+#                               rewrite, plus the verified key on 4 of them
+#   build-b10-form-preview.html the same, rendered, PLUS the blinding annotations
+#                               — model code, role and previous grade per row. It
+#                               is a Lloyd-facing review artifact and is the one
+#                               file here that would break the blinding outright
+#                               if it reached the reviewer.
+build-b10-form.gs
+build-b10-form-preview.html
+
 # ── Local noise ─────────────────────────────────────────────────────────────
 .~lock.*#
 *.tmp

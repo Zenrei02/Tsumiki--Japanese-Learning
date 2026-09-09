@@ -74,12 +74,16 @@ case('a real edit is still a difference (control)',
 
 # ── silent_rescue: the verdict gate and the change gate ──────────────────────
 print('\nsilent_rescue — the verdict gate and the change gate')
-SRC = '日本のオーブンはちっちゃすぎので、できない'
+# Synthetic on purpose: the gates below care about the SHAPE of the edit, not
+# about this being a real eval row, and a tracked file should not carry one
+# for free. The rows that must be real — O032 and O043 — are read from the
+# log and the workbook at run time, further down.
+SRC = 'このへやはちいさすぎので、つかえない'
 case('NONE + a real change            = a rescue',
      ab.silent_rescue('NONE', SRC, SRC.replace('すぎので', 'すぎるので'), True),
      'TOWARD_KEY')
 case('NONE + a real change, no key edit applied',
-     ab.silent_rescue('NONE', SRC, SRC.replace('できない', '焼けない'), False), 'AWAY')
+     ab.silent_rescue('NONE', SRC, SRC.replace('つかえない', '使えない'), False), 'AWAY')
 case('WORTH KNOWING is also a silent tier',
      ab.silent_rescue('WORTH KNOWING', SRC, SRC + 'よ', False), 'AWAY')
 case('FIX is NOT a silent tier — it was announced',
