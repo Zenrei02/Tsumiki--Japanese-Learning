@@ -41,6 +41,27 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
   than deferring the work, and deferring loses the record — which is the thing
   the field exists for. Verify after the write; do not skip the write.
 
+- **⚠️ READ THE FIELD IN `rows` MODE BEFORE YOU REWRITE IT. SQL TEXT IS LOSSY.**
+  The copy-append-paste norm above is right; the *read* is where it goes wrong.
+  `query_data_sources` in SQL mode returns a lossy rendering of a rich-text
+  property — the tool's own docs say so, and say to use `mode: "rows"` instead,
+  which preserves formatting, links and mentions faithfully.
+
+  Session 31 ignored that, read the Rewrite-quality row's `Notes` through SQL and
+  pasted the result back. It put 襞 (U+895E, "pleat") where 襟 (U+895F, "collar")
+  belongs, in two places. **One codepoint off, in a rare kanji, in a field nobody
+  re-reads character by character** — and two successive SQL reads of the same row
+  returned two DIFFERENT characters, which is the only reason it surfaced at all.
+
+  **A lossy read that is written back does not merely misreport the field. It
+  BECOMES the field.** That is worse than the destructive `update_properties`
+  below, because a wiped field is obvious and a silently mutated character is not.
+
+  So: `mode: "rows"` to read; verify the write by COUNTING occurrences of anything
+  you changed (`length(x) - length(replace(x, c, ''))`) rather than eyeballing a
+  substring; and settle a disputed character against the source data by codepoint
+  — the workbook and `bakeoff-log.jsonl` are the authority, not the tracker.
+
 - **⚠️ `update_properties` REPLACES `Notes`, it does not append.** Tracker rows carry their
   whole history in that one field, session by session. **Always fetch the row and re-send the
   existing text with the new entry appended.** Session 9 destroyed the Session 4 and 6 history
