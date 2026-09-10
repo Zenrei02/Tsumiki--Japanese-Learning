@@ -49,7 +49,7 @@ the tool hit the reference. Only she can say whether the grade stands.
 
 24 rows: 13 silent-rescue rows across all three models, 4 key-exact 部分一致 rows,
 7 already-graded controls shuffled in so the rescued rows cannot be found by
-position. Roughly 40–55 minutes. The full row list is printed by
+position. Roughly 40–60 minutes. The full row list is printed by
 `python3 build-b10-form.py` — **that manifest is for Lloyd only and must never
 reach her**, as it names the roles and the model codes.
 
@@ -80,7 +80,7 @@ reach her**, as it names the roles and the model codes.
 > それが許容できる範囲なのかどうか、日本語を教える側の目で見ていただきたいです。
 >
 > 今回も**日本語を直していただく必要はありません**。見て選んでいただくだけです。
-> 所要時間は40〜55分くらいだと思います。
+> 所要時間は40〜60分くらいだと思います。
 >
 > ツールの説明文が英語なのは、このツールが英語話者の学習者向けだからです。
 > 学習者が実際に画面で読むのはその英文そのものなので、そのまま載せています。
@@ -116,7 +116,7 @@ reach her**, as it names the roles and the model codes.
 > within acceptable range.
 >
 > **You don't need to correct any Japanese** this time either — just look and
-> choose. I think it'll take about 40–55 minutes.
+> choose. I think it'll take about 40–60 minutes.
 >
 > The tool's explanations are in English because it's built for English-speaking
 > learners; that English is exactly what the learner reads on screen, so I've left
