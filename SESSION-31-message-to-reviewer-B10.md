@@ -1,21 +1,24 @@
 # Message to Keiko — B10, one new question about the explanation
 
-**Status:** DRAFT. Nothing has been sent, and the form has not been built.
-Written Sep 9 2026, Session 31.
+**Status:** READY TO SEND. The form is built, live and verified. Nothing has been
+sent. Written Sep 9 2026, link added Sep 11 2026.
 **Send via:** LINE, same as every previous batch message.
 **Fee:** ¥2,000 (24 rows, one new question — same rate as B8).
+**LIVE link (the one in the message below):** <https://docs.google.com/forms/d/e/1FAIpQLSfk9mWG6rgHaZXBVFzG1VSd8zxu6MenTIxq5pux1qj0FjS7Yg/viewform>
 
 ---
 
 ## What Lloyd should check before this goes anywhere
 
-1. **The form does not exist yet.** `build-b10-form.gs` is generated but has not
-   been run. Run it from the account that owns B1–B9 — a form built while signed
-   into another account is invisible to a Drive search from this one, and
-   re-running to "fix" that is how you end up with two live forms.
-2. **Load the live link from outside the account before sending it.** A Workspace
-   account will sometimes restrict a new form to its own domain and silently
-   block the reviewer.
+1. ✅ **The form is built and verified** (Sep 11 2026). Owner `zensoreno@gmail.com`,
+   matching the Step 3 set. Exactly one B10 form and one response sheet exist —
+   no duplicate from a re-run. All 24 rows were compared against the `.gs` that
+   built them, byte for byte, by reading the live form's own embedded data rather
+   than the execution log.
+2. ✅ **It opens from outside the account.** The first read was unauthenticated,
+   so a Workspace domain restriction would have blocked it and did not.
+   Permissions are `anyone · reader · published` plus the owner — no other editor,
+   and no `anyone · writer`, so the EDIT link is not reachable from the LIVE one.
 3. **B1–B9 are untouched** and stay that way. B10 has its own form, its own
    response spreadsheet, and its own Script Properties keys.
 4. **Payment is clear.** Lloyd confirmed Sep 9 2026 that the ¥6,000 for B8 and B9
@@ -85,6 +88,10 @@ reach her**, as it names the roles and the model codes.
 > ツールの説明文が英語なのは、このツールが英語話者の学習者向けだからです。
 > 学習者が実際に画面で読むのはその英文そのものなので、そのまま載せています。
 >
+> フォームはこちらです。お引き受けいただけるようでしたら、
+> このままお進みいただいて大丈夫です。
+> https://docs.google.com/forms/d/e/1FAIpQLSfk9mWG6rgHaZXBVFzG1VSd8zxu6MenTIxq5pux1qj0FjS7Yg/viewform
+>
 > 難しければ全然お気になさらないでください。お返事だけいただけたら嬉しいです。
 
 ---
@@ -121,6 +128,9 @@ reach her**, as it names the roles and the model codes.
 > The tool's explanations are in English because it's built for English-speaking
 > learners; that English is exactly what the learner reads on screen, so I've left
 > it as-is.
+>
+> Here's the form. If you're happy to take it on, you can just go ahead from here.
+> [link]
 >
 > If it's difficult, please don't worry about it at all. Just a reply would be
 > great.
