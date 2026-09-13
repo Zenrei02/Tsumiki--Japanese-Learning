@@ -436,6 +436,168 @@ function Review({ furigana, setFurigana, btn }) {
   );
 }
 
+// ── streaming: the client half ──────────────────────────────────────────────
+//
+// The endpoint has streamed since Aug 19 (Session 16.5) — opt-in via
+// `"stream": true` — and until Session 32 nothing asked it to. It emits its
+// OWN events, never the model's: `overall`, one `issue` per issue with the
+// span already placed server-side, `rewrite`, `readings`, then `done`; a
+// failure after the headers have gone out travels in-band as `error`.
+//
+// TWO CONTRACTS, and the first is the one that matters.
+//
+//   1. A STREAM THAT ENDS WITHOUT `done` IS A FAILURE, NOT A SHORT RESULT.
+//      Once headers are sent the HTTP status is 200 whatever happens next, so
+//      a dropped connection looks, to a status check, exactly like a finished
+//      one. Rendered naively that is "no issues found" — the one thing this
+//      product must never say by accident. `done` is sent only when the
+//      model's JSON actually closed; nothing below trusts anything less.
+//   2. Issues arrive in MODEL order, because you cannot sort a list you have
+//      not finished receiving. The buffered path sorts on the way out
+//      (document order, unlocatable last); this path sorts on `done`, with
+//      the same comparator, so the two paths agree once the stream is over.
+//      `_id` is the ARRIVAL index and stays put through the sort — it keys
+//      the highlight the learner may already have open.
+//
+// What it buys is honest and bounded (Session 32): the model thinks before it
+// writes, and thinking is most of the wait, so the first event lands late in
+// the check and the rest arrive over a few seconds. Progressive rendering
+// shortens the wait for the first thing to read; it does not shorten the check.
+
+// SSE frames out of bytes. ONE TextDecoder in stream mode, kept across pushes:
+// the payload is Japanese, a chunk boundary lands mid-character constantly,
+// and decoding chunks independently yields U+FFFD — silent corruption of the
+// learner's own sentence, surfacing as a span that no longer matches.
+function sseDecoder() {
+  const dec = new TextDecoder("utf-8");
+  let buf = "";
+  const parseBlock = (block) => {
+    let event = "message";
+    const data = [];
+    for (const line of block.split("\n")) {
+      if (!line || line[0] === ":") continue;
+      const i = line.indexOf(":");
+      const field = i === -1 ? line : line.slice(0, i);
+      const value = i === -1 ? "" : line.slice(i + 1).replace(/^ /, "");
+      if (field === "event") event = value;
+      else if (field === "data") data.push(value);
+    }
+    return data.length ? { event, data: data.join("\n") } : null;
+  };
+  const drain = (final) => {
+    const out = [];
+    // Line endings: CRLF, LF or a lone CR are all legal. A CR that ends the
+    // buffer is held back rather than converted — the LF that completes it may
+    // be in the next chunk, and converting early turned "\r" + "\n" into a
+    // blank line, which ended the frame before its data arrived. Found by the
+    // every-byte split in test-sse-decoder.mjs at byte 141, first run.
+    buf = buf.replace(/\r\n/g, "\n").replace(/\r(?!$)/g, "\n");
+    if (final) buf = buf.replace(/\r$/, "\n");
+    for (;;) {
+      const cut = buf.indexOf("\n\n");
+      if (cut === -1) break;
+      const frame = parseBlock(buf.slice(0, cut));
+      buf = buf.slice(cut + 2);
+      if (frame) out.push(frame);
+    }
+    return out;
+  };
+  return {
+    push: (bytes) => { buf += dec.decode(bytes, { stream: true }); return drain(false); },
+    // A trailing block with no terminator is a frame the connection cut in
+    // half. It is dropped, not guessed at — and the absence of `done` is what
+    // then decides the outcome.
+    flush: () => { buf += dec.decode(); return drain(true); },
+  };
+}
+
+// The buffered endpoint's render order, reproduced so both paths agree.
+// Stable sort, so unlocatable issues keep their arrival order among themselves
+// — which is also what the server does.
+const byDocumentOrder = (a, b) => {
+  if (a.located && b.located) return a.start - b.start;
+  if (a.located) return -1;
+  if (b.located) return 1;
+  return 0;
+};
+
+// Consume the endpoint's stream. `onPartial` receives the result so far after
+// every chunk that changed it; the resolved value has the SAME shape the
+// buffered path returns, so nothing downstream knows which path ran. Throws on
+// any failure — and if content had already arrived, the error carries it as
+// `partial`, so the UI can keep it on screen and say that it is incomplete.
+async function readStream(body, submitted, onPartial) {
+  const reader = body.getReader();
+  const frames = sseDecoder();
+  const draft = {
+    overall: {}, issues: [], model_rewrite: "", readings: [],
+    submitted, streaming: true,
+  };
+  let failure = null;
+  let done = null;
+
+  const apply = (frame) => {
+    let payload;
+    try { payload = JSON.parse(frame.data); } catch { return false; }
+    switch (frame.event) {
+      case "overall":
+        draft.overall = payload && typeof payload === "object" ? payload : {};
+        return true;
+      case "issue":
+        draft.issues = [...draft.issues, { ...payload, _id: draft.issues.length }];
+        return true;
+      case "rewrite":
+        draft.model_rewrite = payload?.model_rewrite ?? "";
+        return true;
+      case "readings":
+        draft.readings = Array.isArray(payload?.readings) ? payload.readings : [];
+        return true;
+      case "error":
+        failure = payload?.error || "upstream-error";
+        return false;
+      case "done":
+        done = payload && typeof payload === "object" ? payload : {};
+        return false;
+      default:
+        // An event this build does not know. Ignored, not fatal — a newer
+        // endpoint must not break an older client.
+        return false;
+    }
+  };
+
+  try {
+    for (;;) {
+      const { done: closed, value } = await reader.read();
+      if (closed) break;
+      let changed = false;
+      for (const f of frames.push(value)) changed = apply(f) || changed;
+      if (changed && !failure && !done) onPartial({ ...draft });
+    }
+    for (const f of frames.flush()) apply(f);
+  } catch (e) {
+    failure = failure || (e?.name === "AbortError" ? "aborted" : "cut-off");
+  }
+
+  if (failure || !done) {
+    const err = new Error(failure || "cut-off");
+    if (draft.issues.length || draft.overall?.summary) err.partial = { ...draft };
+    throw err;
+  }
+  return {
+    schema: done.schema,
+    model: done.model,
+    verdict: done.verdict,
+    overall: draft.overall,
+    issues: [...draft.issues].sort(byDocumentOrder),
+    model_rewrite: draft.model_rewrite,
+    readings: draft.readings,
+    spans: done.spans,
+    usage: done.usage,
+    cap: done.cap ?? null,
+    submitted,
+  };
+}
+
 // ── the module ──────────────────────────────────────────────────────────────
 export default function CheckerModule() {
   const [text, setText] = useState("");
@@ -473,24 +635,46 @@ export default function CheckerModule() {
   const over = count > MAX_CHARS;
   const canCheck = text.trim().length > 0 && !over && !busy;
 
+  // Aborting on the way out is not tidiness: the endpoint cancels its upstream
+  // call when the client hangs up, and tokens nobody will read stop being
+  // paid for.
+  // Held in state rather than a ref so the standalone artifact — where hooks
+  // are ambient and this module imports nothing — needs no new global.
+  const [abortRef] = useState({ current: null });
+  useEffect(() => () => abortRef.current?.abort(), []);
+
   async function check() {
     if (!canCheck) return;
     setBusy(true); setError(null); setResult(null); setActive(null);
     const submitted = text.trim();
+    const controller = typeof AbortController === "function" ? new AbortController() : null;
+    abortRef.current = controller;
     try {
       if (!CHECKER_URL) throw new Error("not-configured");
       const r = await fetch(CHECKER_URL, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ text: submitted, context }),
+        body: JSON.stringify({ text: submitted, context, stream: true }),
+        signal: controller?.signal,
       });
-      const data = await r.json().catch(() => ({}));
-      if (!r.ok) throw new Error(data.error || `http-${r.status}`);
-      // _id keys the highlight ↔ card pairing. Index is stable for one result.
-      data.issues = (data.issues || []).map((x, i) => ({ ...x, _id: i }));
-      // Render against the text that was SENT, not what is in the box now —
-      // the learner may have kept typing, and offsets belong to the submission.
-      data.submitted = submitted;
+      // A refusal before the stream opens — daily cap, too long, upstream down
+      // on the handshake — is still a real HTTP status with a JSON body,
+      // exactly as before. Only a 200 carrying an event stream takes the new
+      // path; everything else takes the buffered path unchanged, which is also
+      // what a stubbed or older backend gets.
+      const type = r.headers?.get?.("content-type") || "";
+      let data;
+      if (r.ok && r.body && type.includes("text/event-stream")) {
+        data = await readStream(r.body, submitted, setResult);
+      } else {
+        data = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(data.error || `http-${r.status}`);
+        // _id keys the highlight ↔ card pairing. Index is stable for one result.
+        data.issues = (data.issues || []).map((x, i) => ({ ...x, _id: i }));
+        // Render against the text that was SENT, not what is in the box now —
+        // the learner may have kept typing, and offsets belong to the submission.
+        data.submitted = submitted;
+      }
       setResult(data);
       // AFTER the result is on screen, and never on the error path: a check
       // that failed to reach the backend is not evidence about anyone's
@@ -502,14 +686,25 @@ export default function CheckerModule() {
       try { await recordCheck(context, submitted, data); }
       catch (e) { console.error("error history not recorded", e); }
     } catch (e) {
-      setError(String(e.message || e));
+      // A stream that failed after content had arrived keeps that content on
+      // screen, marked incomplete, and is NOT recorded: half a check is not
+      // evidence about anyone's Japanese, and the copy must not say "nothing
+      // was lost" when a cap slot was spent on what is showing.
+      if (e?.partial) {
+        setResult({ ...e.partial, streaming: false, incomplete: true });
+        setError("cut-off");
+      } else {
+        setError(String(e.message || e));
+      }
     } finally {
+      abortRef.current = null;
       setBusy(false);
     }
   }
 
   const ERRORS = {
     "daily-cap": "That's today's free checks used up. They reset tomorrow.",
+    "cut-off": "The check was cut off partway. What is showing is real but may be incomplete, and it was not saved to your sentences.",
     "too-long": `That's longer than ${MAX_CHARS} characters. Try one paragraph at a time.`,
     "upstream-timeout": "The check took too long and was stopped. Try again — a shorter piece usually goes through.",
     "upstream-error": "The checker could not be reached just now. Nothing was lost; try again in a moment.",
@@ -600,10 +795,16 @@ export default function CheckerModule() {
         </span>
       </div>
 
-      {busy && (
+      {busy && !result && (
         <p style={{ font: `0.875rem ${T.uiFont}`, color: T.sub }}>
           Reading it properly — this usually takes a few seconds, sometimes up to a minute
           for longer writing.
+        </p>
+      )}
+
+      {busy && result?.streaming && (
+        <p style={{ font: `0.875rem ${T.uiFont}`, color: T.sub }}>
+          Still writing up — the notes below are filling in.
         </p>
       )}
 
@@ -621,15 +822,20 @@ export default function CheckerModule() {
             display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap",
             marginBottom: 14,
           }}>
-            <span style={{
-              font: `600 0.75rem ${T.uiFont}`, letterSpacing: "0.06em",
-              textTransform: "uppercase",
-              color: result.verdict === "NONE" ? T.ok : tierOf(
-                result.verdict === "FIX" ? "fix"
-                  : result.verdict === "UNNATURAL" ? "unnatural" : "note").color,
-            }}>
-              {result.verdict === "NONE" ? "Nothing to change" : result.verdict}
-            </span>
+            {/* The verdict is a statement about the WHOLE piece, and it only
+                exists once the whole piece has been read. Never while the
+                stream is open, never on a result that was cut short. */}
+            {!result.streaming && !result.incomplete && (
+              <span style={{
+                font: `600 0.75rem ${T.uiFont}`, letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                color: result.verdict === "NONE" ? T.ok : tierOf(
+                  result.verdict === "FIX" ? "fix"
+                    : result.verdict === "UNNATURAL" ? "unnatural" : "note").color,
+              }}>
+                {result.verdict === "NONE" ? "Nothing to change" : result.verdict}
+              </span>
+            )}
             {result.overall?.natural_score != null && (
               <span style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub }}>
                 Sounds natural: {result.overall.natural_score} / 5
@@ -661,7 +867,10 @@ export default function CheckerModule() {
             />
           </div>
 
-          {result.issues.length === 0 && (
+          {/* Contract 1, in the render: an empty list is only "nothing to
+              correct" once `done` has said so. Mid-stream it is "nothing yet";
+              after a cut-off it is "unknown". */}
+          {result.issues.length === 0 && !result.streaming && !result.incomplete && (
             <div style={{
               background: T.okBg, border: `1px solid ${T.ok}33`, borderRadius: 10,
               padding: "14px 16px", font: `0.9375rem/1.6 ${T.uiFont}`, color: T.ink,
