@@ -62,7 +62,7 @@ reach her**, as it names the roles and the model codes.
 
 > 恵子さん
 >
-> ご無沙汰しております。先日のブラインド採点、9バッチ全部やっていただいて本当に助かりました。
+> 先日はブラインド採点、9バッチ全部やっていただいて本当にありがとうございました。おかげでとても助かりました。
 > いただいたコメントを読み返しながらツールを直しているのですが、その中で
 > 「今までの聞き方では拾えていなかったこと」が一つ見つかりました。
 >
@@ -100,7 +100,7 @@ reach her**, as it names the roles and the model codes.
 
 > Keiko,
 >
-> It's been a while. The nine batches of blind grading were a huge help. While
+> Thank you so much for doing all nine batches of blind grading the other day — it was a huge help. While
 > going back through your comments and fixing the tool, I found one thing the way
 > I was asking couldn't pick up.
 >

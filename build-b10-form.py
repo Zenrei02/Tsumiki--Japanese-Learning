@@ -215,12 +215,12 @@ def render_preview(emitted, rows_by_oid, desc, path):
             key_block = ('<div class="blk key"><div class="lbl">'
                          '④ ネイティブ確認済みの正解</div>'
                          f'<div class="jp">{esc(g["key"])}</div>{amend}</div>')
-            extra_q = ('<div class="q"><div class="qt">③は④とほぼ同じ文ですが、'
-                       '以前の「部分一致」という評価は今もそのままでよいですか</div>'
-                       '<div class="opts"><span>はい、部分一致のままでよい</span>'
-                       '<span>いいえ、一致に変えたい</span>'
+            extra_q = ('<div class="q"><div class="qt">③と④は同じ文です。'
+                       'この場合の評価は、どちらが近いですか（以前の評価は気にせずお答えください）</div>'
+                       '<div class="opts"><span>一致</span>'
+                       '<span>部分一致</span>'
                        '<span>どちらとも言えない</span></div>'
-                       '<div class="qt sub">「部分一致」の理由</div>'
+                       '<div class="qt sub">その理由</div>'
                        '<div class="free">（自由記述・任意）</div></div>')
         cards.append(f'''
 <section class="card {cls}">
@@ -673,8 +673,8 @@ function buildB10Form(ss) {
     '・一部適切 ＝ だいたい伝わるが、足りない・分かりにくいところがある\n' +
     '・不適切 ＝ 学習者が誤解する。または、必要なことが説明されていない\n' +
     '・判断できない ＝ 情報が足りず、決められない\n\n' +
-    '※ ②と③を見比べて「説明していないことを、③で勝手に直している」と感じた場合は、' +
-    'それは「不適切」または「一部適切」にあたります。コメント欄に一言いただけると助かります。\n\n' +
+    '※ ③が①と違う場合は、その違いが②で説明されているかどうかも見てください。' +
+    '判断はお任せします。コメント欄に一言いただけると助かります。\n\n' +
     '一部のページには【④ ネイティブ確認済みの正解】が付いています。' +
     'そのページだけ、追加の質問があります。\n\n' +
     'この B10 には __N__件 あります。所要時間は __MINS_LO__〜__MINS_HI__分ほどです。' +
@@ -723,14 +723,14 @@ function buildB10Form(ss) {
       .setRequired(false);
     if (row.showKey) {
       form.addMultipleChoiceItem()
-        .setTitle(row.oid + ' ・ ③は④とほぼ同じ文ですが、以前の「部分一致」という評価は' +
-                  '今もそのままでよいですか')
-        .setChoiceValues(['はい、部分一致のままでよい', 'いいえ、一致に変えたい',
+        .setTitle(row.oid + ' ・ ③と④は同じ文です。この場合の評価は、どちらが近いですか' +
+                  '（以前の評価は気にせずお答えください）')
+        .setChoiceValues(['一致', '部分一致',
                           'どちらとも言えない'])
         .setRequired(true);
       form.addParagraphTextItem()
-        .setTitle(row.oid + ' ・ 「部分一致」の理由')
-        .setHelpText('③と④が同じ文に見えるのに部分一致とされた理由が分かると、' +
+        .setTitle(row.oid + ' ・ その理由')
+        .setHelpText('「部分一致」を選んだ場合、どこが違うと感じたか一言いただけると、' +
                      'ツールの評価のしかたを直せます。')
         .setRequired(false);
     }
