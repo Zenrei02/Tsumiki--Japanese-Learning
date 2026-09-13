@@ -136,12 +136,32 @@ export function importProgress(text) {
   } catch {
     return { ok: false, message: "That file isn't readable as progress data." };
   }
-  if (parsed?.format !== "tsumiki-progress" || !parsed.data) {
+  // ⚠️ BOTH NAMES ARE ACCEPTED, AND THE OLD ONE IS NOT DEAD WEIGHT.
+  // Files exported before the 2026-09-06 rename carry `naoshi-progress`. They
+  // are sitting on testers' disks right now, and they are the only undo a
+  // DEVICE has. RENAME-NOTES.md §1 said to do exactly this and it was missed;
+  // rejecting them turned "restore my progress" into "That looks like a
+  // different kind of file." Keep reading both for as long as anyone might
+  // still hold one — which is longer than it feels.
+  const FORMATS = new Set(["tsumiki-progress", "naoshi-progress"]);
+  if (!FORMATS.has(parsed?.format) || !parsed.data) {
     return { ok: false, message: "That looks like a different kind of file." };
   }
+  // ⚠️ AND ACCEPTING THE OLD FORMAT STRING ALONE WOULD HAVE FIXED NOTHING.
+  // A pre-rename file's KEYS are the pre-rename names too, so every one of them
+  // would fall through `KEYS.includes(k)` and the restore would report "That
+  // file had nothing in it." — a second, quieter version of the same refusal.
+  // The rename was a pure prefix, so the mapping is mechanical rather than a
+  // table to keep in sync: `stroke-data-v1` -> `tsumiki-stroke-data-v1`.
+  const resolve = (k) => {
+    if (KEYS.includes(k)) return k;
+    const prefixed = "tsumiki-" + k;
+    return KEYS.includes(prefixed) ? prefixed : null;
+  };
   let n = 0;
   for (const [k, v] of Object.entries(parsed.data)) {
-    if (KEYS.includes(k)) { store().setItem(k, v); n++; }
+    const key = resolve(k);
+    if (key) { store().setItem(key, v); n++; }
   }
   return {
     ok: true,

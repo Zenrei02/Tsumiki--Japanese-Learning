@@ -205,6 +205,38 @@ const eq = (a, b, msg) => assert(canonCmp(a) === canonCmp(b),
   eq(v.same, ["log-key-v1"], "identical sides are still 'same', not a union");
 }
 
+// ————— 8. wouldWipeRemote — the 2026-09-07 wipe, as a test —————
+// What a learner loses if these are wrong: everything on their account, replaced
+// by a device that happened to have nothing. That is not hypothetical; it
+// happened, and the archive trigger is the only reason it was recoverable.
+{
+  const REAL = { "tsumiki-kanji-progress-v1": '{"a":1}' };
+
+  // The actual incident: both sides looked empty to the merge because the KEYS
+  // filter had hollowed them out, so a clean {} was pushed over a live row.
+  assert(wouldWipeRemote({}, REAL) === true,
+    "THE INCIDENT: empty over a live account row is a wipe");
+
+  // Emptiness spelled in the other ways a module writes it. If EMPTY_VALUES and
+  // this guard ever disagree, a "{}"-shaped push walks straight past it.
+  assert(wouldWipeRemote({ "tsumiki-kanji-progress-v1": "{}" }, REAL) === true,
+    "a payload of placeholders is still empty");
+  assert(wouldWipeRemote({}, { "tsumiki-kanji-progress-v1": "{}" }) === false,
+    "a placeholder-only remote is not worth protecting");
+
+  // ⚠️ THE THREE THAT MUST STAY FALSE. A guard that refuses real work gets
+  // switched off, and then it is not a guard.
+  assert(wouldWipeRemote({}, {}) === false, "empty over empty is not a wipe");
+  assert(wouldWipeRemote(REAL, {}) === false, "a first push to a new account is not a wipe");
+  assert(wouldWipeRemote({ "tsumiki-kanji-mode": "on" }, REAL) === false,
+    "a SMALLER push is not a wipe — the guard judges empty, never less");
+
+  // Missing/undefined sides must not throw: pushRemote reaches this with
+  // whatever fetchRemote returned, and a row that has never existed has no data.
+  assert(wouldWipeRemote({}, null) === false, "a null remote is not a wipe");
+  assert(wouldWipeRemote(null, REAL) === true, "a null push over real data is still a wipe");
+}
+
 if (failures) {
   console.error("\n" + failures + " ASSERTION(S) FAILED");
   process.exit(1);

@@ -21,7 +21,11 @@ it belongs in Claude Code. **Design and planning stay in Cowork.**
   (`"cap": null`, `CAP DISABLED` in the logs). Migration
   `20260814190000_check_usage_grant_service_role.sql` fixes it. **No successful
   reserve has happened yet** — the next real check proves it or doesn't.
-- **App: live at naoshi.netlify.app**, six modules behind a side menu.
+- **App: live at tsumiki-jp.netlify.app**, six modules behind a side menu.
+  *(Was `naoshi.netlify.app` when this was written. Corrected 2026-09-13 by the
+  weekly audit — this is a current-state line, not a dated observation, and the
+  old subdomain has been **released and is claimable by anyone**. Historical
+  mentions elsewhere in the repo are deliberately left as they were.)*
   **The Checker tab has never been used.** The endpoint shows one invocation
   ever, the curl. `VITE_CHECKER_URL` set but unverified end-to-end.
 - **`TSUMIKI_ALLOWED_ORIGIN` may still be `*`.** Check it. Wide open means anyone

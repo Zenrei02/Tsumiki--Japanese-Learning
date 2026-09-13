@@ -175,6 +175,31 @@ function resolveConflicts(plan, local, remote, side) {
   return out;
 }
 
+// ⚠️ THE GUARD THAT WAS MISSING ON 2026-09-07, and what it is actually for.
+//
+// mergeProgress above is correct and was never the bug. When the rename moved
+// every key into the `tsumiki-` namespace, the device's old keys were orphaned
+// — so exportProgress(), which filters through KEYS, returned {} — and the
+// account row's stored keys were the OLD names, so pushRemote's own KEYS filter
+// emptied them too. mergeProgress was then handed {} and {}, agreed there was
+// nothing to settle, and the empty result was pushed over a live account row.
+// Version 7, `{}`, 2 bytes. It survived only because the archive trigger had
+// version 6, and because Lloyd went and got it by hand.
+//
+// THE SHAPE TO REMEMBER: a sound guard sitting downstream of a filter that can
+// silently empty its own inputs. Nothing in mergeProgress can see that, because
+// by the time it runs the evidence is gone. So the check belongs HERE, on the
+// way out, where "I am about to replace everything with nothing" is still a
+// visible fact.
+//
+// It is deliberately narrow — empty over non-empty, nothing else. A guard that
+// tried to judge whether a SMALLER push was legitimate would start refusing
+// real work, and this project would rather ask than invent.
+function wouldWipeRemote(next, remote) {
+  const live = (m) => Object.keys(m || {}).filter((k) => !isEmptyValue(m[k]));
+  return live(next).length === 0 && live(remote).length > 0;
+}
+
 // ——— END PURE MERGE CORE ———
 
 import { KEYS, exportProgress, importProgress, downloadProgress } from "./storage.js";
@@ -207,7 +232,7 @@ export function writeLocal(map) {
   }));
 }
 
-export { mergeProgress, resolveConflicts, isEmptyValue, canon, registerLogMerger };
+export { mergeProgress, resolveConflicts, isEmptyValue, canon, registerLogMerger, wouldWipeRemote };
 
 // ————— The server side —————
 // The row is `data jsonb` holding exactly this map. The server never parses a
@@ -223,11 +248,31 @@ export async function fetchRemote(client, userId) {
   return data || { data: {}, version: 0, updated_at: null };
 }
 
-export async function pushRemote(client, userId, map) {
+// `allowEmpty` exists because emptiness is sometimes the POINT. resetEverywhere
+// in stats.js clears the learner's progress on purpose and then pushes that
+// emptiness to the account — that is the feature working, and a guard which
+// could not tell it apart from the 2026-09-07 wipe would silently break Reset
+// instead. So the two cases are separated by an argument a reader can see,
+// rather than by a heuristic that has to guess intent.
+export async function pushRemote(client, userId, map, { allowEmpty = false } = {}) {
   // Only keys the app owns. A stray localStorage entry from another tool on the
   // same origin must not be uploaded to a learner's account.
   const clean = {};
   for (const k of KEYS) if (map[k] !== undefined && map[k] !== null) clean[k] = String(map[k]);
+
+  // Only costs a read on the path that is about to write nothing — see
+  // wouldWipeRemote in the merge core for why this check lives here.
+  if (!allowEmpty && Object.keys(clean).length === 0) {
+    const current = await fetchRemote(client, userId);
+    if (wouldWipeRemote(clean, current.data)) {
+      const err = new Error(
+        "this device had nothing to save, and your account does — so nothing was overwritten"
+      );
+      err.code = "would_wipe";
+      throw err;
+    }
+  }
+
   const { error } = await client
     .from("tsumiki_progress")
     .upsert({ user_id: userId, data: clean }, { onConflict: "user_id" });

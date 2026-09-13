@@ -39,7 +39,7 @@ every other module that reads it. These are the real seams.
 
 ## Kana audio sprite
 
-- ✅ `kana-sprite.mp3` identical in both locations (`719c93c0`)
+- ✅ `kana-sprite.mp3` identical in both locations (`09e2b589`)
 - ✅ `kana-sprite.json` identical in both locations (`8931e55e`)
 
 If these diverge, re-run `Audio/build-kana-sprite.py` and copy the result to

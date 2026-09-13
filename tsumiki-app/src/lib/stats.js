@@ -201,7 +201,11 @@ export async function resetEverywhere(sectionIds) {
       if (user) {
         signedIn = true;
         const { pushRemote, readLocal } = await import("./sync.js");
-        await pushRemote(client, user.id, readLocal());
+        // allowEmpty: a reset MEANS to empty the account. Without this the
+        // empty-over-non-empty guard in pushRemote would refuse the one push
+        // that is supposed to clear things, and the account would quietly hand
+        // the reset progress back at the next sign-in.
+        await pushRemote(client, user.id, readLocal(), { allowEmpty: true });
         pushed = true;
       }
     }
