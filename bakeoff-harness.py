@@ -60,6 +60,20 @@ Modes:
              premise may be that nothing changed. Refused with --two-pass, which
              sets its own stamp.
 
+  --effort=low|medium|high (Session 32.1) send adaptive thinking with
+             output_config.effort. --thinking=disabled sends thinking off.
+             Either one REQUIRES --schema-stamp, so the rows can never be
+             mistaken for the measured default-thinking run, and is refused
+             with --two-pass. Logged on every row as `thinking_config`.
+  --only=M2  run only that model code's plan rows.
+  Every row now also logs `latency_s` — wall-clock seconds for the call —
+             because the Session 32.1 question is speed, and the log had no
+             direct measurement of it (row-to-row timestamps include the
+             harness's own sleeps).
+  When --only / --effort / --thinking is set the outputs workbook is NOT
+             written: a partial plan would produce a workbook with holes that
+             reads as a finished run.
+
 --run also requires --key-verified: per the README protocol, the reviewer must
 verify the answer key (Step 2) BEFORE outputs exist, or they can leak into the
 key. The flag is you asserting Step 2 is done.
@@ -242,6 +256,12 @@ def sampling_of(model):
 # than trusting a 200. Calls are sequential, so a single slot is safe.
 LAST_HEADERS = {}
 
+# Session 32.1: thinking configuration for THIS run, or None for the API
+# default the bake-off measured. Set once in main(); read here so every call
+# site (smoke, run, pass 1) sends the same thing.
+THINKING_CFG = None
+LAST_LATENCY = None   # seconds, wall clock, of the most recent call
+
 def call_model(key, model, system_prompt, sentence):
     body = {
         "model": model,
@@ -260,15 +280,21 @@ def call_model(key, model, system_prompt, sentence):
     # default — which is also how production would call them.
     if model not in NO_TEMPERATURE:
         body["temperature"] = 0
+    if THINKING_CFG:
+        body.update(THINKING_CFG)
     req = urllib.request.Request(
         API, data=json.dumps(body).encode(), method="POST",
         headers={"x-api-key": key, "anthropic-version": "2023-06-01",
                  "content-type": "application/json"})
+    global LAST_LATENCY
+    t0 = time.monotonic()
     try:
         with urllib.request.urlopen(req, timeout=120) as r:
             LAST_HEADERS.clear()
             LAST_HEADERS.update({k.lower(): v for k, v in r.headers.items()})
-            return json.load(r)
+            out = json.load(r)
+            LAST_LATENCY = round(time.monotonic() - t0, 2)
+            return out
     except urllib.error.HTTPError as e:
         # Surface the API's own error message — a bare "400 Bad Request"
         # traceback (smoke, Aug 14 2026) says nothing about WHICH field the
@@ -489,6 +515,26 @@ def main():
         sys.exit("--schema-stamp= needs a value, e.g. --schema-stamp=naoshi-4r1")
     if stamp and two_pass:
         sys.exit("--schema-stamp and --two-pass both set the stamp; pick one.")
+    global THINKING_CFG
+    effort = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--effort=")), None)
+    thinking = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--thinking=")), None)
+    only = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--only=")), None)
+    if effort and thinking:
+        sys.exit("--effort and --thinking are two different requests; pick one.")
+    if effort and effort not in ("low", "medium", "high"):
+        sys.exit("--effort= must be low, medium or high")
+    if thinking and thinking != "disabled":
+        sys.exit("--thinking= accepts only `disabled` (default thinking is the no-flag run)")
+    if (effort or thinking) and not stamp:
+        sys.exit("--effort / --thinking change the request the bake-off measured; "
+                 "they REQUIRE --schema-stamp= so the rows carry their own name.")
+    if (effort or thinking) and two_pass:
+        sys.exit("--effort / --thinking are not supported with --two-pass.")
+    if effort:
+        THINKING_CFG = {"thinking": {"type": "adaptive"}, "output_config": {"effort": effort}}
+    elif thinking:
+        THINKING_CFG = {"thinking": {"type": "disabled"}}
+    partial = bool(only or THINKING_CFG)
     system_prompt, schema = load_prompt()
     prompt_md5 = hashlib.md5(system_prompt.encode("utf-8")).hexdigest()
     rewrite_md5 = hashlib.md5(REWRITE_SYSTEM_PROMPT.encode("utf-8")).hexdigest()
@@ -498,9 +544,15 @@ def main():
     elif stamp:
         schema = stamp
     wb, sentences, models, plan = load_workbook_data()
-    runnable = [p for p in plan if p[2] in sentences]
+    runnable = [p for p in plan if p[2] in sentences and (not only or p[3] == only)]
+    if only and only not in models:
+        sys.exit(f"--only={only}: no such model code in Run Key ({', '.join(models)})")
     print(f"prompt {schema} · {len(sentences)} sentences · {len(models)} models · "
-          f"{len(runnable)}/{len(plan)} blind-grading rows runnable")
+          f"{len(runnable)}/{len(plan)} blind-grading rows runnable"
+          + (f" · ONLY {only}" if only else ""))
+    if THINKING_CFG:
+        print(f"  THINKING CONFIG {json.dumps(THINKING_CFG)} — NOT the request the "
+              f"bake-off measured; rows stamped {schema}")
     if stamp:
         print(f"  STAMPED {schema} · the prompt is the jsx's {jsx_schema}, "
               f"unchanged (md5 {prompt_md5[:8]})")
@@ -663,6 +715,8 @@ def main():
         sent = next(iter(sentences.values()), "私は毎日私の犬と散歩します。")
         smoke_unparseable = []
         for code, (mstr, *_ ) in models.items():
+            if only and code != only:
+                continue
             resp = call_model(key, mstr, system_prompt, sent)
             u = resp.get("usage", {})
             try:
@@ -677,9 +731,12 @@ def main():
                                   model_requested=mstr)
                 smoke_unparseable.append(code)
                 continue
+            thk = (u.get("output_tokens_details") or {}).get("thinking_tokens")
             print(f"  {code} {mstr}: {verdict} "
                   f"(in {u.get('input_tokens')}, out {u.get('output_tokens')}, "
-                  f"cache-read {u.get('cache_read_input_tokens', 0)})")
+                  f"cache-read {u.get('cache_read_input_tokens', 0)}"
+                  + (f", thinking {thk}" if thk is not None else "")
+                  + f", {LAST_LATENCY}s)")
         if smoke_unparseable:
             sys.exit(f"smoke FAILED — {', '.join(smoke_unparseable)} returned output "
                      f"this harness cannot parse. The raw bodies are in "
@@ -833,6 +890,9 @@ def main():
                 rec["repaired"] = True
             temp, pinned = sampling_of(mstr)
             rec["temperature"], rec["deterministic"] = temp, pinned
+            rec["latency_s"] = LAST_LATENCY
+            if THINKING_CFG:
+                rec["thinking_config"] = THINKING_CFG
             if two_pass:
                 rec.update({
                     "two_pass": True,
@@ -865,12 +925,16 @@ def main():
                 results[rec["output_id"]] = (row, rec["verdict"], rec["feedback"])
         except Exception:
             pass
-    bg = wb["Blind Grading"]
-    for oid, (rowno, verdict, feedback) in results.items():
-        bg.cell(row=rowno, column=5, value=verdict)
-        bg.cell(row=rowno, column=6, value=feedback)
-    wb.save(WB_OUT)
-    print(f"\nwrote {WB_OUT.name} ({len(results)} rows filled)")
+    if partial:
+        print(f"\nNOT writing {WB_OUT.name}: a partial plan or a non-default thinking "
+              f"config would produce a workbook that reads as a finished run.")
+    else:
+        bg = wb["Blind Grading"]
+        for oid, (rowno, verdict, feedback) in results.items():
+            bg.cell(row=rowno, column=5, value=verdict)
+            bg.cell(row=rowno, column=6, value=feedback)
+        wb.save(WB_OUT)
+        print(f"\nwrote {WB_OUT.name} ({len(results)} rows filled)")
     # Completion is judged against the PLAN, not against this run: failed
     # calls are skipped and unlogged, and on Aug 15 2026 a run with 35 skips
     # still ended on a message that read as success.
