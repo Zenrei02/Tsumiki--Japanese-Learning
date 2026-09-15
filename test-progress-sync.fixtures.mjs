@@ -237,6 +237,116 @@ const eq = (a, b, msg) => assert(canonCmp(a) === canonCmp(b),
   assert(wouldWipeRemote(null, REAL) === true, "a null push over real data is still a wipe");
 }
 
+// ————— 9. THE AUTHORITATIVE LOAD (2026-09-16) —————
+//
+// Once a device has joined an account, a load answers the merge's question with
+// "remote" instead of showing it. These assertions are about what that must NOT
+// change — because the tempting implementation is `writeLocal(remote)`, one
+// line, and it silently destroys three of the four rules above.
+//
+// Read each one as "what a learner loses if the load starts replacing the
+// document instead of resolving the merge."
+{
+  const authoritative = (local, remote) => {
+    const p = mergeProgress(local, remote);
+    return p.conflicts.length ? resolveConflicts(p, local, remote, "remote") : p.merged;
+  };
+
+  // The case the reversal is FOR: this browser is behind, and it stops being
+  // behind without anybody being asked anything.
+  {
+    const local  = { "tsumiki-kanji-progress-v1": '{"traced":["日"]}' };
+    const remote = { "tsumiki-kanji-progress-v1": '{"traced":["日","月"]}' };
+    eq(authoritative(local, remote), remote, "a differing key takes the account's copy");
+  }
+
+  // ⚠️ RULE 1 STILL HOLDS. A key this device has and the account does not is
+  // work that simply has not been uploaded yet — usually because the learner
+  // was offline. Replacing the document would delete it, and the learner would
+  // have no way to know: the account never had it to archive.
+  {
+    const local  = { "tsumiki-kanji-progress-v1": '{"a":1}', "tsumiki-n5-progress-v1": '{"g":1}' };
+    const remote = { "tsumiki-kanji-progress-v1": '{"a":2}' };
+    const out = authoritative(local, remote);
+    assert(out["tsumiki-n5-progress-v1"] === '{"g":1}',
+      "A LOCAL-ONLY KEY SURVIVES THE AUTHORITATIVE LOAD — it was never pushed, so the account cannot have archived it");
+    assert(out["tsumiki-kanji-progress-v1"] === '{"a":2}',
+      "...and the key they both have still takes the account's copy");
+  }
+
+  // ⚠️ AN EMPTY ACCOUNT CANNOT WIPE A DEVICE. Same rule as ever — an empty
+  // value is absent, not deleted — but it is load-bearing in a new way now
+  // that nobody is asked. This is the 2026-09-07 wipe pointed the other way.
+  {
+    const local  = { "tsumiki-kanji-progress-v1": '{"a":1}' };
+    eq(authoritative(local, {}), local, "an empty account leaves the device alone");
+    eq(authoritative(local, { "tsumiki-kanji-progress-v1": "{}" }), local,
+       "an account holding placeholders leaves the device alone");
+  }
+
+  // ⚠️ THE LOG EXEMPTION MUST SURVIVE IT. The union runs inside mergeProgress
+  // and settles the key before the conflict list exists, so both devices' checks
+  // are kept. If a future load resolved the log to "remote" instead, a learner
+  // who wrote offline would lose those checks with nothing on screen to show it.
+  {
+    registerLogMerger("tsumiki-checker-history-v1", (l, r) => JSON.stringify(
+      { ...JSON.parse(l), ...JSON.parse(r) }));
+    const local  = { "tsumiki-checker-history-v1": '{"here":1}' };
+    const remote = { "tsumiki-checker-history-v1": '{"there":1}' };
+    const out = authoritative(local, remote);
+    eq(JSON.parse(out["tsumiki-checker-history-v1"]), { here: 1, there: 1 },
+       "the checker log is UNIONED on an authoritative load, not taken from the account");
+  }
+
+  // Nothing to settle is still nothing to settle.
+  {
+    const same = { "tsumiki-known-words-v1": '["本"]' };
+    eq(authoritative(same, same), same, "identical sides pass through unchanged");
+  }
+}
+
+// ————— 10. canonDoc — "is this push worth sending?" —————
+//
+// Autosave asks this before every request. Get it wrong in one direction and a
+// quiet page files an archive version per load; wrong in the other and a real
+// change is silently never uploaded.
+{
+  const KEYS = ["tsumiki-kanji-progress-v1", "tsumiki-known-words-v1", "tsumiki-kanji-mode"];
+
+  assert(canonDoc({ "tsumiki-kanji-progress-v1": '{"a":1}' }, KEYS)
+      === canonDoc({ "tsumiki-kanji-progress-v1": '{"a":1}' }, KEYS),
+    "the same document compares equal");
+
+  // The one that stops a version being filed on every load: a module that
+  // rebuilds its own map can emit the same state with the keys in a different
+  // order, and that is not a change.
+  assert(canonDoc({ "tsumiki-kanji-progress-v1": '{"a":1,"b":2}' }, KEYS)
+      === canonDoc({ "tsumiki-kanji-progress-v1": '{"b":2,"a":1}' }, KEYS),
+    "re-serialised identical state is not a change");
+
+  assert(canonDoc({ "tsumiki-kanji-progress-v1": '{"a":1}' }, KEYS)
+      !== canonDoc({ "tsumiki-kanji-progress-v1": '{"a":2}' }, KEYS),
+    "A REAL CHANGE IS A CHANGE — if this ever passes, work stops being saved");
+
+  assert(canonDoc({ "tsumiki-kanji-progress-v1": '{"a":1}' }, KEYS)
+      !== canonDoc({ "tsumiki-kanji-progress-v1": '{"a":1}', "tsumiki-known-words-v1": '["本"]' }, KEYS),
+    "a new key is a change");
+
+  // It must compare exactly what pushRemote would SEND: KEYS-filtered, so a
+  // stray localStorage entry from another tool on the same origin cannot make
+  // the app think it has something to upload.
+  assert(canonDoc({ "tsumiki-kanji-progress-v1": "x", "not-ours": "y" }, KEYS)
+      === canonDoc({ "tsumiki-kanji-progress-v1": "x" }, KEYS),
+    "a key outside KEYS is not part of the document");
+
+  // Insertion order of the map itself is not content either.
+  const a = {}; a["tsumiki-known-words-v1"] = '["本"]'; a["tsumiki-kanji-mode"] = "kana";
+  const b = {}; b["tsumiki-kanji-mode"] = "kana"; b["tsumiki-known-words-v1"] = '["本"]';
+  assert(canonDoc(a, KEYS) === canonDoc(b, KEYS), "key order in the map is not content");
+
+  assert(canonDoc(null, KEYS) === canonDoc({}, KEYS), "a null document is an empty one, not a crash");
+}
+
 if (failures) {
   console.error("\n" + failures + " ASSERTION(S) FAILED");
   process.exit(1);

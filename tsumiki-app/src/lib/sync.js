@@ -37,6 +37,62 @@
 //   4. On a conflict the app asks, with no default and no timer, and names the
 //      items that differ.
 //
+// ⚠️⚠️ ————— RULE 4 NOW APPLIES TO ONE SITUATION, NOT TO EVERY LOAD —————
+//
+// Changed 2026-09-16, deliberately, reversing the Session 23 decision that every
+// disagreement is a question. THE OLD REASONING IS NOT DELETED BELOW, because
+// it was not wrong — it was right about the app it was written for, and the app
+// changed underneath it. Read this before touching either half.
+//
+// WHAT THE OLD RULE ASSUMED. Progress uploaded at exactly two moments: the
+// sign-in merge, and a conflict being settled. Nothing pushed during use. Under
+// that cadence, "this device and the account differ" genuinely could mean two
+// real bodies of work that nobody had ever synced, and picking one without
+// asking really would have destroyed the other. Rule 3 was the honest answer to
+// a question that had no safe default.
+//
+// WHY IT STOPPED BEING TRUE — and why a learner met it on an ORDINARY REFRESH.
+// The merge ran once per session restore, so on every page load. Meanwhile
+// `tsumiki-module-recency-v1` moves when you merely OPEN a section. So any use
+// of the app after a load guaranteed local != remote at the next load, and the
+// merge dutifully reported a conflict. The rule was working exactly as written
+// and the result was a question, on every refresh, about nothing — which is the
+// failure mode rule 3's own commentary warns about ("a learner taught to
+// dismiss the question will dismiss the real one too"), reached from the other
+// direction.
+//
+// WHAT IS TRUE NOW. lib/autosave.js pushes continuously — debounced off the
+// single storage setter, flushed when the page is hidden or closed, hurried at
+// the end of a lesson or a checker submission. Once a device has joined an
+// account, the account is not a rival copy of the learner's work. It is where
+// the work IS, and the browser is a cache of it that reports every change.
+//
+// So a divergence at load time can no longer mean "two real histories". Work
+// this device did would already have been pushed; anything it did not manage to
+// push is still HERE, and rule 1 hands it straight back, unasked, because the
+// account does not have that key. The residual case — both sides real, both
+// different — means this browser is holding something older than the account.
+// The account wins, silently, and the archive trigger keeps what it replaced.
+//
+// ⚠️ THIS IS NOT "NEWEST WINS". No timestamps are compared and no clocks are
+// trusted; the design doc's rejection of that still stands. The claim is
+// structural: after joining, the device has no way to hold newer state that the
+// account has not been told about, because telling it is automatic.
+//
+// ⚠️ AND THE TWO HALVES ARE ONE CHANGE. An authoritative load without
+// continuous saving discards everything done since the last sign-in, on every
+// load, silently — the exact shape of the bug this whole file exists to
+// prevent. If you ever disable autosave, the authoritative load must go with it.
+//
+// THE ONE SITUATION THAT IS STILL A GENUINE MERGE, question and all: the FIRST
+// sign-in on a device. There the premise above does not hold — this browser's
+// progress predates the account relationship entirely and was never pushed, so
+// the two sides really are independent histories. `mergeProgress`,
+// `resolveConflicts`, the conflict panel and the log-union exemption all stay
+// for it. Which case applies is recorded per device by `joinedAccount()` in
+// storage.js, and signing out clears it, because a learner who keeps studying
+// signed out has made this browser independent again.
+//
 // ————— THE ONE EXEMPTION, AND WHY IT IS NOT A LOOPHOLE —————
 //
 // Rule 3 is right because every key above is STATE — where the learner is — and
@@ -47,6 +103,12 @@
 // deletes writing the learner really did, out of a number they will later be
 // shown as fact ("your particle errors are down forty percent since May").
 // That is rule 3's own failure mode, one level down.
+//
+// ⚠️ AND THE EXEMPTION MATTERS MORE NOW, NOT LESS. On the authoritative load
+// every other key resolves to the account's copy; if the log resolved that way
+// too, a device that wrote checks offline would lose them on the next load with
+// nothing on screen to show for it. It does not, because the union runs BEFORE
+// the resolution and settles the key without ever reaching the conflict list.
 //
 // So a LOG key is UNIONED instead of chosen between. This is narrower than it
 // looks, and safe for a structural reason rather than a hopeful one: entries
@@ -65,8 +127,11 @@
 // the thing to keep in mind before touching this:
 //        · the ACCOUNT's version is kept automatically, by the database, which
 //          archives every document it replaces (see the archive trigger in
-//          supabase/migrations/20260906000000_progress_sync.sql). Nothing the
-//          client does can skip it.
+//          supabase/migrations/20260906000000_progress_sync.sql, and the
+//          retention rule in 20260916000000_progress_archive_retention.sql —
+//          continuous saving files far more versions than sign-in-only saving
+//          did, so they are now pruned rather than kept forever).
+//          Nothing the client does can skip it.
 //        · the DEVICE's version has no such net. It used to be downloaded
 //          automatically before an overwrite; Lloyd removed that (Session 23)
 //          on the grounds that a file appearing in someone's Downloads without
@@ -81,6 +146,13 @@
 //
 // Full write-up, including what was considered and rejected:
 // auth-progress-sync-design-v1.md
+//
+// ⚠️ ONE CONSEQUENCE OF THE AUTHORITATIVE LOAD, STATED SO IT IS NOT A SURPRISE:
+// on the load path the device's differing keys are replaced without a button
+// having been pressed, so no save is offered and none happens. That is the
+// price of the reversal and it is paid knowingly — the archive keeps every
+// version the ACCOUNT held, which is now the version that survives, and BACKUP
+// in the account panel is still there for a copy the learner holds themselves.
 
 // ——— PURE MERGE CORE (extracted verbatim at run time by test-progress-sync.py) ———
 
@@ -120,6 +192,29 @@ function canon(v) {
   } catch {
     return String(v);
   }
+}
+
+// The same idea one level up: a canonical form of a WHOLE document, so that
+// "would this push write anything the account does not already have?" has a
+// cheap, exact answer. `keys` is passed in rather than imported because this
+// core is sliced out and run standalone by the test; pass storage.js's KEYS to
+// compare exactly what pushRemote would send.
+//
+// ⚠️ IT COMPARES canon() PER VALUE, NOT RAW STRINGS. A module that rebuilds its
+// own map can serialise identical state in a different key order; treating that
+// as a change would file a new archive version every time a learner opened a
+// section, which at autosave cadence is the difference between a history and a
+// haystack.
+function canonDoc(map, keys) {
+  const src = map || {};
+  const ks = (keys && keys.length ? keys : Object.keys(src)).slice().sort();
+  const out = {};
+  for (const k of ks) {
+    const v = src[k];
+    if (v === undefined || v === null) continue;
+    out[k] = canon(String(v));
+  }
+  return JSON.stringify(out);
 }
 
 // local, remote: plain maps of key -> string. Returns a plan, not a decision:
@@ -166,6 +261,12 @@ function mergeProgress(local, remote) {
 // Settle the keys mergeProgress refused to settle. `side` is "local" or
 // "remote" and must be an explicit choice made by the learner — there is no
 // default value for this argument on purpose.
+//
+// ⚠️ IT NOW HAS A SECOND CALLER THAT IS NOT A LEARNER: the authoritative load
+// passes "remote" for it. That is still an explicit choice, made once, in the
+// open, in account.jsx — and the argument stays mandatory precisely so that the
+// choice cannot be made by omission. The first-sign-in path, where the learner
+// really does decide, is unchanged.
 function resolveConflicts(plan, local, remote, side) {
   if (side !== "local" && side !== "remote") {
     throw new Error('resolveConflicts: side must be "local" or "remote"');
@@ -195,6 +296,12 @@ function resolveConflicts(plan, local, remote, side) {
 // It is deliberately narrow — empty over non-empty, nothing else. A guard that
 // tried to judge whether a SMALLER push was legitimate would start refusing
 // real work, and this project would rather ask than invent.
+//
+// ⚠️ AND IT IS STILL NOT THE ANSWER TO "IS THIS PUSH STALE?". Autosave fires
+// hundreds of times where the old code fired twice, so the tempting move is to
+// widen this into a size test and let it referee every push. Do not. The
+// staleness question is answered by ORDER, not by size — lib/autosave.js does
+// not push at all until the load has finished, and says why at length.
 function wouldWipeRemote(next, remote) {
   const live = (m) => Object.keys(m || {}).filter((k) => !isEmptyValue(m[k]));
   return live(next).length === 0 && live(remote).length > 0;
@@ -204,6 +311,7 @@ function wouldWipeRemote(next, remote) {
 
 import { KEYS, exportProgress, importProgress, downloadProgress } from "./storage.js";
 import { HISTORY_KEY, unionHistory } from "./errorHistory.js";
+import { notePushed } from "./autosave.js";
 
 // THE EXEMPT LIST, in full. One entry. Adding a second is a decision about
 // someone's data, not a refactor: the key must be an append-only log of
@@ -226,13 +334,27 @@ export function readLocal() {
 // Write a settled map back to the browser. Routed through importProgress so it
 // inherits the same KEYS filter as a Restore-from-file, rather than becoming a
 // second, subtly different write path.
+//
+// `save: false` because what is being written is what the ACCOUNT just gave us.
+// Announcing it would schedule a push of the server's own document back at the
+// server — harmless, but a request per load for nothing, and it would make the
+// "a quiet load costs a GET and no POST" property untrue.
 export function writeLocal(map) {
   return importProgress(JSON.stringify({
     format: "tsumiki-progress", version: 1, data: map,
-  }));
+  }), { save: false });
 }
 
-export { mergeProgress, resolveConflicts, isEmptyValue, canon, registerLogMerger, wouldWipeRemote };
+// Would pushing `next` write anything the account does not already hold? Used
+// by the load path so that opening the app and doing nothing costs one GET.
+export function sameAsRemote(next, remote) {
+  return canonDoc(next, KEYS) === canonDoc(remote, KEYS);
+}
+
+export {
+  mergeProgress, resolveConflicts, isEmptyValue, canon, canonDoc,
+  registerLogMerger, wouldWipeRemote,
+};
 
 // ————— The server side —————
 // The row is `data jsonb` holding exactly this map. The server never parses a
@@ -277,6 +399,13 @@ export async function pushRemote(client, userId, map, { allowEmpty = false } = {
     .from("tsumiki_progress")
     .upsert({ user_id: userId, data: clean }, { onConflict: "user_id" });
   if (error) throw error;
+
+  // ⚠️ EVERY PUSH IN THE APP REPORTS ITSELF HERE, not just autosave's. The
+  // sign-in settle, a conflict choice and resetEverywhere all push through this
+  // function, and if any of them did not say so, the next idle flush would
+  // re-send a document the server already had — or worse, believe an older
+  // document was the last thing sent.
+  notePushed(canonDoc(clean, KEYS));
   return clean;
 }
 

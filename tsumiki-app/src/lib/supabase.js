@@ -30,6 +30,39 @@ export function accountsConfigured() {
   return Boolean(URL_ && KEY_);
 }
 
+// ————— Writes that start as the page is going away —————
+//
+// ⚠️ A NORMAL fetch() STARTED ON `pagehide` IS NOT GUARANTEED TO BE SENT. The
+// browser is free to cancel it the moment the document is discarded, and on
+// iOS Safari — where a tab is frozen rather than closed — that is the common
+// case, not the rare one. `keepalive: true` is what makes the request outlive
+// the page. It is not the default because keepalive requests are capped at
+// 64 KB of body and compete for a small per-origin budget.
+//
+// So it is a MODE, switched on around exactly one call — lib/autosave.js's
+// flush on hide — rather than a second HTTP path. One write path, one set of
+// headers, one auth refresh; only the transport hint changes. A separate
+// hand-rolled REST call for the hide case is the shape this repo keeps getting
+// burned by: two writers that are almost the same.
+let urgent = false;
+export function beginUrgentWrites() { urgent = true; }
+export function endUrgentWrites() { urgent = false; }
+
+// The cap is real and silent if exceeded — an over-size keepalive request
+// simply rejects. A learner with a long checker history can push more than
+// 64 KB, so the hint is dropped above a conservative threshold and the write
+// takes its chances as an ordinary request rather than failing outright.
+const KEEPALIVE_MAX = 60000;
+
+function syncFetch(input, init) {
+  if (urgent) {
+    const body = init && init.body;
+    const size = typeof body === "string" ? body.length : 0;
+    if (size <= KEEPALIVE_MAX) return fetch(input, { ...init, keepalive: true });
+  }
+  return fetch(input, init);
+}
+
 // Loaded on demand, never at first paint. @supabase/supabase-js is ~120 KB and
 // a learner who never signs in should not pay for it — the same reasoning that
 // keeps the six modules behind React.lazy.
@@ -48,6 +81,7 @@ export function getClient() {
           // is a silent "clicking the link does nothing".
           detectSessionInUrl: true,
         },
+        global: { fetch: syncFetch },
       }))
       .catch((e) => { clientPromise = null; throw e; });
   }

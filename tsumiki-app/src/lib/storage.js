@@ -11,6 +11,13 @@
 //   get(key) -> { value } | null
 //   set(key, value)
 // so the module source needs no changes at all. Same code, real backing store.
+//
+// ⚠️ AND `set` IS NOW ALSO THE SAVE-TO-ACCOUNT TRIGGER. Every progress write in
+// the app funnels through it, which is why the debounce lives here and not as a
+// save call sprinkled through thirteen modules — see lib/autosave.js. A module
+// does not have to remember to announce anything; writing IS the announcement.
+
+import { noteWrite } from "./autosave.js";
 
 const memory = new Map();
 
@@ -45,6 +52,10 @@ export const storage = {
   },
   async set(key, value) {
     store().setItem(key, String(value));
+    // Only keys the account holds. `tsumiki-last-module` and the other UI-state
+    // keys in check-storage-keys.py's IGNORE list are never uploaded, so they
+    // must not be able to schedule an upload either.
+    if (KEYS.includes(key)) noteWrite(key);
   },
 };
 
@@ -101,6 +112,37 @@ export const KEYS = [
   "tsumiki-checker-history-v1",
 ];
 
+// ————— Which account this device has already joined —————
+//
+// ⚠️ THIS KEY MUST NEVER ENTER `KEYS`. It is the one piece of state that has to
+// mean something DIFFERENT on each device, and uploading it would make every
+// device claim to have already joined the account the moment one of them had —
+// which is precisely the claim the first-sign-in merge exists to check. It is
+// written through the raw store rather than `storage.set` for the same reason:
+// it is not progress and must not schedule an upload of itself.
+//
+// What it answers: "has this browser already settled its progress against this
+// account?" If yes, a later sign-in is a LOAD and the account's copy wins
+// silently. If no — a new device, or a device that signed out since — the
+// account and this browser are two independent histories and sign-in is a
+// genuine merge, question and all. See lib/account.jsx.
+const JOINED_KEY = "tsumiki-account-joined-v1";
+
+export function joinedAccount() {
+  try { return store().getItem(JOINED_KEY); } catch { return null; }
+}
+export function markAccountJoined(userId) {
+  try { store().setItem(JOINED_KEY, String(userId)); } catch { /* memory fallback */ }
+}
+// ⚠️ CLEARED ON SIGN-OUT, DELIBERATELY. Signing out leaves this device's
+// progress where it is and lets the learner keep working — so by the time they
+// sign back in, this browser may hold work the account never saw. That is the
+// same two-independent-histories situation as a brand-new device, and it gets
+// the same answer: merge, and ask if the two genuinely disagree.
+export function clearAccountJoined() {
+  try { store().removeItem(JOINED_KEY); } catch { /* memory fallback */ }
+}
+
 export function exportProgress() {
   const data = {};
   for (const k of KEYS) {
@@ -129,7 +171,15 @@ export function downloadProgress() {
 
 // Returns { ok, message }. Never throws at the caller — a tester restoring a
 // wrong file should get a sentence, not a stack trace.
-export function importProgress(text) {
+//
+// ⚠️ `save` IS NOT A TIDINESS OPTION. A restore from a file is the learner
+// putting real work back, and with the account authoritative on load it would
+// be undone by the next page load unless it reaches the account — so the
+// default is to announce every restored key. sync.js's writeLocal() passes
+// false, and it is the ONLY caller that may: what it is writing is what the
+// account just gave us, so announcing it would schedule a push of the server's
+// own document straight back at it.
+export function importProgress(text, { save = true } = {}) {
   let parsed;
   try {
     parsed = JSON.parse(text);
@@ -161,7 +211,7 @@ export function importProgress(text) {
   let n = 0;
   for (const [k, v] of Object.entries(parsed.data)) {
     const key = resolve(k);
-    if (key) { store().setItem(key, v); n++; }
+    if (key) { store().setItem(key, v); n++; if (save) noteWrite(key); }
   }
   return {
     ok: true,

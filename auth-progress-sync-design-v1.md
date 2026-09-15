@@ -4,6 +4,14 @@ Session 23, 2026-09-06. Written because the code refers to it, and because the
 rule it records is the kind that gets "simplified" by a later session that does
 not know what it cost.
 
+> **⚠️ AMENDED 2026-09-16 — read "What changed, and why" at the bottom before
+> this document.** Two of the decisions recorded below were reversed on purpose:
+> *No continuous sync* and *ask on every conflict*. The reasoning here is not
+> struck out, because it was right about the app it was written for — what
+> changed is the app. The amendment says which sentences no longer describe the
+> code and why, so that neither the old rule nor the new one can be adopted
+> without its argument.
+
 ---
 
 ## The one constraint
@@ -118,6 +126,8 @@ mean "delete my work", which is not what the words say.
 - **No continuous sync.** Progress uploads on sign-in and after a settled merge.
   A real-time engine is a much larger thing and buys little for one learner on
   one device at a time.
+  **⚠️ REVERSED 2026-09-16 — see the amendment. This is the sentence that made
+  the conflict prompt fire on an ordinary refresh.**
 - **No "newest wins".** Timestamps across two devices with two clocks are not a
   fact about which work matters more.
 
@@ -154,3 +164,143 @@ Supabase project, and the auth callback's error handling.
 
 What that leaves — and it is not nothing — is in
 `SESSION-23-HANDOVER.md` under "Before this can work in production".
+
+
+---
+
+# Amendment — 2026-09-16
+
+## What changed
+
+1. **Progress saves continuously**, debounced off the single storage setter in
+   `tsumiki-app/src/lib/storage.js`, flushed when the page is hidden or closed,
+   hurried at a milestone. New file: `tsumiki-app/src/lib/autosave.js`.
+2. **Once a device has joined an account, a load takes the account's copy**
+   without asking. The conflict panel is reached only on the **first** sign-in
+   on that device.
+
+They are one change. Either alone is a bug — see "Why they cannot be split".
+
+## Why the old rule had to go
+
+Not because it was wrong. Because the cadence it assumed stopped being true —
+and then it started firing on nothing.
+
+`runSync` runs once per session restore, so on **every page load**. Under "no
+continuous sync", the only uploads were the sign-in merge and a settled
+conflict, so anything the learner did afterwards existed on the device and
+nowhere else. `tsumiki-module-recency-v1` and the modules' own stores move as
+soon as the app is used at all. So the next load found local ≠ remote, and the
+merge — working exactly as specified — asked the learner to choose between their
+own progress and their own progress.
+
+That is the failure this document already names, reached from the other side:
+*"a learner taught to dismiss the question will dismiss the real one too."* A
+question that appears on a refresh is not a safeguard; it is training.
+
+## Why the account can now win without asking
+
+The old rule was the honest answer to *"two real bodies of work and no safe
+default."* With continuous saving, that situation cannot arise on a joined
+device:
+
+- Work this device did has already been pushed.
+- Work it could not push is still **here**, and rule 1 hands it back unasked,
+  because the account does not have that key. Nothing local-only is discarded.
+- The residual case — both sides real, both different — means this browser holds
+  something **older** than the account.
+
+**This is not "newest wins".** No timestamps are compared and no clocks are
+trusted; the rejection recorded above still stands. The claim is structural: a
+joined device has no way to hold newer state the account has not been told
+about, because telling it is automatic.
+
+What the load actually runs is `mergeProgress` followed by
+`resolveConflicts(…, "remote")` — not a document replacement. So:
+
+- a key only this device has **survives** (rule 1);
+- an empty or absent account **cannot wipe a device** (an empty value is absent);
+- `tsumiki-checker-history-v1` is still **unioned**, because the union settles
+  it inside `mergeProgress` before a conflict list exists. That exemption
+  matters more now, not less: without it a device that wrote checks offline
+  would lose them on the next load with nothing on screen to show for it.
+
+## The one case that is still a genuine merge
+
+**The first sign-in on a device.** There this document's original reasoning
+holds exactly: the browser's progress predates the account relationship and was
+never pushed, so the two sides really are independent histories. Merge, and ask.
+
+Which case applies is a fact about the browser, recorded by
+`joinedAccount()` in `storage.js` under `tsumiki-account-joined-v1`.
+
+- **That key must never enter `KEYS`.** It is the one piece of state that has to
+  differ per device; uploading it would make every device claim to have joined
+  the moment one of them had — skipping the merge that exists to check that
+  claim. `test-autosave.py` asserts it is absent from `KEYS` and from the pushed
+  document.
+- **Signing out clears it.** Sign-out still does not clear progress, so the
+  learner keeps working; by the time they sign back in this browser may hold
+  work the account never saw. That is the two-independent-histories case again,
+  and it gets the same answer.
+
+## Why they cannot be split
+
+- **Authoritative load without continuous saving** discards everything done
+  since the last sign-in, on every load, silently. That is precisely the bug
+  this document exists to prevent, automated.
+- **Continuous saving without an authoritative load** leaves the refresh prompt
+  in place, which was the complaint.
+
+If autosave is ever disabled, the authoritative load must go with it.
+
+## The guard, and what it is not
+
+A push must not run before the load has settled: a document written mid-load is
+thin where the account is full, and the account would take it.
+
+**The guard is a flag, not a size test.** `armAutosave()` is called only when
+this device's state *is* the account's state. Before that, writes are remembered
+and nothing is sent. A "refuse a push much smaller than the account" heuristic
+was considered and rejected for the reason `wouldWipeRemote` already gives about
+itself: it cannot tell a stale push from a learner who reset one section, and a
+guard that refuses real work gets switched off.
+
+**⚠️ The first version of that guard was untestable and the control caught it.**
+`armAutosave` originally took the client *and* set the flag, so "not ready" and
+"no client to push with" were the same condition — deleting the gate left every
+assertion green, because a push with no client throws before it reaches the
+network. The API is now split: `autosaveSession()` says who we would push as,
+`armAutosave()` says we may. `python3 test-autosave.py --self-check` deletes the
+gate from a copy and requires red; it also runs the unmutated copy first and
+requires green, because the control's own first run was red for an unrelated
+reason (no `package.json`, so the copied ES modules loaded as CommonJS).
+
+## Consequences that are costs, stated rather than buried
+
+- **On the load path a device's differing keys are replaced with no button
+  pressed, so no file is offered and none is saved.** The archive keeps every
+  version the *account* held — which is now the side that survives — and BACKUP
+  in the account panel is still there for a copy the learner holds themselves.
+- **If the load fails, this session saves nothing to the account.** Deliberate:
+  a device that could not read the account has no business writing to it. The
+  local write still happens, and the panel now says so in words. This is not a
+  regression — under the old cadence a failed sign-in sync also meant no upload
+  for the whole session.
+- **A module mounted before the load settles could write stale state over what
+  the pull installed.** The window is sub-second and the app always opens on
+  Home, where no module is mounted; it would take navigating into a module
+  within the first few hundred milliseconds of a load. Named here rather than
+  left to be discovered.
+
+## Archive retention
+
+The archive trigger files a full copy of the document on every content change.
+That was a handful of versions a month at sign-in cadence and is hundreds a week
+at this one. `supabase/migrations/20260916000000_progress_archive_retention.sql`
+adds a rule — newest 20 versions, then one per UTC day for 90 days — as a **new**
+migration; the existing one is not edited, for the reason `20260906140000`
+gives. Identical content still costs a round trip and does **not** bump the
+version, because the original trigger already compares `old.data is distinct
+from new.data`; the client now also declines to send an unchanged document at
+all, so a quiet load costs one GET and no POST.

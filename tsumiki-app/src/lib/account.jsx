@@ -17,6 +17,21 @@
 //     button the learner presses, offered beside the choice that would
 //     overwrite it (Session 23: nothing downloads without being asked for)
 //
+// ⚠️ THE SECOND BULLET NOW DESCRIBES THE FIRST SIGN-IN ON A DEVICE AND NOTHING
+// ELSE (2026-09-16). Once this browser has joined the account, a load pulls the
+// account's copy down and applies it without asking. That reversal is only safe
+// because lib/autosave.js now keeps the account continuously current, and the
+// reasoning — including why the old rule was right for the app it was written
+// for — is set out in full at the top of sync.js. Read it before changing
+// runSync below; the two halves are one change and neither stands alone.
+//
+// WHY THE QUESTION HAD TO GO. runSync runs once per session restore, so on
+// every page load. `tsumiki-module-recency-v1` moves when you merely OPEN a
+// section. So any use of the app guaranteed a difference at the next load, and
+// the learner was asked to choose between their own progress and their own
+// progress, on an ordinary refresh. The merge was working; the cadence around
+// it was not.
+//
 // The rule itself lives in sync.js and is tested by test-progress-sync.py.
 // Everything here is presentation of that rule, plus the two settings.
 //
@@ -36,11 +51,15 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { T } from "./tokens.js";
 import { accountsConfigured, getClient, redirectTo } from "./supabase.js";
 import {
-  readLocal, writeLocal, mergeProgress, resolveConflicts,
+  readLocal, writeLocal, mergeProgress, resolveConflicts, canonDoc, sameAsRemote,
   fetchRemote, pushRemote, preserveLocalToFile,
 } from "./sync.js";
+import { autosaveSession, armAutosave, disarmAutosave, flushNow } from "./autosave.js";
 import { SECTIONS, SETTINGS } from "./stats.js";
-import { storage, downloadProgress, importProgress } from "./storage.js";
+import {
+  storage, downloadProgress, importProgress, KEYS,
+  joinedAccount, markAccountJoined, clearAccountJoined,
+} from "./storage.js";
 
 // Storage keys are not learner-facing language. Names, never counts.
 const KEY_LABELS = {
@@ -129,20 +148,72 @@ export default function Account({ open, setOpen }) {
     return () => { alive = false; sub?.unsubscribe(); };
   }, []);
 
-  // ————— the merge, run once per sign-in —————
+  // ————— the load, run once per session restore —————
+  //
+  // TWO PATHS, and which one runs is a fact about this browser rather than a
+  // judgement about the data: has it joined this account before?
+  //
+  //   NOT JOINED — a new device, or one that signed out and kept studying.
+  //     This browser's progress predates the account relationship and was never
+  //     pushed, so the two sides are genuinely independent histories. Merge,
+  //     and ask if they really disagree. Unchanged from Session 23.
+  //
+  //   JOINED — every ordinary load. The account is where the work is and this
+  //     browser is a cache of it that reports every change (lib/autosave.js), so
+  //     a difference means this cache is behind. Take the account's copy for
+  //     the keys that differ, keep the keys it does not have, and say nothing.
+  //
+  // Note what the second path does NOT do: it does not replace the document. It
+  // runs the same per-key merge and then answers the merge's question with
+  // "remote", so a key this device holds and the account does not still
+  // survives (rule 1), and the checker log is still UNIONED rather than chosen
+  // between. An account that is empty cannot wipe a device, because an empty
+  // value is absent and yields — which is the same rule that has always been
+  // there, doing the same job from a new direction.
   const runSync = useCallback(async (c, user) => {
     setPhase("syncing"); setError(null); setNote(null);
+    // Who we would save as. NOT permission to save — see the split in
+    // autosave.js. From here until armAutosave() below, every module write is
+    // remembered and nothing is sent, because this device's progress and the
+    // account's have not been reconciled yet.
+    autosaveSession(c, user.id);
     try {
+      const joined = joinedAccount() === user.id;
       const local = readLocal();
       const remoteRow = await fetchRemote(c, user.id);
       const remote = remoteRow.data || {};
       const p = mergeProgress(local, remote);
 
-      if (p.status === "clean") {
+      if (joined) {
+        const settled = p.conflicts.length
+          ? resolveConflicts(p, local, remote, "remote")
+          : p.merged;
+        // Local first, upload second, for the same reason as below: a failed
+        // upload leaves the learner with more than they started with.
+        writeLocal(settled);
+        // Arm BEFORE the push. From here on this device's state is the
+        // account's state, which is exactly what the autosave gate is waiting
+        // to be told — and any module write that happened while this was in
+        // flight is already remembered and goes out with the first flush.
+        armAutosave(canonDoc(settled, KEYS));
+        // ⚠️ AND ONLY THEN IF THERE IS SOMETHING TO SAY. A learner who opens
+        // the app and does nothing must cost one GET and no POST; pushing an
+        // identical document would file an archive version per load.
+        if (!sameAsRemote(settled, remote)) await pushRemote(c, user.id, settled);
+        setPhase("done");
+        // No prompt, and nothing that opens the panel. The note is only there
+        // to explain the screen if the learner opens it themselves.
+        const back = p.pulled.length + p.conflicts.length;
+        setNote(back
+          ? `Your account had newer progress on ${back === 1 ? "one item" : back + " items"} — reload to see it.`
+          : null);
+      } else if (p.status === "clean") {
         // Writing local first and pushing second means a failed upload leaves
         // the learner with MORE progress than they started with, never less.
         writeLocal(p.merged);
         await pushRemote(c, user.id, p.merged);
+        markAccountJoined(user.id);
+        armAutosave(canonDoc(p.merged, KEYS));
         setPhase("done");
         setNote(p.pulled.length
           ? `Signed in. ${p.pulled.length === 1 ? "One thing" : p.pulled.length + " things"} came back from your account — reload to see it.`
@@ -154,9 +225,15 @@ export default function Account({ open, setOpen }) {
         setOpen(true);   // a question must not sit behind a closed menu
       }
     } catch (e) {
+      // ⚠️ AUTOSAVE IS NOT ARMED ON THIS PATH, AND THAT IS THE POINT: a device
+      // that could not read the account must not write to it. The cost is that
+      // this whole session saves to the browser only, so the message says that
+      // rather than leaving it to be discovered later.
       setPhase("done");
       setError("Signed in, but syncing failed: " + (e?.message || String(e)) +
-               ". Nothing on this device was changed.");
+               ". Nothing on this device was changed, and your work is still " +
+               "being saved here — but it will not reach your account until " +
+               "you reload.");
     }
   }, [setOpen]);
 
@@ -206,6 +283,11 @@ export default function Account({ open, setOpen }) {
       const settled = resolveConflicts(plan, sides.local, sides.remote, side);
       writeLocal(settled);
       await pushRemote(client, session.user.id, settled);
+      // The question has been answered, so this browser has now joined the
+      // account: later loads take the account's copy without asking, and
+      // autosave keeps the account worth taking.
+      markAccountJoined(session.user.id);
+      armAutosave(canonDoc(settled, KEYS));
       setPhase("done");
       setNote(side === "remote"
         ? "Your account's version is now on this device."
@@ -232,6 +314,18 @@ export default function Account({ open, setOpen }) {
   const signOut = async () => {
     // Sign-out does NOT clear local progress. The learner keeps studying on this
     // device exactly as before; the next sign-in merges rather than replaces.
+    //
+    // ⚠️ THE ORDER HERE IS THE WHOLE POINT. Anything written since the last
+    // idle save is still only in this browser, and the token that could upload
+    // it is about to be thrown away — so flush FIRST, while there is still a
+    // session, then stop autosaving, then sign out.
+    await flushNow("sign-out");
+    disarmAutosave();
+    // And forget that this browser ever joined, so the next sign-in is a
+    // genuine merge again. The learner is about to keep studying signed out,
+    // which makes this device an independent history for the second time —
+    // see the note beside clearAccountJoined in storage.js.
+    clearAccountJoined();
     await client?.auth.signOut();
     syncedFor.current = null;
     setSession(null); setPhase("idle"); setNote(null); setPlan(null); setSides(null);
@@ -241,7 +335,15 @@ export default function Account({ open, setOpen }) {
     const file = e.target.files?.[0];
     if (!file) return;
     const r = new FileReader();
-    r.onload = () => { setFileMsg(importProgress(String(r.result)).message); refresh(); };
+    r.onload = () => {
+      setFileMsg(importProgress(String(r.result)).message);
+      refresh();
+      // ⚠️ A RESTORE MUST REACH THE ACCOUNT, OR THE NEXT LOAD UNDOES IT.
+      // importProgress announces each restored key, so a save was already
+      // scheduled; this only stops the learner from closing the tab inside the
+      // debounce window. A no-op when signed out.
+      flushNow("restore");
+    };
     r.readAsText(file);
     e.target.value = "";
   };
@@ -275,12 +377,20 @@ export default function Account({ open, setOpen }) {
         </div>
 
         {/* A conflict takes the whole panel. It is the only thing in this file
-            that must be answered before anything else can be done. */}
+            that must be answered before anything else can be done.
+
+            ⚠️ AND IT IS NOW REACHED ONLY ON THE FIRST SIGN-IN ON A DEVICE.
+            Every later load takes the account's copy silently, so this panel is
+            no longer something a learner meets on a refresh — which is what it
+            had become, and why it was worth reversing. The copy below says
+            "first time" out loud for that reason: a question that turns up once
+            in the life of a device deserves to explain why it is here. */}
         {phase === "conflict" && plan ? (
           <>
             <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.ink, marginTop: 8 }}>
-              This device and your account both have progress, and they do not
-              match. Nothing has been changed yet.
+              This is the first time you have signed in on this device, and it
+              already has progress of its own that does not match your account.
+              Nothing has been changed yet.
             </p>
             <ul style={{ font: `0.875rem/1.7 ${T.uiFont}`, color: T.ink, paddingLeft: 20, margin: "10px 0" }}>
               {plan.conflicts.map((k) => <li key={k}>{label(k)}</li>)}
@@ -315,6 +425,10 @@ export default function Account({ open, setOpen }) {
               Your account keeps its own history either way, so choosing this
               device is always reversible. Choosing your account replaces what is
               here — save a copy first if you are not sure.
+            </p>
+            <p style={{ ...quiet, marginTop: 8 }}>
+              After this, your progress saves to your account as you work, and
+              this device follows it. You will not be asked again.
             </p>
           </>
         ) : (
@@ -377,7 +491,7 @@ export default function Account({ open, setOpen }) {
                     <div style={{ display: "flex", gap: 10, marginTop: 4 }}>
                       <dt style={{ color: T.sub, minWidth: 96 }}>Progress</dt>
                       <dd style={{ margin: 0, color: phase === "syncing" ? T.sub : T.ok }}>
-                        {phase === "syncing" ? "Syncing…" : "Saved to your account"}
+                        {phase === "syncing" ? "Syncing…" : "Saving as you work"}
                       </dd>
                     </div>
                   </dl>
