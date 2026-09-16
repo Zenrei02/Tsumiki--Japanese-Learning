@@ -70,7 +70,7 @@ jobs:
             echo "FAIL: expected HTTP 200, got ${status}."
             case "${status}" in
               401|403) echo "Auth rejected - check SUPABASE_ANON_KEY is the publishable/anon key." ;;
-              404)     echo "Table not found - has 20260825000000_keepalive.sql been pushed?" ;;
+              404)     echo "Table not found - has 20260829160356_keepalive.sql been pushed?" ;;
               5*)      echo "Server error - the project may be paused or still coming up." ;;
             esac
             exit 1

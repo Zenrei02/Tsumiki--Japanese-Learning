@@ -10,7 +10,7 @@
 // NEITHER IS A SECRET. A publishable key is designed to sit in a browser; it
 // carries the `anon` role, and every table this app touches denies `anon` at
 // both the privilege and the policy layer (see
-// supabase/migrations/20260906000000_progress_sync.sql). The secret that must
+// supabase/migrations/20260905175155_progress_sync.sql). The secret that must
 // never reach a browser is the service-role key, which lives in the Edge
 // Function's environment and appears nowhere in this repo.
 //

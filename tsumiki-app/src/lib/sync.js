@@ -127,8 +127,8 @@
 // the thing to keep in mind before touching this:
 //        · the ACCOUNT's version is kept automatically, by the database, which
 //          archives every document it replaces (see the archive trigger in
-//          supabase/migrations/20260906000000_progress_sync.sql, and the
-//          retention rule in 20260916000000_progress_archive_retention.sql —
+//          supabase/migrations/20260905175155_progress_sync.sql, and the
+//          retention rule in 20260915220005_progress_archive_retention.sql —
 //          continuous saving files far more versions than sign-in-only saving
 //          did, so they are now pruned rather than kept forever).
 //          Nothing the client does can skip it.

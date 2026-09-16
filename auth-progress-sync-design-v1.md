@@ -79,7 +79,7 @@ a sentence of UI copy imply symmetry it does not have.
   `BEFORE UPDATE` trigger that files the outgoing document into
   `tsumiki_progress_archive` under the version it had. No client involvement, and
   no way for a client to skip it — see
-  `supabase/migrations/20260906000000_progress_sync.sql`. So choosing *this
+  `supabase/migrations/20260905175155_progress_sync.sql`. So choosing *this
   device* is always reversible.
 
 - **The device's copy is not.** It is saved only if the learner presses the
@@ -297,10 +297,40 @@ reason (no `package.json`, so the copied ES modules loaded as CommonJS).
 
 The archive trigger files a full copy of the document on every content change.
 That was a handful of versions a month at sign-in cadence and is hundreds a week
-at this one. `supabase/migrations/20260916000000_progress_archive_retention.sql`
+at this one. `supabase/migrations/20260915220005_progress_archive_retention.sql`
 adds a rule — newest 20 versions, then one per UTC day for 90 days — as a **new**
-migration; the existing one is not edited, for the reason `20260906140000`
+migration; the existing one is not edited, for the reason `20260906142411`
 gives. Identical content still costs a round trip and does **not** bump the
 version, because the original trigger already compares `old.data is distinct
 from new.data`; the client now also declines to send an unchanged document at
 all, so a quiet load costs one GET and no POST.
+
+Applied to the live project as `20260915220005`, followed by `20260915220055`,
+which revokes public EXECUTE on **both** archive trigger functions — the
+`20260906000100` revoke did not survive the rename, so `…_prev()` had become
+publicly executable again alongside the newly added `…_prune()`. Verified by
+inspecting the artifact rather than the log: both functions are `SECURITY
+DEFINER` with `postgres=X/postgres` and no other grantee, and both triggers are
+wired and enabled (`…_prune_trg` AFTER INSERT ROW on `tsumiki_progress_archive`).
+
+## ⚠️ The migration filenames were reconciled, and it broke cross-references
+
+The local filenames did not match the versions recorded in
+`supabase_migrations.schema_migrations`, so eight files were renamed to the
+versions actually applied (contents byte-identical; all eleven now match, 11 for
+11). **The old numbers are still cited in about twenty places** — inside the
+migration bodies themselves, and in `SESSION-23-HANDOVER.md`,
+`HANDOVER-to-claude-code.md`, `RENAME-NOTES.md`,
+`CLAUDE-CODE-PROMPT-keepalive.md` and `keepalive-report-2026-08-30.md`.
+
+Those were left as they are. Almost all of them name an **event**
+("`20260814190000` lost EXECUTE it held only through PUBLIC") rather than a
+path, and they still read correctly; the handovers and the dated report are
+records of what was known at a moment, which this project does not rewrite
+retroactively. What *was* updated is the small set of "go read this file"
+pointers, in `sync.js`, `supabase.js`, this document, and the keepalive
+workflow's 404 hint.
+
+So: **a version number in a document older than 2026-09-16 may not name any
+file.** Resolve it by name, not by number — `git log --follow` on the migration,
+or match on the descriptive half of the filename.
