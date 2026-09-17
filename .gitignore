@@ -83,6 +83,11 @@ bakeoff-parse-failures.jsonl
 # and their proposed corrections, which IS key material. Added Aug 12 2026 after a
 # provisional import copy landed in OLD/.
 *responses*.xlsx
+# Session 33.1: the B10 sheet exports as CSV (one row, 58 columns), and the
+# imported grades carry the model codes, the roles and the grader's name.
+# Same reason as the xlsx line above — this repo is public.
+*responses*.csv
+b10-grades.csv
 OLD/keycheck-responses-*.xlsx
 
 # Step 3 reports and the rewrite-quality proposals. Same rule again: these quote
