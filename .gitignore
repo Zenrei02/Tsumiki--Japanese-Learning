@@ -88,6 +88,7 @@ bakeoff-parse-failures.jsonl
 # Same reason as the xlsx line above — this repo is public.
 *responses*.csv
 b10-grades.csv
+b11-grades.csv
 OLD/keycheck-responses-*.xlsx
 
 # Step 3 reports and the rewrite-quality proposals. Same rule again: these quote
@@ -150,6 +151,9 @@ build-b9-form.gs
 #                               if it reached the reviewer.
 build-b10-form.gs
 build-b10-form-preview.html
+#   build-b11-forms.gs          50 records of the same shape (Session 33.1) — the
+#                               verified key on every one of them
+build-b11-forms.gs
 
 # ── Local noise ─────────────────────────────────────────────────────────────
 .~lock.*#
