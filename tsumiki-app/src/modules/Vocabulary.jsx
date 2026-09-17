@@ -1366,6 +1366,112 @@ function stampFirsts(next) {
   return { ...next, _firstAt: stamps, _stampEpoch: next._stampEpoch == null ? t : next._stampEpoch };
 }
 
+// ————— Lesson complete (Session 33) —————
+// Lloyd, Session 33: finishing anything was silent. The last tab just sat there
+// and nothing said whether it was safe to leave, so the learner either guessed
+// or stayed. This is the one answer, shared verbatim by grammar, kanji and
+// vocabulary: a mark that draws itself, a line naming what was finished, and a
+// button back to the list they came from. Staying is still offered — the lesson
+// does not close, it only stops being silent.
+//
+// The mark is the animation. prefers-reduced-motion turns the movement off and
+// leaves the mark, because the mark is the information and the movement is not.
+// The <style> is rendered inline rather than injected into document.head: two
+// of the three modules have no root stylesheet to hang it on, and a duplicate
+// rule is harmless where a missing one is not.
+const COMPLETE_CSS = `
+@keyframes tsumiki-seal {
+  0%   { transform: scale(.4) rotate(-14deg); opacity: 0 }
+  55%  { transform: scale(1.12) rotate(3deg); opacity: 1 }
+  100% { transform: scale(1) rotate(0deg); opacity: 1 }
+}
+@keyframes tsumiki-ring {
+  0%   { transform: scale(.65); opacity: 0 }
+  35%  { opacity: .85 }
+  100% { transform: scale(1.55); opacity: 0 }
+}
+@keyframes tsumiki-rise {
+  0%   { transform: translateY(9px); opacity: 0 }
+  100% { transform: translateY(0); opacity: 1 }
+}
+@keyframes tsumiki-tick {
+  0%   { transform: scale(.4); opacity: 0 }
+  60%  { transform: scale(1.25); opacity: 1 }
+  100% { transform: scale(1); opacity: 1 }
+}
+.tsumiki-seal { animation: tsumiki-seal .6s cubic-bezier(.18,.9,.3,1.25) both; }
+.tsumiki-ring { animation: tsumiki-ring .95s ease-out .08s both; }
+.tsumiki-rise { animation: tsumiki-rise .45s ease-out both; }
+.tsumiki-rise-2 { animation-delay: .14s; }
+.tsumiki-rise-3 { animation-delay: .28s; }
+.tsumiki-tick { display: inline-block; animation: tsumiki-tick .42s cubic-bezier(.18,.9,.3,1.3) both; }
+@media (prefers-reduced-motion: reduce) {
+  .tsumiki-seal, .tsumiki-rise, .tsumiki-tick { animation: none; }
+  .tsumiki-ring { animation: none; opacity: 0; }
+}
+`;
+
+function LessonComplete({ mark = "済", head, title, body, lines = [], backLabel, onBack, stayLabel, onStay }) {
+  return (
+    <div style={{ textAlign: "center", padding: "30px 8px 22px" }} role="status" aria-live="polite">
+      <style>{COMPLETE_CSS}</style>
+      <div style={{ position: "relative", width: 96, height: 96, margin: "0 auto 16px" }}>
+        <span className="tsumiki-ring" aria-hidden="true" style={{
+          position: "absolute", left: 0, top: 0, width: 96, height: 96,
+          boxSizing: "border-box", borderRadius: "50%", border: `2px solid ${T.ok}`,
+        }} />
+        <span className="tsumiki-seal" style={{
+          position: "absolute", left: 0, top: 0, width: 96, height: 96,
+          boxSizing: "border-box", borderRadius: "50%", background: T.okBg,
+          border: `2px solid ${T.ok}`, color: T.ok, fontFamily: T.jpFont,
+          fontSize: "2.5rem", lineHeight: "92px",
+        }}>{mark}</span>
+      </div>
+      <p className="tsumiki-rise" style={{
+        font: `600 1.1875rem ${T.uiFont}`, color: T.ink, margin: "0 0 4px",
+      }}>{head}</p>
+      {title && (
+        <p className="tsumiki-rise tsumiki-rise-2" style={{
+          font: `1.0625rem ${T.jpFont}`, color: T.sub, margin: "0 0 10px",
+        }}>{title}</p>
+      )}
+      {body && (
+        <p className="tsumiki-rise tsumiki-rise-2" style={{
+          font: `0.875rem/1.7 ${T.uiFont}`, color: T.sub,
+          maxWidth: 400, margin: "0 auto 16px",
+        }}>{body}</p>
+      )}
+      {lines.length > 0 && (
+        <div className="tsumiki-rise tsumiki-rise-2" style={{
+          display: "flex", flexWrap: "wrap", gap: 8,
+          justifyContent: "center", margin: "0 0 18px",
+        }}>
+          {lines.map((l, i) => (
+            <span key={i} style={{
+              font: `0.75rem ${T.uiFont}`, color: T.sub, background: T.sheet,
+              border: `1px solid ${T.hairline}`, borderRadius: 999, padding: "4px 12px",
+            }}>{l}</span>
+          ))}
+        </div>
+      )}
+      <div className="tsumiki-rise tsumiki-rise-3" style={{
+        display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap",
+      }}>
+        <button onClick={onBack} style={{
+          font: `0.875rem ${T.uiFont}`, background: T.ink, color: T.paper,
+          border: `1px solid ${T.ink}`, borderRadius: 6, padding: "10px 22px", cursor: "pointer",
+        }}>{backLabel}</button>
+        {onStay && (
+          <button onClick={onStay} style={{
+            font: `0.875rem ${T.uiFont}`, background: "none", color: T.sub,
+            border: `1px solid ${T.hairline}`, borderRadius: 6, padding: "10px 22px", cursor: "pointer",
+          }}>{stayLabel || "Stay here"}</button>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function VocabularyModule() {
   const [progress, setProgress] = useState({});
   const [known, setKnown] = useState([]);
@@ -1373,6 +1479,7 @@ export default function VocabularyModule() {
   const [ready, setReady] = useState(false);
   const [view, setView] = useState("today");     // today | review
   const [active, setActive] = useState(null);    // word being practised
+  const [celebrate, setCelebrate] = useState(null);  // {word, ap} — first completion of a word
   const [toast, setToast] = useState(null);
   const [markerQuiz, setMarkerQuiz] = useState(null); // {kind, t, words} — Session 11 markers
   const [formDrill, setFormDrill] = useState(null);   // {form, items} — Session 18 form drills
@@ -1485,7 +1592,11 @@ export default function VocabularyModule() {
     if (opts.sentence) { p.sentences += 1; ap += AP.sentence; }
 
     const wasComplete = (word.k || []).every((c) => p.written.includes(c)) && !(word.u || []).length;
-    if (opts.wrote && wasComplete && !p.completed) { p.completed = true; ap += AP.complete; }
+    // A word completes ONCE. The toast used to carry this as a four-word
+    // suffix that shared its two seconds with an AP count — the only moment
+    // in the module worth stopping for, delivered as a footnote (Session 33).
+    const justCompleted = opts.wrote && wasComplete && !p.completed;
+    if (justCompleted) { p.completed = true; ap += AP.complete; }
 
     // Advance the ladder. A content-driven return counts as a review — it IS one
     // (vocab-retention-model-v1.md §3), so it advances the stage exactly as an
@@ -1496,7 +1607,8 @@ export default function VocabularyModule() {
 
     await persist({ ...progress, [word.w]: p }, ap);
     setActive(null);
-    setToast(ap ? <span>+{ap} <KobanIcon size={12} />{p.completed && wasComplete ? " · word complete" : ""}</span> : null);
+    if (justCompleted) { setCelebrate({ word, ap }); return; }
+    setToast(ap ? <span>+{ap} <KobanIcon size={12} /></span> : null);
     setTimeout(() => setToast(null), 2200);
   }, [get, known, progress, persist]);
 
@@ -1516,6 +1628,21 @@ export default function VocabularyModule() {
   }, [get, progress, persist]);
 
   if (!ready) return <Shell><p style={{ color: T.sub }}>Loading…</p></Shell>;
+
+  if (celebrate) {
+    return (
+      <Shell>
+        <LessonComplete
+          head="Word complete."
+          title={celebrate.word.w + (celebrate.word.m ? " — " + celebrate.word.m : "")}
+          body="Every kanji in it is taught, learned, and now written by you. It will still come back on its own schedule — that is the schedule working, not you forgetting."
+          lines={[celebrate.ap ? "+" + celebrate.ap + " koban" : null].filter(Boolean)}
+          backLabel="← Back to Vocabulary"
+          onBack={() => setCelebrate(null)}
+        />
+      </Shell>
+    );
+  }
 
   if (active) {
     return (

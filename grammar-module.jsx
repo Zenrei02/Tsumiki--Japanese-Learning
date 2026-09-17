@@ -59,6 +59,7 @@ const T = {
   noteBg: "#FAF3E0",
   ai: "#3D5A80",
   ok: "#3E7C4F",
+  okBg: "#EDF5EE",   // the completion splash's seal (Session 33); already in vocabulary-module.jsx at this value
   jpFont: '"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif',
   uiFont: '-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif',
 };
@@ -8992,7 +8993,11 @@ function Drill({ point, deep, progress, onProgress, mode, onTapWord }) {
           ...(k / n >= oldRatio ? { drillBest: k, drillTotal: n } : {}),
         },
       });
-      setRun([]); setI(-1); // -1 → finished screen
+      // The run is KEPT. Clearing it here made run.length 0, and the finish
+      // screen's `run.length || right` then fell through to `right` — so a
+      // 4-of-5 round printed "4 of 4" and drew 花丸 for a clean sweep that
+      // had not happened (Lloyd, Session 33). The total is the point.
+      setI(-1); // -1 → finished screen
       return;
     }
     const ni = i + 1;
@@ -9023,10 +9028,10 @@ function Drill({ point, deep, progress, onProgress, mode, onTapWord }) {
   if (i === -1) {
     return (
       <div style={{ textAlign: "center", padding: "20px 0" }}>
-        <div style={{ fontFamily: T.jpFont, fontSize: "1.875rem", color: right === (run.length || right) ? T.ok : T.ink, marginBottom: 6 }}>
-          {right === (run.length || right) ? "花丸" : "済"}
+        <div className="tsumiki-seal" style={{ fontFamily: T.jpFont, fontSize: "1.875rem", color: right === run.length ? T.ok : T.ink, marginBottom: 6 }}>
+          {right === run.length ? "花丸" : "済"}
         </div>
-        <p style={{ fontSize: "0.9375rem", margin: "0 0 4px" }}>{right} of {run.length || right} — {right === (run.length || right) ? "clean sweep." : "the misses are the lesson."}</p>
+        <p style={{ fontSize: "0.9375rem", margin: "0 0 4px" }}>{right} of {run.length} — {right === run.length ? "clean sweep." : "the misses are the lesson."}</p>
         {d.pool && (
           <p style={{ fontSize: "0.8125rem", color: T.sub, maxWidth: 400, margin: "6px auto 0", lineHeight: 1.7 }}>
             Other words are still waiting in the pool — come back any time for another round with a different draw.
@@ -9310,7 +9315,113 @@ function ReviewChallenge({ progress, onProgress, isDone, mode, onTapWord, onBack
   );
 }
 
-function Module({ point, progress, onProgress, onBack, mode, onTapWord, script = "en" }) {
+// ————— Lesson complete (Session 33) —————
+// Lloyd, Session 33: finishing anything was silent. The last tab just sat there
+// and nothing said whether it was safe to leave, so the learner either guessed
+// or stayed. This is the one answer, shared verbatim by grammar, kanji and
+// vocabulary: a mark that draws itself, a line naming what was finished, and a
+// button back to the list they came from. Staying is still offered — the lesson
+// does not close, it only stops being silent.
+//
+// The mark is the animation. prefers-reduced-motion turns the movement off and
+// leaves the mark, because the mark is the information and the movement is not.
+// The <style> is rendered inline rather than injected into document.head: two
+// of the three modules have no root stylesheet to hang it on, and a duplicate
+// rule is harmless where a missing one is not.
+const COMPLETE_CSS = `
+@keyframes tsumiki-seal {
+  0%   { transform: scale(.4) rotate(-14deg); opacity: 0 }
+  55%  { transform: scale(1.12) rotate(3deg); opacity: 1 }
+  100% { transform: scale(1) rotate(0deg); opacity: 1 }
+}
+@keyframes tsumiki-ring {
+  0%   { transform: scale(.65); opacity: 0 }
+  35%  { opacity: .85 }
+  100% { transform: scale(1.55); opacity: 0 }
+}
+@keyframes tsumiki-rise {
+  0%   { transform: translateY(9px); opacity: 0 }
+  100% { transform: translateY(0); opacity: 1 }
+}
+@keyframes tsumiki-tick {
+  0%   { transform: scale(.4); opacity: 0 }
+  60%  { transform: scale(1.25); opacity: 1 }
+  100% { transform: scale(1); opacity: 1 }
+}
+.tsumiki-seal { animation: tsumiki-seal .6s cubic-bezier(.18,.9,.3,1.25) both; }
+.tsumiki-ring { animation: tsumiki-ring .95s ease-out .08s both; }
+.tsumiki-rise { animation: tsumiki-rise .45s ease-out both; }
+.tsumiki-rise-2 { animation-delay: .14s; }
+.tsumiki-rise-3 { animation-delay: .28s; }
+.tsumiki-tick { display: inline-block; animation: tsumiki-tick .42s cubic-bezier(.18,.9,.3,1.3) both; }
+@media (prefers-reduced-motion: reduce) {
+  .tsumiki-seal, .tsumiki-rise, .tsumiki-tick { animation: none; }
+  .tsumiki-ring { animation: none; opacity: 0; }
+}
+`;
+
+function LessonComplete({ mark = "済", head, title, body, lines = [], backLabel, onBack, stayLabel, onStay }) {
+  return (
+    <div style={{ textAlign: "center", padding: "30px 8px 22px" }} role="status" aria-live="polite">
+      <style>{COMPLETE_CSS}</style>
+      <div style={{ position: "relative", width: 96, height: 96, margin: "0 auto 16px" }}>
+        <span className="tsumiki-ring" aria-hidden="true" style={{
+          position: "absolute", left: 0, top: 0, width: 96, height: 96,
+          boxSizing: "border-box", borderRadius: "50%", border: `2px solid ${T.ok}`,
+        }} />
+        <span className="tsumiki-seal" style={{
+          position: "absolute", left: 0, top: 0, width: 96, height: 96,
+          boxSizing: "border-box", borderRadius: "50%", background: T.okBg,
+          border: `2px solid ${T.ok}`, color: T.ok, fontFamily: T.jpFont,
+          fontSize: "2.5rem", lineHeight: "92px",
+        }}>{mark}</span>
+      </div>
+      <p className="tsumiki-rise" style={{
+        font: `600 1.1875rem ${T.uiFont}`, color: T.ink, margin: "0 0 4px",
+      }}>{head}</p>
+      {title && (
+        <p className="tsumiki-rise tsumiki-rise-2" style={{
+          font: `1.0625rem ${T.jpFont}`, color: T.sub, margin: "0 0 10px",
+        }}>{title}</p>
+      )}
+      {body && (
+        <p className="tsumiki-rise tsumiki-rise-2" style={{
+          font: `0.875rem/1.7 ${T.uiFont}`, color: T.sub,
+          maxWidth: 400, margin: "0 auto 16px",
+        }}>{body}</p>
+      )}
+      {lines.length > 0 && (
+        <div className="tsumiki-rise tsumiki-rise-2" style={{
+          display: "flex", flexWrap: "wrap", gap: 8,
+          justifyContent: "center", margin: "0 0 18px",
+        }}>
+          {lines.map((l, i) => (
+            <span key={i} style={{
+              font: `0.75rem ${T.uiFont}`, color: T.sub, background: T.sheet,
+              border: `1px solid ${T.hairline}`, borderRadius: 999, padding: "4px 12px",
+            }}>{l}</span>
+          ))}
+        </div>
+      )}
+      <div className="tsumiki-rise tsumiki-rise-3" style={{
+        display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap",
+      }}>
+        <button onClick={onBack} style={{
+          font: `0.875rem ${T.uiFont}`, background: T.ink, color: T.paper,
+          border: `1px solid ${T.ink}`, borderRadius: 6, padding: "10px 22px", cursor: "pointer",
+        }}>{backLabel}</button>
+        {onStay && (
+          <button onClick={onStay} style={{
+            font: `0.875rem ${T.uiFont}`, background: "none", color: T.sub,
+            border: `1px solid ${T.hairline}`, borderRadius: 6, padding: "10px 22px", cursor: "pointer",
+          }}>{stayLabel || "Stay here"}</button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function Module({ point, progress, onProgress, onBack, isDone, mode, onTapWord, script = "en" }) {
   const [tab, setTab] = useState("learn");
   const p = progress[point.id] || {};
   const kind = KINDS[point.kind || "grammar"];
@@ -9326,6 +9437,24 @@ function Module({ point, progress, onProgress, onBack, mode, onTapWord, script =
     : deep && deep.drill ? [["learn", "Learn"], ["drill", "Drill"], ["quiz", "Quiz"], ["practice", "Practice"]]
     : [["learn", "Learn"], ["quiz", "Quiz"], ["practice", "Practice"]];
 
+  // The completion moment. `isDone` is the SAME predicate the lesson list
+  // draws its 済 with, passed down rather than re-derived, so the splash and
+  // the tick can never disagree about what finished means. The ref starts at
+  // the value on open, so re-entering a lesson that was already done is quiet
+  // — only the transition celebrates.
+  const wasDone = useRef(isDone ? isDone(point) : false);
+  const [celebrate, setCelebrate] = useState(false);
+  useEffect(() => {
+    // Primers are excluded deliberately: their `read` flag is written by the
+    // effect below on mount, so isDone() flips true the instant one is OPENED.
+    // Celebrating that would congratulate the learner for arriving.
+    if (!isDone || point.kind === "primer") return;
+    const now = isDone(point);
+    if (now && !wasDone.current) setCelebrate(true);
+    wasDone.current = now;
+  }, [progress, point.id]);
+  useEffect(() => { setCelebrate(false); }, [point.id]);
+
   // Primers have nothing to submit, so opening one is what counts as doing it.
   useEffect(() => {
     if (point.kind !== "primer") return;
@@ -9333,6 +9462,27 @@ function Module({ point, progress, onProgress, onBack, mode, onTapWord, script =
     if (prev.read) return;
     onProgress({ ...progress, [point.id]: { ...prev, read: true } });
   }, [point.id]);
+
+  if (celebrate) {
+    return (
+      <LessonComplete
+        mark="済"
+        head="Lesson complete."
+        title={point.jp + " — " + point.en}
+        body="It is marked 済 on the list now. Nothing here closes — the Learn tab, the drill and the practice box stay exactly where you left them."
+        lines={[
+          p.drillBest != null ? "Drill " + p.drillBest + "/" + p.drillTotal : null,
+          p.quizBest != null ? "Quiz " + p.quizBest + "/" + p.quizTotal : null,
+          p.practiced ? "Practice " + p.practiced : null,
+          p.bestElements != null ? "Write " + p.bestElements + "/" + p.elementTotal : null,
+        ].filter(Boolean)}
+        backLabel="← All grammar points"
+        onBack={onBack}
+        stayLabel="Stay in this lesson"
+        onStay={() => setCelebrate(false)}
+      />
+    );
+  }
 
   return (
     <div>
@@ -9651,6 +9801,7 @@ export default function GrammarPractice() {
         .level-card:hover:not(:disabled) { border-color: #CFCDC4; }
         .level-card:disabled { cursor: default; opacity: .55; }
         textarea:focus, input:focus, button:focus-visible { outline: 2px solid ${T.ai}; outline-offset: 2px; }
+        ${COMPLETE_CSS}
       `}</style>
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px 80px" }}>
         <header style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 6 }}>
@@ -9681,7 +9832,7 @@ export default function GrammarPractice() {
         {challenge ? (
           <ReviewChallenge progress={progress} onProgress={updateProgress} isDone={isDone} mode={kanjiMode} onTapWord={setPopup} onBack={() => setChallenge(false)} />
         ) : point ? (
-          <Module point={point} progress={progress} onProgress={updateProgress} onBack={() => setCurrent(null)} mode={kanjiMode} onTapWord={setPopup} script={pointScript} />
+          <Module point={point} progress={progress} onProgress={updateProgress} onBack={() => setCurrent(null)} isDone={isDone} mode={kanjiMode} onTapWord={setPopup} script={pointScript} />
         ) : level ? (
           <div>
             <button className="btn-ghost" onClick={() => { setLevelId(null); setQuery(""); setOpenCats(null); }} style={{ marginBottom: 16 }}>
@@ -9785,7 +9936,7 @@ export default function GrammarPractice() {
                             <KindMarker kind={p.kind} script={level.markers} />
                             <span style={{ fontFamily: T.jpFont, fontSize: "1.0625rem", minWidth: 0 }}>{p.jp}</span>
                             <span style={{ fontSize: "0.8125rem", color: T.sub, flex: 1 }}>{p.en}</span>
-                            <span style={{ fontSize: "0.8125rem", color: isComplete ? T.ok : started ? T.note : T.hairline }}>
+                            <span className={isComplete ? "tsumiki-tick" : undefined} style={{ fontSize: "0.8125rem", color: isComplete ? T.ok : started ? T.note : T.hairline }}>
                               {isComplete ? "済" : started ? "…" : "○"}
                             </span>
                           </button>
