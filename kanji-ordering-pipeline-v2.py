@@ -467,11 +467,18 @@ L += ["", "## Contrastive adjacency chains (Session 4 Decision 6)", "",
       "to the module shows the adjacency mechanism is a weaker version of something already "
       "built: 日, 目 and 白 are *not* adjacent in Stage 0 (positions 5, 7, 10, with 月, 田, 口 "
       "between them), and the contrast is carried by a dedicated skill lesson `sb-eye` placed "
-      "once the set is complete. `sb-person` and `sb-tree` do the same for 人·入·八 and for "
-      "木·本 / 今·分. A contrast lesson teaches the distinction explicitly, survives regrouping, "
-      "and does not compete with centrality for sequence positions. Decision 6 is better stated "
-      "as *confusables get a contrast lesson once the set is complete*. Note the two chains "
-      "formed above are exactly the pairs `sb-tree` already covers.", "",
+      "once the set is complete. `sb-person` does the same for 人·入·八, and `sb-root` (木·本) "
+      "and `sb-lid` (今·分) for the other two. A contrast lesson teaches the distinction "
+      "explicitly, survives regrouping, and does not compete with centrality for sequence "
+      "positions. Decision 6 is better stated as *confusables get a contrast lesson once the "
+      "set is complete*. Note the two chains formed above are exactly the pairs `sb-root` and "
+      "`sb-lid` already cover.", "",
+      "> **Names corrected 2026-09-19 by the weekly audit.** This paragraph said `sb-tree` "
+      "covered both pairs. It did, until the v1→v2 regroup split it into `sb-root` and "
+      "`sb-lid`; `sb-tree` now survives only in `DEAD_IDS_V1`, as a source for migrating a "
+      "learner's old progress, and `kanji-module.jsx` records that the two successors start "
+      "fresh rather than inheriting its traces. The conclusion above was always right — only "
+      "the lesson id was stale.", "",
       "## Characters carrying named shapes (lesson needs a shape gloss)", ""]
 for r in rows:
     if r["named_shapes"]:

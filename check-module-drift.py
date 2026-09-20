@@ -15,6 +15,8 @@ WHAT IT COMPARES
     tolerancesFor, thinPoints, resample) — whitespace-normalised
   · the design token table `const T`
   · the storage helpers loadJSON / saveJSON
+  · the lesson-completion block — LessonComplete() and COMPLETE_CSS, copied
+    into grammar, kanji and vocabulary by e0da730 (added 2026-09-19)
   · storage KEYS, which are the real coupling: six modules read and write eight
     shared keys, and a key renamed in one place silently orphans a learner's
     progress everywhere else
@@ -76,6 +78,35 @@ def const_block(s, name):
         k += 1
     return norm(s[m.start():k])
 
+def line_block(s, opener, is_end):
+    """Extract a top-level block BY LINE: from the line starting with `opener`
+    to the first following line for which `is_end(stripped_line)` is true.
+
+    ⚠️ WHY NOT fn_body() / const_block(). Both brace-match, and both are fooled
+    by the lesson-completion block. Found by the 2026-09-19 audit:
+
+      · `function LessonComplete({ mark = "済", ... }) {` opens its first brace
+        on the DESTRUCTURED PARAMETER LIST. fn_body() closes on the end of the
+        parameters and returns a 107-character signature — which is identical
+        in every module by construction, so the comparison would have passed
+        forever while the 2,700-byte body drifted freely underneath it.
+      · COMPLETE_CSS is a template literal containing `${...}`. A brace matcher
+        started on it walks off the end of the file.
+
+    Both blocks are house-formatted at top level and end on a bare `}` or a
+    bare `` `; `` on its own line, so a line scan is simpler AND harder to fool
+    than a matcher that has to understand strings, template literals and JSX.
+    """
+    out, collecting = [], False
+    for ln in s.split("\n"):
+        if not collecting and ln.startswith(opener):
+            collecting = True
+        if collecting:
+            out.append(ln.rstrip())
+            if len(out) > 1 and is_end(ln.strip()):
+                return norm("\n".join(out))
+    return None
+
 # Differences confirmed BY HAND to be formatting-only. A drift detector needs
 # somewhere to record "a human looked at this and it is fine", or every benign
 # style difference re-alarms forever and the tool gets ignored. Each entry says
@@ -89,9 +120,24 @@ BENIGN = {
 problems = []
 lines = ["# Module drift check", ""]
 
-def compare(label, values):
-    """values: {module: normalised_text or None}"""
+def compare(label, values, expect_at_least=None):
+    """values: {module: normalised_text or None}
+
+    `expect_at_least` turns "I could not find this anywhere" into a FAILURE
+    rather than a shrug. Without it, a block that gets renamed — or an extractor
+    that silently stops matching — reports "nothing to compare" and the run
+    still exits 0. That is the check-that-cannot-fail shape this project keeps
+    getting caught by, and it is cheap to close: if a block is known to live in
+    N modules, say so, and let the tool notice when it does not.
+    """
     present = {m: v for m, v in values.items() if v}
+    if expect_at_least is not None and len(present) < expect_at_least:
+        problems.append(f"{label} — found in {len(present)} module(s), expected {expect_at_least}")
+        lines.append(f"- ❌ **{label}** — **found in {len(present)} module(s), expected "
+                     f"at least {expect_at_least}**: {', '.join(sorted(present)) or 'none'}")
+        lines.append("    - Either the block was removed/renamed, or the extractor has "
+                     "stopped matching it. Both are real; neither is a pass.")
+        return
     if len(present) < 2:
         lines.append(f"- {label}: only in {list(present) or 'none'} — nothing to compare")
         return
@@ -139,6 +185,28 @@ else:
     lines.append("    - ✅ no key holds two different values — divergence is additive only")
 compare("`loadJSON()`", {m: fn_body(s, "loadJSON") for m, s in SRC.items()})
 compare("`saveJSON()`", {m: fn_body(s, "saveJSON") for m, s in SRC.items()})
+
+# ---- the lesson-completion block ----
+# Added 2026-09-19 by the weekly audit. e0da730 copied LessonComplete() and its
+# COMPLETE_CSS into grammar, kanji and vocabulary and its commit message said
+# "drift check clean" — which was true and meant nothing, because this script
+# did not compare either block. The copies were identical when checked by hand;
+# the gap was that nothing would have noticed if they stopped being.
+#
+# SCOPE is deliberately the three ROOT modules, not their tsumiki-app/src/modules/
+# counterparts: this tool has only ever watched the six single-file modules, and
+# the app copies arrive by splice rather than by hand (the division of labour
+# recorded 2026-09-05). Three is the number to expect here; if it ever reads two,
+# something was deleted or renamed and the line below says so instead of passing.
+lines += ["", "## Lesson-completion block", "",
+          "Copied into grammar, kanji and vocabulary rather than imported — the same",
+          "duplication as the stroke engine, and the same failure mode if one is edited.", ""]
+compare("`LessonComplete()`",
+        {m: line_block(s, "function LessonComplete(", lambda l: l == "}") for m, s in SRC.items()},
+        expect_at_least=3)
+compare("`COMPLETE_CSS`",
+        {m: line_block(s, "const COMPLETE_CSS", lambda l: l.endswith("`;")) for m, s in SRC.items()},
+        expect_at_least=3)
 
 # ---- storage keys: the coupling that actually breaks learners ----
 lines += ["", "## Storage keys", "",
