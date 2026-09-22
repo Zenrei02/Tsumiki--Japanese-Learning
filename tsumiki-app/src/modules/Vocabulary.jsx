@@ -1320,10 +1320,13 @@ function needsRuby(word, known) {
   return kata.length > 0 && !kata.every((c) => KATA_WALKED.has(c));
 }
 function WordText({ word, known, size = 22, rt = ".5em" }) {
+  // data-lookup (Session 34): the dictionary drawer reads these off the page to
+  // offer "on this screen" — the word is marked wherever it is DRAWN, so no
+  // screen has to keep a second list of what it is showing.
   const show = needsRuby(word, known) && word.r;
-  if (!show) return <span style={{ font: `${size / 16}rem ${T.jpFont}` }}>{word.w}</span>;
+  if (!show) return <span data-lookup={word.w} style={{ font: `${size / 16}rem ${T.jpFont}` }}>{word.w}</span>;
   return (
-    <ruby style={{ fontFamily: T.jpFont, fontSize: `${size / 16}rem`, rubyPosition: "over" }}>
+    <ruby data-lookup={word.w} style={{ fontFamily: T.jpFont, fontSize: `${size / 16}rem`, rubyPosition: "over" }}>
       {word.w}<rt style={{ fontSize: rt, color: T.sub }}>{word.r}</rt>
     </ruby>
   );

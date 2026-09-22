@@ -78,6 +78,29 @@ week**. Example sentences are **later-phase** (section at the end).
   two actions on one press) and in the natural rewrite. Runs, not words: 食
   finds 食べる through the prefix search. The prompt is untouched.
 
+### The handle, and the words on this screen (Sep 22)
+
+Lloyd, after the first pass: the drawer should also be **something you pull
+out**, not only something that happens when you tap a word.
+
+- A **tab on the right edge**, low enough for a thumb (`bottom: 18%`, 34 px
+  wide, 辞書 set vertically). It sits at z-index 20, under the Goals and Account
+  dialogs, and disappears while the drawer is open.
+- Opened that way, the drawer leads with **ON THIS SCREEN**: the words the
+  learner can currently see, as chips that run a search when tapped. Search
+  stays at the top either way.
+- Those words are collected from the page, not from a list each screen keeps:
+  every module marks its tappable words with `data-lookup` where they are drawn
+  (JPText in grammar, the checker's kanji runs, WordText in vocabulary, the
+  kanji grid), and the shell reads the marks that are in the viewport. A second
+  list of "what this screen is showing" would be a second thing to get wrong.
+- **The viewport filter treats "no layout information" as visible.** jsdom
+  reports every rect as zeros, so the first version silently listed nothing in
+  exactly the place the test runs. The smoke test now asserts the chips.
+
+Tapping a word still opens the drawer straight away — that was already true and
+is now covered by the Grammar test, which taps a real word in a drill sentence.
+
 ### Send to Vocabulary, and the week
 
 - The dictionary owns `tsumiki-my-words-v1` (one writer). It is in
@@ -92,6 +115,14 @@ week**. Example sentences are **later-phase** (section at the end).
   week**, not a second prize: five such practices keep the week whatever the
   day count, and pay no koban of their own. The koban economy is untouched.
   Counted by the Goals panel from the two owning stores, never recorded twice.
+
+### The way out of a finished lesson
+
+The completion splash's primary button returns to the module's list — "← All
+grammar points", "← All lessons", "← Back to Vocabulary" — with "Stay in this
+lesson" beside it. The Grammar smoke test now finishes a lesson for real (marks
+it studied, writes a practice sentence, logs it), waits for the splash and
+clicks that button, asserting the learner lands back on a list screen.
 
 ### Verified
 

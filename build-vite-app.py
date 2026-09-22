@@ -1147,12 +1147,36 @@ function Drawer({ open, close, active, go, onAccount }) {
 //
 // It is the same component as the Dictionary page, in drawer mode, so there is
 // one lookup in the app and not two that could disagree about a word.
+// What the learner can currently SEE that the dictionary knows how to look up.
+// Every module marks its tappable words with data-lookup where they are drawn
+// (JPText in grammar, the checker's kanji runs, WordText in vocabulary, the
+// kanji grid), so this reads the page rather than asking each screen to keep a
+// second list of what it is showing — which would be a second thing to get
+// wrong. Only what is actually in the viewport, in the order it appears.
+function wordsOnScreen() {
+  const out = [], seen = new Set();
+  const h = window.innerHeight || 0;
+  for (const el of document.querySelectorAll("[data-lookup]")) {
+    const w = (el.getAttribute("data-lookup") || "").trim();
+    if (!w || seen.has(w)) continue;
+    // Keep it when there is no layout information at all (rect all zeros —
+    // jsdom, or a node measured before layout): "cannot tell" must not read as
+    // "not on screen", or the list is silently empty exactly where it is tested.
+    const r = el.getBoundingClientRect();
+    const measured = r.width || r.height || r.top || r.bottom;
+    if (measured && (!r.width || r.bottom < 0 || r.top > h)) continue;
+    seen.add(w); out.push(w);
+    if (out.length >= 24) break;
+  }
+  return out;
+}
+
 function LookupHost() {
   const [req, setReq] = useState(null);
   const panelRef = useRef(null);
   useEffect(() => {
     window.__tsumikiLookup = true;
-    const on = (e) => setReq({ ...(e.detail || {}), n: Date.now() });
+    const on = (e) => setReq({ ...(e.detail || {}), onScreen: wordsOnScreen(), n: Date.now() });
     window.addEventListener("tsumiki:lookup", on);
     return () => { window.__tsumikiLookup = false; window.removeEventListener("tsumiki:lookup", on); };
   }, []);
@@ -1164,7 +1188,34 @@ function LookupHost() {
     document.body.style.overflow = "hidden";
     return () => { document.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
   }, [!!req]);
-  if (!req) return null;
+  // ————— the pull-out handle (Lloyd, Session 34) —————
+  // A tab on the right edge, low enough to reach with a thumb: the drawer is a
+  // thing you can pull out, not only something that happens to you when you tap
+  // a word. It sits under the dialogs (z-index 20 against their 30) so it never
+  // floats over the Goals card or an account question, and it goes away while
+  // the drawer itself is open.
+  if (!req) {
+    return (
+      <button
+        onClick={() => setReq({ q: "", onScreen: wordsOnScreen(), n: Date.now() })}
+        aria-label="Open the dictionary"
+        title="Dictionary — look up a word on this screen"
+        style={{
+          position: "fixed", right: 0, bottom: "18%", zIndex: 20,
+          width: 34, minHeight: 104, padding: "12px 0",
+          display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
+          background: T.sheet, color: T.ink, cursor: "pointer",
+          border: `1px solid ${T.hairline}`, borderRight: "none",
+          borderLeft: `3px solid ${ACCENT.dictionary}`,
+          borderRadius: "10px 0 0 10px", boxShadow: "0 2px 10px rgba(34,37,43,0.10)",
+        }}>
+        <span aria-hidden="true" style={{ font: `0.75rem ${T.uiFont}`, color: T.sub }}>‹</span>
+        <span aria-hidden="true" style={{
+          font: `1rem ${T.jpFont}`, writingMode: "vertical-rl", letterSpacing: "2px",
+        }}>辞書</span>
+      </button>
+    );
+  }
   return (
     <>
       <style>{`

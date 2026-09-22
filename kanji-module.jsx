@@ -1225,7 +1225,7 @@ function Learn({ mod, known, onTapChar }) {
                 background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 6,
                 padding: "14px 18px", display: "flex", gap: 16, alignItems: "flex-start", flexWrap: "wrap",
               }}>
-                <button onClick={() => onTapChar(c)} title="Stroke order" style={{
+                <button onClick={() => onTapChar(c)} title="Stroke order" data-lookup={c} style={{
                   fontFamily: T.jpFont, fontSize: "2.875rem", lineHeight: 1, background: "none",
                   border: "none", cursor: "pointer", color: T.ink, padding: 0,
                 }}>{c}</button>

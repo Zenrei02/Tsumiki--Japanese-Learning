@@ -112,7 +112,7 @@ function Ruby({ text, readings, on, tap }) {
         ? <ruby>{hit[0]}<rt style={{ fontSize: "0.5em", color: T.sub }}>{hit[1]}</rt></ruby>
         : hit[0];
       out.push(canTap ? (
-        <span key={k++} role="button" tabIndex={0}
+        <span key={k++} role="button" tabIndex={0} data-lookup={hit[0]}
               onClick={(e) => { e.stopPropagation(); lookUp({ q: hit[0] }); }}
               onKeyDown={(e) => { if (e.key === "Enter") { e.stopPropagation(); lookUp({ q: hit[0] }); } }}
               style={{ borderBottom: `1px dashed ${T.sub}`, cursor: "pointer" }}>{face}</span>

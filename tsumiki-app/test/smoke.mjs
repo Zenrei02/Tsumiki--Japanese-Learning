@@ -397,6 +397,46 @@ await go("grammar", null, [], {
         else log(`drill finish: ${fin[1]} of ${fin[2]} — total survives the round`);
       }
     }
+
+    // ————— The completion splash, and the way out of it (Session 34) —————
+    // Lloyd: a tester who finishes a lesson must have a button back to the
+    // start. The lesson is already marked studied above, so logging one
+    // practice flips isDone and the splash fires for real — no state is faked.
+    {
+      const pTab = btns().find(x => (x.textContent || "").trim().startsWith("Practice"));
+      if (pTab) { pTab.click(); await wait(700); }
+      // The log button is disabled until something is written — the learner
+      // logs a sentence, not an intention.
+      const box = d.querySelector("main textarea");
+      if (box) {
+        Object.getOwnPropertyDescriptor(d.defaultView.HTMLTextAreaElement.prototype, "value")
+          .set.call(box, "私は学生です。");
+        box.dispatchEvent(new d.defaultView.Event("input", { bubbles: true }));
+        await wait(300);
+      }
+      const logBtn = btns().find(b => (b.textContent || "").includes("log practice"));
+      if (!logBtn) { f(`${NAME}: no practice self-log button — the splash cannot be reached`); }
+      else if (logBtn.disabled) { f(`${NAME}: the practice log button stayed disabled after a sentence was written`); }
+      else {
+        logBtn.click(); await wait(1100);
+        const t = rootText();
+        if (!/Lesson complete\./.test(t)) f(`${NAME}: finishing the lesson did not raise the completion splash`);
+        else {
+          log("completion splash: raised by finishing the lesson");
+          const back = btns().find(b => (b.textContent || "").trim() === "← All grammar points");
+          const stay = btns().find(b => (b.textContent || "").trim() === "Stay in this lesson");
+          if (!back) { f(`${NAME}: the splash has no button back to the lesson list`); }
+          else if (!stay) { f(`${NAME}: the splash offers no way to stay in the lesson`); }
+          else {
+            back.click(); await wait(900);
+            const after = rootText();
+            if (/Lesson complete\./.test(after)) f(`${NAME}: the splash's back button did not leave the splash`);
+            else if (!/Review challenge|Step 1|All grammar/i.test(after)) f(`${NAME}: the splash's back button did not land on a list screen`);
+            else log("completion splash: back button returns to the list");
+          }
+        }
+      }
+    }
   },
 });
 
@@ -996,6 +1036,40 @@ if (!ONLY.length || ONLY.includes("dictionary")) {
   const vt = w.document.querySelector("main")?.textContent || "";
   if (!/Your words/.test(vt) || !/食べる/.test(vt)) fail("VOCABULARY: sent words do not appear under Your words");
   else console.log("  vocabulary: sent words appear under Your words");
+
+  // ————— the pull-out handle (Session 34) —————
+  // Vocabulary is on screen at this point, so its words carry data-lookup and
+  // the drawer must lead with them rather than with an empty search box.
+  {
+    const handle = all().find(b => b.getAttribute("aria-label") === "Open the dictionary");
+    if (!handle) fail("DICTIONARY: no pull-out handle — the drawer can only be opened by tapping a word");
+    else {
+      handle.click();
+      await wait(1200);
+      const d = dlg("Dictionary");
+      const t = d?.textContent || "";
+      if (!d) fail("DICTIONARY: the handle did not open the drawer");
+      else if (!/ON THIS SCREEN/.test(t)) fail("DICTIONARY: the handle opened the drawer without the words that are on screen");
+      else if (!d.querySelector("input")) fail("DICTIONARY: no search box at the top of the drawer");
+      else {
+        const chips = [...d.querySelectorAll("button")].filter(b => /^[\u3040-\u30ff\u3400-\u9fff]+$/.test((b.textContent || "").trim()));
+        if (!chips.length) fail("DICTIONARY: ON THIS SCREEN is empty while words are visible behind the drawer");
+        else {
+          console.log(`  handle: opens the drawer, ${chips.length} word(s) on this screen`);
+          const word = (chips[0].textContent || "").trim();
+          chips[0].click();
+          await wait(1100);
+          if (!(dlg("Dictionary")?.querySelector("input") || {}).value) fail("DICTIONARY: tapping an on-screen word did not search for it");
+          else console.log(`  handle: tapping ${word} searches for it`);
+        }
+      }
+      [...(dlg("Dictionary")?.querySelectorAll("button") || [])].find(b => b.getAttribute("aria-label") === "Close dictionary")?.click();
+      await wait(300);
+      if (!all().find(b => b.getAttribute("aria-label") === "Open the dictionary")) {
+        fail("DICTIONARY: the handle did not come back after the drawer closed");
+      } else console.log("  handle: returns when the drawer closes");
+    }
+  }
 
   if (errors.length) fail("DICTIONARY: console errors — " + errors.slice(0, 2).join(" | "));
 }

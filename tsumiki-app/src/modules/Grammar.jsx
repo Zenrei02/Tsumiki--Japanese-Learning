@@ -582,6 +582,7 @@ function JPText({ text, mode, onTap }) {
             key={i}
             role="button"
             tabIndex={0}
+            data-lookup={sg.entry[0]}
             onClick={(e) => { e.stopPropagation(); onTap && onTap(sg.entry); }}
             onKeyDown={(e) => { if (e.key === "Enter") { e.stopPropagation(); onTap && onTap(sg.entry); } }}
             style={{ borderBottom: `1px dashed ${sg.entry[3] === "KNOWN" ? T.sub : T.note}`, cursor: "pointer" }}

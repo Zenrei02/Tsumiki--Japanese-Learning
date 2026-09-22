@@ -25,6 +25,10 @@ import { useState, useEffect, useRef, useCallback } from "react";
 //     (tokenizer-options-breakdown.md); a level chip would be an invented claim.
 //     KANJIDIC2's jlpt field is the pre-2010 four-level test and is not shown.
 //   · Counts. "Words with 験" is a list that ends, not a number.
+//
+// OPENED FROM THE HANDLE, the drawer leads with the words that are on the
+// learner's screen right now — the shell collects them from data-lookup marks
+// and passes them in. Search stays at the top either way.
 //   · Romaji, anywhere.
 
 // ————— Design tokens (shared across modules) —————
@@ -396,6 +400,7 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
   const [myWords, setMyWords] = useState([]);
   const [flash, setFlash] = useState(null);
   const [autoId, setAutoId] = useState(null); // the entry a lesson's word opened
+  const onScreen = (request && request.onScreen) || [];
   const inputRef = useRef(null);
   const seq = useRef(0);
 
@@ -538,12 +543,34 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
               </p>
             )}
           </>
-        ) : myWords.length > 0 ? (
+        ) : (onScreen.length > 0 || myWords.length > 0) ? (
           <>
-            <Label>YOUR WORDS</Label>
-            {myWords.map((w) => (
-              <PreviewRow key={w.w} p={[w.id, w.w, w.r !== w.w ? w.r : "", w.m, 0]} onOpen={setOpen} />
-            ))}
+            {/* Opened from the handle rather than from a word: the first thing
+                offered is what the learner is looking at (Lloyd, Session 34).
+                Chips rather than rows — these are prompts to search, not
+                results, and they must not be mistaken for dictionary entries. */}
+            {onScreen.length > 0 && (
+              <div style={{ marginBottom: 20 }}>
+                <Label>ON THIS SCREEN</Label>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {onScreen.map((w) => (
+                    <button key={w} onClick={() => setQ(w)} style={{
+                      font: `1.0625rem ${T.jpFont}`, color: T.ink, background: T.sheet,
+                      border: `1px solid ${T.hairline}`, borderRadius: 999,
+                      padding: "6px 14px", cursor: "pointer",
+                    }}>{w}</button>
+                  ))}
+                </div>
+              </div>
+            )}
+            {myWords.length > 0 && (
+              <>
+                <Label>YOUR WORDS</Label>
+                {myWords.map((w) => (
+                  <PreviewRow key={w.w} p={[w.id, w.w, w.r !== w.w ? w.r : "", w.m, 0]} onOpen={setOpen} />
+                ))}
+              </>
+            )}
           </>
         ) : (
           <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub }}>
