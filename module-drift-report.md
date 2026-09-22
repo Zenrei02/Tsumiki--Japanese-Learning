@@ -12,10 +12,18 @@
 ## Shared scaffolding
 
 
-- design tokens: 12 keys across 6 modules; **0 hold conflicting values**
+- design tokens: 12 keys across 7 modules; **0 hold conflicting values**
     - ✅ no key holds two different values — divergence is additive only
-- ✅ **`loadJSON()`** — identical across 2 modules
-- ✅ **`saveJSON()`** — identical across 2 modules
+- ✅ **`loadJSON()`** — identical across 3 modules
+- ✅ **`saveJSON()`** — identical across 3 modules
+
+## Lesson-completion block
+
+Copied into grammar, kanji and vocabulary rather than imported — the same
+duplication as the stroke engine, and the same failure mode if one is edited.
+
+- ✅ **`LessonComplete()`** — identical across 3 modules
+- ✅ **`COMPLETE_CSS`** — identical across 3 modules
 
 ## Storage keys
 
@@ -30,11 +38,12 @@ every other module that reads it. These are the real seams.
 | `tsumiki-achievement-points-v1` | grammar-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `tsumiki-hiragana-progress-v2` | grammar-module.jsx, hiragana-module.jsx ⚠️ shared |
 | `tsumiki-katakana-progress-v1` | katakana-module.jsx, vocabulary-module.jsx ⚠️ shared |
+| `tsumiki-my-words-v1` | dictionary-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `tsumiki-kanji-progress-v1` | kanji-module.jsx |
 | `tsumiki-known-words-v1` | vocabulary-module.jsx |
 | `tsumiki-learner-depth-v1` | grammar-module.jsx |
 
-6 of 9 keys are shared across modules.
+7 of 10 keys are shared across modules.
 
 
 ## Kana audio sprite

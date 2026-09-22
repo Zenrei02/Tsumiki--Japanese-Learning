@@ -569,6 +569,17 @@ function DispSpan({ d }) {
     ? <ruby>{d.ruby}<rt style={{ fontSize: ".5em", color: T.sub }}>{d.rt}</rt></ruby>
     : <>{d}</>;
 }
+// ————— Lookups go to the dictionary (Session 34) —————
+// Inside the app the shell listens for this and opens the dictionary drawer
+// from the right; as a standalone artifact nothing listens, lookUp() returns
+// false, and the caller falls back to whatever it did before. Byte-identical
+// in grammar, kanji and checker — one protocol, three callers.
+function lookUp(detail) {
+  if (typeof window === "undefined" || !window.__tsumikiLookup) return false;
+  window.dispatchEvent(new CustomEvent("tsumiki:lookup", { detail }));
+  return true;
+}
+
 function JPText({ text, mode, onTap }) {
   if (!text) return null;
   return (
@@ -9666,6 +9677,20 @@ export default function GrammarPractice() {
   const [progress, setProgress] = useState({});
   const [kanjiMode, setKanjiMode] = useState("kanji");
   const [popup, setPopup] = useState(null);
+  // A tapped word goes to the dictionary when the app is around it, carrying
+  // what this module knows about the word — its gloss and any micro anecdote —
+  // so the drawer can show the curated entry ABOVE the dictionary's. "UNK"
+  // words are the prototype dictionary's gaps: nothing curated to carry.
+  const tapWord = (entry) => {
+    const known = entry[3] !== "UNK";
+    const handled = lookUp({
+      q: entry[0],
+      curated: known || MICRO_ANECDOTES[entry[0]]
+        ? { w: entry[0], r: entry[1], m: known ? entry[2] : null, note: MICRO_ANECDOTES[entry[0]] || null }
+        : null,
+    });
+    if (!handled) setPopup(entry);
+  };
   const [levelId, setLevelId] = useState(null);
   const [current, setCurrent] = useState(null);
   const [query, setQuery] = useState("");
@@ -9830,9 +9855,9 @@ export default function GrammarPractice() {
         <div style={{ height: 1, background: T.hairline, margin: "18px 0 22px" }} />
 
         {challenge ? (
-          <ReviewChallenge progress={progress} onProgress={updateProgress} isDone={isDone} mode={kanjiMode} onTapWord={setPopup} onBack={() => setChallenge(false)} />
+          <ReviewChallenge progress={progress} onProgress={updateProgress} isDone={isDone} mode={kanjiMode} onTapWord={tapWord} onBack={() => setChallenge(false)} />
         ) : point ? (
-          <Module point={point} progress={progress} onProgress={updateProgress} onBack={() => setCurrent(null)} isDone={isDone} mode={kanjiMode} onTapWord={setPopup} script={pointScript} />
+          <Module point={point} progress={progress} onProgress={updateProgress} onBack={() => setCurrent(null)} isDone={isDone} mode={kanjiMode} onTapWord={tapWord} script={pointScript} />
         ) : level ? (
           <div>
             <button className="btn-ghost" onClick={() => { setLevelId(null); setQuery(""); setOpenCats(null); }} style={{ marginBottom: 16 }}>

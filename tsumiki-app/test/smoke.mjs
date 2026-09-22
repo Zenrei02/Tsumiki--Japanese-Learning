@@ -38,6 +38,7 @@
 
 import { JSDOM } from "jsdom";
 import fs from "fs";
+import { fileURLToPath } from "url";
 
 // The bundle path is overridable because a sandboxed /tmp can be unwritable —
 // and worse, a STALE /tmp/test-bundle.js from an earlier session reads as a
@@ -143,7 +144,7 @@ async function go(modId, lessonMatch, tabs, opts = {}) {
       return;
     }
     const listed = [...panel.querySelectorAll("button")].map(b => (b.textContent || "").trim());
-    const missing = ["Hiragana", "Katakana", "Grammar", "Kanji", "Vocabulary", "Checker", "Home"]
+    const missing = ["Hiragana", "Katakana", "Grammar", "Kanji", "Vocabulary", "Checker", "Dictionary", "Home"]
       .filter(l => !listed.some(t => t.startsWith(l)));
     if (missing.length) fail(`${modId.toUpperCase()}: drawer is missing ${missing.join(", ")}`);
     const closeBtn = [...panel.querySelectorAll("button")]
@@ -350,6 +351,50 @@ await go("grammar", null, [], {
         const presented = / of \d/.test(rootText());
         log(`drill item presented: ${presented ? "ok" : "❌"}`);
         if (!presented) f(`${NAME}: drill did not present an item`);
+
+        // Session 34: a tapped word in a lesson goes to the dictionary drawer,
+        // not the old modal. The first tappable word in the drill sentence is
+        // clicked for real, so this proves the ROUTING, not just the drawer.
+        const word = d.querySelector('main span[role="button"]');
+        if (!word) f(`${NAME}: no tappable word in the drill sentence to route`);
+        else {
+          word.click(); await wait(900);
+          const dict = [...d.querySelectorAll('[role="dialog"]')].find(x => x.getAttribute("aria-label") === "Dictionary");
+          if (!dict) f(`${NAME}: tapping a word did not open the dictionary drawer — lookups are not routed`);
+          else {
+            log(`word tap → dictionary drawer: ok ("${(word.textContent || "").trim()}")`);
+            [...dict.querySelectorAll("button")].find(b => b.getAttribute("aria-label") === "Close dictionary")?.click();
+            await wait(300);
+          }
+        }
+
+        // Session 34: the finish screen printed "4 of 4" for a 4-of-5 round —
+        // it cleared the run before rendering, so the total collapsed into the
+        // score. Play the round out (typed items answered wrong on purpose) and
+        // assert the total the round STARTED with is the one it ends with.
+        const total = +((rootText().match(/(?<!\d)1 of (\d+)/) || [])[1] || 0);  // not \b: textContent runs "Practice1 of 5" together
+        for (let k = 0; k < 25; k++) {
+          if (/clean sweep|misses are the lesson/.test(rootText())) break;
+          const inp = d.querySelector("main input");
+          if (inp) {
+            Object.getOwnPropertyDescriptor(d.defaultView.HTMLInputElement.prototype, "value").set.call(inp, "✗");
+            inp.dispatchEvent(new d.defaultView.Event("input", { bubbles: true }));
+            await wait(120);
+            btns().find(b => (b.textContent || "").trim() === "Check")?.click();
+          } else {
+            const chip = btns().find(b => (b.className || "").includes("btn-ghost") &&
+              !/^←|Again|Done/.test((b.textContent || "").trim()));
+            chip?.click();
+          }
+          await wait(250);
+          btns().find(b => /^(Next →|Finish)$/.test((b.textContent || "").trim()))?.click();
+          await wait(300);
+        }
+        const fin = rootText().match(/(\d+) of (\d+) — (clean sweep|the misses are the lesson)/);
+        if (!fin) f(`${NAME}: drill round never reached its finish screen`);
+        else if (+fin[2] !== total) f(`${NAME}: drill finish reads "${fin[1]} of ${fin[2]}" for a ${total}-item round — the total is lost`);
+        else if ((+fin[1] === +fin[2]) !== /clean sweep/.test(fin[3])) f(`${NAME}: drill says "${fin[3]}" at ${fin[1]} of ${fin[2]}`);
+        else log(`drill finish: ${fin[1]} of ${fin[2]} — total survives the round`);
       }
     }
   },
@@ -794,6 +839,165 @@ await go("checker", null, [], {
     }
   }
   if (errors.length) fail("ACCOUNTS: console errors — " + errors.slice(0, 2).join(" | "));
+}
+
+
+// ————— DICTIONARY (Session 34) —————
+// The module, the lookup drawer, the send to Vocabulary, and the week it can
+// keep. fetch serves the REAL shards from public/dict — a stubbed dictionary
+// would test the stub. What must hold:
+//   · the header opens the drawer from anywhere; search works in kana, kanji
+//     and English; the top result is marked MOST COMMON and 行く beats 囲碁
+//   · an entry highlights its first sense as MOST COMMON MEANING
+//   · an inflected form (食べた) finds its dictionary form
+//   · a lesson's lookup event lands with the curated card ABOVE the entry
+//   · a kanji request shows the words containing it
+//   · the EDRDG credit is on screen (the licence requires it)
+//   · Send to Vocabulary writes my-words, and Vocabulary shows "Your words"
+//   · practising sent words shows as the alternative weekly goal in Goals
+if (!ONLY.length || ONLY.includes("dictionary")) {
+  modulesRun++;
+  const dom = new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',
+    { runScripts: "outside-only", pretendToBeVisual: true, url: "http://localhost/" });
+  const w = dom.window;
+  const errors = [];
+  w.HTMLCanvasElement.prototype.getContext = () => new Proxy({
+    canvas: { width: 300, height: 300 }, measureText: () => ({ width: 0 }),
+  }, { get: (t, k) => (k in t ? t[k] : () => {}), set: (t, k, v) => { t[k] = v; return true; } });
+  // fileURLToPath, not .pathname: the repo folder has spaces in its name, and
+  // .pathname keeps them as %20 — every shard then "does not exist".
+  const PUB = fileURLToPath(new URL("../public", import.meta.url));
+  w.fetch = (u) => {
+    const s = String(u);
+    const f = PUB + s;
+    if (s.startsWith("/dict/") && fs.existsSync(f)) {
+      const txt = fs.readFileSync(f, "utf8");
+      return Promise.resolve({ ok: true, status: 200, json: async () => JSON.parse(txt) });
+    }
+    return Promise.resolve({ ok: false, status: 404 });
+  };
+  w.console.error = (...a) => {
+    const t = a.join(" ");
+    if (!/Not implemented|jsdom|Could not parse CSS/i.test(t)) errors.push(t);
+  };
+  w.console.warn = () => {};
+  w.addEventListener("error", e => errors.push("UNCAUGHT: " + (e.error?.message || e.message)));
+  const now = Date.now();
+  w.localStorage.setItem("tsumiki-hiragana-progress-v2", JSON.stringify({ "h-a": { seen: true } }));
+  // One word sent an hour ago, practised twice since — and one visit from
+  // BEFORE it was sent, which must not count.
+  w.localStorage.setItem("tsumiki-my-words-v1", JSON.stringify(
+    [{ w: "経験", r: "けいけん", m: "experience", id: 1251270, at: now - 3600e3 }]));
+  w.localStorage.setItem("tsumiki-known-words-v1", JSON.stringify({ "経験": {
+    written: [], exposures: 3, sentences: 0, visits: 3, stage: 1, due: now + 86400e3,
+    log: [{ t: now - 7200e3, via: "interval" }, { t: now - 1800e3, via: "interval" }, { t: now - 900e3, via: "interval" }],
+  } }));
+  w.eval(fs.readFileSync(BUNDLE, "utf8"));
+  await new Promise(r => setTimeout(r, 2500));
+  const wait = (ms) => new Promise(r => setTimeout(r, ms));
+  const all = () => [...w.document.querySelectorAll("button")];
+  const dlg = (label) => [...w.document.querySelectorAll('[role="dialog"]')].find(d => d.getAttribute("aria-label") === label);
+  const type = async (input, v) => {
+    Object.getOwnPropertyDescriptor(w.HTMLInputElement.prototype, "value").set.call(input, v);
+    input.dispatchEvent(new w.Event("input", { bubbles: true }));
+    await wait(900);
+  };
+
+  console.log("\nDICTIONARY — the module, the drawer, and the week");
+
+  // The week first: the Goals dialog opens itself on this first visit.
+  const g = dlg("Goals");
+  if (!g) fail("DICTIONARY: Goals did not open, so the own-words line could not be checked");
+  else {
+    await wait(600);
+    const gt = g.textContent || "";
+    if (!/words of your own — 2 so far/.test(gt)) {
+      fail("DICTIONARY: Goals does not show own-word practice as 2 (one visit predates the send and must not count) — got: " +
+           (gt.match(/Or practise[^.]*/) || ["(no own-words line)"])[0]);
+    } else console.log("  Goals: own-word practice counted, pre-send visit excluded");
+    [...g.querySelectorAll("button")].find(b => b.getAttribute("aria-label") === "Close")?.click();
+    await wait(300);
+  }
+
+  const hdr = all().find(b => b.getAttribute("aria-label") === "Look up a word");
+  if (!hdr) { fail("DICTIONARY: no header button — the dictionary is not reachable from every screen"); }
+  else {
+    hdr.click();
+    await wait(1200);
+    const d = dlg("Dictionary");
+    if (!d) fail("DICTIONARY: the header button did not open the lookup drawer");
+    else {
+      console.log("  header button opens the drawer");
+      const input = d.querySelector("input");
+      await type(input, "たべる");
+      if (process.env.SMOKE_DEBUG) console.log("DEBUG dict:", (d.textContent || "").slice(0, 400), "| input=", input?.value);
+      const first = [...d.querySelectorAll("button")].find(b => /食べる/.test(b.textContent || ""));
+      if (!first || !/MOST COMMON/.test(first.textContent)) fail("DICTIONARY: たべる did not put 食べる first, marked MOST COMMON");
+      else {
+        console.log("  kana search: 食べる first, marked MOST COMMON");
+        first.click();
+        await wait(700);
+        const et = d.textContent || "";
+        if (!/MOST COMMON MEANING/.test(et) || !/to eat/.test(et)) fail("DICTIONARY: the entry does not highlight its first sense");
+        else console.log("  entry: first sense highlighted as MOST COMMON MEANING");
+        const send = [...d.querySelectorAll("button")].find(b => b.textContent === "Send to Vocabulary");
+        if (!send) fail("DICTIONARY: no Send to Vocabulary on an entry");
+        else {
+          send.click();
+          await wait(400);
+          const mine = JSON.parse(w.localStorage.getItem("tsumiki-my-words-v1") || "[]");
+          if (!mine.some(x => x.w === "食べる")) fail("DICTIONARY: Send to Vocabulary did not write my-words");
+          else if (!/In your words/.test(d.textContent)) fail("DICTIONARY: the entry does not show it was sent");
+          else console.log("  send: written to my-words, entry shows it");
+        }
+      }
+      await type(d.querySelector("input"), "go");
+      const goTop = [...d.querySelectorAll("button")].find(b => /MOST COMMON/.test(b.textContent || ""));
+      if (!goTop || !/行く/.test(goTop.textContent)) fail("DICTIONARY: English \"go\" did not put 行く first — got " + (goTop?.textContent || "nothing"));
+      else console.log("  English search: go → 行く first");
+      await type(d.querySelector("input"), "食べた");
+      if (!/looks like a form of/.test(d.textContent) || !/食べる/.test(d.textContent)) fail("DICTIONARY: 食べた did not find 食べる");
+      else console.log("  deinflection: 食べた → 食べる");
+      if (!/Electronic Dictionary Research/.test(d.textContent)) fail("DICTIONARY: the EDRDG credit is not on screen — the licence requires it");
+      else console.log("  credit line present");
+    }
+
+    // A lesson's word: the protocol grammar, kanji and checker all speak.
+    w.dispatchEvent(new w.CustomEvent("tsumiki:lookup", { detail: { q: "経験", curated: { w: "経験", r: "けいけん", m: "experience" } } }));
+    await wait(1200);
+    const d2 = dlg("Dictionary");
+    const t2 = d2?.textContent || "";
+    if (!/FROM YOUR LESSONS/.test(t2) || !/MOST COMMON MEANING/.test(t2)) fail("DICTIONARY: a lesson's lookup did not show the curated card above the opened entry");
+    else if (t2.indexOf("FROM YOUR LESSONS") > t2.indexOf("MOST COMMON MEANING")) fail("DICTIONARY: the curated card is BELOW the dictionary entry");
+    else console.log("  lesson lookup: curated card above the auto-opened entry");
+
+    w.dispatchEvent(new w.CustomEvent("tsumiki:lookup", { detail: { kanji: "験", q: "" } }));
+    await wait(900);
+    const t3 = dlg("Dictionary")?.textContent || "";
+    if (!/WORDS WITH 験/.test(t3) || !/試験/.test(t3)) fail("DICTIONARY: a kanji request did not show the words containing it");
+    else console.log("  kanji request: words with 験 listed");
+    [...(dlg("Dictionary")?.querySelectorAll("button") || [])].find(b => b.getAttribute("aria-label") === "Close dictionary")?.click();
+    await wait(300);
+    if (dlg("Dictionary")) fail("DICTIONARY: the drawer would not close");
+  }
+
+  // As a page, from the menu — and Vocabulary picks the sent words up.
+  all().find(x => x.getAttribute("aria-label") === "Menu")?.click();
+  await wait(300);
+  all().find(b => (b.textContent || "").trim().startsWith("Dictionary"))?.click();
+  await wait(1200);
+  const pt = w.document.querySelector("main")?.textContent || "";
+  if (!/Look up a word in Japanese or English/.test(pt)) fail("DICTIONARY: the page did not render from the menu");
+  else console.log("  page renders from the menu");
+  all().find(x => x.getAttribute("aria-label") === "Menu")?.click();
+  await wait(300);
+  all().find(b => (b.textContent || "").trim().startsWith("Vocabulary"))?.click();
+  await wait(1500);
+  const vt = w.document.querySelector("main")?.textContent || "";
+  if (!/Your words/.test(vt) || !/食べる/.test(vt)) fail("VOCABULARY: sent words do not appear under Your words");
+  else console.log("  vocabulary: sent words appear under Your words");
+
+  if (errors.length) fail("DICTIONARY: console errors — " + errors.slice(0, 2).join(" | "));
 }
 
 console.log("\n" + "─".repeat(60));

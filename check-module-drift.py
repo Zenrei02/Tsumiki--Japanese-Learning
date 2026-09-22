@@ -32,7 +32,8 @@ import re, sys, pathlib, hashlib
 
 HERE = pathlib.Path(__file__).parent
 MODULES = ["tsumiki-prototype.jsx", "grammar-module.jsx", "kanji-module.jsx",
-           "hiragana-module.jsx", "katakana-module.jsx", "vocabulary-module.jsx"]
+           "hiragana-module.jsx", "katakana-module.jsx", "vocabulary-module.jsx",
+           "dictionary-module.jsx"]   # Session 34 — carries T and loadJSON/saveJSON
 SRC = {m: (HERE / m).read_text(encoding="utf-8") for m in MODULES if (HERE / m).exists()}
 
 ENGINE_FNS = ["strokeStart", "resample", "samplePath", "scoreStroke",

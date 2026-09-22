@@ -1,0 +1,19 @@
+{
+ "tier": "core",
+ "buckets": {
+  "x": 512,
+  "f": 512,
+  "e": 256,
+  "k": 128
+ },
+ "hash": "fnv1a32-utf16",
+ "source": "jmdict-simplified 3.6.2 (JMdict 2026-09-14, KANJIDIC2 2026-09-14); priority tags from jamdict-data 1.5 (2021-04-17)",
+ "entries": 32575,
+ "kanji": 10384,
+ "attribution": "Dictionary data: JMdict and KANJIDIC2, © Electronic Dictionary Research and Development Group, CC BY-SA 4.0",
+ "links": [
+  "https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project",
+  "https://www.edrdg.org/wiki/index.php/KANJIDIC_Project",
+  "https://www.edrdg.org/edrdg/licence.html"
+ ]
+}

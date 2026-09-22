@@ -80,8 +80,27 @@ const tierOf = (t) => TIER[t] || TIER.note;
 // The model returns a separate readings map of bare kanji runs rather than
 // inline ruby, so the span stays byte-exact — the decision recorded on the
 // furigana tracker row. Rendering happens here, over that map.
-function Ruby({ text, readings, on }) {
-  if (!on || !readings?.length) return <>{text}</>;
+// ————— Lookups go to the dictionary (Session 34) —————
+// Inside the app the shell listens for this and opens the dictionary drawer
+// from the right; as a standalone artifact nothing listens, lookUp() returns
+// false, and the caller falls back to whatever it did before. Byte-identical
+// in grammar, kanji and checker — one protocol, three callers.
+function lookUp(detail) {
+  if (typeof window === "undefined" || !window.__tsumikiLookup) return false;
+  window.dispatchEvent(new CustomEvent("tsumiki:lookup", { detail }));
+  return true;
+}
+
+function Ruby({ text, readings, on, tap }) {
+  // `tap` (Session 34): each kanji run the model gave a reading for becomes a
+  // lookup — the checker's rewrite is the one place in the app that routinely
+  // shows the learner a word nobody chose for them. Runs, not words: the
+  // readings map is bare kanji, so 食 finds 食べる through the dictionary's own
+  // prefix search. Only outside the issue buttons (a tap target inside a button
+  // is two actions on one press), and only when a dictionary is listening —
+  // with furigana off the runs are still split, just drawn without the ruby.
+  const canTap = tap && typeof window !== "undefined" && !!window.__tsumikiLookup;
+  if ((!on && !canTap) || !readings?.length) return <>{text}</>;
   const pairs = [...readings].filter((p) => Array.isArray(p) && p[0] && p[1])
     .sort((a, b) => b[0].length - a[0].length);
   const out = [];
@@ -89,15 +108,20 @@ function Ruby({ text, readings, on }) {
   while (i < text.length) {
     const hit = pairs.find((p) => text.startsWith(p[0], i));
     if (hit) {
-      out.push(
-        <ruby key={k++}>{hit[0]}<rt style={{ fontSize: "0.5em", color: T.sub }}>{hit[1]}</rt></ruby>,
-      );
+      const face = on
+        ? <ruby>{hit[0]}<rt style={{ fontSize: "0.5em", color: T.sub }}>{hit[1]}</rt></ruby>
+        : hit[0];
+      out.push(canTap ? (
+        <span key={k++} role="button" tabIndex={0}
+              onClick={(e) => { e.stopPropagation(); lookUp({ q: hit[0] }); }}
+              onKeyDown={(e) => { if (e.key === "Enter") { e.stopPropagation(); lookUp({ q: hit[0] }); } }}
+              style={{ borderBottom: `1px dashed ${T.sub}`, cursor: "pointer" }}>{face}</span>
+      ) : on ? <ruby key={k++}>{hit[0]}<rt style={{ fontSize: "0.5em", color: T.sub }}>{hit[1]}</rt></ruby>
+        : <span key={k++}>{hit[0]}</span>);
       i += hit[0].length;
     } else {
-      const next = text.length;
       out.push(<span key={k++}>{text[i]}</span>);
       i += 1;
-      if (next < 0) break;
     }
   }
   return <>{out}</>;
@@ -111,7 +135,7 @@ function Marked({ text, issues, readings, furigana, active, setActive }) {
   for (const issue of placed) {
     if (issue.start > cursor) {
       parts.push(
-        <Ruby key={k++} text={text.slice(cursor, issue.start)} readings={readings} on={furigana} />,
+        <Ruby key={k++} text={text.slice(cursor, issue.start)} readings={readings} on={furigana} tap />,
       );
     }
     const tier = tierOf(issue.type);
@@ -134,7 +158,7 @@ function Marked({ text, issues, readings, furigana, active, setActive }) {
     cursor = issue.end;
   }
   if (cursor < text.length) {
-    parts.push(<Ruby key={k++} text={text.slice(cursor)} readings={readings} on={furigana} />);
+    parts.push(<Ruby key={k++} text={text.slice(cursor)} readings={readings} on={furigana} tap />);
   }
   return (
     <p style={{
@@ -310,7 +334,7 @@ function PastCheck({ check, focus = null, furigana }) {
                 display: "block", font: `600 0.6875rem ${T.uiFont}`, letterSpacing: ".06em",
                 textTransform: "uppercase", color: T.sub, marginBottom: 4,
               }}>One natural version</span>
-              <Ruby text={check.rewrite} readings={check.readings} on={furigana} />
+              <Ruby text={check.rewrite} readings={check.readings} on={furigana} tap />
             </p>
           )}
         </>
@@ -889,7 +913,7 @@ export default function CheckerModule() {
                 border: `1px solid ${T.hairline}`, borderRadius: 10,
                 padding: "14px 16px", margin: 0,
               }}>
-                <Ruby text={result.model_rewrite} readings={result.readings} on={furigana} />
+                <Ruby text={result.model_rewrite} readings={result.readings} on={furigana} tap />
               </p>
               <p style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, margin: "8px 0 0" }}>
                 Changed as little as possible — it is one way to say it, not the

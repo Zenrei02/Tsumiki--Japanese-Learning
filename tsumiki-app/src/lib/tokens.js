@@ -72,6 +72,15 @@ export const T = {
 // 3:1 while staying inside the 藤 and 鼠 families, and is the fix if that day comes;
 // it is deliberately NOT applied now, because it would cost the lightest-shade
 // reading the script-track argument above depends on.
+// 
+// THE DICTIONARY IS 鈍 #727171, THE CHECKER'S FAMILY DARKENED (Session 34). The
+// checker comment above makes the argument: the near-neutral separates the TOOLS
+// from the learning modules, "a true distinction rather than a cosmetic one". The
+// dictionary is the second tool, so it joins that family rather than taking a hue
+// — and darker, because unlike the checker it has no feedback colours on screen to
+// compete with. It is also the only accent that clears 3:1 in that family
+// (4.5:1 on T.paper, 4.87:1 on T.sheet — measured, not estimated), which costs
+// nothing and removes one future caveat.
 export const ACCENT = {
   hiragana: "#CFC4E6",
   katakana: "#A493CE",
@@ -79,4 +88,5 @@ export const ACCENT = {
   kanji: "#5B4A7D",
   vocabulary: "#8A5A3B",
   checker: "#C9C6BE",
+  dictionary: "#727171",
 };

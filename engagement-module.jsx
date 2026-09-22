@@ -220,6 +220,17 @@ function deriveQuests(unlockedIn, dueIn, seedKey) {
    -------------------------------------------------------------------------*/
 
 const WEEKLY_TARGET = 3;
+
+/* THE OTHER WAY TO KEEP THE WEEK (Lloyd, Session 34). Practising OWN_TARGET
+   words the learner chose in the dictionary keeps the week, whatever the day
+   count — self-directed study is study, and a learner who spends one long
+   evening on words they went looking for has not had a lapsed week.
+   What counts is PRACTISING a sent word (a finished vocabulary visit after it
+   was sent), never the sending: one tap must not be farmable. It pays no koban
+   of its own — it is an alternative to the rhythm target, not a second prize.
+   Counted by the host from the vocabulary store and passed in as timestamps;
+   this module owns neither store, per §5. */
+const OWN_TARGET = 5;
 const RECENT_WINDOW = 12;
 
 function pickQuote(dateKey, recentIds = []) {
@@ -469,8 +480,11 @@ function QuoteCard({ quote }) {
   );
 }
 
-function WeeklyTarget({ weekDays, count }) {
-  const met = count >= WEEKLY_TARGET;
+function WeeklyTarget({ weekDays, count, own }) {
+  const metDays = count >= WEEKLY_TARGET;
+  const metOwn = own != null && own >= OWN_TARGET;
+  const met = metDays || metOwn;
+  const fill = Math.max(count / WEEKLY_TARGET, own != null ? own / OWN_TARGET : 0);
   const R = 26, C = 2 * Math.PI * R;
   return (
     <div className="flex items-center gap-4 rounded-xl border border-stone-200 bg-white p-4">
@@ -479,7 +493,7 @@ function WeeklyTarget({ weekDays, count }) {
           <circle cx="32" cy="32" r={R} fill="none" stroke="#e7e5e4" strokeWidth="5" />
           <circle cx="32" cy="32" r={R} fill="none" stroke={met ? "#9a3412" : "#78716c"}
             strokeWidth="5" strokeLinecap="round" strokeDasharray={C}
-            strokeDashoffset={C * (1 - Math.min(1, count / WEEKLY_TARGET))}
+            strokeDashoffset={C * (1 - Math.min(1, fill))}
             className="transition-all duration-700" />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
@@ -488,11 +502,18 @@ function WeeklyTarget({ weekDays, count }) {
       </div>
       <div className="min-w-0 flex-1">
         <p className="text-sm font-medium text-stone-800">
-          {met ? "This week's rhythm is kept." : `${count} of ${WEEKLY_TARGET} days this week`}
+          {metDays ? "This week's rhythm is kept."
+            : metOwn ? "This week is kept — on words you chose."
+            : `${count} of ${WEEKLY_TARGET} days this week`}
         </p>
         <p className="mt-0.5 text-xs text-stone-500">
           {met ? "Anything further is yours to enjoy." : "Any three days. They don't need to be in a row."}
         </p>
+        {!met && own != null && (
+          <p className="mt-0.5 text-xs text-stone-500">
+            {`Or practise ${OWN_TARGET} words of your own — ${own} so far.`}
+          </p>
+        )}
         <div className="mt-2 flex gap-1.5">
           {weekDays.map((d) => (
             <div key={d.key} className="flex flex-col items-center gap-1">
@@ -596,6 +617,7 @@ export default function EngagementModule({
   due = { kanji: 6, vocab: 0, grammar: 0 },
   devTools = true,
   onApi = null,
+  ownVisits = null,   // ms timestamps of practice visits on words the learner sent (Session 34)
 }) {
   const [simDate, setSimDate] = useState(null);
   const eng = useEngagement(unlocked, due, simDate);
@@ -640,7 +662,11 @@ export default function EngagementModule({
         </div>
       )}
 
-      <WeeklyTarget weekDays={eng.weekDays} count={eng.weekCount} />
+      <WeeklyTarget weekDays={eng.weekDays} count={eng.weekCount}
+        own={ownVisits ? (() => {
+          const keys = new Set(eng.weekDays.map((d) => d.key));
+          return ownVisits.filter((t) => keys.has(dayKey(new Date(t)))).length;
+        })() : null} />
 
       <QuestChain chain={eng.chain} today={eng.today} onClaim={eng.claim}
         onClaimBonus={eng.claimBonus} onSimulate={(m, k) => apiRef.current(m, k)}

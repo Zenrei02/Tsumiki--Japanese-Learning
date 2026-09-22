@@ -1568,6 +1568,17 @@ function LessonComplete({ mark = "済", head, title, body, lines = [], backLabel
   );
 }
 
+// ————— Lookups go to the dictionary (Session 34) —————
+// Inside the app the shell listens for this and opens the dictionary drawer
+// from the right; as a standalone artifact nothing listens, lookUp() returns
+// false, and the caller falls back to whatever it did before. Byte-identical
+// in grammar, kanji and checker — one protocol, three callers.
+function lookUp(detail) {
+  if (typeof window === "undefined" || !window.__tsumikiLookup) return false;
+  window.dispatchEvent(new CustomEvent("tsumiki:lookup", { detail }));
+  return true;
+}
+
 function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone }) {
   // ── Completion writes known-kanji-v1 ──────────────────────────────────────
   // Previously nothing did this except a button. A lesson is complete when every
@@ -1727,6 +1738,14 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
                   <button className="btn-primary" onClick={() => { setWriteFocus(panel); setTab("write"); }}>
                     Try drawing it
                   </button>
+                  {/* Session 34: the character being studied, preloaded into
+                      the dictionary — its readings and the words it is in. Only
+                      offered when a dictionary is listening (in the app). */}
+                  {typeof window !== "undefined" && window.__tsumikiLookup && (
+                    <button className="btn-ghost" onClick={() => lookUp({ kanji: panel, q: "" })}>
+                      Words with {panel}
+                    </button>
+                  )}
                   <button className="btn-ghost" onClick={() => setPanel(null)}>Close</button>
                 </div>
               </div>

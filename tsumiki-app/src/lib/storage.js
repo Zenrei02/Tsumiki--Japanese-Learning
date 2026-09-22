@@ -110,6 +110,11 @@ export const KEYS = [
   // It is exempt from the ask-on-conflict rule in sync.js and unioned
   // instead — see LOG_KEYS there and error-history-design-v1.md.
   "tsumiki-checker-history-v1",
+  // Session 34: words the learner sent from the dictionary. Written ONLY by the
+  // dictionary module; the vocabulary module reads it and keeps its progress on
+  // those words in its own key above. Without this line a sent word would live
+  // on one device and silently vanish from every other.
+  "tsumiki-my-words-v1",
 ];
 
 // ————— Which account this device has already joined —————

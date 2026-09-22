@@ -1629,6 +1629,29 @@ const GRAMMAR_KEY = "tsumiki-n5-progress-v1";    // read here, written by the gr
                                          // gates kana-only words on "step reached" (Session 10)
 const KATA_KEY = "tsumiki-katakana-progress-v1"; // read here, written by the katakana module —
                                          // its CC/SB lessons trigger early katakana vocabulary
+const MY_WORDS_KEY = "tsumiki-my-words-v1";      // read here, written ONLY by the dictionary module —
+                                         // the words the learner chose to keep (Session 34)
+
+// ————— Words of your own (Session 34) —————
+// A word sent from the dictionary becomes a word object like any in WORDS, so
+// Practice, the ladder and completion all work on it unchanged. If the word is
+// already in WORDS, the curated object is used — it carries the scene, the
+// notes and the step — and the send simply makes it available now rather than
+// when the schedule would have got to it. Otherwise its kanji are split the way
+// the bank's are: characters the syllabus teaches go in k (and so unlock
+// writing as they are learned), the rest in u. The syllabus is read off WORDS
+// itself, so this can never disagree with the bank about what is taught.
+const TAUGHT_KANJI = new Set(WORDS.flatMap((w) => w.k || []));
+function ownWord(entry) {
+  const curated = WORDS.find((x) => x.w === entry.w);
+  if (curated) return { ...curated, own: true };
+  const ks = [...new Set([...(entry.w || "")].filter((c) => /[\u3400-\u9fff]/.test(c)))];
+  return {
+    w: entry.w, r: entry.r, m: entry.m, own: true,
+    k: ks.filter((c) => TAUGHT_KANJI.has(c)),
+    u: ks.filter((c) => !TAUGHT_KANJI.has(c)),
+  };
+}
 
 async function loadJSON(key, fallback) {
   try { const r = await window.storage.get(key); return r ? JSON.parse(r.value) : fallback; }
@@ -1911,13 +1934,15 @@ export default function VocabularyModule() {
   const [toast, setToast] = useState(null);
   const [markerQuiz, setMarkerQuiz] = useState(null); // {kind, t, words} — Session 11 markers
   const [formDrill, setFormDrill] = useState(null);   // {form, items} — Session 18 form drills
+  const [mine, setMine] = useState([]);                // words sent from the dictionary
 
   useEffect(() => {
     (async () => {
-      const [p, k, ap, g, kp] = await Promise.all([
+      const [p, k, ap, g, kp, my] = await Promise.all([
         loadJSON(KEY, {}), loadJSON(KNOWN_KANJI_KEY, []), loadJSON(AP_KEY, 0),
-        loadJSON(GRAMMAR_KEY, {}), loadJSON(KATA_KEY, {}),
+        loadJSON(GRAMMAR_KEY, {}), loadJSON(KATA_KEY, {}), loadJSON(MY_WORDS_KEY, []),
       ]);
+      setMine(Array.isArray(my) ? my : []);
       setProgress(p || {});
       setKnown(Array.isArray(k) ? k : []);
       setPoints(typeof ap === "number" ? ap : 0);
@@ -1948,10 +1973,21 @@ export default function VocabularyModule() {
   // ————— Queues —————
   // Content-driven work wins ties over the interval scheduler: it arrives with a
   // reason and new material, where a bare interval review arrives with neither.
-  const { fresh, returning, due, older } = useMemo(() => {
-    const fresh = [], returning = [], due = [], older = [];
-    if (!ready) return { fresh, returning, due, older };
+  const { fresh, returning, due, older, yours } = useMemo(() => {
+    const fresh = [], returning = [], due = [], older = [], yours = [];
+    if (!ready) return { fresh, returning, due, older, yours };
+    // Own words first, and ONLY here: a sent word that is also in the bank must
+    // not appear twice, so the bank loop below skips anything in `mine`.
+    const ownSet = new Set(mine.map((m) => m.w));
+    for (const entry of mine) {
+      const word = ownWord(entry);
+      const p = get(word.w);
+      const pend = pendingWork(word, p, known);
+      if (p.visits === 0 || pend.length || (p.due && p.due <= now())) yours.push({ word, pend });
+      else older.push({ word, pend: [] });
+    }
     for (const word of WORDS) {
+      if (ownSet.has(word.w)) continue;
       if (!word.s && !word.kt) continue;           // dictionary-only: not taught yet
       if (isKanaOnly(word)) {
         // No kanji schedule to ride — enters on its own triggers (Session 10).
@@ -1971,8 +2007,8 @@ export default function VocabularyModule() {
       else if (p.visits > 0 && p.due && p.due <= now()) due.push({ word, pend: [] });
       else if (p.visits > 0) older.push({ word, pend: [] });
     }
-    return { fresh, returning, due, older };
-  }, [ready, progress, known, get]);
+    return { fresh, returning, due, older, yours };
+  }, [ready, progress, known, get, mine]);
 
   // Guarded: progress now carries top-level _firstAt/_stampEpoch entries
   // (Session 11 first-clear timestamps), which are not word records.
@@ -2203,6 +2239,8 @@ export default function VocabularyModule() {
 
       {view === "today" ? (
         <>
+          <Queue title="Your words" hint="You chose these in the dictionary. Five practised in a week keeps the week."
+                 items={yours} onOpen={setActive} known={known} />
           <Queue title="New" hint="A kanji in these just became yours — or you can just now read them."
                  items={fresh} onOpen={setActive} known={known} />
           <Queue title="More to practise" badge
@@ -2210,7 +2248,7 @@ export default function VocabularyModule() {
                  items={returning} onOpen={setActive} known={known} />
           <Queue title="Due" hint="Keeping these warm."
                  items={due} onOpen={setActive} known={known} />
-          {!fresh.length && !returning.length && !due.length && (
+          {!yours.length && !fresh.length && !returning.length && !due.length && (
             <Empty>Nothing waiting. New words arrive as you learn their kanji, move through the grammar, or work the katakana track.</Empty>
           )}
         </>
@@ -2444,14 +2482,18 @@ function Practice({ word, pend, prog, known, onDone, onBack }) {
       </div>
 
       {step === "see" && (
-        <Card title={visit === 1 ? "Meet this word" : "You can write more of this now"}>
+        <Card title={visit === 1 ? "Meet this word" : word.own && !pend.length ? "A word of yours" : "You can write more of this now"}>
           {/* A kanji unlocking is what BRINGS a word here. It says nothing about
               whether the learner knows the WORD — they may never have met it.
               So the copy introduces rather than congratulates. */}
           <p style={p14}>
-            {visit === 1 ? (
+            {visit === 1 && word.own ? (
+              <>You found this one yourself, in the dictionary. Here it is properly.</>
+            ) : visit === 1 ? (
               <>You may have seen this already, or you may be about to — it turns up
                 around {stepShort(word.s)}. Either way, here it is properly.</>
+            ) : word.own && !pend.length ? (
+              <>One of yours, back to keep it warm.</>
             ) : (
               <>You met this one before. Since then you have learned{" "}
                 <b style={{ font: `1.125rem ${T.jpFont}` }}>{pend.join("、")}</b>, so more of it

@@ -51,6 +51,7 @@ MODULES = [
     ("kanji-module.jsx",      "Kanji.jsx",      "KanjiModule",      "Kanji",      "漢字",      "#5B4A7D"),
     ("vocabulary-module.jsx", "Vocabulary.jsx", "VocabularyModule", "Vocabulary", "ことば",    "#8A5A3B"),
     ("checker-module.jsx",    "Checker.jsx",    "CheckerModule",    "Checker",    "直し",      "#C9C6BE"),
+    ("dictionary-module.jsx", "Dictionary.jsx", "DictionaryModule", "Dictionary", "じしょ",    "#727171"),
 ]
 
 ACCENT_RATIONALE = """\
@@ -105,6 +106,15 @@ Darkening hiragana/katakana/checker to roughly #8E7BB8 / #8F8B80 would clear
 3:1 while staying inside the 藤 and 鼠 families, and is the fix if that day comes;
 it is deliberately NOT applied now, because it would cost the lightest-shade
 reading the script-track argument above depends on.
+
+THE DICTIONARY IS 鈍 #727171, THE CHECKER'S FAMILY DARKENED (Session 34). The
+checker comment above makes the argument: the near-neutral separates the TOOLS
+from the learning modules, "a true distinction rather than a cosmetic one". The
+dictionary is the second tool, so it joins that family rather than taking a hue
+— and darker, because unlike the checker it has no feedback colours on screen to
+compete with. It is also the only accent that clears 3:1 in that family
+(4.5:1 on T.paper, 4.87:1 on T.sheet — measured, not estimated), which costs
+nothing and removes one future caveat.
 """
 ENGINE_FNS = ["strokeStart", "StrokeView", "resample", "samplePath", "scoreStroke",
               "tolerancesFor", "thinPoints", "useStrokeData", "StrokePractice"]
@@ -778,6 +788,7 @@ const HOME_WHY = {
   kanji: "Characters in an order that pays for itself: each one unlocks words you already use.",
   vocabulary: "The words you have met, coming back just before you would forget them.",
   checker: "Write anything in Japanese and find out what is wrong, what merely sounds off, and why.",
+  dictionary: "Look up any word, in Japanese or English — or tap one anywhere in the app. Send the ones worth keeping to Vocabulary.",
 };
 // Shown INSTEAD of HOME_WHY when the learner has started nothing. Not a lock —
 // the door stays open either way; this just tells the right person it is theirs.
@@ -1126,6 +1137,61 @@ function Drawer({ open, close, active, go, onAccount }) {
   );
 }
 
+// ————— The lookup drawer (Session 34) —————
+// Every word lookup in the app lands here. A module fires `tsumiki:lookup`
+// with { q, kanji?, curated? } — see lookUp() in grammar, kanji and checker —
+// and this opens the dictionary module in a panel from the RIGHT, the side the
+// menu drawer does not use. The flag on window is how a module knows someone
+// is listening: without it (a standalone artifact) the module keeps its own
+// popup, so the artifacts still work on their own.
+//
+// It is the same component as the Dictionary page, in drawer mode, so there is
+// one lookup in the app and not two that could disagree about a word.
+function LookupHost() {
+  const [req, setReq] = useState(null);
+  const panelRef = useRef(null);
+  useEffect(() => {
+    window.__tsumikiLookup = true;
+    const on = (e) => setReq({ ...(e.detail || {}), n: Date.now() });
+    window.addEventListener("tsumiki:lookup", on);
+    return () => { window.__tsumikiLookup = false; window.removeEventListener("tsumiki:lookup", on); };
+  }, []);
+  useEffect(() => {
+    if (!req) return undefined;
+    const onKey = (e) => { if (e.key === "Escape") setReq(null); };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
+  }, [!!req]);
+  if (!req) return null;
+  return (
+    <>
+      <style>{`
+        @keyframes tsumiki-slide-in { from { transform: translateX(100%) } to { transform: translateX(0) } }
+        .tsumiki-lookup { animation: tsumiki-slide-in .22s ease-out both; }
+        @media (prefers-reduced-motion: reduce) { .tsumiki-lookup { animation: none; } }
+      `}</style>
+      <div onClick={() => setReq(null)} aria-hidden="true" style={{
+        position: "fixed", inset: 0, zIndex: 44, background: "rgba(34,37,43,0.36)",
+      }} />
+      <aside ref={panelRef} role="dialog" aria-modal="true" aria-label="Dictionary"
+             className="tsumiki-lookup" style={{
+        position: "fixed", top: 0, right: 0, bottom: 0, zIndex: 45,
+        width: "min(440px, 100vw)", overflowY: "auto", background: T.paper,
+        borderLeft: `3px solid ${ACCENT.dictionary}`,
+        boxShadow: "0 0 40px rgba(34,37,43,0.18)",
+      }}>
+        <Suspense fallback={
+          <p style={{ padding: "24px 18px", color: T.sub, font: `0.875rem ${T.uiFont}` }}>Loading…</p>
+        }>
+          <DictionaryModule mode="drawer" request={req} onClose={() => setReq(null)} />
+        </Suspense>
+      </aside>
+    </>
+  );
+}
+
 export default function App() {
   // Land on Home. It remembers where they were (tsumiki-last-module) and
   // offers it as the continue card, rather than teleporting them there —
@@ -1271,6 +1337,14 @@ export default function App() {
             font: `0.875rem ${T.uiFont}`, color: T.sub, marginLeft: 2,
           }}>{headerTitle}</span>
           <span style={{ flex: 1 }} />
+          {/* Session 34: the dictionary, one tap from every screen. It opens
+              the lookup drawer rather than navigating, so whatever the learner
+              was reading is still there when they close it. */}
+          <button onClick={() => window.dispatchEvent(new CustomEvent("tsumiki:lookup", { detail: { q: "" } }))}
+                  aria-label="Look up a word" title="Dictionary" style={{
+            ...btn, padding: "6px 10px", font: `1.0625rem ${T.jpFont}`, color: T.ink,
+            border: `1px solid ${T.hairline}`,
+          }}>辞</button>
           {/* Session 24: Save and Restore used to live here, on every screen.
               Accounts do that job now, and a pair of file buttons above every
               lesson is a permanent reminder that the app might lose your work.
@@ -1292,6 +1366,8 @@ export default function App() {
       {/* Mounted always, not only on Home: it opens ITSELF once a day, and a
           learner may well arrive straight into a module. */}
       <GoalsDialog open={goalsOpen} setOpen={setGoalsOpen} startedMap={startedMap} />
+
+      <LookupHost />
 
       <main style={{ maxWidth: 900, margin: "0 auto" }}>
         {active === "home" ? (

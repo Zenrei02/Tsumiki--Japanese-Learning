@@ -49,6 +49,34 @@ export default function GoalsDialog({ open, setOpen, startedMap }) {
 
   const anyStarted = Object.values(startedMap || {}).some(Boolean);
 
+  // Session 34 — the other way to keep the week: practice visits on words the
+  // learner sent from the dictionary. READ from the two stores that own the
+  // facts (the dictionary's list, the vocabulary module's log), never recorded
+  // a second time. A visit counts only if it happened AFTER the word was sent,
+  // so a bank word someone had already practised does not arrive pre-counted.
+  // null (not []) while no word has ever been sent, which hides the line.
+  const [ownVisits, setOwnVisits] = useState(null);
+  useEffect(() => {
+    if (!open) return undefined;
+    let alive = true;
+    (async () => {
+      try {
+        const [m, v] = await Promise.all([storage.get("tsumiki-my-words-v1"), storage.get("tsumiki-known-words-v1")]);
+        const mine = m ? JSON.parse(m.value) : [];
+        const prog = v ? JSON.parse(v.value) : {};
+        if (!Array.isArray(mine) || !mine.length) { if (alive) setOwnVisits(null); return; }
+        const ts = [];
+        for (const w of mine) {
+          for (const l of (prog[w.w]?.log || [])) {
+            if (l && l.t >= (w.at || 0) && l.via !== "unlearned") ts.push(l.t);
+          }
+        }
+        if (alive) setOwnVisits(ts);
+      } catch { if (alive) setOwnVisits(null); }
+    })();
+    return () => { alive = false; };
+  }, [open]);
+
   // ————— once a day, on the way in —————
   // Deliberately gated on having started something. A learner on their first
   // visit has no rhythm to report and no quests to run; opening a goals dialog
@@ -120,6 +148,7 @@ export default function GoalsDialog({ open, setOpen, startedMap }) {
               due={{ kanji: 0, vocab: 0, grammar: 0 }}
               devTools={false}
               onApi={onApi}
+              ownVisits={ownVisits}
             />
           </Suspense>
         </div>
