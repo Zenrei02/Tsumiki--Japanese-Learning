@@ -36,7 +36,11 @@ installStorage();
 // OPENED FROM THE HANDLE, the drawer leads with the words that are on the
 // learner's screen right now — the shell collects them from data-lookup marks
 // and passes them in. Search stays at the top either way.
-//   · Romaji, anywhere.
+//
+// SEARCH TAKES ROMAJI TOO (Session 35). `taberu` is converted to たべる and
+// searched as kana, and the conversion is shown so the learner reads back what
+// their typing meant. INPUT ONLY — nothing here ever displays romaji; see the
+// Romaji input section below for why that distinction is the whole of it.
 
 // ————— Design tokens (shared across modules) —————
 
@@ -85,6 +89,112 @@ const formsOf = (p) => [hira(p[1]), hira(p[2] || p[1]), p[5]].filter(Boolean);
 const JP = /[぀-ヿ㐀-鿿々〆]/;
 const KANJI = /[㐀-鿿々]/;
 const STOP = new Set(["a", "an", "the", "to", "of", "be", "is", "in", "on", "for"]);
+
+// ————— Romaji input (Session 35) —————
+// A learner who cannot yet read kana cannot reach the dictionary at all, and
+// being unable to look a word up is where people stop (Lloyd, Session 35).
+// So the search box takes wāpuro romaji — the same keystrokes an IME takes —
+// converts it to kana, and searches that.
+//
+// THIS DOES NOT BREAK THE NO-ROMAJI RULE, and the distinction is the one
+// input-romaji-layer-spec-v1.md already draws: "the banned thing is
+// transliteration, not translation". dictionary-drawer-design-v1.md says the
+// drawer must not SHOW romaji. It doesn't. Romaji goes in; kana and kanji come
+// back. Every use of it is also a kana lesson, which is the opposite of a leak.
+//
+// Covered by test-romaji-search.py, which slices this section out at run time.
+const RK = {
+  kya:"きゃ", kyu:"きゅ", kyo:"きょ", kye:"きぇ",
+  gya:"ぎゃ", gyu:"ぎゅ", gyo:"ぎょ",
+  sha:"しゃ", shu:"しゅ", sho:"しょ", she:"しぇ",
+  sya:"しゃ", syu:"しゅ", syo:"しょ",
+  cha:"ちゃ", chu:"ちゅ", cho:"ちょ", che:"ちぇ",
+  tya:"ちゃ", tyu:"ちゅ", tyo:"ちょ",
+  jya:"じゃ", jyu:"じゅ", jyo:"じょ",
+  zya:"じゃ", zyu:"じゅ", zyo:"じょ",
+  nya:"にゃ", nyu:"にゅ", nyo:"にょ",
+  hya:"ひゃ", hyu:"ひゅ", hyo:"ひょ",
+  bya:"びゃ", byu:"びゅ", byo:"びょ",
+  pya:"ぴゃ", pyu:"ぴゅ", pyo:"ぴょ",
+  mya:"みゃ", myu:"みゅ", myo:"みょ",
+  rya:"りゃ", ryu:"りゅ", ryo:"りょ",
+  dya:"ぢゃ", dyu:"ぢゅ", dyo:"ぢょ",
+  shi:"し", chi:"ち", tsu:"つ",
+  thi:"てぃ", dhi:"でぃ", tsa:"つぁ", tse:"つぇ", tso:"つぉ",
+  xtu:"っ", ltu:"っ",
+  ka:"か", ki:"き", ku:"く", ke:"け", ko:"こ",
+  ga:"が", gi:"ぎ", gu:"ぐ", ge:"げ", go:"ご",
+  sa:"さ", si:"し", su:"す", se:"せ", so:"そ",
+  za:"ざ", ji:"じ", zi:"じ", zu:"ず", ze:"ぜ", zo:"ぞ",
+  ta:"た", ti:"ち", tu:"つ", te:"て", to:"と",
+  da:"だ", di:"ぢ", du:"づ", de:"で", do:"ど",
+  na:"な", ni:"に", nu:"ぬ", ne:"ね", no:"の",
+  ha:"は", hi:"ひ", hu:"ふ", fu:"ふ", he:"へ", ho:"ほ",
+  ba:"ば", bi:"び", bu:"ぶ", be:"べ", bo:"ぼ",
+  pa:"ぱ", pi:"ぴ", pu:"ぷ", pe:"ぺ", po:"ぽ",
+  ma:"ま", mi:"み", mu:"む", me:"め", mo:"も",
+  ya:"や", yu:"ゆ", yo:"よ",
+  ra:"ら", ri:"り", ru:"る", re:"れ", ro:"ろ",
+  wa:"わ", wo:"を", wi:"ゐ", we:"ゑ",
+  fa:"ふぁ", fi:"ふぃ", fe:"ふぇ", fo:"ふぉ",
+  va:"ゔぁ", vi:"ゔぃ", vu:"ゔ", ve:"ゔぇ", vo:"ゔぉ",
+  // (no nn: entry — `nn` is decided by the ん lookahead above, never the table)
+  xa:"ぁ", xi:"ぃ", xu:"ぅ", xe:"ぇ", xo:"ぉ",
+  la:"ぁ", li:"ぃ", lu:"ぅ", le:"ぇ", lo:"ぉ",
+  a:"あ", i:"い", u:"う", e:"え", o:"お", "-":"ー",
+};
+const R_VOWEL = "aiueo";
+const R_DOUBLE = /[bcdfghjkmpqrstvwyz]/;
+
+function romajiToKana(input) {
+  const s = (input || "").toLowerCase()
+    .replace(/[āâ]/g, "aa").replace(/[īî]/g, "ii").replace(/[ūû]/g, "uu")
+    .replace(/[ēê]/g, "ee").replace(/[ōô]/g, "ou");
+  let out = "", i = 0;
+  while (i < s.length) {
+    const c = s[i], nx = s[i + 1];
+    // ん, which needs the only lookahead in here. Bare n takes ん before a
+    // consonant and at the end, but stays open before a vowel or y so that
+    // `nya` is にゃ and `hona` is ほな.
+    //
+    // `nn` IS NOT SIMPLY ん. Whether the second n belongs to ん or starts the
+    // next mora depends on what follows IT: in `konnichiwa` the second n opens
+    // に, so ん takes one character and leaves it; in `nn` and `honn` there is
+    // no mora to open, so ん takes both. Consuming both unconditionally turns
+    // こんにちわ into こんいちわ, which is what test-romaji-search.py caught.
+    if (c === "n") {
+      if (nx === "'") { out += "ん"; i += 2; continue; }
+      if (nx === "n") {
+        const after = s[i + 2];
+        out += "ん";
+        i += (after && (R_VOWEL.includes(after) || after === "y")) ? 1 : 2;
+        continue;
+      }
+      if (!nx) { out += "ん"; i += 1; continue; }
+      if (!R_VOWEL.includes(nx) && nx !== "y") { out += "ん"; i += 1; continue; }
+    }
+    // っ — a doubled consonant, as in kitte / gakkou.
+    if (nx === c && R_DOUBLE.test(c)) { out += "っ"; i += 1; continue; }
+    let step = 0;
+    for (const len of [3, 2, 1]) {
+      const seg = s.slice(i, i + len);
+      if (seg.length === len && RK[seg]) { out += RK[seg]; step = len; break; }
+    }
+    if (!step) break;   // not romaji from here on; the caller decides what that means
+    i += step;
+  }
+  return { kana: out, rest: s.slice(i) };
+}
+
+// Was that romaji, or just English? English that does not decompose into morae
+// stops the converter early and leaves a long tail ("strength" converts
+// nothing at all). A half-typed mora leaves exactly one consonant, which is
+// normal mid-keystroke and still worth searching as a prefix.
+function romajiSearchable({ kana, rest }) {
+  return kana.length > 0 && (rest === "" || (rest.length === 1 && !R_VOWEL.includes(rest)));
+}
+
+// ————— end romaji input —————
 
 // A small deinflector, so a word lifted out of a sentence — 食べた, 行きます,
 // 高くない — still finds its entry. It proposes dictionary forms and the caller
@@ -155,11 +265,33 @@ async function searchEN(q) {
 
 async function search(raw) {
   const q = raw.trim();
-  if (!q) return { list: [], kanji: null, via: null };
-  const res = JP.test(q) ? await searchJP(q) : await searchEN(q);
+  if (!q) return { list: [], kanji: null, via: null, kana: null };
+  let res, kana = null;
+  if (JP.test(q)) {
+    res = await searchJP(q);
+  } else {
+    // Latin input is BOTH an English query and possibly romaji, and which one
+    // was meant is not knowable from the string: `sake` is an English word and
+    // 酒. So run both and let the data decide the order.
+    const en = await searchEN(q);
+    const conv = romajiToKana(q);
+    const jp = romajiSearchable(conv) ? await searchJP(conv.kana) : { list: [], via: null };
+    if (jp.list.length) {
+      kana = conv.kana;
+      // An EXACT kana entry is a strong signal romaji was meant — `taberu` is
+      // not an English word. A prefix-only hit is not, so English keeps the top
+      // slot and the kana results follow it rather than displacing them.
+      const exact = jp.list.some((x) => formsOf(x).includes(conv.kana));
+      const merged = exact ? [...jp.list, ...en.list] : [...en.list, ...jp.list];
+      const seen = new Set();
+      res = { list: merged.filter((x) => (seen.has(x[0]) ? false : seen.add(x[0]))), via: jp.via };
+    } else {
+      res = en;
+    }
+  }
   const chars = [...q];
   const kanji = chars.length === 1 && KANJI.test(q) ? await shard("k", q) : null;
-  return { ...res, list: res.list.slice(0, 40), kanji };
+  return { ...res, list: res.list.slice(0, 40), kanji, kana };
 }
 
 // ————— small pieces —————
@@ -378,7 +510,7 @@ function Curated({ c }) {
 // ————— root —————
 export default function DictionaryModule({ mode = "page", request = null, onClose = null }) {
   const [q, setQ] = useState(request?.q || "");
-  const [res, setRes] = useState({ list: [], kanji: null, via: null });
+  const [res, setRes] = useState({ list: [], kanji: null, via: null, kana: null });
   const [busy, setBusy] = useState(false);
   const [open, setOpen] = useState(null);      // entry id
   const [kanjiView, setKanjiView] = useState(null); // { ch, info }
@@ -398,7 +530,7 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
 
   const run = useCallback(async (text) => {
     const n = ++seq.current;
-    if (!text.trim()) { setRes({ list: [], kanji: null, via: null }); setBusy(false); return; }
+    if (!text.trim()) { setRes({ list: [], kanji: null, via: null, kana: null }); setBusy(false); return; }
     setBusy(true);
     try {
       const r = await search(text);
@@ -415,7 +547,7 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
     setQ(request.q || "");
     if (request.kanji) {
       shard("k", request.kanji).then((info) => setKanjiView({ ch: request.kanji, info })).catch(() => setMissing(true));
-      setRes({ list: [], kanji: null, via: null });
+      setRes({ list: [], kanji: null, via: null, kana: null });
     } else if (request.q) {
       run(request.q).then(() => {});
     } else {
@@ -480,7 +612,7 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
           ref={inputRef}
           value={q}
           onChange={(e) => { setQ(e.target.value); setOpen(null); setKanjiView(null); }}
-          placeholder="食べる · たべる · eat"
+          placeholder="食べる · たべる · taberu · eat"
           style={{
             width: "100%", boxSizing: "border-box", padding: "12px 14px", borderRadius: 8,
             border: `1px solid ${T.hairline}`, background: T.sheet, color: T.ink,
@@ -510,6 +642,12 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
         ) : q.trim() ? (
           <>
             {res.kanji && <KanjiCard ch={q.trim()} info={res.kanji} onOpen={setOpen} compact={res.list.length > 0} />}
+            {res.kana && (
+              <p style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, margin: "0 0 10px" }}>
+                Reading that as{" "}
+                <span style={{ font: `1rem ${T.jpFont}`, color: T.ink }}>{res.kana}</span>
+              </p>
+            )}
             {res.via && (
               <p style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, margin: "0 0 10px" }}>
                 <span style={{ fontFamily: T.jpFont }}>{res.via.from}</span> looks like a form of{" "}
@@ -561,8 +699,9 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
           </>
         ) : (
           <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub }}>
-            Type a word in kanji, kana or English. In the rest of the app, tap a word
-            to land here with it already looked up.
+            Type a word in kanji, kana, romaji or English — <span style={{ fontFamily: T.jpFont }}>たべる</span>,
+            taberu and eat all reach the same entry. In the rest of the app, tap a
+            word to land here with it already looked up.
           </p>
         )}
       </div>

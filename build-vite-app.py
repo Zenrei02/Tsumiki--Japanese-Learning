@@ -1211,8 +1211,9 @@ function LookupHost() {
         }}>
         <span aria-hidden="true" style={{ font: `0.75rem ${T.uiFont}`, color: T.sub }}>‹</span>
         <span aria-hidden="true" style={{
-          font: `1rem ${T.jpFont}`, writingMode: "vertical-rl", letterSpacing: "2px",
-        }}>辞書</span>
+          font: `600 0.8125rem ${T.uiFont}`, writingMode: "vertical-rl",
+          textOrientation: "sideways", letterSpacing: ".4px", whiteSpace: "nowrap",
+        }}>Dictionary</span>
       </button>
     );
   }
