@@ -959,15 +959,17 @@ if (!ONLY.length || ONLY.includes("dictionary")) {
     await wait(300);
   }
 
-  const hdr = all().find(b => b.getAttribute("aria-label") === "Look up a word");
-  if (!hdr) { fail("DICTIONARY: no header button — the dictionary is not reachable from every screen"); }
+  // Tatami rework: the header 辞 button went; the じしょ edge tab on every
+  // screen is now the one dictionary control in the chrome, so it carries this.
+  const hdr = all().find(b => b.getAttribute("aria-label") === "Open the dictionary");
+  if (!hdr) { fail("DICTIONARY: no edge tab — the dictionary is not reachable from every screen"); }
   else {
     hdr.click();
     await wait(1200);
     const d = dlg("Dictionary");
-    if (!d) fail("DICTIONARY: the header button did not open the lookup drawer");
+    if (!d) fail("DICTIONARY: the edge tab did not open the lookup drawer");
     else {
-      console.log("  header button opens the drawer");
+      console.log("  edge tab opens the drawer");
       const input = d.querySelector("input");
       await type(input, "たべる");
       if (process.env.SMOKE_DEBUG) console.log("DEBUG dict:", (d.textContent || "").slice(0, 400), "| input=", input?.value);

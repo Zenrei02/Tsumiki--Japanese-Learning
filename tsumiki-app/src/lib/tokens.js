@@ -3,24 +3,59 @@
 // fails the build rather than silently picking one.
 export const T = {
   ai: "#3D5A80",
-  hairline: "#E4E2DB",
-  ink: "#22252B",
-  jpFont: '"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif',
+  blockLip: "#7A5A3C",
+  gold: "#C9A24A",
+  goldPale: "#F6EBD2",
+  hairline: "#D9CFB8",
+  header: "#F6F1E6",
+  ink: "#2C2A26",
+  jpFont: '"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif',
   midori: "#3E7C4F",
+  muted: "#6E6A60",
   note: "#907119",
   noteBg: "#FAF3E0",
   ok: "#3E7C4F",
   okBg: "#EDF5EE",
-  paper: "#F7F6F2",
-  sheet: "#FFFFFF",
+  paper: "#F6F1E6",
+  sheet: "#FBF7EE",
   shu: "#C7351B",
-  sub: "#6E7178",
-  uiFont: '-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif',
+  shuHi: "#DC4B2E",
+  shuLip: "#7E1F0F",
+  shuLo: "#AC2B15",
+  sub: "#4A463D",
+  tatami: "#C6BE8E",
+  tatamiEdge: "#2B3A55",
+  uiFont: '"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif',
+  washi: "#FBF7EE",
+  washiEdge: "#D9CFB8",
+  washiLip: "#CFC4A8",
+  wood: "#C9A47C",
+  woodLip: "#8A6540",
 };
 
 // Section accents. AUTHORED in build-vite-app.py, not unioned from the modules
 // — no module owns a section identity, the shell does.
 //
+// THE TATAMI REWORK (2026-09-27, docs/design/rework/) CHANGED THREE OF THESE.
+// The accents are now the FACES of the Home blocks, with a white glyph and label
+// on top. That is the day the CONDITION paragraph below anticipated: an accent
+// went behind text, so the decorative exemption lapsed. Hiragana moved
+// #CFC4E6 -> #9C8BC4 and katakana #A493CE -> #7A66A8 (same 藤 family, deepening
+// as before), and the Checker became lacquer 朱 #C7351B: it is the app's "do
+// this" colour, and the block face is the ONLY place it is used as a section
+// fill. That reverses the "Checker is the quietest" paragraph below, on the
+// designer's call, and it does not touch the rule that matters: 朱 on the
+// Checker screen still means FIX, because the block is on Home, not beside the
+// feedback. Kanji, grammar, vocabulary and dictionary are unchanged.
+// 
+// White (#FFF8EC) on each face, measured: hiragana 2.88, katakana 4.63, kanji
+// 7.31, grammar 5.51, vocabulary 5.52, checker 5.03, dictionary 4.61.
+// HIRAGANA MISSES — 2.88 is under 3:1 even for the 40px glyph, and the 12px
+// label needs 4.5:1. Shipped as designed and flagged; the fix, if wanted, is a
+// darker 藤 on that one block.
+// 
+// What follows is the pre-rework record, kept because it is the reasoning.
+// 
 // Section accents, added Aug 24 2026 (Lloyd's request: a colour per section, with
 // the kana lighter shades of one family and kanji its darkest).
 // 
@@ -82,11 +117,11 @@ export const T = {
 // (4.5:1 on T.paper, 4.87:1 on T.sheet — measured, not estimated), which costs
 // nothing and removes one future caveat.
 export const ACCENT = {
-  hiragana: "#CFC4E6",
-  katakana: "#A493CE",
+  hiragana: "#9C8BC4",
+  katakana: "#7A66A8",
   grammar: "#2F6F6B",
   kanji: "#5B4A7D",
   vocabulary: "#8A5A3B",
-  checker: "#C9C6BE",
+  checker: "#C7351B",
   dictionary: "#727171",
 };

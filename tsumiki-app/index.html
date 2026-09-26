@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>tsumiki — practice</title>
+    <!-- Tatami rework (2026-09-27): Shippori Mincho for Japanese text, headings
+         and the big block glyphs; Zen Kaku Gothic New for UI and English.
+         Both stacks fall back to the system Japanese fonts in lib/tokens.js,
+         so a blocked Google Fonts request degrades to the previous look. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet" />
     <meta name="description" content="Japanese reading and writing practice." />
     <style>
       html, body, #root { height: 100%; margin: 0; }
@@ -18,7 +25,9 @@
          having done this at all. */
       html { font-size: 112.5%; }
 
-      body { background: #F7F6F2; -webkit-text-size-adjust: 100%; }
+      /* Tatami under everything, so an overscroll or a slow first paint shows
+         the floor rather than a white flash. The weave itself is .ts-tatami. */
+      body { background: #C6BE8E; -webkit-text-size-adjust: 100%; }
     </style>
   </head>
   <body>

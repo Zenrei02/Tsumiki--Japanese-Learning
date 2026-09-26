@@ -8,6 +8,7 @@ import { reportStudy } from "./lib/activity.js";
 import { markWorked, readRecency, orderByRecency, readWallet,
          daysSinceLastWorked, DORMANT_DAYS } from "./lib/stats.js";
 import { T, ACCENT } from "./lib/tokens.js";
+import { SKIN_CSS } from "./lib/skin.js";
 const HiraganaModule = lazy(() => import("./modules/Hiragana.jsx"));
 const KatakanaModule = lazy(() => import("./modules/Katakana.jsx"));
 const GrammarPractice = lazy(() => import("./modules/Grammar.jsx"));
@@ -90,198 +91,251 @@ async function readNextTask() {
   } catch (e) { return null; }
 }
 
+// ————— Home, tatami rework (2026-09-27) —————
+// Spec: docs/design/rework/01-home-day.html; where this and the board
+// disagree, the board wins. Only the PRESENTATION changed. The hero priority
+// (task > last module > start here), orderByRecency and the evidence-based
+// "last worked on" are the Session 13–23 logic, unchanged.
+//
+// The six doors became six wooden blocks, the つみき the app is named for.
+// All six stay on the table. The Session 23 version showed a started learner
+// only their own sections and sent them to the menu for the rest; a block is
+// small enough that hiding it buys nothing, so the ones you have worked on
+// move to the front, most recent first, and the rest follow in the fresh
+// order. The dictionary is not a block: it opens from the じしょ tab on the
+// right edge of every screen.
+const BLOCK_ORDER = ["hiragana", "katakana", "kanji", "grammar", "vocabulary", "checker"];
+const BLOCK_GLYPH = { hiragana: "あ", katakana: "ア", kanji: "漢", grammar: "文", vocabulary: "言", checker: "直" };
+const LABEL = { font: `700 0.6875rem ${T.uiFont}`, letterSpacing: ".08em" };
+
+const ICON = {
+  menu: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>),
+  back: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>),
+  music: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 18V6l10-2v12" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="16.5" cy="16" r="2.5" /></svg>),
+  chevron: (<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>),
+  house: (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7" /><path d="M5 10v10h14V10" /></svg>),
+};
+
+// The room, drawn in the band at the top of Home. Tapping it goes to the room.
+// Colours are the board's own; the three blocks on the table wear the
+// hiragana, grammar and checker accents so the scene and the grid below agree.
+function Scene({ onOpen }) {
+  const jp = "Shippori Mincho, serif";
+  const svg = (
+    <svg viewBox="0 0 390 196" role="img" style={{ display: "block", width: "100%", height: "auto" }}
+         aria-label="A tatami room: shoji screens, a low table with wooden blocks, a bamboo fountain">
+      <defs>
+        <pattern id="ts-weave" width="6" height="3" patternUnits="userSpaceOnUse">
+          <rect width="6" height="3" fill="#C6BE8E" />
+          <rect width="1" height="3" fill="#E4DDB3" />
+          <rect y="2" width="6" height="1" fill="#A79E6A" />
+        </pattern>
+      </defs>
+      <rect width="390" height="196" fill="#EFE7D4" />
+      <g fill="#F5EEDD" stroke="#B89A72" strokeWidth="2">
+        <rect x="18" y="8" width="150" height="120" />
+        <rect x="222" y="8" width="150" height="120" />
+      </g>
+      <g stroke="#B89A72" strokeWidth="1.4">
+        <path d="M18 38h150M18 68h150M18 98h150M56 8v120M93 8v120M130 8v120" />
+        <path d="M222 38h150M222 68h150M222 98h150M260 8v120M297 8v120M334 8v120" />
+      </g>
+      <rect x="176" y="8" width="38" height="120" fill="#E3D9C3" />
+      <rect x="185" y="20" width="20" height="70" rx="2" fill="#FBF7EE" stroke="#B89A72" />
+      <text x="195" y="60" textAnchor="middle" fontFamily={jp} fontSize="18" fontWeight="700" fill="#2C2A26">つ</text>
+      <rect x="0" y="128" width="390" height="8" fill="#5E4630" />
+      <rect x="0" y="136" width="390" height="60" fill="url(#ts-weave)" />
+      <path d="M0 136h390" stroke="#2B3A55" strokeWidth="3" />
+      <path d="M195 136v60" stroke="#2B3A55" strokeWidth="3" />
+      <g>
+        <rect x="112" y="150" width="166" height="12" rx="3" fill="#4A3423" />
+        <rect x="120" y="162" width="10" height="16" fill="#3B2A1C" />
+        <rect x="260" y="162" width="10" height="16" fill="#3B2A1C" />
+        <rect x="150" y="128" width="24" height="22" rx="3" fill="#9C8BC4" stroke="#5B4A7D" />
+        <text x="162" y="145" textAnchor="middle" fontFamily={jp} fontSize="14" fontWeight="700" fill="#FFF8EC">あ</text>
+        <rect x="176" y="128" width="24" height="22" rx="3" fill="#2F6F6B" stroke="#1F4C49" />
+        <text x="188" y="145" textAnchor="middle" fontFamily={jp} fontSize="14" fontWeight="700" fill="#FFF8EC">文</text>
+        <rect x="163" y="106" width="24" height="22" rx="3" fill="#C7351B" stroke="#7E1F0F" />
+        <text x="175" y="123" textAnchor="middle" fontFamily={jp} fontSize="14" fontWeight="700" fill="#FFF8EC">直</text>
+      </g>
+      <g>
+        <ellipse cx="338" cy="176" rx="34" ry="12" fill="#8E8A80" />
+        <ellipse cx="338" cy="172" rx="26" ry="8" fill="#5B7C8C" />
+        <path d="M300 96l40 46" stroke="#7C9A4C" strokeWidth="9" strokeLinecap="round" />
+        <path d="M300 96l40 46" stroke="#5F7B36" strokeWidth="3" strokeDasharray="1 9" strokeLinecap="round" />
+        <rect x="332" y="120" width="8" height="52" fill="#5F7B36" />
+        <circle cx="346" cy="152" r="3" fill="#9CC3D6" />
+        <circle cx="344" cy="162" r="2" fill="#9CC3D6" />
+      </g>
+      <g>
+        <rect x="30" y="112" width="54" height="8" rx="2" fill="#4A3423" />
+        <path d="M57 112c-4-14-2-26 6-32" stroke="#6B4E2E" strokeWidth="4" fill="none" strokeLinecap="round" />
+        <circle cx="66" cy="76" r="14" fill="#5E8C61" />
+        <circle cx="52" cy="86" r="9" fill="#4E7B52" />
+      </g>
+    </svg>
+  );
+  if (!onOpen) return svg;
+  return <button onClick={onOpen} aria-label="Your room" className="ts-scene">{svg}</button>;
+}
+
 function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays, openAccount, openGoals }) {
   const fresh = !MODULES.some((m) => startedMap[m.id]);
   const started = (id) => Boolean(startedMap[id]);
 
-  // Hero priority: what to DO now > where you were > where to begin.
-  // Session 21 — Home answered "where can I go" six times over and "what should
-  // I do" not at all, so every session opened with a decision. A module name is
-  // not an action: "Continue › Kanji" still leaves the choosing to the learner.
-  // Started sections, most recently worked first. A section with progress but
-  // no recency stamp (it was studied before this was recorded) sorts last
-  // rather than vanishing — absent evidence is not evidence of absence.
-  const startedIds = MODULES.filter((m) => started(m.id)).map((m) => m.id);
-  const shownModules = fresh
-    ? MODULES
-    : orderByRecency(startedIds, recency || {}).map((id) => MODULES.find((m) => m.id === id));
+  // Blocks: worked-on sections first, most recent first (orderByRecency — a
+  // section with progress but no recency stamp sorts last rather than
+  // vanishing), then everything not yet started in the fresh order.
+  const blockMods = BLOCK_ORDER.map((id) => MODULES.find((m) => m.id === id)).filter(Boolean);
+  const startedIds = blockMods.filter((m) => started(m.id)).map((m) => m.id);
+  const shownBlocks = fresh ? blockMods : [
+    ...orderByRecency(startedIds, recency || {}),
+    ...blockMods.map((m) => m.id).filter((id) => !startedIds.includes(id)),
+  ].map((id) => MODULES.find((m) => m.id === id));
 
+  // Hero priority: what to DO now > where you were > where to begin (Session
+  // 21). A module name is not an action, so when there is a task the task is
+  // the headline and the module demotes to a subtitle.
   const taskMod = nextTask ? MODULES.find((m) => m.id === nextTask.module) : null;
   const hero = taskMod || lastMod || MODULES[0];
   const heroLabel = taskMod ? "NEXT ON YOUR PATH"
     : lastMod ? "PICK UP WHERE YOU LEFT OFF" : "NEW HERE? START WITH";
-  const heroCta = taskMod ? "Go ›" : lastMod ? "Continue ›" : "Start here ›";
-  const cardBase = {
-    display: "block", width: "100%", textAlign: "left", cursor: "pointer",
-    background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 10,
-    padding: "14px 16px", fontFamily: T.uiFont, color: T.ink,
-  };
-  const chip = (text, color) => (
-    <span style={{
-      font: `600 0.625rem ${T.uiFont}`, letterSpacing: ".5px", color: T.paper,
-      background: color, borderRadius: 999, padding: "3px 9px", marginLeft: 8,
-      verticalAlign: "middle",
-    }}>{text}</span>
-  );
+  const heroCta = taskMod ? "Go" : lastMod ? "Continue" : "Start here";
+
   return (
-    <div style={{ padding: "18px 16px 36px" }}>
-      <button onClick={() => go(hero.id)} style={{
-        ...cardBase, border: `2px solid ${T.ink}`, padding: "18px 18px 16px", marginBottom: 22,
-      }}>
-        <div style={{ font: `600 0.6875rem ${T.uiFont}`, letterSpacing: ".7px", color: T.sub }}>
-          {heroLabel}
-        </div>
-        {taskMod ? (
-          // The action is the headline; the module name demotes to a subtitle.
-          <>
-            <div style={{ font: `600 1.375rem/1.4 ${T.uiFont}`, marginTop: 8 }}>
-              {nextTask.label}
-            </div>
-            <p style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, margin: "8px 0 12px" }}>
-              in {hero.label} <span style={{ fontFamily: T.jpFont }}>{hero.jp}</span>
-            </p>
-          </>
-        ) : (
-          <>
-            <div style={{ marginTop: 8, display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
-              <span style={{ font: `600 1.5rem ${T.uiFont}` }}>{hero.label}</span>
-              <span style={{ font: `1.25rem ${T.jpFont}`, color: T.sub }}>{hero.jp}</span>
-            </div>
-            <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub, margin: "8px 0 12px" }}>
-              {HOME_WHY[hero.id]}
-            </p>
-          </>
-        )}
-        <div style={{ font: `600 0.9375rem ${T.uiFont}` }}>{heroCta}</div>
-      </button>
+    <div>
+      <Scene onOpen={() => go("room")} />
+      <div style={{ display: "flex", flexDirection: "column", gap: 18, padding: "18px 16px 32px" }}>
 
-      {started("grammar") && (
-        // Session 14: the daily review challenge gets a front-door card once
-        // grammar has begun — before that it would only point at an empty
-        // pool. The flag routes the grammar module straight to the challenge.
-        <button
-          onClick={() => { try { localStorage.setItem("tsumiki-open-challenge", "1"); } catch (e) {} go("grammar"); }}
-          style={{ ...cardBase, border: `1px solid ${T.shu}55`, marginBottom: 22 }}
-        >
-          <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
-            <span style={{ font: `600 1rem ${T.uiFont}` }}>Review challenge</span>
-            <span style={{ font: `0.9375rem ${T.jpFont}`, color: T.shu, marginLeft: 8 }}>腕試し</span>
-          </div>
-          <p style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, margin: "6px 0 0" }}>
-            Draw a grammar point you've learned and write with it. A fresh challenge every day — the day turns at midnight, Tokyo time.
-          </p>
-        </button>
-      )}
-
-      {/* ⚠️ A REMINDER, NOT A DEADLINE. Nothing in this app expires, and the
-          note says so in as many words — the point is to tell someone who has
-          been away for a month that starting a section again is allowed, not
-          to imply that their progress has gone stale. Three weeks is the bar
-          (DORMANT_DAYS); it is a long enough gap that "where was I" is a real
-          question and short enough to catch someone before they give up. */}
-      {dormantDays != null && dormantDays >= DORMANT_DAYS && (
-        <button onClick={openAccount} style={{
-          ...cardBase, border: `1px solid ${T.note}55`, background: T.noteBg,
-          marginBottom: 22,
-        }}>
-          <div style={{ font: `600 0.875rem ${T.uiFont}`, color: T.note }}>
-            Welcome back
-          </div>
-          <p style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.ink, margin: "6px 0 0" }}>
-            It has been a while. Everything is exactly where you left it — and if
-            you would rather start a section again from the beginning, you can
-            clear just that one. Nothing here expires on its own.
-          </p>
-        </button>
-      )}
-
-      {/* ————— Goals and koban, on Home only (Lloyd, Session 23) —————
-          The balance was briefly in the header, which put it on top of every
-          lesson screen too. A currency counter visible while you are practising
-          is a scoreboard, and this app deliberately does not keep score during
-          the work — the same instinct as the standing rule against workload
-          numbers. On Home it answers "what have I earned"; over a kanji drill it
-          would be answering a question nobody asked.
-
-          ⚠️ SHOWING IT AT ALL STILL REVERSES A RECORDED DECISION, deliberately.
-          reward-system-design-v1.md §1 and the engagement module both say the
-          balance is not displayed and is checked in the room/shop. That was
-          written when the room existed as a plan; with no room yet the koban
-          were being earned and were literally unseeable, which is worse than the
-          problem the rule was avoiding. Revisit when the room ships — the
-          original reasoning is sound once there is somewhere to spend them.
-
-          The daily card, the weekly rhythm and the quest chain now live behind
-          the Goals button rather than inline here: see lib/engagementPanel.jsx
-          for why once-a-day beats always-on-screen. */}
-      {!fresh && (
-        <div style={{
-          display: "flex", alignItems: "center", gap: 12,
-          marginBottom: 22, flexWrap: "wrap",
-        }}>
-          <button onClick={openGoals} style={{
-            ...cardBase, width: "auto", padding: "10px 16px",
-            font: `600 0.875rem ${T.uiFont}`,
-          }}>
-            Goals
+        {/* ⚠️ A REMINDER, NOT A DEADLINE (Session 23). Nothing in this app
+            expires, and the note says so; it tells someone back after three
+            weeks (DORMANT_DAYS) that starting a section again is allowed. */}
+        {dormantDays != null && dormantDays >= DORMANT_DAYS && (
+          <button onClick={openAccount} className="ts-card ts-card-btn">
+            <span style={{ font: `700 0.875rem ${T.uiFont}`, color: T.note }}>Welcome back</span>
+            <span style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub }}>
+              It has been a while. Everything is exactly where you left it — and if
+              you would rather start a section again from the beginning, you can
+              clear just that one. Nothing here expires on its own.
+            </span>
           </button>
+        )}
+
+        {/* The one lacquer button on Home. The whole card is the target, as
+            before; the button inside it is what presses when you tap. */}
+        <button onClick={() => go(hero.id)} className="ts-card ts-card-btn ts-hero">
+          <span style={{ ...LABEL, color: T.muted }}>{heroLabel}</span>
+          {taskMod ? (
+            <>
+              <span style={{ font: `700 1.375rem/1.25 ${T.uiFont}` }}>{nextTask.label}</span>
+              <span style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub }}>
+                in {hero.label} <span style={{ fontFamily: T.jpFont, color: T.ink }}>{hero.jp}</span>
+              </span>
+            </>
+          ) : (
+            <>
+              <span style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
+                <span style={{ font: `700 1.375rem/1.25 ${T.uiFont}` }}>{hero.label}</span>
+                <span style={{ font: `1.25rem ${T.jpFont}`, color: T.sub }}>{hero.jp}</span>
+              </span>
+              <span style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub }}>{HOME_WHY[hero.id]}</span>
+            </>
+          )}
+          <span className="ts-btn ts-btn-shu" style={{ marginTop: 6 }}>{heroCta} {ICON.chevron}</span>
+        </button>
+
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <span style={{ ...LABEL, color: T.sub }}>YOUR BLOCKS</span>
+          <span style={{ font: `0.8125rem ${T.jpFont}`, color: T.sub }}>つみき</span>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 14 }}>
+          {shownBlocks.map((m) => {
+            // Session 21: a day-one learner meets the Checker as a peer of
+            // Hiragana. The answer stays an invitation, not a lock — now a tag
+            // on the block, with the full line as its title.
+            const tag = !fresh ? null
+              : m.id === "hiragana" ? "START HERE"
+              : m.id === "checker" ? "ALREADY STUDIED?" : null;
+            return (
+              <button key={m.id} onClick={() => go(m.id)} className="ts-block"
+                      title={m.id === "checker" && fresh ? HOME_INVITE.checker : HOME_WHY[m.id]}
+                      style={{
+                        backgroundColor: m.accent,
+                        ...(m.id === "checker" ? { "--ts-lip": T.shuLip, "--ts-lip-shadow": "rgba(126,31,15,.32)" } : null),
+                      }}>
+                {tag && <span className="ts-tag">{tag}</span>}
+                <span aria-hidden="true" style={{ font: `700 2.5rem/1 ${T.jpFont}` }}>{BLOCK_GLYPH[m.id]}</span>
+                <span style={{ font: `700 0.75rem ${T.uiFont}` }}>{m.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {started("grammar") && (
+          // Session 14: the daily review challenge gets a front-door card once
+          // grammar has begun. The flag routes the grammar module straight to it.
+          <button
+            onClick={() => { try { localStorage.setItem("tsumiki-open-challenge", "1"); } catch (e) {} go("grammar"); }}
+            className="ts-card ts-card-btn"
+          >
+            <span style={{ display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap" }}>
+              <span style={{ font: `700 1rem ${T.uiFont}` }}>Review challenge</span>
+              <span style={{ font: `0.9375rem ${T.jpFont}`, color: ACCENT.grammar }}>腕試し</span>
+            </span>
+            <span style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub }}>
+              Draw a grammar point you've learned and write with it. A fresh challenge every day — the day turns at midnight, Tokyo time.
+            </span>
+          </button>
+        )}
+
+        {/* Goals and koban, on Home only (Session 23): a currency counter over
+            a lesson is a scoreboard, and this app does not keep score during
+            the work. Revisit when the room ships — it is where koban belong. */}
+        {!fresh && (
+          <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
+            <button onClick={openGoals} className="ts-btn ts-btn-washi">Goals</button>
+            {wallet > 0 && (
+              <span title="Koban you have earned" style={{
+                font: `700 0.875rem ${T.uiFont}`, color: T.note, whiteSpace: "nowrap",
+              }}>
+                <span style={{ fontFamily: T.jpFont }}>小判</span> {wallet}
+              </span>
+            )}
+          </div>
+        )}
+
+        <button onClick={() => go("room")} className="ts-btn ts-btn-wood" style={{ width: "100%" }}>
+          {ICON.house} Room <span style={{ fontFamily: T.jpFont, fontWeight: 500 }}>へや</span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ————— The room, until it is built —————
+// The rework designs the room (06-room.html) and explicitly builds nothing, but
+// Home now has two doors into it. They lead here: the scene, and an honest line.
+function RoomSoon({ wallet, go }) {
+  return (
+    <div>
+      <Scene />
+      <div style={{ padding: "18px 16px 32px" }}>
+        <div className="ts-card" style={{ padding: "18px 18px 16px", display: "flex", flexDirection: "column", gap: 10 }}>
+          <span style={{ ...LABEL, color: T.muted }}>YOUR ROOM</span>
+          <span style={{ font: `700 1.375rem/1.25 ${T.uiFont}` }}>Still being built</span>
+          <span style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub }}>
+            The koban you earn will furnish it. Nothing you earn in the meantime is lost.
+          </span>
           {wallet > 0 && (
-            <span title="Koban you have earned" style={{
-              font: `0.875rem ${T.uiFont}`, color: T.note, whiteSpace: "nowrap",
-            }}>
-              <span style={{ fontFamily: T.jpFont }}>小判</span> {wallet}
+            <span style={{ font: `700 0.875rem ${T.uiFont}`, color: T.note }}>
+              <span style={{ fontFamily: T.jpFont }}>小判</span> {wallet} saved so far
             </span>
           )}
-        </div>
-      )}
-
-      {/* ————— Where you have been, most recent first (Session 23) —————
-          Lloyd: once someone has started something, the front door should be
-          THEIR sections in the order they last used them, not the same six
-          doors in the same order forever. A learner three weeks into kanji does
-          not need Hiragana offered first every single time.
-
-          Everything else stays one tap away in the drawer, and the line below
-          says so — a shorter front door is only an improvement if the rest of
-          the app is still visibly reachable. Someone who has started nothing
-          still gets the full list, because for them the six doors ARE the
-          information. */}
-      <div style={{ font: `600 0.6875rem ${T.uiFont}`, letterSpacing: ".7px", color: T.sub, marginBottom: 10 }}>
-        {fresh ? "EVERYWHERE YOU CAN GO" : "WHERE YOU LEFT OFF"}
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {shownModules.map((m) => (
-          // The accent rule sits on the card too, not only inside the section,
-          // so the mapping is learned on the way in rather than discovered after.
-          <button key={m.id} onClick={() => go(m.id)}
-                  style={{ ...cardBase, borderTop: `4px solid ${m.accent}` }}>
-            <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap" }}>
-              <span style={{ font: `600 1rem ${T.uiFont}` }}>{m.label}</span>
-              <span style={{ font: `0.9375rem ${T.jpFont}`, color: T.sub, marginLeft: 8 }}>{m.jp}</span>
-              {m.id === "hiragana" && fresh && chip("START HERE", T.ok)}
-              {m.id === "checker" && fresh && chip("ALREADY STUDIED?", T.note)}
-              {lastMod?.id === m.id && chip("LAST WORKED ON", T.ink)}
-              {lastMod?.id !== m.id && started(m.id) && chip("IN PROGRESS", T.sub)}
-            </div>
-            <p style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, margin: "6px 0 0" }}>
-              {/* Session 21 (Lloyd): a day-one learner sees the Checker as a
-                  peer of Hiragana and bounces off a tool built for people who
-                  can already write — a bad first impression, and a real API
-                  cost per call. The answer is an invitation, not a lock:
-                  someone arriving with existing Japanese is exactly who the
-                  Checker is for, and this is how they find out. */}
-              {m.id === "checker" && fresh ? HOME_INVITE.checker : HOME_WHY[m.id]}
-            </p>
+          <button onClick={() => go("home")} className="ts-btn ts-btn-wood" style={{ marginTop: 6 }}>
+            Back to your blocks
           </button>
-        ))}
+        </div>
       </div>
-
-      {!fresh && (
-        <p style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, margin: "16px 2px 0" }}>
-          Want to try something new? Everything else is in the menu — the
-          <span aria-hidden="true"> ☰ </span> at the top left.
-        </p>
-      )}
     </div>
   );
 }
@@ -447,26 +501,16 @@ function LookupHost() {
   // floats over the Goals card or an account question, and it goes away while
   // the drawer itself is open.
   if (!req) {
+    // Tatami rework: the handle is a washi tab reading じしょ, per the boards.
+    // Same behaviour as Session 34 — it opens the drawer knowing what is on
+    // screen. It is also now the ONLY dictionary control in the chrome: the
+    // header 辞 button went, since a tab on every screen already does its job.
     return (
       <button
         onClick={() => setReq({ q: "", onScreen: wordsOnScreen(), n: Date.now() })}
         aria-label="Open the dictionary"
         title="Dictionary — look up a word on this screen"
-        style={{
-          position: "fixed", right: 0, bottom: "18%", zIndex: 20,
-          width: 34, minHeight: 104, padding: "12px 0",
-          display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
-          background: T.sheet, color: T.ink, cursor: "pointer",
-          border: `1px solid ${T.hairline}`, borderRight: "none",
-          borderLeft: `3px solid ${ACCENT.dictionary}`,
-          borderRadius: "10px 0 0 10px", boxShadow: "0 2px 10px rgba(34,37,43,0.10)",
-        }}>
-        <span aria-hidden="true" style={{ font: `0.75rem ${T.uiFont}`, color: T.sub }}>‹</span>
-        <span aria-hidden="true" style={{
-          font: `600 0.8125rem ${T.uiFont}`, writingMode: "vertical-rl",
-          textOrientation: "sideways", letterSpacing: ".4px", whiteSpace: "nowrap",
-        }}>Dictionary</span>
-      </button>
+        className="ts-edge-tab">じしょ</button>
     );
   }
   return (
@@ -533,12 +577,30 @@ export default function App() {
     return () => { alive = false; };
   }, [active]);
   const current = MODULES.find((m) => m.id === active) || MODULES[0];
-  // `current` exists to name the module being rendered, and it falls back to
-  // MODULES[0] for anything it does not know — which would have put "Hiragana"
-  // in the header above the Progress screen. Named destinations that are not
-  // modules get their title from here instead.
-  const NON_MODULE_TITLES = { progress: "Progress" };
-  const headerTitle = active === "home" ? "" : (NON_MODULE_TITLES[active] || current.label);
+  // `current` falls back to MODULES[0] for anything it does not know. Named
+  // destinations that are not modules take their title AND their header rule
+  // from here — before, Progress wore Hiragana's colour under its header.
+  const NON_MODULE = {
+    progress: { label: "Progress", jp: "きろく", accent: T.sub },
+    room: { label: "Room", jp: "へや", accent: T.woodLip },
+  };
+  const place = NON_MODULE[active] || current;
+
+  // ————— Ambience (tatami rework) —————
+  // Opt-in, default off, never autoplays. The sound files are not part of the
+  // handoff, so this is the switch and its remembered state only.
+  // TODO(ambience): wire to the bamboo-fountain/koto loop when the audio exists,
+  // and add the once-only first-launch offer in the same change — offering a
+  // sound that then does not play would be the wrong first impression.
+  // localStorage, not the storage adapter: a per-device preference, not
+  // progress, so it stays out of Save/Restore and account sync on purpose.
+  const [ambience, setAmbience] = useState(() => {
+    try { return localStorage.getItem("tsumiki-ambience") === "on"; } catch (e) { return false; }
+  });
+  const toggleAmbience = () => setAmbience((on) => {
+    try { localStorage.setItem("tsumiki-ambience", on ? "off" : "on"); } catch (e) {}
+    return !on;
+  });
   const menuBtnRef = useRef(null);
 
   const closeMenu = () => {
@@ -599,62 +661,65 @@ export default function App() {
     return () => document.removeEventListener("visibilitychange", onHide);
   }, []);
 
-  const btn = {
-    background: "none", border: "none", cursor: "pointer",
-    padding: "8px 10px", borderRadius: 8,
-  };
+  const ambienceBtn = (
+    <button className="ts-icon" onClick={toggleAmbience} aria-pressed={ambience}
+            aria-label={`Ambience: bamboo fountain and koto, ${ambience ? "on" : "off"}`}
+            style={{ color: ambience ? ACCENT.grammar : "#8A847A" }}>
+      {ICON.music}
+    </button>
+  );
+  const menuBtn = (
+    <button ref={menuBtnRef} className="ts-icon" onClick={() => setMenuOpen(true)}
+            aria-label="Menu" aria-expanded={menuOpen} aria-haspopup="dialog">
+      {ICON.menu}
+    </button>
+  );
 
   return (
-    <div style={{ background: T.paper, minHeight: "100vh", fontFamily: T.uiFont }}>
+    <div className="ts-tatami" style={{ minHeight: "100vh", fontFamily: T.uiFont, color: T.ink }}>
+      <style>{SKIN_CSS}</style>
       <header style={{
-        background: T.sheet,
-        // A BAR UNDER THE STICKY HEADER, not a frame around the viewport: a
-        // four-sided border costs real width on a phone and this carries the
-        // same signal for none. Home keeps the plain hairline — it is not a
-        // section and should not claim one's colour.
-        borderBottom: active === "home"
-          ? `1px solid ${T.hairline}`
-          : `3px solid ${current.accent}`,
+        background: T.header,
+        // A RULE UNDER THE STICKY HEADER, not a frame around the viewport: a
+        // four-sided border costs real width on a phone. Home keeps the plain
+        // hairline — it is not a section and should not claim one's colour.
+        boxShadow: active === "home"
+          ? `0 1px 0 ${T.hairline}`
+          : `0 1px 0 ${T.hairline}, inset 0 -3px 0 ${place.accent}`,
         position: "sticky", top: 0, zIndex: 10,
       }}>
         <div style={{
-          maxWidth: 900, margin: "0 auto", padding: "8px 12px",
-          display: "flex", alignItems: "center", gap: 4,
+          maxWidth: 900, margin: "0 auto", minHeight: 56, boxSizing: "border-box",
+          padding: "6px 8px", display: "flex", alignItems: "center", gap: 4,
         }}>
-          <button ref={menuBtnRef} onClick={() => setMenuOpen(true)}
-                  aria-label="Menu" aria-expanded={menuOpen} aria-haspopup="dialog"
-                  style={{
-            ...btn, padding: 10, display: "flex", flexDirection: "column",
-            gap: 4, width: 44, alignItems: "stretch",
-          }}>
-            {[0, 1, 2].map((i) => (
-              <span key={i} style={{
-                display: "block", height: 2, background: T.ink, borderRadius: 2,
-              }} />
-            ))}
-          </button>
-          <button onClick={() => go("home")} aria-label="Home" style={{
-            background: "none", border: "none", cursor: "pointer", padding: "4px 8px",
-            font: `600 1.0625rem ${T.jpFont}`, color: T.ink, borderRadius: 8,
-          }}>つ</button>
-          <span style={{
-            font: `0.875rem ${T.uiFont}`, color: T.sub, marginLeft: 2,
-          }}>{headerTitle}</span>
-          <span style={{ flex: 1 }} />
-          {/* Session 34: the dictionary, one tap from every screen. It opens
-              the lookup drawer rather than navigating, so whatever the learner
-              was reading is still there when they close it. */}
-          <button onClick={() => window.dispatchEvent(new CustomEvent("tsumiki:lookup", { detail: { q: "" } }))}
-                  aria-label="Look up a word" title="Dictionary" style={{
-            ...btn, padding: "6px 10px", font: `1.0625rem ${T.jpFont}`, color: T.ink,
-            border: `1px solid ${T.hairline}`,
-          }}>辞</button>
-          {/* Session 24: Save and Restore used to live here, on every screen.
-              Accounts do that job now, and a pair of file buttons above every
-              lesson is a permanent reminder that the app might lose your work.
-              The file survives only where it is actually recovery — beside the
-              two choices that can overwrite something (the sign-in conflict,
-              and the reset), both in the places those choices are made. */}
+          {active === "home" ? (
+            <>
+              {menuBtn}
+              <span style={{ flex: 1 }} />
+              <button onClick={() => go("home")} aria-label="Home" className="ts-wordmark">
+                <span className="ts-seal" aria-hidden="true">つ</span>
+                <span style={{ font: `700 1.375rem/1 ${T.uiFont}`, letterSpacing: "-0.01em" }}>tsumiki</span>
+              </button>
+              <span style={{ flex: 1 }} />
+              {ambienceBtn}
+            </>
+          ) : (
+            // Inside a section the boards show a back arrow where the menu
+            // was. The menu stays, on the right: it is still the only way to
+            // Progress and Account, and to jump sideways between sections.
+            <>
+              <button className="ts-icon" onClick={() => go("home")} aria-label="Back to home">{ICON.back}</button>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 10, minWidth: 0, flex: 1 }}>
+                <span style={{ font: `700 1.5rem/1 ${T.jpFont}`, whiteSpace: "nowrap" }}>{place.jp}</span>
+                <span style={{
+                  font: `700 0.9375rem ${T.uiFont}`, color: T.sub, whiteSpace: "nowrap",
+                  overflow: "hidden", textOverflow: "ellipsis",
+                }}>{place.label}</span>
+              </div>
+              {ambienceBtn}
+              {menuBtn}
+            </>
+          )}
         </div>
       </header>
 
@@ -673,13 +738,15 @@ export default function App() {
 
       <LookupHost />
 
-      <main style={{ maxWidth: 900, margin: "0 auto" }}>
+      <main style={{ maxWidth: active === "home" || active === "room" ? 520 : 900, margin: "0 auto" }}>
         {active === "home" ? (
           <Home startedMap={startedMap} nextTask={nextTask} go={go}
                 recency={recency} wallet={wallet} dormantDays={dormantDays}
                 openAccount={() => setAccountOpen(true)}
                 openGoals={() => setGoalsOpen(true)}
                 lastMod={MODULES.find((m) => m.id === lastWorked) || null} />
+        ) : active === "room" ? (
+          <RoomSoon wallet={wallet} go={go} />
         ) : active === "progress" ? (
           // Not lazy: it is small, and it is the screen a learner opens to be
           // reassured about their own work. A spinner there reads as "gone".
