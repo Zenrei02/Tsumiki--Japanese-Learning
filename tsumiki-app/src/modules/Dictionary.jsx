@@ -585,13 +585,19 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
   const body = (
     <>
       {drawer && (
+        // Tatami rework (05): じしょ leads, as on the edge tab that opened it.
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-          <span style={{ font: `600 1rem ${T.uiFont}`, color: T.ink }}>Dictionary <span style={{ fontFamily: T.jpFont, color: T.sub, fontWeight: 400 }}>じしょ</span></span>
+          <span style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+            <span style={{ font: `700 1.25rem ${T.jpFont}`, color: T.ink }}>じしょ</span>
+            <span style={{ font: `700 0.8125rem ${T.uiFont}`, color: "#4A463D" }}>Dictionary</span>
+          </span>
           {onClose && (
             <button onClick={onClose} aria-label="Close dictionary" style={{
-              background: "none", border: "none", cursor: "pointer", padding: 8,
-              font: `1.125rem ${T.uiFont}`, color: T.sub, lineHeight: 1,
-            }}>✕</button>
+              background: "none", border: "none", cursor: "pointer", width: 40, height: 40,
+              display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 12, color: T.ink,
+            }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+            </button>
           )}
         </div>
       )}
@@ -614,8 +620,8 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
           onChange={(e) => { setQ(e.target.value); setOpen(null); setKanjiView(null); }}
           placeholder="食べる · たべる · taberu · eat"
           style={{
-            width: "100%", boxSizing: "border-box", padding: "12px 14px", borderRadius: 8,
-            border: `1px solid ${T.hairline}`, background: T.sheet, color: T.ink,
+            width: "100%", boxSizing: "border-box", minHeight: 44, padding: "10px 14px", borderRadius: 12,
+            border: 0, boxShadow: "inset 0 0 0 1.5px #D9CFB8", background: "#FFFDF7", color: T.ink,
             font: `1.0625rem ${T.jpFont}`,
           }}
         />
@@ -718,7 +724,7 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
     </>
   );
 
-  if (drawer) return <div style={{ padding: "14px 16px 24px" }}>{body}</div>;
+  if (drawer) return <div style={{ padding: "14px 14px 24px" }}>{body}</div>;
   return (
     <div style={{ background: T.paper, minHeight: "100%", padding: "22px 18px 60px" }}>
       <div style={{ maxWidth: 560, margin: "0 auto" }}>{body}</div>

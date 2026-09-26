@@ -521,14 +521,19 @@ function LookupHost() {
         @media (prefers-reduced-motion: reduce) { .tsumiki-lookup { animation: none; } }
       `}</style>
       <div onClick={() => setReq(null)} aria-hidden="true" style={{
-        position: "fixed", inset: 0, zIndex: 44, background: "rgba(34,37,43,0.36)",
+        position: "fixed", inset: 0, zIndex: 44, background: "rgba(44,42,38,0.32)",
       }} />
+      {/* Tatami rework (05-kanji-dictionary-bar.html): a washi sheet 304px
+          wide with the 鈍 dictionary edge drawn as an inset, rounded on the
+          side that faces the page. Narrower than the old 440 on purpose — the
+          page behind stays visible, which is what makes it a bar you pulled
+          out rather than a page you went to. */}
       <aside ref={panelRef} role="dialog" aria-modal="true" aria-label="Dictionary"
-             className="tsumiki-lookup" style={{
+             className="tsumiki-lookup ts-washi-tex" style={{
         position: "fixed", top: 0, right: 0, bottom: 0, zIndex: 45,
-        width: "min(440px, 100vw)", overflowY: "auto", background: T.paper,
-        borderLeft: `3px solid ${ACCENT.dictionary}`,
-        boxShadow: "0 0 40px rgba(34,37,43,0.18)",
+        width: "min(304px, 92vw)", boxSizing: "border-box", overflowY: "auto",
+        borderRadius: "18px 0 0 18px",
+        boxShadow: `-8px 0 28px rgba(44,42,38,.32), inset 3px 0 0 ${ACCENT.dictionary}, var(--ts-washi-halo)`,
       }}>
         <Suspense fallback={
           <p style={{ padding: "24px 18px", color: T.sub, font: `0.875rem ${T.uiFont}` }}>Loading…</p>
@@ -738,7 +743,10 @@ export default function App() {
 
       <LookupHost />
 
-      <main style={{ maxWidth: active === "home" || active === "room" ? 520 : 900, margin: "0 auto" }}>
+      {/* --ts-accent: the section colour, for the one shared stroke engine
+          (its current stroke) and anything else that should wear it. */}
+      <main style={{ maxWidth: active === "home" || active === "room" ? 520 : 900, margin: "0 auto",
+                     "--ts-accent": place.accent }}>
         {active === "home" ? (
           <Home startedMap={startedMap} nextTask={nextTask} go={go}
                 recency={recency} wallet={wallet} dormantDays={dormantDays}

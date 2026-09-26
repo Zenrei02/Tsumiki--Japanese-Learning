@@ -1327,7 +1327,7 @@ function WordText({ word, known, size = 22, rt = ".5em" }) {
   if (!show) return <span data-lookup={word.w} style={{ font: `${size / 16}rem ${T.jpFont}` }}>{word.w}</span>;
   return (
     <ruby data-lookup={word.w} style={{ fontFamily: T.jpFont, fontSize: `${size / 16}rem`, rubyPosition: "over" }}>
-      {word.w}<rt style={{ fontSize: rt, color: T.sub }}>{word.r}</rt>
+      {word.w}<rt style={{ fontSize: rt, color: "#6E6A60" }}>{word.r}</rt>
     </ruby>
   );
 }

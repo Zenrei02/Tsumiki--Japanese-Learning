@@ -836,7 +836,7 @@ function Learn({ mod, known, onTapChar }) {
                       {k.w.map(([jp, kana, en]) => (
                         <div key={jp} style={{ display: "flex", gap: 10, alignItems: "baseline", flexWrap: "wrap" }}>
                           <ruby style={{ fontFamily: T.jpFont, fontSize: "1.0625rem" }}>
-                            {jp}<rt style={{ fontSize: ".5em", color: T.sub }}>{kana}</rt>
+                            {jp}<rt style={{ fontSize: ".5em", color: "#6E6A60" }}>{kana}</rt>
                           </ruby>
                           <span style={{ fontSize: "0.8125rem", color: T.sub }}>{en}</span>
                         </div>

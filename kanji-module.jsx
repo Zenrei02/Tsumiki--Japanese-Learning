@@ -796,12 +796,18 @@ function StrokeView({ ch, size = 132, numbers, auto }) {
     <div style={{ display: "inline-block", textAlign: "center" }}>
       <svg width={size} height={size} viewBox={`0 0 ${STROKE_BOX} ${STROKE_BOX}`}
         role="img" aria-label={`${ch}, stroke order`}
-        style={{ background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 3, cursor: "pointer" }}
+        // Tatami rework (05-kanji-dictionary-bar.html): a washi box with the
+        // hairline inset, dashed centre guides, 7px round strokes. Strokes
+        // still to come are 藤 #C4BBD8; the one being drawn takes the SECTION
+        // accent, which the shell sets as --ts-accent on <main> — one engine
+        // serves four sections, so it cannot know its own colour. Outside the
+        // app the variable is unset and the stroke falls back to 朱 as before.
+        style={{ background: "#FFFDF7", boxShadow: "inset 0 0 0 1.5px #D9CFB8", borderRadius: 12, cursor: "pointer" }}
         onClick={play}>
-        <line x1={STROKE_BOX/2} y1="0" x2={STROKE_BOX/2} y2={STROKE_BOX} stroke={T.hairline} strokeWidth="0.6" strokeDasharray="3 3" />
-        <line x1="0" y1={STROKE_BOX/2} x2={STROKE_BOX} y2={STROKE_BOX/2} stroke={T.hairline} strokeWidth="0.6" strokeDasharray="3 3" />
+        <line x1={STROKE_BOX/2} y1="0" x2={STROKE_BOX/2} y2={STROKE_BOX} stroke="#E4DBC6" strokeWidth="1" strokeDasharray="3 3" />
+        <line x1="0" y1={STROKE_BOX/2} x2={STROKE_BOX} y2={STROKE_BOX/2} stroke="#E4DBC6" strokeWidth="1" strokeDasharray="3 3" />
         {paths.map((d, i) => (
-          <path key={"g" + i} d={d} fill="none" stroke="#EAE8E1" strokeWidth="5.5"
+          <path key={"g" + i} d={d} fill="none" stroke="#C4BBD8" strokeWidth="7"
             strokeLinecap="round" strokeLinejoin="round" />
         ))}
         {paths.map((d, i) => {
@@ -809,8 +815,9 @@ function StrokeView({ ch, size = 132, numbers, auto }) {
           const drawn = step > i, active = step === i;
           return (
             <path key={"s" + i} ref={(el) => (refs.current[i] = el)} d={d} fill="none"
-              stroke={active ? T.shu : T.ink} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"
+              strokeWidth="7" strokeLinecap="round" strokeLinejoin="round"
               style={{
+                stroke: active ? `var(--ts-accent, ${T.shu})` : "#2C2A26",
                 strokeDasharray: len,
                 strokeDashoffset: drawn || active ? 0 : len,
                 transition: active ? `stroke-dashoffset ${Math.max(240, len * 5.5)}ms linear` : "none",
@@ -822,8 +829,10 @@ function StrokeView({ ch, size = 132, numbers, auto }) {
           if (!pt) return null;
           return (
             <g key={"n" + i}>
-              <circle cx={pt[0]} cy={pt[1]} r="7.5" fill={T.sheet} stroke={T.ai} strokeWidth="1" opacity="0.92" />
-              <text x={pt[0]} y={pt[1] + 3.2} textAnchor="middle" fontSize="9" fill={T.ai} fontFamily="sans-serif">{i + 1}</text>
+              {/* Plain 朱 numerals, as on the board, with a washi halo
+                  (paint-order) so a number crossing a stroke stays legible. */}
+              <text x={Math.max(6, pt[0] - 5)} y={Math.max(10, pt[1] - 3)} textAnchor="middle" fontSize="10" fontWeight="700" fill="#C7351B"
+                    stroke="#FFFDF7" strokeWidth="3" paintOrder="stroke" fontFamily={T.uiFont}>{i + 1}</text>
             </g>
           );
         })}
@@ -1250,7 +1259,7 @@ function Learn({ mod, known, onTapChar }) {
                       {k.w.map(([jp, kana, en]) => (
                         <div key={jp} style={{ display: "flex", gap: 10, alignItems: "baseline", flexWrap: "wrap" }}>
                           <ruby style={{ fontFamily: T.jpFont, fontSize: "1.0625rem" }}>
-                            {jp}<rt style={{ fontSize: ".5em", color: T.sub }}>{kana}</rt>
+                            {jp}<rt style={{ fontSize: ".5em", color: "#6E6A60" }}>{kana}</rt>
                           </ruby>
                           <span style={{ fontSize: "0.8125rem", color: T.sub }}>{en}</span>
                         </div>
