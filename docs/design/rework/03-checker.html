@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Checker 直し</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;background:#E9E2D1;color:#2C2A26;-webkit-font-smoothing:antialiased}
+a{color:#8C3B2A}a:hover{color:#6E2D20}
+.jp{font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif}
+.tatami{background-color:#C6BE8E;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.22) 0 1px,rgba(0,0,0,0) 1px 5px),repeating-linear-gradient(0deg,rgba(84,74,34,.18) 0 1px,rgba(0,0,0,0) 1px 3px)}
+.washi{background-color:#FBF7EE;background-image:radial-gradient(rgba(120,100,60,.06) 1px,rgba(0,0,0,0) 1px),radial-gradient(rgba(120,100,60,.045) 1px,rgba(0,0,0,0) 1px);background-size:9px 9px,13px 13px;background-position:0 0,4px 6px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;box-sizing:border-box;border:0;cursor:pointer;font-family:inherit;font-weight:700;letter-spacing:.01em;transition:transform .08s ease,box-shadow .08s ease,filter .08s ease}
+.btn-shu{min-height:56px;padding:0 24px;border-radius:14px;color:#FFF6EC;font-size:17px;background-image:linear-gradient(180deg,#DC4B2E 0%,#C7351B 52%,#AC2B15 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 -2px 0 rgba(0,0,0,.14),0 4px 0 #7E1F0F,0 8px 18px rgba(126,31,15,.30)}
+.btn-shu:hover{filter:brightness(1.04)}
+.btn-shu:active{transform:translateY(3px);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 1px 0 #7E1F0F,0 2px 6px rgba(126,31,15,.3)}
+.btn-washi{min-height:44px;padding:0 16px;border-radius:12px;color:#2C2A26;font-size:15px;background-color:#FBF7EE;box-shadow:inset 0 0 0 1.5px #D9CFB8,0 2px 0 #CFC4A8}
+.btn-washi:active{transform:translateY(1px);box-shadow:inset 0 0 0 1.5px #D9CFB8,0 1px 0 #CFC4A8}
+.seg{display:flex;padding:3px;border-radius:10px;background:#E4DBC6;box-shadow:inset 0 1px 2px rgba(60,45,20,.18)}
+.seg button{border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:14px;min-height:38px;padding:0 14px;border-radius:8px;background:none;color:#6E6A60}
+.seg button.on{background:#FBF7EE;color:#2C2A26;box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 1px 3px rgba(60,45,20,.2)}
+.icon{background:none;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;color:#2C2A26}
+.card{position:relative;border-radius:14px;padding:14px 16px 14px 18px;background-color:#FBF7EE;box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 2px 0 #CFC4A8,0 6px 14px rgba(60,45,20,.12);display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--tier)}
+ruby{ruby-position:over}rt{font-size:.5em;color:#6E6A60;font-family:"Zen Kaku Gothic New",sans-serif;font-weight:500}
+</style>
+<style>body{display:flex;justify-content:center;padding:24px 0}</style>
+</head>
+<body>
+<div class="tatami" style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; position: relative; overflow: hidden">
+
+  <div style="display: flex; align-items: center; gap: 6px; padding: 12px 12px 8px 8px; background-color: #F6F1E6; box-shadow: 0 1px 0 #D9CFB8, 0 -3px 0 #C7351B inset">
+    <a href="#" class="icon" aria-label="Back to home" style="text-decoration: none">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg>
+    </a>
+    <div style="display: flex; align-items: baseline; gap: 10px; flex-grow: 1">
+      <span class="jp" style="font-size: 24px; font-weight: 700; line-height: 1">直し</span>
+      <span style="font-size: 15px; font-weight: 700; color: #4A463D">Checker</span>
+    </div>
+    <div class="seg" role="group" aria-label="Script">
+      <button >かな</button>
+      <button class="on">漢字</button>
+    </div>
+  </div>
+
+  <div style="flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; gap: 14px; padding: 16px 16px 24px 16px">
+
+    <div class="washi" style="border-radius: 16px; padding: 16px 18px 12px 18px; box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 3px 0 #CFC4A8, 0 10px 22px rgba(60,45,20,.16); display: flex; flex-direction: column; gap: 10px">
+      <label for="draft" style="font-size: 11px; font-weight: 700; letter-spacing: .08em; color: #6E6A60">YOUR JAPANESE</label>
+      <textarea id="draft" rows="3" class="jp" style="width: 100%; box-sizing: border-box; resize: none; border: 0; outline: none; background: repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 37px, #D9CFB8 37px 38px); font-size: 20px; line-height: 38px; color: #2C2A26; font-family: inherit; padding: 0">明日は友達と映画を見に行くつもりです、でもお金があまりないです。</textarea>
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <span style="font-size: 12px; color: #6E6A60">1 of 10 free checks used today</span>
+        <button class="btn btn-washi" style="min-height: 36px; font-size: 13px">Clear</button>
+      </div>
+    </div>
+
+    <button class="btn btn-shu">
+      <span class="jp" style="font-size: 20px; font-weight: 700">直す</span> Check it
+    </button>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: .08em; color: #4A463D">WHAT WE FOUND</div>
+
+      <div class="card" style="--tier: #C7351B">
+        <div style="display: flex; align-items: center; gap: 8px">
+          <span style="font-size: 11px; font-weight: 900; letter-spacing: .08em; color: #C7351B">FIX</span>
+          <span class="jp" style="font-size: 13px; color: #C7351B">直す</span>
+        </div>
+        <div class="jp" style="font-size: 18px; line-height: 1.5"><span style="text-decoration: underline wavy #C7351B; text-underline-offset: 4px">です、でも</span> → 行くつもりです<strong>が</strong>、</div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #4A463D">Two sentences joined with a comma and でも reads as a run-on. Inside one sentence, join with が.</p>
+      </div>
+
+      <div class="card" style="--tier: #3D5A80">
+        <div style="display: flex; align-items: center; gap: 8px">
+          <span style="font-size: 11px; font-weight: 900; letter-spacing: .08em; color: #3D5A80">CORRECT, BUT UNNATURAL</span>
+        </div>
+        <div class="jp" style="font-size: 18px; line-height: 1.5"><span style="text-decoration: underline wavy #3D5A80; text-underline-offset: 4px">お金があまりないです</span> → お金があまり<strong>ありません</strong></div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #4A463D">Nothing wrong — but ないです sounds spoken. In writing, ありません is what a native would reach for.</p>
+      </div>
+
+      <div class="card" style="--tier: #907119">
+        <div style="display: flex; align-items: center; gap: 8px">
+          <span style="font-size: 11px; font-weight: 900; letter-spacing: .08em; color: #907119">WORTH KNOWING</span>
+        </div>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #4A463D">つもり states a firm plan. If it is more of a hope, 〜ようと思っています softens it.</p>
+      </div>
+    </div>
+  </div>
+
+  <button aria-label="Open the dictionary" class="jp" style="position: absolute; right: 0; top: 400px; width: 34px; height: 104px; border: 0; border-radius: 10px 0 0 10px; cursor: pointer; background-color: #FBF7EE; color: #2C2A26; box-shadow: inset 1.5px 0 0 #D9CFB8, -2px 2px 6px rgba(60,45,20,.18); font-size: 15px; writing-mode: vertical-rl; letter-spacing: .1em">じしょ</button>
+</div>
+</body>
+</html>

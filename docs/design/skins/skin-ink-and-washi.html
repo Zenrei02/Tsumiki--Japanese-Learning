@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Variant B · Ink and washi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;background:#F7F3EA;color:#1F1D1A;-webkit-font-smoothing:antialiased}
+a{color:#B7332A}a:hover{color:#8E261F}
+.jp{font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif}
+.washi{background-color:#F7F3EA;background-image:radial-gradient(rgba(60,50,30,.05) 1px,rgba(0,0,0,0) 1px),radial-gradient(rgba(60,50,30,.035) 1px,rgba(0,0,0,0) 1px);background-size:9px 9px,13px 13px;background-position:0 0,4px 6px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;box-sizing:border-box;cursor:pointer;font-family:inherit;font-weight:700;letter-spacing:.02em;transition:transform .08s ease,box-shadow .08s ease}
+.btn-seal{min-height:56px;padding:0 24px;border:0;border-radius:6px;color:#FFF6EC;font-size:17px;background:#C7351B;box-shadow:inset 0 0 0 2px #C7351B,inset 0 0 0 4px #F7F3EA,0 3px 0 #8E261F}
+.btn-seal:active{transform:translateY(2px);box-shadow:inset 0 0 0 2px #C7351B,inset 0 0 0 4px #F7F3EA,0 1px 0 #8E261F}
+.btn-ink{min-height:52px;padding:0 20px;border:2px solid #1F1D1A;border-radius:6px;color:#1F1D1A;font-size:16px;background:#FFFDF8;box-shadow:3px 3px 0 #1F1D1A}
+.btn-ink:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #1F1D1A}
+.tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-sizing:border-box;border:1.5px solid #1F1D1A;border-radius:6px;cursor:pointer;font-family:inherit;color:#1F1D1A;background:#FFFDF8;box-shadow:3px 3px 0 #1F1D1A}
+.tile:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #1F1D1A}
+.seal{position:absolute;top:8px;right:8px;width:14px;height:14px;border-radius:2px}
+.icon{background:none;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:8px;color:#1F1D1A}
+</style>
+<style>body{display:flex;justify-content:center;padding:24px 0}</style>
+</head>
+<body>
+<div class="washi" style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; position: relative; overflow: hidden">
+
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 12px 8px 12px; border-bottom: 2px solid #1F1D1A">
+    <button class="icon" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+    </button>
+    <div style="display: flex; align-items: center; gap: 10px">
+      <div class="jp" style="width: 34px; height: 34px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; color: #FFF6EC; background: #C7351B">つ</div>
+      <div class="jp" style="font-size: 24px; font-weight: 700; line-height: 1">tsumiki</div>
+    </div>
+    <button class="icon" aria-label="Ambience: shakuhachi, off" style="color: #8A847A">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"></path><circle cx="6.5" cy="18" r="2.5"></circle><circle cx="16.5" cy="16" r="2.5"></circle></svg>
+    </button>
+  </div>
+
+  <div style="flex-grow: 1; overflow: hidden; display: flex; flex-direction: column; gap: 20px; padding: 0 20px 24px 20px">
+    <a href="#" aria-label="Your room" style="display: block; text-decoration: none; color: inherit">
+      <svg width="350" height="170" viewBox="0 0 350 170" role="img" aria-label="An ink-brush sketch: a low table with a stack of blocks, a distant mountain, and a bamboo fountain" style="display: block">
+        <path d="M20 118c60-70 120-70 190-12 30-26 70-40 120-30" fill="none" stroke="#1F1D1A" stroke-width="3" stroke-linecap="round" opacity=".85"></path>
+        <path d="M30 122c60-62 118-62 182-12" fill="none" stroke="#1F1D1A" stroke-width="1.2" stroke-linecap="round" opacity=".35"></path>
+        <path d="M60 150h230" stroke="#1F1D1A" stroke-width="7" stroke-linecap="round"></path>
+        <path d="M78 156v10M272 156v10" stroke="#1F1D1A" stroke-width="5" stroke-linecap="round"></path>
+        <g stroke="#1F1D1A" stroke-width="2.5" fill="#FFFDF8"><rect x="150" y="122" width="26" height="24" rx="2"></rect><rect x="178" y="122" width="26" height="24" rx="2"></rect><rect x="164" y="98" width="26" height="24" rx="2"></rect></g>
+        <g font-family="Shippori Mincho, serif" font-size="15" font-weight="700" fill="#1F1D1A" text-anchor="middle"><text x="163" y="140">あ</text><text x="191" y="140">文</text></g>
+        <text x="177" y="116" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="15" font-weight="700" fill="#C7351B">直</text>
+        <path d="M296 84l30 44" stroke="#1F1D1A" stroke-width="7" stroke-linecap="round"></path>
+        <path d="M320 112v42" stroke="#1F1D1A" stroke-width="5" stroke-linecap="round"></path>
+        <path d="M300 156c10-8 30-8 40 0" stroke="#1F1D1A" stroke-width="3" fill="none" stroke-linecap="round"></path>
+        <circle cx="332" cy="146" r="2.5" fill="#1F1D1A"></circle>
+        <rect x="24" y="14" width="22" height="22" rx="2" fill="#C7351B"></rect>
+        <text x="35" y="30" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="13" font-weight="700" fill="#FFF6EC">つ</text>
+      </svg>
+    </a>
+
+    <div style="border: 2px solid #1F1D1A; border-radius: 6px; padding: 18px 18px 16px 18px; background: #FFFDF8; box-shadow: 4px 4px 0 #1F1D1A; display: flex; flex-direction: column; gap: 10px">
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: .12em; color: #6E6A60">NEXT ON YOUR PATH</div>
+      <span class="jp" style="font-size: 24px; font-weight: 700; line-height: 1.25">Write one sentence and check it</span>
+      <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #4A463D">in Checker <span class="jp" style="color: #C7351B">直し</span> — find out what is wrong, what merely sounds off, and why.</p>
+      <a href="#" class="btn btn-seal" style="margin-top: 6px; text-decoration: none">Go <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></a>
+    </div>
+
+    <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #1F1D1A; padding-bottom: 6px">
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: .12em">YOUR BLOCKS</div>
+      <div class="jp" style="font-size: 13px">つみき</div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px">
+      <button class="tile" style="height: 104px"><span class="seal" style="background: #9C8BC4"></span><span class="jp" style="font-size: 42px; font-weight: 700; line-height: 1">あ</span><span style="font-size: 12px; font-weight: 700">Hiragana</span></button>
+      <button class="tile" style="height: 104px"><span class="seal" style="background: #7A66A8"></span><span class="jp" style="font-size: 42px; font-weight: 700; line-height: 1">ア</span><span style="font-size: 12px; font-weight: 700">Katakana</span></button>
+      <button class="tile" style="height: 104px"><span class="seal" style="background: #5B4A7D"></span><span class="jp" style="font-size: 42px; font-weight: 700; line-height: 1">漢</span><span style="font-size: 12px; font-weight: 700">Kanji</span></button>
+      <button class="tile" style="height: 104px"><span class="seal" style="background: #2F6F6B"></span><span class="jp" style="font-size: 42px; font-weight: 700; line-height: 1">文</span><span style="font-size: 12px; font-weight: 700">Grammar</span></button>
+      <button class="tile" style="height: 104px"><span class="seal" style="background: #8A5A3B"></span><span class="jp" style="font-size: 42px; font-weight: 700; line-height: 1">言</span><span style="font-size: 12px; font-weight: 700">Vocabulary</span></button>
+      <a href="#" class="tile" style="height: 104px; text-decoration: none; background: #C7351B; color: #FFF6EC; border-color: #C7351B; box-shadow: 3px 3px 0 #8E261F"><span class="jp" style="font-size: 42px; font-weight: 700; line-height: 1">直</span><span style="font-size: 12px; font-weight: 700">Checker</span></a>
+    </div>
+
+    <div style="display: flex; gap: 12px">
+      <a href="#" class="btn btn-ink" style="flex-grow: 1; text-decoration: none">Room <span class="jp" style="font-weight: 500">へや</span></a>
+    </div>
+  </div>
+
+  <button aria-label="Open the dictionary" class="jp" style="position: absolute; right: 0; top: 400px; width: 34px; height: 104px; border: 2px solid #1F1D1A; border-right: 0; border-radius: 6px 0 0 6px; cursor: pointer; background: #FFFDF8; color: #1F1D1A; box-shadow: -3px 3px 0 #1F1D1A; font-size: 15px; writing-mode: vertical-rl; letter-spacing: .1em">じしょ</button>
+</div>
+</body>
+</html>
