@@ -8,6 +8,9 @@
          and the big block glyphs; Zen Kaku Gothic New for UI and English.
          Both stacks fall back to the system Japanese fonts in lib/tokens.js,
          so a blocked Google Fonts request degrades to the previous look. -->
+    <!-- Dusk lantern: applied before first paint so a dark-mode learner never
+         sees a flash of daylight. App.jsx owns the flag after that. -->
+    <script>try { if (localStorage.getItem("tsumiki-theme") === "dark") document.documentElement.dataset.theme = "dark"; } catch (e) {}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet" />
@@ -28,6 +31,7 @@
       /* Tatami under everything, so an overscroll or a slow first paint shows
          the floor rather than a white flash. The weave itself is .ts-tatami. */
       body { background: #C6BE8E; -webkit-text-size-adjust: 100%; }
+      html[data-theme="dark"] body { background: #5E5B45; }
     </style>
   </head>
   <body>

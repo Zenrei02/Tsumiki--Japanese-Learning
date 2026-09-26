@@ -119,8 +119,56 @@ const ICON = {
 // The room, drawn in the band at the top of Home. Tapping it goes to the room.
 // Colours are the board's own; the three blocks on the table wear the
 // hiragana, grammar and checker accents so the scene and the grid below agree.
-function Scene({ onOpen }) {
+function Scene({ onOpen, dusk = false }) {
   const jp = "Shippori Mincho, serif";
+  if (dusk) {
+    // 02-home-dark.html: the same room at dusk — shoji deep blue, a moon, and
+    // an andon lantern on the table carrying the つ.
+    const duskSvg = (
+      <svg viewBox="0 0 390 196" role="img" style={{ display: "block", width: "100%", height: "auto" }}
+           aria-label="A tatami room at dusk: shoji glowing deep blue, an andon paper lantern lighting a low table">
+        <defs>
+          <radialGradient id="ts-lamp" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stopColor="#FFD48A" stopOpacity=".55" />
+            <stop offset="1" stopColor="#FFD48A" stopOpacity="0" />
+          </radialGradient>
+          <pattern id="ts-weave-dusk" width="6" height="3" patternUnits="userSpaceOnUse">
+            <rect width="6" height="3" fill="#6B6849" />
+            <rect width="1" height="3" fill="#8A8660" />
+            <rect y="2" width="6" height="1" fill="#4D4A33" />
+          </pattern>
+        </defs>
+        <rect width="390" height="196" fill="#1B1E2C" />
+        <g fill="#26304A" stroke="#4B4A5E" strokeWidth="2">
+          <rect x="18" y="8" width="150" height="120" />
+          <rect x="222" y="8" width="150" height="120" />
+        </g>
+        <g stroke="#4B4A5E" strokeWidth="1.4">
+          <path d="M18 38h150M18 68h150M18 98h150M56 8v120M93 8v120M130 8v120" />
+          <path d="M222 38h150M222 68h150M222 98h150M260 8v120M297 8v120M334 8v120" />
+        </g>
+        <rect x="0" y="128" width="390" height="8" fill="#2E2116" />
+        <rect x="0" y="136" width="390" height="60" fill="url(#ts-weave-dusk)" />
+        <path d="M0 136h390M195 136v60" stroke="#141A2C" strokeWidth="3" />
+        <ellipse cx="195" cy="150" rx="170" ry="70" fill="url(#ts-lamp)" />
+        <rect x="112" y="150" width="166" height="12" rx="3" fill="#3B2A1C" />
+        <rect x="120" y="162" width="10" height="16" fill="#2A1D12" />
+        <rect x="260" y="162" width="10" height="16" fill="#2A1D12" />
+        <g>
+          <rect x="160" y="98" width="40" height="54" rx="4" fill="#F6E9CC" stroke="#3B2A1C" strokeWidth="2" />
+          <path d="M160 116h40M160 134h40M180 98v54" stroke="#3B2A1C" strokeWidth="1.5" />
+          <rect x="166" y="104" width="28" height="42" fill="#FFD48A" opacity=".55" />
+          <text x="180" y="130" textAnchor="middle" fontFamily={jp} fontSize="16" fontWeight="700" fill="#A82A15">つ</text>
+        </g>
+        <rect x="222" y="128" width="24" height="22" rx="3" fill="#9C8BC4" stroke="#5B4A7D" />
+        <text x="234" y="145" textAnchor="middle" fontFamily={jp} fontSize="14" fontWeight="700" fill="#FFF8EC">あ</text>
+        <circle cx="330" cy="40" r="14" fill="#F3E9D2" opacity=".9" />
+        <circle cx="336" cy="36" r="12" fill="#26304A" />
+      </svg>
+    );
+    if (!onOpen) return duskSvg;
+    return <button onClick={onOpen} aria-label="Your room" className="ts-scene">{duskSvg}</button>;
+  }
   const svg = (
     <svg viewBox="0 0 390 196" role="img" style={{ display: "block", width: "100%", height: "auto" }}
          aria-label="A tatami room: shoji screens, a low table with wooden blocks, a bamboo fountain">
@@ -179,7 +227,7 @@ function Scene({ onOpen }) {
   return <button onClick={onOpen} aria-label="Your room" className="ts-scene">{svg}</button>;
 }
 
-function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays, openAccount, openGoals }) {
+function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays, openAccount, openGoals, dusk }) {
   const fresh = !MODULES.some((m) => startedMap[m.id]);
   const started = (id) => Boolean(startedMap[id]);
 
@@ -204,7 +252,7 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
 
   return (
     <div>
-      <Scene onOpen={() => go("room")} />
+      <Scene onOpen={() => go("room")} dusk={dusk} />
       <div style={{ display: "flex", flexDirection: "column", gap: 18, padding: "18px 16px 32px" }}>
 
         {/* ⚠️ A REMINDER, NOT A DEADLINE (Session 23). Nothing in this app
@@ -245,8 +293,8 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
         </button>
 
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <span style={{ ...LABEL, color: T.sub }}>YOUR BLOCKS</span>
-          <span style={{ font: `0.8125rem ${T.jpFont}`, color: T.sub }}>つみき</span>
+          <span style={{ ...LABEL, color: "var(--ts-on-tatami)" }}>YOUR BLOCKS</span>
+          <span style={{ font: `0.8125rem ${T.jpFont}`, color: "var(--ts-on-tatami)" }}>つみき</span>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 14 }}>
           {shownBlocks.map((m) => {
@@ -296,7 +344,7 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
             <button onClick={openGoals} className="ts-btn ts-btn-washi">Goals</button>
             {wallet > 0 && (
               <span title="Koban you have earned" style={{
-                font: `700 0.875rem ${T.uiFont}`, color: T.note, whiteSpace: "nowrap",
+                font: `700 0.875rem ${T.uiFont}`, color: "var(--ts-koban)", whiteSpace: "nowrap",
               }}>
                 <span style={{ fontFamily: T.jpFont }}>小判</span> {wallet}
               </span>
@@ -315,10 +363,10 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
 // ————— The room, until it is built —————
 // The rework designs the room (06-room.html) and explicitly builds nothing, but
 // Home now has two doors into it. They lead here: the scene, and an honest line.
-function RoomSoon({ wallet, go }) {
+function RoomSoon({ wallet, go, dusk }) {
   return (
     <div>
-      <Scene />
+      <Scene dusk={dusk} />
       <div style={{ padding: "18px 16px 32px" }}>
         <div className="ts-card" style={{ padding: "18px 18px 16px", display: "flex", flexDirection: "column", gap: 10 }}>
           <span style={{ ...LABEL, color: T.muted }}>YOUR ROOM</span>
@@ -350,7 +398,7 @@ function RoomSoon({ wallet, go }) {
 // Deliberately not a <dialog>: Safari's support for inert backdrops is still
 // uneven and this needs no form semantics. Scrim + role="dialog" + Escape is
 // the boring version that behaves the same everywhere.
-function Drawer({ open, close, active, go, onAccount }) {
+function Drawer({ open, close, active, go, onAccount, dusk, toggleDusk }) {
   const panelRef = useRef(null);
 
   // Escape closes, and the background does not scroll underneath an open
@@ -436,6 +484,15 @@ function Drawer({ open, close, active, go, onAccount }) {
         <div style={{ borderTop: `1px solid ${T.hairline}`, padding: "6px 0" }}>
           <button onClick={onAccount} style={{ ...row(false), borderLeftColor: "transparent" }}>
             Account
+          </button>
+          {/* Dusk lantern: the dark set (02-home-dark.html). A setting, not a
+              place, so it lives below the rule beside Account. */}
+          <button onClick={toggleDusk} aria-pressed={!!dusk}
+                  style={{ ...row(false), borderLeftColor: "transparent" }}>
+            Dusk lantern
+            <span style={{ font: `0.875rem ${T.jpFont}`, color: T.sub }}>夜</span>
+            <span style={{ flex: 1 }} />
+            <span style={{ font: `700 0.75rem ${T.uiFont}`, color: dusk ? ACCENT.grammar : T.sub }}>{dusk ? "On" : "Off"}</span>
           </button>
         </div>
       </nav>
@@ -602,6 +659,21 @@ export default function App() {
   const [ambience, setAmbience] = useState(() => {
     try { return localStorage.getItem("tsumiki-ambience") === "on"; } catch (e) { return false; }
   });
+  // ————— Dusk lantern (tatami rework, phase 4) —————
+  // One flag, data-theme on <html>, which flips the CSS token set in the skin.
+  // Per device, like ambience. index.html applies it before first paint, so a
+  // dark-mode learner never sees a flash of daylight.
+  const [dusk, setDusk] = useState(() => {
+    try { return localStorage.getItem("tsumiki-theme") === "dark"; } catch (e) { return false; }
+  });
+  useEffect(() => {
+    if (dusk) document.documentElement.dataset.theme = "dark";
+    else delete document.documentElement.dataset.theme;
+  }, [dusk]);
+  const toggleDusk = () => setDusk((on) => {
+    try { localStorage.setItem("tsumiki-theme", on ? "light" : "dark"); } catch (e) {}
+    return !on;
+  });
   const toggleAmbience = () => setAmbience((on) => {
     try { localStorage.setItem("tsumiki-ambience", on ? "off" : "on"); } catch (e) {}
     return !on;
@@ -684,13 +756,13 @@ export default function App() {
     <div className="ts-tatami" style={{ minHeight: "100vh", fontFamily: T.uiFont, color: T.ink }}>
       <style>{SKIN_CSS}</style>
       <header style={{
-        background: T.header,
+        background: "var(--ts-header)",
         // A RULE UNDER THE STICKY HEADER, not a frame around the viewport: a
         // four-sided border costs real width on a phone. Home keeps the plain
         // hairline — it is not a section and should not claim one's colour.
         boxShadow: active === "home"
-          ? `0 1px 0 ${T.hairline}`
-          : `0 1px 0 ${T.hairline}, inset 0 -3px 0 ${place.accent}`,
+          ? "0 1px 0 var(--ts-header-line)"
+          : `0 1px 0 var(--ts-header-line), inset 0 -3px 0 ${place.accent}`,
         position: "sticky", top: 0, zIndex: 10,
       }}>
         <div style={{
@@ -715,9 +787,9 @@ export default function App() {
             <>
               <button className="ts-icon" onClick={() => go("home")} aria-label="Back to home">{ICON.back}</button>
               <div style={{ display: "flex", alignItems: "baseline", gap: 10, minWidth: 0, flex: 1 }}>
-                <span style={{ font: `700 1.5rem/1 ${T.jpFont}`, whiteSpace: "nowrap" }}>{place.jp}</span>
+                <span style={{ font: `700 1.5rem/1 ${T.jpFont}`, whiteSpace: "nowrap", color: "var(--ts-header-ink)" }}>{place.jp}</span>
                 <span style={{
-                  font: `700 0.9375rem ${T.uiFont}`, color: T.sub, whiteSpace: "nowrap",
+                  font: `700 0.9375rem ${T.uiFont}`, color: "var(--ts-header-sub)", whiteSpace: "nowrap",
                   overflow: "hidden", textOverflow: "ellipsis",
                 }}>{place.label}</span>
               </div>
@@ -729,6 +801,7 @@ export default function App() {
       </header>
 
       <Drawer open={menuOpen} close={closeMenu} active={active} go={go}
+              dusk={dusk} toggleDusk={toggleDusk}
               onAccount={() => { setMenuOpen(false); setAccountOpen(true); }} />
 
       {/* Mounted unconditionally and self-gating: it renders nothing until
@@ -745,16 +818,23 @@ export default function App() {
 
       {/* --ts-accent: the section colour, for the one shared stroke engine
           (its current stroke) and anything else that should wear it. */}
+      {/* --ts-module-ground: transparent by day, so a section sits on the
+          tatami as the boards show. At dusk a section gets a lantern-lit washi
+          ground instead — the modules draw their own text in day ink, and
+          ink on dark tatami would be unreadable. */}
       <main style={{ maxWidth: active === "home" || active === "room" ? 520 : 900, margin: "0 auto",
-                     "--ts-accent": place.accent }}>
+                     "--ts-accent": place.accent,
+                     ...(active === "home" || active === "room" ? null : {
+                       background: "var(--ts-module-ground)", minHeight: "calc(100vh - 56px)",
+                     }) }}>
         {active === "home" ? (
           <Home startedMap={startedMap} nextTask={nextTask} go={go}
                 recency={recency} wallet={wallet} dormantDays={dormantDays}
                 openAccount={() => setAccountOpen(true)}
-                openGoals={() => setGoalsOpen(true)}
+                openGoals={() => setGoalsOpen(true)} dusk={dusk}
                 lastMod={MODULES.find((m) => m.id === lastWorked) || null} />
         ) : active === "room" ? (
-          <RoomSoon wallet={wallet} go={go} />
+          <RoomSoon wallet={wallet} go={go} dusk={dusk} />
         ) : active === "progress" ? (
           // Not lazy: it is small, and it is the screen a learner opens to be
           // reassured about their own work. A spinner there reads as "gone".
