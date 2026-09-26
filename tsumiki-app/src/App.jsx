@@ -231,14 +231,22 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
   const fresh = !MODULES.some((m) => startedMap[m.id]);
   const started = (id) => Boolean(startedMap[id]);
 
-  // Blocks: worked-on sections first, most recent first (orderByRecency — a
-  // section with progress but no recency stamp sorts last rather than
-  // vanishing), then everything not yet started in the fresh order.
+  // Blocks (Lloyd, Session 36): the kana lead — あ ア 漢 / 文 言 直 — and only
+  // RECENT work moves a block ahead of them. "Recent" is a section worked on
+  // in the last RECENT_DAYS; those come first, most recent first
+  // (orderByRecency). Everything else — started long ago, or never — keeps
+  // the fixed order, so hiragana and katakana are back at the front once
+  // nothing has been touched for a week. The first version put every started
+  // section ahead, which pushed an unstarted あ to the back of the grid for
+  // anyone who had ever opened kanji.
+  const RECENT_DAYS = 7;
   const blockMods = BLOCK_ORDER.map((id) => MODULES.find((m) => m.id === id)).filter(Boolean);
-  const startedIds = blockMods.filter((m) => started(m.id)).map((m) => m.id);
+  const cutoff = new Date(Date.now() - RECENT_DAYS * 86400000).toISOString();
+  const recentIds = blockMods.map((m) => m.id)
+    .filter((id) => started(id) && (recency || {})[id] && recency[id] >= cutoff);
   const shownBlocks = fresh ? blockMods : [
-    ...orderByRecency(startedIds, recency || {}),
-    ...blockMods.map((m) => m.id).filter((id) => !startedIds.includes(id)),
+    ...orderByRecency(recentIds, recency || {}),
+    ...blockMods.map((m) => m.id).filter((id) => !recentIds.includes(id)),
   ].map((id) => MODULES.find((m) => m.id === id));
 
   // Hero priority: what to DO now > where you were > where to begin (Session
