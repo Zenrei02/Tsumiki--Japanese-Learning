@@ -490,7 +490,8 @@ await go("checker", null, [], {
     box.dispatchEvent(new box.ownerDocument.defaultView.Event("input", { bubbles: true }));
     await new Promise(r => setTimeout(r, 300));
 
-    const go2 = btns().find(b => (b.textContent || "").trim() === "Check");
+    // Tatami rework: the button reads 直す Check it.
+    const go2 = btns().find(b => /Check it$/.test((b.textContent || "").trim()));
     if (!go2) { f(`${NAME}: Check button vanished after typing`); return; }
     go2.click();
     await new Promise(r => setTimeout(r, 900));

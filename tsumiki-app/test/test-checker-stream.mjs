@@ -118,7 +118,9 @@ async function mount(fetchImpl) {
   const stored = () => { const raw = w.localStorage.getItem("tsumiki-checker-history-v1"); return raw ? JSON.parse(raw) : null; };
   // Highlights are the buttons inside the marked-up text, labelled "<Tier>: <span>".
   const highlights = () => buttons().filter((b) => /^(Fix|Unnatural|Worth knowing): /.test(b.getAttribute("aria-label") || ""));
-  const cards = () => [...w.document.querySelectorAll("[aria-expanded]")];
+  // Issue cards carry data-issue since the tatami rework: the explanation is
+  // always open, so the card header is a toggle (aria-pressed), not a disclosure.
+  const cards = () => [...w.document.querySelectorAll("[data-issue]")];
   return { w, errors, posted: () => posted, byText, text, plain, stored, highlights, cards };
 }
 

@@ -69,10 +69,16 @@ const CONTEXTS = [
   { id: "business", label: "Business", jp: "仕事で",   hint: "a colleague or client" },
 ];
 
+// `name` is the tatami rework's card label (docs/design/rework/03-checker.html),
+// drawn in capitals by CSS rather than typed in them: the text stays a phrase
+// for screen readers, and a card can never be mistaken for the verdict line,
+// which is the one place the capitalised tier word is the actual text.
+// `wavy` is whether the span is underlined in the tier colour — WORTH KNOWING
+// is a note about something that is not wrong, so it points without marking.
 const TIER = {
-  fix:       { label: "Fix",           color: "#C7351B", bg: "#FBEDEA", rule: "#C7351B" },
-  unnatural: { label: "Unnatural",     color: "#3D5A80", bg: "#EDF1F6", rule: "#3D5A80" },
-  note:      { label: "Worth knowing", color: "#907119", bg: "#FAF3E0", rule: "#907119" },
+  fix:       { label: "Fix",           name: "Fix",                    jp: "直す", wavy: true,  color: "#C7351B", bg: "#FBEDEA", rule: "#C7351B" },
+  unnatural: { label: "Unnatural",     name: "Correct, but unnatural", jp: "",     wavy: true,  color: "#3D5A80", bg: "#EDF1F6", rule: "#3D5A80" },
+  note:      { label: "Worth knowing", name: "Worth knowing",          jp: "",     wavy: false, color: "#907119", bg: "#FAF3E0", rule: "#907119" },
 };
 const tierOf = (t) => TIER[t] || TIER.note;
 
@@ -149,7 +155,9 @@ function Marked({ text, issues, readings, furigana, active, setActive }) {
           background: isActive ? tier.rule : tier.bg,
           color: isActive ? T.sheet : "inherit",
           border: "none", padding: "1px 2px", borderRadius: 3, cursor: "pointer",
-          font: "inherit", borderBottom: `2px solid ${tier.rule}`,
+          font: "inherit",
+          textDecoration: tier.wavy && !isActive ? `underline wavy ${tier.rule}` : "none",
+          textUnderlineOffset: 5, textDecorationThickness: 1.5,
         }}
       >
         <Ruby text={issue.span} readings={readings} on={furigana} />
@@ -170,63 +178,75 @@ function Marked({ text, issues, readings, furigana, active, setActive }) {
 
 // ── one issue ───────────────────────────────────────────────────────────────
 function IssueCard({ issue, active, setActive, readings, furigana }) {
+  // Tatami rework: a washi card with a 6px bar in the tier colour — the one
+  // place a left bar is allowed, because it IS the tier. The explanation is
+  // always open now, as on the board; tapping the card still lights its span
+  // in the sentence above, which is why the header stays a button.
   const tier = tierOf(issue.type);
-  const open = active === issue._id;
+  const on = active === issue._id;
   return (
-    <div style={{
-      border: `1px solid ${T.hairline}`, borderLeft: `3px solid ${tier.rule}`,
-      borderRadius: 8, background: T.sheet, marginBottom: 10, overflow: "hidden",
+    <div data-issue className="ts-tier" style={{
+      "--tier": tier.rule, marginBottom: 10,
+      outline: on ? `2px solid ${tier.rule}` : "none", outlineOffset: 2,
     }}>
       <button
-        onClick={() => setActive(open ? null : issue._id)}
-        aria-expanded={open}
+        onClick={() => setActive(on ? null : issue._id)}
+        aria-pressed={on}
+        title="Show where this is in your sentence"
         style={{
           width: "100%", textAlign: "left", background: "none", border: "none",
-          cursor: "pointer", padding: "12px 14px", display: "flex",
-          alignItems: "baseline", gap: 10, flexWrap: "wrap",
+          cursor: "pointer", padding: 0, display: "flex", flexDirection: "column",
+          gap: 6, font: "inherit", color: "inherit",
         }}
       >
-        <span style={{
-          font: `600 0.6875rem ${T.uiFont}`, letterSpacing: "0.06em",
-          textTransform: "uppercase", color: tier.color,
-        }}>{tier.label}</span>
-        <span style={{ font: `1.0625rem ${T.jpFont}`, color: T.ink }}>
-          <Ruby text={issue.span} readings={readings} on={furigana} />
-        </span>
-        {issue.correction && (
-          <>
-            <span style={{ color: T.sub, font: `0.875rem ${T.uiFont}` }}>→</span>
-            <span style={{ font: `1.0625rem ${T.jpFont}`, color: tier.color }}>
-              <Ruby text={issue.correction} readings={readings} on={furigana} />
-            </span>
-          </>
-        )}
-        {!issue.located && (
-          // Honesty rather than silence. The advice may be sound; we simply
-          // could not prove where it points, so we do not point.
+        <span style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
           <span style={{
-            font: `0.6875rem ${T.uiFont}`, color: T.sub, background: T.paper,
-            border: `1px solid ${T.hairline}`, borderRadius: 4, padding: "2px 6px",
-          }}>not highlighted — couldn't locate this exactly</span>
+            font: `900 0.6875rem ${T.uiFont}`, letterSpacing: "0.08em",
+            textTransform: "uppercase", color: tier.color,
+          }}>{tier.name}</span>
+          {tier.jp && <span style={{ font: `0.8125rem ${T.jpFont}`, color: tier.color }}>{tier.jp}</span>}
+          {!issue.located && (
+            // Honesty rather than silence. The advice may be sound; we simply
+            // could not prove where it points, so we do not point.
+            <span style={{
+              font: `0.6875rem ${T.uiFont}`, color: T.sub, background: T.paper,
+              border: `1px solid ${T.hairline}`, borderRadius: 4, padding: "2px 6px",
+            }}>not highlighted — couldn't locate this exactly</span>
+          )}
+        </span>
+        {issue.span && (
+          <span style={{ font: `1.125rem/1.6 ${T.jpFont}`, color: T.ink }}>
+            <span style={tier.wavy ? {
+              textDecoration: `underline wavy ${tier.rule}`, textUnderlineOffset: 4,
+            } : undefined}>
+              <Ruby text={issue.span} readings={readings} on={furigana} />
+            </span>
+            {issue.correction && (
+              <>
+                <span style={{ color: T.sub, font: `0.875rem ${T.uiFont}` }}> → </span>
+                <Ruby text={issue.correction} readings={readings} on={furigana} />
+              </>
+            )}
+          </span>
         )}
       </button>
-      {open && (
-        <div style={{ padding: "0 14px 14px", font: `0.875rem/1.65 ${T.uiFont}`, color: T.ink }}>
-          <p style={{ margin: "0 0 10px" }}>{issue.explanation}</p>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            {issue.pattern_name && (
-              <span style={{
-                font: `0.75rem ${T.uiFont}`, color: tier.color, background: tier.bg,
-                borderRadius: 999, padding: "3px 10px",
-              }}>{issue.pattern_name}</span>
-            )}
-            {issue.jlpt && (
-              <span style={{
-                font: `0.75rem ${T.uiFont}`, color: T.sub, background: T.paper,
-                border: `1px solid ${T.hairline}`, borderRadius: 999, padding: "3px 10px",
-              }}>{issue.jlpt}</span>
-            )}
-          </div>
+      {issue.explanation && (
+        <p style={{ margin: 0, font: `0.875rem/1.6 ${T.uiFont}`, color: "#4A463D" }}>{issue.explanation}</p>
+      )}
+      {(issue.pattern_name || issue.jlpt) && (
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+          {issue.pattern_name && (
+            <span style={{
+              font: `0.75rem ${T.uiFont}`, color: tier.color, background: tier.bg,
+              borderRadius: 999, padding: "3px 10px",
+            }}>{issue.pattern_name}</span>
+          )}
+          {issue.jlpt && (
+            <span style={{
+              font: `0.75rem ${T.uiFont}`, color: T.sub, background: T.paper,
+              border: `1px solid ${T.hairline}`, borderRadius: 999, padding: "3px 10px",
+            }}>{issue.jlpt}</span>
+          )}
         </div>
       )}
     </div>
@@ -624,6 +644,11 @@ export default function CheckerModule() {
   const [active, setActive] = useState(null);
   const [furigana, setFurigana] = useState(true);
   const [view, setView] = useState("write");   // write | review
+  // The daily cap as last reported by the backend. Shown in the writing card
+  // (tatami rework) rather than under the results, so it is visible BEFORE a
+  // check is spent — which is when it is useful. Unknown until the first check.
+  const [cap, setCap] = useState(null);
+  useEffect(() => { if (result?.cap) setCap(result.cap); }, [result?.cap]);
 
   // Progress sends learners straight here — "show me my particle mistakes" is
   // a question you ask from a progress screen, and landing them on a blank
@@ -729,19 +754,21 @@ export default function CheckerModule() {
     "empty-text": "Write something first.",
   };
 
+  // Quiet washi chips (tatami rework). Selected reads as ink, not red: red
+  // on this screen belongs to FIX and to the one Check button.
   const btn = (on) => ({
-    border: `1px solid ${on ? T.ink : T.hairline}`,
-    background: on ? T.ink : T.sheet, color: on ? T.sheet : T.sub,
-    borderRadius: 999, padding: "7px 14px", cursor: "pointer",
-    font: `0.8125rem ${T.uiFont}`,
+    border: "none", borderRadius: 10, padding: "0 14px", minHeight: 40, cursor: "pointer",
+    font: `${on ? 700 : 500} 0.8125rem ${T.uiFont}`,
+    background: on ? "#2C2A26" : "#FBF7EE", color: on ? "#FBF7EE" : "#2C2A26",
+    boxShadow: on ? "0 2px 0 #000000" : "inset 0 0 0 1.5px #D9CFB8, 0 2px 0 #CFC4A8",
   });
+  const LABEL = { font: `700 0.6875rem ${T.uiFont}`, letterSpacing: "0.08em", color: "#6E6A60" };
 
   return (
-    <div style={{ padding: "18px 16px 60px", maxWidth: 720, margin: "0 auto" }}>
-      <h1 style={{ font: `600 1.375rem ${T.uiFont}`, color: T.ink, margin: "0 0 4px" }}>
-        tsumiki <span style={{ font: `1.25rem ${T.jpFont}`, color: T.sub }}>つみき</span>
-      </h1>
-      <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub, margin: "0 0 20px" }}>
+    <div style={{ padding: "16px 16px 60px", maxWidth: 720, margin: "0 auto" }}>
+      {/* The shell's header already says 直し Checker, so the old in-page
+          title went; the one line of what-this-is stays. */}
+      <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: "#4A463D", margin: "0 0 14px" }}>
         Write something in Japanese. You'll get back what's wrong, what's
         technically fine but sounds off, and why — in English.
       </p>
@@ -749,19 +776,9 @@ export default function CheckerModule() {
       {/* Two views, not two pages. Review is the same module because it is the
           same material — the checker is where you write Japanese and where you
           go back and look at the Japanese you wrote. */}
-      <div style={{
-        display: "flex", gap: 18, borderBottom: `1px solid ${T.hairline}`,
-        margin: "0 0 18px",
-      }}>
+      <div className="ts-seg" role="group" aria-label="View" style={{ display: "inline-flex", margin: "0 0 16px" }}>
         {[["write", "Write"], ["review", "Your sentences"]].map(([id, label]) => (
-          <button key={id} onClick={() => setView(id)} aria-pressed={view === id}
-            style={{
-              background: "none", border: "none", padding: "0 0 8px", cursor: "pointer",
-              font: `${view === id ? 600 : 400} 0.875rem ${T.uiFont}`,
-              color: view === id ? T.ink : T.sub,
-              borderBottom: `2px solid ${view === id ? T.ink : "transparent"}`,
-              marginBottom: -1,
-            }}>{label}</button>
+          <button key={id} onClick={() => setView(id)} aria-pressed={view === id}>{label}</button>
         ))}
       </div>
 
@@ -770,46 +787,55 @@ export default function CheckerModule() {
       )}
 
       {view === "write" && (<>
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 }}>
         {CONTEXTS.map((c) => (
           <button key={c.id} onClick={() => setContext(c.id)}
                   aria-pressed={context === c.id}
                   title={`Written for ${c.hint}`}
                   style={btn(context === c.id)}>
             {c.label}
-            <span style={{ font: `0.75rem ${T.jpFont}`, marginLeft: 6, opacity: 0.75 }}>{c.jp}</span>
+            <span style={{ font: `0.75rem ${T.jpFont}`, marginLeft: 6, opacity: 0.8 }}>{c.jp}</span>
           </button>
         ))}
       </div>
 
-      <textarea
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="日本語で書いてみてください。"
-        rows={5}
-        style={{
-          width: "100%", boxSizing: "border-box", padding: 14,
-          border: `1px solid ${over ? T.shu : T.hairline}`, borderRadius: 10,
-          font: `1.125rem/1.9 ${T.jpFont}`, color: T.ink, background: T.sheet,
-          resize: "vertical",
-        }}
-      />
-
-      <div style={{
-        display: "flex", alignItems: "center", gap: 12, margin: "10px 0 22px",
+      {/* The writing sheet: washi with ruled lines, as on the board. The
+          lines scroll with the text (background-attachment: local). */}
+      <div className="ts-card" style={{
+        padding: "16px 18px 12px", display: "flex", flexDirection: "column", gap: 10,
+        marginBottom: 16, boxShadow: over ? "inset 0 0 0 2px #C7351B, 0 3px 0 #CFC4A8" : undefined,
       }}>
-        <button onClick={check} disabled={!canCheck} style={{
-          border: "none", borderRadius: 999, padding: "11px 22px",
-          background: canCheck ? T.ink : T.hairline,
-          color: canCheck ? T.sheet : T.sub,
-          cursor: canCheck ? "pointer" : "default",
-          font: `600 0.9375rem ${T.uiFont}`,
-        }}>{busy ? "Checking…" : "Check"}</button>
-        <span style={{ flex: 1 }} />
-        <span style={{ font: `0.75rem ${T.uiFont}`, color: over ? T.shu : T.sub }}>
-          {count} / {MAX_CHARS}
-        </span>
+        <label htmlFor="ts-checker-draft" style={LABEL}>YOUR JAPANESE</label>
+        <textarea
+          id="ts-checker-draft"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="日本語で書いてみてください。"
+          rows={4}
+          style={{
+            width: "100%", boxSizing: "border-box", resize: "vertical", border: 0,
+            outline: "none", padding: 0, color: T.ink,
+            font: `1.25rem/2.375rem ${T.jpFont}`,
+            background: "repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 calc(2.375rem - 1px), #D9CFB8 calc(2.375rem - 1px) 2.375rem)",
+            backgroundAttachment: "local",
+          }}
+        />
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ font: `0.75rem/1.4 ${T.uiFont}`, color: "#6E6A60", flex: 1, minWidth: 0 }}>
+            {cap ? `${cap.used} of ${cap.limit} free checks used today` : ""}
+          </span>
+          <span style={{ font: `0.75rem ${T.uiFont}`, color: over ? T.shu : "#6E6A60", whiteSpace: "nowrap" }}>
+            {count} / {MAX_CHARS}
+          </span>
+          <button className="ts-btn ts-btn-washi" onClick={() => { setText(""); setError(null); }}
+                  disabled={!text || busy} style={{ minHeight: 36, fontSize: "0.8125rem" }}>Clear</button>
+        </div>
       </div>
+
+      <button onClick={check} disabled={!canCheck} className="ts-btn ts-btn-shu"
+              style={{ width: "100%", marginBottom: 22 }}>
+        {busy ? "Checking…" : (<><span style={{ font: `700 1.25rem ${T.jpFont}` }}>直す</span> Check it</>)}
+      </button>
 
       {busy && !result && (
         <p style={{ font: `0.875rem ${T.uiFont}`, color: T.sub }}>
@@ -825,15 +851,16 @@ export default function CheckerModule() {
       )}
 
       {error && (
-        <div role="alert" style={{
-          border: `1px solid ${T.hairline}`, borderLeft: `3px solid ${T.shu}`,
-          borderRadius: 8, background: T.sheet, padding: "12px 14px",
-          font: `0.875rem/1.6 ${T.uiFont}`, color: T.ink,
+        // A neutral bar, not 朱: this is the app failing, not the learner's
+        // Japanese, and red on this screen means FIX.
+        <div role="alert" className="ts-tier" style={{
+          "--tier": "#8E8A80", font: `0.875rem/1.6 ${T.uiFont}`, color: T.ink,
         }}>{ERRORS[error] || "Something went wrong. Try again in a moment."}</div>
       )}
 
       {result && (
         <div>
+          <div style={{ ...LABEL, color: "#4A463D", marginBottom: 10 }}>WHAT WE FOUND</div>
           <div style={{
             display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap",
             marginBottom: 14,
@@ -869,10 +896,7 @@ export default function CheckerModule() {
             }}>{result.overall.summary}</p>
           )}
 
-          <div style={{
-            background: T.sheet, border: `1px solid ${T.hairline}`,
-            borderRadius: 10, padding: "16px 16px 12px", marginBottom: 18,
-          }}>
+          <div className="ts-card" style={{ padding: "16px 16px 12px", marginBottom: 18 }}>
             <Marked
               text={result.submitted}
               issues={result.issues}
@@ -887,9 +911,8 @@ export default function CheckerModule() {
               correct" once `done` has said so. Mid-stream it is "nothing yet";
               after a cut-off it is "unknown". */}
           {result.issues.length === 0 && !result.streaming && !result.incomplete && (
-            <div style={{
-              background: T.okBg, border: `1px solid ${T.ok}33`, borderRadius: 10,
-              padding: "14px 16px", font: `0.9375rem/1.6 ${T.uiFont}`, color: T.ink,
+            <div className="ts-tier" style={{
+              "--tier": T.ok, font: `0.9375rem/1.6 ${T.uiFont}`, color: T.ink,
             }}>
               Nothing to correct here. That is a real result, not a shrug — the
               checker is built to return nothing when there is nothing wrong.
@@ -908,10 +931,8 @@ export default function CheckerModule() {
                 font: `600 0.75rem ${T.uiFont}`, letterSpacing: "0.06em",
                 textTransform: "uppercase", color: T.sub, margin: "0 0 8px",
               }}>One natural version</h2>
-              <p style={{
-                font: `1.125rem/2 ${T.jpFont}`, color: T.ink, background: T.sheet,
-                border: `1px solid ${T.hairline}`, borderRadius: 10,
-                padding: "14px 16px", margin: 0,
+              <p className="ts-card" style={{
+                font: `1.125rem/2 ${T.jpFont}`, color: T.ink, padding: "14px 16px", margin: 0,
               }}>
                 <Ruby text={result.model_rewrite} readings={result.readings} on={furigana} tap />
               </p>
@@ -922,11 +943,6 @@ export default function CheckerModule() {
             </div>
           )}
 
-          {result.cap && (
-            <p style={{ font: `0.75rem ${T.uiFont}`, color: T.sub, marginTop: 22 }}>
-              {result.cap.used} of {result.cap.limit} free checks used today.
-            </p>
-          )}
         </div>
       )}
       </>)}

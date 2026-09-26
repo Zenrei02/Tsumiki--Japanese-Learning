@@ -1093,61 +1093,91 @@ const COMPLETE_CSS = `
 }
 `;
 
-function LessonComplete({ mark = "済", head, title, body, lines = [], backLabel, onBack, stayLabel, onStay }) {
+function LessonComplete({ mark = "できた", head, title, body, lines = [], backLabel, onBack, stayLabel, onStay,
+                          kind = null, stageLine = "", path = null, onNext = null, nextLabel = "Next" }) {
+  // Tatami rework (docs/design/rework/04-lesson-done.html): the one "excited"
+  // screen in the app. A vermilion seal that stamps itself, the washi card,
+  // and a primary button with a pulsing gold ring — the only place anything
+  // gets more energy than calm. Byte-identical in grammar, kanji and
+  // vocabulary; the optional props (kind, stageLine, path, onNext) are what a
+  // module passes when it knows them, and the screen degrades to the Session 33
+  // shape when it does not.
+  //
+  // `path` is position, never a count: done stones, the one you are on, the
+  // ones ahead — no number is printed anywhere, per the standing rule.
+  const primary = onNext || onBack;
+  const big = [...String(mark)].length > 1;
   return (
-    <div style={{ textAlign: "center", padding: "30px 8px 22px" }} role="status" aria-live="polite">
+    <div role="status" aria-live="polite" style={{
+      display: "flex", flexDirection: "column", gap: 18, padding: "6px 0 22px",
+      maxWidth: 480, margin: "0 auto",
+    }}>
       <style>{COMPLETE_CSS}</style>
-      <div style={{ position: "relative", width: 96, height: 96, margin: "0 auto 16px" }}>
-        <span className="tsumiki-ring" aria-hidden="true" style={{
-          position: "absolute", left: 0, top: 0, width: 96, height: 96,
-          boxSizing: "border-box", borderRadius: "50%", border: `2px solid ${T.ok}`,
-        }} />
-        <span className="tsumiki-seal" style={{
-          position: "absolute", left: 0, top: 0, width: 96, height: 96,
-          boxSizing: "border-box", borderRadius: "50%", background: T.okBg,
-          border: `2px solid ${T.ok}`, color: T.ok, fontFamily: T.jpFont,
-          fontSize: "2.5rem", lineHeight: "92px",
-        }}>{mark}</span>
-      </div>
-      <p className="tsumiki-rise" style={{
-        font: `600 1.1875rem ${T.uiFont}`, color: T.ink, margin: "0 0 4px",
-      }}>{head}</p>
-      {title && (
-        <p className="tsumiki-rise tsumiki-rise-2" style={{
-          font: `1.0625rem ${T.jpFont}`, color: T.sub, margin: "0 0 10px",
-        }}>{title}</p>
-      )}
-      {body && (
-        <p className="tsumiki-rise tsumiki-rise-2" style={{
-          font: `0.875rem/1.7 ${T.uiFont}`, color: T.sub,
-          maxWidth: 400, margin: "0 auto 16px",
-        }}>{body}</p>
-      )}
-      {lines.length > 0 && (
-        <div className="tsumiki-rise tsumiki-rise-2" style={{
-          display: "flex", flexWrap: "wrap", gap: 8,
-          justifyContent: "center", margin: "0 0 18px",
-        }}>
-          {lines.map((l, i) => (
-            <span key={i} style={{
-              font: `0.75rem ${T.uiFont}`, color: T.sub, background: T.sheet,
-              border: `1px solid ${T.hairline}`, borderRadius: 999, padding: "4px 12px",
-            }}>{l}</span>
-          ))}
+      {kind && (
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <span className="ts-mark" aria-label={kind.label} title={kind.label} style={{
+            background: kind.color, display: "inline-flex", alignItems: "center", justifyContent: "center",
+            width: 28, height: 28, borderRadius: 7, color: "#FFF8EC", fontFamily: T.jpFont, fontWeight: 700,
+          }}>{kind.kanji}</span>
+          <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0 }}>
+            {title && <span style={{ font: `700 0.9375rem/1.25 ${T.uiFont}`, color: T.ink }}>{title}</span>}
+            {stageLine && <span style={{ font: `0.75rem ${T.uiFont}`, color: "#6E6A60" }}>{stageLine}</span>}
+          </div>
         </div>
       )}
-      <div className="tsumiki-rise tsumiki-rise-3" style={{
-        display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap",
+      {path && path.length > 1 && (
+        <div aria-label="Your path through this stage" style={{
+          display: "flex", alignItems: "center", justifyContent: "center", gap: 10, flexWrap: "wrap",
+        }}>
+          {path.map((st, i) => <span key={i} className={"ts-stone" + (st ? " " + st : "")} />)}
+        </div>
+      )}
+      <div className="ts-card tsumiki-rise" style={{
+        borderRadius: 18, padding: "26px 20px 22px", display: "flex", flexDirection: "column",
+        alignItems: "center", gap: 12, textAlign: "center",
       }}>
-        <button onClick={onBack} style={{
-          font: `0.875rem ${T.uiFont}`, background: T.ink, color: T.paper,
-          border: `1px solid ${T.ink}`, borderRadius: 6, padding: "10px 22px", cursor: "pointer",
-        }}>{backLabel}</button>
-        {onStay && (
-          <button onClick={onStay} style={{
-            font: `0.875rem ${T.uiFont}`, background: "none", color: T.sub,
-            border: `1px solid ${T.hairline}`, borderRadius: 6, padding: "10px 22px", cursor: "pointer",
-          }}>{stayLabel || "Stay here"}</button>
+        <svg className="tsumiki-seal" width="120" height="120" viewBox="0 0 120 120" role="img"
+             aria-label={"A vermilion seal reading " + mark}>
+          <circle cx="60" cy="60" r="52" fill="none" stroke="#C9A24A" strokeWidth="2" strokeDasharray="4 6" />
+          <circle cx="60" cy="60" r="42" fill="#C7351B" />
+          <circle cx="60" cy="60" r="36" fill="none" stroke="#FFF6EC" strokeWidth="1.5" opacity=".7" />
+          {/* textLength pins a multi-character mark inside the circle whatever
+              font actually loads — the fallback mincho runs wider than Shippori. */}
+          <text x="60" y={big ? 70 : 75} textAnchor="middle" fontFamily={T.jpFont}
+                fontSize={big ? 26 : 42} fontWeight="800" fill="#FFF6EC"
+                textLength={big ? 62 : undefined} lengthAdjust="spacingAndGlyphs">{mark}</text>
+        </svg>
+        <p style={{ font: `700 1.5rem/1.2 ${T.uiFont}`, color: T.ink, margin: 0 }}>{head}</p>
+        {title && !kind && (
+          <p style={{ font: `1.0625rem ${T.jpFont}`, color: "#4A463D", margin: 0 }}>{title}</p>
+        )}
+        {body && (
+          <p style={{ font: `0.9375rem/1.65 ${T.uiFont}`, color: "#4A463D", maxWidth: 320, margin: 0 }}>{body}</p>
+        )}
+        {lines.length > 0 && (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" }}>
+            {lines.map((l, i) => (
+              <span key={i} style={{
+                font: `0.75rem ${T.uiFont}`, color: "#4A463D", background: "#FBF7EE",
+                boxShadow: "inset 0 0 0 1.5px #D9CFB8", borderRadius: 999, padding: "4px 12px",
+              }}>{l}</span>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="tsumiki-rise tsumiki-rise-3" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <button onClick={primary} className="ts-btn ts-btn-shu ts-glow" style={{ minHeight: 62, fontSize: "1.125rem" }}>
+          {onNext ? (<>{nextLabel} <span style={{ fontFamily: T.jpFont, fontWeight: 600 }}>次へ</span></>) : backLabel}
+        </button>
+        {((onNext && onBack) || onStay) && (
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            {onNext && onBack && (
+              <button onClick={onBack} className="ts-btn ts-btn-wood" style={{ flex: "1 1 140px", lineHeight: 1.25, fontSize: "0.9375rem" }}>{backLabel}</button>
+            )}
+            {onStay && (
+              <button onClick={onStay} className="ts-btn ts-btn-wood" style={{ flex: "1 1 140px", lineHeight: 1.25, fontSize: "0.9375rem" }}>{stayLabel || "Stay here"}</button>
+            )}
+          </div>
         )}
       </div>
     </div>
