@@ -406,7 +406,17 @@ proposed here, because touching the prompt is frozen until the Phase 0 verdict.
 ## What it must not do
 
 - Must not become a second place where progress is written. The drawer reads.
-- Must not show romaji. `check-romaji-leak.py` should cover the new surface.
+- Must not show romaji. **INPUT IS EXEMPT** (Lloyd, Sep 27 2026): wāpuro romaji in the search
+  box is how a learner who cannot yet read kana reaches the dictionary at all. Romaji goes in,
+  kana and kanji come back, and the conversion is echoed as kana ("Reading that as たべる").
+  The banned thing is transliteration of *output*, not translation of *input* — see
+  `input-romaji-layer-spec-v1.md`. `dictionary-module.jsx` contains no `toRomaji` and no
+  romanisation function of any kind; the shipped module was checked, not the commit message.
+  ⚠️ `check-romaji-leak.py` does **not** cover this surface and cannot. It reads the eval
+  workbook (`DEFAULT = 'naoshi-eval-v1-with-outputs.xlsx'`, line 56;
+  `load_workbook(path)['Blind Grading']`, line 141) and has no path by which it could ever see
+  a module. There is no automated check here — the earlier wording named a safeguard that
+  cannot fail because it cannot run.
 - Must not gate anything. Looking a word up is not an achievement and earns
   nothing — it is the opposite of the "propose, don't dispose" risk: a reward
   here would turn curiosity into farming.
