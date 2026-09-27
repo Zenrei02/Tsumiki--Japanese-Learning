@@ -209,6 +209,16 @@ compare("`COMPLETE_CSS`",
         {m: line_block(s, "const COMPLETE_CSS", lambda l: l.endswith("`;")) for m, s in SRC.items()},
         expect_at_least=3)
 
+# ---- the romaji converter ----
+# Session 36: the vocabulary module's typed review answers take romaji the way
+# the dictionary's search box does, so it carries a verbatim copy of the
+# dictionary's converter. test-romaji-search.py only exercises the dictionary's
+# copy; this is what notices if the other one stops matching it.
+lines += ["", "## Romaji converter", "",
+          "Copied from the dictionary into vocabulary for typed review answers.", ""]
+compare("`RK` table", {m: const_block(s, "RK") for m, s in SRC.items()}, expect_at_least=2)
+compare("`romajiToKana()`", {m: fn_body(s, "romajiToKana") for m, s in SRC.items()}, expect_at_least=2)
+
 # ---- storage keys: the coupling that actually breaks learners ----
 lines += ["", "## Storage keys", "",
           "A key renamed in one module silently orphans that learner's progress in",

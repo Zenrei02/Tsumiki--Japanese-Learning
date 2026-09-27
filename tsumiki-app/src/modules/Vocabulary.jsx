@@ -1277,6 +1277,51 @@ const SKIP_SENTENCE_FROM_VISIT = 3;      // §6.6
 const now = () => Date.now();
 const blank = () => ({ written: [], exposures: 0, sentences: 0, visits: 0, stage: -1, due: 0, log: [] });
 
+// ————— Learning stages (Session 36, Lloyd) —————
+// Three names over the seven LADDER rungs, so the learner sees where a word is
+// without reading an interval table:
+//   Seen       rung 0      met it, or said "I've seen this" — a tap is enough
+//   Reviewing  rungs 1–3   next checks at 3, 7 and 16 days
+//   Known      rungs 4–6   next checks at 35, 90 and 180 days
+// THE RULE: the learner's own say-so can put a word ON the path; only an answer
+// the app has checked moves it into Known. A practice visit still advances a
+// word (a content return is a review, retention model §3) but stops at the top
+// of Reviewing. The step into Known is always a typed answer.
+const KNOWN_FROM = 4;
+const STAGE_TOP = LADDER.length - 1;
+function bandOf(stage) { return stage >= KNOWN_FROM ? "known" : stage >= 1 ? "reviewing" : "seen"; }
+const BANDS = {
+  seen:      { label: "Seen",      color: "#6E6A60" },
+  reviewing: { label: "Reviewing", color: "#3D5A80" },
+  known:     { label: "Known",     color: "#2F6F6B" },
+};
+// How the check is asked, by rung (Lloyd, Session 36): choose from four at the
+// start, mix typing in, then mostly typing as the word climbs. Rung 3 is ALWAYS
+// typed, because a right answer there crosses into Known and a one-in-four
+// guess must not be able to do that.
+const P_TYPE = [0, 0.35, 0.65, 1, 1, 1, 1];
+function strHash(str) {
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+function checkKind(word, p) {
+  const pt = P_TYPE[Math.min(Math.max(0, p.stage), STAGE_TOP)];
+  if (pt >= 1) return "type";
+  if (pt <= 0) return "choose";
+  // Seeded by the review count, so a re-render never swaps the question out
+  // from under the learner, but the next review may ask it the other way.
+  return (strHash(word.w + ":" + (p.log || []).length) % 1000) / 1000 < pt ? "type" : "choose";
+}
+// Where a checked answer leaves a word. Right: one rung up. Wrong or "Not yet":
+// two rungs down, never below Seen, and back tomorrow — retention model §2's
+// lapse rule, so one bad evening does not cost weeks of re-drilling.
+function afterCheck(p, ok) {
+  const from = Math.max(0, p.stage);
+  if (ok) { const st = Math.min(from + 1, STAGE_TOP); return { stage: st, due: now() + LADDER[st] * DAY }; }
+  return { stage: Math.max(0, from - 2), due: now() + DAY };
+}
+
 // ————— Kana-only entry state (Session 10) —————
 // A word with no kanji can never be pulled in by the kanji schedule, so before
 // this existed パン and バス sat in WORDS permanently invisible. Decision
@@ -1541,6 +1586,7 @@ export default function VocabularyModule() {
   const [markerQuiz, setMarkerQuiz] = useState(null); // {kind, t, words} — Session 11 markers
   const [formDrill, setFormDrill] = useState(null);   // {form, items} — Session 18 form drills
   const [mine, setMine] = useState([]);                // words sent from the dictionary
+  const [session, setSession] = useState(null);       // {ids, i, up} — one Review sitting
 
   useEffect(() => {
     (async () => {
@@ -1579,9 +1625,19 @@ export default function VocabularyModule() {
   // ————— Queues —————
   // Content-driven work wins ties over the interval scheduler: it arrives with a
   // reason and new material, where a bare interval review arrives with neither.
-  const { fresh, returning, due, older, yours } = useMemo(() => {
-    const fresh = [], returning = [], due = [], older = [], yours = [];
-    if (!ready) return { fresh, returning, due, older, yours };
+  // Session 36: an interval review is a CHECK now, not a practice visit, so it
+  // no longer waits behind writing work — a word can be due for a check and
+  // have kanji to practise at once, and the two lists say so. `library` is
+  // every word practised at least once, for the Review tab's word list.
+  const { fresh, returning, review, library, yours } = useMemo(() => {
+    const fresh = [], returning = [], review = [], library = [], yours = [];
+    if (!ready) return { fresh, returning, review, library, yours };
+    const met = (word, p) => {
+      if (p.visits > 0) {
+        library.push({ word, pend: [] });
+        if (p.due <= now()) review.push({ word, pend: [], due: p.due });
+      }
+    };
     // Own words first, and ONLY here: a sent word that is also in the bank must
     // not appear twice, so the bank loop below skips anything in `mine`.
     const ownSet = new Set(mine.map((m) => m.w));
@@ -1589,8 +1645,8 @@ export default function VocabularyModule() {
       const word = ownWord(entry);
       const p = get(word.w);
       const pend = pendingWork(word, p, known);
-      if (p.visits === 0 || pend.length || (p.due && p.due <= now())) yours.push({ word, pend });
-      else older.push({ word, pend: [] });
+      if (p.visits === 0 || pend.length) yours.push({ word, pend });
+      met(word, p);
     }
     for (const word of WORDS) {
       if (ownSet.has(word.w)) continue;
@@ -1602,18 +1658,17 @@ export default function VocabularyModule() {
         if (!kanaEligible(word)) continue;
         const p = get(word.w);
         if (p.visits === 0) fresh.push({ word, pend: [] });
-        else if (p.due && p.due <= now()) due.push({ word, pend: [] });
-        else older.push({ word, pend: [] });
+        met(word, p);
         continue;
       }
       const p = get(word.w);
       const pend = pendingWork(word, p, known);
       if (pend.length && p.visits === 0) fresh.push({ word, pend });
       else if (pend.length) returning.push({ word, pend });
-      else if (p.visits > 0 && p.due && p.due <= now()) due.push({ word, pend: [] });
-      else if (p.visits > 0) older.push({ word, pend: [] });
+      met(word, p);
     }
-    return { fresh, returning, due, older, yours };
+    review.sort((x, y) => x.due - y.due);
+    return { fresh, returning, review, library, yours };
   }, [ready, progress, known, get, mine]);
 
   // Guarded: progress now carries top-level _firstAt/_stampEpoch entries
@@ -1671,7 +1726,11 @@ export default function VocabularyModule() {
     // Advance the ladder. A content-driven return counts as a review — it IS one
     // (vocab-retention-model-v1.md §3), so it advances the stage exactly as an
     // interval review would, and no separate review is queued this cycle.
-    p.stage = Math.min(p.stage + 1, LADDER.length - 1);
+    // Session 36: a visit is practice, not proof, so it cannot carry a word
+    // into Known. Words already Known keep climbing — they proved it once.
+    p.stage = p.stage >= KNOWN_FROM
+      ? Math.min(p.stage + 1, STAGE_TOP)
+      : Math.min(p.stage + 1, KNOWN_FROM - 1);
     p.due = now() + LADDER[Math.max(0, p.stage)] * DAY;
     p.log.push({ t: now(), via: gained.length ? "kanji" : "interval", wrote: !!opts.wrote });
 
@@ -1696,6 +1755,39 @@ export default function VocabularyModule() {
     setToast("Back in practice");
     setTimeout(() => setToast(null), 1800);
   }, [get, progress, persist]);
+
+  // ————— Checked reviews (Session 36) —————
+  const answerCheck = useCallback(async (word, ok, kind) => {
+    const p = { ...get(word.w) };
+    const o = afterCheck(p, ok);
+    p.stage = o.stage;
+    p.due = o.due;
+    p.log = [...(p.log || []), { t: now(), via: "check", kind, ok }];
+    await persist({ ...progress, [word.w]: p }, 0);
+  }, [get, progress, persist]);
+
+  // "I've seen this": the learner's word is enough to put a word at Seen, and
+  // it is due for a check straight away — they still prove it in Review.
+  const markSeen = useCallback(async (word) => {
+    const p = { ...get(word.w) };
+    p.visits += 1;
+    p.exposures += 1;
+    p.stage = Math.max(0, p.stage);
+    p.due = now();
+    p.log = [...(p.log || []), { t: now(), via: "seen" }];
+    await persist({ ...progress, [word.w]: p }, 0);
+    setActive(null);
+    setToast("Seen — it's waiting in Review");
+    setTimeout(() => setToast(null), 2200);
+  }, [get, progress, persist]);
+
+  // One sitting: fixed when the Review tab opens, so answering (which changes
+  // what is due) never reshuffles the words under the learner. Twenty at most.
+  useEffect(() => {
+    if (view === "review" && !session && review.length)
+      setSession({ ids: review.slice(0, 20).map((x) => x.word.w), i: 0, up: 0 });
+    if (view !== "review" && session && session.i >= session.ids.length) setSession(null);
+  }, [view, session, review]);
 
   if (!ready) return <Shell><p style={{ color: T.sub }}>Loading…</p></Shell>;
 
@@ -1723,6 +1815,7 @@ export default function VocabularyModule() {
           prog={get(active.word.w)}
           known={known}
           onDone={(opts) => finishVisit(active.word, opts)}
+          onSeen={() => markSeen(active.word)}
           onBack={() => setActive(null)}
         />
       </Shell>
@@ -1841,7 +1934,7 @@ export default function VocabularyModule() {
       })()}
 
       <Tabs view={view} setView={setView}
-            reviewCount={older.length} />
+            reviewCount={review.length} />
 
       {view === "today" ? (
         <>
@@ -1852,14 +1945,27 @@ export default function VocabularyModule() {
           <Queue title="More to practise" badge
                  hint="You can write more of these than you could last time."
                  items={returning} onOpen={setActive} known={known} />
-          <Queue title="Due" hint="Keeping these warm."
-                 items={due} onOpen={setActive} known={known} />
-          {!yours.length && !fresh.length && !returning.length && !due.length && (
+          {review.length > 0 && (
+            <section style={{ marginBottom: 22 }}>
+              <h2 className="ts-label" style={{ color: "#4A463D", margin: "0 0 2px", textTransform: "uppercase" }}>Due</h2>
+              <p style={{ font: `0.8125rem ${T.uiFont}`, color: "#4A463D", margin: "0 0 8px" }}>
+                {review.length === 1 ? "One word is" : `${review.length} words are`} ready for a check. Keeping these warm.
+              </p>
+              <Primary onClick={() => setView("review")}>Check them</Primary>
+            </section>
+          )}
+          {!yours.length && !fresh.length && !returning.length && !review.length && (
             <Empty>Nothing waiting. New words arrive as you learn their kanji, move through the grammar, or work the katakana track.</Empty>
           )}
         </>
       ) : (
-        <Review items={older} known={known} onOpen={setActive} onUnlearn={markUnlearned} />
+        <ReviewTab
+          session={session} setSession={setSession} review={review} library={library}
+          known={known} get={get} allWords={[...WORDS, ...mine.map(ownWord)]}
+          onAnswer={answerCheck} onOpen={setActive} onUnlearn={markUnlearned}
+          onDone={() => { setSession(null); setView("today"); }}
+          next={[...yours, ...fresh, ...returning]}
+        />
       )}
 
       {toast && (
@@ -2037,7 +2143,7 @@ function FormDrill({ form, items, onDone, onBack }) {
   );
 }
 
-function Practice({ word, pend, prog, known, onDone, onBack }) {
+function Practice({ word, pend, prog, known, onDone, onSeen, onBack }) {
   const [step, setStep] = useState("see");
   const [wrote, setWrote] = useState(false);
   const un = unlockedKanji(word, known);
@@ -2112,7 +2218,16 @@ function Practice({ word, pend, prog, known, onDone, onBack }) {
               Learn <b>{word.r}</b> as a unit — taking it apart will mislead you.
             </Note>
           )}
-          <Primary onClick={() => setStep("write")}>Next</Primary>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            <Primary onClick={() => setStep("write")}>Next</Primary>
+            {visit === 1 && onSeen && <Secondary onClick={onSeen}>I've seen this</Secondary>}
+          </div>
+          {visit === 1 && onSeen && (
+            <p style={{ ...p14, color: "#4A463D", marginTop: 10 }}>
+              Already know it? Skip the walkthrough. It goes to Review as Seen, and you
+              prove it there.
+            </p>
+          )}
         </Card>
       )}
 
@@ -2220,39 +2335,397 @@ function Practice({ word, pend, prog, known, onDone, onBack }) {
   );
 }
 
-// ————— Review area (§6.8) —————
-function Review({ items, known, onOpen, onUnlearn }) {
-  const [q, setQ] = useState("");
-  const shown = items.filter(({ word }) =>
-    !q || word.w.includes(q) || (word.m || "").toLowerCase().includes(q.toLowerCase()));
-  if (!items.length) return <Empty>Nothing here yet. Words arrive once you have practised them.</Empty>;
+// ————— Romaji input —————
+// Copied verbatim from dictionary-module.jsx (Session 35, where the reasoning
+// lives): romaji goes IN, kana comes back, nothing here displays romaji.
+// check-module-drift.py keeps the two copies identical.
+const RK = {
+  kya:"きゃ", kyu:"きゅ", kyo:"きょ", kye:"きぇ",
+  gya:"ぎゃ", gyu:"ぎゅ", gyo:"ぎょ",
+  sha:"しゃ", shu:"しゅ", sho:"しょ", she:"しぇ",
+  sya:"しゃ", syu:"しゅ", syo:"しょ",
+  cha:"ちゃ", chu:"ちゅ", cho:"ちょ", che:"ちぇ",
+  tya:"ちゃ", tyu:"ちゅ", tyo:"ちょ",
+  jya:"じゃ", jyu:"じゅ", jyo:"じょ",
+  zya:"じゃ", zyu:"じゅ", zyo:"じょ",
+  nya:"にゃ", nyu:"にゅ", nyo:"にょ",
+  hya:"ひゃ", hyu:"ひゅ", hyo:"ひょ",
+  bya:"びゃ", byu:"びゅ", byo:"びょ",
+  pya:"ぴゃ", pyu:"ぴゅ", pyo:"ぴょ",
+  mya:"みゃ", myu:"みゅ", myo:"みょ",
+  rya:"りゃ", ryu:"りゅ", ryo:"りょ",
+  dya:"ぢゃ", dyu:"ぢゅ", dyo:"ぢょ",
+  shi:"し", chi:"ち", tsu:"つ",
+  thi:"てぃ", dhi:"でぃ", tsa:"つぁ", tse:"つぇ", tso:"つぉ",
+  xtu:"っ", ltu:"っ",
+  ka:"か", ki:"き", ku:"く", ke:"け", ko:"こ",
+  ga:"が", gi:"ぎ", gu:"ぐ", ge:"げ", go:"ご",
+  sa:"さ", si:"し", su:"す", se:"せ", so:"そ",
+  za:"ざ", ji:"じ", zi:"じ", zu:"ず", ze:"ぜ", zo:"ぞ",
+  ta:"た", ti:"ち", tu:"つ", te:"て", to:"と",
+  da:"だ", di:"ぢ", du:"づ", de:"で", do:"ど",
+  na:"な", ni:"に", nu:"ぬ", ne:"ね", no:"の",
+  ha:"は", hi:"ひ", hu:"ふ", fu:"ふ", he:"へ", ho:"ほ",
+  ba:"ば", bi:"び", bu:"ぶ", be:"べ", bo:"ぼ",
+  pa:"ぱ", pi:"ぴ", pu:"ぷ", pe:"ぺ", po:"ぽ",
+  ma:"ま", mi:"み", mu:"む", me:"め", mo:"も",
+  ya:"や", yu:"ゆ", yo:"よ",
+  ra:"ら", ri:"り", ru:"る", re:"れ", ro:"ろ",
+  wa:"わ", wo:"を", wi:"ゐ", we:"ゑ",
+  fa:"ふぁ", fi:"ふぃ", fe:"ふぇ", fo:"ふぉ",
+  va:"ゔぁ", vi:"ゔぃ", vu:"ゔ", ve:"ゔぇ", vo:"ゔぉ",
+  // (no nn: entry — `nn` is decided by the ん lookahead above, never the table)
+  xa:"ぁ", xi:"ぃ", xu:"ぅ", xe:"ぇ", xo:"ぉ",
+  la:"ぁ", li:"ぃ", lu:"ぅ", le:"ぇ", lo:"ぉ",
+  a:"あ", i:"い", u:"う", e:"え", o:"お", "-":"ー",
+};
+const R_VOWEL = "aiueo";
+const R_DOUBLE = /[bcdfghjkmpqrstvwyz]/;
+
+function romajiToKana(input) {
+  const s = (input || "").toLowerCase()
+    .replace(/[āâ]/g, "aa").replace(/[īî]/g, "ii").replace(/[ūû]/g, "uu")
+    .replace(/[ēê]/g, "ee").replace(/[ōô]/g, "ou");
+  let out = "", i = 0;
+  while (i < s.length) {
+    const c = s[i], nx = s[i + 1];
+    // ん, which needs the only lookahead in here. Bare n takes ん before a
+    // consonant and at the end, but stays open before a vowel or y so that
+    // `nya` is にゃ and `hona` is ほな.
+    //
+    // `nn` IS NOT SIMPLY ん. Whether the second n belongs to ん or starts the
+    // next mora depends on what follows IT: in `konnichiwa` the second n opens
+    // に, so ん takes one character and leaves it; in `nn` and `honn` there is
+    // no mora to open, so ん takes both. Consuming both unconditionally turns
+    // こんにちわ into こんいちわ, which is what test-romaji-search.py caught.
+    if (c === "n") {
+      if (nx === "'") { out += "ん"; i += 2; continue; }
+      if (nx === "n") {
+        const after = s[i + 2];
+        out += "ん";
+        i += (after && (R_VOWEL.includes(after) || after === "y")) ? 1 : 2;
+        continue;
+      }
+      if (!nx) { out += "ん"; i += 1; continue; }
+      if (!R_VOWEL.includes(nx) && nx !== "y") { out += "ん"; i += 1; continue; }
+    }
+    // っ — a doubled consonant, as in kitte / gakkou.
+    if (nx === c && R_DOUBLE.test(c)) { out += "っ"; i += 1; continue; }
+    let step = 0;
+    for (const len of [3, 2, 1]) {
+      const seg = s.slice(i, i + len);
+      if (seg.length === len && RK[seg]) { out += RK[seg]; step = len; break; }
+    }
+    if (!step) break;   // not romaji from here on; the caller decides what that means
+    i += step;
+  }
+  return { kana: out, rest: s.slice(i) };
+}
+// ————— end romaji input —————
+
+// ————— Checking an answer (Session 36) —————
+const hiraOf = (str) => str.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
+function normAnswer(str) {
+  return hiraOf((str || "").normalize("NFKC").replace(/[\s〜~・。、.,!?！？「」()（）]/g, ""));
+}
+// Kana, kanji, or romaji the way an IME takes it. null = could not be read.
+function typedAnswer(input) {
+  const raw = (input || "").trim();
+  if (!raw) return "";
+  if (/[぀-ヿ㐀-鿿々]/.test(raw)) return normAnswer(raw);
+  const { kana, rest } = romajiToKana(raw.replace(/\s+/g, ""));
+  return rest ? null : kana;
+}
+// The word itself, its reading, and any other taught word with the SAME gloss
+// — "together" has one answer, but a gloss two words share must accept both,
+// or the learner is marked wrong for knowing more than the card expected.
+function acceptedAnswers(word, allWords) {
+  const m = (word.m || "").trim().toLowerCase();
+  const out = new Set();
+  const same = m ? allWords.filter((x) => (x.m || "").trim().toLowerCase() === m) : [];
+  for (const x of [word, ...same]) { if (x.w) out.add(normAnswer(x.w)); if (x.r) out.add(normAnswer(x.r)); }
+  out.delete("");
+  return out;
+}
+function editDistance(a, b) {
+  const A = [...a], B = [...b];
+  let prev = Array.from({ length: B.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= A.length; i++) {
+    const cur = [i];
+    for (let j = 1; j <= B.length; j++)
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (A[i - 1] === B[j - 1] ? 0 : 1));
+    prev = cur;
+  }
+  return prev[B.length];
+}
+// Three wrong glosses, from words the learner has met where there are enough,
+// shuffled with a seed so the order holds still between renders.
+function choicesFor(word, library, seed) {
+  const m0 = (word.m || "").trim().toLowerCase();
+  const pick = (src) => {
+    const seen = new Set([m0]), out = [];
+    for (const x of src) {
+      const m = (x.m || "").trim(), k = m.toLowerCase();
+      if (!m || seen.has(k)) continue;
+      seen.add(k); out.push(m);
+    }
+    return out;
+  };
+  let pool = pick(library);
+  if (pool.length < 8) pool = pick([...library, ...WORDS.filter((x) => x.s)]);
+  const wrong = pool.map((m) => [strHash(seed + "|" + m), m]).sort((x, y) => x[0] - y[0]).slice(0, 3).map((x) => x[1]);
+  return [word.m, ...wrong].map((m) => [strHash(seed + "#" + m), m]).sort((x, y) => x[0] - y[0]).map((x) => x[1]);
+}
+function days(n) { return n === 1 ? "tomorrow" : `in ${n} days`; }
+function StageTag({ stage }) {
+  const b = BANDS[bandOf(stage)];
   return (
-    <div>
-      <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Find a word"
-             aria-label="Find a word" style={{
-        width: "100%", boxSizing: "border-box", font: `0.9375rem ${T.uiFont}`, padding: "0 14px",
-        minHeight: 44, borderRadius: 12, border: 0, boxShadow: "inset 0 0 0 1.5px #D9CFB8, 0 2px 0 #CFC4A8",
-        background: "#FFFDF7", color: T.ink, marginBottom: 14,
-      }} />
-      <div className="ts-list">
-      {shown.map(({ word }) => (
-        <div key={word.w} className="ts-word" style={{ cursor: "default" }}>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ color: T.ink, lineHeight: 1.9 }}>
-              <WordText word={word} known={known} size={20} />
-              {isComplete(word, known) && (
-                <span title="you can write all of this" style={{ color: T.ok, marginLeft: 8, fontSize: "0.875rem" }}>✓</span>
-              )}
+    <span style={{
+      font: `700 0.6875rem ${T.uiFont}`, letterSpacing: ".04em", color: b.color, whiteSpace: "nowrap",
+      padding: "2px 8px", borderRadius: 999, boxShadow: `inset 0 0 0 1.5px ${b.color}`,
+    }}>{b.label}</span>
+  );
+}
+
+function ReviewCard({ word, prog, known, library, allWords, onAnswer, onNext }) {
+  // Fixed at mount (the parent keys this card per word): answering changes
+  // prog, and the question must not change with it.
+  const [kind] = useState(() => checkKind(word, prog));
+  const [before] = useState(() => prog.stage);
+  const [choices] = useState(() => kind === "choose" ? choicesFor(word, library, word.w + (prog.log || []).length) : []);
+  const accepted = useMemo(() => acceptedAnswers(word, allWords), [word, allWords]);
+  const [typed, setTyped] = useState("");
+  const [picked, setPicked] = useState(null);
+  const [nudge, setNudge] = useState(null);
+  const [retried, setRetried] = useState(false);
+  const [result, setResult] = useState(null);   // { ok, gaveUp }
+  const scene = VOCAB_SCENES[word.w];
+
+  const settle = (ok, gaveUp = false) => { setResult({ ok, gaveUp }); setNudge(null); onAnswer(word, ok, kind); };
+  const check = () => {
+    const ans = typedAnswer(typed);
+    if (ans === "") return;
+    if (ans === null) { setNudge("That doesn't read as Japanese yet. Kana works, or romaji the way you'd type it: taberu."); return; }
+    if (accepted.has(ans)) return settle(true);
+    const near = [...accepted].some((t) => t.length >= 3 && editDistance(ans, t) === 1);
+    if (near && !retried) { setRetried(true); setNudge("Nearly. One sound is off. Have another go."); return; }
+    settle(false);
+  };
+  const preview = typed && !/[぀-ヿ㐀-鿿々]/.test(typed) ? romajiToKana(typed.replace(/\s+/g, "")) : null;
+
+  const o = result ? afterCheck({ stage: before }, result.ok) : null;
+  const nowBand = o && bandOf(o.stage);
+  const crossed = o && result.ok && nowBand === "known" && bandOf(before) !== "known";
+
+  return (
+    <>
+      <div className="ts-card" style={{
+        borderRadius: 18, padding: "24px 20px 20px", display: "flex", flexDirection: "column",
+        alignItems: "center", gap: 12, textAlign: "center", minHeight: 280, justifyContent: "center",
+      }}>
+        {kind === "choose" || result ? (
+          <div style={{ color: T.ink, lineHeight: 1.9, fontWeight: 700 }}>
+            <WordText word={word} known={known} size={44} />
+          </div>
+        ) : (
+          <div style={{ font: `700 1.375rem ${T.uiFont}`, color: T.ink }}>{word.m}</div>
+        )}
+        {!result && (
+          <div style={{ font: `0.8125rem ${T.uiFont}`, color: "#4A463D" }}>
+            {kind === "choose" ? "What does it mean?" : "Say it in Japanese. Type it in kana, kanji or romaji."}
+          </div>
+        )}
+
+        {!result && kind === "choose" && (
+          <div className="ts-list" style={{ width: "100%" }}>
+            {choices.map((m) => (
+              <button key={m} className="ts-word" onClick={() => { setPicked(m); settle(m === word.m); }}
+                      style={{ justifyContent: "center", font: `600 0.9375rem ${T.uiFont}` }}>{m}</button>
+            ))}
+          </div>
+        )}
+
+        {!result && kind === "type" && (
+          <div style={{ width: "100%" }}>
+            <input value={typed} onChange={(e) => { setTyped(e.target.value); setNudge(null); }}
+                   onKeyDown={(e) => { if (e.key === "Enter") check(); }}
+                   lang="ja" autoCapitalize="off" autoComplete="off" autoCorrect="off" spellCheck={false}
+                   enterKeyHint="done" aria-label="Your answer in Japanese" placeholder="たべる · taberu"
+                   style={{
+                     width: "100%", boxSizing: "border-box", font: `1.25rem ${T.jpFont}`, padding: "0 14px",
+                     minHeight: 52, borderRadius: 12, border: 0, textAlign: "center",
+                     boxShadow: "inset 0 0 0 1.5px #D9CFB8, 0 2px 0 #CFC4A8", background: "#FFFDF7", color: T.ink,
+                   }} />
+            <div aria-live="polite" style={{ minHeight: 22, marginTop: 6, font: `1rem ${T.jpFont}`, color: "#4A463D" }}>
+              {preview && preview.kana ? "→ " + preview.kana : ""}
             </div>
-            <div style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, overflow: "hidden", textOverflow: "ellipsis" }}>
-              {word.m}
+            {nudge && <p role="status" style={{ font: `0.8125rem/1.5 ${T.uiFont}`, color: "#8A4A1B", margin: "2px 0 0" }}>{nudge}</p>}
+          </div>
+        )}
+
+        {result && (
+          <div style={{ width: "100%", borderTop: "1.5px dashed #D9CFB8", paddingTop: 12, display: "flex", flexDirection: "column", gap: 6 }}>
+            <div role="status" style={{ font: `700 0.9375rem ${T.uiFont}`, color: result.ok ? T.ok : "#8A4A1B" }}>
+              {result.ok ? "Right." : result.gaveUp ? "Here it is." : kind === "choose" ? "Not that one." : "Not quite. Here it is."}
+            </div>
+            {word.r && word.r !== word.w && !needsRuby(word, known) && <div style={{ font: `1rem ${T.jpFont}`, color: "#4A463D" }}>{word.r}</div>}
+            <div style={{ font: `700 1.125rem ${T.uiFont}`, color: T.ink }}>{word.m}</div>
+            {!result.ok && kind === "choose" && picked && picked !== word.m && (
+              <div style={{ font: `0.8125rem ${T.uiFont}`, color: "#6E6A60" }}>You picked “{picked}”.</div>
+            )}
+            {!result.ok && kind === "type" && !result.gaveUp && (
+              <div style={{ font: `0.8125rem ${T.uiFont}`, color: "#6E6A60" }}>You wrote {typedAnswer(typed) || typed}.</div>
+            )}
+            {scene && (
+              <>
+                <div style={{ font: `0.9375rem/1.6 ${T.jpFont}`, color: "#4A463D" }}>{scene.jp}</div>
+                <div style={{ font: `0.75rem ${T.uiFont}`, color: "#6E6A60" }}>{scene.en}</div>
+              </>
+            )}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 6, flexWrap: "wrap" }}>
+              <StageTag stage={o.stage} />
+              <span style={{ font: `0.8125rem ${T.uiFont}`, color: "#4A463D" }}>
+                {crossed ? <>Known <span style={{ fontFamily: T.jpFont }}>覚えた</span>. Next check {days(LADDER[o.stage])}.</>
+                  : result.ok ? `Next check ${days(LADDER[o.stage])}.`
+                  : bandOf(before) === "seen" ? "Back tomorrow." : "Down two steps, not to the start. Back tomorrow."}
+              </span>
             </div>
           </div>
-          <button onClick={() => onOpen({ word, pend: [] })} style={linkBtn}>practise</button>
-          <button onClick={() => onUnlearn(word)} style={{ ...linkBtn, color: "#4A463D" }}>unlearn</button>
-        </div>
-      ))}
+        )}
       </div>
+
+      <div style={{ display: "flex", gap: 12, marginTop: 14 }}>
+        {!result && (
+          <button className="ts-btn ts-btn-wood" style={{ flex: 1, minHeight: 52, whiteSpace: "nowrap" }} onClick={() => settle(false, true)}>Not yet</button>
+        )}
+        {!result && kind === "type" && (
+          <button className="ts-btn ts-btn-shu" style={{ flex: 1, minHeight: 52, whiteSpace: "nowrap" }} onClick={check} disabled={!typed.trim()}>
+            Check it <span style={{ fontFamily: T.jpFont, fontWeight: 600, marginLeft: 6 }}>確認</span>
+          </button>
+        )}
+        {result && (
+          <button className="ts-btn ts-btn-shu ts-glow" style={{ flex: 1, minHeight: 52, whiteSpace: "nowrap" }} onClick={onNext}>
+            Next <span style={{ fontFamily: T.jpFont, fontWeight: 600, marginLeft: 6 }}>次へ</span>
+          </button>
+        )}
+      </div>
+    </>
+  );
+}
+
+// ————— Review tab (board 09; checked reviews, Session 36) —————
+function ReviewTab({ session, setSession, review, library, known, get, allWords, onAnswer, onOpen, onUnlearn, onDone, next }) {
+  const [q, setQ] = useState("");
+  const byW = useMemo(() => new Map(library.map((x) => [x.word.w, x.word])), [library]);
+  const ids = session ? session.ids.filter((w) => byW.has(w)) : [];
+  const live = session && session.i < ids.length;
+  const word = live ? byW.get(ids[session.i]) : null;
+
+  // Stones show position, never a count: at most ten, windowed on the current one.
+  const stones = () => {
+    const n = ids.length, i = session.i, lo = Math.max(0, Math.min(i - 4, n - 10)), hi = Math.min(n, lo + 10);
+    const out = [];
+    for (let k = lo; k < hi; k++) {
+      const here = k === i;
+      out.push(<span key={k} style={{
+        width: here ? 14 : 12, height: here ? 14 : 12, borderRadius: "50%",
+        background: k < i ? "#2F6F6B" : here ? "#C7351B" : "#8E8A80",
+        boxShadow: here ? "0 0 0 2px #F6EBD2, 0 0 0 4px #C9A24A" : "none",
+      }} />);
+    }
+    return out;
+  };
+
+  const counts = { seen: 0, reviewing: 0, known: 0 };
+  for (const { word: w } of library) counts[bandOf(get(w.w).stage)] += 1;
+  const shown = library.filter(({ word: w }) =>
+    !q || w.w.includes(q) || (w.m || "").toLowerCase().includes(q.toLowerCase()));
+  const upcoming = !live && !review.length && library.length
+    ? library.map(({ word: w }) => ({ w, due: get(w.w).due })).sort((a, b) => a.due - b.due)[0] : null;
+
+  return (
+    <div>
+      {live && (
+        <section style={{ marginBottom: 26 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+            <h2 className="ts-label" style={{ color: "#4A463D", margin: 0, textTransform: "uppercase" }}>Due · keeping these warm</h2>
+            <div aria-label="Your path through this review" style={{ display: "flex", gap: 6, alignItems: "center" }}>{stones()}</div>
+          </div>
+          <ReviewCard key={word.w + ":" + session.i} word={word} prog={get(word.w)} known={known}
+                      library={library.map((x) => x.word)} allWords={allWords}
+                      onAnswer={(w, ok, kind) => { if (ok) setSession((s) => ({ ...s, up: s.up + 1 })); return onAnswer(w, ok, kind); }}
+                      onNext={() => setSession((s) => ({ ...s, i: s.i + 1 }))} />
+          {(() => {
+            const after = ids.slice(session.i + 1, session.i + 4).map((w) => ({ word: byW.get(w), label: BANDS[bandOf(get(w).stage)].label }));
+            const rest = after.length ? after : next.slice(0, 2).map((x) => ({ word: x.word, label: "New tab" }));
+            if (!rest.length) return null;
+            return (
+              <>
+                <h2 className="ts-label" style={{ color: "#4A463D", margin: "22px 0 8px", textTransform: "uppercase" }}>After this</h2>
+                <div className="ts-list">
+                  {rest.map(({ word: w, label }) => (
+                    <div key={w.w} className="ts-word" style={{ cursor: "default" }}>
+                      <span style={{ lineHeight: 1.9 }}><WordText word={w} known={known} size={20} /></span>
+                      <span style={{ flex: 1, textAlign: "right", font: `0.8125rem ${T.uiFont}`, color: "#4A463D" }}>{label}</span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            );
+          })()}
+        </section>
+      )}
+
+      {session && !live && (
+        <section className="ts-card" style={{ padding: "20px 18px", marginBottom: 26, textAlign: "center" }}>
+          <div style={{ font: `700 1.125rem ${T.uiFont}`, color: T.ink }}>That's this sitting done.</div>
+          <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: "#4A463D", margin: "6px 0 14px" }}>
+            {session.up === ids.length ? "Every one moved up." : session.up ? `${session.up} moved up. The rest come back tomorrow — that is the schedule working.` : "They come back tomorrow — that is the schedule working, not you failing."}
+          </p>
+          <Primary onClick={onDone}>Back to New</Primary>
+        </section>
+      )}
+
+      {!session && !review.length && library.length > 0 && (
+        <Empty>Nothing due for a check right now.{upcoming ? <> Next up: {upcoming.w.w}, {days(Math.max(1, Math.ceil((upcoming.due - Date.now()) / DAY)))}.</> : null}</Empty>
+      )}
+
+      {!library.length ? (
+        <Empty>Nothing here yet. Words arrive once you have practised them.</Empty>
+      ) : (
+        <section>
+          <h2 className="ts-label" style={{ color: "#4A463D", margin: "0 0 2px", textTransform: "uppercase" }}>All your words</h2>
+          <p style={{ font: `0.8125rem ${T.uiFont}`, color: "#4A463D", margin: "0 0 10px" }}>
+            Seen {counts.seen} · Reviewing {counts.reviewing} · Known {counts.known}
+          </p>
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Find a word"
+                 aria-label="Find a word" style={{
+            width: "100%", boxSizing: "border-box", font: `0.9375rem ${T.uiFont}`, padding: "0 14px",
+            minHeight: 44, borderRadius: 12, border: 0, boxShadow: "inset 0 0 0 1.5px #D9CFB8, 0 2px 0 #CFC4A8",
+            background: "#FFFDF7", color: T.ink, marginBottom: 14,
+          }} />
+          <div className="ts-list">
+          {shown.map(({ word: w }) => (
+            <div key={w.w} className="ts-word" style={{ cursor: "default" }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ color: T.ink, lineHeight: 1.9 }}>
+                  <WordText word={w} known={known} size={20} />
+                  {isComplete(w, known) && (
+                    <span title="you can write all of this" style={{ color: T.ok, marginLeft: 8, fontSize: "0.875rem" }}>✓</span>
+                  )}
+                </div>
+                <div style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, overflow: "hidden", textOverflow: "ellipsis" }}>
+                  {w.m}
+                </div>
+              </div>
+              <StageTag stage={get(w.w).stage} />
+              <button onClick={() => onOpen({ word: w, pend: [] })} style={linkBtn}>practise</button>
+              <button onClick={() => onUnlearn(w)} style={{ ...linkBtn, color: "#4A463D" }}>unlearn</button>
+            </div>
+          ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

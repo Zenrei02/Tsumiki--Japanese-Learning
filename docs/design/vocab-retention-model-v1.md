@@ -147,6 +147,59 @@ retention split by return-count, or the average will hide the failure.
 
 ---
 
+## 6. Stages and checked reviews (Session 36, decided by Lloyd)
+
+**Three names over the seven rungs.** The learner sees a stage, not an interval:
+
+| Stage | Rungs | Next check |
+|---|---|---|
+| **Seen** | 0 | 1 day |
+| **Reviewing** | 1–3 | 3, 7, 16 days |
+| **Known** | 4–6 | 35, 90, 180 days |
+
+**Say-so puts a word on the path; only proof moves it into Known.**
+
+- **"I've seen this"** (first visit, Meet this word card) puts the word at Seen and makes it due
+  for a check at once. The learner still proves it in Review.
+- **A practice visit** still advances a word, as §3 says a content return should, but it stops
+  at the top of Reviewing (rung 3). A word already Known keeps climbing on visits.
+- **Every interval review is a checked answer.** The old self-marked "Knew it" flashcard from
+  board 09 was never built and is replaced by this.
+
+**How the check is asked, by rung** (Lloyd: choose from four at the start, mix typing in, then
+mostly typing as the word climbs):
+
+| Rung | Chance of typing | Otherwise |
+|---|---|---|
+| 0 | 0% | choose the meaning from four |
+| 1 | 35% | choose |
+| 2 | 65% | choose |
+| 3–6 | 100% | — |
+
+Rung 3 is always typed because a right answer there crosses into Known, and a one-in-four guess
+must not be able to do that. The mix is seeded by the word and its review count, so a question
+never changes under the learner mid-answer.
+
+- **Choose** shows the word (ruby where its kanji are not yet known) and four glosses. The three
+  wrong ones come from words the learner has met, or from taught words when fewer than eight are
+  met.
+- **Type** shows the gloss and asks for the word, in kana, kanji, or romaji as an IME takes it
+  (the dictionary's converter, copied verbatim and held identical by check-module-drift.py).
+  Nothing displays romaji; the preview under the box shows the kana. Any taught word with the
+  same gloss is accepted. One slip of a single sound (edit distance 1, words of three kana or
+  more) gets one "Nearly" retry before it counts as wrong.
+
+**Outcomes.** Right: up one rung, next check at that rung's interval. Wrong or "Not yet": the
+§2 lapse, **two rungs down, never below Seen**, and back **tomorrow** (the repair is
+front-loaded). "Unlearn" (§4) is still the full reset. Reviews pay no koban; the reward
+economy was left alone.
+
+**Queues.** A check no longer waits behind writing work: a word can be due for a check and have
+kanji to practise at the same time, and it appears in both places. A practice visit resets the
+check's due date, so it is never asked twice in a cycle.
+
+---
+
 ## Sources
 
 - [Cepeda, Pashler, Vul, Wixted & Rohrer (2006), *Distributed practice in verbal recall tasks: A review and quantitative synthesis*](https://augmentingcognition.com/assets/Cepeda2006.pdf)

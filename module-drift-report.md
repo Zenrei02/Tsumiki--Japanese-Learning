@@ -3,7 +3,8 @@
 ## Stroke engine
 
 - ✅ **`strokeStart()`** — identical across 4 modules
-- ✅ **`resample()`** — identical across 4 modules
+- ⚪ **`resample()`** — 2 textual variants, **confirmed formatting-only**
+    - kana modules brace the single-statement for-loop body; kanji/vocabulary do not. Verified character-by-character: the only difference is one `{`/`}` pair. Same behaviour.
 - ✅ **`samplePath()`** — identical across 4 modules
 - ✅ **`scoreStroke()`** — identical across 4 modules
 - ✅ **`tolerancesFor()`** — identical across 4 modules
@@ -25,6 +26,13 @@ duplication as the stroke engine, and the same failure mode if one is edited.
 - ✅ **`LessonComplete()`** — identical across 3 modules
 - ✅ **`COMPLETE_CSS`** — identical across 3 modules
 
+## Romaji converter
+
+Copied from the dictionary into vocabulary for typed review answers.
+
+- ✅ **`RK` table** — identical across 2 modules
+- ✅ **`romajiToKana()`** — identical across 2 modules
+
 ## Storage keys
 
 A key renamed in one module silently orphans that learner's progress in
@@ -32,18 +40,19 @@ every other module that reads it. These are the real seams.
 
 | Key | Modules |
 |---|---|
+| `tsumiki-known-kanji-v1` | dictionary-module.jsx, grammar-module.jsx, kanji-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `tsumiki-stroke-data-v1` | hiragana-module.jsx, kanji-module.jsx, katakana-module.jsx, vocabulary-module.jsx ⚠️ shared |
-| `tsumiki-known-kanji-v1` | grammar-module.jsx, kanji-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `tsumiki-n5-progress-v1` | grammar-module.jsx, kanji-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `tsumiki-achievement-points-v1` | grammar-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `tsumiki-hiragana-progress-v2` | grammar-module.jsx, hiragana-module.jsx ⚠️ shared |
 | `tsumiki-katakana-progress-v1` | katakana-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `tsumiki-my-words-v1` | dictionary-module.jsx, vocabulary-module.jsx ⚠️ shared |
+| `tsumiki-dict-recent-v1` | dictionary-module.jsx |
 | `tsumiki-kanji-progress-v1` | kanji-module.jsx |
 | `tsumiki-known-words-v1` | vocabulary-module.jsx |
 | `tsumiki-learner-depth-v1` | grammar-module.jsx |
 
-7 of 10 keys are shared across modules.
+7 of 11 keys are shared across modules.
 
 
 ## Kana audio sprite
