@@ -9,7 +9,7 @@ export const SKIN_CSS = `:root{
   --ts-wood:#C9A47C;--ts-wood-lip:#8A6540;--ts-wood-ink:#2C2A26;
   --ts-ink:#2C2A26;--ts-header:#F6F1E6;--ts-ring:#2F6F6B;--ts-gold:#C9A24A;
   --ts-header-ink:#2C2A26;--ts-header-sub:#4A463D;--ts-header-line:#D9CFB8;--ts-on-tatami:#4A463D;--ts-koban:#907119;
-  --ts-module-ground:transparent;--ts-block-lip:#7A5A3C;--ts-block-shadow:rgba(70,45,20,.28);
+  --ts-module-ground:transparent;--ts-pin-ground:#C6BE8E;--ts-block-lip:#7A5A3C;--ts-block-shadow:rgba(70,45,20,.28);
   --ts-seal-glow:0 0 0 rgba(0,0,0,0);--ts-shu-cast:0 8px 18px rgba(126,31,15,.30);
 }
 
@@ -25,7 +25,7 @@ export const SKIN_CSS = `:root{
   --ts-wood:#6B4E33;--ts-wood-lip:#3E2B18;--ts-wood-ink:#F6E9CC;
   --ts-ink:#F3E9D2;--ts-header:#23263A;--ts-header-ink:#F3E9D2;--ts-header-sub:#E8DCC0;--ts-header-line:#3A3E58;
   --ts-on-tatami:#E8DCC0;--ts-koban:#E8B86A;--ts-ring:#E8B86A;--ts-gold:#E8B86A;
-  --ts-module-ground:#EFE3C6;--ts-block-lip:#3E2B18;--ts-block-shadow:rgba(0,0,0,.4);
+  --ts-module-ground:#EFE3C6;--ts-pin-ground:#EFE3C6;--ts-block-lip:#3E2B18;--ts-block-shadow:rgba(0,0,0,.4);
   --ts-seal-glow:0 0 18px rgba(226,83,47,.45);--ts-shu-cast:0 10px 24px rgba(226,83,47,.35);
 }
 .ts-tatami{background-color:var(--ts-tatami);background-image:repeating-linear-gradient(90deg,var(--ts-weave-hi) 0 1px,rgba(0,0,0,0) 1px 5px),repeating-linear-gradient(0deg,var(--ts-weave-lo) 0 1px,rgba(0,0,0,0) 1px 3px)}
@@ -77,7 +77,10 @@ export const SKIN_CSS = `:root{
 .ts-tabs button{flex-shrink:0;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.875rem;min-height:40px;padding:0 14px;border-radius:10px 10px 0 0;background:#E4DBC6;color:#6E6A60;box-shadow:inset 0 -2px 0 rgba(60,45,20,.12)}
 .ts-tabs button[aria-selected="true"]{background:#FBF7EE;color:#2C2A26;box-shadow:inset 0 1.5px 0 #D9CFB8,inset 1.5px 0 0 #D9CFB8,inset -1.5px 0 0 #D9CFB8}
 .ts-tabs button:focus-visible{outline:3px solid var(--ts-ring);outline-offset:-3px}
-.ts-pin{position:sticky;bottom:calc(12px + env(safe-area-inset-bottom, 0px));z-index:5;margin-top:18px}
+.ts-pin{position:sticky;bottom:0;z-index:5;margin:18px -16px 0;padding:18px 16px calc(12px + env(safe-area-inset-bottom, 0px));background:linear-gradient(to bottom,rgba(0,0,0,0),var(--ts-pin-ground) 22px)}
+/* Sections sit on tatami by day (boards 07–10): the shell clears the paper each module paints on
+   its own root. At dusk the ground is lantern-lit washi instead — see --ts-module-ground. */
+.ts-modroot > div{background:transparent !important}
 .ts-label{font-size:0.6875rem;font-weight:700;letter-spacing:.08em;color:#6E6A60}
 .ts-on-tatami{color:var(--ts-on-tatami)}
 .ts-inset{border-radius:12px;background:#FFFDF7;box-shadow:inset 0 0 0 1.5px #D9CFB8;padding:12px 14px;display:flex;flex-direction:column;gap:6px}

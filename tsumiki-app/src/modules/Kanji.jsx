@@ -6,6 +6,7 @@ import { installStorage } from "../lib/storage.js";
 import { T } from "../lib/tokens.js";
 import { StrokeView, StrokePractice } from "../lib/strokeEngine.jsx";
 import { loadJSON, saveJSON } from "../lib/json.js";
+import { ShellSlot } from "../lib/shell.jsx";
 import "../data/strokes-kanji.js";
 installStorage();
 
@@ -758,6 +759,14 @@ function Chip({ children, color }) {
 
 
 
+
+// ————— ShellSlot (tatami rework) —————
+// Stand-alone this renders its children where they are. Inside the app,
+// build-vite-app.py swaps it for lib/shell.jsx, which puts them in the shell's
+// slot of that name — the index tabs under the header, the header's かな/漢字
+// toggle — so every section's chrome is built once. Identical in every module.
+
+
 // ————— Learn —————
 function partLabel(p) {
   return p.orig ? `${p.e} (a squashed ${p.orig})` : p.e;
@@ -1288,15 +1297,14 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
       <div style={{ height: 1, background: T.hairline, margin: "14px 0 18px" }} />
 
       {mod.kind !== "culture" && (
-        <div style={{ display: "flex", gap: 4, marginBottom: 18, flexWrap: "wrap" }}>
-          {TABS.map(([id, label]) => (
-            <button key={id} onClick={() => setTab(id)} style={{
-              border: "none", borderBottom: `2px solid ${tab === id ? T.ink : "transparent"}`,
-              background: "none", color: tab === id ? T.ink : T.sub, fontSize: "0.875rem",
-              padding: "6px 12px", cursor: "pointer", fontFamily: "inherit",
-            }}>{label}</button>
-          ))}
-        </div>
+        <ShellSlot name="tabs">
+          {/* Paper index tabs, hung under the shell header (boards 05, 07–10). */}
+          <div className="ts-tabs" role="tablist" aria-label="Lesson activities">
+            {TABS.map(([id, label]) => (
+              <button key={id} role="tab" aria-selected={tab === id} onClick={() => setTab(id)}>{label}</button>
+            ))}
+          </div>
+        </ShellSlot>
       )}
 
       {mod.kind === "culture" && (
@@ -1317,11 +1325,14 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
 
       {(mod.kind === "culture" || tab === "learn") && (
         <>
-          <Learn mod={mod} known={known} onTapChar={setPanel} />
+          <div className="ts-card" style={{ padding: 18 }}>
+            <Learn mod={mod} known={known} onTapChar={setPanel} />
+          </div>
           {panel && (
-            <div ref={panelRef} style={{
-              marginTop: 14, padding: 16, background: T.paper, border: `2px solid ${T.ink}`,
-              borderRadius: 6, display: "flex", gap: 18, alignItems: "flex-start", flexWrap: "wrap",
+            // Tatami rework (board 05): the study card — washi, the stroke box
+            // beside the character, its meaning and readings.
+            <div ref={panelRef} className="ts-card" style={{
+              marginTop: 14, padding: "16px 18px", display: "flex", gap: 16, alignItems: "flex-start", flexWrap: "wrap",
             }}>
               {/* The panel used to render far below the character grid, so tapping
                   a kanji meant scrolling down to find it — and by the time you
@@ -1331,13 +1342,13 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
                   offers the thing you actually wanted next: to try drawing it. */}
               <div>
                 <StrokeView key={panel + replay} ch={panel} auto numbers />
-                <button className="btn-ghost" style={{ marginTop: 6, width: "100%" }}
+                <button className="ts-btn ts-btn-washi" style={{ marginTop: 8, width: "100%", minHeight: 40, fontSize: "0.8125rem" }}
                         onClick={() => setReplay((n) => n + 1)}>↻ Watch again</button>
               </div>
               <div style={{ flex: 1, minWidth: 190 }}>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
-                  <span style={{ fontFamily: T.jpFont, fontSize: "1.875rem" }}>{panel}</span>
-                  {K[panel] && <span style={{ fontSize: "0.875rem", color: T.sub }}>{K[panel].m}</span>}
+                  <span style={{ fontFamily: T.jpFont, fontSize: "2.75rem", fontWeight: 700, lineHeight: 1 }}>{panel}</span>
+                  {K[panel] && <span style={{ fontSize: "0.9375rem", fontWeight: 700 }}>{K[panel].m}</span>}
                 </div>
                 {K[panel] && (K[panel].on || K[panel].kun) && (
                   <div style={{ fontSize: "0.8125rem", color: T.sub, marginTop: 4 }}>
@@ -1351,18 +1362,19 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
                   makes handwriting readable.
                 </p>
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 4 }}>
-                  <button className="btn-primary" onClick={() => { setWriteFocus(panel); setTab("write"); }}>
-                    Try drawing it
+                  <button className="ts-btn ts-btn-shu" style={{ minHeight: 48, fontSize: "0.9375rem" }}
+                          onClick={() => { setWriteFocus(panel); setTab("write"); }}>
+                    Trace it <span style={{ fontFamily: T.jpFont, fontWeight: 600 }}>書く</span>
                   </button>
                   {/* Session 34: the character being studied, preloaded into
                       the dictionary — its readings and the words it is in. Only
                       offered when a dictionary is listening (in the app). */}
                   {typeof window !== "undefined" && window.__tsumikiLookup && (
-                    <button className="btn-ghost" onClick={() => lookUp({ kanji: panel, q: "" })}>
-                      Words with {panel}
+                    <button className="ts-btn ts-btn-washi" onClick={() => lookUp({ kanji: panel, q: "" })}>
+                      Words with <span style={{ fontFamily: T.jpFont }}>{panel}</span>
                     </button>
                   )}
-                  <button className="btn-ghost" onClick={() => setPanel(null)}>Close</button>
+                  <button className="ts-btn ts-btn-washi" onClick={() => setPanel(null)}>Close</button>
                 </div>
               </div>
             </div>
@@ -1374,10 +1386,14 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
                         onProgress={onProgress} startCh={writeFocus} />
       )}
       {mod.kind !== "culture" && tab === "recall" && (
-        <Recall mod={mod} progress={progress} onProgress={onProgress} />
+        <div className="ts-card" style={{ padding: 18 }}>
+          <Recall mod={mod} progress={progress} onProgress={onProgress} />
+        </div>
       )}
       {mod.kind !== "culture" && tab === "use" && (
-        <UseIt mod={mod} grammarDone={grammarDone} />
+        <div className="ts-card" style={{ padding: 18 }}>
+          <UseIt mod={mod} grammarDone={grammarDone} />
+        </div>
       )}
 
       {/* The manual "Add these to my syllabus" button is gone. It asked the

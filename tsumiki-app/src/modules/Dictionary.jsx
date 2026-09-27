@@ -310,29 +310,24 @@ function Credit({ credit }) {
 }
 
 function Label({ children }) {
-  return (
-    <div style={{
-      font: `600 0.6875rem ${T.uiFont}`, letterSpacing: ".6px", color: T.sub, margin: "0 0 8px",
-    }}>{children}</div>
-  );
+  return <div className="ts-label" style={{ margin: "0 0 8px", color: "#4A463D" }}>{children}</div>;
 }
 
 function PreviewRow({ p, top, onOpen }) {
   return (
-    <button onClick={() => onOpen(p[0])} style={{
-      display: "flex", alignItems: "baseline", gap: 10, width: "100%", textAlign: "left",
-      padding: "10px 12px", marginBottom: 6, cursor: "pointer",
-      background: T.sheet, borderRadius: 8,
-      border: `1px solid ${top ? T.ink : T.hairline}`,
-      borderLeft: `3px solid ${top ? T.ink : T.hairline}`,
+    // Tatami rework (board 10): a washi word row; the most common reading
+    // carries the dictionary's 鈍 edge.
+    <button onClick={() => onOpen(p[0])} className="ts-word" style={{
+      alignItems: "baseline", marginBottom: 6, background: "#FBF7EE",
+      boxShadow: top ? "inset 0 0 0 1.5px #D9CFB8, inset 4px 0 0 #727171" : "inset 0 0 0 1.5px #D9CFB8",
     }}>
       <span style={{ font: `1.25rem ${T.jpFont}`, color: T.ink, flexShrink: 0 }}>{p[1]}</span>
       {p[2] && <span style={{ font: `0.875rem ${T.jpFont}`, color: T.sub, flexShrink: 0 }}>{p[2]}</span>}
       <span style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, flex: 1, minWidth: 0 }}>{p[3]}</span>
       {top && (
         <span style={{
-          font: `600 0.625rem ${T.uiFont}`, letterSpacing: ".5px", color: T.ink,
-          border: `1px solid ${T.ink}`, borderRadius: 999, padding: "1px 7px", flexShrink: 0,
+          font: `700 0.625rem ${T.uiFont}`, letterSpacing: ".5px", color: "#2C2A26",
+          background: "#E4DBC6", borderRadius: 999, padding: "2px 8px", flexShrink: 0,
         }}>MOST COMMON</span>
       )}
     </button>
@@ -361,17 +356,24 @@ function Entry({ id, onBack, onKanji, myWords, onSend, onUnsend }) {
   const kanjiIn = [...new Set([...head].filter((c) => KANJI.test(c) && c !== "々"))];
   const mine = myWords.some((w) => w.w === head);
 
+  // Tatami rework (board 10): one washi entry card — the word in ruby, the
+  // meaning, the kanji as chips, the Send button in wood.
   return (
     <div>
       {onBack && (
-        <button onClick={onBack} style={{
-          background: "none", border: "none", cursor: "pointer", padding: "4px 0", marginBottom: 10,
-          font: `0.8125rem ${T.uiFont}`, color: T.sub,
+        <button onClick={onBack} className="ts-btn ts-btn-washi" style={{
+          display: "inline-flex", minHeight: 38, fontSize: "0.8125rem", marginBottom: 12,
         }}>← Results</button>
       )}
+      <div className="ts-card" style={{ padding: "16px 18px", display: "flex", flexDirection: "column" }}>
       <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
-        <span style={{ font: `2.25rem ${T.jpFont}`, color: T.ink }}>{head}</span>
-        {head !== reading && <span style={{ font: `1.125rem ${T.jpFont}`, color: T.sub }}>{reading}</span>}
+        {head !== reading ? (
+          <ruby style={{ font: `700 1.875rem ${T.jpFont}`, color: T.ink, rubyPosition: "over" }}>
+            {head}<rt style={{ fontSize: ".5em", color: "#6E6A60", fontFamily: T.uiFont, fontWeight: 500 }}>{reading}</rt>
+          </ruby>
+        ) : (
+          <span style={{ font: `700 1.875rem ${T.jpFont}`, color: T.ink }}>{head}</span>
+        )}
       </div>
       {(writ.length > 1 || read.length > 1) && (
         <p style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, margin: "6px 0 0" }}>
@@ -384,10 +386,9 @@ function Entry({ id, onBack, onKanji, myWords, onSend, onUnsend }) {
 
       <div style={{ marginTop: 18 }}>
         {e.s.map(([pos, gl, tags], i) => (
-          <div key={i} style={i === 0 ? {
-            background: T.paper, border: `1px solid ${T.hairline}`, borderLeft: `3px solid ${T.ink}`,
-            borderRadius: 8, padding: "12px 14px", marginBottom: 12,
-          } : { padding: "8px 2px", borderBottom: `1px solid ${T.hairline}` }}>
+          <div key={i} className={i === 0 ? "ts-inset" : undefined} style={i === 0 ? {
+            display: "block", marginBottom: 12,
+          } : { padding: "8px 2px", borderBottom: "1px solid #E4DBC6" }}>
             {i === 0 && <Label>MOST COMMON MEANING</Label>}
             <div style={{ display: "flex", gap: 8, alignItems: "baseline" }}>
               {i > 0 && <span style={{ font: `0.75rem ${T.uiFont}`, color: T.sub, minWidth: 14 }}>{i + 1}</span>}
@@ -412,22 +413,21 @@ function Entry({ id, onBack, onKanji, myWords, onSend, onUnsend }) {
       {/* Send to Vocabulary. It joins the review ladder there; practising it —
           not sending it — is what counts toward the week (Lloyd, Session 34:
           one tap must not be farmable). */}
-      <div style={{ marginTop: 18, padding: "14px 16px", border: `1px solid ${T.hairline}`, borderRadius: 10, background: T.sheet }}>
+      <div style={{ marginTop: 14 }}>
         {mine ? (
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
             <span style={{ font: `600 0.875rem ${T.uiFont}`, color: T.ink }}>In your words ✓</span>
             <span style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, flex: 1 }}>Waiting in Vocabulary.</span>
-            <button onClick={() => onUnsend(head)} style={{
-              background: "none", border: `1px solid ${T.hairline}`, borderRadius: 6, cursor: "pointer",
-              padding: "6px 12px", font: `0.8125rem ${T.uiFont}`, color: T.sub,
-            }}>Remove</button>
+            <button onClick={() => onUnsend(head)} className="ts-btn ts-btn-washi"
+                    style={{ minHeight: 38, fontSize: "0.8125rem" }}>Remove</button>
           </div>
         ) : (
           <>
-            <button onClick={() => onSend({ w: head, r: reading, m: e.s[0][1][0], id: e.i })} style={{
-              font: `600 0.875rem ${T.uiFont}`, background: T.ink, color: T.paper,
-              border: `1px solid ${T.ink}`, borderRadius: 6, padding: "10px 18px", cursor: "pointer",
-            }}>Send to Vocabulary</button>
+            <button onClick={() => onSend({ w: head, r: reading, m: e.s[0][1][0], id: e.i })}
+                    className="ts-btn ts-btn-wood" style={{ width: "100%" }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
+              Send to Vocabulary
+            </button>
             <p style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, margin: "8px 0 0" }}>
               It joins your reviews there. Practise five words of your own in a week
               and the week is kept, even on fewer study days.
@@ -441,14 +441,15 @@ function Entry({ id, onBack, onKanji, myWords, onSend, onUnsend }) {
           <Label>THE KANJI IN IT</Label>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {kanjiIn.map((c) => (
-              <button key={c} onClick={() => onKanji(c)} style={{
-                font: `1.5rem ${T.jpFont}`, color: T.ink, background: T.sheet, cursor: "pointer",
-                border: `1px solid ${T.hairline}`, borderRadius: 8, width: 52, height: 52,
+              <button key={c} onClick={() => onKanji(c)} aria-label={`The kanji ${c}`} style={{
+                font: `1.25rem ${T.jpFont}`, color: T.ink, background: "#E4DBC6", cursor: "pointer",
+                border: 0, borderRadius: 999, minWidth: 48, minHeight: 44, padding: "0 14px",
               }}>{c}</button>
             ))}
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }
@@ -457,10 +458,7 @@ function Entry({ id, onBack, onKanji, myWords, onSend, onUnsend }) {
 function KanjiCard({ ch, info, onOpen, compact }) {
   if (!info) return null;
   return (
-    <div style={{
-      border: `1px solid ${T.hairline}`, borderRadius: 10, background: T.sheet,
-      padding: "14px 16px", marginBottom: 16,
-    }}>
+    <div className="ts-card" style={{ padding: "14px 16px", marginBottom: 16 }}>
       <div style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
         <span style={{ font: `3rem/1 ${T.jpFont}`, color: T.ink }}>{ch}</span>
         <div style={{ flex: 1, minWidth: 0 }}>
@@ -602,9 +600,9 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
         </div>
       )}
       {!drawer && (
-        <header style={{ marginBottom: 16 }}>
-          <h1 style={{ font: `600 1.375rem ${T.uiFont}`, color: T.ink, margin: "0 0 4px" }}>Dictionary</h1>
-          <p style={{ font: `0.875rem ${T.uiFont}`, color: T.sub, margin: 0 }}>
+        <header style={{ marginBottom: 12 }}>
+          {/* The shell header already says じしょ Dictionary; the line stays. */}
+          <p style={{ font: `0.875rem ${T.uiFont}`, color: "#4A463D", margin: 0 }}>
             Look up a word in Japanese or English. Keep the ones worth keeping.
           </p>
         </header>
@@ -620,9 +618,11 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
           onChange={(e) => { setQ(e.target.value); setOpen(null); setKanjiView(null); }}
           placeholder="食べる · たべる · taberu · eat"
           style={{
-            width: "100%", boxSizing: "border-box", minHeight: 44, padding: "10px 14px", borderRadius: 12,
-            border: 0, boxShadow: "inset 0 0 0 1.5px #D9CFB8", background: "#FFFDF7", color: T.ink,
-            font: `1.0625rem ${T.jpFont}`,
+            // Board 10: a 52px field in Shippori 18px; the drawer keeps 44.
+            width: "100%", boxSizing: "border-box", minHeight: drawer ? 44 : 52, padding: "0 16px",
+            borderRadius: drawer ? 12 : 14, border: 0,
+            boxShadow: "inset 0 0 0 1.5px #D9CFB8, 0 2px 0 #CFC4A8", background: "#FFFDF7", color: T.ink,
+            font: `${drawer ? "1.0625rem" : "1.125rem"} ${T.jpFont}`,
           }}
         />
       </label>
@@ -686,9 +686,9 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                   {onScreen.map((w) => (
                     <button key={w} onClick={() => setQ(w)} style={{
-                      font: `1.0625rem ${T.jpFont}`, color: T.ink, background: T.sheet,
-                      border: `1px solid ${T.hairline}`, borderRadius: 999,
-                      padding: "6px 14px", cursor: "pointer",
+                      font: `1.0625rem ${T.jpFont}`, color: T.ink, background: "#FBF7EE",
+                      border: 0, boxShadow: "inset 0 0 0 1.5px #D9CFB8, 0 2px 0 #CFC4A8", borderRadius: 999,
+                      minHeight: 40, padding: "0 14px", cursor: "pointer",
                     }}>{w}</button>
                   ))}
                 </div>

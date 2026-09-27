@@ -7,6 +7,7 @@ import { T } from "../lib/tokens.js";
 import { StrokePractice } from "../lib/strokeEngine.jsx";
 import { loadJSON, saveJSON } from "../lib/json.js";
 import { STROKES } from "../lib/strokeData.js";
+import { ShellSlot } from "../lib/shell.jsx";
 import "../data/strokes-vocabulary.js";
 installStorage();
 
@@ -2229,15 +2230,13 @@ function Review({ items, known, onOpen, onUnlearn }) {
     <div>
       <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Find a word"
              aria-label="Find a word" style={{
-        width: "100%", boxSizing: "border-box", font: `0.9375rem ${T.uiFont}`, padding: "9px 12px",
-        borderRadius: 8, border: `1px solid ${T.hairline}`, background: T.sheet,
-        color: T.ink, marginBottom: 14,
+        width: "100%", boxSizing: "border-box", font: `0.9375rem ${T.uiFont}`, padding: "0 14px",
+        minHeight: 44, borderRadius: 12, border: 0, boxShadow: "inset 0 0 0 1.5px #D9CFB8, 0 2px 0 #CFC4A8",
+        background: "#FFFDF7", color: T.ink, marginBottom: 14,
       }} />
+      <div className="ts-list">
       {shown.map(({ word }) => (
-        <div key={word.w} style={{
-          display: "flex", alignItems: "center", gap: 12, padding: "11px 14px",
-          border: `1px solid ${T.hairline}`, borderRadius: 10, marginBottom: 8, background: T.sheet,
-        }}>
+        <div key={word.w} className="ts-word" style={{ cursor: "default" }}>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ color: T.ink, lineHeight: 1.9 }}>
               <WordText word={word} known={known} size={20} />
@@ -2250,12 +2249,21 @@ function Review({ items, known, onOpen, onUnlearn }) {
             </div>
           </div>
           <button onClick={() => onOpen({ word, pend: [] })} style={linkBtn}>practise</button>
-          <button onClick={() => onUnlearn(word)} style={{ ...linkBtn, color: T.shu }}>unlearn</button>
+          <button onClick={() => onUnlearn(word)} style={{ ...linkBtn, color: "#4A463D" }}>unlearn</button>
         </div>
       ))}
+      </div>
     </div>
   );
 }
+
+
+// ————— ShellSlot (tatami rework) —————
+// Stand-alone this renders its children where they are. Inside the app,
+// build-vite-app.py swaps it for lib/shell.jsx, which puts them in the shell's
+// slot of that name — the index tabs under the header, the header's かな/漢字
+// toggle — so every section's chrome is built once. Identical in every module.
+
 
 // ————— Small pieces —————
 const p14 = { font: `0.875rem/1.6 ${T.uiFont}`, color: T.ink, margin: "0 0 4px" };
@@ -2270,10 +2278,11 @@ function stepShort(s) {
   return m ? `Step ${m[1]}` : s;
 }
 function Note({ children }) {
+  // Tatami rework: the gold left-bar card (the WORTH KNOWING component).
   return (
-    <p style={{
-      font: `0.8125rem/1.6 ${T.uiFont}`, color: T.ink, background: T.noteBg,
-      border: `1px solid ${T.note}`, borderRadius: 8, padding: "9px 12px", margin: "10px 0 0",
+    <p className="ts-tier" style={{
+      "--tier": "#907119", font: `0.8125rem/1.6 ${T.uiFont}`, color: "#2C2A26",
+      padding: "10px 14px 10px 18px", margin: "10px 0 0",
     }}>{children}</p>
   );
 }
@@ -2284,7 +2293,7 @@ const linkBtn = {
 
 function Shell({ children }) {
   return (
-    <div style={{ background: T.paper, minHeight: "100%", padding: "22px 18px 60px" }}>
+    <div style={{ background: T.paper, minHeight: "100%", padding: "16px 16px 60px" }}>
       <div style={{ maxWidth: 560, margin: "0 auto" }}>{children}</div>
     </div>
   );
@@ -2301,75 +2310,71 @@ function Stat({ label, value, accent }) {
   );
 }
 function Tabs({ view, setView, reviewCount }) {
+  // Paper index tabs, hung under the shell header (board 09).
   const tab = (id, label) => (
-    <button onClick={() => setView(id)} style={{
-      background: "none", border: "none", cursor: "pointer", padding: "8px 2px", marginRight: 18,
-      font: `${view === id ? 600 : 400} 0.9375rem ${T.uiFont}`,
-      color: view === id ? T.ink : T.sub,
-      borderBottom: `2px solid ${view === id ? T.ink : "transparent"}`,
-    }}>{label}</button>
+    <button role="tab" aria-selected={view === id} onClick={() => setView(id)}>{label}</button>
   );
   return (
-    <nav style={{ borderBottom: `1px solid ${T.hairline}`, marginBottom: 18 }}>
-      {tab("today", "New")}
-      {tab("review", reviewCount ? "Review" : "Review")}
-    </nav>
+    <ShellSlot name="tabs">
+      <div className="ts-tabs" role="tablist" aria-label="Vocabulary">
+        {tab("today", "New")}
+        {tab("review", "Review")}
+      </div>
+    </ShellSlot>
   );
 }
 function Queue({ title, hint, items, onOpen, badge, known }) {
   if (!items.length) return null;
   return (
     <section style={{ marginBottom: 22 }}>
-      <h2 style={{ font: `600 0.9375rem ${T.uiFont}`, color: T.ink, margin: "0 0 2px" }}>
+      {/* Tatami rework (board 09): a label, the one-line why, then the words
+          as .ts-word rows on one washi list. */}
+      <h2 className="ts-label" style={{ color: "#4A463D", margin: "0 0 2px", display: "flex", alignItems: "center", gap: 8, textTransform: "uppercase" }}>
         {title}
         {badge && <span style={{
-          marginLeft: 8, background: T.note, color: T.sheet, borderRadius: 999,
-          padding: "1px 8px", font: `600 0.6875rem ${T.uiFont}`, verticalAlign: "middle",
+          background: "#907119", color: "#FFF8EC", borderRadius: 999, letterSpacing: 0,
+          padding: "1px 8px", font: `700 0.6875rem ${T.uiFont}`,
         }}>more</span>}
       </h2>
-      <p style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, margin: "0 0 10px" }}>{hint}</p>
-      {items.map(({ word, pend }) => (
-        <button key={word.w} onClick={() => onOpen({ word, pend })} style={{
-          display: "flex", alignItems: "center", gap: 12, width: "100%", textAlign: "left",
-          padding: "12px 14px", border: `1px solid ${T.hairline}`, borderRadius: 10,
-          marginBottom: 8, background: T.sheet, cursor: "pointer",
-        }}>
-          <span style={{ color: T.ink, lineHeight: 1.9 }}><WordText word={word} known={known} size={22} /></span>
-          <span style={{ flex: 1, font: `0.8125rem ${T.uiFont}`, color: T.sub }}>{word.m}</span>
-          {pend.length > 0 && (
-            <span style={{ font: `1.125rem ${T.jpFont}`, color: T.note }}>{pend.join("")}</span>
-          )}
-        </button>
-      ))}
+      <p style={{ font: `0.8125rem ${T.uiFont}`, color: "#4A463D", margin: "0 0 8px" }}>{hint}</p>
+      <div className="ts-list">
+        {items.map(({ word, pend }) => (
+          <button key={word.w} className="ts-word" onClick={() => onOpen({ word, pend })}>
+            <span style={{ lineHeight: 1.9 }}><WordText word={word} known={known} size={20} /></span>
+            <span style={{ flex: 1, textAlign: "right", font: `0.8125rem ${T.uiFont}`, color: "#4A463D" }}>{word.m}</span>
+            {pend.length > 0 && (
+              <span style={{ font: `1.125rem ${T.jpFont}`, color: "#907119" }}>{pend.join("")}</span>
+            )}
+          </button>
+        ))}
+      </div>
     </section>
   );
 }
 function Card({ title, children }) {
   return (
-    <section style={{
-      background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 12,
-      padding: "18px 18px 20px", marginBottom: 14,
-    }}>
-      <h2 style={{ font: `600 0.9375rem ${T.uiFont}`, color: T.ink, margin: "0 0 8px" }}>{title}</h2>
+    <section className="ts-card" style={{ padding: "16px 18px 18px", marginBottom: 14 }}>
+      <h2 className="ts-label" style={{ margin: "0 0 10px", textTransform: "uppercase" }}>{title}</h2>
       {children}
     </section>
   );
 }
+// Tatami rework: Primary is lacquer, Secondary is wood (the design kit's two
+// pressed kinds). Sized for inline use — the pinned full-width lacquer is the
+// shell's .ts-pin, used where a screen has one thing to do next.
 function Primary({ children, onClick }) {
-  return <button onClick={onClick} style={{
-    background: T.ink, color: T.sheet, border: "none", borderRadius: 8,
-    padding: "10px 18px", font: `600 0.875rem ${T.uiFont}`, cursor: "pointer",
+  return <button onClick={onClick} className="ts-btn ts-btn-shu" style={{
+    display: "inline-flex", minHeight: 48, padding: "0 20px", fontSize: "0.9375rem",
   }}>{children}</button>;
 }
 function Secondary({ children, onClick }) {
-  return <button onClick={onClick} style={{
-    background: T.sheet, color: T.ink, border: `1px solid ${T.hairline}`, borderRadius: 8,
-    padding: "10px 18px", font: `500 0.875rem ${T.uiFont}`, cursor: "pointer",
+  return <button onClick={onClick} className="ts-btn ts-btn-wood" style={{
+    display: "inline-flex", minHeight: 46, padding: "0 18px", fontSize: "0.9375rem",
   }}>{children}</button>;
 }
 function Empty({ children }) {
   return <p style={{
-    font: `0.875rem ${T.uiFont}`, color: T.sub, background: T.sheet, borderRadius: 10,
-    border: `1px dashed ${T.hairline}`, padding: "18px 16px", textAlign: "center",
+    font: `0.875rem/1.6 ${T.uiFont}`, color: "#4A463D", background: "#FFFDF7", borderRadius: 12,
+    boxShadow: "inset 0 0 0 1.5px #D9CFB8", padding: "18px 16px", textAlign: "center",
   }}>{children}</p>;
 }

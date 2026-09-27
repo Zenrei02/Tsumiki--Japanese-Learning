@@ -840,7 +840,8 @@ export default function App() {
           tatami as the boards show. At dusk a section gets a lantern-lit washi
           ground instead — the modules draw their own text in day ink, and
           ink on dark tatami would be unreadable. */}
-      <main style={{ maxWidth: active === "home" || active === "room" ? 520 : 900, margin: "0 auto",
+      <main className={active === "home" || active === "room" ? undefined : "ts-modroot"}
+            style={{ maxWidth: active === "home" || active === "room" ? 520 : 900, margin: "0 auto",
                      "--ts-accent": place.accent,
                      ...(active === "home" || active === "room" ? null : {
                        background: "var(--ts-module-ground)", minHeight: "calc(100vh - 56px)",
