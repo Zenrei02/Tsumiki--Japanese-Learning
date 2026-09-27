@@ -68,5 +68,28 @@ export const SKIN_CSS = `:root{
 .ts-stone{width:14px;height:14px;border-radius:50% 50% 45% 45%;background:#8E8A80;box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
 .ts-stone.done{background:#2F6F6B}
 .ts-stone.here{width:18px;height:18px;background:#C7351B;box-shadow:0 0 0 3px #F6EBD2,0 0 0 5px #C9A24A}
+/* ── The shared module shell (docs/design/rework/07–10) ──────────────────────
+   Built once: every section gets the same paper index tabs under the header,
+   the same pinned lacquer button, the same inner boxes and word rows. The
+   modules only say WHAT goes in them. */
+.ts-tabs{display:flex;gap:6px;box-sizing:border-box;max-width:900px;margin:0 auto;padding:10px 16px 0;overflow-x:auto;scrollbar-width:none}
+.ts-tabs::-webkit-scrollbar{display:none}
+.ts-tabs button{flex-shrink:0;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.875rem;min-height:40px;padding:0 14px;border-radius:10px 10px 0 0;background:#E4DBC6;color:#6E6A60;box-shadow:inset 0 -2px 0 rgba(60,45,20,.12)}
+.ts-tabs button[aria-selected="true"]{background:#FBF7EE;color:#2C2A26;box-shadow:inset 0 1.5px 0 #D9CFB8,inset 1.5px 0 0 #D9CFB8,inset -1.5px 0 0 #D9CFB8}
+.ts-tabs button:focus-visible{outline:3px solid var(--ts-ring);outline-offset:-3px}
+.ts-pin{position:sticky;bottom:calc(12px + env(safe-area-inset-bottom, 0px));z-index:5;margin-top:18px}
+.ts-label{font-size:0.6875rem;font-weight:700;letter-spacing:.08em;color:#6E6A60}
+.ts-on-tatami{color:var(--ts-on-tatami)}
+.ts-inset{border-radius:12px;background:#FFFDF7;box-shadow:inset 0 0 0 1.5px #D9CFB8;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.ts-list{border-radius:14px;padding:6px;background-color:#FBF7EE;box-shadow:inset 0 0 0 1.5px #D9CFB8;display:flex;flex-direction:column}
+.ts-word{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:10px;background:none;border:0;cursor:pointer;font-family:inherit;text-align:left;color:#2C2A26;width:100%;box-sizing:border-box;min-height:44px}
+.ts-word:hover{background:rgba(217,207,184,.35)}
+.ts-pop{text-decoration:underline dotted var(--ts-accent,#8A5A3B);text-underline-offset:5px;cursor:pointer}
+.ts-tile{display:flex;align-items:center;justify-content:center;box-sizing:border-box;border:0;border-radius:8px;cursor:pointer;font-family:var(--ts-jp);font-weight:700;font-size:1.25rem;min-height:52px;color:#2C2A26;background-color:#FBF7EE;box-shadow:inset 0 0 0 1.5px #D9CFB8,0 3px 0 #CFC4A8;transition:transform .08s ease}
+.ts-tile:active{transform:translateY(2px)}
+.ts-tile.done{color:#FFF8EC;background-color:var(--ts-accent,#9C8BC4);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 var(--ts-block-lip)}
+.ts-tile.now{color:#FFF8EC;background-color:#C7351B;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #7E1F0F,0 0 0 3px #F6EBD2,0 0 0 5px #C9A24A}
+.ts-module{display:flex;flex-direction:column;gap:14px;box-sizing:border-box;max-width:720px;margin:0 auto;padding:16px 16px 28px}
+@media (max-width: 430px){ header:has(#ts-slot-header > *) .ts-head-en{display:none} }
 @media (prefers-reduced-motion: reduce){.ts-glow,.ts-rise{animation:none}}
 `;

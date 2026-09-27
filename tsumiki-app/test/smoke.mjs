@@ -336,7 +336,8 @@ await go("grammar", null, [], {
     const learnTab = btns().find(x => (x.textContent || "").trim().startsWith("Learn"));
     if (learnTab) {
       learnTab.click(); await wait();
-      const pager = btns().some(b => (b.textContent || "").includes("Next →"));
+      // Tatami rework: the pager's Next is the pinned lacquer "Next 次へ".
+      const pager = btns().some(b => /^Next\s*次へ$/.test((b.textContent || "").trim()));
       log(`walkthrough pager: ${pager ? "ok" : "❌ MISSING"}`);
       if (!pager) f(`${NAME}: deep lesson Learn is not the walkthrough pager`);
     }

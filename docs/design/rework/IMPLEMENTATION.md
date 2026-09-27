@@ -19,6 +19,10 @@ Read `CLAUDE.md` at the project root first. Everything in it still applies.
 | `04-lesson-done.html` | Grammar lesson finished — the one "excited" screen |
 | `05-kanji-dictionary-bar.html` | Kanji study with the dictionary bar slid out from the right |
 | `06-room.html` | Room (planned module) with a mini-game overlay — design reference only, do not build |
+| `07-hiragana-trace.html` | Hiragana module, Trace tab — Katakana is identical with ア-row content |
+| `08-grammar-learn.html` | Grammar lesson, Learn tab |
+| `09-vocabulary-review.html` | Vocabulary, Review card |
+| `10-dictionary.html` | Dictionary as its own module |
 
 Four alternative skins live in `../skins/`; they are unlock candidates, not part of this work.
 
@@ -159,11 +163,20 @@ Header: lesson-type mark (28px rounded square, Shippori glyph 文/技/街/復 on
 
 Unify the stroke-order and furigana rendering so Vocabulary gets what Kanji and the kana modules already have: the stroke box is 132px, `#FFFDF7` with the washi hairline inset, dashed centre guides `#E4DBC6`, strokes 7px round-capped, current stroke in the module accent, future strokes `#C4BBD8`, stroke numbers 10px bold `#C7351B`. Words use `<ruby>` with `rt` at .5em `#6E6A60`; tappable words get `data-lookup` as today.
 
+## Inside every learning module (07–10)
+
+Shared shell, so build it once: header with the 3px accent rule + back arrow + Japanese name / English name (+ かな/漢字 toggle where the module shows kanji — never in the kana modules); a row of **paper index tabs** directly under it (`.tabs` in the files: unselected `#E4DBC6`, selected washi, radius top-only 10px, 40px tall) replacing every module's current underline tabs; content on tatami in washi cards; the module's one lacquer button pinned at the bottom (`margin-top:auto`); the じしょ edge tab everywhere.
+
+- **Kana modules (07):** stroke box 220px, `#FFFDF7` with dashed centre guides; finished strokes ink, the guide stroke `#C4BBD8`, the learner's live stroke 朱 with a 5px dot at the pen. Characters of the lesson as a 5-column row of `.tile`s — done = hiragana-purple face on a wooden lip, current = lacquer with the gold ring, untouched = washi. Buttons: wood Clear, lacquer Next つぎ. No kanji anywhere on these screens, including labels.
+- **Grammar Learn (08):** lesson-type mark + title + Stage line; "WHAT IT DOES" washi card holding the `what` text and example sentences as inner `#FFFDF7` boxes (ruby + dotted `data-lookup` underlines, the target pattern in the module accent); the `watch` text becomes a gold left-bar card labelled WATCH OUT (same component as WORTH KNOWING). Lacquer button: "Got it — to the drill 練習".
+- **Vocabulary Review (09):** stepping-stone path at the top (position, not a count); a tall washi card — small stroke box, big ruby word, dashed rule, then meaning + example on reveal; wood "Not yet" / lacquer "Knew it 知ってる"; "AFTER THIS" queue list below using `.word` rows. The New tab uses the same rows for the existing queues (Your words / New / More to practise / Due).
+- **Dictionary (10):** 52px washi search field in Shippori 18px + a draw-a-kanji button; entry card with the word in 30px ruby, meaning, a chip per kanji with its gloss, an inner example box, sound + wood "Send to Vocabulary"; "ALSO" list of neighbours. The drawer in 05 is this same module in drawer mode.
+
 ## Phases — one deploying push each
 
 1. **Tokens, fonts, textures, buttons, Home.** Generator + shell only. Ship when `npm run dev` matches `01-home-day.html`.
 2. **Checker and lesson-done.** `checker-module.jsx`, `grammar-module.jsx`.
-3. **Kanji/vocab unification and the dictionary tab/drawer.**
+3. **Kana, Grammar Learn, Kanji/vocab unification, and the dictionary tab/drawer/module** (07–10 plus 05).
 4. **Dark mode** as a token flip, following `02-home-dark.html`.
 
 Docs-only and script-only pushes are free and can go any time.

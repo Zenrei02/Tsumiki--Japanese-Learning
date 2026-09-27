@@ -6,6 +6,7 @@ import { installStorage } from "../lib/storage.js";
 import { T } from "../lib/tokens.js";
 import { StrokeView, samplePath, scoreStroke, tolerancesFor, thinPoints, useStrokeData, StrokePractice, LOG_PTS, STROKE_BOX, TOL, TRACE_N } from "../lib/strokeEngine.jsx";
 import { STROKES } from "../lib/strokeData.js";
+import { ShellSlot } from "../lib/shell.jsx";
 import "../data/strokes-katakana.js";
 installStorage();
 
@@ -2234,6 +2235,14 @@ function Flourish({ title, detail, milestone, nextLabel, onNext, onAgain }) {
   );
 }
 
+
+// ————— ShellSlot (tatami rework) —————
+// Stand-alone this renders its children where they are. Inside the app,
+// build-vite-app.py swaps it for lib/shell.jsx, which puts them in the shell's
+// slot of that name — the index tabs under the header, the header's かな/漢字
+// toggle — so every section's chrome is built once. Identical in every module.
+
+
 // ————— Module shell —————
 function Module({ mod, idx, progress, onProgress, onBack }) {
   const isCulture = mod.kind === "culture";
@@ -2291,25 +2300,19 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
       )}
 
       {tabs.length > 1 && (
-      <div style={{ display: "flex", gap: 6, margin: "16px 0", flexWrap: "wrap" }}>
+      <ShellSlot name="tabs">
+        {/* Paper index tabs (board 07). No numbers on them: a tab says where
+            you can go, and a count there reads as workload. */}
+        <div className="ts-tabs" role="tablist" aria-label="Lesson activities">
           {tabs.map(([id, label]) => (
-            <button key={id} onClick={() => setTab(id)} style={{
-              padding: "7px 16px", borderRadius: 999, fontSize: "0.8125rem", cursor: "pointer", fontFamily: T.uiFont,
-              background: tab === id ? T.ink : "none", color: tab === id ? T.paper : T.sub,
-              border: `1px solid ${tab === id ? T.ink : T.hairline}`,
-            }}>
-              {label}
-              {id === "drill" && p.drill != null ? ` · ${p.drill}` : ""}
-                {id === "listen" && p.heard ? ` · ${p.heard}` : ""}
-              {id === "trace" && p.traced ? ` · ${p.traced.length}` : ""}
-              {id === "judge" && p.judged != null ? ` · ${p.judged}` : ""}
-            </button>
+            <button key={id} role="tab" aria-selected={tab === id} onClick={() => setTab(id)}>{label}</button>
           ))}
         </div>
+      </ShellSlot>
       )}
       {tabs.length === 1 && <div style={{ height: 16 }} />}
 
-      <div style={{ background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 8, padding: 20 }}>
+      <div className={tab === "trace" ? undefined : "ts-card"} style={tab === "trace" ? { marginTop: 4 } : { padding: 20, marginTop: 4 }}>
         {tab === "learn" && <Learn mod={mod} progress={progress} onProgress={onProgress}
           onPractise={(c) => { setTraceFocus(c); setTab("trace"); }}
           onFinish={isCulture ? null : () => setTab(isSkill ? "judge" : "drill")}

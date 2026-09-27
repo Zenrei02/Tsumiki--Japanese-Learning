@@ -768,11 +768,14 @@ export default function App() {
         // A RULE UNDER THE STICKY HEADER, not a frame around the viewport: a
         // four-sided border costs real width on a phone. Home keeps the plain
         // hairline — it is not a section and should not claim one's colour.
-        boxShadow: active === "home"
-          ? "0 1px 0 var(--ts-header-line)"
-          : `0 1px 0 var(--ts-header-line), inset 0 -3px 0 ${place.accent}`,
+        boxShadow: "0 1px 0 var(--ts-header-line)",
         position: "sticky", top: 0, zIndex: 10,
       }}>
+        {/* The accent rule belongs to the header ROW, so a module's index tabs
+            (the tabs slot below) hang underneath it, as on boards 07–10. */}
+        <div style={{
+          boxShadow: active === "home" ? "none" : `inset 0 -3px 0 ${place.accent}`,
+        }}>
         <div style={{
           maxWidth: 900, margin: "0 auto", minHeight: 56, boxSizing: "border-box",
           padding: "6px 8px", display: "flex", alignItems: "center", gap: 4,
@@ -796,16 +799,23 @@ export default function App() {
               <button className="ts-icon" onClick={() => go("home")} aria-label="Back to home">{ICON.back}</button>
               <div style={{ display: "flex", alignItems: "baseline", gap: 10, minWidth: 0, flex: 1 }}>
                 <span style={{ font: `700 1.5rem/1 ${T.jpFont}`, whiteSpace: "nowrap", color: "var(--ts-header-ink)" }}>{place.jp}</span>
-                <span style={{
+                <span className="ts-head-en" style={{
                   font: `700 0.9375rem ${T.uiFont}`, color: "var(--ts-header-sub)", whiteSpace: "nowrap",
                   overflow: "hidden", textOverflow: "ellipsis",
                 }}>{place.label}</span>
               </div>
+              {/* Slot: a module's header control — the かな/漢字 toggle where the
+                  module shows kanji (never in the kana modules). */}
+              <div id="ts-slot-header" style={{ display: "contents" }} />
               {ambienceBtn}
               {menuBtn}
             </>
           )}
         </div>
+        </div>
+        {/* Slot: a module's paper index tabs, hung under the accent rule. Kept
+            inside the sticky header so they stay reachable while reading. */}
+        {active !== "home" && <div id="ts-slot-tabs" />}
       </header>
 
       <Drawer open={menuOpen} close={closeMenu} active={active} go={go}

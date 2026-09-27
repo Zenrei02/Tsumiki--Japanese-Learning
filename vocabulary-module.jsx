@@ -1426,7 +1426,7 @@ function StrokePractice({ chars, modId, progress, onProgress, startCh }) {
   const paths = (ch && STROKES[ch]) || [];
   const refs = useMemo(() => paths.map((d) => samplePath(d, TRACE_N)), [ch]);
   const stage = TRACE_STAGES[stageIdx];
-  const SIZE = 260;
+  const SIZE = 220;
   const SC = SIZE / STROKE_BOX;
 
   useEffect(() => { setStrokeIdx(0); setDrawn([]); setFeedback(null); setHint(false); }, [ch, stageIdx]);
@@ -1439,13 +1439,14 @@ function StrokePractice({ chars, modId, progress, onProgress, startCh }) {
     if (cv.width !== SIZE * dpr) { cv.width = SIZE * dpr; cv.height = SIZE * dpr; }
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
     g.clearRect(0, 0, SIZE, SIZE);
-    g.fillStyle = T.sheet; g.fillRect(0, 0, SIZE, SIZE);
-    g.strokeStyle = T.hairline; g.lineWidth = 1;
+    // Washi box, dashed centre guides (tatami rework, board 07). The frame
+    // is the canvas's CSS box-shadow, so it is not painted here.
+    g.fillStyle = "#FFFDF7"; g.fillRect(0, 0, SIZE, SIZE);
+    g.strokeStyle = "#E4DBC6"; g.lineWidth = 1;
     g.setLineDash([4, 4]);
     g.beginPath(); g.moveTo(SIZE/2, 0); g.lineTo(SIZE/2, SIZE);
     g.moveTo(0, SIZE/2); g.lineTo(SIZE, SIZE/2); g.stroke();
     g.setLineDash([]);
-    g.strokeRect(0.5, 0.5, SIZE-1, SIZE-1);
 
     const poly = (pts, colour, w) => {
       if (pts.length < 2) return;
@@ -1456,10 +1457,17 @@ function StrokePractice({ chars, modId, progress, onProgress, startCh }) {
     };
 
     // Ghost of the current stroke: always on Trace, on request everywhere else.
-    if ((stage.id === "trace" || hint) && refs[strokeIdx]) poly(refs[strokeIdx], "#DEDCD4", 13);
-    if (stage.id !== "blank") for (let i = 0; i < strokeIdx; i++) if (refs[i]) poly(refs[i], "#C9C7BF", 11);
-    drawn.forEach((s) => poly(s, T.ink, 11));
-    if (currentRef.current.length) poly(currentRef.current, T.shu, 11);
+    // Guide stroke 藤 #C4BBD8; finished strokes ink; the live stroke 朱 with a
+    // dot at the pen, so a finger never hides where the line has got to.
+    if ((stage.id === "trace" || hint) && refs[strokeIdx]) poly(refs[strokeIdx], "#C4BBD8", 13);
+    if (stage.id !== "blank") for (let i = 0; i < strokeIdx; i++) if (refs[i]) poly(refs[i], "#E4DBC6", 11);
+    drawn.forEach((s) => poly(s, "#2C2A26", 11));
+    const live = currentRef.current;
+    if (live.length) {
+      poly(live, T.shu, 11);
+      const [px, py] = live[live.length - 1];
+      g.fillStyle = T.shu; g.beginPath(); g.arc(px*SC, py*SC, 5, 0, Math.PI * 2); g.fill();
+    }
   };
 
   useEffect(redraw, [ch, stageIdx, strokeIdx, drawn, refs, hint]);
@@ -1551,76 +1559,96 @@ function StrokePractice({ chars, modId, progress, onProgress, startCh }) {
     ? feedback.tier === "fix" ? T.shu : feedback.tier === "unnatural" ? T.ai : T.ok
     : T.sub;
   const doneSet = new Set((progress[modId] || {}).traced || []);
+  const tracedAny = (c) => TRACE_STAGES.some((s) => doneSet.has(c + ":" + s.id));
+  const at = chars.indexOf(ch);
+  const nextCh = at >= 0 && at + 1 < chars.length ? chars[at + 1] : null;
+  const clear = () => { setStrokeIdx(0); setDrawn([]); setFeedback(null); setHint(false); };
 
+  // Tatami rework (docs/design/rework/07-hiragana-trace.html). One washi card
+  // holds the box and what you are drawing; the lesson's characters sit below
+  // as tiles (done = the section's accent on a wooden lip, current = lacquer
+  // with the gold ring, untouched = washi); wood Clear and lacquer Next つぎ are
+  // pinned at the bottom. Nothing here is kanji, so the kana modules can use it
+  // as-is: the labels are English and kana only.
   return (
-    <div>
-      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
-        {chars.map((c) => (
-          <button key={c} onClick={() => setCh(c)} style={{
-            fontFamily: T.jpFont, fontSize: "1.375rem", padding: "6px 12px", borderRadius: 4, cursor: "pointer",
-            background: ch === c ? T.ink : T.sheet, color: ch === c ? T.paper : T.ink,
-            border: `1px solid ${ch === c ? T.ink : T.hairline}`,
-          }}>{c}</button>
-        ))}
-      </div>
-
-      <div style={{ display: "flex", gap: 6, marginBottom: 10, flexWrap: "wrap" }}>
-        {TRACE_STAGES.map((s, i) => (
-          <button key={s.id} onClick={() => setStageIdx(i)} style={{
-            border: `1px solid ${stageIdx === i ? T.ink : T.hairline}`, borderRadius: 999,
-            background: stageIdx === i ? T.ink : "none", color: stageIdx === i ? T.paper : T.sub,
-            fontSize: "0.75rem", padding: "5px 14px", cursor: "pointer", fontFamily: "inherit",
-          }}>
-            {s.label}{doneSet.has(ch + ":" + s.id) ? " ✓" : ""}
-          </button>
-        ))}
-      </div>
-      <p style={{ fontSize: "0.8125rem", color: T.sub, margin: "0 0 12px" }}>{stage.blurb}</p>
-
-      <div style={{ display: "flex", gap: 20, flexWrap: "wrap", alignItems: "flex-start" }}>
-        <div>
-          <canvas
-            ref={canvasRef}
-            onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up}
-            style={{
-              width: SIZE, height: SIZE, border: `1px solid ${T.hairline}`, borderRadius: 4,
-              background: T.sheet, touchAction: "none", cursor: "crosshair", display: "block",
-            }}
-            aria-label={`Writing box for ${ch}`}
-          />
-          <div style={{ display: "flex", gap: 8, marginTop: 10, flexWrap: "wrap" }}>
-            <button className="btn-ghost" onClick={() => { setStrokeIdx(0); setDrawn([]); setFeedback(null); setHint(false); }}>
-              Start over
-            </button>
-            {!finished && stage.id !== "trace" && (
-              <button className="btn-ghost" onClick={() => setHint(true)} disabled={hint}>
-                {hint ? "Stroke shown" : "Help me"}
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <div className="ts-card" style={{ padding: "14px 18px 12px", display: "flex", flexDirection: "column", gap: 10, alignItems: "center" }}>
+        <div style={{ alignSelf: "stretch", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+          <span className="ts-label">{stage.label.toUpperCase()}</span>
+          <div className="ts-seg" role="group" aria-label="How much help">
+            {TRACE_STAGES.map((s, i) => (
+              <button key={s.id} onClick={() => setStageIdx(i)} aria-pressed={stageIdx === i}
+                      style={{ minHeight: 34, fontSize: "0.8125rem", padding: "0 12px" }}>
+                {s.label}{doneSet.has(ch + ":" + s.id) ? " ✓" : ""}
               </button>
-            )}
+            ))}
           </div>
         </div>
+        <p style={{ alignSelf: "stretch", fontSize: "0.8125rem", color: "#4A463D", margin: 0 }}>{stage.blurb}</p>
+        <canvas
+          ref={canvasRef}
+          onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up}
+          style={{
+            width: SIZE, height: SIZE, maxWidth: "100%", borderRadius: 12,
+            boxShadow: "inset 0 0 0 1.5px #D9CFB8, 0 0 0 1.5px #D9CFB8",
+            background: "#FFFDF7", touchAction: "none", cursor: "crosshair", display: "block",
+          }}
+          aria-label={`Writing box for ${ch}`}
+        />
+        <div style={{ alignSelf: "stretch", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+          <span style={{ fontFamily: T.jpFont, fontSize: "2.125rem", fontWeight: 700, lineHeight: 1 }}>{ch}</span>
+          <span style={{ fontSize: "0.875rem", color: "#4A463D" }}>
+            {finished ? "Finished" : `Stroke ${strokeIdx + 1} of ${paths.length}`}
+          </span>
+          {!finished && stage.id !== "trace" ? (
+            <button className="ts-btn ts-btn-washi" onClick={() => setHint(true)} disabled={hint}
+                    style={{ minHeight: 40, fontSize: "0.8125rem" }}>
+              {hint ? "Stroke shown" : "Help me"}
+            </button>
+          ) : <span />}
+        </div>
+        {feedback && (
+          <p role="status" style={{ alignSelf: "stretch", fontSize: "0.875rem", lineHeight: 1.6, color: tierColour, margin: 0 }}>
+            {feedback.msg}
+          </p>
+        )}
+        {hint && !finished && (
+          <p style={{ alignSelf: "stretch", fontSize: "0.75rem", color: "#6E6A60", margin: 0 }}>
+            Just this stroke. It clears once you land it.
+          </p>
+        )}
+      </div>
 
-        <div style={{ flex: 1, minWidth: 190 }}>
-          <div style={{ fontSize: "0.8125rem", color: T.sub, marginBottom: 8 }}>
-            {finished ? "Finished." : `Stroke ${strokeIdx + 1} of ${paths.length}`}
+      {chars.length > 1 && (
+        <>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <span className="ts-label ts-on-tatami">THIS LESSON</span>
+            <span className="ts-on-tatami" style={{ fontSize: "0.75rem" }}>tap to trace</span>
           </div>
-          {feedback && (
-            <p style={{ fontSize: "0.875rem", lineHeight: 1.6, color: tierColour, margin: "0 0 12px" }}>
-              {feedback.msg}
-            </p>
-          )}
-          {hint && !finished && (
-            <p style={{ fontSize: "0.75rem", color: T.sub, margin: "0 0 12px" }}>
-              Just this stroke. It clears once you land it.
-            </p>
-          )}
-          <StrokeView ch={ch} size={110} numbers auto={false} />
-          {!tol.calibrated && (
-            <p style={{ fontSize: "0.6875rem", color: T.sub, marginTop: 10 }}>
-              Still learning your handwriting — tolerance loosens or tightens to suit your hand and device.
-            </p>
-          )}
-        </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: 10 }}>
+            {chars.map((c) => (
+              <button key={c} onClick={() => setCh(c)} aria-pressed={ch === c}
+                      className={"ts-tile" + (ch === c ? " now" : tracedAny(c) ? " done" : "")}>{c}</button>
+            ))}
+          </div>
+        </>
+      )}
+
+      <div className="ts-card" style={{ padding: "12px 16px", display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
+        <StrokeView ch={ch} size={96} numbers auto={false} />
+        {!tol.calibrated && (
+          <p style={{ flex: "1 1 160px", fontSize: "0.75rem", color: "#4A463D", margin: 0, lineHeight: 1.6 }}>
+            Still learning your handwriting — tolerance loosens or tightens to suit your hand and device.
+          </p>
+        )}
+      </div>
+
+      <div className="ts-pin" style={{ display: "flex", gap: 12 }}>
+        <button className="ts-btn ts-btn-wood" onClick={clear} style={{ flex: 1 }}>Clear</button>
+        <button className="ts-btn ts-btn-shu" onClick={() => nextCh ? setCh(nextCh) : clear()}
+                disabled={!nextCh && !finished} style={{ flex: 2 }}>
+          {nextCh ? <>Next <span style={{ fontFamily: T.jpFont, fontWeight: 600 }}>つぎ</span></> : "Again"}
+        </button>
       </div>
     </div>
   );

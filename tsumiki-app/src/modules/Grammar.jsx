@@ -4,6 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import { installStorage } from "../lib/storage.js";
 import { T } from "../lib/tokens.js";
+import { ShellSlot } from "../lib/shell.jsx";
 installStorage();
 
 // ————— Design tokens (same family as the checker) —————
@@ -8073,6 +8074,14 @@ const BEATS = [
 const expText = (exp) =>
   typeof exp === "string" ? exp : BEATS.map(([k]) => exp[k]).filter(Boolean).join(" ");
 
+
+// ————— ShellSlot (tatami rework) —————
+// Stand-alone this renders its children where they are. Inside the app,
+// build-vite-app.py swaps it for lib/shell.jsx, which puts them in the shell's
+// slot of that name — the index tabs under the header, the header's かな/漢字
+// toggle — so every section's chrome is built once. Identical in every module.
+
+
 function Explanation({ exp, mode, onTapWord }) {
   if (!exp) return null;
   if (typeof exp === "string") {
@@ -8085,14 +8094,19 @@ function Explanation({ exp, mode, onTapWord }) {
   const beats = BEATS.filter(([k]) => exp[k]);
   return (
     <div>
-      {beats.map(([k, label], i) => (
+      {beats.map(([k, label], i) => k === "watch" ? (
+        // Tatami rework (board 08): the gold left-bar card — the same
+        // component as the Checker's WORTH KNOWING, because it is the same
+        // kind of thing: not wrong, but worth knowing before you write.
+        <div key={k} className="ts-tier" style={{ "--tier": "#907119", marginTop: i === 0 ? 0 : 18 }}>
+          <span style={{ fontSize: "0.6875rem", fontWeight: 900, letterSpacing: ".08em", color: "#907119" }}>{label}</span>
+          <p style={{ fontSize: "0.875rem", lineHeight: 1.6, margin: 0, color: "#4A463D" }}>
+            <JPText text={exp[k]} mode={mode} onTap={onTapWord} />
+          </p>
+        </div>
+      ) : (
         <div key={k} style={{ marginTop: i === 0 ? 0 : 18 }}>
-          <div style={{
-            fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".6px",
-            color: k === "watch" ? T.shu : T.sub, marginBottom: 5,
-          }}>
-            {label}
-          </div>
+          <div className="ts-label" style={{ marginBottom: 5 }}>{label}</div>
           <p style={{ fontSize: "0.9375rem", lineHeight: 1.75, margin: 0 }}>
             <JPText text={exp[k]} mode={mode} onTap={onTapWord} />
           </p>
@@ -8694,7 +8708,7 @@ function HL({ text, hl, mode, onTap }) {
   return (
     <>
       <JPText text={text.slice(0, i)} mode={mode} onTap={onTap} />
-      <span style={{ color: T.shu, fontWeight: 600 }}><JPText text={hl} mode={mode} onTap={onTap} /></span>
+      <strong style={{ color: "#2F6F6B", fontWeight: 700 }}><JPText text={hl} mode={mode} onTap={onTap} /></strong>
       <JPText text={text.slice(i + hl.length)} mode={mode} onTap={onTap} />
     </>
   );
@@ -8753,19 +8767,24 @@ function Walkthrough({ point, deep, progress, onProgress, mode, onTapWord, goTab
   }, [page, point.id]);
 
   const H = ({ children }) => (
-    <div style={{ fontSize: "0.6875rem", fontWeight: 600, letterSpacing: ".6px", color: T.sub, marginBottom: 8 }}>{children}</div>
+    <div className="ts-label" style={{ marginBottom: 8 }}>{children}</div>
   );
+  // Tatami rework (board 08): each example is an inner #FFFDF7 box inside the
+  // washi card, the pattern in the section's teal.
   const exBox = ([jp, en], i, hl) => (
-    <div key={i} style={{ marginTop: 12, paddingLeft: 14, borderLeft: `3px solid ${T.hairline}` }}>
-      <div style={{ fontFamily: T.jpFont, fontSize: "1.125rem", lineHeight: 1.9 }}>
+    <div key={i} className="ts-inset" style={{ marginTop: 12 }}>
+      <div style={{ fontFamily: T.jpFont, fontSize: "1.25rem", lineHeight: 1.6 }}>
         <HL text={jp} hl={hl} mode={mode} onTap={onTapWord} />
       </div>
-      <div style={{ fontSize: "0.8125rem", color: T.sub }}>{en}</div>
+      <div style={{ fontSize: "0.8125rem", color: "#4A463D" }}>{en}</div>
     </div>
   );
+  const last = cur >= pages.length - 1;
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      {page !== "watch" && (
+      <div className="ts-card" style={{ padding: "16px 18px", display: "flex", flexDirection: "column" }}>
       {page === "setting" && (
         <div>
           <H>THE SITUATION</H>
@@ -8789,8 +8808,11 @@ function Walkthrough({ point, deep, progress, onProgress, mode, onTapWord, goTab
       )}
       {page === "idea" && (
         <div>
-          <H>THE IDEA</H>
-          <p style={{ fontSize: "0.9375rem", lineHeight: 1.75, marginTop: 0 }}><JPText text={exp.what || ""} mode={mode} onTap={onTapWord} /></p>
+          <H>WHAT IT DOES</H>
+          <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, marginTop: 0 }}><JPText text={exp.what || ""} mode={mode} onTap={onTapWord} /></p>
+          {/* The first example sits under the idea, as on board 08, so the
+              rule is never on screen without a sentence that uses it. */}
+          {point.ex[0] && exBox(point.ex[0], "idea", deep.hl)}
           {exp.when && (
             <>
               <H>WHEN YOU'D USE IT</H>
@@ -8833,52 +8855,67 @@ function Walkthrough({ point, deep, progress, onProgress, mode, onTapWord, goTab
           {deep.note && <p style={{ fontSize: "0.8125rem", color: T.sub, marginTop: 12 }}>{deep.note}</p>}
         </div>
       )}
-      {page === "watch" && (
-        <div>
-          <H><span style={{ color: T.shu }}>THE WRINKLES</span></H>
-          {exp.watch && <p style={{ fontSize: "0.9375rem", lineHeight: 1.75, marginTop: 0 }}><JPText text={exp.watch} mode={mode} onTap={onTapWord} /></p>}
-          {leftover.map(([w, i]) => (
-            <div key={i} style={{ marginTop: 14 }}>
-              <p style={{ fontSize: "0.9375rem", lineHeight: 1.75, margin: 0 }}><JPText text={w.t} mode={mode} onTap={onTapWord} /></p>
-              {w.jp && exBox([w.jp, w.en], i, w.hl)}
-            </div>
-          ))}
-        </div>
-      )}
+
       {page === "try" && (
-        <div style={{ textAlign: "center", padding: "10px 0" }}>
+        <div style={{ textAlign: "center", padding: "6px 0" }}>
           <div style={{ fontFamily: T.jpFont, fontSize: "1.625rem", marginBottom: 8 }}>{point.jp}</div>
           <p style={{ fontSize: "0.875rem", color: T.sub, maxWidth: 420, margin: "0 auto 18px", lineHeight: 1.7 }}>
             You've seen it, seen it taken apart, and seen its edges. Now it's yours:
             first with the training wheels on, then free.
           </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 300, margin: "0 auto" }}>
-            {deep.drill && (
-              <button className="btn-primary" style={{ padding: "12px 20px" }} onClick={() => goTab("drill")}>
-                Fill in the blanks →
-              </button>
-            )}
-            <button className="btn-ghost" style={{ padding: "10px 20px" }} onClick={() => goTab("practice")}>
-              Write your own sentence →
-            </button>
-          </div>
         </div>
       )}
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 22, paddingTop: 14, borderTop: `1px solid ${T.hairline}` }}>
-        <button className="btn-ghost" style={{ visibility: cur > 0 ? "visible" : "hidden", padding: "10px 18px" }} onClick={() => setPi(Math.max(0, cur - 1))}>
-          ← Back
-        </button>
-        <div style={{ flex: 1, display: "flex", justifyContent: "center", gap: 6 }}>
-          {pages.map((p, i) => (
-            <button key={p} onClick={() => setPi(i)} aria-label={`page ${i + 1}`} style={{
-              width: 8, height: 8, borderRadius: 999, border: "none", cursor: "pointer", padding: 0,
-              background: i === cur ? T.ink : T.hairline,
-            }} />
+      </div>
+      )}
+
+      {page === "watch" && (
+        // WATCH OUT (board 08): the gold left-bar card, the same component as
+        // the Checker's WORTH KNOWING. Wrinkles an extension did not claim
+        // follow in the same card.
+        <div className="ts-tier" style={{ "--tier": "#907119", padding: "14px 16px 14px 20px" }}>
+          <span style={{ fontSize: "0.6875rem", fontWeight: 900, letterSpacing: ".08em", color: "#907119" }}>WATCH OUT</span>
+          {exp.watch && <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, margin: 0, color: "#2C2A26" }}><JPText text={exp.watch} mode={mode} onTap={onTapWord} /></p>}
+          {leftover.map(([w, i]) => (
+            <div key={i} style={{ marginTop: 10 }}>
+              <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, margin: 0, color: "#2C2A26" }}><JPText text={w.t} mode={mode} onTap={onTapWord} /></p>
+              {w.jp && exBox([w.jp, w.en], i, w.hl)}
+            </div>
           ))}
         </div>
-        <button className="btn-primary" style={{ visibility: cur < pages.length - 1 ? "visible" : "hidden", padding: "10px 18px" }} onClick={() => setPi(Math.min(pages.length - 1, cur + 1))}>
-          Next →
-        </button>
+      )}
+
+      {/* The pager, pinned (board 08). Position, never a count: small stones
+          you can tap. One lacquer button — Next while there is more to read,
+          then "Got it — to the drill 練習" on the last page. */}
+      <div className="ts-pin" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 8 }}>
+          {pages.map((p, i) => (
+            <button key={p} onClick={() => setPi(i)} aria-label={`page ${i + 1}`}
+                    className={"ts-stone" + (i < cur ? " done" : i === cur ? " here" : "")}
+                    style={{ border: "none", cursor: "pointer", padding: 0 }} />
+          ))}
+        </div>
+        <div style={{ display: "flex", gap: 12 }}>
+          {cur > 0 && (
+            <button className="ts-btn ts-btn-wood" style={{ flex: 1 }} onClick={() => setPi(Math.max(0, cur - 1))}>← Back</button>
+          )}
+          {!last ? (
+            <button className="ts-btn ts-btn-shu" style={{ flex: 2 }} onClick={() => setPi(Math.min(pages.length - 1, cur + 1))}>
+              Next <span style={{ fontFamily: T.jpFont, fontWeight: 600 }}>次へ</span>
+            </button>
+          ) : deep.drill ? (
+            <button className="ts-btn ts-btn-shu" style={{ flex: 2 }} onClick={() => goTab("drill")}>
+              Got it — to the drill <span style={{ fontFamily: T.jpFont, fontWeight: 600 }}>練習</span>
+            </button>
+          ) : (
+            <button className="ts-btn ts-btn-shu" style={{ flex: 2 }} onClick={() => goTab("practice")}>
+              Write your own sentence
+            </button>
+          )}
+        </div>
+        {last && deep.drill && (
+          <button className="ts-btn ts-btn-washi" onClick={() => goTab("practice")}>Write your own sentence instead</button>
+        )}
       </div>
     </div>
   );
@@ -9485,39 +9522,44 @@ function Module({ point, progress, onProgress, onBack, onOpen, isDone, mode, onT
     );
   }
 
+  // Tatami rework (board 08): lesson-type mark + title + Stage line, the same
+  // header the lesson-done screen uses.
+  const lvlHere = group ? LEVELS.find((l) => l.id === group.level) : null;
+  const refHere = lvlHere && /N\d/.exec(lvlHere.jlpt || "");
   return (
     <div>
-      <button className="btn-ghost" onClick={onBack} style={{ marginBottom: 16 }}>← All grammar points</button>
-      <div style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
-        <h2 style={{ fontFamily: T.jpFont, fontSize: "1.625rem", margin: 0 }}>{point.jp}</h2>
-        <span style={{ fontSize: "0.875rem", color: T.sub }}>{point.en}</span>
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-          <KindMarker kind={point.kind} script={script} />
-          <span style={{ fontSize: "0.75rem", color: T.sub }}>{kind.label}</span>
-        </span>
-        {/* The "Stage 2 stress test" chip retired in Session 14 — Stage 2 is
-            a real stage now; the n4 flags stay harmlessly on the old points. */}
+      <button className="ts-btn ts-btn-washi" onClick={onBack} style={{ display: "inline-flex", marginBottom: 14, minHeight: 40, fontSize: "0.8125rem" }}>← All grammar points</button>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+        <span className="ts-mark" aria-label={kind.label} title={kind.label} style={{
+          background: kind.color, display: "inline-flex", alignItems: "center", justifyContent: "center",
+          width: 28, height: 28, borderRadius: 7, color: "#FFF8EC", fontFamily: T.jpFont, fontWeight: 700,
+        }}>{kind.kanji}</span>
+        <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0 }}>
+          <span style={{ fontSize: "0.9375rem", fontWeight: 700, lineHeight: 1.25 }}>
+            {point.en} · <span style={{ fontFamily: T.jpFont }}>{point.jp}</span>
+          </span>
+          {lvlHere && (
+            <span style={{ fontSize: "0.75rem", color: "#6E6A60" }}>
+              Stage {lvlHere.title}{refHere ? <> · <span style={{ fontFamily: T.jpFont }}>日本語能力試験</span> {refHere[0]} as reference</> : null}
+            </span>
+          )}
+        </div>
       </div>
-      <div style={{ display: "flex", gap: 6, margin: "16px 0", visibility: tabs.length > 1 ? "visible" : "hidden", height: tabs.length > 1 ? "auto" : 0 }}>
-        {tabs.map(([id, label]) => (
-          <button
-            key={id}
-            onClick={() => setTab(id)}
-            style={{
-              padding: "7px 16px", borderRadius: 999, fontSize: "0.8125rem", cursor: "pointer", fontFamily: T.uiFont,
-              background: tab === id ? T.ink : "none", color: tab === id ? T.paper : T.sub,
-              border: `1px solid ${tab === id ? T.ink : T.hairline}`,
-            }}
-          >
-            {label}
-            {id === "quiz" && p.quizBest != null ? ` · ${p.quizBest}/${p.quizTotal}` : ""}
-            {id === "drill" && p.drillBest != null ? ` · ${p.drillBest}/${p.drillTotal}` : ""}
-            {id === "practice" && p.practiced ? ` · ${p.practiced}` : ""}
-            {id === "build" && p.bestElements != null ? ` · ${p.bestElements}/${p.elementTotal}` : ""}
-          </button>
-        ))}
-      </div>
-      <div style={{ background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 8, padding: 20 }}>
+      {tabs.length > 1 && (
+        <ShellSlot name="tabs">
+          {/* Paper index tabs (board 08). No scores on them — a tab says where
+              you can go; the scores live on the lesson-done screen. */}
+          <div className="ts-tabs" role="tablist" aria-label="Lesson activities">
+            {tabs.map(([id, label]) => (
+              <button key={id} role="tab" aria-selected={tab === id} onClick={() => setTab(id)}>{label}</button>
+            ))}
+          </div>
+        </ShellSlot>
+      )}
+      {/* The staged Learn brings its own washi cards and pinned pager; every
+          other tab sits on one washi sheet. */}
+      <div className={tab === "learn" && deep && deep.seg ? undefined : "ts-card"}
+           style={tab === "learn" && deep && deep.seg ? undefined : { padding: 20 }}>
         {tab === "learn" && deep && deep.seg && (
           <Walkthrough point={point} deep={deep} progress={progress} onProgress={onProgress} mode={mode} onTapWord={onTapWord} goTab={setTab} />
         )}
@@ -9818,30 +9860,23 @@ export default function GrammarPractice() {
         textarea:focus, input:focus, button:focus-visible { outline: 2px solid ${T.ai}; outline-offset: 2px; }
         ${COMPLETE_CSS}
       `}</style>
-      <div style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px 80px" }}>
-        <header style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 6 }}>
-          <div style={{ fontFamily: T.jpFont, fontSize: "2.125rem", color: T.shu, lineHeight: 1 }}>学</div>
-          <div>
-            <div style={{ fontSize: "1.25rem", fontWeight: 600 }}>Grammar Practice</div>
-            <div style={{ fontSize: "0.8125rem", color: T.sub }}>
-              {level ? `Stage ${level.title} · ${level.subtitle} (${level.jlpt})` : "Pick your stage · learn → quiz → write"}
-            </div>
-          </div>
-          <div style={{ marginLeft: "auto", display: "flex", border: `1px solid ${T.hairline}`, borderRadius: 999, overflow: "hidden" }} role="group" aria-label="Kanji display mode">
+      <div style={{ maxWidth: 720, margin: "0 auto", padding: "18px 16px 80px" }}>
+        {/* Tatami rework: the shell header already says ぶんぽう Grammar, so the
+            in-page 学 title went. The stage line stays; the かな/漢字 toggle
+            moves up into the header (board 08). */}
+        <div style={{ fontSize: "0.8125rem", color: "#4A463D" }}>
+          {level ? `Stage ${level.title} · ${level.subtitle} (${level.jlpt})` : "Pick your stage · learn → quiz → write"}
+        </div>
+        <ShellSlot name="header">
+          <div className="ts-seg" role="group" aria-label="Kanji display mode" style={{ flexShrink: 0 }}>
             {[["kana", "かな"], ["kanji", "漢字"]].map(([m, label]) => (
-              <button
-                key={m}
-                onClick={() => setMode(m)}
-                style={{
-                  border: "none", cursor: "pointer", fontFamily: T.jpFont, fontSize: "0.8125rem", padding: "6px 12px",
-                  background: kanjiMode === m ? T.ink : "none", color: kanjiMode === m ? T.paper : T.sub,
-                }}
-              >
+              <button key={m} onClick={() => setMode(m)} aria-pressed={kanjiMode === m}
+                      style={{ fontFamily: T.jpFont, minHeight: 34, padding: "0 10px" }}>
                 {label}
               </button>
             ))}
           </div>
-        </header>
+        </ShellSlot>
         <div style={{ height: 1, background: T.hairline, margin: "18px 0 22px" }} />
 
         {challenge ? (
