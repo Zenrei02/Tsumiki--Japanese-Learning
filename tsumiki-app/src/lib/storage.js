@@ -115,6 +115,10 @@ export const KEYS = [
   // those words in its own key above. Without this line a sent word would live
   // on one device and silently vanish from every other.
   "tsumiki-my-words-v1",
+  // Session 36: the dictionary's Recent tab — every entry the learner opened,
+  // newest first. Written only by the dictionary module; exported so the list
+  // follows them between devices like the rest of their study.
+  "tsumiki-dict-recent-v1",
 ];
 
 // ————— Which account this device has already joined —————

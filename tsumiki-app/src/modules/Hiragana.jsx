@@ -2194,6 +2194,9 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
     Array.from(p).every((c) => padChars.has(c))
   );
   const [tab, setTab] = useState("learn");
+  // The recorded kana (speech synthesis where a sound has none), handed to
+  // the shared Trace screen so its sound button plays the character (board 07).
+  const kanaAudio = useKanaAudio();
   const [traceFocus, setTraceFocus] = useState(null);   // set by "Try drawing it"
   useEffect(() => { setTab("learn"); setTraceFocus(null); }, [mod.id]);
   const p = progress[mod.id] || {};
@@ -2257,7 +2260,8 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
         )}
         {tab === "trace" && (
           <div>
-            <StrokePractice chars={traceChars} modId={mod.id} progress={progress} onProgress={onProgress} startCh={traceFocus} />
+            <StrokePractice chars={traceChars} modId={mod.id} progress={progress} onProgress={onProgress} startCh={traceFocus}
+                            onSound={(c) => kanaAudio.play(c)} canSound={(c) => kanaAudio.canPlay(c)} />
             {pairChars.length > 0 && (
               <PairPractice pairs={pairChars} modId={mod.id} progress={progress} onProgress={onProgress} />
             )}

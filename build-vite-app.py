@@ -184,8 +184,11 @@ def brace_span(text, pat):
 
 
 def fn_span(text, name):
-    i = text.find("function " + name)
-    if i < 0: return None
+    # Whole-name match: a prefix match ("function resample") also caught the
+    # dictionary's resamplePts and stripped it — a ReferenceError at draw time.
+    m = re.search(r"function " + re.escape(name) + r"\s*\(", text)
+    if not m: return None
+    i = m.start()
     p = text.index("(", i); d, q = 1, p + 1
     while d:
         if text[q] == "(": d += 1

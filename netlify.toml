@@ -55,6 +55,13 @@
     Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
+  for = "/draw/*"
+  [headers.values]
+    # The dictionary's draw-a-kanji stroke table (build-draw-strokes.py). Not
+    # fingerprinted; it only changes when KanjiVG or the jōyō list does.
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
   for = "/audio/*"
   [headers.values]
     # The kana sprite is not fingerprinted. A week is long enough to spare

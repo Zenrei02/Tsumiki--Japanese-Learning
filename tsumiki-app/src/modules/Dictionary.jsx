@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { installStorage } from "../lib/storage.js";
 import { T } from "../lib/tokens.js";
 import { loadJSON, saveJSON } from "../lib/json.js";
+import { ShellSlot } from "../lib/shell.jsx";
 installStorage();
 
 // ————— Dictionary module (Session 34) —————
@@ -334,8 +335,220 @@ function PreviewRow({ p, top, onOpen }) {
   );
 }
 
+// ————— ShellSlot (tatami rework) —————
+// Stand-alone this renders its children where they are. Inside the app,
+// build-vite-app.py swaps it for lib/shell.jsx, which puts them in the shell's
+// slot of that name — the index tabs under the header, the header's かな/漢字
+// toggle — so every section's chrome is built once. Identical in every module.
+
+
+// ————— recent lookups (board 10's Recent tab) —————
+// Every entry the learner actually opens, newest first, 40 kept. Stored with the
+// learner's other data (storage.js KEYS) so it follows them between devices.
+const RECENT_KEY = "tsumiki-dict-recent-v1";
+const RECENT_MAX = 40;
+
+// ————— hearing a word —————
+// There are no recordings for dictionary words, so this is the browser's own
+// Japanese voice, reading the KANA — a reading, never a guess from kanji. Only
+// offered where the browser has speech synthesis at all.
+const CAN_SAY = typeof window !== "undefined" && "speechSynthesis" in window;
+function sayJP(text) {
+  try {
+    const s = window.speechSynthesis;
+    s.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "ja-JP"; u.rate = 0.9;
+    const v = s.getVoices().find((x) => /^ja/i.test(x.lang));
+    if (v) u.voice = v;
+    s.speak(u);
+  } catch (e) { /* no voice, no sound — the button is a convenience */ }
+}
+
+// ————— draw a kanji (board 10) —————
+// The learner draws; the drawing is compared stroke by stroke, in order, with
+// KanjiVG's strokes for the 2,136 jōyō kanji, and the closest characters are
+// offered. Order-aware on purpose: tsumiki teaches stroke order, and a matcher
+// that ignored it would reward the habit the kanji module exists to fix.
+//
+// The table (build-draw-strokes.py) is fetched only when the pad opens — 760 KB
+// gzipped is fine for someone who asked to draw, and wrong for everyone who
+// did not. Everything is in 109×109 KanjiVG units, normalised to the drawing's
+// own bounding box so a small or off-centre character still matches.
+const DRAW_URL = "/draw/strokes-joyo-v1.json";
+const DRAW_N = 16;
+let DRAW_TABLE = null;
+const DRAW_REFS = new Map();
+async function loadDrawTable() {
+  if (!DRAW_TABLE) {
+    const r = await fetch(DRAW_URL);
+    if (!r.ok) throw new Error("draw-missing");
+    DRAW_TABLE = (await r.json()).strokes;
+  }
+  return DRAW_TABLE;
+}
+let _drawSvg = null;
+function pathPoints(d, n) {
+  if (!_drawSvg) {
+    const ns = "http://www.w3.org/2000/svg";
+    _drawSvg = document.createElementNS(ns, "svg");
+    _drawSvg.setAttribute("style", "position:absolute;width:0;height:0;visibility:hidden");
+    _drawSvg.appendChild(document.createElementNS(ns, "path"));
+    document.body.appendChild(_drawSvg);
+  }
+  const p = _drawSvg.firstChild;
+  p.setAttribute("d", d);
+  const len = p.getTotalLength ? p.getTotalLength() : 0;
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    const pt = p.getPointAtLength((len * i) / (n - 1));
+    out.push([pt.x, pt.y]);
+  }
+  return out;
+}
+function resamplePts(pts, n) {
+  if (pts.length < 2) return Array.from({ length: n }, () => pts[0] || [0, 0]);
+  const acc = [0];
+  for (let i = 1; i < pts.length; i++) acc.push(acc[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+  const total = acc[acc.length - 1] || 1;
+  const out = []; let j = 0;
+  for (let k = 0; k < n; k++) {
+    const t = (total * k) / (n - 1);
+    while (j < acc.length - 2 && acc[j + 1] < t) j++;
+    const seg = acc[j + 1] - acc[j] || 1, f = (t - acc[j]) / seg;
+    out.push([pts[j][0] + (pts[j + 1][0] - pts[j][0]) * f, pts[j][1] + (pts[j + 1][1] - pts[j][1]) * f]);
+  }
+  return out;
+}
+function normalise(strokes) {
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const s of strokes) for (const [x, y] of s) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
+  const size = Math.max(x1 - x0, y1 - y0, 1e-6), cx = (x0 + x1) / 2, cy = (y0 + y1) / 2;
+  return strokes.map((s) => s.map(([x, y]) => [(x - cx) / size, (y - cy) / size]));
+}
+function refStrokes(ch, paths) {
+  if (!DRAW_REFS.has(ch)) DRAW_REFS.set(ch, normalise(paths.map((d) => pathPoints(d, DRAW_N))));
+  return DRAW_REFS.get(ch);
+}
+function recognise(table, drawn) {
+  const n = drawn.length;
+  if (!n) return [];
+  const mine = normalise(drawn.map((s) => resamplePts(s, DRAW_N)));
+  const scored = [];
+  for (const [ch, paths] of Object.entries(table)) {
+    if (Math.abs(paths.length - n) > 1) continue;
+    const ref = refStrokes(ch, paths);
+    const k = Math.min(n, ref.length);
+    let sum = 0;
+    for (let i = 0; i < k; i++) {
+      let d = 0;
+      for (let p = 0; p < DRAW_N; p++) d += Math.hypot(mine[i][p][0] - ref[i][p][0], mine[i][p][1] - ref[i][p][1]);
+      sum += d / DRAW_N;
+    }
+    scored.push([ch, sum / k + 0.12 * Math.abs(ref.length - n)]);
+  }
+  return scored.sort((a, b) => a[1] - b[1]).slice(0, 10).map(([ch]) => ch);
+}
+
+function DrawPad({ onPick, onClose }) {
+  const SIZE = 240;
+  const [strokes, setStrokes] = useState([]);   // in 109-box units
+  const [cands, setCands] = useState([]);
+  const [state, setState] = useState("loading"); // loading | ready | missing
+  const table = useRef(null);
+  const cv = useRef(null);
+  const live = useRef(null);
+
+  useEffect(() => {
+    let alive = true;
+    loadDrawTable().then((t) => { if (alive) { table.current = t; setState("ready"); } })
+      .catch(() => alive && setState("missing"));
+    return () => { alive = false; };
+  }, []);
+
+  const redraw = () => {
+    const c = cv.current; if (!c) return;
+    const g = c.getContext("2d"), dpr = window.devicePixelRatio || 1;
+    if (c.width !== SIZE * dpr) { c.width = SIZE * dpr; c.height = SIZE * dpr; }
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.fillStyle = "#FFFDF7"; g.fillRect(0, 0, SIZE, SIZE);
+    g.strokeStyle = "#E4DBC6"; g.lineWidth = 1; g.setLineDash([4, 4]);
+    g.beginPath(); g.moveTo(SIZE / 2, 0); g.lineTo(SIZE / 2, SIZE); g.moveTo(0, SIZE / 2); g.lineTo(SIZE, SIZE / 2); g.stroke();
+    g.setLineDash([]);
+    const sc = SIZE / 109;
+    const line = (pts, col) => {
+      if (pts.length < 2) return;
+      g.strokeStyle = col; g.lineWidth = 9; g.lineCap = "round"; g.lineJoin = "round";
+      g.beginPath(); g.moveTo(pts[0][0] * sc, pts[0][1] * sc);
+      for (const [x, y] of pts.slice(1)) g.lineTo(x * sc, y * sc);
+      g.stroke();
+    };
+    strokes.forEach((s) => line(s, "#2C2A26"));
+    if (live.current) line(live.current, T.shu);
+  };
+  useEffect(redraw, [strokes]);
+  useEffect(() => {
+    if (state !== "ready") return;
+    // Off the pointer path: matching ~450 characters takes a moment the first
+    // time (their strokes are sampled once and kept).
+    const t = setTimeout(() => setCands(recognise(table.current, strokes)), 30);
+    return () => clearTimeout(t);
+  }, [strokes, state]);
+
+  const at = (e) => {
+    const r = cv.current.getBoundingClientRect();
+    return [((e.clientX - r.left) / r.width) * 109, ((e.clientY - r.top) / r.height) * 109];
+  };
+  const down = (e) => { e.currentTarget.setPointerCapture?.(e.pointerId); live.current = [at(e)]; redraw(); };
+  const move = (e) => { if (!live.current) return; live.current.push(at(e)); redraw(); };
+  const up = () => {
+    const s = live.current; live.current = null;
+    if (s && s.length > 1) setStrokes((x) => [...x, s]); else redraw();
+  };
+
+  return (
+    <div className="ts-card" style={{ padding: "14px 16px", margin: "12px 0 0", display: "flex", flexDirection: "column", gap: 10, alignItems: "center" }}>
+      <div style={{ alignSelf: "stretch", display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 10 }}>
+        <span className="ts-label">DRAW A KANJI</span>
+        <span style={{ font: `0.75rem ${T.uiFont}`, color: "#4A463D" }}>Stroke order counts.</span>
+      </div>
+      <canvas ref={cv} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up}
+              aria-label="Drawing pad — draw one kanji"
+              style={{ width: SIZE, height: SIZE, maxWidth: "100%", borderRadius: 12, touchAction: "none",
+                       boxShadow: "inset 0 0 0 1.5px #D9CFB8, 0 0 0 1.5px #D9CFB8", background: "#FFFDF7", cursor: "crosshair" }} />
+      {state === "missing" && (
+        <p style={{ font: `0.8125rem ${T.uiFont}`, color: "#4A463D", margin: 0 }}>
+          Drawing needs the stroke data that ships with the full app.
+        </p>
+      )}
+      {state === "ready" && strokes.length > 0 && (
+        <div aria-label="Closest kanji" style={{ alignSelf: "stretch", display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: 8 }}>
+          {cands.map((c) => (
+            <button key={c} className="ts-tile" onClick={() => onPick(c)} aria-label={`Search for ${c}`}>{c}</button>
+          ))}
+        </div>
+      )}
+      {state === "ready" && !strokes.length && (
+        <p style={{ font: `0.8125rem ${T.uiFont}`, color: "#4A463D", margin: 0 }}>
+          Draw one character; the closest matches appear as you go. Tap one to search for it.
+        </p>
+      )}
+      <div style={{ alignSelf: "stretch", display: "flex", gap: 10 }}>
+        <button className="ts-btn ts-btn-wood" style={{ flex: 1, minHeight: 44 }} disabled={!strokes.length}
+                onClick={() => setStrokes((x) => x.slice(0, -1))}>Undo</button>
+        <button className="ts-btn ts-btn-washi" style={{ flex: 1 }} disabled={!strokes.length}
+                onClick={() => setStrokes([])}>Clear</button>
+        <button className="ts-btn ts-btn-washi" style={{ flex: 1 }} onClick={onClose}>Close</button>
+      </div>
+      <p style={{ alignSelf: "stretch", font: `0.6875rem ${T.uiFont}`, color: "#6E6A60", margin: 0 }}>
+        Stroke data: KanjiVG (Ulrich Apel), CC BY-SA 3.0.
+      </p>
+    </div>
+  );
+}
+
 // ————— the entry —————
-function Entry({ id, onBack, onKanji, myWords, onSend, onUnsend }) {
+function Entry({ id, onBack, onKanji, myWords, onSend, onUnsend, onSeen }) {
   const [e, setE] = useState(null);
   const [err, setErr] = useState(false);
   useEffect(() => {
@@ -344,6 +557,14 @@ function Entry({ id, onBack, onKanji, myWords, onSend, onUnsend }) {
     shard("f", String(id)).then((x) => { if (alive) { x ? setE(x) : setErr(true); } }).catch(() => alive && setErr(true));
     return () => { alive = false; };
   }, [id]);
+
+  // Recent lookups: an entry counts once it has actually loaded.
+  useEffect(() => {
+    if (!e || !onSeen) return;
+    const w = [...e.k].sort((a, b) => b[1] - a[1])[0]?.[0] || [...e.r].sort((a, b) => b[1] - a[1])[0][0];
+    const r = [...e.r].sort((a, b) => b[1] - a[1])[0][0];
+    onSeen({ id: e.i ?? id, w, r, m: e.s[0][1][0] });
+  }, [e]);
 
   if (err) return <p style={{ color: T.sub, font: `0.875rem ${T.uiFont}` }}>That entry could not be loaded.</p>;
   if (!e) return <p style={{ color: T.sub, font: `0.875rem ${T.uiFont}` }}>Loading…</p>;
@@ -416,6 +637,12 @@ function Entry({ id, onBack, onKanji, myWords, onSend, onUnsend }) {
       <div style={{ marginTop: 14 }}>
         {mine ? (
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+            {CAN_SAY && (
+              <button onClick={() => sayJP(reading)} className="ts-btn ts-btn-washi" aria-label={`Hear ${reading}`}
+                      style={{ width: 44, padding: 0 }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4z" /><path d="M15 9a4 4 0 010 6" /></svg>
+              </button>
+            )}
             <span style={{ font: `600 0.875rem ${T.uiFont}`, color: T.ink }}>In your words ✓</span>
             <span style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub, flex: 1 }}>Waiting in Vocabulary.</span>
             <button onClick={() => onUnsend(head)} className="ts-btn ts-btn-washi"
@@ -423,11 +650,19 @@ function Entry({ id, onBack, onKanji, myWords, onSend, onUnsend }) {
           </div>
         ) : (
           <>
+            <div style={{ display: "flex", gap: 10 }}>
+            {CAN_SAY && (
+              <button onClick={() => sayJP(reading)} className="ts-btn ts-btn-washi" aria-label={`Hear ${reading}`}
+                      style={{ width: 52, padding: 0, minHeight: 52 }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M11 5L6 9H3v6h3l5 4z" /><path d="M15 9a4 4 0 010 6" /></svg>
+              </button>
+            )}
             <button onClick={() => onSend({ w: head, r: reading, m: e.s[0][1][0], id: e.i })}
-                    className="ts-btn ts-btn-wood" style={{ width: "100%" }}>
+                    className="ts-btn ts-btn-wood" style={{ flex: 1 }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
               Send to Vocabulary
             </button>
+            </div>
             <p style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, margin: "8px 0 0" }}>
               It joins your reviews there. Practise five words of your own in a week
               and the week is kept, even on fewer study days.
@@ -517,6 +752,10 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
   const [myWords, setMyWords] = useState([]);
   const [flash, setFlash] = useState(null);
   const [autoId, setAutoId] = useState(null); // the entry a lesson's word opened
+  const [tab, setTab] = useState("search");    // search | recent | kanji (page only)
+  const [recent, setRecent] = useState([]);
+  const [knownKanji, setKnownKanji] = useState([]);
+  const [drawOpen, setDrawOpen] = useState(false);
   const onScreen = (request && request.onScreen) || [];
   const inputRef = useRef(null);
   const seq = useRef(0);
@@ -524,6 +763,15 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
   useEffect(() => {
     loadMeta().then(setMeta).catch(() => setMissing(true));
     loadJSON(MY_WORDS_KEY, []).then((v) => setMyWords(Array.isArray(v) ? v : []));
+    loadJSON(RECENT_KEY, []).then((v) => setRecent(Array.isArray(v) ? v : []));
+    loadJSON("tsumiki-known-kanji-v1", []).then((v) => setKnownKanji(Array.isArray(v) ? v : []));
+  }, []);
+  const remember = useCallback((w) => {
+    setRecent((prev) => {
+      const next = [{ ...w, at: Date.now() }, ...prev.filter((x) => x.id !== w.id)].slice(0, RECENT_MAX);
+      saveJSON(RECENT_KEY, next);
+      return next;
+    });
   }, []);
 
   const run = useCallback(async (text) => {
@@ -575,9 +823,10 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
   };
   const onUnsend = (w) => persistWords(myWords.filter((x) => x.w !== w));
   const openKanji = (ch) => {
-    setOpen(null);
+    setOpen(null); setTab("search");
     shard("k", ch).then((info) => setKanjiView({ ch, info }));
   };
+  const openEntry = (id) => { setTab("search"); setOpen(id); };
 
   const drawer = mode === "drawer";
   const body = (
@@ -610,7 +859,18 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
 
       {request?.curated && !kanjiView && (!open || open === autoId) && <Curated c={request.curated} />}
 
-      <label style={{ display: "block" }}>
+      {!drawer && (
+        <ShellSlot name="tabs">
+          {/* Paper index tabs (board 10). */}
+          <div className="ts-tabs" role="tablist" aria-label="Dictionary">
+            {[["search", "Search"], ["recent", "Recent"], ["kanji", "Kanji"]].map(([id, label]) => (
+              <button key={id} role="tab" aria-selected={tab === id} onClick={() => setTab(id)}>{label}</button>
+            ))}
+          </div>
+        </ShellSlot>
+      )}
+      <div style={{ display: "flex", gap: 10 }}>
+      <label style={{ display: "block", flex: 1, minWidth: 0 }}>
         <span style={{ position: "absolute", left: -9999 }}>Search the dictionary</span>
         <input
           ref={inputRef}
@@ -626,15 +886,66 @@ export default function DictionaryModule({ mode = "page", request = null, onClos
           }}
         />
       </label>
+        <button onClick={() => setDrawOpen((o) => !o)} aria-pressed={drawOpen} aria-label="Search by drawing a kanji"
+                className="ts-btn ts-btn-washi" style={{ width: drawer ? 44 : 52, minHeight: drawer ? 44 : 52, padding: 0, flexShrink: 0 }}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16z" /><path d="M13 7l3 3" /></svg>
+        </button>
+      </div>
+      {!drawer && (
+        <p style={{ font: `0.75rem ${T.uiFont}`, color: "#4A463D", margin: "8px 0 0" }}>
+          Japanese, romaji or English — <em>toshokan</em> works too.
+        </p>
+      )}
+      {drawOpen && (
+        <DrawPad onClose={() => setDrawOpen(false)}
+                 onPick={(c) => { setQ((x) => x + c); setOpen(null); setKanjiView(null); setTab("search"); setDrawOpen(false); }} />
+      )}
 
       <div style={{ marginTop: 16 }}>
-        {missing ? (
+        {!drawer && tab === "recent" ? (
+          recent.length ? (
+            <>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+                <Label>RECENT</Label>
+                <button className="ts-btn ts-btn-washi" style={{ minHeight: 36, fontSize: "0.8125rem" }}
+                        onClick={() => { setRecent([]); saveJSON(RECENT_KEY, []); }}>Clear</button>
+              </div>
+              {recent.map((w) => (
+                <PreviewRow key={w.id} p={[w.id, w.w, w.r !== w.w ? w.r : "", w.m, 0]} onOpen={openEntry} />
+              ))}
+            </>
+          ) : (
+            <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: "#4A463D" }}>
+              Nothing yet. Every word you open is kept here, newest first.
+            </p>
+          )
+        ) : !drawer && tab === "kanji" ? (
+          knownKanji.length ? (
+            <>
+              <Label>YOUR KANJI</Label>
+              <p style={{ font: `0.8125rem ${T.uiFont}`, color: "#4A463D", margin: "0 0 10px" }}>
+                The ones you have made yours in Kanji. Tap one for its readings and the words it is in.
+              </p>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: 10 }}>
+                {knownKanji.map((c) => (
+                  <button key={c} className="ts-tile done" style={{ "--ts-accent": "#5B4A7D" }}
+                          onClick={() => openKanji(c)} aria-label={`The kanji ${c}`}>{c}</button>
+                ))}
+              </div>
+            </>
+          ) : (
+            <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: "#4A463D" }}>
+              No kanji of your own yet — trace a character and pass Recall in Kanji and it
+              appears here. Any kanji can still be looked up: search for it, or draw it.
+            </p>
+          )
+        ) : missing ? (
           <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub }}>
             The dictionary data isn’t available here — it ships with the full app.
           </p>
         ) : open ? (
           <Entry id={open} onBack={() => setOpen(null)} onKanji={openKanji}
-                 myWords={myWords} onSend={onSend} onUnsend={onUnsend} />
+                 myWords={myWords} onSend={onSend} onUnsend={onUnsend} onSeen={remember} />
         ) : kanjiView ? (
           <>
             {q && (
