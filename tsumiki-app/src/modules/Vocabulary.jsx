@@ -1250,7 +1250,13 @@ function ownWord(entry) {
 //   5/2/1  ->  211 vocab + 132 challenge = 343/stage  ->  capstone at 1.02 stages.
 // Ratio ordering preserved (complete > kanji > sentence; sentence still the
 // best rate per unit effort). Revert = restore 10/3/2/2 on this line alone.
-const AP = { complete: 5, kanji: 2, sentence: 1, marker: 1 };
+const AP = { complete: 5, kanji: 2, sentence: 1, marker: 1, review: 1 };
+// Checked reviews (Session 36, Lloyd: "small, almost meaningless, so it still
+// gives something"). 1 per RIGHT answer, at most REVIEW_PAY_CAP a day — worst
+// case 3/day × 3 days/wk × ~4wk = 36/stage, under a tenth of the 343 above, so
+// the capstone still lands near one stage. Wrong or "Not yet" pays nothing;
+// paying for giving up would pay for the tap, not the recall.
+const REVIEW_PAY_CAP = 3;
 
 // ————— Koban icon (Session 11) —————
 // The currency shows as a coin, never as a word (Lloyd: no high-level Japanese
@@ -1763,7 +1769,16 @@ export default function VocabularyModule() {
     p.stage = o.stage;
     p.due = o.due;
     p.log = [...(p.log || []), { t: now(), via: "check", kind, ok }];
-    await persist({ ...progress, [word.w]: p }, 0);
+    // Today's paid count lives in progress._reviewPay (the "_" keeps it out of
+    // word records and first-clear stamping). Local calendar day.
+    const day = new Date().toDateString();
+    const rp = progress._reviewPay;
+    const n = rp && rp.day === day ? rp.n : 0;
+    const pay = ok && n < REVIEW_PAY_CAP ? AP.review : 0;
+    const next = { ...progress, [word.w]: p };
+    if (pay) next._reviewPay = { day, n: n + 1 };
+    await persist(next, pay);
+    return pay;
   }, [get, progress, persist]);
 
   // "I've seen this": the learner's word is enough to put a word at Seen, and
@@ -2499,9 +2514,13 @@ function ReviewCard({ word, prog, known, library, allWords, onAnswer, onNext }) 
   const [nudge, setNudge] = useState(null);
   const [retried, setRetried] = useState(false);
   const [result, setResult] = useState(null);   // { ok, gaveUp }
+  const [paid, setPaid] = useState(0);
   const scene = VOCAB_SCENES[word.w];
 
-  const settle = (ok, gaveUp = false) => { setResult({ ok, gaveUp }); setNudge(null); onAnswer(word, ok, kind); };
+  const settle = (ok, gaveUp = false) => {
+    setResult({ ok, gaveUp }); setNudge(null);
+    Promise.resolve(onAnswer(word, ok, kind)).then((p) => setPaid(p || 0));
+  };
   const check = () => {
     const ans = typedAnswer(typed);
     if (ans === "") return;
@@ -2589,6 +2608,11 @@ function ReviewCard({ word, prog, known, library, allWords, onAnswer, onNext }) 
                   : result.ok ? `Next check ${days(LADDER[o.stage])}.`
                   : bandOf(before) === "seen" ? "Back tomorrow." : "Down two steps, not to the start. Back tomorrow."}
               </span>
+              {paid > 0 && (
+                <span style={{ font: `600 0.8125rem ${T.uiFont}`, color: "#907119", display: "inline-flex", alignItems: "center", gap: 3 }}>
+                  +{paid} <KobanIcon size={11} />
+                </span>
+              )}
             </div>
           </div>
         )}

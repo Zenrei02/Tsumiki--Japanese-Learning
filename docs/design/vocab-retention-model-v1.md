@@ -191,8 +191,11 @@ never changes under the learner mid-answer.
 
 **Outcomes.** Right: up one rung, next check at that rung's interval. Wrong or "Not yet": the
 §2 lapse, **two rungs down, never below Seen**, and back **tomorrow** (the repair is
-front-loaded). "Unlearn" (§4) is still the full reset. Reviews pay no koban; the reward
-economy was left alone.
+front-loaded). "Unlearn" (§4) is still the full reset.
+
+**Koban.** A right answer pays 1, at most 3 a day (Lloyd: small, almost meaningless, so it
+still gives something). Worst case is about 36 a stage against the ~343 budget in the AP
+comment, so the capstone timing barely moves. Wrong answers and "Not yet" pay nothing.
 
 **Queues.** A check no longer waits behind writing work: a word can be due for a check and have
 kanji to practise at the same time, and it appears in both places. A practice visit resets the
