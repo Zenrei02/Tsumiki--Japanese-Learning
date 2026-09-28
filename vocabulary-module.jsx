@@ -1406,7 +1406,7 @@ const TRACE_STAGES = [
   { id: "blank",  label: "Blank",  blurb: "Nothing shown. Order is yours to get right now." },
 ];
 
-function StrokePractice({ chars, modId, progress, onProgress, startCh, onSound = null, canSound = null }) {
+function StrokePractice({ chars, modId, progress, onProgress, startCh, onSound = null, canSound = null, onFinish = null, finishLabel = null }) {
   const [ch, setCh] = useState(startCh || chars[0] || null);
   // Arriving from a character panel should land on THAT character, not reset to
   // the first one in the lesson.
@@ -1656,9 +1656,13 @@ function StrokePractice({ chars, modId, progress, onProgress, startCh, onSound =
 
       <div className="ts-pin" style={{ display: "flex", gap: 12 }}>
         <button className="ts-btn ts-btn-wood" onClick={clear} style={{ flex: 1 }}>Clear</button>
-        <button className="ts-btn ts-btn-shu" onClick={() => nextCh ? setCh(nextCh) : clear()}
-                disabled={!nextCh && !finished} style={{ flex: 2 }}>
-          {nextCh ? <>Next <span style={{ fontFamily: T.jpFont, fontWeight: 600 }}>つぎ</span></> : "Again"}
+        {/* On the last character, a host that has a next activity (the kana
+            lessons: Trace → Listen & Write) gets a way on instead of "Again" —
+            Clear beside it already does what Again did. */}
+        <button className="ts-btn ts-btn-shu" onClick={() => nextCh ? setCh(nextCh) : onFinish ? onFinish() : clear()}
+                disabled={!nextCh && !finished} style={{ flex: 2, whiteSpace: "nowrap" }}>
+          {nextCh ? <>Next <span style={{ fontFamily: T.jpFont, fontWeight: 600 }}>つぎ</span></>
+            : onFinish ? (finishLabel || "Next ›") : "Again"}
         </button>
       </div>
     </div>
