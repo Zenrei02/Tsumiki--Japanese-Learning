@@ -2308,13 +2308,16 @@ function Practice({ word, pend, prog, known, onDone, onSeen, onBack }) {
               modId={"vocab:" + word.w}
               progress={{}}
               onProgress={() => setWrote(true)}
+              onFinish={() => setStep("sentence")}
+              finishLabel="Done writing ›"
             />
           )}
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 12 }}>
-            <Primary onClick={() => setStep("sentence")}>
-              {traceable.length ? "Done writing" : "Next"}
-            </Primary>
-          </div>
+          {/* With tracing, the way on is in the pinned bar (Session 36). */}
+          {!traceable.length && (
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginTop: 12 }}>
+              <Primary onClick={() => setStep("sentence")}>Next</Primary>
+            </div>
+          )}
         </Card>
       )}
 

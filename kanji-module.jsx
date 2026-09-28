@@ -1210,12 +1210,24 @@ function StrokePractice({ chars, modId, progress, onProgress, startCh, onSound =
       </div>
 
       <div className="ts-pin" style={{ display: "flex", gap: 12 }}>
-        <button className="ts-btn ts-btn-wood" onClick={clear} style={{ flex: 1 }}>Clear</button>
-        {/* On the last character, a host that has a next activity (the kana
-            lessons: Trace → Listen & Write) gets a way on instead of "Again" —
-            Clear beside it already does what Again did. */}
+        <button className="ts-btn ts-btn-wood" onClick={clear}
+                style={onFinish && nextCh ? { flex: "0 0 auto", padding: "0 14px", fontSize: "0.875rem" } : { flex: 1 }}>Clear</button>
+        {/* Up to three buttons (Lloyd, Session 36). A host with a next activity
+            (kana: Listen & Write; kanji: Recall; vocabulary: the sentence)
+            passes onFinish, and the way on is always there: a washi button
+            beside つぎ while characters remain, the lacquer itself on the last
+            one — where "Again" used to sit, doing what Clear already does. */}
+        {onFinish && nextCh && (
+          <button className="ts-btn ts-btn-washi" onClick={onFinish}
+                  style={{ flex: "1 1 auto", whiteSpace: "nowrap", padding: "0 12px", fontSize: "0.875rem" }}>
+            {finishLabel || "Next ›"}
+          </button>
+        )}
         <button className="ts-btn ts-btn-shu" onClick={() => nextCh ? setCh(nextCh) : onFinish ? onFinish() : clear()}
-                disabled={!nextCh && !finished} style={{ flex: 2, whiteSpace: "nowrap" }}>
+                disabled={!nextCh && !finished && !onFinish}
+                style={onFinish && nextCh
+                  ? { flex: "1 1 auto", whiteSpace: "nowrap", padding: "0 12px", fontSize: "0.875rem" }
+                  : { flex: 2, whiteSpace: "nowrap" }}>
           {nextCh ? <>Next <span style={{ fontFamily: T.jpFont, fontWeight: 600 }}>つぎ</span></>
             : onFinish ? (finishLabel || "Next ›") : "Again"}
         </button>
@@ -1848,7 +1860,8 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
       )}
       {mod.kind !== "culture" && tab === "write" && (
         <StrokePractice chars={chars} modId={mod.id} progress={progress}
-                        onProgress={onProgress} startCh={writeFocus} />
+                        onProgress={onProgress} startCh={writeFocus}
+                        onFinish={() => setTab("recall")} finishLabel="Recall ›" />
       )}
       {mod.kind !== "culture" && tab === "recall" && (
         <div className="ts-card" style={{ padding: 18 }}>

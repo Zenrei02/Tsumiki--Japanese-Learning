@@ -2775,7 +2775,7 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
             <StrokePractice chars={traceChars} modId={mod.id} progress={progress} onProgress={onProgress} startCh={traceFocus}
                             onSound={(c) => kanaAudio.play(c)} canSound={(c) => kanaAudio.canPlay(c)}
                             onFinish={tabs.some(([id]) => id === "lw") ? () => setTab("lw") : onBack}
-                            finishLabel={tabs.some(([id]) => id === "lw") ? "Go to Listen & Write ›" : "← Back to lessons"} />
+                            finishLabel={tabs.some(([id]) => id === "lw") ? "Listen & Write ›" : "← Back to lessons"} />
             {pairChars.length > 0 && (
               <PairPractice pairs={pairChars} modId={mod.id} progress={progress} onProgress={onProgress} />
             )}

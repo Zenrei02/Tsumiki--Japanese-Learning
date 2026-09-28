@@ -1383,7 +1383,8 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
       )}
       {mod.kind !== "culture" && tab === "write" && (
         <StrokePractice chars={chars} modId={mod.id} progress={progress}
-                        onProgress={onProgress} startCh={writeFocus} />
+                        onProgress={onProgress} startCh={writeFocus}
+                        onFinish={() => setTab("recall")} finishLabel="Recall ›" />
       )}
       {mod.kind !== "culture" && tab === "recall" && (
         <div className="ts-card" style={{ padding: 18 }}>
