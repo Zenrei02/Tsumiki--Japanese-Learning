@@ -924,15 +924,29 @@ if (!ONLY.length || ONLY.includes("dictionary")) {
   };
   w.console.warn = () => {};
   w.addEventListener("error", e => errors.push("UNCAUGHT: " + (e.error?.message || e.message)));
-  const now = Date.now();
+  // ⚠️ THESE TIMESTAMPS MUST LAND ON TODAY'S LOCAL DATE, and an offset back
+  // from Date.now() does not (Session 38). Engagement counts the week as seven
+  // LOCAL days anchored on today, so a visit dated yesterday is outside the
+  // window and does not count. Seeded as `now - 30min` and `now - 15min`, this
+  // passed all day and then failed every run in the first half hour after local
+  // midnight — both counted visits fell on yesterday and Goals read 0.
+  //
+  // So anchor to local midnight and place the four events across the day SO
+  // FAR. Whatever the hour, they are all today, all in the past, and in the
+  // order the assertion is about. The floor keeps them distinct if the suite
+  // starts in the first milliseconds of a day.
+  const startOfDay = new Date(); startOfDay.setHours(0, 0, 0, 0);
+  const soFar = Math.max(Date.now() - startOfDay.getTime(), 4);
+  const todayAt = (f) => startOfDay.getTime() + Math.round(soFar * f);
+  const sentAt = todayAt(0.3);
   w.localStorage.setItem("tsumiki-hiragana-progress-v2", JSON.stringify({ "h-a": { seen: true } }));
-  // One word sent an hour ago, practised twice since — and one visit from
+  // One word sent earlier today, practised twice since — and one visit from
   // BEFORE it was sent, which must not count.
   w.localStorage.setItem("tsumiki-my-words-v1", JSON.stringify(
-    [{ w: "経験", r: "けいけん", m: "experience", id: 1251270, at: now - 3600e3 }]));
+    [{ w: "経験", r: "けいけん", m: "experience", id: 1251270, at: sentAt }]));
   w.localStorage.setItem("tsumiki-known-words-v1", JSON.stringify({ "経験": {
-    written: [], exposures: 3, sentences: 0, visits: 3, stage: 1, due: now + 86400e3,
-    log: [{ t: now - 7200e3, via: "interval" }, { t: now - 1800e3, via: "interval" }, { t: now - 900e3, via: "interval" }],
+    written: [], exposures: 3, sentences: 0, visits: 3, stage: 1, due: Date.now() + 86400e3,
+    log: [{ t: todayAt(0.1), via: "interval" }, { t: todayAt(0.6), via: "interval" }, { t: todayAt(0.9), via: "interval" }],
   } }));
   w.eval(fs.readFileSync(BUNDLE, "utf8"));
   await new Promise(r => setTimeout(r, 2500));
