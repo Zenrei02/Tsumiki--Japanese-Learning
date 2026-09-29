@@ -279,11 +279,43 @@ async function search(raw) {
     const jp = romajiSearchable(conv) ? await searchJP(conv.kana) : { list: [], via: null };
     if (jp.list.length) {
       kana = conv.kana;
-      // An EXACT kana entry is a strong signal romaji was meant — `taberu` is
-      // not an English word. A prefix-only hit is not, so English keeps the top
-      // slot and the kana results follow it rather than displacing them.
+      // WHICH READING LEADS. An EXACT kana entry is the first requirement — a
+      // prefix-only hit is no evidence at all, so English keeps the top slot
+      // and the kana results follow rather than displacing them.
+      //
+      // Exactness alone is not enough, and `go` is why (Session 38). It is an
+      // English word AND valid romaji for ご, and ご has an exact entry — 五,
+      // "five" — so 五 led and 行く, the answer to the question actually asked,
+      // sat below it. Every English word that happens to decompose into morae
+      // failed the same way: `name` → 嘗め "lick" over 名前, `water` → 私 over
+      // 水, `rain` → ライン over 雨.
+      //
+      // So compare the two readings in the currency the data already speaks:
+      // RANK (build-dict-data.py's everyday-vocabulary ordering). The kana
+      // reading leads only when its best exact entry is at least as common as
+      // the best English answer. That is deliberately the builder's number
+      // rather than a fresh look at the glosses — the gloss-quality rule lives
+      // in build-dict-data.py's norm(), and a second copy here would drift.
+      //
+      // ONE MORA IS THE WEAKEST SIGNAL THERE IS, so it must win outright, not
+      // tie: ご alone fits a dozen homophones, and a two-letter Latin string is
+      // far more often English. That is exactly the `go` tie (行く rank 5, 五
+      // rank 5), and it is what keeps 五 below. It does NOT cost the particles,
+      // which are rank 0 and so still win strictly — に, は, へ, わ and って
+      // all still lead their English hits.
+      //
+      // What stays genuinely ambiguous: single-mora English words whose kana is
+      // a common particle (`new` → ね, `now` → の). The string cannot settle
+      // those and this does not pretend to.
       const exact = jp.list.some((x) => formsOf(x).includes(conv.kana));
-      const merged = exact ? [...jp.list, ...en.list] : [...en.list, ...jp.list];
+      // Both lists are already ordered best-first — searchJP rankSorts and puts
+      // exact matches ahead, searchEN trusts the builder's gloss-quality order
+      // — so each head IS that side's best candidate.
+      const enBest = en.list.length ? en.list[0][4] : Infinity;
+      const jpBest = exact ? jp.list[0][4] : Infinity;
+      const morae = conv.kana.replace(/[ゃゅょぁぃぅぇぉゎ]/g, "").length;
+      const kanaLeads = exact && (morae > 1 ? jpBest <= enBest : jpBest < enBest);
+      const merged = kanaLeads ? [...jp.list, ...en.list] : [...en.list, ...jp.list];
       const seen = new Set();
       res = { list: merged.filter((x) => (seen.has(x[0]) ? false : seen.add(x[0]))), via: jp.via };
     } else {
