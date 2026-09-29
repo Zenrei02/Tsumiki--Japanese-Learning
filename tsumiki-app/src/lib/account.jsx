@@ -35,6 +35,15 @@
 // The rule itself lives in sync.js and is tested by test-progress-sync.py.
 // Everything here is presentation of that rule, plus the two settings.
 //
+// ⚠️ AND THE READ-MERGE-WRITE ITSELF NOW LIVES IN sync.js TOO, as `reconcile`
+// (2026-09-29). It used to be the body of runSync, which meant the ORDER of its
+// steps — local written before the push, autosave armed before the push, the
+// account's copy preferred only when the read can be trusted — was tangled up
+// with useState and a live Supabase client and could not be tested at all. What
+// is left here is what belongs here: who we are, what to put on screen, and the
+// two things a browser can do that a merge core cannot — hold a cross-tab lock,
+// and wait for a person to answer a question.
+//
 // WHAT IS NO LONGER HERE (Session 24): progress, counts and the reset moved to
 // lib/progress.jsx — the drawer's own note says an account is not a place, and
 // progress is one.
@@ -51,14 +60,14 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { T } from "./tokens.js";
 import { accountsConfigured, getClient, redirectTo } from "./supabase.js";
 import {
-  readLocal, writeLocal, mergeProgress, resolveConflicts, canonDoc, sameAsRemote,
+  readLocal, writeLocal, reconcile,
   fetchRemote, pushRemote, preserveLocalToFile,
 } from "./sync.js";
 import { autosaveSession, armAutosave, disarmAutosave, flushNow } from "./autosave.js";
 import { SECTIONS, SETTINGS } from "./stats.js";
 import {
   storage, downloadProgress, importProgress, KEYS,
-  joinedAccount, markAccountJoined, clearAccountJoined,
+  joinedAccount, markAccountJoined, clearAccountJoined, accountVersion,
 } from "./storage.js";
 
 // Storage keys are not learner-facing language. Names, never counts.
@@ -78,6 +87,74 @@ const KEY_LABELS = {
 };
 const label = (k) => KEY_LABELS[k] || k;
 
+// ————— ⚠️ ONE RECONCILE AT A TIME, ACROSS THE WHOLE BROWSER —————
+//
+// FINDING 1 OF THE SESSION 33 LOG READ. MEASURED, throwaway account, sign-in at
+// 13:54:53:
+//
+//     13:54:55.975 / .977   OPTIONS tsumiki_progress   (two preflights, 2ms apart)
+//     13:54:55.996          GET  tsumiki_progress
+//     13:54:56.662          GET  tsumiki_progress
+//     13:54:56.697          POST tsumiki_progress  200
+//     13:54:56.872          POST tsumiki_progress  201
+//
+// The whole sign-in sync, twice — and only ONE GET /auth/v1/user in the entire
+// flow, which is the detail that identifies the cause.
+//
+// IT IS NOT StrictMode (that is a production build) and NOT a double mount
+// (<Account> is mounted once, unconditionally, in App.jsx). The `syncedFor` ref
+// below is a sound guard and was working: it simply cannot see across tabs, and
+// THE MAGIC-LINK FLOW MAKES TWO TABS BY ITS NATURE — the tab that asked for the
+// link, and the tab the email opens.
+//
+// CONFIRMED IN THE LIBRARY'S OWN SOURCE, @supabase/auth-js 2.115.0,
+// dist/module/GoTrueClient.js: the client opens a `BroadcastChannel` named after
+// its storage key and posts every auth state change to it (`_notifyAllSubscribers`
+// → `broadcastChannel.postMessage({event, session})`), and the receiving tab
+// replays it to its own subscribers with `broadcast = false`. SIGNED_IN is
+// handled by name there. So the link tab fetches the user — one
+// GET /auth/v1/user — and the OTHER tab is handed the finished session with no
+// network call at all, fires its onAuthStateChange, and runs its own runSync
+// against the same localStorage and the same account row. Two preflights 2ms
+// apart is two browsing contexts starting the same request.
+//
+// ⚠️ WHY IT MATTERS MORE THAN AN EMPTY ACCOUNT SUGGESTS. On a device with
+// progress that genuinely conflicts, BOTH tabs reach the conflict question. The
+// learner answers in one; the other still holds the old question with the old
+// sides, and answering it there — or answering it differently — overwrites the
+// first answer. Two open copies of the one question this whole flow exists to
+// ask exactly once.
+//
+// THE FIX IS ORDERING, NOT A HEURISTIC. The second tab waits, then re-evaluates
+// from scratch; by then `markAccountJoined` has run, so it takes the JOINED path
+// and finds nothing to do. Nothing has to detect anything or guess who is first.
+const SYNC_LOCK = "tsumiki-progress-sync";
+
+// ⚠️ THE LOCK IS HELD WHILE THE LEARNER READS THE CONFLICT QUESTION, and that is
+// the deliberate half of this design. The alternative — release it and have the
+// second tab re-check joined-state before offering its own question — does not
+// work: at the moment tab A puts the question on screen it has NOT yet called
+// markAccountJoined (it cannot; nothing has been settled), so tab B would look,
+// see "not joined", and show the second copy of the question. Cross-tab
+// awareness of "a question is currently open" would need another channel and
+// another thing to keep in step. Holding the lock says the same thing with the
+// mechanism already in hand, and the cost is bounded and safe: tab B sits in
+// "Syncing…", its autosave stays unarmed so its writes are REMEMBERED and not
+// sent, and the lock is released by the browser if tab A is closed without
+// answering.
+//
+// WHERE navigator.locks IS UNAVAILABLE (older Safari, some embedded webviews)
+// THIS RUNS UNLOCKED, and the two-tab race is back exactly as it was. That is a
+// worse outcome than a lock and a better one than the alternative: a
+// localStorage mutex needs a lease, a timeout and a crash-recovery rule, and a
+// lease that gets stuck is a learner who can never sign in again. Do not invent
+// one.
+function withSyncLock(fn) {
+  const locks = typeof navigator !== "undefined" ? navigator.locks : null;
+  if (!locks || typeof locks.request !== "function") return fn();
+  return locks.request(SYNC_LOCK, fn);
+}
+
 const box = {
   background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 10,
   padding: "16px 16px 18px", fontFamily: T.uiFont, color: T.ink,
@@ -96,6 +173,36 @@ const danger = {
 };
 const quiet = { font: `0.75rem/1.6 ${T.uiFont}`, color: T.sub };
 
+// What to say afterwards. Nothing here opens the panel — a load that went well
+// is not an event, and the note is only there to explain the screen if the
+// learner opens it themselves.
+function noteFor(r) {
+  if (!r) return null;
+  if (r.path === "load") {
+    if (r.stale) {
+      // Only reachable when the read was provably behind — see THE STALE READ in
+      // sync.js. Said in the learner's terms: their work is what survived.
+      return "Your account was still catching up with this device, so nothing " +
+             "here was replaced. It has been saved again just now.";
+    }
+    return r.cameBack
+      ? `Your account had newer progress on ${r.cameBack === 1 ? "one item" : r.cameBack + " items"} — reload to see it.`
+      : null;
+  }
+  if (r.path === "merged") {
+    const back = r.plan.pulled.length;
+    return back
+      ? `Signed in. ${back === 1 ? "One thing" : back + " things"} came back from your account — reload to see it.`
+      : "Signed in. This device's progress is now saved to your account.";
+  }
+  if (r.path === "settled") {
+    return r.side === "remote"
+      ? "Your account's version is now on this device."
+      : "This device's version is now on your account. The version it replaced is kept in your account's history.";
+  }
+  return null;
+}
+
 export default function Account({ open, setOpen }) {
   const [client, setClient] = useState(null);
   const [session, setSession] = useState(null);
@@ -104,7 +211,6 @@ export default function Account({ open, setOpen }) {
   const [note, setNote] = useState(null);
   const [error, setError] = useState(null);
   const [plan, setPlan] = useState(null);
-  const [sides, setSides] = useState(null);
 
   const [settings, setSettings] = useState({});
   const [savedCopy, setSavedCopy] = useState(null);
@@ -148,6 +254,33 @@ export default function Account({ open, setOpen }) {
     return () => { alive = false; sub?.unsubscribe(); };
   }, []);
 
+  // ————— the learner's answer to a conflict, as a promise —————
+  // `reconcile` awaits this, which is what keeps the cross-tab lock held until
+  // the question has actually been answered. Holds { resolve, reject } while a
+  // question is on screen and null the rest of the time.
+  const conflictGate = useRef(null);
+
+  const releaseGate = useCallback((side) => {
+    const g = conflictGate.current;
+    conflictGate.current = null;
+    if (!g) return false;
+    if (side) g.resolve(side);
+    else {
+      // Nobody is going to answer — the panel is going away. Unwind rather than
+      // settle: settling on the learner's behalf is the one thing this file
+      // refuses to do, and an unwound reconcile releases the lock so another tab
+      // can ask instead.
+      const e = new Error("the sign-in question was closed before it was answered");
+      e.code = "abandoned";
+      g.reject(e);
+    }
+    return true;
+  }, []);
+
+  // A pending question must not outlive the component, or the lock is held for
+  // the lifetime of the tab and no other tab can ever reconcile.
+  useEffect(() => () => { releaseGate(null); }, [releaseGate]);
+
   // ————— the load, run once per session restore —————
   //
   // TWO PATHS, and which one runs is a fact about this browser rather than a
@@ -161,79 +294,72 @@ export default function Account({ open, setOpen }) {
   //   JOINED — every ordinary load. The account is where the work is and this
   //     browser is a cache of it that reports every change (lib/autosave.js), so
   //     a difference means this cache is behind. Take the account's copy for
-  //     the keys that differ, keep the keys it does not have, and say nothing.
+  //     the keys that differ, keep the keys it does not have, and say nothing —
+  //     UNLESS the read can be proved out of date, in which case the same merge
+  //     answers its own question with "local" instead. See THE STALE READ in
+  //     sync.js.
   //
   // Note what the second path does NOT do: it does not replace the document. It
-  // runs the same per-key merge and then answers the merge's question with
-  // "remote", so a key this device holds and the account does not still
-  // survives (rule 1), and the checker log is still UNIONED rather than chosen
-  // between. An account that is empty cannot wipe a device, because an empty
-  // value is absent and yields — which is the same rule that has always been
-  // there, doing the same job from a new direction.
+  // runs the same per-key merge and then answers the merge's question, so a key
+  // this device holds and the account does not still survives (rule 1), and the
+  // checker log is still UNIONED rather than chosen between. An account that is
+  // empty cannot wipe a device, because an empty value is absent and yields.
+  //
+  // All of that is `reconcile` in sync.js now. What is here is the wiring: the
+  // client, the lock, the question, and the sentence at the end.
   const runSync = useCallback(async (c, user) => {
     setPhase("syncing"); setError(null); setNote(null);
     // Who we would save as. NOT permission to save — see the split in
-    // autosave.js. From here until armAutosave() below, every module write is
-    // remembered and nothing is sent, because this device's progress and the
-    // account's have not been reconciled yet.
+    // autosave.js. From here until armAutosave() inside reconcile, every module
+    // write is remembered and nothing is sent, because this device's progress
+    // and the account's have not been reconciled yet.
     autosaveSession(c, user.id);
     try {
-      const joined = joinedAccount() === user.id;
-      const local = readLocal();
-      const remoteRow = await fetchRemote(c, user.id);
-      const remote = remoteRow.data || {};
-      const p = mergeProgress(local, remote);
-
-      if (joined) {
-        const settled = p.conflicts.length
-          ? resolveConflicts(p, local, remote, "remote")
-          : p.merged;
-        // Local first, upload second, for the same reason as below: a failed
-        // upload leaves the learner with more than they started with.
-        writeLocal(settled);
-        // Arm BEFORE the push. From here on this device's state is the
-        // account's state, which is exactly what the autosave gate is waiting
-        // to be told — and any module write that happened while this was in
-        // flight is already remembered and goes out with the first flush.
-        armAutosave(canonDoc(settled, KEYS));
-        // ⚠️ AND ONLY THEN IF THERE IS SOMETHING TO SAY. A learner who opens
-        // the app and does nothing must cost one GET and no POST; pushing an
-        // identical document would file an archive version per load.
-        if (!sameAsRemote(settled, remote)) await pushRemote(c, user.id, settled);
-        setPhase("done");
-        // No prompt, and nothing that opens the panel. The note is only there
-        // to explain the screen if the learner opens it themselves.
-        const back = p.pulled.length + p.conflicts.length;
-        setNote(back
-          ? `Your account had newer progress on ${back === 1 ? "one item" : back + " items"} — reload to see it.`
-          : null);
-      } else if (p.status === "clean") {
-        // Writing local first and pushing second means a failed upload leaves
-        // the learner with MORE progress than they started with, never less.
-        writeLocal(p.merged);
-        await pushRemote(c, user.id, p.merged);
-        markAccountJoined(user.id);
-        armAutosave(canonDoc(p.merged, KEYS));
-        setPhase("done");
-        setNote(p.pulled.length
-          ? `Signed in. ${p.pulled.length === 1 ? "One thing" : p.pulled.length + " things"} came back from your account — reload to see it.`
-          : "Signed in. This device's progress is now saved to your account.");
-      } else {
-        setPlan(p);
-        setSides({ local, remote });
-        setPhase("conflict");
-        setOpen(true);   // a question must not sit behind a closed menu
-      }
-    } catch (e) {
-      // ⚠️ AUTOSAVE IS NOT ARMED ON THIS PATH, AND THAT IS THE POINT: a device
-      // that could not read the account must not write to it. The cost is that
-      // this whole session saves to the browser only, so the message says that
-      // rather than leaving it to be discovered later.
+      const result = await reconcile({
+        keys: KEYS,
+        joined: () => joinedAccount() === user.id,
+        markJoined: () => markAccountJoined(user.id),
+        readLocal,
+        writeLocal,
+        fetchRemote: () => fetchRemote(c, user.id),
+        pushRemote: (map) => pushRemote(c, user.id, map),
+        arm: armAutosave,
+        rememberedVersion: () => accountVersion(user.id),
+        sleep: (ms) => new Promise((res) => setTimeout(res, ms)),
+        // The two sides are not held in state: the settle happens inside
+        // reconcile, which already has them. Keeping a second copy here is how
+        // a second settle path gets built by accident.
+        onConflict: (p) => new Promise((resolve, reject) => {
+          setPlan(p);
+          setPhase("conflict");
+          setOpen(true);   // a question must not sit behind a closed menu
+          conflictGate.current = { resolve, reject };
+        }),
+        lock: withSyncLock,
+      });
       setPhase("done");
-      setError("Signed in, but syncing failed: " + (e?.message || String(e)) +
-               ". Nothing on this device was changed, and your work is still " +
-               "being saved here — but it will not reach your account until " +
-               "you reload.");
+      setNote(noteFor(result));
+    } catch (e) {
+      if (e?.code === "abandoned") { setPhase("idle"); return; }
+      // ⚠️ AUTOSAVE IS NOT ARMED ON THE READ-FAILURE PATH, AND THAT IS THE
+      // POINT: a device that could not read the account must not write to it.
+      // The cost is that this whole session saves to the browser only, so the
+      // message says that rather than leaving it to be discovered later.
+      //
+      // `localWritten` is set by reconcile and is the difference between two
+      // promises that are not interchangeable. "Nothing on this device was
+      // changed" is a real claim and must not be made on a path that had
+      // already written the settled document before the upload failed.
+      setPhase("done");
+      const why = e?.message || String(e);
+      setError(e?.localWritten
+        ? "Signed in, and this device was updated, but it could not be saved to " +
+          "your account: " + why + ". Your work is still being saved here — but " +
+          "it will not reach your account until you reload."
+        : "Signed in, but syncing failed: " + why +
+          ". Nothing on this device was changed, and your work is still " +
+          "being saved here — but it will not reach your account until " +
+          "you reload.");
     }
   }, [setOpen]);
 
@@ -248,6 +374,12 @@ export default function Account({ open, setOpen }) {
   // empty remote, merges, and pushes; run B then reads the remote A just wrote,
   // finds it identical to local, and reports "clean" — so a genuine conflict is
   // silently settled instead of asked about.
+  //
+  // ⚠️ AND IT IS STILL ONLY A GUARD WITHIN ONE TAB. It was read as covering the
+  // whole browser, and the Session 33 log read found the sign-in sync running
+  // twice anyway, from two tabs — which is what SYNC_LOCK above is for. Keep
+  // both: this ref stops the same tab starting twice without a round trip, and
+  // the lock stops two tabs overlapping. Neither does the other's job.
   const syncedFor = useRef(null);
 
   useEffect(() => {
@@ -275,28 +407,15 @@ export default function Account({ open, setOpen }) {
   };
 
   // ————— settling a conflict —————
-  const choose = async (side) => {
+  // The writes live in `reconcile`, which is still holding the cross-tab lock
+  // and waiting for exactly this. All that happens here is that the learner's
+  // answer is handed back — so there is one implementation of "settle a
+  // conflict" rather than two that have to agree, and the lock is released by
+  // the same code path that took it.
+  const choose = (side) => {
     setPhase("syncing");
-    try {
-      // The account's copy is preserved by the archive trigger either way. The
-      // DEVICE's copy has no such net, so it gets one before being overwritten.
-      const settled = resolveConflicts(plan, sides.local, sides.remote, side);
-      writeLocal(settled);
-      await pushRemote(client, session.user.id, settled);
-      // The question has been answered, so this browser has now joined the
-      // account: later loads take the account's copy without asking, and
-      // autosave keeps the account worth taking.
-      markAccountJoined(session.user.id);
-      armAutosave(canonDoc(settled, KEYS));
-      setPhase("done");
-      setNote(side === "remote"
-        ? "Your account's version is now on this device."
-        : "This device's version is now on your account. The version it replaced is kept in your account's history.");
-    } catch (e) {
-      setPhase("done");
-      setError("That did not go through: " + (e?.message || String(e)) +
-               ". Nothing was overwritten.");
-    }
+    setError(null);
+    releaseGate(side);
   };
 
   const sendLink = async (e) => {
@@ -315,6 +434,12 @@ export default function Account({ open, setOpen }) {
     // Sign-out does NOT clear local progress. The learner keeps studying on this
     // device exactly as before; the next sign-in merges rather than replaces.
     //
+    // An unanswered conflict question goes with the session, and unwinding it
+    // first releases the cross-tab lock — otherwise signing out while a question
+    // is open would leave every other tab waiting on a reconcile that is never
+    // going to finish.
+    releaseGate(null);
+    //
     // ⚠️ THE ORDER HERE IS THE WHOLE POINT. Anything written since the last
     // idle save is still only in this browser, and the token that could upload
     // it is about to be thrown away — so flush FIRST, while there is still a
@@ -325,10 +450,15 @@ export default function Account({ open, setOpen }) {
     // genuine merge again. The learner is about to keep studying signed out,
     // which makes this device an independent history for the second time —
     // see the note beside clearAccountJoined in storage.js.
+    //
+    // The version watermark is NOT cleared: it stays a true statement about that
+    // account row whoever is signed in, and discarding it would throw away a
+    // real protection. It is keyed by user id, so a second learner on this
+    // browser inherits nothing from it.
     clearAccountJoined();
     await client?.auth.signOut();
     syncedFor.current = null;
-    setSession(null); setPhase("idle"); setNote(null); setPlan(null); setSides(null);
+    setSession(null); setPhase("idle"); setNote(null); setPlan(null);
   };
 
   const restore = (e) => {

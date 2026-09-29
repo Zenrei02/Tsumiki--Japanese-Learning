@@ -42,6 +42,25 @@ The control was then RE-RUN against the amended harness, because a control that
 predates the harness it vouches for is not evidence of anything. Six failures,
 the false one gone and every real one still present; green again on revert.
 
+THE SAME DISCIPLINE, AGAIN, FOR THE 2026-09-29 ADDITIONS (sections 11 and 12:
+the stale-read decision and the cross-tab reconcile lock). Both were run red
+before being trusted, and both controls were re-run against the amended harness:
+
+  · `readIsStale` made to always return false — 19 assertions red, all of them
+    downstream of that one line, and green on revert. That run also exposed a
+    harness fault of its own: section 12e indexed `w.posts[0][...]` and THREW
+    rather than failing, which aborted the run and hid every later assertion.
+    Fixed to index defensively, then the control was re-run. A test that crashes
+    instead of reporting is worse than one that fails.
+  · `reconcile` made to ignore `io.lock` — 6 assertions red, including the two
+    that matter most ("EXACTLY ONE RUN MERGES" and "THE CONFLICT QUESTION IS
+    ASKED ONCE ACROSS TWO TABS"), green on revert.
+
+Section 12 also carries its own controls INLINE, which is the point of them: the
+same fixtures are run with `lock: null` and assert the doubled sync that was
+measured in the edge logs. A guard that has only ever refused has not been
+tested, so the unlocked case is asserted to be broken rather than left unstated.
+
 Exit 0 = all assertions pass.
 """
 import subprocess, sys, pathlib, tempfile, os

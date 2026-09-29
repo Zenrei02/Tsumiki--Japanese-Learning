@@ -18,6 +18,30 @@ modules ACTUALLY WRITE, not against itself.
 WHAT IT CHECKS
   1. every key a module writes is present in KEYS      (data loss if missing)
   2. every key in KEYS is written by some module       (stale entry / typo)
+  3. no key on storage.js's NOT_EXPORTED list is in KEYS
+  4. every `*_KEY` const declared in storage.js is classified — it is in KEYS,
+     or it is on NOT_EXPORTED with a reason
+
+⚠️ WHY 3 AND 4 EXIST, added 2026-09-29. Checks 1 and 2 only see keys that go
+through `storage.set`. Two keys do not: `tsumiki-account-joined-v1` and
+`tsumiki-account-version-v1` are written through the raw store precisely so they
+cannot schedule an upload of themselves, and they must NEVER enter KEYS — one
+would make every device claim to have already joined the account, the other
+would hand a fresh device a version watermark it never earned, after which that
+device would treat every honest read as stale and refuse the account's copy
+forever.
+
+The problem that needed solving is that "not in KEYS" looked identical whether it
+was a decision or an oversight, and this project has already lost twelve days of
+progress to the oversight version. So storage.js now carries an explicit
+NOT_EXPORTED list with a reason per entry, check 3 fails if anything on it ever
+reaches KEYS, and check 4 fails if storage.js grows a key const that is on
+neither list — which is the case that would otherwise be silent.
+
+Check 4 is scoped to storage.js on purpose. That is where a deliberately
+un-exported key belongs and where the classification decision is made; widening
+it to every module would report module-local constants that check 1 already
+covers, and a check that reports things you have to ignore stops being read.
 
 Writes are found two ways, because modules use both forms:
   storage.set("literal-key", …)
@@ -70,13 +94,53 @@ IGNORE = {"tsumiki-last-module", "tsumiki-open-challenge", "__tsumiki_probe__",
           "tsumiki-open-review"}
 
 
-def declared_keys():
-    text = STORAGE.read_text(encoding="utf-8")
+def storage_text():
+    return STORAGE.read_text(encoding="utf-8")
+
+
+def storage_consts(text):
+    """`const NAME = "literal";` in storage.js, so NOT_EXPORTED can name the
+    consts rather than repeating the strings — two copies of a key string is one
+    more place for them to disagree."""
+    return dict(re.findall(r'const\s+([A-Za-z_][A-Za-z0-9_]*)\s*=\s*"([^"]+)"\s*;', text))
+
+
+def declared_keys(text):
     m = re.search(r"export const KEYS\s*=\s*\[(.*?)\]", text, re.S)
     if not m:
         print("!! could not find `export const KEYS = [...]` in storage.js")
         sys.exit(2)
     return set(re.findall(r'"([^"]+)"', m.group(1)))
+
+
+def not_exported(text, consts):
+    """storage.js's NOT_EXPORTED: [{ key: SOME_KEY, why: "…" }, …].
+
+    Absent is not the same as empty. If the list cannot be found at all, the
+    guard it provides is gone and saying so is the whole point — a silently
+    skipped check is the failure mode this file exists to prevent."""
+    m = re.search(r"export const NOT_EXPORTED\s*=\s*\[(.*?)\n\];", text, re.S)
+    if not m:
+        print("!! could not find `export const NOT_EXPORTED = [...]` in storage.js")
+        print("   checks 3 and 4 cannot run without it — see this file's header.")
+        sys.exit(2)
+    body = m.group(1)
+    out = {}
+    for ident_or_lit in re.findall(r'key:\s*(?:"([^"]+)"|([A-Za-z_][A-Za-z0-9_]*))', body):
+        lit, ident = ident_or_lit
+        key = lit or consts.get(ident)
+        if not key:
+            print(f"!! NOT_EXPORTED names `{ident}`, which is not a string const in storage.js")
+            sys.exit(2)
+        out[key] = ident or "(literal)"
+    return out
+
+
+def key_consts(text):
+    """Every `*_KEY` const in storage.js. These are the keys this file writes
+    itself, through the raw store, and each one has to be classified."""
+    return {name: val for name, val in storage_consts(text).items()
+            if name.endswith("_KEY")}
 
 
 def sources():
@@ -132,14 +196,27 @@ def main():
         print("tsumiki-app/src not found — nothing to check")
         return 0
 
-    declared = declared_keys()
+    text = storage_text()
+    consts = storage_consts(text)
+    declared = declared_keys(text)
+    excluded = not_exported(text, consts)
     written = written_keys()
 
     missing = {k: v for k, v in written.items() if k not in declared}
     stale = declared - set(written)
+    # ⚠️ Check 3: a key that MUST NOT be uploaded, in the list of things that are.
+    leaked = sorted(set(excluded) & declared)
+    # ⚠️ Check 4: a key const in storage.js that nobody classified either way.
+    unclassified = sorted(
+        (name, val) for name, val in key_consts(text).items()
+        if val not in declared and val not in excluded
+    )
 
     print(f"KEYS in storage.js : {len(declared)}")
     print(f"keys modules write : {len(written)}")
+    print(f"NOT_EXPORTED       : {len(excluded)}")
+    for k, ident in sorted(excluded.items()):
+        print(f"   · {k}   ({ident}) — deliberately device-local")
 
     bad = False
 
@@ -149,6 +226,25 @@ def main():
         print("   Save/Restore silently drops these. This is data loss.")
         for k, files in sorted(missing.items()):
             print(f"   - {k}   (written by {', '.join(sorted(files))})")
+
+    if leaked:
+        bad = True
+        print(f"\n!! {len(leaked)} KEY(S) ON NOT_EXPORTED ARE IN KEYS")
+        print("   These are statements about ONE browser's relationship to the")
+        print("   account, and uploading one makes every other device inherit a")
+        print("   claim that is only true here. Read the reason beside the entry")
+        print("   in storage.js before removing it from either list.")
+        for k in leaked:
+            print(f"   - {k}")
+
+    if unclassified:
+        bad = True
+        print(f"\n!! {len(unclassified)} KEY CONST(S) IN storage.js ARE IN NEITHER LIST")
+        print("   A key is either exported (KEYS) or deliberately not (NOT_EXPORTED,")
+        print("   with a reason). 'Neither' is what the twelve days of silent")
+        print("   grammar loss looked like in the code, so it is a failure here.")
+        for name, val in unclassified:
+            print(f"   - {name} = \"{val}\"")
 
     if stale:
         # Not data loss — a key listed but never written just exports nothing.
@@ -160,7 +256,8 @@ def main():
         print("    confirm before deleting)")
 
     if not bad:
-        print("\nOK — every key a module writes is exported")
+        print("\nOK — every key a module writes is exported, and every key this")
+        print("     build deliberately withholds is named and accounted for")
     return 1 if bad else 0
 
 

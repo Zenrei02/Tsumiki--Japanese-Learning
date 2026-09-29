@@ -121,21 +121,51 @@ export const KEYS = [
   "tsumiki-dict-recent-v1",
 ];
 
-// ————— Which account this device has already joined —————
+// ————— Keys this file writes and DELIBERATELY DOES NOT EXPORT —————
 //
-// ⚠️ THIS KEY MUST NEVER ENTER `KEYS`. It is the one piece of state that has to
-// mean something DIFFERENT on each device, and uploading it would make every
-// device claim to have already joined the account the moment one of them had —
-// which is precisely the claim the first-sign-in merge exists to check. It is
-// written through the raw store rather than `storage.set` for the same reason:
-// it is not progress and must not schedule an upload of itself.
+// ⚠️ THIS LIST EXISTS SO THAT "NOT IN KEYS" CAN BE READ AS A DECISION RATHER
+// THAN AS AN OVERSIGHT. The twelve days of silent grammar loss were caused by a
+// key that was missing from KEYS for no reason at all, and nothing in the code
+// could tell that apart from a key that was missing on purpose. Both look like
+// absence. So an intentional exclusion is now written down, with its reason, and
+// `check-storage-keys.py` FAILS if any key named here ever appears in KEYS — or
+// if this file gains a `*_KEY` const that is in neither list.
+//
+// Both entries below are device-local by necessity: they are statements about
+// THIS browser's relationship to the account, not about the learner's study.
+// Uploading either one would make every other device inherit a claim that is
+// only true here. They are written through the raw store rather than
+// `storage.set` for the same reason — they are not progress, so they must not
+// schedule an upload of themselves.
+const JOINED_KEY = "tsumiki-account-joined-v1";
+const ACCOUNT_VERSION_KEY = "tsumiki-account-version-v1";
+
+export const NOT_EXPORTED = [
+  {
+    key: JOINED_KEY,
+    why: "Which account THIS browser has already settled its progress against. " +
+         "Uploading it would make every device claim to have already joined the " +
+         "moment one of them had — which is precisely the claim the first-sign-in " +
+         "merge exists to check.",
+  },
+  {
+    key: ACCOUNT_VERSION_KEY,
+    why: "The highest account-row version THIS device has seen the server " +
+         "confirm. It is the stale-read detector for the authoritative load " +
+         "(finding 2, Session 33 log read — see the note beside readIsStale in " +
+         "sync.js). Uploading it would hand a fresh device a watermark it never " +
+         "earned, and that device would then treat every honest read as stale " +
+         "and refuse the account's copy forever.",
+  },
+];
+
+// ————— Which account this device has already joined —————
 //
 // What it answers: "has this browser already settled its progress against this
 // account?" If yes, a later sign-in is a LOAD and the account's copy wins
 // silently. If no — a new device, or a device that signed out since — the
 // account and this browser are two independent histories and sign-in is a
 // genuine merge, question and all. See lib/account.jsx.
-const JOINED_KEY = "tsumiki-account-joined-v1";
 
 export function joinedAccount() {
   try { return store().getItem(JOINED_KEY); } catch { return null; }
@@ -150,6 +180,62 @@ export function markAccountJoined(userId) {
 // the same answer: merge, and ask if the two genuinely disagree.
 export function clearAccountJoined() {
   try { store().removeItem(JOINED_KEY); } catch { /* memory fallback */ }
+}
+
+// ————— The version watermark: what this device has SEEN the server hold —————
+//
+// ⚠️ WHAT THIS IS FOR, in one sentence: a page load can read the account row
+// BEFORE a push from the page that just closed has committed, and the
+// authoritative load would then treat that one-save-stale copy as the truth and
+// revert the learner's newest work. Measured in the Supabase edge logs on
+// 2026-09-17: POST at 14:06:17.105, GET at 14:06:17.132, the row's own
+// `updated_at` 14:06:18.387. The reader was a full second ahead of the writer.
+//
+// ⚠️ ONLY EVER SET FROM A CONFIRMED PUSH — the version the SERVER sent back, in
+// the response to an upsert that succeeded. Never the version we hoped to reach.
+// An optimistic write leaves this device believing in a version the server never
+// had, and because the comparison is "returned < remembered", every later load
+// would read as stale and take the keep-local branch forever. A watermark that
+// can be wrong in that direction is worse than no watermark.
+//
+// ⚠️ MONOTONIC, AND SHARED BETWEEN TABS ON PURPOSE. Two tabs both push, and both
+// write here. That is not flapping: the statement being recorded is "the server
+// definitely reached version N", which is true whoever confirmed it, so the
+// highest confirmation from any writer on this device is the correct value and a
+// lower one must never overwrite it. Hence max(), not last-write-wins — an
+// out-of-order response cannot lower the mark.
+//
+// Keyed by user id because it is a fact about ONE account's row. A second
+// learner signing in on the same browser inherits nothing. Sign-out does NOT
+// clear it: it remains a true statement about that row, and throwing it away
+// would discard a real protection for no gain.
+const versionRecord = () => {
+  try {
+    const raw = store().getItem(ACCOUNT_VERSION_KEY);
+    if (!raw) return null;
+    const p = JSON.parse(raw);
+    return p && typeof p === "object" ? p : null;
+  } catch { return null; }
+};
+
+// 0 means "nothing known", which readIsStale treats as "cannot be stale".
+export function accountVersion(userId) {
+  const r = versionRecord();
+  if (!r || r.user !== String(userId)) return 0;
+  const n = Number(r.version);
+  return Number.isFinite(n) && n > 0 ? n : 0;
+}
+
+export function noteAccountVersion(userId, version) {
+  const n = Number(version);
+  if (!Number.isFinite(n) || n <= 0) return;
+  const r = versionRecord();
+  const sameUser = r && r.user === String(userId);
+  if (sameUser && Number(r.version) >= n) return;   // never lower the mark
+  try {
+    store().setItem(ACCOUNT_VERSION_KEY,
+                    JSON.stringify({ user: String(userId), version: n }));
+  } catch { /* memory fallback */ }
 }
 
 export function exportProgress() {

@@ -84,6 +84,15 @@
 // load, silently — the exact shape of the bug this whole file exists to
 // prevent. If you ever disable autosave, the authoritative load must go with it.
 //
+// ⚠️⚠️ AND IT HAS ONE MORE PRECONDITION THAT WENT UNSTATED UNTIL 2026-09-29:
+// THE READ HAS TO BE UP TO DATE. "The account is where the work is" is only a
+// reason to prefer the account's copy if the copy in hand is actually the
+// account's current one. The Session 33 log read found that it is not always:
+// a push from the page that is closing and the first read of the page that is
+// opening overlap, and the read can win. See THE STALE READ below, and
+// `readIsStale` / `loadDecision` in the merge core, which is where the load
+// path now refuses to trust a read it can prove is behind.
+//
 // THE ONE SITUATION THAT IS STILL A GENUINE MERGE, question and all: the FIRST
 // sign-in on a device. There the premise above does not hold — this browser's
 // progress predates the account relationship entirely and was never pushed, so
@@ -92,6 +101,79 @@
 // for it. Which case applies is recorded per device by `joinedAccount()` in
 // storage.js, and signing out clears it, because a learner who keeps studying
 // signed out has made this browser independent again.
+//
+// ————— ⚠️ THE STALE READ (finding 2 of the Session 33 log read) —————
+//
+// MEASURED, Supabase edge logs, 2026-09-17, throwaway account 6e58aef7:
+//
+//     14:06:17.105  POST tsumiki_progress   (pagehide flush, old page)
+//     14:06:17.132  GET  tsumiki_progress   (new page load)
+//     row updated_at = 14:06:18.387
+//
+// The load read the account row a full second before the flush committed. On
+// that occasion it was harmless, because the flushed state had come from the
+// same browser and so matched what was in localStorage anyway. The failure it
+// is one step away from is not harmless at all: flush, reload fast, the
+// authoritative load takes the stale remote for every differing key, the
+// learner's newest work is reverted on screen, and the next autosave pushes the
+// reverted document up as the new truth. Two sides reporting success over the
+// wrong answer — the failure class this file exists to prevent.
+//
+// ⚠️ THE WRITER IS NOT WHERE THIS GETS FIXED, AND IT ALREADY DID ITS JOB. The
+// urgent flush sends with `keepalive` (sb.beginUrgentWrites, since the Sep 15
+// build) and the race above happened WITH keepalive, because keepalive
+// guarantees a request will be SENT and finished — not that it will have
+// COMMITTED before some other page reads the row. There is nothing further for
+// the writer to do.
+//
+// ⚠️ AND NOT WITH A DELAY ON THE LOAD PATH EITHER. A wait long enough to help is
+// long enough to be felt on every single load, by every learner, forever — and
+// it would still only be a guess about someone else's commit latency.
+//
+// WHAT IS ACTUALLY AVAILABLE IS A FACT, not an estimate. The row carries a
+// server-assigned `version` (see the archive trigger in
+// supabase/migrations/20260906142411_rename_naoshi_to_tsumiki.sql — the client
+// cannot set it, and it only moves when `data` really changes). Every push that
+// SUCCEEDS is told the version it produced, and this device writes the highest
+// such number down (`noteAccountVersion` in storage.js). So on a later load:
+//
+//     returned version  <  the highest version this device has SEEN confirmed
+//         => the read is behind, by definition, with no clock involved
+//
+// That is not a heuristic. It cannot produce a false positive, because the
+// watermark is only ever set from a server response: if the server said 6, then
+// the row reached 6, and a read returning 5 is stale whatever the cause.
+//
+// WHAT THE LOAD DOES ABOUT IT: re-read, at most twice (~250ms, ~750ms), which
+// costs nothing at all on the overwhelmingly common path where the first read is
+// fine. If it is STILL behind, the load does not take the remote. It answers the
+// merge's question with "local" instead of "remote" — the same machinery, the
+// other side — so rule 1 still hands back a key only the account has, the log
+// is still unioned, and nothing on the device is reverted to a document we can
+// prove is out of date. Then it pushes, so the account is told what this device
+// holds rather than being left ahead of it.
+//
+// Wrong toward keeping the learner's work, which is the direction every other
+// decision in this file is already wrong in.
+//
+// ⚠️ ONE CASE IT DOES NOT COVER, SAID PLAINLY SO NOBODY LATER ASSUMES IT DOES.
+// The watermark can only be written by code that is still running when the
+// server's response arrives. The measured 2026-09-17 sequence is a pagehide
+// flush followed by a reload, and there the old document is usually discarded
+// before its POST response comes back — so that push commits version N+1 and
+// NOTHING REMEMBERS IT. The next load then reads N, compares it against a
+// watermark of N, finds no staleness, and takes the one-save-stale copy exactly
+// as before. What the check does close is every variant where the confirmation
+// did land and the read was behind anyway: the cross-tab case (one tab confirms
+// a push while another is mid-load), a frozen-then-resumed iOS tab, and
+// read-after-write lag. Recording the INTENDED version before the request would
+// close the pagehide case too and is the wrong trade: a push that then fails
+// would leave this device permanently believing in a version the server never
+// reached, and every subsequent load would take the keep-local branch forever.
+// A watermark that can be wrong in that direction is worse than no watermark.
+// If the pagehide case is to be closed, it needs a separate mechanism that is
+// consumed once per load rather than a permanent claim — not a widening of this
+// one.
 //
 // ————— THE ONE EXEMPTION, AND WHY IT IS NOT A LOOPHOLE —————
 //
@@ -263,10 +345,11 @@ function mergeProgress(local, remote) {
 // default value for this argument on purpose.
 //
 // ⚠️ IT NOW HAS A SECOND CALLER THAT IS NOT A LEARNER: the authoritative load
-// passes "remote" for it. That is still an explicit choice, made once, in the
-// open, in account.jsx — and the argument stays mandatory precisely so that the
-// choice cannot be made by omission. The first-sign-in path, where the learner
-// really does decide, is unchanged.
+// passes "remote" for it — or "local", on the one path where it can prove the
+// read it is holding is out of date (see loadDecision). That is still an
+// explicit choice, made in the open, in `reconcile` below — and the argument
+// stays mandatory precisely so that the choice cannot be made by omission. The
+// first-sign-in path, where the learner really does decide, is unchanged.
 function resolveConflicts(plan, local, remote, side) {
   if (side !== "local" && side !== "remote") {
     throw new Error('resolveConflicts: side must be "local" or "remote"');
@@ -301,15 +384,212 @@ function resolveConflicts(plan, local, remote, side) {
 // hundreds of times where the old code fired twice, so the tempting move is to
 // widen this into a size test and let it referee every push. Do not. The
 // staleness question is answered by ORDER, not by size — lib/autosave.js does
-// not push at all until the load has finished, and says why at length.
+// not push at all until the load has finished, and says why at length; and the
+// READ's own staleness is answered by the server's version number, not by
+// comparing document sizes (readIsStale, just below).
 function wouldWipeRemote(next, remote) {
   const live = (m) => Object.keys(m || {}).filter((k) => !isEmptyValue(m[k]));
   return live(next).length === 0 && live(remote).length > 0;
 }
 
+// ————— ⚠️ IS THE COPY IN HAND THE ACCOUNT'S CURRENT ONE? —————
+//
+// See THE STALE READ in the header for the measurement and for why neither the
+// writer nor a delay is the answer. `remembered` is the highest row version
+// this DEVICE has seen the server confirm; `returned` is the version the read
+// just came back with.
+//
+// The asymmetry is the whole point. A returned version LOWER than a confirmed
+// one is proof of staleness — the server cannot un-reach a version it already
+// reported. A returned version that is equal or higher proves nothing is wrong,
+// and is treated as fine. There is no middle case and no clock.
+function readIsStale(remembered, returned) {
+  const r = Number(remembered);
+  if (!Number.isFinite(r) || r <= 0) return false;   // nothing confirmed yet — cannot judge
+  const g = Number(returned);
+  // ⚠️ A READ WHOSE VERSION CANNOT BE PLACED IS TREATED AS BEHIND, NOT AS FINE,
+  // and this is a deliberate departure from the obvious reading of "lower than
+  // remembered". Two reasons, both about which way to be wrong:
+  //
+  //   · the costs are not symmetric. A false "stale" costs one extra POST and
+  //     one load where the account does not win — archived, recoverable, and
+  //     explained in the note. A false "trustworthy" reverts the learner's
+  //     newest work and then pushes the reverted document up as the truth.
+  //   · it fails LOUDLY. If a later change drops `version` from the select in
+  //     pushRemote or fetchRemote, this branch makes every load take keep-local,
+  //     which the tests notice immediately (12a: a quiet load costs no POST).
+  //     Returning false there would leave the guard silently switched off while
+  //     every load still reported success — which is the exact failure shape
+  //     this whole file is a response to.
+  //
+  // `fetchRemote` reports a row that is not there as version 0, and 0 after a
+  // confirmed push says the read did not see a row that certainly exists. Same
+  // statement, same answer.
+  if (!Number.isFinite(g)) return true;
+  return g < r;
+}
+
+// How long to wait before re-reading a read that is provably behind, in ms. TWO
+// entries means AT MOST TWO re-reads: the length of this array is the retry
+// bound, so there is one place to change it and no separate counter to disagree
+// with it.
+const STALE_RETRY_MS = [250, 750];
+
+// The full ladder, as a decision a test can make assertions about without a
+// network, a timer or a browser. `attempt` is 0 for the first read, 1 after one
+// re-read, and so on.
+//
+//   "account"    -> the read is trustworthy; the account's copy wins, as ever
+//   "reread"     -> behind, and there are re-reads left in the budget
+//   "keep-local" -> still behind after the budget; do NOT take the remote
+function loadDecision(remembered, returned, attempt) {
+  if (!readIsStale(remembered, returned)) return "account";
+  return Number(attempt) < STALE_RETRY_MS.length ? "reread" : "keep-local";
+}
+
+// ————— The read-merge-write, with every side effect injected —————
+//
+// ⚠️ WHY THIS IS A FUNCTION IN THE MERGE CORE AND NOT A BLOCK INSIDE A REACT
+// COMPONENT. It used to be the body of account.jsx's runSync, and the ORDER of
+// its steps is load-bearing in four separate ways — local written before the
+// push, autosave armed before the push, the account's copy only preferred when
+// the read is trustworthy, and exactly one reconcile at a time across the whole
+// browser. None of that could be tested, because it was tangled up with
+// useState and a live Supabase client. Here every effect arrives through `io`,
+// so test-progress-sync.py drives it with fakes and asserts the order.
+//
+// io:
+//   keys                 storage.js's KEYS — what a push would actually send
+//   joined()             has THIS browser already settled against this account?
+//   markJoined()         record that it now has
+//   readLocal()          map of key -> string, this browser
+//   writeLocal(map)      apply a settled map to this browser
+//   fetchRemote()        -> { data, version, updated_at }
+//   pushRemote(map)      upload; resolves when the SERVER has confirmed
+//   arm(canonical)       autosave may now send (see lib/autosave.js)
+//   rememberedVersion()  highest row version this device has seen confirmed
+//   sleep(ms)            for the stale re-read backoff
+//   onConflict(plan, s)  -> "local" | "remote", resolving when the LEARNER answers
+//   lock(fn)             run fn holding the app-wide reconcile lock (optional)
+//
+// Returns a plain description of what happened, for the caller to turn into a
+// sentence. Throws only what a caller must hear about, and tags the error with
+// `localWritten` so the message can be honest about whether this device was
+// changed before the failure.
+async function reconcile(io) {
+  const body = async () => {
+    const keys = io.keys || [];
+    let wroteLocal = false;
+
+    try {
+      // ⚠️ READ INSIDE THE LOCK, ALL OF IT. A second tab that waited here must
+      // re-evaluate from scratch — including `joined()`, which the first tab may
+      // have just changed. Hoisting any of this above the lock turns the lock
+      // into decoration.
+      const joined = io.joined();
+      const local = io.readLocal();
+
+      let row = await io.fetchRemote();
+
+      if (joined) {
+        // ————— the authoritative load —————
+        let attempt = 0;
+        let decision = loadDecision(io.rememberedVersion(), row && row.version, attempt);
+        while (decision === "reread") {
+          await io.sleep(STALE_RETRY_MS[attempt]);
+          attempt += 1;
+          row = await io.fetchRemote();
+          decision = loadDecision(io.rememberedVersion(), row && row.version, attempt);
+        }
+        const remote = (row && row.data) || {};
+        const stale = decision === "keep-local";
+
+        // Same merge either way. Only the answer to its question changes: the
+        // account's copy normally, this device's copy when the read is provably
+        // behind. Rule 1 and the log union are untouched by that choice, which
+        // is exactly why the resolution is reused rather than special-cased.
+        const p = mergeProgress(local, remote);
+        const side = stale ? "local" : "remote";
+        const settled = p.conflicts.length
+          ? resolveConflicts(p, local, remote, side)
+          : p.merged;
+
+        // Local first, upload second, for the same reason as below: a failed
+        // upload leaves the learner with more than they started with.
+        io.writeLocal(settled);
+        wroteLocal = true;
+        // Arm BEFORE the push. From here on this device's state is the
+        // account's state, which is exactly what the autosave gate is waiting
+        // to be told — and any module write that happened while this was in
+        // flight is already remembered and goes out with the first flush.
+        io.arm(canonDoc(settled, keys));
+
+        // ⚠️ AND ONLY THEN IF THERE IS SOMETHING TO SAY. A learner who opens
+        // the app and does nothing must cost one GET and no POST; pushing an
+        // identical document would file an archive version per load.
+        //
+        // ON THE STALE BRANCH IT PUSHES UNCONDITIONALLY, because the only thing
+        // it could compare against is the document it has just decided not to
+        // trust. The server may be ahead of what we read, and telling it what
+        // this device holds is the point. It is not a wasted request either: the
+        // archive trigger files nothing when `data` is unchanged, so an
+        // identical push costs one round trip and no version.
+        if (stale || canonDoc(settled, keys) !== canonDoc(remote, keys)) {
+          await io.pushRemote(settled);
+        }
+        return {
+          path: "load", plan: p, settled, stale, attempts: attempt,
+          cameBack: p.pulled.length + (stale ? 0 : p.conflicts.length),
+        };
+      }
+
+      // ————— the first sign-in on this device —————
+      const remote = (row && row.data) || {};
+      const p = mergeProgress(local, remote);
+
+      if (p.status === "clean") {
+        // Writing local first and pushing second means a failed upload leaves
+        // the learner with MORE progress than they started with, never less.
+        io.writeLocal(p.merged);
+        wroteLocal = true;
+        await io.pushRemote(p.merged);
+        io.markJoined();
+        io.arm(canonDoc(p.merged, keys));
+        return { path: "merged", plan: p, settled: p.merged };
+      }
+
+      // A genuine disagreement. ⚠️ THE LOCK IS STILL HELD WHILE THE LEARNER
+      // READS THE QUESTION, and that is deliberate — see the note on the lock
+      // in account.jsx. A second tab waits here rather than putting a second
+      // copy of the same question on screen.
+      const side = await io.onConflict(p, { local, remote });
+      const settled = resolveConflicts(p, local, remote, side);
+      io.writeLocal(settled);
+      wroteLocal = true;
+      await io.pushRemote(settled);
+      // The question has been answered, so this browser has now joined the
+      // account: later loads take the account's copy without asking, and
+      // autosave keeps the account worth taking.
+      io.markJoined();
+      io.arm(canonDoc(settled, keys));
+      return { path: "settled", plan: p, settled, side };
+    } catch (e) {
+      // So the caller can say whether this device was changed before the
+      // failure. "Nothing on this device was changed" is a real promise and
+      // must not be made on a path that already wrote.
+      if (e && typeof e === "object") e.localWritten = wroteLocal;
+      throw e;
+    }
+  };
+
+  return io.lock ? io.lock(body) : body();
+}
+
 // ——— END PURE MERGE CORE ———
 
-import { KEYS, exportProgress, importProgress, downloadProgress } from "./storage.js";
+import {
+  KEYS, exportProgress, importProgress, downloadProgress, noteAccountVersion,
+} from "./storage.js";
 import { HISTORY_KEY, unionHistory } from "./errorHistory.js";
 import { notePushed } from "./autosave.js";
 
@@ -354,6 +634,7 @@ export function sameAsRemote(next, remote) {
 export {
   mergeProgress, resolveConflicts, isEmptyValue, canon, canonDoc,
   registerLogMerger, wouldWipeRemote,
+  readIsStale, loadDecision, STALE_RETRY_MS, reconcile,
 };
 
 // ————— The server side —————
@@ -395,9 +676,23 @@ export async function pushRemote(client, userId, map, { allowEmpty = false } = {
     }
   }
 
-  const { error } = await client
+  // ⚠️ `.select("version")` IS NOT DECORATION, AND IT IS WHY THE STALE-READ
+  // CHECK CAN EXIST AT ALL.
+  //
+  // AND IT IS `"version"`, NOT `.select()`. A bare select asks PostgREST to
+  // return the whole row, which means the entire progress document comes back
+  // down on EVERY autosave push — the most frequent request the app makes — for
+  // one integer. Naming the column keeps the response at a few bytes. The version is assigned by the database (the archive
+  // trigger — the client cannot set it and a client-sent value is ignored), so
+  // the only way this device can learn it is to be told in the response to a
+  // write that succeeded. Drop this and `readIsStale` has nothing to compare
+  // against and silently becomes a no-op: the load path would keep working, keep
+  // reporting success, and stop protecting anything. See THE STALE READ above.
+  const { data: row, error } = await client
     .from("tsumiki_progress")
-    .upsert({ user_id: userId, data: clean }, { onConflict: "user_id" });
+    .upsert({ user_id: userId, data: clean }, { onConflict: "user_id" })
+    .select("version")
+    .maybeSingle();
   if (error) throw error;
 
   // ⚠️ EVERY PUSH IN THE APP REPORTS ITSELF HERE, not just autosave's. The
@@ -406,6 +701,14 @@ export async function pushRemote(client, userId, map, { allowEmpty = false } = {
   // re-send a document the server already had — or worse, believe an older
   // document was the last thing sent.
   notePushed(canonDoc(clean, KEYS));
+
+  // AFTER the push, never before, and only with the number the SERVER sent. A
+  // version we merely hoped to reach would make this device distrust every
+  // honest read for the rest of its life — the reasoning is set out in full
+  // beside noteAccountVersion in storage.js. `noteAccountVersion` ignores a
+  // missing or lower number, so a response without one simply teaches us
+  // nothing rather than unsetting what we knew.
+  noteAccountVersion(userId, row && row.version);
   return clean;
 }
 
