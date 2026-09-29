@@ -63,6 +63,59 @@ function syncFetch(input, init) {
   return fetch(input, init);
 }
 
+// ————— ⚠️ WHERE THE SESSION LIVES, AND WHY IT IS NOT A COOKIE —————
+//
+// THERE ARE NO COOKIES IN THIS APP. `document.cookie` appears nowhere in the
+// source and nowhere in any `@supabase` module. Recorded here because "are they
+// kept signed in by a cookie?" is the obvious guess, it is wrong, and every
+// consequence below follows from the real answer rather than from that one.
+//
+// `persistSession: true` with no `storage` of our own means auth-js takes
+// `globalThis.localStorage` (auth-js 2.115.0, GoTrueClient.js ~239-246), under a
+// key supabase-js builds from the project ref:
+//
+//     localStorage["sb-llkazgmhsuonhwrubwjw-auth-token"]
+//
+// That entry holds the access token AND the refresh token; `autoRefreshToken`
+// keeps the short-lived one current from the long-lived one.
+//
+// ⚠️ THIS IS AN INHERITED DEFAULT, NOT A DECISION THIS FILE MADE — which is
+// exactly why it is written down. An unstated default is one nobody re-examines.
+//
+// WHAT IT MEANS FOR A LEARNER:
+//   · tab closed, browser restarted        -> still signed in
+//   · site data cleared                    -> signed out; recovery is a new link
+//   · private window, or site data blocked -> auth-js SILENTLY falls back to
+//     MEMORY storage, so the session dies on reload
+//
+// ⚠️ AND THAT LAST ROW IS A DOUBLE FAILURE THAT LOOKS LIKE ONE. storage.js falls
+// back to memory under the same condition, for progress. So in a private window
+// the learner's work evaporates AND the account that exists to rescue it cannot
+// stay signed in — and only storage.js says anything out loud (it console.warns;
+// auth-js does not). The durable thing about an account here is the email
+// address, never the token.
+//
+// THE TRADE-OFF, STATED RATHER THAN IMPLIED. localStorage instead of an
+// httpOnly cookie means the refresh token is readable by any script on this
+// origin, so an XSS is a session compromise rather than a defacement. Against
+// that: there is no cookie-borne CSRF surface, and the token travels as an
+// explicit Authorization header rather than being attached automatically to
+// every request the origin makes. Changing it is not a one-line switch — it
+// needs a server that can set the cookie, which this app does not have.
+//
+// ⚠️ IT IS ALSO WHY TWO TABS SHARE ONE SIGN-IN, which is not a footnote: the
+// BroadcastChannel auth-js opens is named after this same storageKey, so a
+// magic link opened in a second tab hands the finished session to the first with
+// no network call — and both tabs then run the sign-in sync. That is finding 1
+// of the Session 33 log read; the fix is the cross-tab lock in account.jsx.
+//
+// ⚠️ THE BACKUP FILE CANNOT CARRY THIS TOKEN, in either direction, and that is
+// storage.js's KEYS filter doing it rather than anything here: exportProgress
+// iterates KEYS, so the token is never written into a file, and importProgress
+// resolves through KEYS, so a hand-edited file cannot inject a session or
+// overwrite `tsumiki-account-joined-v1`. Verified both ways against the real
+// module, 2026-09-29. If KEYS ever grows a wildcard, that stops being true.
+
 // Loaded on demand, never at first paint. @supabase/supabase-js is ~120 KB and
 // a learner who never signs in should not pay for it — the same reasoning that
 // keeps the six modules behind React.lazy.
@@ -74,6 +127,8 @@ export function getClient() {
     clientPromise = import("@supabase/supabase-js")
       .then(({ createClient }) => createClient(URL_, KEY_, {
         auth: {
+          // See WHERE THE SESSION LIVES above: this is what puts the tokens in
+          // localStorage rather than anywhere else.
           persistSession: true,
           autoRefreshToken: true,
           // The magic link comes back as a URL fragment; this is what turns it
