@@ -10,6 +10,7 @@
 //   room-owned-v1    union             — never asks
 //   room-layout-v1   most recent wins  — no dialog
 //   character-v1     most recent wins  — no dialog
+//   garden-state-v1  most recent wins, growth kept at its highest
 //
 // sync.js registers each of these as a merger. A merger that returns null
 // sends the key back to the ordinary ask-on-conflict path, and that is what
@@ -70,9 +71,22 @@ export function newerOf(l, r) {
   return canonEvent(a) <= canonEvent(b) ? l : r;
 }
 
+// The garden: the newer copy wins for the shape and the sand, but growth is a
+// high-water mark — it is counted from study days, and activeDays forgets
+// after 120 days, so a newer copy carrying a LOWER count must not win it.
+export function mergeGarden(l, r) {
+  const base = newerOf(l, r);
+  if (base == null) return null;
+  const a = parse(l), b = parse(r), w = parse(base);
+  const growth = Math.max(Number(a.growth) || 0, Number(b.growth) || 0);
+  if ((Number(w.growth) || 0) === growth) return base;
+  return JSON.stringify({ ...w, growth });
+}
+
 export const ROOM_MERGERS = {
   "tsumiki-koban-ledger-v1": unionLedger,
   "tsumiki-room-owned-v1": unionOwned,
   "tsumiki-room-layout-v1": newerOf,
   "tsumiki-character-v1": newerOf,
+  "tsumiki-garden-state-v1": mergeGarden,
 };

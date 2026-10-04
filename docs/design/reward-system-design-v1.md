@@ -322,8 +322,8 @@ payout §7.2 rules out).
   controls.
 - **Four keys** registered in `storage.js` KEYS in the same change:
   ledger, `room-owned-v1`, `room-layout-v1`, `character-v1`.
-  `garden-state-v1` is NOT registered — nothing writes it yet; it goes in with
-  the garden, per the rule that a key belongs in KEYS when it is written.
+  `garden-state-v1` went in with the garden (below), per the rule that a key
+  belongs in KEYS when it is written.
 - **§6 kana-completion earning**: 3 koban the first time each kana or skill
   lesson completes (culture lessons pay nothing), announced in the flourish;
   lessons finished before this pay silently once, on the next load.
@@ -345,6 +345,26 @@ payout §7.2 rules out).
   browser last looked in. Per-device state in `tsumiki-room-pulse-v1`, raw
   localStorage, deliberately not exported.
 
-Still pending: auth, the garden and bonsai spots with their overlays, reviewer
-sign-off on the catalogue names, and real prices (everything above is a
-placeholder on the §4 ladder).
+**Garden v2, same day** (Notion §5.2, §6 — build-order step 6):
+
+- Two more `SPOTS` entries: the 枯山水 sand garden (150) and the 盆栽 stand (160,
+  formerly a placeable floor item — no shipped learner owned it). Spot tiles
+  are reserved before purchase and shown dashed, so buying one never shoves
+  furniture; anything already standing there (a v1 layout) goes back to the
+  inventory, still owned.
+- Both open a straight-on overlay over the room. **Rake**: drag to leave
+  grooves; the strokes persist (`rake`, 0–1 coordinates, capped, oldest
+  smoothed away first) and the room draws them on the tray. **Tend**: the tree
+  grows out with study and trimming returns it to 直幹 / 模様木 / 懸崖, with
+  before and after shown. No score, no fail state, nothing paid.
+- **Growth comes only from study**: distinct days after the purchase on which
+  real study happened (engagement `activeDays`, plus days koban were earned),
+  stored as a high-water mark. Nothing to trim until two such days have
+  passed, so absence is quiet. Koban buy a second species (紅葉, 50), a
+  celadon pot (12) and moss (15) — never growth. One renderer serves the
+  overlay and the room, so they agree on state.
+- `tsumiki-garden-state-v1` registered in KEYS in the change that first
+  writes it; its merger keeps the newer shape and the higher growth.
+
+Still pending: auth, reviewer sign-off on the catalogue names, and real
+prices (everything above is a placeholder on the §4 ladder).

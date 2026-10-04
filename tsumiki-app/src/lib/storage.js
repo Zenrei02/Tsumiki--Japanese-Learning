@@ -115,6 +115,7 @@ export const KEYS = [
   "tsumiki-room-owned-v1",      // items owned — only ever grows
   "tsumiki-room-layout-v1",     // where things sit, which home, the welcome card
   "tsumiki-character-v1",       // the avatar's four slots
+  "tsumiki-garden-state-v1",    // the bonsai's shape and growth, the raked sand
   "tsumiki-engagement-v1",      // streak / rhythm / quests — listed ahead of the splice
   "tsumiki-stroke-data-v1",   // shared handwriting calibration — the reason one origin matters
   "tsumiki-kanji-mode",

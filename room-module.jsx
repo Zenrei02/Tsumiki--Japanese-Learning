@@ -1438,8 +1438,14 @@ function RakeOverlay({ rake, onSave, onClose }) {
     const p = uv(e), q = live[live.length - 1];
     if (Math.hypot(p[0] - q[0], p[1] - q[1]) >= 0.012) setLive([...live, p]);
   };
-  const up = () => {
+  const up = (e) => {
     if (!live) return;
+    // The release point counts: a quick flick can end in the same event as
+    // its last move, and the groove would otherwise stop short of the finger.
+    if (e && e.type === "pointerup") {
+      const p = uv(e), q = live[live.length - 1];
+      if (Math.hypot(p[0] - q[0], p[1] - q[1]) >= 0.004) live.push(p);
+    }
     if (live.length > 1) {
       // Oldest grooves are smoothed away first once the sand is full, the way
       // a real garden is re-raked rather than refusing a new line.

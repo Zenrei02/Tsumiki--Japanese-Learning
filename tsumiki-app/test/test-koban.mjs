@@ -14,7 +14,7 @@
 // assertion to notice — a check that has only ever passed has not been tested.
 
 import { readFileSync } from "node:fs";
-import { unionLedger, unionOwned, newerOf } from "../src/lib/kobanMerge.js";
+import { unionLedger, unionOwned, newerOf, mergeGarden } from "../src/lib/kobanMerge.js";
 
 const failures = [];
 const ok = (cond, msg) => { if (!cond) failures.push(msg); };
@@ -125,6 +125,18 @@ const LEDGER = "tsumiki-koban-ledger-v1", LEGACY = "tsumiki-achievement-points-v
   // CONTROL: a deliberately order-dependent "union" must be caught by the same check.
   const naive = (l, r) => JSON.stringify({ v: 1, events: [...JSON.parse(l).events, ...JSON.parse(r).events] });
   ok(naive(A, B) !== naive(B, A), "5 CONTROL: the order-independence check cannot tell a naive concat apart");
+}
+
+// 6. the garden: newer shape wins, growth never goes down
+{
+  const old = JSON.stringify({ v: 1, t: 100, style: "moyogi", growth: 9, rake: [] });
+  const newer = JSON.stringify({ v: 1, t: 200, style: "kengai", growth: 4, rake: [[[0, 0], [1, 1]]] });
+  const m1 = JSON.parse(mergeGarden(old, newer)), m2 = JSON.parse(mergeGarden(newer, old));
+  ok(m1.style === "kengai" && m2.style === "kengai", "6: the newer garden's shape did not win");
+  ok(m1.growth === 9 && m2.growth === 9, `6: growth went down in the merge (${m1.growth}, ${m2.growth})`);
+  ok(JSON.stringify(m1) === JSON.stringify(m2), "6: mergeGarden depends on argument order");
+  // CONTROL: plain newerOf would have lost the growth — the check must see it.
+  ok(JSON.parse(newerOf(old, newer)).growth === 4, "6 CONTROL: newerOf no longer differs from mergeGarden here");
 }
 
 if (failures.length) {

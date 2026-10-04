@@ -84,6 +84,7 @@ const KEY_LABELS = {
   "tsumiki-room-owned-v1": "Things you own for your room",
   "tsumiki-room-layout-v1": "How your room is arranged",
   "tsumiki-character-v1": "How you look in your room",
+  "tsumiki-garden-state-v1": "Your bonsai and sand garden",
   "tsumiki-engagement-v1": "Daily rhythm and quests",
   "tsumiki-stroke-data-v1": "Handwriting calibration",
   "tsumiki-kanji-mode": "Kanji reading mode",

@@ -1342,6 +1342,42 @@ if (!ONLY.length || ONLY.includes("room")) {
     else console.log("  Home after the visit: the pulse has cleared");
     noErrors("room", app);
   }
+
+  // 3. The garden (v2): a bonsai bought earlier has grown on later study days,
+  //    trimming returns it to the chosen style; days before the purchase and
+  //    days with no study do not count.
+  {
+    const DAY = 86400000, key = (t) => { const d = new Date(t); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; };
+    const bought = Date.now() - 10 * DAY;
+    const studied = [-14, -12, -6, -5, -3, -1].map((n) => key(Date.now() + n * DAY));   // two of these predate the tree
+    const app = await mount({
+      "tsumiki-room-owned-v1": JSON.stringify({ v: 1, ids: { bonsai: bought, karesansui: bought, zabuton: bought } }),
+      "tsumiki-room-layout-v1": JSON.stringify({ v: 1, t: 1, home: "yojouhan", placed: { zabuton: { gx: 3, gy: 1, rot: 0 } }, wall: {}, anchor: null, style: {}, last: null, introSeen: true }),
+      "tsumiki-engagement-v1": JSON.stringify({ activeDays: studied }),
+    });
+    app.roomDoor().click();
+    await wait(1200);
+    const g = JSON.parse(app.get("tsumiki-garden-state-v1") || "{}");
+    const tend = app.btn(b => /Tend the tree/.test(b.textContent || ""));
+    const inv = [...app.d.querySelectorAll(".rm-inv button")].map(b => b.textContent);
+    if (g.growth !== 4) fail(`ROOM (garden): growth is ${g.growth}, want 4 — the study days after the purchase only`);
+    else if (!tend || !/grown out/.test(tend.textContent)) fail("ROOM (garden): a tree four study days out of shape does not say it has grown out");
+    else if (!inv.some(t => /座布団/.test(t))) fail("ROOM (garden): a cushion on the sand garden's tiles was not returned to the inventory");
+    else {
+      tend.click();
+      await wait(500);
+      const cascade = app.btn(b => /懸崖/.test(b.textContent || ""));
+      cascade?.click();
+      await wait(200);
+      app.btn(b => (b.textContent || "").trim() === "Trim")?.click();
+      await wait(500);
+      const after = JSON.parse(app.get("tsumiki-garden-state-v1") || "{}");
+      if (after.style !== "kengai" || after.trimmedAt !== 4) fail(`ROOM (garden): trim saved ${JSON.stringify({ style: after.style, trimmedAt: after.trimmedAt })}`);
+      else if (!/before/.test(app.d.body.textContent) || !/after/.test(app.d.body.textContent)) fail("ROOM (garden): the trim did not show before and after");
+      else console.log("  garden: growth counts only study days after the purchase; trim returns it to 懸崖, before/after shown");
+    }
+    noErrors("garden", app);
+  }
 }
 
 console.log("\n" + "─".repeat(60));
