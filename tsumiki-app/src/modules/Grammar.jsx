@@ -4,6 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import { installStorage } from "../lib/storage.js";
 import { T } from "../lib/tokens.js";
+import { addKoban } from "../lib/koban.js";
 import { ShellSlot } from "../lib/shell.jsx";
 installStorage();
 
@@ -8668,18 +8669,9 @@ function Build({ point, bank = [], progress, onProgress, mode, onTapWord }) {
 }
 
 // ————— Koban wallet (Session 14) —————
-// Same key and shape as the vocabulary module: a plain number under
-// achievement-points-v1. Copy of KobanIcon kept byte-identical to the
-// vocabulary module's for a future hoist into lib/.
-async function loadWallet() {
-  try { const r = await window.storage.get("tsumiki-achievement-points-v1"); return r ? JSON.parse(r.value) : 0; }
-  catch { return 0; }
-}
-async function addKoban(n) {
-  const v = (await loadWallet()) + n;
-  try { await window.storage.set("tsumiki-achievement-points-v1", JSON.stringify(v)); } catch (e) { console.error("koban save failed", e); }
-  return v;
-}
+// Pays into the shared koban ledger below. Copy of KobanIcon kept
+// byte-identical to the vocabulary module's for a future hoist into lib/.
+
 function KobanIcon({ size = 13 }) {
   return (
     <svg width={size} height={Math.round(size * 1.3)} viewBox="0 0 14 18" aria-label="koban"
@@ -9149,7 +9141,9 @@ function ReviewChallenge({ progress, onProgress, isDone, mode, onTapWord, onBack
       let paid = 0;
       if (ok && !claimed(tier)) {
         paid = pay;
-        await addKoban(paid);
+        // The id makes this once per tier per Tokyo day on EVERY device: a
+        // second claim with the same id is a no-op, and a sync union keeps one.
+        await addKoban(paid, `review challenge (${tier})`, "grammar", `challenge:${today}:${tier}`);
         onProgress({ ...progress, _challenge: { ...(progress._challenge || {}), [tier]: today } });
       }
       setResult({ ok, paid, data });

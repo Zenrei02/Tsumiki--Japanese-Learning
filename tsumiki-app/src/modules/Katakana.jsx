@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { installStorage } from "../lib/storage.js";
 import { T } from "../lib/tokens.js";
 import { StrokeView, samplePath, scoreStroke, tolerancesFor, thinPoints, useStrokeData, StrokePractice, LOG_PTS, STROKE_BOX, TOL, TRACE_N } from "../lib/strokeEngine.jsx";
+import { addKoban } from "../lib/koban.js";
 import { STROKES } from "../lib/strokeData.js";
 import { ShellSlot } from "../lib/shell.jsx";
 import "../data/strokes-katakana.js";
@@ -2200,6 +2201,30 @@ function WalkPage({ ch, modId, progress, onProgress, onAdvance }) {
   );
 }
 
+
+// ————— Kana-completion earning (reward-system-design-v1.md §6) —————
+// The day-one faucet: a small fixed payout the first time each lesson is
+// finished, so a Phase 0 learner can furnish a first corner of the room
+// before they ever reach vocabulary. COMPLETION ONLY — nothing per trace or
+// per drill, which is the over-rewarding failure §6 names. Culture lessons
+// are a single "Got it" tap and pay nothing. The ledger id is the once-only
+// guard, on every device. Placeholder number, like every koban figure.
+const KANA_PAY = 3;
+const kanaPayId = (m) => "kana:katakana:" + m.id;
+const kanaPays = (m) => m.kind !== "culture";
+
+// The coin is an icon, never the word — and this module shows no kanji.
+function KobanIcon({ size = 13 }) {
+  return (
+    <svg width={size} height={Math.round(size * 1.3)} viewBox="0 0 14 18" aria-label="koban"
+      style={{ display: "inline-block", verticalAlign: "-2px" }}>
+      <ellipse cx="7" cy="9" rx="6" ry="8" fill="#E8C87A" stroke="#8B6B4A" strokeWidth="1.2" />
+      <line x1="3.2" y1="9" x2="10.8" y2="9" stroke="#B99A4F" strokeWidth="1.2" />
+      <ellipse cx="7" cy="9" rx="3.6" ry="5.2" fill="none" stroke="#B99A4F" strokeWidth="0.9" />
+    </svg>
+  );
+}
+
 // ————— Finish flourish —————
 // An activity that just ends leaves the learner wondering whether it counted.
 // This marks the moment and points at what is next, which is also the only
@@ -2207,7 +2232,7 @@ function WalkPage({ ch, modId, progress, onProgress, onAdvance }) {
 //
 // Deliberately not a modal: it appears in place, under the activity, and does
 // not have to be dismissed. A learner who wants another run is one tap away.
-function Flourish({ title, detail, milestone, nextLabel, onNext, onAgain }) {
+function Flourish({ title, detail, milestone, koban, nextLabel, onNext, onAgain }) {
   return (
     <div role="status" style={{
       marginTop: 18, padding: "18px 18px 16px", borderRadius: 10,
@@ -2218,6 +2243,12 @@ function Flourish({ title, detail, milestone, nextLabel, onNext, onAgain }) {
       {detail && (
         <div style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, marginTop: 4 }}>{detail}</div>
       )}
+      {/* §1: a quiet appended line — amount, then what earned it. Never a toast. */}
+      {koban ? (
+        <div style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub, marginTop: 6 }}>
+          +{koban} <KobanIcon size={11} /> — your first time finishing this lesson.
+        </div>
+      ) : null}
       {milestone && (
         <div style={{ marginTop: 12, paddingTop: 12, borderTop: `1px dashed ${T.ok}` }}>
           <div style={{ fontFamily: T.jpFont, fontSize: "1.875rem", color: T.ink }}>{milestone.word}</div>
@@ -2268,7 +2299,8 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
   // the shared Trace screen so its sound button plays the character (board 07).
   const kanaAudio = useKanaAudio();
   const [traceFocus, setTraceFocus] = useState(null);   // set by "Try drawing it"
-  useEffect(() => { setTab("learn"); setTraceFocus(null); }, [mod.id]);
+  const [paidNow, setPaidNow] = useState(0);            // koban this visit's completion earned
+  useEffect(() => { setTab("learn"); setTraceFocus(null); setPaidNow(0); }, [mod.id]);
   const p = progress[mod.id] || {};
   const lessonComplete = (() => {
     if (isCulture) return !!p.read;
@@ -2278,6 +2310,14 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
     const needsWords = !!(mod.words && mod.words.length);
     return p.drill != null && allTraced && (!needsWords || (p.listenWrote || 0) >= mod.words.length);
   })();
+  // Paid the moment the lesson first completes. Only an award that actually
+  // LANDED shows its line — reopening a finished lesson pays nothing and says
+  // nothing, because the id is already in the ledger.
+  useEffect(() => {
+    if (!lessonComplete || !kanaPays(mod)) return;
+    addKoban(KANA_PAY, "lesson finished", "katakana", kanaPayId(mod))
+      .then((r) => { if (r.added) setPaidNow(KANA_PAY); });
+  }, [lessonComplete, mod.id]);
 
   return (
     <div>
@@ -2297,6 +2337,7 @@ function Module({ mod, idx, progress, onProgress, onBack }) {
           title="Lesson complete"
           detail={flourishDetail(mod, progress)}
           milestone={thenVsNow(mod, progress)}
+          koban={paidNow}
           nextLabel="← Back to lessons"
           onNext={onBack}
         />
@@ -2482,7 +2523,8 @@ export default function KatakanaModule() {
   const [openGroups, setOpenGroups] = useState(null); // null → fall back to first unfinished group
   const loaded = useRef(false);
 
-  useEffect(() => { loadProgress().then((p) => { setProgress(p); loaded.current = true; }); }, []);
+  const [loadedOnce, setLoadedOnce] = useState(false);
+  useEffect(() => { loadProgress().then((p) => { setProgress(p); loaded.current = true; setLoadedOnce(true); }); }, []);
   const update = (p) => { const s = stampFirsts(p); setProgress(s); if (loaded.current) saveProgress(s); };
 
   const isDone = (m) => {
@@ -2513,6 +2555,17 @@ export default function KatakanaModule() {
     const wordsDone = !needsWords || (p.listenWrote || 0) >= m.words.length;
     return p.drill != null && allTraced && wordsDone;
   };
+
+  // Back-pay, once per load: lessons finished before kana earned anything pay
+  // now, silently — there is no flourish on screen to carry the line, and the
+  // koban will simply be waiting in the room. The ids make it idempotent, so
+  // this is a no-op on every load after the first.
+  useEffect(() => {
+    if (!loadedOnce) return;
+    for (const m of MODULES) {
+      if (kanaPays(m) && isDone(m)) addKoban(KANA_PAY, "lesson finished", "katakana", kanaPayId(m));
+    }
+  }, [loadedOnce]);
 
   const doneCount = MODULES.filter(isDone).length;
   // Collapsed by default except the first group with work left, so the list

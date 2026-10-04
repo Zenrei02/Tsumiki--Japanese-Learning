@@ -298,3 +298,53 @@ flourish work at the earliest.
 
 Still pending: earned-lines wiring, the grammar-sentence then-vs-now, actual point
 numbers/prices (deferred), and everything later-phase (room, shop, pulse, pet).
+
+**Implemented Oct 4 2026 — the room/shop pass, v1** (Notion *"🏠 Room, Garden &
+Avatar — design for the room/shop pass (v1)"*, build-order steps 1, 2, 4 and 5;
+auth (step 3) and the garden (step 6) deliberately not in this pass). Lloyd's
+rulings on that page's open items: **R-1** the wallet lives in the room/shop
+only — gone from Home and from Progress, with the Room door pulsing instead;
+**R-2** the §4 ladder as written; **R-4** the avatar stays seated at the study
+spot, and quest chains pay koban only (no room item — it is the attendance
+payout §7.2 rules out).
+
+- **The ledger** (`tsumiki-koban-ledger-v1`) replaces the balance. One block,
+  byte-identical in every module that earns or spends, hoisted by
+  `build-vite-app.py` into `lib/koban.js` — the build refuses if two copies
+  differ. Once-only payouts carry deterministic ids (`kana:hiragana:<lesson>`,
+  `challenge:<tokyo-date>:<tier>`, `quest:<chain>:chain`, `quest:first-path`),
+  which makes them once per learner on every device and also retires a
+  StrictMode double-pay in the engagement module. The old number becomes one
+  `legacy-opening` event; the old key is left untouched and listed as legacy.
+- **Merges** (`lib/kobanMerge.js`, registered in `sync.js`): ledger and owned
+  items union; layout and character are most-recent-wins by an embedded `t`.
+  `test/test-koban.mjs` asserts order independence and the once-only ids, with
+  controls.
+- **Four keys** registered in `storage.js` KEYS in the same change:
+  ledger, `room-owned-v1`, `room-layout-v1`, `character-v1`.
+  `garden-state-v1` is NOT registered — nothing writes it yet; it goes in with
+  the garden, per the rule that a key belongs in KEYS when it is written.
+- **§6 kana-completion earning**: 3 koban the first time each kana or skill
+  lesson completes (culture lessons pay nothing), announced in the flourish;
+  lessons finished before this pay silently once, on the next load.
+- **First path**: +60 on top of the first quest chain a learner ever completes
+  — the Notion page's "first-timer goal".
+- **The room** (`room-module.jsx`): the approved isometric art, a 6×6 四畳半 that
+  becomes an 8×8 六畳. **The move costs 350 but only opens on capability** —
+  both kana scripts writable, or 40 words practised — so the bigger home stays
+  promised for growing Japanese, as the first-open card says, and koban pay
+  for it without unlocking it. The ledger, not the layout, decides which home
+  you are in, so a stale device cannot carry you back to the small room.
+  Study spot as a `SPOTS` table (study only), 座卓 (12) and こたつ (180) as its
+  anchor, floor and wall items, recolour variants (walls, tatami, kotatsu
+  quilt), an avatar with four slots, and the cat — beside your newest thing,
+  holding a koban when some arrived while you were away. Item names are
+  **DRAFT**, pending reviewer sign-off after B10.
+- **The pulse**: the Room door on Home pulses (three beats, then a still ring)
+  when the balance has crossed the price of something unowned since this
+  browser last looked in. Per-device state in `tsumiki-room-pulse-v1`, raw
+  localStorage, deliberately not exported.
+
+Still pending: auth, the garden and bonsai spots with their overlays, reviewer
+sign-off on the catalogue names, and real prices (everything above is a
+placeholder on the §4 ladder).

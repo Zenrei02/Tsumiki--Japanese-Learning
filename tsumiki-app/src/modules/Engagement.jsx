@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { installStorage } from "../lib/storage.js";
 import { loadJSON, saveJSON } from "../lib/json.js";
+import { addKoban, kobanNow } from "../lib/koban.js";
 installStorage();
 
 /* ============================================================================
@@ -23,9 +24,16 @@ installStorage();
      reading and gloss. This is what removes the reviewer from the loop: an
      invitation cannot be wrong the way an assertion can.
 
-   • QUEST REWARD IS KOBAN. Chain completion pays into the shared wallet
-     (`tsumiki-achievement-points-v1`). A room item on completion is deferred to the
-     room/shop pass, per reward-system-design-v1.md §5.
+   • QUEST REWARD IS KOBAN. Chain completion pays into the shared koban
+     ledger (`tsumiki-koban-ledger-v1`). The room/shop pass (Oct 2026) settled
+     the deferred question: quests pay koban only, never a room item — an item
+     for showing up is the attendance payout §7.2 rules out, in a nicer hat.
+
+   • THE FIRST PATH PAYS ONCE, GENEROUSLY. The room design's "first-timer
+     goal" (Notion, Room/Garden/Avatar §4): ~60 on top of the first chain a
+     learner ever completes, enough to choose a second room item outright. A
+     one-time faucet, so it moves the first purchase earlier without touching
+     the per-stage rate at all.
 
    • EARLY-FINISH BONUS. Clear the three tasks before the window closes and a
      fourth appears, paying more. This is the "unwieldy for hardcore users"
@@ -42,7 +50,7 @@ import QUOTES from "../data/quote-bank-v1.js";
    -------------------------------------------------------------------------*/
 
 const KEY = "tsumiki-engagement-v1";
-const WALLET_KEY = "tsumiki-achievement-points-v1"; // shared with vocabulary + grammar
+
 
 
 
@@ -64,7 +72,13 @@ const BLANK = {
    finishing three tasks inside a window built for three days.
    -------------------------------------------------------------------------*/
 
-const KOBAN = { chain: 8, bonus: 12 };
+const KOBAN = { chain: 8, bonus: 12, firstPath: 60 };
+
+// Every payout here carries its own id, so a claim is ONCE on every device.
+// That also retires a quieter bug: pay() runs inside a state updater, which
+// React's StrictMode calls twice in development, and the old wallet write
+// paid twice there. A repeated id is now a no-op.
+const chainId = (c) => "quest:" + c.startedOn + ":" + (c.tasks || []).filter((t) => !t.bonus).map((t) => t.taskId).join("+");
 
 /* ---------------------------------------------------------------------------
    3. DATE HELPERS — LOCAL dates, never UTC.
@@ -252,7 +266,7 @@ function useEngagement(unlocked, due, simulatedDate) {
   useEffect(() => {
     let alive = true;
     (async () => {
-      const [s, w] = await Promise.all([loadJSON(KEY, BLANK), loadJSON(WALLET_KEY, 0)]);
+      const [s, w] = await Promise.all([loadJSON(KEY, BLANK), kobanNow()]);
       if (!alive) return;
       const merged = { ...BLANK, ...s };
       // State written before the rolling window existed carries active days and
@@ -271,14 +285,20 @@ function useEngagement(unlocked, due, simulatedDate) {
     });
   }, []);
 
-  /** Wallet write. Balance is NOT rendered here — §1: it lives in the room/shop. */
-  const pay = useCallback((amount, reason) => {
-    setWallet((w) => {
-      const next = (w || 0) + amount;
-      saveJSON(WALLET_KEY, next);
-      return next;
-    });
-    setFlash(`+${amount} 小判 — ${reason}`);
+  /** Wallet write. Balance is NOT rendered here — §1: it lives in the room/shop.
+      Takes a list so a claim that pays twice (the first path) announces once,
+      and only what actually landed: a repeated id adds nothing and says nothing. */
+  const pay = useCallback((items) => {
+    (async () => {
+      let total = 0, reasons = [], balance = null;
+      for (const it of items) {
+        const r = await addKoban(it.amount, it.reason, "quest", it.id);
+        balance = r.balance;
+        if (r.added) { total += it.amount; reasons.push(it.reason); }
+      }
+      if (balance != null) setWallet(balance);
+      if (total) setFlash(`+${total} 小判 — ${reasons.join(", and ")}`);
+    })();
   }, []);
 
   // Rotate the card once per local day. This does NOT mark the day active.
@@ -371,7 +391,10 @@ function useEngagement(unlocked, due, simulatedDate) {
             order: prev.chain.tasks.length, bonus: true,
           }]
         : prev.chain.tasks;
-      pay(KOBAN.chain, "path completed");
+      pay([
+        { amount: KOBAN.chain, reason: "path completed", id: chainId(prev.chain) + ":chain" },
+        { amount: KOBAN.firstPath, reason: "your first one", id: "quest:first-path" },
+      ]);
       return { ...prev, chain: { ...prev.chain, tasks, claimed: true, bonus: early } };
     });
   }, [save, today, pay]);
@@ -379,7 +402,7 @@ function useEngagement(unlocked, due, simulatedDate) {
   const claimBonus = useCallback(() => {
     save((prev) => {
       if (!prev.chain?.bonus || prev.chain.bonusClaimed) return prev;
-      pay(KOBAN.bonus, "finished early");
+      pay([{ amount: KOBAN.bonus, reason: "finished early", id: chainId(prev.chain) + ":bonus" }]);
       return { ...prev, chain: { ...prev.chain, bonusClaimed: true } };
     });
   }, [save, pay]);

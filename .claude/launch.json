@@ -7,6 +7,13 @@
       "runtimeArgs": ["run", "dev"],
       "cwd": "tsumiki-app",
       "port": 5173
+    },
+    {
+      "name": "tsumiki-app-alt",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "5188", "--strictPort"],
+      "cwd": "tsumiki-app",
+      "port": 5188
     }
   ]
 }

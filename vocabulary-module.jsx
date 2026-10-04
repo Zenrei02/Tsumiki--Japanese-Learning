@@ -1688,13 +1688,96 @@ function StrokePractice({ chars, modId, progress, onProgress, startCh, onSound =
 // standalone builds need the shim in build-standalone-html.py.
 const KEY = "tsumiki-known-words-v1";            // this module's own progress
 const KNOWN_KANJI_KEY = "tsumiki-known-kanji-v1"; // written by the kanji module, read here
-const AP_KEY = "tsumiki-achievement-points-v1";
 const GRAMMAR_KEY = "tsumiki-n5-progress-v1";    // read here, written by the grammar module —
                                          // gates kana-only words on "step reached" (Session 10)
 const KATA_KEY = "tsumiki-katakana-progress-v1"; // read here, written by the katakana module —
                                          // its CC/SB lessons trigger early katakana vocabulary
 const MY_WORDS_KEY = "tsumiki-my-words-v1";      // read here, written ONLY by the dictionary module —
                                          // the words the learner chose to keep (Session 34)
+
+// ————— Koban ledger (room/shop pass, Oct 2026) —————
+// IDENTICAL IN EVERY MODULE THAT EARNS OR SPENDS. build-vite-app.py hoists it
+// into lib/koban.js and REFUSES to build if two copies differ, so edit them
+// together or not at all.
+//
+// The wallet used to be one number under achievement-points-v1. Spending broke
+// that: two devices spending from the same balance hand sync two smaller
+// numbers that both look legitimate, and either answer to "which one?" silently
+// grants or destroys koban. So the balance is no longer stored. Every earn and
+// every spend is an event with its own id, sync UNIONS the events by id
+// (lib/kobanMerge.js), and the balance is the sum.
+//
+// A ONE-TIME payout passes its own deterministic id ("kana:hiragana:a",
+// "quest:first-path"). The id IS the once-only guard: a second award with the
+// same id is a no-op on this device, and a union across devices keeps one copy.
+//
+// The old number becomes one opening event, LEGACY_OPENING, the first time the
+// ledger is read. Its id is fixed so two devices migrating separately do not
+// count it twice. The old key is left alone, readable for one version.
+const KOBAN_KEY = "tsumiki-koban-ledger-v1";
+const KOBAN_LEGACY_KEY = "tsumiki-achievement-points-v1";
+const LEGACY_OPENING = "legacy-opening";
+
+function kobanUid() {
+  try { if (crypto && crypto.randomUUID) return crypto.randomUUID(); } catch (e) {}
+  return "k" + Date.now().toString(36) + Math.random().toString(36).slice(2, 12) + Math.random().toString(36).slice(2, 12);
+}
+
+async function readKoban() {
+  let led = null;
+  try { const r = await window.storage.get(KOBAN_KEY); led = r ? JSON.parse(r.value) : null; } catch (e) { led = null; }
+  const events = led && Array.isArray(led.events) ? led.events.filter((e) => e && e.id && Number.isFinite(e.d)) : [];
+  if (!events.some((e) => e.id === LEGACY_OPENING)) {
+    let old = 0;
+    try { const r = await window.storage.get(KOBAN_LEGACY_KEY); old = r ? Number(JSON.parse(r.value)) : 0; } catch (e) { old = 0; }
+    if (Number.isFinite(old) && old > 0) events.unshift({ id: LEGACY_OPENING, ts: 0, d: Math.round(old), r: "opening balance", s: "migration" });
+  }
+  return { v: 1, events };
+}
+
+function kobanBalance(led) {
+  return (led && led.events ? led.events : []).reduce((n, e) => n + (Number.isFinite(e.d) ? e.d : 0), 0);
+}
+
+// One write at a time. Each award is read-modify-write, and two in flight
+// would each read the same ledger and the second would drop the first event.
+let kobanQueue = Promise.resolve();
+function kobanWrite(step) {
+  const run = kobanQueue.then(async () => {
+    const led = await readKoban();
+    const out = step(led);
+    if (out.write) {
+      try { await window.storage.set(KOBAN_KEY, JSON.stringify(led)); } catch (e) { console.error("koban save failed", e); }
+    }
+    return { ...out, balance: kobanBalance(led) };
+  });
+  kobanQueue = run.catch(() => {});
+  return run;
+}
+
+// Earn. `id` only for a once-only payout; leave it out for a repeatable one.
+function addKoban(amount, reason, source, id) {
+  return kobanWrite((led) => {
+    const n = Math.round(Number(amount));
+    if (!Number.isFinite(n) || n <= 0) return { added: false, write: false };
+    if (id && led.events.some((e) => e.id === id)) return { added: false, write: false };
+    led.events.push({ id: id || kobanUid(), ts: Date.now(), d: n, r: String(reason || ""), s: String(source || "") });
+    return { added: true, write: true };
+  });
+}
+
+// Spend. Refuses rather than going negative.
+function spendKoban(price, reason, item) {
+  return kobanWrite((led) => {
+    const n = Math.round(Number(price));
+    if (!Number.isFinite(n) || n <= 0 || kobanBalance(led) < n) return { ok: false, write: false };
+    led.events.push({ id: kobanUid(), ts: Date.now(), d: -n, r: String(reason || ""), s: "room", item: item || null });
+    return { ok: true, write: true };
+  });
+}
+
+async function kobanNow() { return kobanBalance(await readKoban()); }
+// ————— end koban ledger —————
 
 // ————— Words of your own (Session 34) —————
 // A word sent from the dictionary becomes a word object like any in WORDS, so
@@ -2088,7 +2171,7 @@ export default function VocabularyModule() {
   useEffect(() => {
     (async () => {
       const [p, k, ap, g, kp, my] = await Promise.all([
-        loadJSON(KEY, {}), loadJSON(KNOWN_KANJI_KEY, []), loadJSON(AP_KEY, 0),
+        loadJSON(KEY, {}), loadJSON(KNOWN_KANJI_KEY, []), kobanNow(),
         loadJSON(GRAMMAR_KEY, {}), loadJSON(KATA_KEY, {}), loadJSON(MY_WORDS_KEY, []),
       ]);
       setMine(Array.isArray(my) ? my : []);
@@ -2110,12 +2193,15 @@ export default function VocabularyModule() {
 
   const get = useCallback((w) => progress[w] || blank(), [progress]);
 
-  const persist = useCallback(async (next, apDelta) => {
+  const persist = useCallback(async (next, apDelta, reason) => {
     next = stampFirsts(next);
     setProgress(next);
     await saveJSON(KEY, next);
     if (apDelta) {
-      setPoints((prev) => { const v = prev + apDelta; saveJSON(AP_KEY, v); return v; });
+      // The ledger, not a number (room/shop pass, Oct 2026). The balance shown
+      // here is whatever the ledger sums to after this award lands.
+      const r = await addKoban(apDelta, reason || "vocabulary", "vocabulary");
+      setPoints(r.balance);
     }
   }, []);
 
@@ -2187,7 +2273,7 @@ export default function VocabularyModule() {
   const encDue = [...MARKER_T].reverse().find((t) => encountered >= t && t > (markers.enc || 0));
   const offer = pracDue ? { kind: "prac", t: pracDue } : encDue ? { kind: "enc", t: encDue } : null;
   const recordMarker = (kind, t, ap) =>
-    persist({ ...progress, _markers: { ...markers, [kind]: t } }, ap || 0);
+    persist({ ...progress, _markers: { ...markers, [kind]: t } }, ap || 0, "marker check-in");
   const startMarkerQuiz = (kind, t) => {
     const pool = WORDS.filter((x) => {
       const p = get(x.w);
@@ -2231,7 +2317,7 @@ export default function VocabularyModule() {
     p.due = now() + LADDER[Math.max(0, p.stage)] * DAY;
     p.log.push({ t: now(), via: gained.length ? "kanji" : "interval", wrote: !!opts.wrote });
 
-    await persist({ ...progress, [word.w]: p }, ap);
+    await persist({ ...progress, [word.w]: p }, ap, justCompleted ? "word completed" : "new kanji written");
     setActive(null);
     if (justCompleted) { setCelebrate({ word, ap }); return; }
     setToast(ap ? <span>+{ap} <KobanIcon size={12} /></span> : null);
@@ -2268,7 +2354,7 @@ export default function VocabularyModule() {
     const pay = ok && n < REVIEW_PAY_CAP ? AP.review : 0;
     const next = { ...progress, [word.w]: p };
     if (pay) next._reviewPay = { day, n: n + 1 };
-    await persist(next, pay);
+    await persist(next, pay, "review");
     return pay;
   }, [get, progress, persist]);
 

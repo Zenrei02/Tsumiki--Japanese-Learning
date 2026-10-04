@@ -6,6 +6,7 @@ import { installStorage } from "../lib/storage.js";
 import { T } from "../lib/tokens.js";
 import { StrokePractice } from "../lib/strokeEngine.jsx";
 import { loadJSON, saveJSON } from "../lib/json.js";
+import { addKoban, kobanNow } from "../lib/koban.js";
 import { STROKES } from "../lib/strokeData.js";
 import { ShellSlot } from "../lib/shell.jsx";
 import "../data/strokes-vocabulary.js";
@@ -1203,13 +1204,13 @@ const STEP_POINTS = {"Step 0 · Before any Japanese": ["prim-shape", "prim-drop"
 // standalone builds need the shim in build-standalone-html.py.
 const KEY = "tsumiki-known-words-v1";            // this module's own progress
 const KNOWN_KANJI_KEY = "tsumiki-known-kanji-v1"; // written by the kanji module, read here
-const AP_KEY = "tsumiki-achievement-points-v1";
 const GRAMMAR_KEY = "tsumiki-n5-progress-v1";    // read here, written by the grammar module —
                                          // gates kana-only words on "step reached" (Session 10)
 const KATA_KEY = "tsumiki-katakana-progress-v1"; // read here, written by the katakana module —
                                          // its CC/SB lessons trigger early katakana vocabulary
 const MY_WORDS_KEY = "tsumiki-my-words-v1";      // read here, written ONLY by the dictionary module —
                                          // the words the learner chose to keep (Session 34)
+
 
 // ————— Words of your own (Session 34) —————
 // A word sent from the dictionary becomes a word object like any in WORDS, so
@@ -1597,7 +1598,7 @@ export default function VocabularyModule() {
   useEffect(() => {
     (async () => {
       const [p, k, ap, g, kp, my] = await Promise.all([
-        loadJSON(KEY, {}), loadJSON(KNOWN_KANJI_KEY, []), loadJSON(AP_KEY, 0),
+        loadJSON(KEY, {}), loadJSON(KNOWN_KANJI_KEY, []), kobanNow(),
         loadJSON(GRAMMAR_KEY, {}), loadJSON(KATA_KEY, {}), loadJSON(MY_WORDS_KEY, []),
       ]);
       setMine(Array.isArray(my) ? my : []);
@@ -1619,12 +1620,15 @@ export default function VocabularyModule() {
 
   const get = useCallback((w) => progress[w] || blank(), [progress]);
 
-  const persist = useCallback(async (next, apDelta) => {
+  const persist = useCallback(async (next, apDelta, reason) => {
     next = stampFirsts(next);
     setProgress(next);
     await saveJSON(KEY, next);
     if (apDelta) {
-      setPoints((prev) => { const v = prev + apDelta; saveJSON(AP_KEY, v); return v; });
+      // The ledger, not a number (room/shop pass, Oct 2026). The balance shown
+      // here is whatever the ledger sums to after this award lands.
+      const r = await addKoban(apDelta, reason || "vocabulary", "vocabulary");
+      setPoints(r.balance);
     }
   }, []);
 
@@ -1696,7 +1700,7 @@ export default function VocabularyModule() {
   const encDue = [...MARKER_T].reverse().find((t) => encountered >= t && t > (markers.enc || 0));
   const offer = pracDue ? { kind: "prac", t: pracDue } : encDue ? { kind: "enc", t: encDue } : null;
   const recordMarker = (kind, t, ap) =>
-    persist({ ...progress, _markers: { ...markers, [kind]: t } }, ap || 0);
+    persist({ ...progress, _markers: { ...markers, [kind]: t } }, ap || 0, "marker check-in");
   const startMarkerQuiz = (kind, t) => {
     const pool = WORDS.filter((x) => {
       const p = get(x.w);
@@ -1740,7 +1744,7 @@ export default function VocabularyModule() {
     p.due = now() + LADDER[Math.max(0, p.stage)] * DAY;
     p.log.push({ t: now(), via: gained.length ? "kanji" : "interval", wrote: !!opts.wrote });
 
-    await persist({ ...progress, [word.w]: p }, ap);
+    await persist({ ...progress, [word.w]: p }, ap, justCompleted ? "word completed" : "new kanji written");
     setActive(null);
     if (justCompleted) { setCelebrate({ word, ap }); return; }
     setToast(ap ? <span>+{ap} <KobanIcon size={12} /></span> : null);
@@ -1777,7 +1781,7 @@ export default function VocabularyModule() {
     const pay = ok && n < REVIEW_PAY_CAP ? AP.review : 0;
     const next = { ...progress, [word.w]: p };
     if (pay) next._reviewPay = { day, n: n + 1 };
-    await persist(next, pay);
+    await persist(next, pay, "review");
     return pay;
   }, [get, progress, persist]);
 

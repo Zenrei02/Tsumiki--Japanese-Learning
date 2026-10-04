@@ -16,7 +16,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { T } from "./tokens.js";
 import {
-  SECTIONS, readSectionStats, readWallet, resetEverywhere,
+  SECTIONS, readSectionStats, resetEverywhere,
   daysSinceLastWorked, DORMANT_DAYS,
 } from "./stats.js";
 import { storage, downloadProgress } from "./storage.js";
@@ -40,7 +40,6 @@ const h3 = {
 
 export default function Progress({ go }) {
   const [stats, setStats] = useState([]);
-  const [wallet, setWallet] = useState(0);
   const [dormantDays, setDormantDays] = useState(null);
   const [checker, setChecker] = useState(null);
   const [picked, setPicked] = useState([]);
@@ -49,10 +48,10 @@ export default function Progress({ go }) {
   const [savedCopy, setSavedCopy] = useState(null);
 
   const refresh = useCallback(async () => {
-    const [s, w, d, h] = await Promise.all([
-      readSectionStats(), readWallet(), daysSinceLastWorked(), readHistory(),
+    const [s, d, h] = await Promise.all([
+      readSectionStats(), daysSinceLastWorked(), readHistory(),
     ]);
-    setStats(s); setWallet(w); setDormantDays(d); setChecker(summarise(h));
+    setStats(s); setDormantDays(d); setChecker(summarise(h));
   }, []);
 
   useEffect(() => { refresh(); }, [refresh]);
@@ -108,12 +107,12 @@ export default function Progress({ go }) {
         </p>
       )}
 
+      {/* No koban here (Oct 2026, R-1): the balance lives in the room and its
+          shop, like a wallet — reward-system-design-v1.md §1. This screen is
+          what you can DO, and koban are not a capability. */}
       <div style={{ display: "flex", alignItems: "baseline",
                     justifyContent: "space-between", marginBottom: 10 }}>
         <h2 style={h3}>WHAT YOU CAN DO</h2>
-        <span style={{ font: `0.8125rem ${T.uiFont}`, color: T.note }}>
-          <span style={{ fontFamily: T.jpFont }}>小判</span> {wallet}
-        </span>
       </div>
 
       <ul style={{ listStyle: "none", padding: 0, margin: "0 0 26px" }}>

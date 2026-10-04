@@ -16,6 +16,7 @@ const KanjiModule = lazy(() => import("./modules/Kanji.jsx"));
 const VocabularyModule = lazy(() => import("./modules/Vocabulary.jsx"));
 const CheckerModule = lazy(() => import("./modules/Checker.jsx"));
 const DictionaryModule = lazy(() => import("./modules/Dictionary.jsx"));
+const RoomModule = lazy(() => import("./modules/Room.jsx"));
 
 const MODULES = [
   { id: "hiragana", label: "Hiragana", jp: "ひらがな", accent: ACCENT.hiragana, Comp: HiraganaModule },
@@ -227,7 +228,7 @@ function Scene({ onOpen, dusk = false }) {
   return <button onClick={onOpen} aria-label="Your room" className="ts-scene">{svg}</button>;
 }
 
-function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays, openAccount, openGoals, dusk, heroRef }) {
+function Home({ startedMap, lastMod, nextTask, go, recency, roomPulse, dormantDays, openAccount, openGoals, dusk, heroRef }) {
   const fresh = !MODULES.some((m) => startedMap[m.id]);
   const started = (id) => Boolean(startedMap[id]);
 
@@ -344,23 +345,27 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
           </button>
         )}
 
-        {/* Goals and koban, on Home only (Session 23): a currency counter over
-            a lesson is a scoreboard, and this app does not keep score during
-            the work. Revisit when the room ships — it is where koban belong. */}
+        {/* Goals (Session 23). The koban counter that sat beside this button
+            has gone back where reward-system-design-v1.md §1 put it: the
+            room and its shop, checked like a wallet. Session 23 moved it here
+            only because there was no room to see koban in — Lloyd, Oct 4
+            2026 (R-1): now there is. The Room door pulses instead. */}
         {!fresh && (
           <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
             <button onClick={openGoals} className="ts-btn ts-btn-washi">Goals</button>
-            {wallet > 0 && (
-              <span title="Koban you have earned" style={{
-                font: `700 0.875rem ${T.uiFont}`, color: "var(--ts-koban)", whiteSpace: "nowrap",
-              }}>
-                <span style={{ fontFamily: T.jpFont }}>小判</span> {wallet}
-              </span>
-            )}
           </div>
         )}
 
-        <button onClick={() => go("room")} className="ts-btn ts-btn-wood" style={{ width: "100%" }}>
+        {/* THE PULSE (reward-system-design-v1.md §5, approved Session 11).
+            Fires when the balance has crossed the price of something not yet
+            owned since this browser last looked in the room — "significant to
+            this learner right now", not a raw coin total. A few beats, then a
+            still gold ring until the room is visited. Home only, so never
+            mid-exercise; and a door that pulsed forever would stop meaning
+            anything. */}
+        <button onClick={() => go("room")} className={"ts-btn ts-btn-wood" + (roomPulse ? " ts-wood-pulse" : "")}
+                style={{ width: "100%" }}
+                aria-label={roomPulse ? "Room — something new is within reach" : undefined}>
           {ICON.house} Room <span style={{ fontFamily: T.jpFont, fontWeight: 500 }}>へや</span>
         </button>
       </div>
@@ -368,32 +373,20 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
   );
 }
 
-// ————— The room, until it is built —————
-// The rework designs the room (06-room.html) and explicitly builds nothing, but
-// Home now has two doors into it. They lead here: the scene, and an honest line.
-function RoomSoon({ wallet, go, dusk }) {
-  return (
-    <div>
-      <Scene dusk={dusk} />
-      <div style={{ padding: "18px 16px 32px" }}>
-        <div className="ts-card" style={{ padding: "18px 18px 16px", display: "flex", flexDirection: "column", gap: 10 }}>
-          <span style={{ ...LABEL, color: T.muted }}>YOUR ROOM</span>
-          <span style={{ font: `700 1.375rem/1.25 ${T.uiFont}` }}>Still being built</span>
-          <span style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub }}>
-            The koban you earn will furnish it. Nothing you earn in the meantime is lost.
-          </span>
-          {wallet > 0 && (
-            <span style={{ font: `700 0.875rem ${T.uiFont}`, color: T.note }}>
-              <span style={{ fontFamily: T.jpFont }}>小判</span> {wallet} saved so far
-            </span>
-          )}
-          <button onClick={() => go("home")} className="ts-btn ts-btn-wood" style={{ marginTop: 6 }}>
-            Back to your blocks
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+// ————— The room (room/shop pass, Oct 2026) —————
+// The room module is room-module.jsx at the repo root, lazy like the doors.
+// Whether the Room door pulses is decided here from two things only: the
+// ledger's balance, and what this browser last saw in the room (written by the
+// room into tsumiki-room-pulse-v1 — per device, raw localStorage, deliberately
+// not exported; see the note beside PULSE_KEY in room-module.jsx). A browser
+// that has never opened the room pulses once the first item is affordable.
+const ROOM_FIRST_PRICE = 12;
+function roomPulseFor(balance) {
+  let rec = null;
+  try { rec = JSON.parse(localStorage.getItem("tsumiki-room-pulse-v1") || "null"); } catch (e) { rec = null; }
+  if (!rec || !Array.isArray(rec.prices)) return balance >= ROOM_FIRST_PRICE;
+  const seen = Number(rec.seen) || 0;
+  return rec.prices.some((p) => p > seen && p <= balance);
 }
 
 // ————— First-visit welcome (Oct 2026) —————
@@ -763,7 +756,7 @@ export default function App() {
   const [accountOpen, setAccountOpen] = useState(false);
   const [goalsOpen, setGoalsOpen] = useState(false);
   const [recency, setRecency] = useState({});
-  const [wallet, setWallet] = useState(0);
+  const [roomPulse, setRoomPulse] = useState(false);
   const [dormantDays, setDormantDays] = useState(null);
   // First-visit welcome. Both start unknown, and the welcome is decided only
   // once both are known: deciding before readStarted() resolves would flash
@@ -791,7 +784,7 @@ export default function App() {
       setNextTask(t);
       setLastWorked(last?.value ?? null);
       setRecency(rec);
-      setWallet(w);
+      setRoomPulse(roomPulseFor(w));
       setDormantDays(dorm);
     })();
     return () => { alive = false; };
@@ -872,7 +865,7 @@ export default function App() {
       // Same evidence, recorded per section so Home can order by what is
       // actually being used, and so a three-week gap can be noticed.
       await markWorked(id);
-      setWallet(await readWallet());
+      setRoomPulse(roomPulseFor(await readWallet()));
       // Session 23: the same evidence, published for the engagement layer. It
       // is deliberately inside this branch — the whole point of commitIfWorked
       // is that the store CHANGED, and marking a day active on navigation is
@@ -1018,12 +1011,16 @@ export default function App() {
                    signIn={() => { dismissWelcome(); setFocusHero(true); setAccountOpen(true); }} />
         ) : active === "home" ? (
           <Home startedMap={startedMap} heroRef={heroRef} nextTask={nextTask} go={go}
-                recency={recency} wallet={wallet} dormantDays={dormantDays}
+                recency={recency} roomPulse={roomPulse} dormantDays={dormantDays}
                 openAccount={() => setAccountOpen(true)}
                 openGoals={() => setGoalsOpen(true)} dusk={dusk}
                 lastMod={MODULES.find((m) => m.id === lastWorked) || null} />
         ) : active === "room" ? (
-          <RoomSoon wallet={wallet} go={go} dusk={dusk} />
+          <Suspense fallback={
+            <p style={{ padding: "40px 18px", color: T.sub, font: `0.875rem ${T.uiFont}` }}>Loading…</p>
+          }>
+            <RoomModule />
+          </Suspense>
         ) : active === "progress" ? (
           // Not lazy: it is small, and it is the screen a learner opens to be
           // reassured about their own work. A spinner there reads as "gone".

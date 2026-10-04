@@ -16,9 +16,16 @@
      reading and gloss. This is what removes the reviewer from the loop: an
      invitation cannot be wrong the way an assertion can.
 
-   • QUEST REWARD IS KOBAN. Chain completion pays into the shared wallet
-     (`tsumiki-achievement-points-v1`). A room item on completion is deferred to the
-     room/shop pass, per reward-system-design-v1.md §5.
+   • QUEST REWARD IS KOBAN. Chain completion pays into the shared koban
+     ledger (`tsumiki-koban-ledger-v1`). The room/shop pass (Oct 2026) settled
+     the deferred question: quests pay koban only, never a room item — an item
+     for showing up is the attendance payout §7.2 rules out, in a nicer hat.
+
+   • THE FIRST PATH PAYS ONCE, GENEROUSLY. The room design's "first-timer
+     goal" (Notion, Room/Garden/Avatar §4): ~60 on top of the first chain a
+     learner ever completes, enough to choose a second room item outright. A
+     one-time faucet, so it moves the first purchase earlier without touching
+     the per-stage rate at all.
 
    • EARLY-FINISH BONUS. Clear the three tasks before the window closes and a
      fourth appears, paying more. This is the "unwieldy for hardcore users"
@@ -36,7 +43,6 @@ import QUOTES from "./quote-bank-v1.js";
    -------------------------------------------------------------------------*/
 
 const KEY = "tsumiki-engagement-v1";
-const WALLET_KEY = "tsumiki-achievement-points-v1"; // shared with vocabulary + grammar
 
 async function loadJSON(key, fallback) {
   try { const r = await window.storage.get(key); return r ? JSON.parse(r.value) : fallback; }
@@ -46,6 +52,90 @@ async function saveJSON(key, v) {
   try { await window.storage.set(key, JSON.stringify(v)); }
   catch (e) { console.error("save failed: " + key, e); }
 }
+
+// ————— Koban ledger (room/shop pass, Oct 2026) —————
+// IDENTICAL IN EVERY MODULE THAT EARNS OR SPENDS. build-vite-app.py hoists it
+// into lib/koban.js and REFUSES to build if two copies differ, so edit them
+// together or not at all.
+//
+// The wallet used to be one number under achievement-points-v1. Spending broke
+// that: two devices spending from the same balance hand sync two smaller
+// numbers that both look legitimate, and either answer to "which one?" silently
+// grants or destroys koban. So the balance is no longer stored. Every earn and
+// every spend is an event with its own id, sync UNIONS the events by id
+// (lib/kobanMerge.js), and the balance is the sum.
+//
+// A ONE-TIME payout passes its own deterministic id ("kana:hiragana:a",
+// "quest:first-path"). The id IS the once-only guard: a second award with the
+// same id is a no-op on this device, and a union across devices keeps one copy.
+//
+// The old number becomes one opening event, LEGACY_OPENING, the first time the
+// ledger is read. Its id is fixed so two devices migrating separately do not
+// count it twice. The old key is left alone, readable for one version.
+const KOBAN_KEY = "tsumiki-koban-ledger-v1";
+const KOBAN_LEGACY_KEY = "tsumiki-achievement-points-v1";
+const LEGACY_OPENING = "legacy-opening";
+
+function kobanUid() {
+  try { if (crypto && crypto.randomUUID) return crypto.randomUUID(); } catch (e) {}
+  return "k" + Date.now().toString(36) + Math.random().toString(36).slice(2, 12) + Math.random().toString(36).slice(2, 12);
+}
+
+async function readKoban() {
+  let led = null;
+  try { const r = await window.storage.get(KOBAN_KEY); led = r ? JSON.parse(r.value) : null; } catch (e) { led = null; }
+  const events = led && Array.isArray(led.events) ? led.events.filter((e) => e && e.id && Number.isFinite(e.d)) : [];
+  if (!events.some((e) => e.id === LEGACY_OPENING)) {
+    let old = 0;
+    try { const r = await window.storage.get(KOBAN_LEGACY_KEY); old = r ? Number(JSON.parse(r.value)) : 0; } catch (e) { old = 0; }
+    if (Number.isFinite(old) && old > 0) events.unshift({ id: LEGACY_OPENING, ts: 0, d: Math.round(old), r: "opening balance", s: "migration" });
+  }
+  return { v: 1, events };
+}
+
+function kobanBalance(led) {
+  return (led && led.events ? led.events : []).reduce((n, e) => n + (Number.isFinite(e.d) ? e.d : 0), 0);
+}
+
+// One write at a time. Each award is read-modify-write, and two in flight
+// would each read the same ledger and the second would drop the first event.
+let kobanQueue = Promise.resolve();
+function kobanWrite(step) {
+  const run = kobanQueue.then(async () => {
+    const led = await readKoban();
+    const out = step(led);
+    if (out.write) {
+      try { await window.storage.set(KOBAN_KEY, JSON.stringify(led)); } catch (e) { console.error("koban save failed", e); }
+    }
+    return { ...out, balance: kobanBalance(led) };
+  });
+  kobanQueue = run.catch(() => {});
+  return run;
+}
+
+// Earn. `id` only for a once-only payout; leave it out for a repeatable one.
+function addKoban(amount, reason, source, id) {
+  return kobanWrite((led) => {
+    const n = Math.round(Number(amount));
+    if (!Number.isFinite(n) || n <= 0) return { added: false, write: false };
+    if (id && led.events.some((e) => e.id === id)) return { added: false, write: false };
+    led.events.push({ id: id || kobanUid(), ts: Date.now(), d: n, r: String(reason || ""), s: String(source || "") });
+    return { added: true, write: true };
+  });
+}
+
+// Spend. Refuses rather than going negative.
+function spendKoban(price, reason, item) {
+  return kobanWrite((led) => {
+    const n = Math.round(Number(price));
+    if (!Number.isFinite(n) || n <= 0 || kobanBalance(led) < n) return { ok: false, write: false };
+    led.events.push({ id: kobanUid(), ts: Date.now(), d: -n, r: String(reason || ""), s: "room", item: item || null });
+    return { ok: true, write: true };
+  });
+}
+
+async function kobanNow() { return kobanBalance(await readKoban()); }
+// ————— end koban ledger —————
 
 const BLANK = {
   activeDays: [],  // days with REAL ACTIVITY, not days the app was opened
@@ -64,7 +154,13 @@ const BLANK = {
    finishing three tasks inside a window built for three days.
    -------------------------------------------------------------------------*/
 
-const KOBAN = { chain: 8, bonus: 12 };
+const KOBAN = { chain: 8, bonus: 12, firstPath: 60 };
+
+// Every payout here carries its own id, so a claim is ONCE on every device.
+// That also retires a quieter bug: pay() runs inside a state updater, which
+// React's StrictMode calls twice in development, and the old wallet write
+// paid twice there. A repeated id is now a no-op.
+const chainId = (c) => "quest:" + c.startedOn + ":" + (c.tasks || []).filter((t) => !t.bonus).map((t) => t.taskId).join("+");
 
 /* ---------------------------------------------------------------------------
    3. DATE HELPERS — LOCAL dates, never UTC.
@@ -252,7 +348,7 @@ function useEngagement(unlocked, due, simulatedDate) {
   useEffect(() => {
     let alive = true;
     (async () => {
-      const [s, w] = await Promise.all([loadJSON(KEY, BLANK), loadJSON(WALLET_KEY, 0)]);
+      const [s, w] = await Promise.all([loadJSON(KEY, BLANK), kobanNow()]);
       if (!alive) return;
       const merged = { ...BLANK, ...s };
       // State written before the rolling window existed carries active days and
@@ -271,14 +367,20 @@ function useEngagement(unlocked, due, simulatedDate) {
     });
   }, []);
 
-  /** Wallet write. Balance is NOT rendered here — §1: it lives in the room/shop. */
-  const pay = useCallback((amount, reason) => {
-    setWallet((w) => {
-      const next = (w || 0) + amount;
-      saveJSON(WALLET_KEY, next);
-      return next;
-    });
-    setFlash(`+${amount} 小判 — ${reason}`);
+  /** Wallet write. Balance is NOT rendered here — §1: it lives in the room/shop.
+      Takes a list so a claim that pays twice (the first path) announces once,
+      and only what actually landed: a repeated id adds nothing and says nothing. */
+  const pay = useCallback((items) => {
+    (async () => {
+      let total = 0, reasons = [], balance = null;
+      for (const it of items) {
+        const r = await addKoban(it.amount, it.reason, "quest", it.id);
+        balance = r.balance;
+        if (r.added) { total += it.amount; reasons.push(it.reason); }
+      }
+      if (balance != null) setWallet(balance);
+      if (total) setFlash(`+${total} 小判 — ${reasons.join(", and ")}`);
+    })();
   }, []);
 
   // Rotate the card once per local day. This does NOT mark the day active.
@@ -371,7 +473,10 @@ function useEngagement(unlocked, due, simulatedDate) {
             order: prev.chain.tasks.length, bonus: true,
           }]
         : prev.chain.tasks;
-      pay(KOBAN.chain, "path completed");
+      pay([
+        { amount: KOBAN.chain, reason: "path completed", id: chainId(prev.chain) + ":chain" },
+        { amount: KOBAN.firstPath, reason: "your first one", id: "quest:first-path" },
+      ]);
       return { ...prev, chain: { ...prev.chain, tasks, claimed: true, bonus: early } };
     });
   }, [save, today, pay]);
@@ -379,7 +484,7 @@ function useEngagement(unlocked, due, simulatedDate) {
   const claimBonus = useCallback(() => {
     save((prev) => {
       if (!prev.chain?.bonus || prev.chain.bonusClaimed) return prev;
-      pay(KOBAN.bonus, "finished early");
+      pay([{ amount: KOBAN.bonus, reason: "finished early", id: chainId(prev.chain) + ":bonus" }]);
       return { ...prev, chain: { ...prev.chain, bonusClaimed: true } };
     });
   }, [save, pay]);

@@ -64,7 +64,8 @@ const BOUNDARY_MS = 300;
 const BOUNDARY_KEYS = new Set([
   "tsumiki-checker-history-v1",      // a checker submission
   "tsumiki-n5-progress-v1",          // a grammar lesson or checkpoint finished
-  "tsumiki-achievement-points-v1",   // koban awarded — the end of something
+  "tsumiki-koban-ledger-v1",         // koban awarded or spent — the end of something
+  "tsumiki-room-owned-v1",           // something bought
 ]);
 
 let client = null;          // supabase client; null means "cannot push"

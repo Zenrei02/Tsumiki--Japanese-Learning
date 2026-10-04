@@ -58,6 +58,11 @@ export const SKIN_CSS = `:root{
 @keyframes ts-pulse{0%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 -2px 0 rgba(0,0,0,.14),0 4px 0 #7E1F0F,0 0 0 4px #F6EBD2,0 0 0 7px #C9A24A,0 12px 26px rgba(201,162,74,.5)}50%{box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 -2px 0 rgba(0,0,0,.14),0 4px 0 #7E1F0F,0 0 0 4px #F6EBD2,0 0 0 10px #D9B45C,0 14px 30px rgba(201,162,74,.6)}}
 .ts-glow{animation:ts-pulse 1.8s ease-in-out infinite}
 .ts-glow:active{animation:none}
+/* The Room door's pulse (room/shop pass, Oct 2026): three beats of gold, then a
+   still ring until the room is visited. Never an endless loop — a door that
+   always pulses stops carrying information (reward-system-design-v1.md §5). */
+@keyframes ts-wood-pulse{0%,100%{box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 3px 0 var(--ts-wood-lip),0 0 0 3px #F6EBD2,0 0 0 6px #C9A24A,0 8px 18px rgba(201,162,74,.35)}50%{box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 3px 0 var(--ts-wood-lip),0 0 0 3px #F6EBD2,0 0 0 9px #D9B45C,0 10px 24px rgba(201,162,74,.5)}}
+.ts-wood-pulse{animation:ts-wood-pulse 1.8s ease-in-out 3 both}
 @keyframes ts-rise{0%{transform:translateY(8px);opacity:0}100%{transform:translateY(0);opacity:1}}
 .ts-rise{animation:ts-rise .6s ease-out both}
 .ts-seg{display:flex;padding:3px;border-radius:10px;background:#E4DBC6;box-shadow:inset 0 1px 2px rgba(60,45,20,.18)}
@@ -95,5 +100,5 @@ export const SKIN_CSS = `:root{
 .ts-tile.now{color:#FFF8EC;background-color:#C7351B;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #7E1F0F,0 0 0 3px #F6EBD2,0 0 0 5px #C9A24A}
 .ts-module{display:flex;flex-direction:column;gap:14px;box-sizing:border-box;max-width:720px;margin:0 auto;padding:16px 16px 28px}
 @media (max-width: 430px){ header:has(#ts-slot-header > *) .ts-head-en{display:none} }
-@media (prefers-reduced-motion: reduce){.ts-glow,.ts-rise{animation:none}}
+@media (prefers-reduced-motion: reduce){.ts-glow,.ts-rise{animation:none}.ts-wood-pulse{animation:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 3px 0 var(--ts-wood-lip),0 0 0 3px #F6EBD2,0 0 0 6px #C9A24A}}
 `;

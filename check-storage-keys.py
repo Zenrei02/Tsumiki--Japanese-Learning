@@ -94,6 +94,17 @@ IGNORE = {"tsumiki-last-module", "tsumiki-open-challenge", "__tsumiki_probe__",
           "tsumiki-open-review"}
 
 
+# Keys still in KEYS on purpose although nothing writes them any more: kept so
+# an older save file, or a learner mid-upgrade, still carries the value a newer
+# key is built from. Reported as legacy, not as stale — a stale warning that is
+# expected to appear is a warning nobody reads. Each entry says what replaced it.
+LEGACY = {
+    # The single-number wallet. Since Oct 2026 the koban ledger reads it once
+    # and turns it into an opening event (lib/koban.js, LEGACY_OPENING).
+    "tsumiki-achievement-points-v1": "tsumiki-koban-ledger-v1",
+}
+
+
 def storage_text():
     return STORAGE.read_text(encoding="utf-8")
 
@@ -203,7 +214,8 @@ def main():
     written = written_keys()
 
     missing = {k: v for k, v in written.items() if k not in declared}
-    stale = declared - set(written)
+    legacy = sorted(declared & set(LEGACY) - set(written))
+    stale = declared - set(written) - set(LEGACY)
     # ⚠️ Check 3: a key that MUST NOT be uploaded, in the list of things that are.
     leaked = sorted(set(excluded) & declared)
     # ⚠️ Check 4: a key const in storage.js that nobody classified either way.
@@ -217,6 +229,9 @@ def main():
     print(f"NOT_EXPORTED       : {len(excluded)}")
     for k, ident in sorted(excluded.items()):
         print(f"   · {k}   ({ident}) — deliberately device-local")
+
+    for k in legacy:
+        print(f"   · {k}   — legacy, read-only; replaced by {LEGACY[k]}")
 
     bad = False
 

@@ -101,7 +101,20 @@ export const KEYS = [
   "tsumiki-known-words-v1",
   "tsumiki-n5-progress-v1",     // grammar — MISSING until 2026-09-04, see above
   "tsumiki-learner-depth-v1",   // grammar — MISSING until 2026-09-04, see above
+  // ⚠️ LEGACY, READ-ONLY since the koban ledger (Oct 2026). Nothing writes it
+  // any more; the ledger reads it once and turns it into an opening event. It
+  // stays listed for one version so a learner mid-upgrade, or restoring an
+  // older save file, still carries the number the opening event is built from.
+  // check-storage-keys.py knows it is legacy rather than stale.
   "tsumiki-achievement-points-v1",
+  // The room/shop pass (Notion: Room, Garden & Avatar, §3). Four keys split by
+  // how they MERGE — see lib/kobanMerge.js — and listed in the commit that
+  // creates them, which that design calls its single non-negotiable: sync
+  // mirrors this list, so a key missing here is missing from the account too.
+  "tsumiki-koban-ledger-v1",    // every earn and spend; balance is the sum
+  "tsumiki-room-owned-v1",      // items owned — only ever grows
+  "tsumiki-room-layout-v1",     // where things sit, which home, the welcome card
+  "tsumiki-character-v1",       // the avatar's four slots
   "tsumiki-engagement-v1",      // streak / rhythm / quests — listed ahead of the splice
   "tsumiki-stroke-data-v1",   // shared handwriting calibration — the reason one origin matters
   "tsumiki-kanji-mode",

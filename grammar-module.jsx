@@ -8727,18 +8727,92 @@ function Build({ point, bank = [], progress, onProgress, mode, onTapWord }) {
 }
 
 // ————— Koban wallet (Session 14) —————
-// Same key and shape as the vocabulary module: a plain number under
-// achievement-points-v1. Copy of KobanIcon kept byte-identical to the
-// vocabulary module's for a future hoist into lib/.
-async function loadWallet() {
-  try { const r = await window.storage.get("tsumiki-achievement-points-v1"); return r ? JSON.parse(r.value) : 0; }
-  catch { return 0; }
+// Pays into the shared koban ledger below. Copy of KobanIcon kept
+// byte-identical to the vocabulary module's for a future hoist into lib/.
+// ————— Koban ledger (room/shop pass, Oct 2026) —————
+// IDENTICAL IN EVERY MODULE THAT EARNS OR SPENDS. build-vite-app.py hoists it
+// into lib/koban.js and REFUSES to build if two copies differ, so edit them
+// together or not at all.
+//
+// The wallet used to be one number under achievement-points-v1. Spending broke
+// that: two devices spending from the same balance hand sync two smaller
+// numbers that both look legitimate, and either answer to "which one?" silently
+// grants or destroys koban. So the balance is no longer stored. Every earn and
+// every spend is an event with its own id, sync UNIONS the events by id
+// (lib/kobanMerge.js), and the balance is the sum.
+//
+// A ONE-TIME payout passes its own deterministic id ("kana:hiragana:a",
+// "quest:first-path"). The id IS the once-only guard: a second award with the
+// same id is a no-op on this device, and a union across devices keeps one copy.
+//
+// The old number becomes one opening event, LEGACY_OPENING, the first time the
+// ledger is read. Its id is fixed so two devices migrating separately do not
+// count it twice. The old key is left alone, readable for one version.
+const KOBAN_KEY = "tsumiki-koban-ledger-v1";
+const KOBAN_LEGACY_KEY = "tsumiki-achievement-points-v1";
+const LEGACY_OPENING = "legacy-opening";
+
+function kobanUid() {
+  try { if (crypto && crypto.randomUUID) return crypto.randomUUID(); } catch (e) {}
+  return "k" + Date.now().toString(36) + Math.random().toString(36).slice(2, 12) + Math.random().toString(36).slice(2, 12);
 }
-async function addKoban(n) {
-  const v = (await loadWallet()) + n;
-  try { await window.storage.set("tsumiki-achievement-points-v1", JSON.stringify(v)); } catch (e) { console.error("koban save failed", e); }
-  return v;
+
+async function readKoban() {
+  let led = null;
+  try { const r = await window.storage.get(KOBAN_KEY); led = r ? JSON.parse(r.value) : null; } catch (e) { led = null; }
+  const events = led && Array.isArray(led.events) ? led.events.filter((e) => e && e.id && Number.isFinite(e.d)) : [];
+  if (!events.some((e) => e.id === LEGACY_OPENING)) {
+    let old = 0;
+    try { const r = await window.storage.get(KOBAN_LEGACY_KEY); old = r ? Number(JSON.parse(r.value)) : 0; } catch (e) { old = 0; }
+    if (Number.isFinite(old) && old > 0) events.unshift({ id: LEGACY_OPENING, ts: 0, d: Math.round(old), r: "opening balance", s: "migration" });
+  }
+  return { v: 1, events };
 }
+
+function kobanBalance(led) {
+  return (led && led.events ? led.events : []).reduce((n, e) => n + (Number.isFinite(e.d) ? e.d : 0), 0);
+}
+
+// One write at a time. Each award is read-modify-write, and two in flight
+// would each read the same ledger and the second would drop the first event.
+let kobanQueue = Promise.resolve();
+function kobanWrite(step) {
+  const run = kobanQueue.then(async () => {
+    const led = await readKoban();
+    const out = step(led);
+    if (out.write) {
+      try { await window.storage.set(KOBAN_KEY, JSON.stringify(led)); } catch (e) { console.error("koban save failed", e); }
+    }
+    return { ...out, balance: kobanBalance(led) };
+  });
+  kobanQueue = run.catch(() => {});
+  return run;
+}
+
+// Earn. `id` only for a once-only payout; leave it out for a repeatable one.
+function addKoban(amount, reason, source, id) {
+  return kobanWrite((led) => {
+    const n = Math.round(Number(amount));
+    if (!Number.isFinite(n) || n <= 0) return { added: false, write: false };
+    if (id && led.events.some((e) => e.id === id)) return { added: false, write: false };
+    led.events.push({ id: id || kobanUid(), ts: Date.now(), d: n, r: String(reason || ""), s: String(source || "") });
+    return { added: true, write: true };
+  });
+}
+
+// Spend. Refuses rather than going negative.
+function spendKoban(price, reason, item) {
+  return kobanWrite((led) => {
+    const n = Math.round(Number(price));
+    if (!Number.isFinite(n) || n <= 0 || kobanBalance(led) < n) return { ok: false, write: false };
+    led.events.push({ id: kobanUid(), ts: Date.now(), d: -n, r: String(reason || ""), s: "room", item: item || null });
+    return { ok: true, write: true };
+  });
+}
+
+async function kobanNow() { return kobanBalance(await readKoban()); }
+// ————— end koban ledger —————
+
 function KobanIcon({ size = 13 }) {
   return (
     <svg width={size} height={Math.round(size * 1.3)} viewBox="0 0 14 18" aria-label="koban"
@@ -9208,7 +9282,9 @@ function ReviewChallenge({ progress, onProgress, isDone, mode, onTapWord, onBack
       let paid = 0;
       if (ok && !claimed(tier)) {
         paid = pay;
-        await addKoban(paid);
+        // The id makes this once per tier per Tokyo day on EVERY device: a
+        // second claim with the same id is a no-op, and a sync union keeps one.
+        await addKoban(paid, `review challenge (${tier})`, "grammar", `challenge:${today}:${tier}`);
         onProgress({ ...progress, _challenge: { ...(progress._challenge || {}), [tier]: today } });
       }
       setResult({ ok, paid, data });

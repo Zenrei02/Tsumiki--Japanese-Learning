@@ -591,6 +591,7 @@ import {
   KEYS, exportProgress, importProgress, downloadProgress, noteAccountVersion,
 } from "./storage.js";
 import { HISTORY_KEY, unionHistory } from "./errorHistory.js";
+import { ROOM_MERGERS } from "./kobanMerge.js";
 import { notePushed } from "./autosave.js";
 
 // THE EXEMPT LIST, in full. One entry. Adding a second is a decision about
@@ -604,6 +605,19 @@ registerLogMerger(HISTORY_KEY, (l, r) => {
     return JSON.stringify(unionHistory(a, b));
   } catch { return null; }                    // unreadable -> ask
 });
+
+// ————— The room/shop keys (Oct 2026) —————
+// The koban ledger and the owned-items list are LOGS in exactly the sense
+// above: append-only, every entry carries its own id, and two devices holding
+// different copies are both true. They union. Layout and character are state,
+// but low-stakes state the design asks to settle without a dialog — the later
+// write wins. All four mergers live in kobanMerge.js, with the reasons, and
+// test-koban-merge.mjs asserts the union is order-independent.
+//
+// ⚠️ THE LEDGER IS WHY THIS MATTERS MOST. Before it, the wallet was one number,
+// and two devices that had both spent would have sent rule 3 two smaller
+// numbers — a question whose every answer grants or destroys koban.
+for (const [k, fn] of Object.entries(ROOM_MERGERS)) registerLogMerger(k, fn);
 
 // What this browser holds, in the shape mergeProgress wants. exportProgress()
 // already filters to KEYS, so a key no module owns can never reach the server.

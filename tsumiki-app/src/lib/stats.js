@@ -7,6 +7,7 @@
 // twelve days without anyone noticing.
 
 import { storage, KEYS, downloadProgress } from "./storage.js";
+import { kobanNow } from "./koban.js";
 
 // ⚠️ COUNTS ARE STATED AS CAPABILITY, NEVER AS WORKLOAD. The standing rule is
 // that no lesson counts appear in the UI, because they read as a backlog and
@@ -70,7 +71,6 @@ export const SETTINGS = [
     fallback: "full" },
 ];
 
-const WALLET_KEY = "tsumiki-achievement-points-v1";
 const RECENCY_KEY = "tsumiki-module-recency-v1";
 
 // Shape-agnostic on purpose: an array counts by length, an object by entries,
@@ -98,9 +98,10 @@ export async function readSectionStats() {
 }
 
 export async function readWallet() {
-  const r = await storage.get(WALLET_KEY);
-  const n = Number(r?.value);
-  return Number.isFinite(n) ? n : 0;
+  // The ledger's sum, since Oct 2026 — the balance is no longer stored
+  // anywhere. kobanNow() folds the pre-ledger number in as an opening event,
+  // so a learner mid-upgrade reads the same balance as before.
+  try { return await kobanNow(); } catch { return 0; }
 }
 
 // ————— Recency —————

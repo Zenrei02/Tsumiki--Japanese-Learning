@@ -40,10 +40,11 @@ every other module that reads it. These are the real seams.
 
 | Key | Modules |
 |---|---|
+| `tsumiki-achievement-points-v1` | grammar-module.jsx, hiragana-module.jsx, katakana-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `tsumiki-known-kanji-v1` | dictionary-module.jsx, grammar-module.jsx, kanji-module.jsx, vocabulary-module.jsx ⚠️ shared |
+| `tsumiki-koban-ledger-v1` | grammar-module.jsx, hiragana-module.jsx, katakana-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `tsumiki-stroke-data-v1` | hiragana-module.jsx, kanji-module.jsx, katakana-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `tsumiki-n5-progress-v1` | grammar-module.jsx, kanji-module.jsx, vocabulary-module.jsx ⚠️ shared |
-| `tsumiki-achievement-points-v1` | grammar-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `tsumiki-hiragana-progress-v2` | grammar-module.jsx, hiragana-module.jsx ⚠️ shared |
 | `tsumiki-katakana-progress-v1` | katakana-module.jsx, vocabulary-module.jsx ⚠️ shared |
 | `tsumiki-my-words-v1` | dictionary-module.jsx, vocabulary-module.jsx ⚠️ shared |
@@ -52,7 +53,7 @@ every other module that reads it. These are the real seams.
 | `tsumiki-known-words-v1` | vocabulary-module.jsx |
 | `tsumiki-learner-depth-v1` | grammar-module.jsx |
 
-7 of 11 keys are shared across modules.
+8 of 12 keys are shared across modules.
 
 
 ## Kana audio sprite

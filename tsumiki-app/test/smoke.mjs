@@ -1249,6 +1249,101 @@ if (!ONLY.length || ONLY.includes("welcome")) {
   }
 }
 
+// ————— ROOM — the room/shop pass (Oct 2026) —————
+// The paths a learner's koban take: an old single-number wallet arrives in the
+// ledger once; Home shows no counter and pulses the Room door only while
+// something unowned has become affordable; buying writes a spend that names
+// the item, the owned list, and (for the table) the study spot. Each case is a
+// fresh JSDOM for the same reason as WELCOME: what Home shows is decided from
+// storage at load.
+if (!ONLY.length || ONLY.includes("room")) {
+  console.log("\nROOM — koban, the shop, the pulse");
+  const wait = (ms) => new Promise(r => setTimeout(r, ms));
+  const BASE = {
+    "tsumiki-welcome-v1": JSON.stringify({ seen: true }),
+    "tsumiki-kanji-progress-v1": JSON.stringify({ "日": { seen: 1 } }),
+  };
+  async function mount(seed = {}) {
+    const dom = new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',
+      { runScripts: "outside-only", pretendToBeVisual: true, url: "http://localhost/" });
+    const w = dom.window;
+    const errors = [];
+    w.HTMLCanvasElement.prototype.getContext = () => new Proxy({}, { get: () => () => ({}) });
+    w.AudioContext = function () { return { decodeAudioData: async () => ({}), createBufferSource: () => ({ connect() {}, start() {} }), destination: {}, currentTime: 0 }; };
+    w.fetch = () => Promise.resolve({ ok: false, status: 404 });
+    w.console.error = (...a) => { const t = a.join(" "); if (!/Not implemented|jsdom|Could not parse CSS/i.test(t)) errors.push(t); };
+    w.console.warn = () => {};
+    w.addEventListener("error", e => errors.push("UNCAUGHT: " + (e.error?.message || e.message)));
+    for (const [k, v] of Object.entries({ ...BASE, ...seed })) w.localStorage.setItem(k, v);
+    w.eval(fs.readFileSync(BUNDLE, "utf8"));
+    await wait(1500);
+    const d = w.document;
+    const btn = (pred) => [...d.querySelectorAll("button")].find(pred);
+    return {
+      w, d, errors, btn,
+      roomDoor: () => btn(b => b.className.includes("ts-btn-wood") && /Room/.test(b.textContent || "")),
+      ledger: () => JSON.parse(w.localStorage.getItem("tsumiki-koban-ledger-v1") || "null"),
+      get: (k) => w.localStorage.getItem(k),
+    };
+  }
+  const noErrors = (name, app) => {
+    if (app.errors.length) fail(`ROOM (${name}): console errors — ${app.errors.slice(0, 2).join(" | ")}`);
+  };
+
+  // 1. Home: no koban counter, and a never-visited room pulses once the first
+  //    item is affordable — but not below that.
+  {
+    const app = await mount({ "tsumiki-achievement-points-v1": "40" });
+    const text = app.d.body.textContent || "";
+    if (/小判/.test(text)) fail("ROOM: Home still shows a 小判 counter — R-1 put the wallet in the room/shop only");
+    else if (!app.roomDoor()) fail("ROOM: no Room door on Home");
+    else if (!app.roomDoor().className.includes("ts-wood-pulse")) fail("ROOM: 40 koban, room never opened, and the door does not pulse");
+    else console.log("  Home: no counter; the door pulses with the first item affordable");
+    noErrors("home", app);
+    const poor = await mount({ "tsumiki-achievement-points-v1": "5" });
+    if (poor.roomDoor()?.className.includes("ts-wood-pulse")) fail("ROOM: 5 koban pulses the door, though nothing costs that little");
+    else console.log("  Home: 5 koban, nothing affordable, no pulse");
+  }
+
+  // 2. The room: the old wallet arrives as one opening event; buying the table
+  //    spends, records the item, owns it and seats it at the study spot; and
+  //    after the visit the door no longer pulses.
+  {
+    const app = await mount({ "tsumiki-achievement-points-v1": "40" });
+    app.roomDoor().click();
+    await wait(1200);
+    const shopTab = [...app.d.querySelectorAll('[role="tab"]')].find(t => t.textContent === "Shop");
+    if (!shopTab) fail("ROOM: no Shop tab");
+    else {
+      shopTab.click();
+      await wait(500);
+      const buy = app.d.querySelector('button[aria-label^="Buy low table"]');
+      if (!buy) fail("ROOM: the shop has no low table to buy");
+      else {
+        buy.click();
+        await wait(900);
+        const led = app.ledger();
+        const open = led?.events.filter(e => e.id === "legacy-opening") || [];
+        const spend = led?.events.find(e => e.d === -12 && e.item === "zataku");
+        const owned = JSON.parse(app.get("tsumiki-room-owned-v1") || "{}").ids || {};
+        const layout = JSON.parse(app.get("tsumiki-room-layout-v1") || "{}");
+        if (open.length !== 1 || open[0].d !== 40) fail(`ROOM: the old 40 should arrive as one opening event, got ${JSON.stringify(open)}`);
+        else if (!spend) fail("ROOM: buying the table wrote no spend naming it");
+        else if (owned.zataku == null) fail("ROOM: the table was paid for but is not owned");
+        else if (layout.anchor !== "zataku") fail("ROOM: the first table did not go to the study spot");
+        else if (app.get("tsumiki-achievement-points-v1") !== "40") fail("ROOM: the legacy wallet key was rewritten");
+        else console.log("  shop: opening event once, spend names the item, owned, seated at the study spot");
+      }
+    }
+    const back = app.d.querySelector('button[aria-label="Back to home"]');
+    back?.click();
+    await wait(900);
+    if (app.roomDoor()?.className.includes("ts-wood-pulse")) fail("ROOM: the door still pulses after the room was visited");
+    else console.log("  Home after the visit: the pulse has cleared");
+    noErrors("room", app);
+  }
+}
+
 console.log("\n" + "─".repeat(60));
 if (failures.length) {
   console.log(`FAILED — ${failures.length} problem${failures.length > 1 ? "s" : ""}:`);
