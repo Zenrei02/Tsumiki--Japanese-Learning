@@ -17,9 +17,10 @@
        an icon, Japanese item names only beside a pictured preview. The item
        drawings below are that file's, ported.
 
-   LLOYD'S CALLS FOR THIS PASS (Oct 4 2026): Room v1 + economy, no auth, no
-   garden yet · wallet in the room/shop only (R-1) · the §4 ladder (R-2) ·
-   avatar seated at the study spot, quests pay koban only (R-4).
+   LLOYD'S CALLS FOR THIS PASS (Oct 4 2026): Room v1 + economy, no auth ·
+   wallet in the room/shop only (R-1) · the §4 ladder (R-2) · avatar seated
+   at the study spot, quests pay koban only (R-4). v2, same day: the garden
+   and bonsai spots with their two overlays (Notion §5.2, §6).
 
    THE RULES THIS FILE MUST NOT BREAK
      · Space is earned, contents are bought. The bigger home opens when your
@@ -55,6 +56,10 @@ const T = {
 const OWNED_KEY = "tsumiki-room-owned-v1";      // { v, ids: { itemId: firstOwnedAt } } — union
 const LAYOUT_KEY = "tsumiki-room-layout-v1";    // { v, t, home, placed, wall, anchor, style, last, introSeen }
 const CHARACTER_KEY = "tsumiki-character-v1";   // { v, t, hair, top, bottom, acc }
+const GARDEN_KEY = "tsumiki-garden-state-v1";   // { v, t, style, trimmedAt, growth, rake } — most recent wins
+// Read here for the bonsai's growth — the engagement layer's days of REAL
+// study (opening the app is not one), kept for 120 days.
+const ENGAGEMENT_KEY = "tsumiki-engagement-v1";
 // Read here, written by the modules that own them — the capability gate.
 const HIRA_KEY = "tsumiki-hiragana-progress-v2";
 const KATA_KEY = "tsumiki-katakana-progress-v1";
@@ -184,7 +189,8 @@ const CATALOG = [
   { id: "byobu",    jp: "屏風",   reading: "びょうぶ",   en: "folding screen",       price: 80,  kind: "floor", w: 1, d: 3 },
   // feature — about two weeks
   { id: "futon",    jp: "布団",   reading: "ふとん",     en: "bedding",              price: 150, kind: "floor", w: 2, d: 3 },
-  { id: "bonsai",   jp: "盆栽",   reading: "ぼんさい",   en: "bonsai tree",          price: 160, kind: "floor", w: 1, d: 1 },
+  { id: "bonsai",   jp: "盆栽",   reading: "ぼんさい",   en: "bonsai — grows as you study", price: 160, kind: "spot", spot: "bonsai" },
+  { id: "karesansui", jp: "枯山水", reading: "かれさんすい", en: "sand garden — rake it", price: 150, kind: "spot", spot: "garden" },
   { id: "kotatsu",  jp: "こたつ", reading: "こたつ",     en: "heated table — takes the study spot", price: 180, kind: "anchor" },
   { id: "toro",     jp: "灯籠",   reading: "とうろう",   en: "stone lantern",        price: 200, kind: "floor", w: 1, d: 1 },
   // variants — recolours of what the room already has (§4.1, the surplus valve)
@@ -195,6 +201,12 @@ const CATALOG = [
   { id: "tatami-ryukyu", jp: "琉球畳",       reading: "りゅうきゅうだたみ", en: "square, borderless tatami", price: 15, kind: "style", slot: "tatami", color: "#C7BC8C", alt: "#BDB07C", line: null },
   { id: "kotatsu-kon",   jp: "紺のこたつ布団", reading: "こんのこたつぶとん", en: "navy kotatsu quilt",  price: 15, kind: "style", slot: "blanket", color: "#3D5A80", shade: "#304A6C", needs: "kotatsu" },
   { id: "kotatsu-aka",   jp: "赤のこたつ布団", reading: "あかのこたつぶとん", en: "red kotatsu quilt",   price: 15, kind: "style", slot: "blanket", color: "#B7503E", shade: "#9C4233", needs: "kotatsu" },
+  // The bonsai's pot, species and moss (Notion §6.3: koban buy these — never
+  // growth). A new species is a new object class, so it prices in the regular
+  // band; a pot colour and moss are variants.
+  { id: "momiji",        jp: "紅葉",         reading: "もみじ",             en: "maple — a second species", price: 50, kind: "style", slot: "species", leaf: "#C9503A", leafHi: "#E07A4F", needs: "bonsai" },
+  { id: "hachi-seiji",   jp: "青磁の鉢",     reading: "せいじのはち",       en: "celadon pot",           price: 12, kind: "style", slot: "pot", color: "#8FB6A6", shade: "#6E9C8B", needs: "bonsai" },
+  { id: "koke",          jp: "苔",           reading: "こけ",               en: "moss for the pot",      price: 15, kind: "style", slot: "moss", color: "#6E8F3E", needs: "bonsai" },
 ];
 const BY_ID = Object.fromEntries(CATALOG.map((c) => [c.id, c]));
 
@@ -203,6 +215,9 @@ const STYLE_DEFAULT = {
   wall: { color: "#EFE7D6", edge: "#D8CDB8" },
   tatami: { color: "#B7B98A", alt: "#ADAF80", line: "#83855D" },
   blanket: { color: "#C96F4A", shade: "#B25E3C" },
+  species: { leaf: "#4E7A45", leafHi: "#6E9C5E" },   // 松, the pine every bonsai starts as
+  pot: { color: "#7A5A3C", shade: "#5C4229" },
+  moss: null,
 };
 
 /* ---------------------------------------------------------------------------
@@ -243,14 +258,75 @@ async function readCapability() {
 
 /* ---------------------------------------------------------------------------
    4. SPOTS — a data table, not code (Notion §5.1)
-   Adding the zen garden is one entry here, plus its overlay. v1 ships the
-   study spot only; `overlay` is where a mini-game would open.
+   Each spot is a fixed place in the room. `item` is what you buy to fill it
+   (null for the study spot, which is always yours); `overlay` is the
+   mini-game it opens. The tiles stay reserved before the spot is filled, so
+   buying it never has to push furniture out of the way.
    -------------------------------------------------------------------------*/
 
 const SPOTS = [
-  { id: "study", labelJa: "座卓", table: { gx: 1, gy: 1, w: 2, d: 2 }, seat: { gx: 1, gy: 3 }, avatarPose: "seiza", overlay: null },
+  { id: "study",  labelJa: "座卓", tiles: { gx: 1, gy: 1, w: 2, d: 2 }, seat: { gx: 1, gy: 3 }, avatarPose: "seiza", item: null, overlay: null },
+  { id: "garden", labelJa: "庭",   tiles: { gx: 3, gy: 1, w: 2, d: 2 }, item: "karesansui", overlay: "rake", verb: "Rake the sand" },
+  { id: "bonsai", labelJa: "盆栽", tiles: { gx: 0, gy: 4, w: 1, d: 1 }, item: "bonsai", overlay: "trim", verb: "Tend the tree" },
 ];
 const STUDY = SPOTS[0];
+STUDY.table = STUDY.tiles;
+const SPOT_BY_ID = Object.fromEntries(SPOTS.map((sp) => [sp.id, sp]));
+
+/* ---------------------------------------------------------------------------
+   4b. THE GARDEN (Notion §6)
+   No score, no fail state, no koban for playing — each overlay has a verb
+   that satisfies without being graded.
+
+   THE BONSAI GROWS ONLY FROM STUDY (§6.3). Growth is the number of distinct
+   days, after the tree was bought, on which real study happened — the
+   engagement layer's activeDays, plus the days koban were earned (which only
+   study pays). It is stored as a high-water mark so it can never shrink when
+   activeDays ages out old days. Koban buy the pot, the species, the moss;
+   nothing here sells growth.
+
+   IT SELF-REGULATES (§6.1): study grows the tree out past its shape; trimming
+   brings it back to one of three trained styles. Stop studying and there is
+   nothing to trim — absence is quiet, never punished. Trimming PICKS A
+   SILHOUETTE; it never cuts freely, so the drawing matrix stays finite:
+   maturity (0–3) × overgrowth (0–3) × style (3) × species (2).
+   -------------------------------------------------------------------------*/
+
+const STYLES = [
+  { id: "chokkan", jp: "直幹",   reading: "ちょっかん", en: "formal upright" },
+  { id: "moyogi",  jp: "模様木", reading: "もようぎ",   en: "informal upright" },
+  { id: "kengai",  jp: "懸崖",   reading: "けんがい",   en: "cascade" },
+];
+const TRIM_AFTER = 2;     // study days of overgrowth before there is anything to trim
+const MATURE_EVERY = 4;   // study days per step of maturity
+const BLANK_GARDEN = { v: 1, t: 0, style: "moyogi", trimmedAt: 0, growth: 0, rake: [] };
+
+const dayOf = (ts) => {
+  const d = new Date(ts);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+};
+// Distinct study days after `since` (a timestamp). Ledger earns count, spends
+// and the migrated opening balance do not.
+function studyDaysSince(led, engagement, since) {
+  const from = dayOf(since || 0);
+  const days = new Set();
+  for (const e of (led && led.events) || []) {
+    if (e.d > 0 && e.ts > 0 && e.s !== "migration") { const k = dayOf(e.ts); if (k > from) days.add(k); }
+  }
+  for (const k of (engagement && Array.isArray(engagement.activeDays) ? engagement.activeDays : [])) {
+    if (typeof k === "string" && k > from) days.add(k);
+  }
+  return days.size;
+}
+function treeShape(g) {
+  const over = Math.max(0, (g.growth || 0) - (g.trimmedAt || 0));
+  return {
+    style: STYLES.some((x) => x.id === g.style) ? g.style : "moyogi",
+    maturity: Math.min(3, Math.floor((g.growth || 0) / MATURE_EVERY)),
+    shag: Math.min(3, over),
+    canTrim: over >= TRIM_AFTER,
+  };
+}
 
 /* ---------------------------------------------------------------------------
    5. THE AVATAR, BOUNDED (Notion §7)
@@ -381,12 +457,6 @@ function drawFloorItem(iso, it, opts) {
           `<circle cx="${cx.x - 9}" cy="${cx.y - 38}" r="4.5" fill="#D9707A" stroke="${S}"/>` +
           `<circle cx="${cx.x + 10}" cy="${cx.y - 32}" r="4" fill="#E8C87A" stroke="${S}"/>` +
           `<circle cx="${cx.x + 1}" cy="${cx.y - 45}" r="3.5" fill="#F3EFE6" stroke="${S}"/>`;
-      break;
-    case "bonsai":
-      s = isoBox(iso, g + .25, y + .25, .5, .5, 9, 0, "#A56A45", "#8C5738", "#7C4C30", S) +
-          `<path d="M ${cx.x} ${cx.y - 9} q -3 -12 4 -20" stroke="#6B4A2F" stroke-width="3" fill="none"/>` +
-          `<ellipse cx="${cx.x + 6}" cy="${cx.y - 32}" rx="14" ry="8" fill="#5E8C61" stroke="${S}"/>` +
-          `<ellipse cx="${cx.x - 7}" cy="${cx.y - 24}" rx="10" ry="6" fill="#6EA271" stroke="${S}"/>`;
       break;
     case "andon":
       s = `<ellipse cx="${cx.x}" cy="${cx.y - 26}" rx="26" ry="15" fill="#F4DFA5" opacity=".45"/>` +
@@ -581,6 +651,92 @@ function drawCat(iso, gx, gy, holding) {
     `</g>`;
 }
 
+/* ---- the garden spots ---- */
+// A spot not yet filled: dashed and labelled, the way the board marks things
+// still to come — never an empty-looking reproach.
+function drawSpotEmpty(iso, sp) {
+  const t = sp.tiles;
+  const f = [iso(t.gx, t.gy), iso(t.gx + t.w, t.gy), iso(t.gx + t.w, t.gy + t.d), iso(t.gx, t.gy + t.d)];
+  const c = iso(t.gx + t.w / 2, t.gy + t.d / 2);
+  return `<g data-spot="${sp.id}" style="cursor:pointer">` +
+    poly(f, "rgba(251,247,238,.30)", "#8A7F6F", ' stroke-dasharray="6 5" stroke-width="1.4"') +
+    `<text x="${c.x}" y="${c.y + 4}" text-anchor="middle" font-family='${T.jpFont}' font-size="12" font-weight="700" fill="#4A463D">${sp.labelJa}</text></g>`;
+}
+
+// The sand garden in the room: a low wooden tray, the three stones, and the
+// learner's own grooves mapped onto its top face.
+const RAKE_STONES = [[0.28, 0.38, 0.07], [0.68, 0.30, 0.05], [0.58, 0.70, 0.06]];
+function drawGardenTray(iso, sp, rake) {
+  const t = sp.tiles, H = 7;
+  const top = (u, v) => { const p = iso(t.gx + .12 + u * (t.w - .24), t.gy + .12 + v * (t.d - .24)); return { x: p.x, y: p.y - H }; };
+  let s = isoBox(iso, t.gx + .04, t.gy + .04, t.w - .08, t.d - .08, H, 0, "#6B4E2E", "#5C4229", "#4E3A28", S);
+  s += poly([top(0, 0), top(1, 0), top(1, 1), top(0, 1)], "#E8E0C8", "#CFC4A8");
+  for (const st of rake || []) {
+    if (!Array.isArray(st) || st.length < 2) continue;
+    const ptsStr = st.map(([u, v]) => { const q = top(u, v); return q.x.toFixed(1) + "," + q.y.toFixed(1); }).join(" ");
+    s += `<polyline points="${ptsStr}" fill="none" stroke="#C9BE9E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+  for (const [u, v, r] of RAKE_STONES) {
+    const q = top(u, v);
+    s += `<ellipse cx="${q.x}" cy="${q.y}" rx="${(r * 60).toFixed(1)}" ry="${(r * 34).toFixed(1)}" fill="#8E8A80" stroke="${S}" stroke-width=".8"/>` +
+         `<ellipse cx="${q.x}" cy="${q.y}" rx="${(r * 60 + 4).toFixed(1)}" ry="${(r * 34 + 2.5).toFixed(1)}" fill="none" stroke="#C9BE9E" stroke-width="1"/>`;
+  }
+  return `<g data-spot="${sp.id}" style="cursor:pointer">${s}</g>`;
+}
+
+// ONE BONSAI RENDERER, drawn straight-on — Notion §5.2 says the scene and the
+// overlay may differ in pixels but must agree on STATE, and the surest way to
+// agree is for both to read the same shape through the same function. The
+// overlay draws it large; the room draws it small, standing on its stand.
+const TRUNKS = {
+  chokkan: "M100 162 C 99 140, 101 118, 100 92 C 99 80, 100 70, 100 58",
+  moyogi:  "M100 162 C 82 140, 122 124, 102 104 C 86 90, 112 78, 100 60",
+  kengai:  "M92 162 C 90 138, 104 124, 126 126 C 152 128, 166 146, 168 178",
+};
+const PADS = {
+  chokkan: [[100, 60, 26, 12], [78, 92, 22, 10], [123, 112, 22, 10], [80, 128, 18, 8], [100, 40, 16, 9]],
+  moyogi:  [[100, 60, 28, 13], [124, 100, 24, 11], [78, 112, 22, 10], [116, 136, 16, 8], [98, 40, 16, 9]],
+  kengai:  [[92, 112, 24, 11], [128, 124, 22, 10], [158, 150, 20, 10], [170, 178, 16, 9], [104, 92, 16, 9]],
+};
+const SPRIGS = [[-30, -6], [32, -10], [-18, -22], [26, 14], [-34, 10], [6, -26], [38, 2], [-8, 18], [20, -24]];
+function bonsaiSVG(shape, look, opts) {
+  const o = opts || {};
+  const sp = look.species, pot = look.pot;
+  const pads = PADS[shape.style].slice(0, 2 + shape.maturity);
+  const trunkW = 6 + shape.maturity * 1.6;
+  let s = "";
+  // pot and soil
+  s += `<path d="M58 160 h84 l-8 24 h-68 z" fill="${pot.color}" stroke="${S}" stroke-width="1.2"/>`;
+  s += `<rect x="54" y="155" width="92" height="8" rx="2" fill="${pot.shade}" stroke="${S}" stroke-width="1"/>`;
+  s += `<ellipse cx="100" cy="156" rx="40" ry="4" fill="#5B4632"/>`;
+  if (look.moss) s += `<path d="M64 157 q 8 -6 16 -1 q 9 -6 18 0 q 9 -6 18 0 q 8 -5 16 1 z" fill="${look.moss.color}" stroke="${S}" stroke-width=".7"/>`;
+  // trunk
+  s += `<path d="${TRUNKS[shape.style]}" fill="none" stroke="#5C4229" stroke-width="${trunkW.toFixed(1)}" stroke-linecap="round"/>`;
+  s += `<path d="${TRUNKS[shape.style]}" fill="none" stroke="#7A5A3C" stroke-width="${(trunkW * .35).toFixed(1)}" stroke-linecap="round" opacity=".7"/>`;
+  // foliage pads — the trained shape
+  for (const [x, y, rx, ry] of pads) {
+    s += `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${sp.leaf}" stroke="${S}" stroke-width="1"/>`;
+    s += `<ellipse cx="${x - rx * .25}" cy="${y - ry * .35}" rx="${rx * .55}" ry="${ry * .45}" fill="${sp.leafHi}" opacity=".85"/>`;
+  }
+  // overgrowth — study pushing the tree out past its shape
+  const n = shape.shag * 3;
+  for (let i = 0; i < n; i++) {
+    const [px, py] = pads[i % pads.length];
+    const [dx, dy] = SPRIGS[i % SPRIGS.length];
+    s += `<path d="M${px} ${py} l ${dx * .8} ${dy * .8}" stroke="#5C4229" stroke-width="1.2"/>` +
+         `<ellipse cx="${px + dx}" cy="${py + dy}" rx="7" ry="4.5" fill="${sp.leafHi}" stroke="${S}" stroke-width=".7"/>`;
+  }
+  return o.inner ? s : `<svg viewBox="0 0 220 200" aria-hidden="true">${s}</svg>`;
+}
+function drawBonsaiSpot(iso, sp, shape, look) {
+  const t = sp.tiles;
+  const c = iso(t.gx + .5, t.gy + .5);
+  const k = .3;
+  let s = isoBox(iso, t.gx + .18, t.gy + .18, .64, .64, 10, 0, "#5E4630", "#4E3A28", "#433222", S);
+  s += `<g transform="translate(${(c.x - 100 * k).toFixed(1)} ${(c.y - 10 - 184 * k).toFixed(1)}) scale(${k})">${bonsaiSVG(shape, look, { inner: true })}</g>`;
+  return `<g data-spot="${sp.id}" style="cursor:pointer">${s}</g>`;
+}
+
 /* ---- previews for the shop and the inventory ---- */
 const PREVIEW_ISO = (gx, gy) => ({ x: 120 + (gx - gy) * TW, y: 140 + (gx + gy) * TH });
 function previewSVG(id, style) {
@@ -598,6 +754,13 @@ function previewSVG(id, style) {
     body = drawAnchor(rel, id, id === "kotatsu" ? STYLE_DEFAULT.blanket : null, {});
   } else if (c.kind === "style") {
     return styleSwatch(c);
+  } else if (c.kind === "spot") {
+    if (c.spot === "bonsai") return bonsaiSVG({ style: "moyogi", maturity: 2, shag: 0 }, { species: STYLE_DEFAULT.species, pot: STYLE_DEFAULT.pot, moss: null });
+    const sp = SPOT_BY_ID[c.spot];
+    const rel = (gx, gy) => iso(gx - sp.tiles.gx, gy - sp.tiles.gy);
+    const demo = [[[0.05, 0.15], [0.95, 0.15]], [[0.05, 0.55], [0.4, 0.55], [0.5, 0.5], [0.95, 0.5]], [[0.05, 0.88], [0.95, 0.88]]];
+    box = [rel(sp.tiles.gx, sp.tiles.gy + 2).x - 8, rel(sp.tiles.gx, sp.tiles.gy).y - 20, 4 * TW + 16, 4 * TH + 34];
+    body = drawGardenTray(rel, { ...sp, tiles: { ...sp.tiles } }, demo);
   } else {
     box = [iso(0, c.d).x - 8, iso(0, 0).y - 82, (iso(c.w, 0).x - iso(0, c.d).x) + 16, iso(c.w, c.d).y - iso(0, 0).y + 92];
     body = drawFloorItem(iso, { type: id, gx: 0, gy: 0, rot: 0 }, {});
@@ -611,6 +774,11 @@ function styleSwatch(c) {
   if (c.slot === "tatami") {
     const lines = c.line ? `<path d="M30,48 L90,18 M30,18 L90,48" stroke="${c.line}" stroke-width="1.6"/>` : `<path d="M60,4 L60,62 M8,33 L112,33" stroke="${c.alt}" stroke-width="1"/>`;
     return `<svg viewBox="0 0 120 66" aria-hidden="true"><polygon points="60,4 112,33 60,62 8,33" fill="${c.color}" stroke="${c.alt}"/>${lines}</svg>`;
+  }
+  if (c.slot === "species" || c.slot === "pot" || c.slot === "moss") {
+    const look = { species: STYLE_DEFAULT.species, pot: STYLE_DEFAULT.pot, moss: null };
+    look[c.slot] = c;
+    return bonsaiSVG({ style: "moyogi", maturity: 2, shag: 0 }, look);
   }
   return `<svg viewBox="0 0 120 80" aria-hidden="true"><polygon points="60,20 105,42 60,64 15,42" fill="${c.color}" stroke="${c.shade}"/><polygon points="15,42 60,64 60,74 15,52" fill="${c.shade}"/><polygon points="60,64 105,42 105,52 60,74" fill="${c.shade}" opacity=".85"/><ellipse cx="60" cy="38" rx="9" ry="4.5" fill="#D9CBB1"/></svg>`;
 }
@@ -629,9 +797,11 @@ function homeOf(layout) { return HOMES.find((h) => h.id === layout.home) || HOME
 
 function reserved(n) {
   const m = new Set();
-  const { table, seat } = STUDY;
-  for (let x = table.gx; x < table.gx + table.w; x++) for (let y = table.gy; y < table.gy + table.d; y++) m.add(x + "," + y);
-  m.add(seat.gx + "," + seat.gy);
+  for (const sp of SPOTS) {
+    const t = sp.tiles;
+    for (let x = t.gx; x < t.gx + t.w; x++) for (let y = t.gy; y < t.gy + t.d; y++) m.add(x + "," + y);
+    if (sp.seat) m.add(sp.seat.gx + "," + sp.seat.gy);
+  }
   return m;
 }
 function occupied(layout, except) {
@@ -655,6 +825,7 @@ function styleOf(layout, slot) {
   const id = (layout.style || {})[slot];
   return (id && BY_ID[id]) || STYLE_DEFAULT[slot];
 }
+const lookOf = (layout) => ({ species: styleOf(layout, "species"), pot: styleOf(layout, "pot"), moss: styleOf(layout, "moss") });
 
 // What the cat does: sits beside whatever you placed last, or beside you.
 function catSpot(layout) {
@@ -708,14 +879,17 @@ export default function RoomModule() {
   const [drag, setDrag] = useState(null);
   const [selected, setSelected] = useState(null);     // itemId, or "anchor"
   const [note, setNote] = useState(null);
+  const [garden, setGarden] = useState(BLANK_GARDEN);
+  const [overlay, setOverlay] = useState(null);       // "rake" | "trim" | null
   const svgRef = useRef(null);
 
   // ————— load —————
   useEffect(() => {
     let alive = true;
     (async () => {
-      const [led, o, l, c, capNow] = await Promise.all([
+      const [led, o, l, c, capNow, gs, eng] = await Promise.all([
         readKoban(), loadJSON(OWNED_KEY, null), loadJSON(LAYOUT_KEY, null), loadJSON(CHARACTER_KEY, null), readCapability(),
+        loadJSON(GARDEN_KEY, null), loadJSON(ENGAGEMENT_KEY, null),
       ]);
       if (!alive) return;
       // Owned = the list, plus anything the ledger shows was paid for. A spend
@@ -737,9 +911,33 @@ export default function RoomModule() {
       const lay = { ...BLANK_LAYOUT, ...(l || {}) };
       const layIdx = Math.max(0, HOMES.findIndex((x) => x.id === lay.home));
       if (paidHome != null && paidHome > layIdx) lay.home = HOMES[paidHome].id;
+      // Furniture can only sit on free floor. Anything standing on a spot's
+      // tiles (a layout from before that spot existed), or anything that is no
+      // longer floor furniture at all, goes back to the inventory — owned
+      // exactly as before, just not out.
+      const placed = { ...(lay.placed || {}) };
+      const resv = reserved(homeOf(lay).n);
+      for (const [type, pl] of Object.entries(placed)) {
+        const c0 = BY_ID[type];
+        if (!c0 || c0.kind !== "floor") { delete placed[type]; continue; }
+        const [w, d] = dims({ type, rot: pl.rot });
+        let clash = false;
+        for (let x = pl.gx; x < pl.gx + w; x++) for (let y = pl.gy; y < pl.gy + d; y++) if (resv.has(x + "," + y)) clash = true;
+        if (clash) delete placed[type];
+      }
+      lay.placed = placed;
+      if (lay.last && !placed[lay.last]) lay.last = null;
+      // The bonsai's growth: study days since it was bought, never fewer
+      // than were counted before (see 4b).
+      const g0 = { ...BLANK_GARDEN, ...(gs || {}) };
+      if (ids.bonsai != null) {
+        const grown = Math.max(g0.growth || 0, studyDaysSince(led, eng, ids.bonsai));
+        if (grown !== g0.growth) { g0.growth = grown; saveJSON(GARDEN_KEY, { ...g0, t: Date.now() }); }
+      }
+      setGarden(g0);
       const bal = kobanBalance(led);
       setOwned(ids);
-      setLayout({ ...lay, placed: { ...(lay.placed || {}) }, wall: { ...(lay.wall || {}) }, style: { ...(lay.style || {}) } });
+      setLayout({ ...lay, placed: { ...placed }, wall: { ...(lay.wall || {}) }, style: { ...(lay.style || {}) } });
       setCh({ ...BLANK_CHAR, ...(c || {}) });
       setCap(capNow);
       setBalance(bal);
@@ -767,6 +965,10 @@ export default function RoomModule() {
   const saveLayout = (next) => {
     const v = { ...next, v: 1, t: Date.now() };
     setLayout(v); saveJSON(LAYOUT_KEY, v);
+  };
+  const saveGarden = (next) => {
+    const v = { ...next, v: 1, t: Date.now() };
+    setGarden(v); saveJSON(GARDEN_KEY, v);
   };
   const saveChar = (next) => {
     const v = { ...next, v: 1, t: Date.now() };
@@ -802,6 +1004,10 @@ export default function RoomModule() {
     } else if (c.kind === "style") {
       saveLayout({ ...layout, style: { ...layout.style, [c.slot]: c.id } });
       flash(`${c.jp} — on.`);
+    } else if (c.kind === "spot") {
+      // A new tree starts in shape: nothing to trim until study grows it out.
+      if (c.spot === "bonsai") saveGarden({ ...garden, trimmedAt: garden.growth || 0 });
+      flash(`${c.jp} is in your room. Tap it to ${c.spot === "bonsai" ? "tend it" : "rake it"}.`);
     } else {
       flash(`${c.jp} is waiting in your room.`);
     }
@@ -866,6 +1072,16 @@ export default function RoomModule() {
     draws.push({ depth: t.gx + t.w + t.gy + t.d, svg: drawAnchor(iso, layout.anchor, blanket, { selected: selected === "anchor" }) });
     const seat = iso(STUDY.seat.gx + .5, STUDY.seat.gy + .35);
     draws.push({ depth: STUDY.seat.gx + STUDY.seat.gy + 2.1, svg: `<g pointer-events="none">${drawAvatar(seat.x, seat.y, .78, ch)}</g>` });
+    const shape = treeShape(garden);
+    for (const sp of SPOTS) {
+      if (sp.id === "study") continue;
+      const has = owned[sp.item] != null;
+      const t2 = sp.tiles;
+      const svg = !has ? drawSpotEmpty(iso, sp)
+        : sp.id === "garden" ? drawGardenTray(iso, sp, garden.rake)
+        : drawBonsaiSpot(iso, sp, shape, lookOf(layout));
+      draws.push({ depth: t2.gx + t2.w + t2.gy + t2.d - (has ? 0 : 3), svg });
+    }
     const [cgx, cgy] = catSpot(layout);
     draws.push({ depth: cgx + cgy + 2.05, svg: drawCat(iso, cgx, cgy, awaySince > 0) });
     draws.sort((a, b) => a.depth - b.depth);
@@ -878,7 +1094,7 @@ export default function RoomModule() {
     if (placing && BY_ID[placing.type].kind === "floor" && hover) s += ghost(placing.type, hover.gx, hover.gy, placing.rot, fits(layout, placing.type, hover.gx, hover.gy, placing.rot));
     if (drag) s += ghost(drag.type, drag.gx, drag.gy, drag.rot, drag.ok);
     return s;
-  }, [layout, home.n, iso, slots, placing, hover, drag, selected, ch, awaySince]);
+  }, [layout, home.n, iso, slots, placing, hover, drag, selected, ch, awaySince, garden, owned]);
 
   // ————— pointer handling on the scene —————
   const svgPoint = (ev) => {
@@ -925,6 +1141,13 @@ export default function RoomModule() {
       return;
     }
     if (type && layout.wall[type] != null) { setSelected(type); return; }
+    const spotEl = ev.target.closest && ev.target.closest("[data-spot]");
+    if (spotEl) {
+      const sp = SPOT_BY_ID[spotEl.dataset.spot];
+      if (sp && owned[sp.item] != null) { setSelected(null); setOverlay(sp.overlay); }
+      else setSelected("spot:" + spotEl.dataset.spot);
+      return;
+    }
     if (anchorEl) { setSelected("anchor"); return; }
     setSelected(null);
   };
@@ -1016,6 +1239,18 @@ export default function RoomModule() {
         </div>
       );
     }
+    if (selected && selected.startsWith("spot:")) {
+      const sp = SPOT_BY_ID[selected.slice(5)];
+      const c = BY_ID[sp.item];
+      return (
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <ItemName c={c} />
+          <span style={{ font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub }}>
+            This corner is kept for it. It is in the shop when you want it.
+          </span>
+        </div>
+      );
+    }
     if (selected && BY_ID[selected]) {
       const c = BY_ID[selected];
       const onFloor = layout.placed[selected] != null;
@@ -1084,6 +1319,20 @@ export default function RoomModule() {
             </p>
           )}
 
+          {SPOTS.some((sp) => sp.overlay && owned[sp.item] != null) && (
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+              {SPOTS.filter((sp) => sp.overlay && owned[sp.item] != null).map((sp) => (
+                <button key={sp.id} className="rm-opt" style={{ flex: "1 1 120px" }} onClick={() => setOverlay(sp.overlay)}>
+                  <span lang="ja" style={{ font: `700 1.25rem ${T.jpFont}` }}>{sp.labelJa}</span>
+                  <span style={{ font: `700 0.75rem ${T.uiFont}` }}>{sp.verb}</span>
+                  {sp.id === "bonsai" && treeShape(garden).canTrim && (
+                    <span style={{ font: `0.6875rem ${T.uiFont}`, color: T.sub }}>it has grown out</span>
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
+
           {selInfo && <div className="ts-card" style={{ padding: "12px 14px" }}>{selInfo}</div>}
 
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -1111,6 +1360,15 @@ export default function RoomModule() {
         </>
       )}
 
+      {overlay === "rake" && (
+        <RakeOverlay rake={garden.rake} onClose={() => setOverlay(null)}
+                     onSave={(rake) => saveGarden({ ...garden, rake })} />
+      )}
+      {overlay === "trim" && (
+        <TrimOverlay garden={garden} look={lookOf(layout)} onClose={() => setOverlay(null)}
+                     onTrim={(style) => saveGarden({ ...garden, style, trimmedAt: garden.growth || 0 })} />
+      )}
+
       {view === "shop" && (
         <Shop owned={owned} balance={balance} layout={layout} cap={cap} nextHome={nextHome}
               onBuy={buyItem} onMove={moveHome} onPlace={(id) => { setView("room"); setPlacing({ type: id, rot: 0 }); }} />
@@ -1122,6 +1380,169 @@ export default function RoomModule() {
              onBuy={async (slot, o) => { if (await buy(o.id, o.price, o.jp)) { saveChar({ ...ch, [slot]: o.id }); flash(`${o.jp} — on.`); } }} />
       )}
     </div>
+  );
+}
+
+// ————— The overlays (Notion §5.2, §6) —————
+// They cover the scene, as decided Sep 10: a different camera, straight-on,
+// because the learner is dragging on something they need to see. No score,
+// no fail state, nothing paid — the reward is the thing itself.
+function Overlay({ jp, title, onClose, children }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const prev = document.activeElement;
+    ref.current && ref.current.focus();
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => { window.removeEventListener("keydown", onKey); prev && prev.focus && prev.focus(); };
+  }, []);
+  return (
+    <div style={{ position: "fixed", inset: 0, zIndex: 40, background: "rgba(44,42,38,.42)", display: "flex",
+                  alignItems: "center", justifyContent: "center", padding: 14 }}
+         onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div ref={ref} tabIndex={-1} role="dialog" aria-label={title} className="ts-card"
+           style={{ width: "100%", maxWidth: 440, maxHeight: "92vh", overflowY: "auto", padding: "14px 16px 16px",
+                    display: "flex", flexDirection: "column", gap: 10, outline: "none" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <span style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
+            <span lang="ja" style={{ font: `700 1.375rem ${T.jpFont}` }}>{jp}</span>
+            <span style={{ font: `700 1rem ${T.uiFont}` }}>{title}</span>
+          </span>
+          <button className="ts-icon" aria-label="Close" onClick={onClose}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </div>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// Rake: drag to leave grooves. The path persists as `rake` — a list of
+// strokes, each a list of [u, v] in 0–1 — so the room can draw it too.
+const RAKE_W = 320, RAKE_H = 210, RAKE_MAX_STROKES = 40, RAKE_MAX_POINTS = 1600;
+function RakeOverlay({ rake, onSave, onClose }) {
+  const [strokes, setStrokes] = useState(() => (Array.isArray(rake) ? rake : []));
+  const [live, setLive] = useState(null);
+  const svg = useRef(null);
+  const uv = (e) => {
+    const r = svg.current.getBoundingClientRect();
+    const u = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+    const v = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height));
+    return [+u.toFixed(3), +v.toFixed(3)];
+  };
+  const total = strokes.reduce((n, st) => n + st.length, 0);
+  const down = (e) => { try { svg.current.setPointerCapture(e.pointerId); } catch (x) {} setLive([uv(e)]); };
+  const move = (e) => {
+    if (!live) return;
+    const p = uv(e), q = live[live.length - 1];
+    if (Math.hypot(p[0] - q[0], p[1] - q[1]) >= 0.012) setLive([...live, p]);
+  };
+  const up = () => {
+    if (!live) return;
+    if (live.length > 1) {
+      // Oldest grooves are smoothed away first once the sand is full, the way
+      // a real garden is re-raked rather than refusing a new line.
+      let next = [...strokes, live];
+      while (next.length > RAKE_MAX_STROKES || next.reduce((n, st) => n + st.length, 0) > RAKE_MAX_POINTS) next = next.slice(1);
+      setStrokes(next); onSave(next);
+    }
+    setLive(null);
+  };
+  const line = (st, i) => {
+    const d = st.map(([u, v]) => (u * RAKE_W).toFixed(1) + "," + (v * RAKE_H).toFixed(1)).join(" ");
+    return (
+      <g key={i}>
+        <polyline points={d} fill="none" stroke="#C9BE9E" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
+        <polyline points={d} fill="none" stroke="#F3EDDC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" transform="translate(-1 -1)" />
+      </g>
+    );
+  };
+  return (
+    <Overlay jp="庭" title="Rake the sand" onClose={onClose}>
+      <svg ref={svg} viewBox={`0 0 ${RAKE_W} ${RAKE_H}`} role="img" aria-label="Sand garden — drag to rake grooves"
+           style={{ width: "100%", height: "auto", display: "block", borderRadius: 10, touchAction: "none", cursor: "crosshair",
+                    boxShadow: "inset 0 0 0 6px #6B4E2E" }}
+           onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up}>
+        <rect width={RAKE_W} height={RAKE_H} fill="#E8E0C8" />
+        {Array.from({ length: 9 }, (_, i) => (
+          <line key={i} x1="10" x2={RAKE_W - 10} y1={22 + i * 21} y2={22 + i * 21} stroke="#DDD3B6" strokeWidth="1.2" />
+        ))}
+        {strokes.map(line)}
+        {live && live.length > 1 && line(live, "live")}
+        {RAKE_STONES.map(([u, v, r], i) => (
+          <g key={"s" + i}>
+            <ellipse cx={u * RAKE_W} cy={v * RAKE_H + 4} rx={r * RAKE_W} ry={r * RAKE_W * .55} fill="rgba(0,0,0,.12)" />
+            <ellipse cx={u * RAKE_W} cy={v * RAKE_H} rx={r * RAKE_W} ry={r * RAKE_W * .62} fill="#8E8A80" stroke={S} strokeWidth="1.2" />
+            <ellipse cx={u * RAKE_W - r * 60} cy={v * RAKE_H - r * 40} rx={r * RAKE_W * .4} ry={r * RAKE_W * .2} fill="#A9A59B" />
+          </g>
+        ))}
+      </svg>
+      <p style={{ margin: 0, font: `0.8125rem/1.6 ${T.uiFont}`, color: T.sub }}>
+        Drag to draw grooves around the stones. Whatever you leave here is how the garden looks in your room.
+      </p>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <button className="ts-btn ts-btn-washi" disabled={!total} onClick={() => { setStrokes([]); onSave([]); }}>Smooth the sand</button>
+        <button className="ts-btn ts-btn-wood" style={{ minHeight: 44, marginLeft: "auto" }} onClick={onClose}>Done</button>
+      </div>
+    </Overlay>
+  );
+}
+
+// Trim: choose a silhouette. Before and after side by side is the reward.
+function TrimOverlay({ garden, look, onTrim, onClose }) {
+  const shape = treeShape(garden);
+  const [pick, setPick] = useState(shape.style);
+  const [done, setDone] = useState(null);         // the shape before the trim, kept to show the change
+  const after = { ...shape, style: pick, shag: 0 };
+  const sp = look.species === STYLE_DEFAULT.species ? "松 · pine" : `${look.species.jp} · ${look.species.en.split(" — ")[0]}`;
+  return (
+    <Overlay jp="盆栽" title="Tend the tree" onClose={onClose}>
+      {done ? (
+        <>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+            <figure style={{ margin: 0, textAlign: "center" }}>
+              <div dangerouslySetInnerHTML={{ __html: bonsaiSVG(done, look) }} />
+              <figcaption style={{ font: `0.75rem ${T.uiFont}`, color: T.sub }}>before</figcaption>
+            </figure>
+            <figure style={{ margin: 0, textAlign: "center" }}>
+              <div dangerouslySetInnerHTML={{ __html: bonsaiSVG(after, look) }} />
+              <figcaption style={{ font: `0.75rem ${T.uiFont}`, color: T.sub }}>after</figcaption>
+            </figure>
+          </div>
+          <p style={{ margin: 0, font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub }}>
+            Back in shape — {STYLES.find((x) => x.id === pick).jp}. It will grow out again as you study.
+          </p>
+          <button className="ts-btn ts-btn-wood" style={{ minHeight: 44 }} onClick={onClose}>Done</button>
+        </>
+      ) : (
+        <>
+          <div style={{ background: "#F1EADB", borderRadius: 10 }} dangerouslySetInnerHTML={{ __html: bonsaiSVG(shape.canTrim ? shape : after, look) }} />
+          <span style={{ font: `0.75rem ${T.uiFont}`, color: T.muted }}>{sp}</span>
+          {shape.canTrim ? (
+            <>
+              <p style={{ margin: 0, font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub }}>
+                Your study has grown it out past its shape. Choose the shape to bring it back to.
+              </p>
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                {STYLES.map((st) => (
+                  <button key={st.id} className="rm-opt" style={{ flex: "1 1 90px" }} aria-pressed={pick === st.id} onClick={() => setPick(st.id)}>
+                    <span lang="ja" style={{ font: `700 1rem ${T.jpFont}` }}>{st.jp}</span>
+                    <span lang="ja" style={{ font: `0.6875rem ${T.uiFont}`, color: T.shu }}>{st.reading}</span>
+                    <span style={{ font: `0.6875rem ${T.uiFont}`, color: T.sub }}>{st.en}</span>
+                  </button>
+                ))}
+              </div>
+              <button className="ts-btn ts-btn-shu" style={{ minHeight: 48 }} onClick={() => { setDone(shape); onTrim(pick); }}>Trim</button>
+            </>
+          ) : (
+            <p style={{ margin: 0, font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub }}>
+              It is in shape. It grows on the days you study — come back to it once it has grown out.
+            </p>
+          )}
+        </>
+      )}
+    </Overlay>
   );
 }
 
@@ -1143,7 +1564,7 @@ function ItemName({ c }) {
 // gem store.
 function Shop({ owned, balance, layout, cap, nextHome, onBuy, onMove, onPlace }) {
   const groups = [
-    { title: "FOR THE ROOM", items: CATALOG.filter((c) => c.kind === "floor" || c.kind === "anchor") },
+    { title: "FOR THE ROOM", items: CATALOG.filter((c) => c.kind === "floor" || c.kind === "anchor" || c.kind === "spot") },
     { title: "FOR THE WALLS", items: CATALOG.filter((c) => c.kind === "wall") },
     { title: "COLOURS AND TEXTURES", items: CATALOG.filter((c) => c.kind === "style" && (!c.needs || owned[c.needs] != null)) },
   ];
@@ -1179,7 +1600,7 @@ function Shop({ owned, balance, layout, cap, nextHome, onBuy, onMove, onPlace })
           <div className="rm-grid">
             {g.items.map((c) => {
               const has = owned[c.id] != null;
-              const out = layout.placed[c.id] != null || layout.wall[c.id] != null || layout.anchor === c.id || (layout.style || {})[c.slot] === c.id;
+              const out = c.kind === "spot" || layout.placed[c.id] != null || layout.wall[c.id] != null || layout.anchor === c.id || (layout.style || {})[c.slot] === c.id;
               return (
                 <div key={c.id} className="ts-card" style={{ padding: 10, display: "flex", flexDirection: "column", gap: 6 }}>
                   <div className="rm-prev" dangerouslySetInnerHTML={{ __html: previewSVG(c.id) }} />
