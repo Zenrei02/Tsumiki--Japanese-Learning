@@ -23,6 +23,7 @@
 //      Iterate and collect text blocks.
 
 import { SCHEMA_VERSION, SYSTEM_PROMPT } from "./_prompt.ts";
+import { buildRequestBody, parseEffort } from "./request-body.ts";
 import { placeSpans, type RawIssue, SpanPlacer, verdictOf } from "./spans.ts";
 import {
   envelopeOf,
@@ -40,6 +41,18 @@ const ANTHROPIC_API = "https://api.anthropic.com/v1/messages";
 const MODEL = (Deno.env.get("TSUMIKI_MODEL") ?? Deno.env.get("NAOSHI_MODEL")) ?? "claude-sonnet-5";
 const DAILY_CAP = Number((Deno.env.get("TSUMIKI_DAILY_CAP") ?? Deno.env.get("NAOSHI_DAILY_CAP")) ?? "10");
 const MAX_CHARS = Number((Deno.env.get("TSUMIKI_MAX_CHARS") ?? Deno.env.get("NAOSHI_MAX_CHARS")) ?? "600");
+
+// Thinking effort: unset (today's request), or low / medium / high. B11 graded
+// all 50 `low` rows against the same prompt and the comparison said FLIP, so
+// this is the switch for that — a dashboard secret, not a deploy. It ships
+// UNSET. Anything else is logged once and treated as unset (request-body.ts).
+const EFFORT_SETTING = parseEffort(Deno.env.get("TSUMIKI_EFFORT"));
+if (EFFORT_SETTING.invalid !== null) {
+  console.error(
+    `TSUMIKI_EFFORT=${JSON.stringify(EFFORT_SETTING.invalid)} is not low/medium/high — ignoring it`,
+  );
+}
+const EFFORT = EFFORT_SETTING.effort;
 
 // Supabase's own wall clock is 150s on the free plan. The measured p90 for a
 // Claude 5 check is ~52s and the observed maximum ~63s, so 120s is generous
@@ -164,23 +177,14 @@ function requestBody(
   userText: string,
   stream: boolean,
 ): Record<string, unknown> {
-  const body: Record<string, unknown> = {
+  return buildRequestBody({
     model,
-    max_tokens: 8000,
-    // cache_control on a static system prompt is the whole prompt-caching win:
-    // the harness saw ~90k cached tokens read per model across the run. It only
-    // works because the prompt never varies — the learner's context goes in the
-    // user turn, below, and not into the system block.
-    system: [{
-      type: "text",
-      text: SYSTEM_PROMPT,
-      cache_control: { type: "ephemeral" },
-    }],
-    messages: [{ role: "user", content: userText }],
-  };
-  if (!NO_TEMPERATURE.has(model)) body.temperature = 0;
-  if (stream) body.stream = true;
-  return body;
+    userText,
+    stream,
+    effort: EFFORT,
+    systemPrompt: SYSTEM_PROMPT,
+    sendTemperature: !NO_TEMPERATURE.has(model),
+  });
 }
 
 async function callModel(key: string, model: string, userText: string) {
@@ -467,6 +471,7 @@ function streamingResponse(upstream: Response, ctx: StreamCtx): Response {
           send("done", {
             schema: SCHEMA_VERSION,
             model: modelName,
+            effort: EFFORT,
             verdict: verdictOf(rawIssues),
             spans: stats,
             usage,
@@ -622,6 +627,7 @@ Deno.serve(async (req: Request) => {
   return json({
     schema: SCHEMA_VERSION,
     model: (resp as { model?: string }).model ?? MODEL,
+    effort: EFFORT,
     verdict: verdictOf(rawIssues as never),
     overall: data.overall ?? {},
     issues,
