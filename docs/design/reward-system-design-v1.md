@@ -366,5 +366,16 @@ payout §7.2 rules out).
 - `tsumiki-garden-state-v1` registered in KEYS in the change that first
   writes it; its merger keeps the newer shape and the higher growth.
 
+**Character creation, same day (Lloyd):** the avatar is now two layers. The
+learner makes their character first — skin, body (narrow / medium / broad,
+named by shape, never gender), hair, hair colour, eyes — free, before the room
+or the shop opens, and can change it any time from the You tab. Clothes and
+accessories (tops, bottoms, head, glasses, neck) sit on top: a plain starter
+outfit is everyone's, the rest are 8–15 variants. This widens Notion §7's
+"four slots, one fixed silhouette"; it stays cheap because the avatar is drawn
+in code and a body type is a width the clothes are drawn from. A v1 character
+keeps its clothes, is asked to make the rest, and anything a learner is
+wearing counts as owned.
+
 Still pending: auth, reviewer sign-off on the catalogue names, and real
 prices (everything above is a placeholder on the §4 ladder).

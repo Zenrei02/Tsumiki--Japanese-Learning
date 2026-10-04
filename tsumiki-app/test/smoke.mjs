@@ -1282,6 +1282,8 @@ if (!ONLY.length || ONLY.includes("room")) {
     return {
       w, d, errors, btn,
       roomDoor: () => btn(b => b.className.includes("ts-btn-wood") && /Room/.test(b.textContent || "")),
+      // First visit: character creation stands in front of the room.
+      moveIn: async () => { const m = btn(b => (b.textContent || "").trim() === "Move in"); if (m) { m.click(); await wait(600); } return !!m; },
       ledger: () => JSON.parse(w.localStorage.getItem("tsumiki-koban-ledger-v1") || "null"),
       get: (k) => w.localStorage.getItem(k),
     };
@@ -1312,6 +1314,7 @@ if (!ONLY.length || ONLY.includes("room")) {
     const app = await mount({ "tsumiki-achievement-points-v1": "40" });
     app.roomDoor().click();
     await wait(1200);
+    await app.moveIn();
     const shopTab = [...app.d.querySelectorAll('[role="tab"]')].find(t => t.textContent === "Shop");
     if (!shopTab) fail("ROOM: no Shop tab");
     else {
@@ -1343,6 +1346,45 @@ if (!ONLY.length || ONLY.includes("room")) {
     noErrors("room", app);
   }
 
+  // 2b. Character creation (Lloyd, Oct 4): the first visit makes the
+  //     character, on its own, before the room or the shop; the choices are
+  //     saved free; a v1 character keeps its clothes, and what it wears counts
+  //     as owned.
+  {
+    const app = await mount({ "tsumiki-achievement-points-v1": "40" });
+    app.roomDoor().click();
+    await wait(1200);
+    const tabs = app.d.querySelectorAll('[role="tab"]').length;
+    const heading = /Who’s moving in\?/.test(app.d.body.textContent || "");
+    app.btn(b => b.getAttribute("aria-label") === "Skin 4")?.click();
+    await wait(80);
+    app.btn(b => b.className.includes("rm-opt") && (b.textContent || "").trim() === "bun")?.click();
+    await wait(80);
+    const moved = await app.moveIn();
+    const c = JSON.parse(app.get("tsumiki-character-v1") || "{}");
+    const led = app.ledger();
+    if (!heading || tabs) fail(`ROOM (creation): first visit should show creation alone — heading ${heading}, ${tabs} tab(s)`);
+    else if (!moved) fail("ROOM (creation): no Move in button");
+    else if (!c.created || c.base?.skin !== "skin-4" || c.base?.hair !== "bun") fail(`ROOM (creation): saved ${JSON.stringify(c.base)} created=${c.created}`);
+    else if (led && led.events.some(e => e.d < 0)) fail("ROOM (creation): making a character spent koban");
+    else if (!app.d.querySelectorAll('[role="tab"]').length) fail("ROOM (creation): the room did not open after Move in");
+    else console.log("  creation: first, alone and free; choices saved; the room opens after");
+    noErrors("creation", app);
+
+    const v1 = await mount({ "tsumiki-character-v1": JSON.stringify({ v: 1, t: 5, hair: "hair-bun", top: "top-ai", bottom: "bottom-sumi", acc: "acc-megane" }) });
+    v1.roomDoor().click();
+    await wait(1200);
+    const owned = JSON.parse(v1.get("tsumiki-room-owned-v1") || "{}").ids || {};
+    const shown = /Who’s moving in\?/.test(v1.d.body.textContent || "");
+    await v1.moveIn();
+    const c1 = JSON.parse(v1.get("tsumiki-character-v1") || "{}");
+    if (!shown) fail("ROOM (creation): a v1 character was not asked to make the rest of themselves");
+    else if (c1.wear?.top !== "top-ai" || c1.wear?.face !== "face-megane") fail(`ROOM (creation): v1 clothes lost — ${JSON.stringify(c1.wear)}`);
+    else if (owned["top-ai"] == null) fail("ROOM (creation): the haori a v1 character wore is now for sale on their own back");
+    else console.log("  creation: a v1 character keeps its clothes, and what it wears is owned");
+    noErrors("creation-v1", v1);
+  }
+
   // 3. The garden (v2): a bonsai bought earlier has grown on later study days,
   //    trimming returns it to the chosen style; days before the purchase and
   //    days with no study do not count.
@@ -1357,6 +1399,7 @@ if (!ONLY.length || ONLY.includes("room")) {
     });
     app.roomDoor().click();
     await wait(1200);
+    await app.moveIn();
     const g = JSON.parse(app.get("tsumiki-garden-state-v1") || "{}");
     const tend = app.btn(b => /Tend the tree/.test(b.textContent || ""));
     const inv = [...app.d.querySelectorAll(".rm-inv button")].map(b => b.textContent);

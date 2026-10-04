@@ -238,40 +238,82 @@ function treeShape(g) {
 }
 
 /* ---------------------------------------------------------------------------
-   5. THE AVATAR, BOUNDED (Notion §7)
-   Four swap slots, one pose, a fixed silhouette so the parts compose without
-   art per combination. The first option in each slot is everyone's; the rest
-   are variants at 8–15, the same surplus valve as the room's recolours.
+   5. THE AVATAR — WHO YOU ARE, THEN WHAT YOU WEAR (Lloyd, Oct 4 2026)
+   Two layers, kept apart on purpose:
+
+   · BASE — skin, body, hair, hair colour, eyes. Chosen by the learner on
+     their first visit, before anything else, and FREE, always: who someone is
+     is not for sale, and it can be changed any time from the You tab.
+   · WEAR — clothes and accessories over the base. A plain starter outfit is
+     everyone's; the rest are variants at 8–15, the surplus valve (§4.1).
+
+   This widens Notion §7 ("four slots, one fixed silhouette") at Lloyd's
+   request. It stays affordable because nothing is per-combination art: the
+   avatar is drawn in code, a body type is a width the clothes are drawn
+   from, and so every top fits every body. Still one pose, seated.
+   Body types are named by shape, never by gender.
    -------------------------------------------------------------------------*/
 
-const AVATAR = {
+const BASE = {
+  skin: [
+    { id: "skin-1", color: "#F6E0C8" }, { id: "skin-2", color: "#EBC9A4" }, { id: "skin-3", color: "#D6A57A" },
+    { id: "skin-4", color: "#A9724A" }, { id: "skin-5", color: "#6E4630" },
+  ],
+  body: [
+    { id: "body-narrow", en: "narrow", w: .86 }, { id: "body-medium", en: "medium", w: 1 }, { id: "body-broad", en: "broad", w: 1.16 },
+  ],
   hair: [
-    { id: "hair-short", jp: "短い髪",     en: "short, dark",  price: 0,  style: "short", color: "#2C2A26" },
-    { id: "hair-long",  jp: "長い髪",     en: "long, dark",   price: 10, style: "long",  color: "#2C2A26" },
-    { id: "hair-bun",   jp: "お団子",     en: "bun",          price: 10, style: "bun",   color: "#3B2A1C" },
-    { id: "hair-chestnut", jp: "栗色の髪", en: "short, chestnut", price: 12, style: "short", color: "#7A4A2A" },
+    { id: "short", en: "short" }, { id: "cropped", en: "cropped" }, { id: "bob", en: "bob" },
+    { id: "long", en: "long" }, { id: "ponytail", en: "ponytail" }, { id: "bun", en: "bun" },
   ],
-  top: [
-    { id: "top-ai",     jp: "藍の羽織",   en: "indigo haori", price: 0,  color: "#3D5A80", shade: "#30496A" },
-    { id: "top-matcha", jp: "抹茶色の服", en: "matcha top",   price: 8,  color: "#7C8F55", shade: "#657544" },
-    { id: "top-sakura", jp: "桜色の服",   en: "cherry top",   price: 8,  color: "#D9A3A0", shade: "#C48A87" },
-    { id: "top-yukata", jp: "浴衣",       en: "yukata",       price: 15, color: "#F3EFE6", shade: "#DAD3C3", pattern: true },
+  hairColor: [
+    { id: "hc-black", color: "#2C2A26" }, { id: "hc-brown", color: "#4E3423" }, { id: "hc-chestnut", color: "#7A4A2A" },
+    { id: "hc-auburn", color: "#8E3B26" }, { id: "hc-blond", color: "#C9A060" }, { id: "hc-grey", color: "#A8A49C" },
+    { id: "hc-indigo", color: "#2E3F66" },
   ],
-  bottom: [
-    { id: "bottom-sumi",  jp: "墨色のズボン", en: "charcoal trousers", price: 0, color: "#4A463D" },
-    { id: "bottom-hakama", jp: "袴",          en: "hakama",           price: 12, color: "#5B4A7D" },
-    { id: "bottom-kinari", jp: "生成りのズボン", en: "undyed trousers", price: 8, color: "#D8CDB8" },
-  ],
-  acc: [
-    { id: "acc-none",      jp: "なし",     en: "nothing",        price: 0 },
-    { id: "acc-megane",    jp: "眼鏡",     en: "glasses",        price: 10 },
-    { id: "acc-hachimaki", jp: "鉢巻き",   en: "headband",       price: 10 },
-    { id: "acc-kanzashi",  jp: "簪",       en: "hairpin",        price: 12 },
+  eyes: [
+    { id: "eyes-calm", en: "calm" }, { id: "eyes-open", en: "open" }, { id: "eyes-smile", en: "smiling" },
   ],
 };
-const SLOT_NAMES = { hair: "Hair", top: "Top", bottom: "Bottom", acc: "Accessory" };
-const AV_BY_ID = Object.fromEntries(Object.values(AVATAR).flat().map((o) => [o.id, o]));
-const AV_DEFAULT = { hair: "hair-short", top: "top-ai", bottom: "bottom-sumi", acc: "acc-none" };
+const BASE_NAMES = { skin: "Skin", body: "Body", hair: "Hair", hairColor: "Hair colour", eyes: "Eyes" };
+const BASE_DEFAULT = { skin: "skin-2", body: "body-medium", hair: "short", hairColor: "hc-black", eyes: "eyes-calm" };
+const baseOf = (ch, k) => BASE[k].find((o) => o.id === ((ch.base || {})[k])) || BASE[k].find((o) => o.id === BASE_DEFAULT[k]);
+
+// Wear. The first option in each slot is everyone's.
+const WEAR = {
+  top: [
+    { id: "top-kinari",  jp: "生成りのシャツ", en: "undyed shirt", price: 0,  color: "#EFE6D2", shade: "#D8CDB8" },
+    { id: "top-ai",      jp: "藍の羽織",     en: "indigo haori",  price: 8,  color: "#3D5A80", shade: "#30496A" },
+    { id: "top-matcha",  jp: "抹茶色の服",   en: "matcha top",    price: 8,  color: "#7C8F55", shade: "#657544" },
+    { id: "top-sakura",  jp: "桜色の服",     en: "cherry top",    price: 8,  color: "#D9A3A0", shade: "#C48A87" },
+    { id: "top-parka",   jp: "パーカー",     en: "hoodie",        price: 12, color: "#6E6A60", shade: "#56534B", hood: true },
+    { id: "top-yukata",  jp: "浴衣",         en: "yukata",        price: 15, color: "#F3EFE6", shade: "#DAD3C3", pattern: true },
+  ],
+  bottom: [
+    { id: "bottom-sumi",   jp: "墨色のズボン",   en: "charcoal trousers", price: 0,  color: "#4A463D" },
+    { id: "bottom-kinari", jp: "生成りのズボン", en: "undyed trousers",   price: 8,  color: "#D8CDB8" },
+    { id: "bottom-skirt",  jp: "スカート",       en: "skirt",             price: 8,  color: "#8E3B26", flare: true },
+    { id: "bottom-hakama", jp: "袴",             en: "hakama",            price: 12, color: "#5B4A7D", flare: true },
+  ],
+  head: [
+    { id: "head-none",      jp: "なし",     en: "nothing",    price: 0 },
+    { id: "head-hachimaki", jp: "鉢巻き",   en: "headband",   price: 10 },
+    { id: "head-kanzashi",  jp: "簪",       en: "hairpin",    price: 12 },
+    { id: "head-beret",     jp: "ベレー帽", en: "beret",      price: 12 },
+  ],
+  face: [
+    { id: "face-none",   jp: "なし",   en: "nothing", price: 0 },
+    { id: "face-megane", jp: "眼鏡",   en: "glasses", price: 10 },
+  ],
+  neck: [
+    { id: "neck-none",    jp: "なし",     en: "nothing", price: 0 },
+    { id: "neck-muffler", jp: "マフラー", en: "scarf",   price: 10 },
+  ],
+};
+const WEAR_NAMES = { top: "Tops", bottom: "Bottoms", head: "On your head", face: "Glasses", neck: "Around your neck" };
+const AV_BY_ID = Object.fromEntries(Object.values(WEAR).flat().map((o) => [o.id, o]));
+const WEAR_DEFAULT = Object.fromEntries(Object.entries(WEAR).map(([k, opts]) => [k, opts[0].id]));
+const wearOf = (ch, k) => AV_BY_ID[(ch.wear || {})[k]] || AV_BY_ID[WEAR_DEFAULT[k]];
 
 // Lloyd's first-open card, Session 11, warmed up at his request — the wording
 // room-demo-v1.html shipped. The load-bearing part: the bigger home is
@@ -499,42 +541,52 @@ function drawWallItem(iso, type, slotStart, opts) {
     poly(wallQuad(iso, c.wall, slotStart, c.len, WALLH - 8, 12), "rgba(0,0,0,0.001)") + drawWallItemAt(iso, type, slotStart) + sel + "</g>";
 }
 
-/* ---- the avatar: seated, one pose, four slots ---- */
-function avatarParts(ch) {
-  const pick = (slot) => AV_BY_ID[ch[slot]] || AV_BY_ID[AV_DEFAULT[slot]];
-  return { hair: pick("hair"), top: pick("top"), bottom: pick("bottom"), acc: pick("acc") };
-}
+/* ---- the avatar: seated, one pose ---- */
 // Drawn around (x, y) = the point on the floor where the avatar sits, at
-// scale k. One function serves the room and the portrait, so they cannot
-// disagree about what you are wearing.
+// scale k. One function serves the room, the portrait and character
+// creation, so they cannot disagree about who you are or what you wear.
 function drawAvatar(x, y, k, ch) {
-  const P = avatarParts(ch);
+  const skin = baseOf(ch, "skin").color, body = baseOf(ch, "body").w;
+  const hair = baseOf(ch, "hair").id, hc = baseOf(ch, "hairColor").color, eyes = baseOf(ch, "eyes").id;
+  const top = wearOf(ch, "top"), bottom = wearOf(ch, "bottom");
+  const head = wearOf(ch, "head").id, face = wearOf(ch, "face").id, neck = wearOf(ch, "neck").id;
   const f = (n) => (n * k).toFixed(1);
   const X = (dx) => (x + dx * k).toFixed(1), Y = (dy) => (y + dy * k).toFixed(1);
-  const skin = "#F1D9C0";
-  let s = `<ellipse cx="${X(0)}" cy="${Y(0)}" rx="${f(20)}" ry="${f(7)}" fill="rgba(0,0,0,.14)"/>`;
-  // folded legs (seiza) — the bottom
-  s += `<path d="M ${X(-17)} ${Y(-2)} q ${f(17)} ${f(8)} ${f(34)} 0 l ${f(-3)} ${f(-12)} q ${f(-14)} ${f(-5)} ${f(-28)} 0 z" fill="${P.bottom.color}" stroke="${S}" stroke-width="${f(1)}"/>`;
-  // long hair falls behind the body
-  if (P.hair.style === "long") s += `<path d="M ${X(-13)} ${Y(-48)} q ${f(-4)} ${f(22)} ${f(2)} ${f(34)} h ${f(22)} q ${f(6)} ${f(-12)} ${f(2)} ${f(-34)} z" fill="${P.hair.color}"/>`;
-  // torso — the top
-  s += `<path d="M ${X(-14)} ${Y(-11)} q ${f(-2)} ${f(-22)} ${f(5)} ${f(-28)} h ${f(18)} q ${f(7)} ${f(6)} ${f(5)} ${f(28)} z" fill="${P.top.color}" stroke="${S}" stroke-width="${f(1)}"/>`;
-  if (P.top.pattern) s += `<path d="M ${X(-8)} ${Y(-30)} l ${f(4)} ${f(4)} M ${X(2)} ${Y(-22)} l ${f(4)} ${f(4)} M ${X(-4)} ${Y(-16)} l ${f(4)} ${f(4)}" stroke="#3D5A80" stroke-width="${f(1.4)}"/>`;
-  s += `<path d="M ${X(-4)} ${Y(-39)} l ${f(4)} ${f(9)} l ${f(4)} ${f(-9)}" stroke="${P.top.shade}" stroke-width="${f(1.6)}" fill="none"/>`;
-  // hands resting in the lap
-  s += `<ellipse cx="${X(0)}" cy="${Y(-12)}" rx="${f(7)}" ry="${f(3.5)}" fill="${skin}" stroke="${S}" stroke-width="${f(.8)}"/>`;
+  const sw = (n) => `stroke-width="${f(n)}"`;
+  let s = `<ellipse cx="${X(0)}" cy="${Y(0)}" rx="${f(20 * body)}" ry="${f(7)}" fill="rgba(0,0,0,.14)"/>`;
+  // long and ponytail hair fall behind the body
+  if (hair === "long") s += `<path d="M ${X(-13)} ${Y(-48)} q ${f(-4)} ${f(22)} ${f(2)} ${f(34)} h ${f(22)} q ${f(6)} ${f(-12)} ${f(2)} ${f(-34)} z" fill="${hc}"/>`;
+  if (hair === "ponytail") s += `<path d="M ${X(8)} ${Y(-56)} q ${f(14)} ${f(4)} ${f(10)} ${f(26)} q ${f(-3)} ${f(6)} ${f(-7)} ${f(2)} q ${f(4)} ${f(-14)} ${f(-6)} ${f(-24)} z" fill="${hc}"/>`;
+  // THE BODY is drawn at width `body`: legs, torso and clothes inside one
+  // horizontal scale, so every garment fits every body type.
+  let b = "";
+  const flare = bottom.flare ? 4 : 0;
+  b += `<path d="M ${X(-17 - flare)} ${Y(-2)} q ${f(17 + flare)} ${f(8)} ${f(34 + 2 * flare)} 0 l ${f(-3 - flare)} ${f(-12)} q ${f(-14)} ${f(-5)} ${f(-28)} 0 z" fill="${bottom.color}" stroke="${S}" ${sw(1)}/>`;
+  if (bottom.id === "bottom-hakama") b += `<path d="M ${X(-6)} ${Y(-12)} l ${f(-3)} ${f(10)} M ${X(6)} ${Y(-12)} l ${f(3)} ${f(10)}" stroke="#3E3258" ${sw(1.2)}/>`;
+  b += `<path d="M ${X(-14)} ${Y(-11)} q ${f(-2)} ${f(-22)} ${f(5)} ${f(-28)} h ${f(18)} q ${f(7)} ${f(6)} ${f(5)} ${f(28)} z" fill="${top.color}" stroke="${S}" ${sw(1)}/>`;
+  if (top.pattern) b += `<path d="M ${X(-8)} ${Y(-30)} l ${f(4)} ${f(4)} M ${X(2)} ${Y(-22)} l ${f(4)} ${f(4)} M ${X(-4)} ${Y(-16)} l ${f(4)} ${f(4)}" stroke="#3D5A80" ${sw(1.4)}/>`;
+  if (top.hood) b += `<path d="M ${X(-10)} ${Y(-38)} q ${f(10)} ${f(8)} ${f(20)} 0" fill="none" stroke="${top.shade}" ${sw(3)}/><path d="M ${X(-2)} ${Y(-30)} v ${f(8)} M ${X(2)} ${Y(-30)} v ${f(8)}" stroke="#F3EFE6" ${sw(1)}/>`;
+  else b += `<path d="M ${X(-4)} ${Y(-39)} l ${f(4)} ${f(9)} l ${f(4)} ${f(-9)}" stroke="${top.shade}" ${sw(1.6)} fill="none"/>`;
+  b += `<ellipse cx="${X(0)}" cy="${Y(-12)}" rx="${f(7)}" ry="${f(3.5)}" fill="${skin}" stroke="${S}" ${sw(.8)}/>`;
+  s += `<g transform="translate(${X(0)} 0) scale(${body} 1) translate(${(-(x)).toFixed(1)} 0)">${b}</g>`;
+  if (neck === "neck-muffler") s += `<path d="M ${X(-9 * body)} ${Y(-38)} q ${f(9 * body)} ${f(5)} ${f(18 * body)} 0 v ${f(4)} q ${f(-9 * body)} ${f(5)} ${f(-18 * body)} 0 z" fill="${T.shu}" stroke="${S}" ${sw(.8)}/><path d="M ${X(4)} ${Y(-35)} l ${f(3)} ${f(12)} l ${f(4)} ${f(-1)} l ${f(-3)} ${f(-11)}" fill="#A92E17" stroke="${S}" ${sw(.6)}/>`;
   // head
-  s += `<circle cx="${X(0)}" cy="${Y(-50)}" r="${f(11)}" fill="${skin}" stroke="${S}" stroke-width="${f(1)}"/>`;
+  s += `<circle cx="${X(0)}" cy="${Y(-50)}" r="${f(11)}" fill="${skin}" stroke="${S}" ${sw(1)}/>`;
   // hair on top
-  if (P.hair.style === "bun") s += `<circle cx="${X(0)}" cy="${Y(-64)}" r="${f(5.5)}" fill="${P.hair.color}"/>`;
-  s += `<path d="M ${X(-11.5)} ${Y(-50)} q ${f(1)} ${f(-14)} ${f(11.5)} ${f(-13)} q ${f(10.5)} ${f(-1)} ${f(11.5)} ${f(13)} q ${f(-5)} ${f(-6)} ${f(-11.5)} ${f(-6)} q ${f(-6.5)} 0 ${f(-11.5)} ${f(6)} z" fill="${P.hair.color}"/>`;
-  // face, a calm one — eyes closed in concentration
-  s += `<path d="M ${X(-6)} ${Y(-49)} q ${f(2)} ${f(2)} ${f(4)} 0 M ${X(2)} ${Y(-49)} q ${f(2)} ${f(2)} ${f(4)} 0" stroke="${S}" stroke-width="${f(1.2)}" fill="none" stroke-linecap="round"/>`;
-  s += `<path d="M ${X(-2)} ${Y(-44)} q ${f(2)} ${f(1.5)} ${f(4)} 0" stroke="${S}" stroke-width="${f(1)}" fill="none" stroke-linecap="round"/>`;
-  // accessory
-  if (P.acc.id === "acc-megane") s += `<g fill="none" stroke="#2C2A26" stroke-width="${f(1.1)}"><circle cx="${X(-4)}" cy="${Y(-49)}" r="${f(3.4)}"/><circle cx="${X(4)}" cy="${Y(-49)}" r="${f(3.4)}"/><path d="M ${X(-.6)} ${Y(-49)} h ${f(1.2)}"/></g>`;
-  if (P.acc.id === "acc-hachimaki") s += `<path d="M ${X(-11)} ${Y(-55)} q ${f(11)} ${f(-4)} ${f(22)} 0" stroke="#F3EFE6" stroke-width="${f(3)}" fill="none"/><circle cx="${X(0)}" cy="${Y(-57)}" r="${f(1.8)}" fill="${T.shu}"/><path d="M ${X(10)} ${Y(-55)} l ${f(6)} ${f(5)} M ${X(10)} ${Y(-55)} l ${f(7)} ${f(1)}" stroke="#F3EFE6" stroke-width="${f(2)}"/>`;
-  if (P.acc.id === "acc-kanzashi") s += `<path d="M ${X(6)} ${Y(-58)} l ${f(9)} ${f(-6)}" stroke="#8B6B4A" stroke-width="${f(1.2)}"/><circle cx="${X(15)}" cy="${Y(-64)}" r="${f(3.2)}" fill="#D9707A" stroke="${S}" stroke-width="${f(.6)}"/>`;
+  if (hair === "bun") s += `<circle cx="${X(0)}" cy="${Y(-64)}" r="${f(5.5)}" fill="${hc}"/>`;
+  if (hair === "cropped") s += `<path d="M ${X(-11)} ${Y(-52)} q ${f(1)} ${f(-11)} ${f(11)} ${f(-10)} q ${f(10)} ${f(-1)} ${f(11)} ${f(10)} q ${f(-5)} ${f(-4)} ${f(-11)} ${f(-4)} q ${f(-6)} 0 ${f(-11)} ${f(4)} z" fill="${hc}"/>`;
+  else s += `<path d="M ${X(-11.5)} ${Y(-50)} q ${f(1)} ${f(-14)} ${f(11.5)} ${f(-13)} q ${f(10.5)} ${f(-1)} ${f(11.5)} ${f(13)} q ${f(-5)} ${f(-6)} ${f(-11.5)} ${f(-6)} q ${f(-6.5)} 0 ${f(-11.5)} ${f(6)} z" fill="${hc}"/>`;
+  if (hair === "bob") s += `<path d="M ${X(-11.5)} ${Y(-52)} q ${f(-3)} ${f(10)} ${f(1)} ${f(14)} h ${f(3)} v ${f(-14)} z M ${X(11.5)} ${Y(-52)} q ${f(3)} ${f(10)} ${f(-1)} ${f(14)} h ${f(-3)} v ${f(-14)} z" fill="${hc}"/>`;
+  // eyes
+  if (eyes === "eyes-open") s += `<circle cx="${X(-4)}" cy="${Y(-49)}" r="${f(1.4)}" fill="${S}"/><circle cx="${X(4)}" cy="${Y(-49)}" r="${f(1.4)}" fill="${S}"/>`;
+  else if (eyes === "eyes-smile") s += `<path d="M ${X(-6)} ${Y(-48)} q ${f(2)} ${f(-2.5)} ${f(4)} 0 M ${X(2)} ${Y(-48)} q ${f(2)} ${f(-2.5)} ${f(4)} 0" stroke="${S}" ${sw(1.2)} fill="none" stroke-linecap="round"/>`;
+  else s += `<path d="M ${X(-6)} ${Y(-49)} q ${f(2)} ${f(2)} ${f(4)} 0 M ${X(2)} ${Y(-49)} q ${f(2)} ${f(2)} ${f(4)} 0" stroke="${S}" ${sw(1.2)} fill="none" stroke-linecap="round"/>`;
+  s += `<path d="M ${X(-2)} ${Y(-44)} q ${f(2)} ${f(1.5)} ${f(4)} 0" stroke="${S}" ${sw(1)} fill="none" stroke-linecap="round"/>`;
+  // accessories
+  if (face === "face-megane") s += `<g fill="none" stroke="#2C2A26" ${sw(1.1)}><circle cx="${X(-4)}" cy="${Y(-49)}" r="${f(3.4)}"/><circle cx="${X(4)}" cy="${Y(-49)}" r="${f(3.4)}"/><path d="M ${X(-.6)} ${Y(-49)} h ${f(1.2)}"/></g>`;
+  if (head === "head-hachimaki") s += `<path d="M ${X(-11)} ${Y(-55)} q ${f(11)} ${f(-4)} ${f(22)} 0" stroke="#F3EFE6" ${sw(3)} fill="none"/><circle cx="${X(0)}" cy="${Y(-57)}" r="${f(1.8)}" fill="${T.shu}"/><path d="M ${X(10)} ${Y(-55)} l ${f(6)} ${f(5)} M ${X(10)} ${Y(-55)} l ${f(7)} ${f(1)}" stroke="#F3EFE6" ${sw(2)}/>`;
+  if (head === "head-kanzashi") s += `<path d="M ${X(6)} ${Y(-58)} l ${f(9)} ${f(-6)}" stroke="#8B6B4A" ${sw(1.2)}/><circle cx="${X(15)}" cy="${Y(-64)}" r="${f(3.2)}" fill="#D9707A" stroke="${S}" ${sw(.6)}/>`;
+  if (head === "head-beret") s += `<path d="M ${X(-12)} ${Y(-57)} q ${f(2)} ${f(-11)} ${f(14)} ${f(-10)} q ${f(11)} ${f(1)} ${f(10)} ${f(9)} z" fill="#7A2E2E" stroke="${S}" ${sw(.8)}/><circle cx="${X(2)}" cy="${Y(-67)}" r="${f(1.4)}" fill="#7A2E2E"/>`;
   return `<g class="rm-breathe" style="transform-origin:${X(0)}px ${Y(0)}px">${s}</g>`;
 }
 
@@ -700,7 +752,21 @@ function avatarPreviewSVG(ch) {
    -------------------------------------------------------------------------*/
 
 const BLANK_LAYOUT = { v: 1, t: 0, home: "yojouhan", placed: {}, wall: {}, anchor: null, style: {}, last: null, introSeen: false };
-const BLANK_CHAR = { v: 1, t: 0, ...AV_DEFAULT };
+// `created` is false until the learner has made their character. A v1
+// character ({ hair, top, … } at the top level) keeps its clothes and is
+// asked to make the rest, since who they are was never theirs to choose then.
+const BLANK_CHAR = { v: 2, t: 0, created: false, base: { ...BASE_DEFAULT }, wear: { ...WEAR_DEFAULT } };
+function normaliseChar(c) {
+  if (!c) return { ...BLANK_CHAR };
+  if (c.base) return { ...BLANK_CHAR, ...c, base: { ...BASE_DEFAULT, ...c.base }, wear: { ...WEAR_DEFAULT, ...(c.wear || {}) } };
+  const wear = { ...WEAR_DEFAULT };
+  if (AV_BY_ID[c.top]) wear.top = c.top;
+  if (AV_BY_ID[c.bottom]) wear.bottom = c.bottom;
+  if (c.acc === "acc-megane") wear.face = "face-megane";
+  if (c.acc === "acc-hachimaki") wear.head = "head-hachimaki";
+  if (c.acc === "acc-kanzashi") wear.head = "head-kanzashi";
+  return { ...BLANK_CHAR, wear };
+}
 
 function homeOf(layout) { return HOMES.find((h) => h.id === layout.home) || HOMES[0]; }
 
@@ -813,6 +879,13 @@ export default function RoomModule() {
         const h = String(e.item).startsWith("home:") && HOMES.findIndex((x) => "home:" + x.id === e.item);
         if (h > 0 && (paidHome == null || h > paidHome)) paidHome = h;
       }
+      // Whatever you are wearing is yours. It matters once: the v1 haori was
+      // everyone's for free and is a variant now, so a learner who wore it
+      // must not find it for sale on their own back.
+      const chNow = normaliseChar(c);
+      for (const id of Object.values(chNow.wear)) {
+        if (AV_BY_ID[id] && AV_BY_ID[id].price > 0 && ids[id] == null) { ids[id] = Date.now(); repaired = true; }
+      }
       if (repaired) saveJSON(OWNED_KEY, { v: 1, ids });
       // The same for the home. Layout merges most-recent-wins, so an older
       // device's later edit could carry the small room back over a move that
@@ -847,7 +920,7 @@ export default function RoomModule() {
       const bal = kobanBalance(led);
       setOwned(ids);
       setLayout({ ...lay, placed: { ...placed }, wall: { ...(lay.wall || {}) }, style: { ...(lay.style || {}) } });
-      setCh({ ...BLANK_CHAR, ...(c || {}) });
+      setCh(normaliseChar(c));
       setCap(capNow);
       setBalance(bal);
       // The cat holds a koban when some arrived while you were away.
@@ -880,7 +953,7 @@ export default function RoomModule() {
     setGarden(v); saveJSON(GARDEN_KEY, v);
   };
   const saveChar = (next) => {
-    const v = { ...next, v: 1, t: Date.now() };
+    const v = { ...next, v: 2, t: Date.now() };
     setCh(v); saveJSON(CHARACTER_KEY, v);
   };
   const own = (id) => {
@@ -1099,6 +1172,18 @@ export default function RoomModule() {
 
   if (!ready) return <p style={{ padding: "40px 18px", color: T.sub, font: `0.875rem ${T.uiFont}` }}>Opening the door…</p>;
 
+  // FIRST, WHO IS MOVING IN (Lloyd, Oct 4 2026). Before the room, the shop or
+  // the welcome card: the learner makes their character, on their own, for
+  // free. Nothing here is bought and nothing is graded.
+  if (!ch.created) {
+    return (
+      <div style={{ padding: "14px 16px 36px" }}>
+        <style>{CSS}</style>
+        <Creator initial={ch} first onDone={(base) => saveChar({ ...ch, base, created: true })} />
+      </div>
+    );
+  }
+
   const wallet = (
     <span title="Koban" style={{ display: "inline-flex", alignItems: "center", gap: 6, font: `700 1rem ${T.uiFont}`, color: T.ink }}>
       <KobanIcon size={15} /> {balance}
@@ -1285,8 +1370,9 @@ export default function RoomModule() {
 
       {view === "you" && (
         <You ch={ch} owned={owned} balance={balance}
-             onWear={(slot, id) => saveChar({ ...ch, [slot]: id })}
-             onBuy={async (slot, o) => { if (await buy(o.id, o.price, o.jp)) { saveChar({ ...ch, [slot]: o.id }); flash(`${o.jp} — on.`); } }} />
+             onBase={(base) => { saveChar({ ...ch, base }); flash("Looking good."); }}
+             onWear={(slot, id) => saveChar({ ...ch, wear: { ...ch.wear, [slot]: id } })}
+             onBuy={async (slot, o) => { if (await buy(o.id, o.price, o.jp)) { saveChar({ ...ch, wear: { ...ch.wear, [slot]: o.id } }); flash(`${o.jp} — on.`); } }} />
       )}
     </div>
   );
@@ -1547,32 +1633,92 @@ function Shop({ owned, balance, layout, cap, nextHome, onBuy, onMove, onPlace })
         </div>
       ))}
       <p style={{ margin: 0, font: `0.75rem/1.6 ${T.uiFont}`, color: "var(--ts-on-tatami, #6E6A60)" }}>
-        Koban come from your study — finishing kana lessons, completing words, the daily challenge, a path of goals. Spending them never undoes any of it.
+        Clothes and accessories are under You. Koban come from your study — finishing kana lessons, completing words, the daily challenge, a path of goals. Spending them never undoes any of it.
       </p>
     </div>
   );
 }
 
+// ————— Character creation —————
+// The learner's own choices, made first and free. Swatches for colours, words
+// for shapes; the portrait updates as they choose. "Shuffle" is there for
+// anyone who would rather not decide, and is a suggestion, not a commitment.
+function Creator({ initial, first, onDone, onCancel }) {
+  const [base, setBase] = useState({ ...BASE_DEFAULT, ...((initial && initial.base) || {}) });
+  const preview = { ...initial, base };
+  const pickRandom = () => setBase(Object.fromEntries(Object.entries(BASE).map(([k, opts]) => [k, opts[Math.floor(Math.random() * opts.length)].id])));
+  const row = (k) => (
+    <div key={k} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      <span style={label}>{BASE_NAMES[k].toUpperCase()}</span>
+      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+        {BASE[k].map((o) => (
+          o.color ? (
+            <button key={o.id} aria-pressed={base[k] === o.id} aria-label={`${BASE_NAMES[k]} ${BASE[k].indexOf(o) + 1}`}
+                    onClick={() => setBase({ ...base, [k]: o.id })}
+                    style={{ width: 44, height: 44, borderRadius: 22, border: 0, cursor: "pointer", background: o.color,
+                             boxShadow: base[k] === o.id ? `0 0 0 3px ${T.washi}, 0 0 0 5.5px ${T.ok}` : `inset 0 0 0 1.5px rgba(0,0,0,.18)` }} />
+          ) : (
+            <button key={o.id} className="rm-opt" aria-pressed={base[k] === o.id} onClick={() => setBase({ ...base, [k]: o.id })}
+                    style={{ minWidth: 64 }}>
+              <span style={{ font: `700 0.8125rem ${T.uiFont}` }}>{o.en}</span>
+            </button>
+          )
+        ))}
+      </div>
+    </div>
+  );
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+      <div className="ts-card" style={{ padding: "14px 16px", display: "flex", flexDirection: "column", gap: 6 }}>
+        <span style={label}>{first ? "BEFORE YOU MOVE IN" : "HOW YOU LOOK"}</span>
+        <span style={{ font: `700 1.25rem/1.3 ${T.uiFont}` }}>{first ? "Who’s moving in?" : "Change how you look"}</span>
+        <span style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub }}>
+          {first ? "Make yourself. None of this costs anything, and you can change it whenever you like."
+                 : "Always free. Your clothes stay as they are."}
+        </span>
+      </div>
+      <div className="ts-card" style={{ padding: 12, display: "flex", justifyContent: "center" }}>
+        <div style={{ width: 150 }} dangerouslySetInnerHTML={{ __html: avatarPreviewSVG(preview) }} />
+      </div>
+      <div className="ts-card" style={{ padding: "14px 16px", display: "flex", flexDirection: "column", gap: 14 }}>
+        {Object.keys(BASE).map(row)}
+      </div>
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+        <button className="ts-btn ts-btn-washi" onClick={pickRandom}>Shuffle</button>
+        {onCancel && <button className="ts-btn ts-btn-washi" onClick={onCancel}>Cancel</button>}
+        <button className="ts-btn ts-btn-shu" style={{ flex: 1, minHeight: 52 }} onClick={() => onDone(base)}>
+          {first ? "Move in" : "Keep this look"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ————— You —————
-// Four slots, one pose (Notion §7). The portrait and the figure at the study
-// spot are drawn by the same function, so they always agree.
-function You({ ch, owned, balance, onWear, onBuy }) {
+// Who you are (free, any time) above what you wear (a starter outfit, then
+// clothes and accessories bought with koban). The portrait and the figure at
+// the study spot are drawn by the same function, so they always agree.
+function You({ ch, owned, balance, onBase, onWear, onBuy }) {
+  const [editing, setEditing] = useState(false);
+  if (editing) return <Creator initial={ch} onDone={(base) => { onBase(base); setEditing(false); }} onCancel={() => setEditing(false)} />;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <div className="ts-card" style={{ padding: 12, display: "flex", justifyContent: "center" }}>
+      <div className="ts-card" style={{ padding: 12, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
         <div style={{ width: 150 }} dangerouslySetInnerHTML={{ __html: avatarPreviewSVG(ch) }} />
+        <button className="ts-btn ts-btn-washi" onClick={() => setEditing(true)}>Change how you look</button>
       </div>
-      {Object.entries(AVATAR).map(([slot, opts]) => (
+      <span style={{ ...label, color: "var(--ts-on-tatami, #6E6A60)" }}>CLOTHES AND ACCESSORIES</span>
+      {Object.entries(WEAR).map(([slot, opts]) => (
         <div key={slot} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <span style={{ ...label, color: "var(--ts-on-tatami, #6E6A60)" }}>{SLOT_NAMES[slot].toUpperCase()}</span>
+          <span style={{ font: `700 0.8125rem ${T.uiFont}`, color: "var(--ts-on-tatami, #4A463D)" }}>{WEAR_NAMES[slot]}</span>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {opts.map((o) => {
               const has = o.price === 0 || owned[o.id] != null;
-              const on = (ch[slot] || AV_DEFAULT[slot]) === o.id;
+              const on = wearOf(ch, slot).id === o.id;
+              const cant = !has && balance < o.price;
               return (
-                <button key={o.id} className="rm-opt" aria-pressed={on}
-                        disabled={!has && balance < o.price}
-                        style={!has && balance < o.price ? { opacity: .55, cursor: "default" } : null}
+                <button key={o.id} className="rm-opt" aria-pressed={on} disabled={cant}
+                        style={cant ? { opacity: .55, cursor: "default" } : null}
                         onClick={() => (has ? onWear(slot, o.id) : onBuy(slot, o))}
                         aria-label={has ? `Wear ${o.en}` : `Buy ${o.en} for ${o.price} koban`}>
                   <span lang="ja" style={{ font: `700 0.9375rem ${T.jpFont}` }}>{o.jp}</span>
