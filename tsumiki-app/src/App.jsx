@@ -227,7 +227,7 @@ function Scene({ onOpen, dusk = false }) {
   return <button onClick={onOpen} aria-label="Your room" className="ts-scene">{svg}</button>;
 }
 
-function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays, openAccount, openGoals, dusk }) {
+function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays, openAccount, openGoals, dusk, heroRef }) {
   const fresh = !MODULES.some((m) => startedMap[m.id]);
   const started = (id) => Boolean(startedMap[id]);
 
@@ -279,7 +279,7 @@ function Home({ startedMap, lastMod, nextTask, go, recency, wallet, dormantDays,
 
         {/* The one lacquer button on Home. The whole card is the target, as
             before; the button inside it is what presses when you tap. */}
-        <button onClick={() => go(hero.id)} className="ts-card ts-card-btn ts-hero">
+        <button ref={heroRef} onClick={() => go(hero.id)} className="ts-card ts-card-btn ts-hero">
           <span style={{ ...LABEL, color: T.muted }}>{heroLabel}</span>
           {taskMod ? (
             <>
@@ -393,6 +393,147 @@ function RoomSoon({ wallet, go, dusk }) {
         </div>
       </div>
     </div>
+  );
+}
+
+// ————— First-visit welcome (Oct 2026) —————
+// Board: docs/design/rework/11-welcome.html — where this and the board
+// disagree, the board wins. One screen, one question, and the job is to put a
+// newcomer on the right first block in one tap (two for someone who reads
+// hiragana). Not a tour. It replaces Home's content while the header and the
+// drawer stay, and it shows once: any answer, sign-in or skip dismisses it.
+//
+// Shown only while Home's own definition of new holds — nothing started, per
+// readStarted() — so there is still exactly one definition of "new".
+//
+// ⚠️ THE SEEN-FLAG'S VALUE IS A CONSTANT, ON PURPOSE. It is in KEYS so that it
+// follows an account and a signed-in learner is not welcomed twice. But sync.js
+// asks the learner to choose whenever two devices hold different values for a
+// key (rule 3), so a flag carrying a timestamp or the answer given would make
+// "which copy of the welcome do you want to keep?" a real question at sign-in —
+// asked of exactly the returning learner the sign-in link is for. The one
+// alternative, a merger like the checker log's, is "a decision about someone's
+// data" per sync.js and was not taken. Identical values compare as `same`.
+const WELCOME_KEY = "tsumiki-welcome-v1";
+const WELCOME_SEEN = JSON.stringify({ seen: true });
+
+function Welcome({ dusk, choose, signIn, skip }) {
+  // "start" asks the question; "kana" offers Katakana and Kanji as equals
+  // (Lloyd, Oct 3) — the one place this screen takes a second tap.
+  const [step, setStep] = useState("start");
+  const headRef = useRef(null);
+  // Focus moves into the screen on open and onto the new heading on each step.
+  useEffect(() => { headRef.current?.focus(); }, [step]);
+
+  const answers = [
+    { key: "new", glyph: "あ", accent: ACCENT.hiragana,
+      title: "I'm new to Japanese",
+      line: "Start with hiragana, the script everything else rests on.",
+      act: () => choose("hiragana") },
+    { key: "kana", glyph: "ア", accent: ACCENT.katakana,
+      title: "I can already read hiragana",
+      line: "Choose what comes next: katakana or kanji.",
+      act: () => setStep("kana") },
+    { key: "studied", glyph: "直", accent: ACCENT.checker, lip: T.shuLip,
+      title: "I've studied, and can write sentences",
+      line: "Write one and find out what is wrong, what merely sounds off, and why.",
+      act: () => choose("checker") },
+  ];
+  const heading = { font: `700 1.3125rem/1.3 ${T.uiFont}`, margin: 0, outline: "none" };
+  const body = { font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub, margin: 0 };
+  const signInLink = (
+    <button onClick={signIn} className="ts-link">I already have an account — sign in</button>
+  );
+
+  return (
+    <section aria-label="Welcome to tsumiki" className="ts-rise">
+      {/* A picture here, not a door: on Home the room is a button, but on the
+          welcome it would be a fourth exit that skips the question. */}
+      <Scene dusk={dusk} />
+      <div style={{ display: "flex", flexDirection: "column", gap: 14, padding: "16px 16px 32px" }}>
+        <div className="ts-card" style={{ padding: "16px 18px", display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+            {step === "start" ? (
+              <span style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+                <span style={{ ...LABEL, color: T.muted }}>WELCOME</span>
+                <span lang="ja" style={{ font: `700 1.125rem ${T.jpFont}` }}>ようこそ</span>
+              </span>
+            ) : (
+              <span style={{ ...LABEL, color: T.muted }}>YOU CAN READ HIRAGANA</span>
+            )}
+            {/* Skip is always visible — in this card, so a short phone does
+                not push it below the fold. */}
+            <button onClick={skip} className="ts-btn ts-btn-washi"
+                    style={{ minHeight: 44, padding: "0 12px", fontSize: "0.8125rem", flexShrink: 0 }}>
+              Just look around
+            </button>
+          </div>
+          {step === "start" ? (
+            <>
+              <h1 ref={headRef} tabIndex={-1} style={heading}>Japanese, one block at a time.</h1>
+              <p style={body}>Learn to read and write it here — and get honest feedback on what you write.</p>
+            </>
+          ) : (
+            <>
+              <h1 ref={headRef} tabIndex={-1} style={heading}>Then pick your next block.</h1>
+              <p style={body}>Either is a good place to be. You can start the other whenever you like.</p>
+            </>
+          )}
+        </div>
+
+        {step === "start" ? (
+          <>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <span id="ts-welcome-q" style={{ ...LABEL, color: "var(--ts-on-tatami)" }}>WHERE ARE YOU STARTING FROM?</span>
+              <span lang="ja" style={{ font: `0.8125rem ${T.jpFont}`, color: "var(--ts-on-tatami)" }}>つみき</span>
+            </div>
+            <div role="group" aria-labelledby="ts-welcome-q" style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              {answers.map((a) => (
+                <button key={a.key} onClick={a.act} data-answer={a.key} className="ts-card ts-card-btn"
+                        style={{ flexDirection: "row", alignItems: "center", gap: 14, minHeight: 72, padding: "12px 14px" }}>
+                  <span aria-hidden="true" style={{
+                    display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+                    width: 48, height: 48, borderRadius: 10, color: "#FFF8EC",
+                    font: `700 1.625rem/1 ${T.jpFont}`, backgroundColor: a.accent,
+                    backgroundImage: "linear-gradient(180deg,rgba(255,255,255,.16),rgba(0,0,0,0) 45%,rgba(0,0,0,.10))",
+                    boxShadow: `inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 ${a.lip || "var(--ts-block-lip)"}`,
+                  }}>{a.glyph}</span>
+                  <span style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                    <span style={{ font: `700 1rem/1.35 ${T.uiFont}` }}>{a.title}</span>
+                    <span style={{ font: `0.8125rem/1.5 ${T.uiFont}`, color: T.sub }}>{a.line}</span>
+                  </span>
+                </button>
+              ))}
+            </div>
+            <div style={{ display: "flex", justifyContent: "center" }}>{signInLink}</div>
+          </>
+        ) : (
+          <>
+            {/* Equals: same block, same size, each with its Home line, and
+                neither preselected or ranked above the other. */}
+            <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)", gap: 14, marginTop: 6 }}>
+              {["katakana", "kanji"].map((id) => {
+                const m = MODULES.find((x) => x.id === id);
+                return (
+                  <div key={id} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                    <button onClick={() => choose(id)} className="ts-block" data-pick={id}
+                            style={{ backgroundColor: m.accent }}>
+                      <span aria-hidden="true" style={{ font: `700 2.5rem/1 ${T.jpFont}` }}>{BLOCK_GLYPH[id]}</span>
+                      <span style={{ font: `700 0.75rem ${T.uiFont}` }}>{m.label}</span>
+                    </button>
+                    <p style={{ margin: 0, font: `0.8125rem/1.55 ${T.uiFont}`, color: "var(--ts-on-tatami)" }}>{HOME_WHY[id]}</p>
+                  </div>
+                );
+              })}
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap" }}>
+              <button onClick={() => setStep("start")} className="ts-link">← Back</button>
+              {signInLink}
+            </div>
+          </>
+        )}
+      </div>
+    </section>
   );
 }
 
@@ -624,6 +765,13 @@ export default function App() {
   const [recency, setRecency] = useState({});
   const [wallet, setWallet] = useState(0);
   const [dormantDays, setDormantDays] = useState(null);
+  // First-visit welcome. Both start unknown, and the welcome is decided only
+  // once both are known: deciding before readStarted() resolves would flash
+  // the welcome at a learner whose progress is still loading.
+  const [homeLoaded, setHomeLoaded] = useState(false);
+  const [welcomeSeen, setWelcomeSeen] = useState(null);
+  const heroRef = useRef(null);
+  const [focusHero, setFocusHero] = useState(false);
 
   // Home's data is read through the storage adapter, so it must be async and
   // must refresh whenever we come back to Home — a lesson finished inside a
@@ -632,11 +780,13 @@ export default function App() {
     if (active !== "home") return undefined;
     let alive = true;
     (async () => {
-      const [s, t, last, rec, w, dorm] = await Promise.all([
+      const [s, t, last, rec, w, dorm, seen] = await Promise.all([
         readStarted(), readNextTask(), storage.get("tsumiki-last-module"),
-        readRecency(), readWallet(), daysSinceLastWorked(),
+        readRecency(), readWallet(), daysSinceLastWorked(), storage.get(WELCOME_KEY),
       ]);
       if (!alive) return;
+      setWelcomeSeen(Boolean(seen?.value));
+      setHomeLoaded(true);
       setStartedMap(s);
       setNextTask(t);
       setLastWorked(last?.value ?? null);
@@ -746,6 +896,21 @@ export default function App() {
     return () => document.removeEventListener("visibilitychange", onHide);
   }, []);
 
+  // ————— First-visit welcome —————
+  const showWelcome = active === "home" && homeLoaded && welcomeSeen === false
+    && !MODULES.some((m) => startedMap[m.id]);
+  const dismissWelcome = () => {
+    setWelcomeSeen(true);
+    storage.set(WELCOME_KEY, WELCOME_SEEN);
+  };
+  // Leaving the welcome for Home puts focus on Home's hero, not the top of
+  // the document.
+  useEffect(() => {
+    if (!focusHero || showWelcome || active !== "home") return;
+    heroRef.current?.focus();
+    setFocusHero(false);
+  }, [focusHero, showWelcome, active]);
+
   const ambienceBtn = (
     <button className="ts-icon" onClick={toggleAmbience} aria-pressed={ambience}
             aria-label={`Ambience: bamboo fountain and koto, ${ambience ? "on" : "off"}`}
@@ -846,8 +1011,13 @@ export default function App() {
                      ...(active === "home" || active === "room" ? null : {
                        background: "var(--ts-module-ground)", minHeight: "calc(100vh - 56px)",
                      }) }}>
-        {active === "home" ? (
-          <Home startedMap={startedMap} nextTask={nextTask} go={go}
+        {active === "home" && !homeLoaded ? null : showWelcome ? (
+          <Welcome dusk={dusk}
+                   choose={(id) => { dismissWelcome(); go(id); }}
+                   skip={() => { dismissWelcome(); setFocusHero(true); }}
+                   signIn={() => { dismissWelcome(); setFocusHero(true); setAccountOpen(true); }} />
+        ) : active === "home" ? (
+          <Home startedMap={startedMap} heroRef={heroRef} nextTask={nextTask} go={go}
                 recency={recency} wallet={wallet} dormantDays={dormantDays}
                 openAccount={() => setAccountOpen(true)}
                 openGoals={() => setGoalsOpen(true)} dusk={dusk}

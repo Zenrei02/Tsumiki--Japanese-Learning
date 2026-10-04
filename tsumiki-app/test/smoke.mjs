@@ -1092,6 +1092,163 @@ if (!ONLY.length || ONLY.includes("dictionary")) {
   if (errors.length) fail("DICTIONARY: console errors — " + errors.slice(0, 2).join(" | "));
 }
 
+// ————— FIRST-VISIT WELCOME (Oct 2026) —————
+// Board 11-welcome.html. The welcome is one screen that replaces Home's content
+// for someone who has started nothing and has not seen it. Every assertion here
+// is about WHO sees it and WHERE each answer goes, because the two failures
+// that matter are invisible from inside the screen: welcoming a learner who is
+// mid-course, and an answer that dismisses the welcome but lands nowhere.
+//
+// Each case is its own fresh JSDOM — the welcome is decided once, from what is
+// in storage at load, so cases cannot share a window.
+if (!ONLY.length || ONLY.includes("welcome")) {
+  console.log("\nWELCOME — first visit");
+  const WELCOME_KEY = "tsumiki-welcome-v1";
+  const wait = (ms) => new Promise(r => setTimeout(r, ms));
+
+  async function mount(seed = {}) {
+    const dom = new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',
+      { runScripts: "outside-only", pretendToBeVisual: true, url: "http://localhost/" });
+    const w = dom.window;
+    const errors = [];
+    w.HTMLCanvasElement.prototype.getContext = () => new Proxy({
+      canvas: { width: 300, height: 300 }, measureText: () => ({ width: 0 }),
+      createLinearGradient: () => ({ addColorStop() {} }), getImageData: () => ({ data: [] }),
+    }, { get: (t, k) => (k in t ? t[k] : () => {}), set: (t, k, v) => { t[k] = v; return true; } });
+    w.AudioContext = function () {
+      return { decodeAudioData: async () => ({}), createBufferSource: () => ({ connect() {}, start() {} }),
+               destination: {}, currentTime: 0 };
+    };
+    w.fetch = () => Promise.resolve({ ok: false, status: 404 });
+    w.console.error = (...a) => {
+      const t = a.join(" ");
+      if (!/Not implemented|jsdom|Could not parse CSS/i.test(t)) errors.push(t);
+    };
+    w.console.warn = () => {};
+    w.addEventListener("error", e => errors.push("UNCAUGHT: " + (e.error?.message || e.message)));
+    for (const [k, v] of Object.entries(seed)) w.localStorage.setItem(k, v);
+    w.eval(fs.readFileSync(BUNDLE, "utf8"));
+    await wait(1500);
+    const d = w.document;
+    return {
+      w, errors,
+      welcome: () => d.querySelector('section[aria-label="Welcome to tsumiki"]'),
+      hero: () => [...d.querySelectorAll("button")].find(b => /START WITH|PICK UP|NEXT ON YOUR PATH/.test(b.textContent || "")),
+      section: () => (d.querySelector(".ts-head-en")?.textContent || "").trim(),
+      flag: () => w.localStorage.getItem(WELCOME_KEY),
+      buttons: () => [...d.querySelectorAll("button")],
+    };
+  }
+  const noErrors = (name, app) => {
+    if (app.errors.length) fail(`WELCOME (${name}): console errors — ${app.errors.slice(0, 2).join(" | ")}`);
+  };
+
+  // 1. Empty storage — a true first visit.
+  {
+    const app = await mount();
+    if (!app.welcome()) fail("WELCOME: empty storage, but the welcome did not show");
+    else if (app.hero()) fail("WELCOME: shown, but Home's hero is on screen beside it — it should replace Home");
+    else if (app.w.document.activeElement?.tagName !== "H1") fail("WELCOME: focus did not move into the screen on open");
+    else console.log("  empty storage: shows, replaces Home, focus on its heading");
+    noErrors("empty", app);
+  }
+
+  // 2. Any progress key present — a learner mid-course is never welcomed.
+  {
+    const app = await mount({ "tsumiki-kanji-progress-v1": JSON.stringify({ "日": { seen: 1 } }) });
+    if (app.welcome()) fail("WELCOME: shown to a learner with kanji progress");
+    else if (!app.hero()) fail("WELCOME: not shown, but Home did not render either");
+    else console.log("  progress present: not shown, Home renders");
+    noErrors("progress", app);
+  }
+
+  // 3. Seen-flag present, nothing started — it shows once, not every visit.
+  {
+    const app = await mount({ [WELCOME_KEY]: JSON.stringify({ seen: true }) });
+    if (app.welcome()) fail("WELCOME: shown again although the seen-flag is set");
+    else if (!app.hero()) fail("WELCOME: not shown, but Home did not render either");
+    else console.log("  seen-flag present: not shown, Home renders");
+    noErrors("seen", app);
+  }
+
+  // 4. Each answer lands on its block and sets the flag. The flag's value is
+  //    asserted exactly: it must be the same on every device (see WELCOME_KEY).
+  const SEEN = JSON.stringify({ seen: true });
+  const lands = async (name, steps, expectSection) => {
+    const app = await mount();
+    if (!app.welcome()) { fail(`WELCOME (${name}): did not show, so the answer could not be tested`); return; }
+    for (const step of steps) {
+      const b = step(app);
+      if (!b) { fail(`WELCOME (${name}): a control on the way is missing`); return; }
+      b.click();
+      await wait(900);
+    }
+    if (app.welcome()) fail(`WELCOME (${name}): still on screen after answering`);
+    else if (app.flag() !== SEEN) fail(`WELCOME (${name}): seen-flag is ${JSON.stringify(app.flag())}, want ${SEEN}`);
+    else if (app.section() !== expectSection) fail(`WELCOME (${name}): landed on "${app.section() || "Home"}", want ${expectSection}`);
+    else console.log(`  "${name}": lands on ${expectSection}, flag set`);
+    noErrors(name, app);
+  };
+  const answer = (key) => (app) => app.buttons().find(b => b.dataset.answer === key);
+  const pick = (id) => (app) => app.buttons().find(b => b.dataset.pick === id);
+
+  await lands("new to Japanese", [answer("new")], "Hiragana");
+  await lands("studied before", [answer("studied")], "Checker");
+
+  // "I can read hiragana" offers EXACTLY Katakana and Kanji, as equals, and
+  // each lands on its own block (Lloyd, Oct 3).
+  {
+    const app = await mount();
+    const b = answer("kana")(app);
+    if (!b) fail("WELCOME (kana): no 'I can already read hiragana' answer");
+    else {
+      b.click();
+      await wait(400);
+      const picks = app.buttons().filter(x => x.dataset.pick).map(x => x.dataset.pick);
+      if (JSON.stringify(picks) !== JSON.stringify(["katakana", "kanji"])) {
+        fail(`WELCOME (kana): offers ${JSON.stringify(picks)}, want exactly katakana and kanji`);
+      } else if (app.flag() !== null) {
+        fail("WELCOME (kana): the second step set the flag before a block was picked");
+      } else console.log("  \"read hiragana\": offers exactly Katakana and Kanji, flag not yet set");
+      noErrors("kana", app);
+    }
+  }
+  await lands("read hiragana → Katakana", [answer("kana"), pick("katakana")], "Katakana");
+  await lands("read hiragana → Kanji", [answer("kana"), pick("kanji")], "Kanji");
+
+  // 5. Skip lands on Home with focus on the hero; sign-in opens Account.
+  {
+    const app = await mount();
+    const skip = app.buttons().find(b => (b.textContent || "").trim() === "Just look around");
+    if (!skip) fail("WELCOME: no skip control");
+    else {
+      skip.click();
+      await wait(600);
+      if (app.welcome()) fail("WELCOME (skip): still on screen");
+      else if (app.flag() !== SEEN) fail("WELCOME (skip): seen-flag not set");
+      else if (!app.hero()) fail("WELCOME (skip): did not land on Home");
+      else if (app.w.document.activeElement !== app.hero()) fail("WELCOME (skip): focus did not move to Home's hero");
+      else console.log("  skip: lands on Home, focus on the hero, flag set");
+    }
+    noErrors("skip", app);
+  }
+  {
+    const app = await mount();
+    const link = app.buttons().find(b => /already have an account/i.test(b.textContent || ""));
+    if (!link) fail("WELCOME: no sign-in link");
+    else {
+      link.click();
+      await wait(600);
+      const acct = app.w.document.querySelector('[role="dialog"][aria-label="Account"]');
+      if (app.welcome()) fail("WELCOME (sign in): still on screen");
+      else if (app.flag() !== SEEN) fail("WELCOME (sign in): seen-flag not set");
+      else if (!acct) fail("WELCOME (sign in): the Account panel did not open");
+      else console.log("  sign in: opens Account, flag set");
+    }
+    noErrors("signin", app);
+  }
+}
+
 console.log("\n" + "─".repeat(60));
 if (failures.length) {
   console.log(`FAILED — ${failures.length} problem${failures.length > 1 ? "s" : ""}:`);

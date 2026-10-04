@@ -119,6 +119,11 @@ export const KEYS = [
   // newest first. Written only by the dictionary module; exported so the list
   // follows them between devices like the rest of their study.
   "tsumiki-dict-recent-v1",
+  // Oct 2026: the first-visit welcome has been answered, skipped or signed in
+  // from. Exported so a signed-in learner is not welcomed again on a second
+  // device. Its value is a constant on purpose — see WELCOME_KEY in App.jsx
+  // (build-vite-app.py): two devices must never hold different copies of it.
+  "tsumiki-welcome-v1",
 ];
 
 // ————— Keys this file writes and DELIBERATELY DOES NOT EXPORT —————

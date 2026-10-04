@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>tsumiki Welcome</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<!--
+  Board 11 — the first-visit welcome. Drawn Oct 4 2026 in the idiom of 01/02,
+  from the runbook "Claude Code prompt — TSUMIKI_EFFORT … and a first-visit
+  welcome screen", Part B §7. No designer has seen it yet: every English line
+  is a DRAFT for Lloyd, and the open choices are listed in the right column.
+
+  Three frames: day step 1, day step 2 (after "I can already read hiragana"),
+  dusk step 1. Same CSS as 01-home-day.html; dusk values from 02-home-dark.html
+  via tsumiki-skin.css.
+-->
+<style>
+body{margin:0;font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;background:#E9E2D1;color:#2C2A26;-webkit-font-smoothing:antialiased}
+.jp{font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif}
+.tatami{background-color:#C6BE8E;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.22) 0 1px,rgba(0,0,0,0) 1px 5px),repeating-linear-gradient(0deg,rgba(84,74,34,.18) 0 1px,rgba(0,0,0,0) 1px 3px)}
+.dusk.tatami{background-color:#5E5B45;background-image:repeating-linear-gradient(90deg,rgba(255,240,200,.10) 0 1px,rgba(0,0,0,0) 1px 5px),repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 1px,rgba(0,0,0,0) 1px 3px)}
+.washi{background-color:#FBF7EE;background-image:radial-gradient(rgba(120,100,60,.06) 1px,rgba(0,0,0,0) 1px),radial-gradient(rgba(120,100,60,.045) 1px,rgba(0,0,0,0) 1px);background-size:9px 9px,13px 13px;background-position:0 0,4px 6px}
+.dusk .washi{background-color:#F6E9CC}
+.card{border-radius:16px;color:#2C2A26;box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 3px 0 #CFC4A8,0 10px 22px rgba(60,45,20,.16)}
+.dusk .card{box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 3px 0 #B99B6A,0 10px 22px rgba(0,0,0,.4),0 0 40px rgba(255,212,138,.22)}
+.answer{display:flex;align-items:center;gap:14px;box-sizing:border-box;width:100%;min-height:72px;padding:12px 14px;border:0;text-align:left;cursor:pointer;font:inherit}
+.mark{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:48px;height:48px;border-radius:10px;font-family:"Shippori Mincho",serif;font-weight:700;font-size:26px;color:#FFF8EC;background-image:linear-gradient(180deg,rgba(255,255,255,.16),rgba(0,0,0,0) 45%,rgba(0,0,0,.10));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #7A5A3C}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;box-sizing:border-box;border:0;cursor:pointer;font-family:inherit;font-weight:700}
+.btn-washi{min-height:44px;padding:0 16px;border-radius:12px;color:#2C2A26;font-size:15px;background-color:#FBF7EE;box-shadow:inset 0 0 0 1.5px #D9CFB8,0 2px 0 #CFC4A8}
+.block{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-sizing:border-box;height:104px;border-radius:12px;border:0;cursor:pointer;font-family:inherit;color:#FFF8EC;background-image:linear-gradient(180deg,rgba(255,255,255,.16),rgba(0,0,0,0) 45%,rgba(0,0,0,.10));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 6px 0 #7A5A3C,0 9px 14px rgba(70,45,20,.28)}
+.label{font-size:11px;font-weight:700;letter-spacing:.08em;color:#6E6A60}
+.link{background:none;border:0;padding:10px 4px;min-height:44px;font:inherit;font-size:14px;font-weight:700;color:#4A463D;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.dusk .link,.dusk .on-tatami{color:#E8DCC0}
+.on-tatami{color:#4A463D}
+.header{display:flex;align-items:center;justify-content:space-between;padding:12px 12px 8px 12px;background-color:#F6F1E6;box-shadow:0 1px 0 #D9CFB8}
+.dusk .header{background-color:#23263A;box-shadow:0 1px 0 #3A3E58;color:#F3E9D2}
+.icon{background:none;border:0;display:flex;align-items:center;justify-content:center;width:44px;height:44px;color:inherit}
+.seal{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#FFF6EC;background-image:linear-gradient(180deg,#DC4B2E,#A82A15);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 2px 0 #7E1F0F}
+.dusk .seal{box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 2px 0 #7E1F0F,0 0 18px rgba(226,83,47,.45)}
+.draft{display:inline-block;margin-left:6px;padding:1px 5px;border-radius:4px;background:#F6EBD2;color:#907119;font-size:9px;font-weight:700;letter-spacing:.06em;vertical-align:middle}
+.frame{width:390px;height:844px;box-sizing:border-box;display:flex;flex-direction:column;position:relative;overflow:hidden;flex-shrink:0}
+.caption{font-size:12px;font-weight:700;letter-spacing:.06em;color:#6E6A60;margin:0 0 8px}
+.notes{width:360px;font-size:14px;line-height:1.6;color:#2C2A26}
+.notes h2{font-size:13px;letter-spacing:.08em;color:#6E6A60;margin:22px 0 6px}
+.notes li{margin-bottom:6px}
+</style>
+<style>body{padding:24px}</style>
+</head>
+<body>
+<div style="display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap">
+
+<!-- ───────────────────────── 1. DAY · WHERE ARE YOU STARTING FROM? ───────────────────────── -->
+<div>
+<p class="caption">1 · DAY — ONE SCREEN, ONE QUESTION</p>
+<div class="frame tatami">
+  <div class="header">
+    <button class="icon" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <div style="display:flex;align-items:center;gap:10px"><div class="seal jp">つ</div><div style="font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1">tsumiki</div></div>
+    <button class="icon" aria-label="Ambience" style="color:#8A847A"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg></button>
+  </div>
+
+  <!-- The room from 01: the scene is the welcome's picture, not a door, so it is not a button here. -->
+  <svg width="390" height="196" viewBox="0 0 390 196" role="img" aria-label="A tatami room: shoji screens, a low table with wooden blocks" style="display:block">
+    <defs><pattern id="weave" width="6" height="3" patternUnits="userSpaceOnUse"><rect width="6" height="3" fill="#C6BE8E"/><rect width="1" height="3" fill="#E4DDB3"/><rect y="2" width="6" height="1" fill="#A79E6A"/></pattern></defs>
+    <rect width="390" height="196" fill="#EFE7D4"/>
+    <g fill="#F5EEDD" stroke="#B89A72" stroke-width="2"><rect x="18" y="8" width="150" height="120"/><rect x="222" y="8" width="150" height="120"/></g>
+    <g stroke="#B89A72" stroke-width="1.4"><path d="M18 38h150M18 68h150M18 98h150M56 8v120M93 8v120M130 8v120"/><path d="M222 38h150M222 68h150M222 98h150M260 8v120M297 8v120M334 8v120"/></g>
+    <rect x="176" y="8" width="38" height="120" fill="#E3D9C3"/>
+    <rect x="0" y="128" width="390" height="8" fill="#5E4630"/><rect x="0" y="136" width="390" height="60" fill="url(#weave)"/>
+    <path d="M0 136h390M195 136v60" stroke="#2B3A55" stroke-width="3"/>
+    <rect x="112" y="150" width="166" height="12" rx="3" fill="#4A3423"/>
+    <rect x="150" y="128" width="24" height="22" rx="3" fill="#9C8BC4" stroke="#5B4A7D"/><text x="162" y="145" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="14" font-weight="700" fill="#FFF8EC">あ</text>
+    <rect x="176" y="128" width="24" height="22" rx="3" fill="#2F6F6B" stroke="#1F4C49"/><text x="188" y="145" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="14" font-weight="700" fill="#FFF8EC">文</text>
+    <rect x="163" y="106" width="24" height="22" rx="3" fill="#C7351B" stroke="#7E1F0F"/><text x="175" y="123" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="14" font-weight="700" fill="#FFF8EC">直</text>
+  </svg>
+
+  <div style="display:flex;flex-direction:column;gap:14px;padding:16px 16px 0">
+    <div class="washi card" style="padding:16px 18px;display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+        <span style="display:flex;align-items:baseline;gap:10px"><span class="label">WELCOME</span><span class="jp" style="font-size:18px;font-weight:700">ようこそ</span></span>
+        <button class="btn btn-washi" style="min-height:36px;padding:0 12px;font-size:13px">Just look around</button>
+      </div>
+      <div style="font-size:21px;font-weight:700;line-height:1.3">Japanese, one block at a time.<span class="draft">DRAFT</span></div>
+      <p style="margin:0;font-size:14px;line-height:1.6;color:#4A463D">Learn to read and write it here — and get honest feedback on what you write.<span class="draft">DRAFT</span></p>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <span class="label on-tatami">WHERE ARE YOU STARTING FROM?</span>
+      <span class="jp on-tatami" style="font-size:13px">つみき</span>
+    </div>
+
+    <button class="washi card answer"><span class="mark" style="background-color:#9C8BC4">あ</span>
+      <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:700">I'm new to Japanese</span><span style="font-size:13px;line-height:1.5;color:#4A463D">Start with hiragana, the script everything else rests on.</span></span></button>
+    <button class="washi card answer"><span class="mark" style="background-color:#7A66A8">ア</span>
+      <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:700">I can already read hiragana</span><span style="font-size:13px;line-height:1.5;color:#4A463D">Choose what comes next: katakana or kanji.</span></span></button>
+    <button class="washi card answer"><span class="mark" style="background-color:#C7351B;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #7E1F0F">直</span>
+      <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:700">I've studied, and can write sentences</span><span style="font-size:13px;line-height:1.5;color:#4A463D">Write one and find out what is wrong, what merely sounds off, and why.</span></span></button>
+
+    <div style="display:flex;justify-content:center"><button class="link">I already have an account — sign in</button></div>
+  </div>
+</div>
+</div>
+
+<!-- ───────────────────────── 2. DAY · KATAKANA OR KANJI ───────────────────────── -->
+<div>
+<p class="caption">2 · DAY — "I CAN ALREADY READ HIRAGANA"</p>
+<div class="frame tatami">
+  <div class="header">
+    <button class="icon" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <div style="display:flex;align-items:center;gap:10px"><div class="seal jp">つ</div><div style="font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1">tsumiki</div></div>
+    <button class="icon" aria-label="Ambience" style="color:#8A847A"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg></button>
+  </div>
+  <svg width="390" height="196" viewBox="0 0 390 196" role="img" aria-label="A tatami room" style="display:block">
+    <rect width="390" height="196" fill="#EFE7D4"/>
+    <g fill="#F5EEDD" stroke="#B89A72" stroke-width="2"><rect x="18" y="8" width="150" height="120"/><rect x="222" y="8" width="150" height="120"/></g>
+    <g stroke="#B89A72" stroke-width="1.4"><path d="M18 38h150M18 68h150M18 98h150M56 8v120M93 8v120M130 8v120"/><path d="M222 38h150M222 68h150M222 98h150M260 8v120M297 8v120M334 8v120"/></g>
+    <rect x="176" y="8" width="38" height="120" fill="#E3D9C3"/>
+    <rect x="0" y="128" width="390" height="8" fill="#5E4630"/><rect x="0" y="136" width="390" height="60" fill="url(#weave)"/>
+    <path d="M0 136h390M195 136v60" stroke="#2B3A55" stroke-width="3"/>
+    <rect x="112" y="150" width="166" height="12" rx="3" fill="#4A3423"/>
+    <rect x="150" y="128" width="24" height="22" rx="3" fill="#9C8BC4" stroke="#5B4A7D"/><text x="162" y="145" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="14" font-weight="700" fill="#FFF8EC">あ</text>
+    <rect x="176" y="128" width="24" height="22" rx="3" fill="#2F6F6B" stroke="#1F4C49"/><text x="188" y="145" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="14" font-weight="700" fill="#FFF8EC">文</text>
+    <rect x="163" y="106" width="24" height="22" rx="3" fill="#C7351B" stroke="#7E1F0F"/><text x="175" y="123" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="14" font-weight="700" fill="#FFF8EC">直</text>
+  </svg>
+
+  <div style="display:flex;flex-direction:column;gap:14px;padding:16px 16px 0">
+    <div class="washi card" style="padding:16px 18px;display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+        <span class="label">YOU CAN READ HIRAGANA</span>
+        <button class="btn btn-washi" style="min-height:36px;padding:0 12px;font-size:13px">Just look around</button>
+      </div>
+      <div style="font-size:21px;font-weight:700;line-height:1.3">Then pick your next block.<span class="draft">DRAFT</span></div>
+      <p style="margin:0;font-size:14px;line-height:1.6;color:#4A463D">Either is a good place to be. You can start the other whenever you like.<span class="draft">DRAFT</span></p>
+    </div>
+
+    <!-- Equals: same size, same treatment, neither preselected or ranked (Lloyd, Oct 3). -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <button class="block" style="background-color:#7A66A8"><span class="jp" style="font-size:40px;font-weight:700;line-height:1">ア</span><span style="font-size:12px;font-weight:700">Katakana</span></button>
+        <p class="on-tatami" style="margin:0;font-size:13px;line-height:1.55">The second script: loanwords, menus, signs. Runs alongside hiragana, at whatever pace suits you.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <button class="block" style="background-color:#5B4A7D"><span class="jp" style="font-size:40px;font-weight:700;line-height:1">漢</span><span style="font-size:12px;font-weight:700">Kanji</span></button>
+        <p class="on-tatami" style="margin:0;font-size:13px;line-height:1.55">Characters in an order that pays for itself: each one unlocks words you already use.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <button class="link">← Back</button>
+      <button class="link">I already have an account — sign in</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ───────────────────────── 3. DUSK · STEP 1 ───────────────────────── -->
+<div>
+<p class="caption">3 · DUSK — SAME SCREEN, LANTERN-LIT</p>
+<div class="frame tatami dusk">
+  <div class="header">
+    <button class="icon" aria-label="Menu"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <div style="display:flex;align-items:center;gap:10px"><div class="seal jp">つ</div><div style="font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1">tsumiki</div></div>
+    <button class="icon" aria-label="Ambience" style="color:#8A847A"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg></button>
+  </div>
+  <svg width="390" height="196" viewBox="0 0 390 196" role="img" aria-label="A tatami room at dusk, an andon lantern on a low table" style="display:block">
+    <defs>
+      <radialGradient id="lamp" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#FFD48A" stop-opacity=".55"/><stop offset="1" stop-color="#FFD48A" stop-opacity="0"/></radialGradient>
+      <pattern id="weave-dusk" width="6" height="3" patternUnits="userSpaceOnUse"><rect width="6" height="3" fill="#6B6849"/><rect width="1" height="3" fill="#8A8660"/><rect y="2" width="6" height="1" fill="#4D4A33"/></pattern>
+    </defs>
+    <rect width="390" height="196" fill="#1B1E2C"/>
+    <g fill="#26304A" stroke="#4B4A5E" stroke-width="2"><rect x="18" y="8" width="150" height="120"/><rect x="222" y="8" width="150" height="120"/></g>
+    <g stroke="#4B4A5E" stroke-width="1.4"><path d="M18 38h150M18 68h150M18 98h150M56 8v120M93 8v120M130 8v120"/><path d="M222 38h150M222 68h150M222 98h150M260 8v120M297 8v120M334 8v120"/></g>
+    <rect x="0" y="128" width="390" height="8" fill="#2E2116"/><rect x="0" y="136" width="390" height="60" fill="url(#weave-dusk)"/>
+    <path d="M0 136h390M195 136v60" stroke="#141A2C" stroke-width="3"/>
+    <ellipse cx="195" cy="150" rx="170" ry="70" fill="url(#lamp)"/>
+    <rect x="112" y="150" width="166" height="12" rx="3" fill="#3B2A1C"/>
+    <rect x="160" y="98" width="40" height="54" rx="4" fill="#F6E9CC" stroke="#3B2A1C" stroke-width="2"/>
+    <path d="M160 116h40M160 134h40M180 98v54" stroke="#3B2A1C" stroke-width="1.5"/>
+    <rect x="166" y="104" width="28" height="42" fill="#FFD48A" opacity=".55"/>
+    <text x="180" y="130" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="16" font-weight="700" fill="#A82A15">つ</text>
+    <rect x="222" y="128" width="24" height="22" rx="3" fill="#9C8BC4" stroke="#5B4A7D"/><text x="234" y="145" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="14" font-weight="700" fill="#FFF8EC">あ</text>
+    <circle cx="330" cy="40" r="14" fill="#F3E9D2" opacity=".9"/><circle cx="336" cy="36" r="12" fill="#26304A"/>
+  </svg>
+
+  <div style="display:flex;flex-direction:column;gap:14px;padding:16px 16px 0">
+    <div class="washi card" style="padding:16px 18px;display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+        <span style="display:flex;align-items:baseline;gap:10px"><span class="label">WELCOME</span><span class="jp" style="font-size:18px;font-weight:700">ようこそ</span></span>
+        <button class="btn btn-washi" style="min-height:36px;padding:0 12px;font-size:13px">Just look around</button>
+      </div>
+      <div style="font-size:21px;font-weight:700;line-height:1.3">Japanese, one block at a time.</div>
+      <p style="margin:0;font-size:14px;line-height:1.6;color:#4A463D">Learn to read and write it here — and get honest feedback on what you write.</p>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <span class="label on-tatami">WHERE ARE YOU STARTING FROM?</span>
+      <span class="jp on-tatami" style="font-size:13px">つみき</span>
+    </div>
+    <button class="washi card answer"><span class="mark" style="background-color:#9C8BC4;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #3E2B18">あ</span>
+      <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:700">I'm new to Japanese</span><span style="font-size:13px;line-height:1.5;color:#4A463D">Start with hiragana, the script everything else rests on.</span></span></button>
+    <button class="washi card answer"><span class="mark" style="background-color:#7A66A8;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #3E2B18">ア</span>
+      <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:700">I can already read hiragana</span><span style="font-size:13px;line-height:1.5;color:#4A463D">Choose what comes next: katakana or kanji.</span></span></button>
+    <button class="washi card answer"><span class="mark" style="background-color:#C7351B;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 3px 0 #7E1F0F">直</span>
+      <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:700">I've studied, and can write sentences</span><span style="font-size:13px;line-height:1.5;color:#4A463D">Write one and find out what is wrong, what merely sounds off, and why.</span></span></button>
+    <div style="display:flex;justify-content:center"><button class="link">I already have an account — sign in</button></div>
+  </div>
+</div>
+</div>
+
+<!-- ───────────────────────── NOTES ───────────────────────── -->
+<div class="notes">
+  <h2 style="margin-top:0">WHAT THIS SCREEN IS FOR</h2>
+  <p style="margin:0">Getting a newcomer to the right first block in one tap — two for the hiragana reader. It is not a tour. It replaces Home's content (header and drawer stay), shows once, and every way out dismisses it for good.</p>
+
+  <h2>DECIDED</h2>
+  <ul style="padding-left:18px;margin:0">
+    <li><b>"I can already read hiragana" offers Katakana AND Kanji, side by side as equals</b> (Lloyd, Oct 3). Same block, same size, each with its existing Home line; neither preselected.</li>
+    <li>No red on this screen. The kit's rule is that the one red thing is the thing to do next — here there are three equally right answers, so none is lacquer.</li>
+    <li>No counts, no time estimates, no romaji. The only new Japanese is the greeting <span class="jp">ようこそ</span>.</li>
+  </ul>
+
+  <h2>OPEN — LLOYD'S CALL</h2>
+  <ul style="padding-left:18px;margin:0">
+    <li><b>All English copy</b> — every line marked DRAFT, the three answer lines included. The Katakana and Kanji lines in frame 2 are the shipped <code>HOME_WHY</code> text, unchanged.</li>
+    <li><b>The greeting.</b> <span class="jp">ようこそ</span> beside WELCOME, or no Japanese at all in the header.</li>
+    <li><b>Skip placement.</b> "Just look around" sits in the top card so it is visible without scrolling on a short phone. The alternative is a full-width button under the answers.</li>
+    <li><b>The scene is not a door here.</b> On Home, tapping the room goes to the room. On the welcome it would be a fourth exit that skips the question, so it is a picture only.</li>
+  </ul>
+
+  <h2>BEHAVIOUR</h2>
+  <ul style="padding-left:18px;margin:0">
+    <li>Shown when nothing is started and the welcome has not been seen, and only after progress has loaded, so a returning learner never sees it flash.</li>
+    <li>Seen-flag <code>tsumiki-welcome-v1</code> is in KEYS so it follows an account. Its value is the same on every device, so a sign-in never asks "which copy?" about it.</li>
+    <li>Sign in marks it seen and opens the existing Account panel. A returning learner's progress then syncs down and Home is theirs.</li>
+    <li>In a private window storage is memory-only, so the welcome comes back on reload. Accepted.</li>
+  </ul>
+</div>
+
+</div>
+</body>
+</html>
