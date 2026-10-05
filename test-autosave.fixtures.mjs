@@ -90,14 +90,19 @@ function fakeClient(initial = {}) {
           calls.push({ op: "GET" });
           return { data: { ...row, updated_at: null }, error: null };
         } }) }),
-        upsert: async (obj) => {
+        // Chainable, because pushRemote asks for the server-assigned version
+        // back: `.upsert(…).select("version").maybeSingle()` (THE STALE READ in
+        // sync.js). A bare promise here made every push throw on `.select`, so
+        // notePushed never ran and the "sends nothing" dedupe counts were wrong.
+        // As with PostgREST, nothing is sent until the chain is awaited.
+        upsert: (obj) => ({ select: () => ({ maybeSingle: async () => {
           calls.push({ op: "POST", data: { ...obj.data } });
           // The archive trigger's own rule: an identical document is not a new
           // version. Modelled here so a test can assert the version DID NOT move.
           const same = JSON.stringify(obj.data) === JSON.stringify(row.data);
           row = { data: { ...obj.data }, version: same ? row.version : row.version + 1 };
-          return { error: null };
-        },
+          return { data: { version: row.version }, error: null };
+        } }) }),
       };
     },
   };
