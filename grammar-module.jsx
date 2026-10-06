@@ -9922,6 +9922,31 @@ export default function GrammarPractice() {
     (l) => !l.locked && levelPoints(l).length > 0 && levelPoints(l).every(isDone)
   ).length;
 
+  // Effort blocks, for "Your tsumiki journey" (Oct 2026). Everything this
+  // module counts as finished, reported whenever progress changes: one block
+  // per lesson, and for each finished stage a keystone group a quarter its
+  // size. lib/blocks.js ignores ids it already holds, so this is safe to repeat.
+  // Never a score — isDone is the same test the lesson list ticks with. Absent
+  // in the artifact build, where window.tsumikiBlocks does not exist.
+  useEffect(() => {
+    if (!loaded.current || typeof window === "undefined" || !window.tsumikiBlocks) return;
+    const items = [];
+    for (const pt of ALL_POINTS) {
+      if (!isDone(pt)) continue;
+      items.push({ id: "lesson:grammar:" + pt.id, source: "grammar",
+        action: pt.kind === "review" ? "review" : "lesson", label: pt.jp });
+    }
+    for (const l of LEVELS) {
+      const pts = levelPoints(l);
+      if (l.locked || !pts.length || !pts.every(isDone)) continue;
+      const n = Math.max(1, Math.round(pts.length * 0.25));
+      for (let i = 0; i < n; i++) {
+        items.push({ id: "stage:" + l.id + ":" + i, source: "stage", action: "stage", label: "Stage " + l.title });
+      }
+    }
+    window.tsumikiBlocks.report("grammar", items);
+  }, [progress]);
+
   const level = levelId ? LEVELS.find((l) => l.id === levelId) : null;
   const point = current ? ALL_POINTS.find((p) => p.id === current) : null;
   // Derive from the point rather than the open stage, so a lesson reached by

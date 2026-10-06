@@ -116,6 +116,11 @@ export const KEYS = [
   "tsumiki-room-layout-v1",     // where things sit, which home, the welcome card
   "tsumiki-character-v1",       // the avatar's four slots
   "tsumiki-garden-state-v1",    // the bonsai's shape and growth, the raked sand
+  // Oct 2026: the tsumiki journey. Effort blocks, the structures built
+  // from them, and which module sources have back-filled — a LOG, unioned by
+  // block id (lib/kobanMerge.js). In no section of stats.js on purpose: blocks
+  // outlive a reset of the work that earned them.
+  "tsumiki-blocks-v1",
   "tsumiki-engagement-v1",      // streak / rhythm / quests — listed ahead of the splice
   "tsumiki-stroke-data-v1",   // shared handwriting calibration — the reason one origin matters
   "tsumiki-kanji-mode",

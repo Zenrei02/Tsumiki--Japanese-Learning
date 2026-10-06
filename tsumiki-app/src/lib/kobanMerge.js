@@ -11,6 +11,7 @@
 //   room-layout-v1   most recent wins  — no dialog
 //   character-v1     most recent wins  — no dialog
 //   garden-state-v1  most recent wins, growth kept at its highest
+//   blocks-v1        union by block id — never asks (the journey's tower)
 //
 // sync.js registers each of these as a merger. A merger that returns null
 // sends the key back to the ordinary ask-on-conflict path, and that is what
@@ -83,7 +84,38 @@ export function mergeGarden(l, r) {
   return JSON.stringify({ ...w, growth });
 }
 
+// Effort blocks (lib/blocks.js): { v, blocks:[{id, ts, ...}], built:{id: ts}, seeded:{source: ts} }.
+// A LOG in the same sense as the koban ledger — every block has its own id, and
+// a block is never removed, so two devices' copies are both true and union.
+// Built structures and seeded sources are monotonic too; the earlier stamp wins.
+// For one block id held twice, a dated copy beats a backfilled one (it knows
+// more), then the earlier stamp, then the canonical text, for order independence.
+function pickBlock(a, b) {
+  if (!!a.bf !== !!b.bf) return a.bf ? b : a;
+  if (a.ts !== b.ts) return a.ts < b.ts ? a : b;
+  return canonEvent(a) <= canonEvent(b) ? a : b;
+}
+function unionStamps(x, y) {
+  const out = { ...(obj(x) ? x : {}) };
+  for (const [k, t] of Object.entries(obj(y) ? y : {})) {
+    out[k] = out[k] == null ? t : Math.min(Number(out[k]) || 0, Number(t) || 0);
+  }
+  return Object.keys(out).sort().reduce((o, k) => { o[k] = out[k]; return o; }, {});
+}
+export function unionBlocks(l, r) {
+  const a = parse(l), b = parse(r);
+  if (!obj(a) || !obj(b) || !Array.isArray(a.blocks) || !Array.isArray(b.blocks)) return null;
+  const byId = new Map();
+  for (const e of [...a.blocks, ...b.blocks]) {
+    if (!obj(e) || typeof e.id !== "string" || !Number.isFinite(e.ts)) continue;
+    byId.set(e.id, byId.has(e.id) ? pickBlock(byId.get(e.id), e) : e);
+  }
+  const blocks = [...byId.values()].sort((x, y) => (x.ts - y.ts) || (x.id < y.id ? -1 : x.id > y.id ? 1 : 0));
+  return JSON.stringify({ v: 1, blocks, built: unionStamps(a.built, b.built), seeded: unionStamps(a.seeded, b.seeded) });
+}
+
 export const ROOM_MERGERS = {
+  "tsumiki-blocks-v1": unionBlocks,
   "tsumiki-koban-ledger-v1": unionLedger,
   "tsumiki-room-owned-v1": unionOwned,
   "tsumiki-room-layout-v1": newerOf,

@@ -954,12 +954,16 @@ import Account from "./lib/account.jsx";
 import Progress from "./lib/progress.jsx";
 import GoalsDialog from "./lib/engagementPanel.jsx";
 import { reportStudy } from "./lib/activity.js";
+import { recordVisit, reconcileBlocks } from "./lib/blocks.js";
 import { markWorked, readRecency, orderByRecency, readWallet,
          daysSinceLastWorked, DORMANT_DAYS } from "./lib/stats.js";
 import { T, ACCENT } from "./lib/tokens.js";
 import { SKIN_CSS } from "./lib/skin.js";
 ''' + imports + '''
 const RoomModule = lazy(() => import("./modules/Room.jsx"));
+// Your tsumiki journey (Oct 2026): hand-maintained in lib/, like Progress, and
+// lazy like the room — the map and the tower are not needed to open Home.
+const JourneyScreen = lazy(() => import("./lib/journey.jsx"));
 
 const MODULES = [
   ''' + nav + '''
@@ -1051,6 +1055,7 @@ const ICON = {
   back: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>),
   music: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 18V6l10-2v12" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="16.5" cy="16" r="2.5" /></svg>),
   chevron: (<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>),
+  blocks: (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="14" width="8" height="6" rx="1" /><rect x="13" y="14" width="8" height="6" rx="1" /><rect x="8" y="6" width="8" height="6" rx="1" /></svg>),
   house: (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7" /><path d="M5 10v10h14V10" /></svg>),
 };
 
@@ -1300,11 +1305,19 @@ function Home({ startedMap, lastMod, nextTask, go, recency, roomPulse, dormantDa
             still gold ring until the room is visited. Home only, so never
             mid-exercise; and a door that pulsed forever would stop meaning
             anything. */}
-        <button onClick={() => go("room")} className={"ts-btn ts-btn-wood" + (roomPulse ? " ts-wood-pulse" : "")}
-                style={{ width: "100%" }}
-                aria-label={roomPulse ? "Room — something new is within reach" : undefined}>
-          {ICON.house} Room <span style={{ fontFamily: T.jpFont, fontWeight: 500 }}>へや</span>
-        </button>
+        {/* Two doors side by side: the room, and the journey's tower (Oct
+            2026). Wood, both — neither is the one thing to do next. */}
+        <div style={{ display: "flex", gap: 12 }}>
+          <button onClick={() => go("room")} className={"ts-btn ts-btn-wood" + (roomPulse ? " ts-wood-pulse" : "")}
+                  style={{ flex: 1, minWidth: 0 }}
+                  aria-label={roomPulse ? "Room — something new is within reach" : undefined}>
+            {ICON.house} Room <span style={{ fontFamily: T.jpFont, fontWeight: 500 }}>へや</span>
+          </button>
+          <button onClick={() => go("journey")} className="ts-btn ts-btn-wood" style={{ flex: 1, minWidth: 0 }}
+                  aria-label="Your tsumiki journey">
+            {ICON.blocks} Journey <span style={{ fontFamily: T.jpFont, fontWeight: 500 }}>つみき</span>
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -1553,6 +1566,10 @@ function Drawer({ open, close, active, go, onAccount, dusk, toggleDusk }) {
             Progress
             <span style={{ font: `0.875rem ${T.jpFont}`, color: T.sub }}>きろく</span>
           </button>
+          <button onClick={() => go("journey")} style={row(active === "journey")}>
+            Your tsumiki journey
+            <span style={{ font: `0.875rem ${T.jpFont}`, color: T.sub }}>つみき</span>
+          </button>
         </div>
 
         {/* Below the rule, not among the destinations: the drawer list answers
@@ -1733,6 +1750,7 @@ export default function App() {
   const NON_MODULE = {
     progress: { label: "Progress", jp: "きろく", accent: T.sub },
     room: { label: "Room", jp: "へや", accent: T.woodLip },
+    journey: { label: "Your tsumiki journey", jp: "つみき", accent: T.woodLip },
   };
   const place = NON_MODULE[active] || current;
 
@@ -1808,6 +1826,10 @@ export default function App() {
       // is that the store CHANGED, and marking a day active on navigation is
       // the exact draft that engagement-module.jsx §5 threw out.
       reportStudy(id);
+      // The journey's tower reads kana lessons, the review challenge,
+      // vocabulary and the checker from stores that just may have changed.
+      // Idempotent by block id, so a re-read never lays a block twice.
+      reconcileBlocks().catch((e) => console.error("blocks reconcile failed", e));
     }
     snapRef.current = { id: null, value: null };
   };
@@ -1818,6 +1840,21 @@ export default function App() {
     setMenuOpen(false);
     if (id !== "home") snapshot(id);
   };
+
+  // Your tsumiki journey: showing up lays a plain wood block — one a Tokyo day,
+  // at most three a week (lib/blocks.js) — and opening is the act here, unlike
+  // commitIfWorked, because this block means "showed up", not "studied". Again
+  // when the tab comes back, so a tab left open overnight still counts the day.
+  useEffect(() => {
+    const visit = () => {
+      recordVisit().catch((e) => console.error("visit block failed", e));
+      reconcileBlocks().catch((e) => console.error("blocks reconcile failed", e));
+    };
+    visit();
+    const onShow = () => { if (document.visibilityState === "visible") visit(); };
+    document.addEventListener("visibilitychange", onShow);
+    return () => document.removeEventListener("visibilitychange", onShow);
+  }, []);
 
   // A learner who closes the tab mid-lesson still worked. Commit on hide too.
   useEffect(() => {
@@ -1935,10 +1972,10 @@ export default function App() {
           tatami as the boards show. At dusk a section gets a lantern-lit washi
           ground instead — the modules draw their own text in day ink, and
           ink on dark tatami would be unreadable. */}
-      <main className={active === "home" || active === "room" ? undefined : "ts-modroot"}
-            style={{ maxWidth: active === "home" || active === "room" ? 520 : 900, margin: "0 auto",
+      <main className={active === "home" || active === "room" || active === "journey" ? undefined : "ts-modroot"}
+            style={{ maxWidth: active === "home" || active === "room" || active === "journey" ? 520 : 900, margin: "0 auto",
                      "--ts-accent": place.accent,
-                     ...(active === "home" || active === "room" ? null : {
+                     ...(active === "home" || active === "room" || active === "journey" ? null : {
                        background: "var(--ts-module-ground)", minHeight: "calc(100vh - 56px)",
                      }) }}>
         {active === "home" && !homeLoaded ? null : showWelcome ? (
@@ -1957,6 +1994,12 @@ export default function App() {
             <p style={{ padding: "40px 18px", color: T.sub, font: `0.875rem ${T.uiFont}` }}>Loading…</p>
           }>
             <RoomModule />
+          </Suspense>
+        ) : active === "journey" ? (
+          <Suspense fallback={
+            <p style={{ padding: "40px 18px", color: T.sub, font: `0.875rem ${T.uiFont}` }}>Loading…</p>
+          }>
+            <JourneyScreen />
           </Suspense>
         ) : active === "progress" ? (
           // Not lazy: it is small, and it is the screen a learner opens to be
@@ -1979,9 +2022,14 @@ export default function App() {
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { installStorage } from "./lib/storage.js";
+import { installBlocks } from "./lib/blocks.js";
 import App from "./App.jsx";
 
 installStorage();
+// window.tsumikiBlocks: how grammar and kanji report finished lessons to the
+// journey's tower. Installed beside window.storage for the same reason — the
+// module source stays the same in the artifact build, where it is absent.
+installBlocks();
 createRoot(document.getElementById("root")).render(<StrictMode><App /></StrictMode>);
 ''', encoding="utf-8")
 

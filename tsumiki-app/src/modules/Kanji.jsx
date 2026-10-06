@@ -1466,6 +1466,10 @@ export default function KanjiModule() {
   const [current, setCurrent] = useState(null);
   const [openGroups, setOpenGroups] = useState({ 0: true });
   const loaded = useRef(false);
+  // State, not just the ref: the load awaits again after setProgress, so an
+  // effect keyed on progress alone would run before the ref turned true and
+  // never again. The blocks report below waits for this.
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -1478,6 +1482,7 @@ export default function KanjiModule() {
       const g = await loadJSON(GRAMMAR_KEY, {});
       setGrammarDone(Object.keys(g || {}).length > 0);
       loaded.current = true;
+      setReady(true);
     })();
   }, []);
 
@@ -1503,6 +1508,22 @@ export default function KanjiModule() {
     const recallPassed = p.recallBest != null && p.recallOf ? p.recallBest / p.recallOf >= 0.8 : false;
     return allTraced && recallPassed;
   };
+
+  // Effort blocks, for "Your tsumiki journey" (Oct 2026): every lesson this
+  // module counts as finished, by the same test the lesson list ticks with.
+  // Culture lessons count once read. lib/blocks.js ignores ids it already
+  // holds; absent in the artifact build.
+  useEffect(() => {
+    if (!ready || typeof window === "undefined" || !window.tsumikiBlocks) return;
+    const items = [];
+    for (const m of MODULES) {
+      const done = m.chars ? lessonDone(m) : !!(progress[m.id] && progress[m.id].read);
+      if (done) items.push({ id: "lesson:kanji:" + m.id, source: "kanji", action: "lesson",
+        label: m.chars ? m.chars.join(" ") : null });
+    }
+    window.tsumikiBlocks.report("kanji", items);
+  }, [progress, ready]);
+
   const pct = coverageAtRank(known.length);
 
   return (

@@ -2,7 +2,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { installStorage } from "./lib/storage.js";
+import { installBlocks } from "./lib/blocks.js";
 import App from "./App.jsx";
 
 installStorage();
+// window.tsumikiBlocks: how grammar and kanji report finished lessons to the
+// journey's tower. Installed beside window.storage for the same reason — the
+// module source stays the same in the artifact build, where it is absent.
+installBlocks();
 createRoot(document.getElementById("root")).render(<StrictMode><App /></StrictMode>);
