@@ -505,12 +505,13 @@ await go("checker", null, [], {
   },
 });
 
-// ————— WELCOME BACK, AND GOALS AS A SCREEN (Oct 2026) —————
-// Session 23 put the daily card, the weekly rhythm and the quest chain in a
+// ————— WELCOME BACK AND GOALS, TWO SMALL DIALOGS (Oct 2026) —————
+// Session 23 put the daily card, the weekly rhythm and the quest chain in one
 // dialog that opened itself once a day. Lloyd, Oct 7 2026: too big, too
-// intrusive, and it met brand-new learners. Now a WELCOME BACK screen takes
-// Home's place once a day for a learner who studied on an EARLIER day — the
-// saying, "Check your goals", "About this saying" — and Goals is a screen.
+// intrusive, and it met brand-new learners. Now a small WELCOME BACK dialog
+// opens over Home once a day for a learner who studied on an EARLIER day — the
+// saying, "Check your goals", "About this saying" — and Goals is its own small
+// dialog, also opened from the Goals button at the top right of Home's header.
 //
 // The behaviours worth guarding: it shows to a returning learner, NOT to one on
 // their first day (the control for the gate), NOT twice in a day, the meaning
@@ -556,16 +557,18 @@ const recencyAt = (msAgo) => JSON.stringify({ hiragana: new Date(Date.now() - ms
 const localToday = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; };
 const mainText = (w) => w.document.querySelector("main")?.textContent || "";
 const buttonText = (w, label) => [...w.document.querySelectorAll("button")].find(b => (b.textContent || "").trim() === label);
-const headerText = (w) => w.document.querySelector("header")?.textContent || "";
+const dialogOf = (w, label) => [...w.document.querySelectorAll('[role="dialog"]')].find(d => d.getAttribute("aria-label") === label);
+const dialogText = (w, label) => dialogOf(w, label)?.textContent || "";
 
 // 1. A returning learner: the welcome-back screen, its stylesheet, the reveal, the way to Goals.
 {
   const { w, errors } = engWindow({ "tsumiki-hiragana-progress-v2": STARTED, "tsumiki-module-recency-v1": recencyAt(36 * 3600e3) });
   await new Promise(r => setTimeout(r, 2500));
   console.log("\nWELCOME BACK — once a day, for a returning learner");
-  if (!mainText(w).includes("WELCOME BACK")) fail("WELCOME BACK: did not show for a learner who studied yesterday");
-  else console.log("  shows for a learner who studied on an earlier day");
-  if (w.document.querySelector('[role="dialog"][aria-label="Goals"]')) fail("GOALS: the old dialog opened itself");
+  if (!dialogOf(w, "Welcome back")) fail("WELCOME BACK: did not open for a learner who studied yesterday");
+  else console.log("  opens over Home for a learner who studied on an earlier day");
+  if (!mainText(w).includes("YOUR BLOCKS")) fail("WELCOME BACK: Home is not underneath it");
+  if (dialogOf(w, "Goals")) fail("GOALS: opened itself — it should open only when asked");
 
   const scope = w.document.querySelector(".eng-scope");
   if (!scope) {
@@ -599,13 +602,13 @@ const headerText = (w) => w.document.querySelector("header")?.textContent || "";
   }
 
   // The meaning is asked for, not shown: "Literally" appears only after the button.
-  if (mainText(w).includes("Literally")) fail("WELCOME BACK: the saying's meaning showed before it was asked for");
+  if (dialogText(w, "Welcome back").includes("Literally")) fail("WELCOME BACK: the saying's meaning showed before it was asked for");
   const about = buttonText(w, "About this saying");
   if (!about) fail("WELCOME BACK: no 'About this saying' button");
   else {
     about.click();
     await new Promise(r => setTimeout(r, 400));
-    if (!mainText(w).includes("Literally")) fail("WELCOME BACK: 'About this saying' did not reveal the meaning");
+    if (!dialogText(w, "Welcome back").includes("Literally")) fail("WELCOME BACK: 'About this saying' did not reveal the meaning");
     else console.log("  'About this saying' reveals the meaning in place");
   }
   const goals = buttonText(w, "Check your goals");
@@ -613,10 +616,11 @@ const headerText = (w) => w.document.querySelector("header")?.textContent || "";
   else {
     goals.click();
     await new Promise(r => setTimeout(r, 1200));
-    const t = mainText(w);
-    if (!headerText(w).includes("Goals") || !/days this week/.test(t)) fail("GOALS: 'Check your goals' did not open the Goals screen");
-    else if (t.includes("Literally") || t.includes("Tap any word")) fail("GOALS: the Goals screen repeats the saying");
-    else console.log("  'Check your goals' opens the Goals screen, without the saying");
+    const t = dialogText(w, "Goals");
+    if (!/days this week/.test(t)) fail("GOALS: 'Check your goals' did not open the Goals dialog");
+    else if (dialogOf(w, "Welcome back")) fail("GOALS: the welcome back stayed open underneath Goals");
+    else if (t.includes("Literally") || t.includes("Tap any word")) fail("GOALS: the Goals dialog repeats the saying");
+    else console.log("  'Check your goals' swaps it for the Goals dialog, without the saying");
   }
   if (errors.length) fail("WELCOME BACK: console errors — " + errors.slice(0, 2).join(" | "));
 }
@@ -625,7 +629,7 @@ const headerText = (w) => w.document.querySelector("header")?.textContent || "";
 {
   const { w } = engWindow({ "tsumiki-hiragana-progress-v2": STARTED, "tsumiki-module-recency-v1": recencyAt(60e3) });
   await new Promise(r => setTimeout(r, 2500));
-  if (mainText(w).includes("WELCOME BACK")) fail("WELCOME BACK: shown to a learner on their first day");
+  if (dialogOf(w, "Welcome back")) fail("WELCOME BACK: shown to a learner on their first day");
   else if (!mainText(w).includes("YOUR BLOCKS")) fail("WELCOME BACK CONTROL: first-day learner did not reach Home");
   else console.log("  not shown to a learner on their first day (control)");
 }
@@ -635,15 +639,15 @@ const headerText = (w) => w.document.querySelector("header")?.textContent || "";
   const { w } = engWindow({ "tsumiki-hiragana-progress-v2": STARTED, "tsumiki-module-recency-v1": recencyAt(36 * 3600e3),
                             "tsumiki-goals-seen": localToday() });
   await new Promise(r => setTimeout(r, 2500));
-  if (mainText(w).includes("WELCOME BACK")) fail("WELCOME BACK: shown again on a second visit the same day — the marker is not being read");
+  if (dialogOf(w, "Welcome back")) fail("WELCOME BACK: shown again on a second visit the same day — the marker is not being read");
   else console.log("  not shown twice in one day");
-  const btn = buttonText(w, "Goals");
-  if (!btn) fail("GOALS: no Goals button on Home — the screen would be unreachable after the welcome");
+  const btn = w.document.querySelector('header button[aria-label="Goals"]');
+  if (!btn) fail("GOALS: no Goals button at the top of Home — it would be unreachable after the welcome");
   else {
     btn.click();
     await new Promise(r => setTimeout(r, 1200));
-    if (!headerText(w).includes("Goals") || !/days this week/.test(mainText(w))) fail("GOALS: the Goals button did not open the Goals screen");
-    else console.log("  the Goals button opens the Goals screen");
+    if (!/days this week/.test(dialogText(w, "Goals"))) fail("GOALS: the header's Goals button did not open the Goals dialog");
+    else console.log("  the header's Goals button opens the Goals dialog");
   }
 }
 
@@ -942,20 +946,20 @@ if (!ONLY.length || ONLY.includes("dictionary")) {
 
   console.log("\nDICTIONARY — the module, the drawer, and the week");
 
-  // The week first. Goals is a screen since Oct 2026, opened from Home's
-  // button (no welcome-back here: this learner has no earlier day of work).
-  const goalsBtn = all().find(b => (b.textContent || "").trim() === "Goals");
+  // The week first. Goals opens from the header's top-right button since Oct
+  // 2026 (no welcome back here: this learner has no earlier day of work).
+  const goalsBtn = w.document.querySelector('header button[aria-label="Goals"]');
   if (!goalsBtn) fail("DICTIONARY: no Goals button, so the own-words line could not be checked");
   else {
     goalsBtn.click();
     await wait(1500);
-    const gt = w.document.querySelector("main")?.textContent || "";
+    const gt = dlg("Goals")?.textContent || "";
     if (!/words of your own — 2 so far/.test(gt)) {
       fail("DICTIONARY: Goals does not show own-word practice as 2 (one visit predates the send and must not count) — got: " +
            (gt.match(/Or practise[^.]*/) || ["(no own-words line)"])[0]);
     } else console.log("  Goals: own-word practice counted, pre-send visit excluded");
-    all().find(b => b.getAttribute("aria-label") === "Back to home")?.click();
-    await wait(600);
+    [...(dlg("Goals")?.querySelectorAll("button") || [])].find(b => b.getAttribute("aria-label") === "Close")?.click();
+    await wait(400);
   }
 
   // Tatami rework: the header 辞 button went; the じしょ edge tab on every

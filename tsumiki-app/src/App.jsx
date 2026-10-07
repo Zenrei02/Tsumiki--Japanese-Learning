@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { storage } from "./lib/storage.js";
 import Account from "./lib/account.jsx";
 import Progress from "./lib/progress.jsx";
-import GoalsScreen, { WelcomeBack, claimWelcomeBack } from "./lib/engagementPanel.jsx";
+import { WelcomeBackDialog, GoalsDialog, claimWelcomeBack } from "./lib/engagementPanel.jsx";
 import { reportStudy } from "./lib/activity.js";
 import { recordVisit, reconcileBlocks } from "./lib/blocks.js";
 import { markWorked, readRecency, orderByRecency, readWallet,
@@ -118,6 +118,7 @@ const ICON = {
   back: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>),
   music: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 18V6l10-2v12" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="16.5" cy="16" r="2.5" /></svg>),
   chevron: (<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>),
+  goals: (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 21V4" /><path d="M5 4h11l-2 4 2 4H5" /></svg>),
   blocks: (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="14" width="8" height="6" rx="1" /><rect x="13" y="14" width="8" height="6" rx="1" /><rect x="8" y="6" width="8" height="6" rx="1" /></svg>),
   house: (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7" /><path d="M5 10v10h14V10" /></svg>),
 };
@@ -233,7 +234,7 @@ function Scene({ onOpen, dusk = false }) {
   return <button onClick={onOpen} aria-label="Your room" className="ts-scene">{svg}</button>;
 }
 
-function Home({ startedMap, lastMod, nextTask, go, recency, roomPulse, dormantDays, openAccount, openGoals, dusk, heroRef }) {
+function Home({ startedMap, lastMod, nextTask, go, recency, roomPulse, dormantDays, openAccount, dusk, heroRef }) {
   const fresh = !MODULES.some((m) => startedMap[m.id]);
   const started = (id) => Boolean(startedMap[id]);
 
@@ -350,16 +351,7 @@ function Home({ startedMap, lastMod, nextTask, go, recency, roomPulse, dormantDa
           </button>
         )}
 
-        {/* Goals (Session 23). The koban counter that sat beside this button
-            has gone back where reward-system-design-v1.md §1 put it: the
-            room and its shop, checked like a wallet. Session 23 moved it here
-            only because there was no room to see koban in — Lloyd, Oct 4
-            2026 (R-1): now there is. The Room door pulses instead. */}
-        {!fresh && (
-          <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }}>
-            <button onClick={openGoals} className="ts-btn ts-btn-washi">Goals</button>
-          </div>
-        )}
+        {/* Goals moved to the header's top right (Lloyd, Oct 7 2026). */}
 
         {/* THE PULSE (reward-system-design-v1.md §5, approved Session 11).
             Fires when the balance has crossed the price of something not yet
@@ -771,10 +763,11 @@ export default function App() {
   const [lastWorked, setLastWorked] = useState(null);
   const [nextTask, setNextTask] = useState(null);
   const [accountOpen, setAccountOpen] = useState(false);
-  // Welcome back (Oct 2026): once a day, in place of Home, for a learner who
-  // studied on an earlier day. Decided in the Home load below, before Home is
-  // shown, so a returning learner never sees Home flash first.
+  // Welcome back (Oct 2026): a dialog once a day over Home, for a learner who
+  // studied on an earlier day — decided in the Home load below. Goals is a
+  // dialog too, opened from it or from the header's top-right button.
   const [welcomeBack, setWelcomeBack] = useState(false);
+  const [goalsOpen, setGoalsOpen] = useState(false);
   const [recency, setRecency] = useState({});
   const [roomPulse, setRoomPulse] = useState(false);
   const [dormantDays, setDormantDays] = useState(null);
@@ -819,7 +812,6 @@ export default function App() {
     progress: { label: "Progress", jp: "きろく", accent: T.sub },
     room: { label: "Room", jp: "へや", accent: T.woodLip },
     journey: { label: "Your tsumiki journey", jp: "つみき", accent: T.woodLip },
-    goals: { label: "Goals", jp: "めあて", accent: T.sub },
   };
   const place = NON_MODULE[active] || current;
 
@@ -955,6 +947,13 @@ export default function App() {
       {ICON.music}
     </button>
   );
+  // Goals, top right of Home's header (Lloyd, Oct 7 2026). Only once something
+  // is started: a learner with nothing begun has no rhythm and no quests.
+  const goalsBtn = MODULES.some((m) => startedMap[m.id]) ? (
+    <button className="ts-icon" onClick={() => setGoalsOpen(true)} aria-label="Goals" aria-haspopup="dialog">
+      {ICON.goals}
+    </button>
+  ) : null;
   const menuBtn = (
     <button ref={menuBtnRef} className="ts-icon" onClick={() => setMenuOpen(true)}
             aria-label="Menu" aria-expanded={menuOpen} aria-haspopup="dialog">
@@ -985,12 +984,15 @@ export default function App() {
           {active === "home" ? (
             <>
               {menuBtn}
+              {/* Balances the Goals button on the right, so the wordmark stays centred. */}
+              {goalsBtn && <span style={{ width: 44, flexShrink: 0 }} aria-hidden="true" />}
               <span style={{ flex: 1 }} />
               <button onClick={() => go("home")} aria-label="Home" className="ts-wordmark">
                 <span className="ts-seal" aria-hidden="true">つ</span>
                 <span style={{ font: `700 1.375rem/1 ${T.uiFont}`, letterSpacing: "-0.01em" }}>tsumiki</span>
               </button>
               <span style={{ flex: 1 }} />
+              {goalsBtn}
               {ambienceBtn}
             </>
           ) : (
@@ -1030,6 +1032,13 @@ export default function App() {
           learner’s work survives must not sit behind a closed menu. */}
       <Account open={accountOpen} setOpen={setAccountOpen} />
 
+      {active === "home" && welcomeBack && !showWelcome && (
+        <WelcomeBackDialog startedMap={startedMap}
+                           onClose={() => setWelcomeBack(false)}
+                           openGoals={() => { setWelcomeBack(false); setGoalsOpen(true); }} />
+      )}
+      {goalsOpen && <GoalsDialog startedMap={startedMap} onClose={() => setGoalsOpen(false)} />}
+
       <LookupHost />
 
       {/* --ts-accent: the section colour, for the one shared stroke engine
@@ -1038,10 +1047,10 @@ export default function App() {
           tatami as the boards show. At dusk a section gets a lantern-lit washi
           ground instead — the modules draw their own text in day ink, and
           ink on dark tatami would be unreadable. */}
-      <main className={active === "home" || active === "room" || active === "journey" || active === "goals" ? undefined : "ts-modroot"}
-            style={{ maxWidth: active === "home" || active === "room" || active === "journey" || active === "goals" ? 520 : 900, margin: "0 auto",
+      <main className={active === "home" || active === "room" || active === "journey" ? undefined : "ts-modroot"}
+            style={{ maxWidth: active === "home" || active === "room" || active === "journey" ? 520 : 900, margin: "0 auto",
                      "--ts-accent": place.accent,
-                     ...(active === "home" || active === "room" || active === "journey" || active === "goals" ? null : {
+                     ...(active === "home" || active === "room" || active === "journey" ? null : {
                        background: "var(--ts-module-ground)", minHeight: "calc(100vh - 56px)",
                      }) }}>
         {active === "home" && !homeLoaded ? null : showWelcome ? (
@@ -1049,15 +1058,11 @@ export default function App() {
                    choose={(id) => { dismissWelcome(); go(id); }}
                    skip={() => { dismissWelcome(); setFocusHero(true); }}
                    signIn={() => { dismissWelcome(); setFocusHero(true); setAccountOpen(true); }} />
-        ) : active === "home" && welcomeBack ? (
-          <WelcomeBack startedMap={startedMap}
-                       openGoals={() => go("goals")}
-                       toHome={() => { setWelcomeBack(false); setFocusHero(true); }} />
         ) : active === "home" ? (
           <Home startedMap={startedMap} heroRef={heroRef} nextTask={nextTask} go={go}
                 recency={recency} roomPulse={roomPulse} dormantDays={dormantDays}
                 openAccount={() => setAccountOpen(true)}
-                openGoals={() => go("goals")} dusk={dusk}
+                dusk={dusk}
                 lastMod={MODULES.find((m) => m.id === lastWorked) || null} />
         ) : active === "room" ? (
           <Suspense fallback={
@@ -1065,8 +1070,6 @@ export default function App() {
           }>
             <RoomModule />
           </Suspense>
-        ) : active === "goals" ? (
-          <GoalsScreen startedMap={startedMap} />
         ) : active === "journey" ? (
           <Suspense fallback={
             <p style={{ padding: "40px 18px", color: T.sub, font: `0.875rem ${T.uiFont}` }}>Loading…</p>
