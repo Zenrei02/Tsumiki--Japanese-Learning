@@ -520,7 +520,9 @@ function Token({ tok, open, onToggle }) {
   );
 }
 
-function QuoteCard({ quote }) {
+// `details` (Oct 2026): the welcome-back screen shows the saying first and its
+// meaning only on request — "About this saying". Everywhere else it is shown.
+function QuoteCard({ quote, details = true }) {
   const [openIdx, setOpenIdx] = useState(null);
   useEffect(() => setOpenIdx(null), [quote?.id]);
   if (!quote) return null;
@@ -551,6 +553,7 @@ function QuoteCard({ quote }) {
         <p className="mt-3 text-xs text-stone-400">Tap any word for its reading.</p>
       )}
 
+      {details && (<>
       <div className="my-4 h-px bg-stone-200" />
 
       {/* ⚠️ THE THREE LABELS ARE A SEQUENCE, NOT A LIST (Lloyd, Session 23).
@@ -581,6 +584,7 @@ function QuoteCard({ quote }) {
       <p className="mt-1 text-xs text-stone-500">
         There is no answer waiting behind this. Yours may be the better one.
       </p>
+      </>)}
     </div>
   );
 }
@@ -723,6 +727,11 @@ export default function EngagementModule({
   devTools = true,
   onApi = null,
   ownVisits = null,   // ms timestamps of practice visits on words the learner sent (Session 34)
+  // Oct 2026 (Lloyd): the saying and the goals became two screens. The host
+  // picks which parts to draw; the module still owns the state of all three,
+  // so the card rotates once a day whichever screen mounts it first.
+  parts = ["quote", "rhythm", "quests"],
+  quoteDetails = true,
 }) {
   const [simDate, setSimDate] = useState(null);
   const eng = useEngagement(unlocked, due, simDate);
@@ -759,7 +768,7 @@ export default function EngagementModule({
   return (
     <div className="mx-auto max-w-lg space-y-4 bg-stone-100 p-4 font-sans">
       {/* No balance in the header — §1: the wallet is checked in the room/shop. */}
-      <QuoteCard quote={eng.quote} />
+      {parts.includes("quote") && <QuoteCard quote={eng.quote} details={quoteDetails} />}
 
       {eng.flash && (
         <div className="rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">
@@ -767,15 +776,15 @@ export default function EngagementModule({
         </div>
       )}
 
-      <WeeklyTarget weekDays={eng.weekDays} count={eng.weekCount}
+      {parts.includes("rhythm") && <WeeklyTarget weekDays={eng.weekDays} count={eng.weekCount}
         own={ownVisits ? (() => {
           const keys = new Set(eng.weekDays.map((d) => d.key));
           return ownVisits.filter((t) => keys.has(dayKey(new Date(t)))).length;
-        })() : null} />
+        })() : null} />}
 
-      <QuestChain chain={eng.chain} today={eng.today} onClaim={eng.claim}
+      {parts.includes("quests") && <QuestChain chain={eng.chain} today={eng.today} onClaim={eng.claim}
         onClaimBonus={eng.claimBonus} onSimulate={(m, k) => apiRef.current(m, k)}
-        devTools={devTools} />
+        devTools={devTools} />}
 
       {devTools && (
         <div className="rounded-lg border border-stone-300 bg-white p-3">

@@ -505,17 +505,19 @@ await go("checker", null, [], {
   },
 });
 
-// ————— GOALS, THE ONCE-A-DAY DIALOG (Session 23) —————
-// The daily card / weekly rhythm / quest chain. It was inline on Home; Lloyd
-// moved it behind a dialog that opens ITSELF on the first visit of each day
-// and is reachable afterwards from the Goals button.
+// ————— WELCOME BACK, AND GOALS AS A SCREEN (Oct 2026) —————
+// Session 23 put the daily card, the weekly rhythm and the quest chain in a
+// dialog that opened itself once a day. Lloyd, Oct 7 2026: too big, too
+// intrusive, and it met brand-new learners. Now a WELCOME BACK screen takes
+// Home's place once a day for a learner who studied on an EARLIER day — the
+// saying, "Check your goals", "About this saying" — and Goals is a screen.
 //
-// The behaviour worth guarding is the ONCE part. An "open every load" bug
-// looks identical on the first run of the day and is only visible on the
-// second, so both are exercised below.
+// The behaviours worth guarding: it shows to a returning learner, NOT to one on
+// their first day (the control for the gate), NOT twice in a day, the meaning
+// stays hidden until asked for, and both ways to the Goals screen work.
 //
-// ⚠️ WHY THIS CHECKS CSS AND NOT JUST THAT IT RENDERED. engagement-module.jsx is
-// authored in Tailwind and this app has no Tailwind, so build-vite-app.py
+// ⚠️ WHY THIS ALSO CHECKS CSS AND NOT JUST THAT IT RENDERED. engagement-module.jsx
+// is authored in Tailwind and this app has no Tailwind, so build-vite-app.py
 // generates a scoped stand-in stylesheet from the classes the module uses. That
 // generator can be wrong in a way NOTHING ELSE NOTICES: the module renders, the
 // build prints a rule count, every guard goes green, and the card is unstyled.
@@ -524,29 +526,13 @@ await go("checker", null, [], {
 // escapes — `.text-\[11px\]`, `.gap-1\.5`, `.from-amber-50\/40`, every
 // `.hover\:…` — and the file emitted them inside a plain JS template literal,
 // where JavaScript ate the backslash before CSS ever saw it. Ten-odd rules
-// shipped as invalid selectors that browsers drop in silence. The build said
-// 107 rules and the file contained 107 rules; both were true and neither was
-// the question.
+// shipped as invalid selectors that browsers drop in silence.
 //
-// ⚠️ AND THE OBVIOUS CHECK FOR IT DOES NOT WORK HERE. The first version of this
-// compared rules EMITTED against rules the CSS parser ACCEPTED, on the reasoning
-// that a parser is the only thing that can say whether a selector is real. In a
-// browser that is true — Chrome reports 107 emitted, 107 parsed when the escapes
-// are right, and drops the broken ones when they are not. jsdom does not: run
-// against a stylesheet with every escape stripped, it still reported 107 of 107
-// and the whole check passed. It was only found because the negative control was
-// run and was expected to be red.
-//
-// So the assertion is TEXTUAL, and deliberately so: a selector containing
-// [ ] . / % or a variant colon must carry its backslash. That is the exact
-// property the template literal destroyed, it is checkable without a parser, and
-// it cannot be satisfied by a parser being lenient.
-//
-// The real-browser half of this was verified by hand on Sep 6 2026 against
-// `npm run dev`: 107 emitted / 107 parsed, `.text-\[11px\]` computing to 11px
-// and `.from-amber-50\/40` producing rgba(255,251,235,0.4). That is evidence
-// about a browser; the check below is the regression guard that runs every time.
-{
+// ⚠️ AND THE OBVIOUS CHECK FOR IT DOES NOT WORK HERE. Comparing rules EMITTED
+// against rules the CSS parser ACCEPTED works in a browser; jsdom accepts the
+// broken selectors and reports 107 of 107. So the assertion is TEXTUAL: a
+// selector containing [ ] . / % or a variant colon must carry its backslash.
+function engWindow(seed) {
   const dom = new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',
     { runScripts: "outside-only", pretendToBeVisual: true, url: "http://localhost/" });
   const w = dom.window;
@@ -561,108 +547,103 @@ await go("checker", null, [], {
   };
   w.console.warn = () => {};
   w.addEventListener("error", e => errors.push("UNCAUGHT: " + (e.error?.message || e.message)));
-  // It shows nothing to a learner who has started nothing — deliberate, so it
-  // has to be given something to have started.
-  w.localStorage.setItem("tsumiki-hiragana-progress-v2", JSON.stringify({ "h-a": { seen: true } }));
+  for (const [k, v] of Object.entries(seed)) w.localStorage.setItem(k, v);
   w.eval(fs.readFileSync(BUNDLE, "utf8"));
-  await new Promise(r => setTimeout(r, 2500));
+  return { w, errors };
+}
+const STARTED = JSON.stringify({ "h-a": { seen: true } });
+const recencyAt = (msAgo) => JSON.stringify({ hiragana: new Date(Date.now() - msAgo).toISOString() });
+const localToday = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; };
+const mainText = (w) => w.document.querySelector("main")?.textContent || "";
+const buttonText = (w, label) => [...w.document.querySelectorAll("button")].find(b => (b.textContent || "").trim() === label);
+const headerText = (w) => w.document.querySelector("header")?.textContent || "";
 
-  console.log("\nGOALS — the once-a-day dialog");
-  const goalsDlg = () => [...w.document.querySelectorAll('[role="dialog"]')]
-    .find(d => d.getAttribute("aria-label") === "Goals");
-  if (!goalsDlg()) fail("GOALS: did not open itself on the first visit of the day");
-  else console.log("  opens itself on the first visit of the day");
+// 1. A returning learner: the welcome-back screen, its stylesheet, the reveal, the way to Goals.
+{
+  const { w, errors } = engWindow({ "tsumiki-hiragana-progress-v2": STARTED, "tsumiki-module-recency-v1": recencyAt(36 * 3600e3) });
+  await new Promise(r => setTimeout(r, 2500));
+  console.log("\nWELCOME BACK — once a day, for a returning learner");
+  if (!mainText(w).includes("WELCOME BACK")) fail("WELCOME BACK: did not show for a learner who studied yesterday");
+  else console.log("  shows for a learner who studied on an earlier day");
+  if (w.document.querySelector('[role="dialog"][aria-label="Goals"]')) fail("GOALS: the old dialog opened itself");
 
   const scope = w.document.querySelector(".eng-scope");
   if (!scope) {
-    fail("GOALS: no .eng-scope — the engagement module did not mount");
+    fail("WELCOME BACK: no .eng-scope — the engagement module did not mount");
   } else {
     const styleEl = scope.querySelector("style");
     if (!styleEl) {
-      fail("ENGAGEMENT: panel mounted with no stylesheet — it will render unstyled");
+      fail("ENGAGEMENT: mounted with no stylesheet — it will render unstyled");
     } else {
       const css = styleEl.textContent;
       const emitted = (css.match(/\.eng-scope/g) || []).length;
       console.log(`  scoped stylesheet: ${emitted} rules`);
-      if (emitted < 50) {
-        fail(`ENGAGEMENT: only ${emitted} rules — the class extractor has stopped finding them`);
-      }
-
-      // Every selector, minus a legitimate trailing pseudo-class, must have its
-      // special characters escaped.
+      if (emitted < 50) fail(`ENGAGEMENT: only ${emitted} rules — the class extractor has stopped finding them`);
       const broken = [];
       for (const line of css.split("\n")) {
         const sel = line.split("{")[0].trim();
         if (!sel.startsWith(".eng-scope")) continue;
         const bare = sel.replace(/:hover$/, "").replace(/\s*>\s*\*\s*\+\s*\*$/, "");
-        // (?<!\\) — the character is a problem only when NOT already escaped.
-        if (/(?<!\\)[[\]/%]/.test(bare) || /(?<!\\):/.test(bare.slice(1))) {
-          broken.push(sel);
-        }
+        if (/(?<!\\)[[\]/%]/.test(bare) || /(?<!\\):/.test(bare.slice(1))) broken.push(sel);
       }
       if (broken.length) {
         fail(`ENGAGEMENT: ${broken.length} selector(s) lost their CSS escapes — ` +
-             `e.g. ${JSON.stringify(broken[0])}. A browser drops these silently ` +
-             `and the card renders unstyled. Check that engagementStyles.js is ` +
-             `emitted with String.raw.`);
-      } else {
-        console.log("  selectors keep their CSS escapes ok");
-      }
+             `e.g. ${JSON.stringify(broken[0])}. A browser drops these silently. ` +
+             `Check that engagementStyles.js is emitted with String.raw.`);
+      } else console.log("  selectors keep their CSS escapes ok");
+      // Scoping is the whole safety argument: a bare `.rounded-lg` would restyle five other modules.
+      const unscoped = css.split("\n").filter(l => l.trim() && !l.trim().startsWith(".eng-scope"));
+      if (unscoped.length) fail(`ENGAGEMENT: ${unscoped.length} rule(s) are not scoped to .eng-scope — e.g. ${JSON.stringify(unscoped[0].slice(0, 60))}`);
+      else console.log("  every rule scoped to .eng-scope ok");
     }
-    // Scoping is the whole safety argument: nothing here may reach the rest of
-    // the app. A bare `.rounded-lg` would restyle five other modules.
-    const unscoped = (scope.querySelector("style")?.textContent || "")
-      .split("\n").filter(l => l.trim() && !l.trim().startsWith(".eng-scope"));
-    if (unscoped.length) {
-      fail(`ENGAGEMENT: ${unscoped.length} rule(s) are not scoped to .eng-scope — ` +
-           `e.g. ${JSON.stringify(unscoped[0].slice(0, 60))}`);
-    } else {
-      console.log("  every rule scoped to .eng-scope ok");
-    }
-    const text = scope.textContent || "";
-    if (text.length < 80) fail(`ENGAGEMENT: panel rendered only ${text.length} chars`);
-    else console.log(`  panel rendered ${text.length} chars`);
   }
-  if (errors.length) fail("GOALS: console errors — " + errors.slice(0, 2).join(" | "));
+
+  // The meaning is asked for, not shown: "Literally" appears only after the button.
+  if (mainText(w).includes("Literally")) fail("WELCOME BACK: the saying's meaning showed before it was asked for");
+  const about = buttonText(w, "About this saying");
+  if (!about) fail("WELCOME BACK: no 'About this saying' button");
+  else {
+    about.click();
+    await new Promise(r => setTimeout(r, 400));
+    if (!mainText(w).includes("Literally")) fail("WELCOME BACK: 'About this saying' did not reveal the meaning");
+    else console.log("  'About this saying' reveals the meaning in place");
+  }
+  const goals = buttonText(w, "Check your goals");
+  if (!goals) fail("WELCOME BACK: no 'Check your goals' button");
+  else {
+    goals.click();
+    await new Promise(r => setTimeout(r, 1200));
+    const t = mainText(w);
+    if (!headerText(w).includes("Goals") || !/days this week/.test(t)) fail("GOALS: 'Check your goals' did not open the Goals screen");
+    else if (t.includes("Literally") || t.includes("Tap any word")) fail("GOALS: the Goals screen repeats the saying");
+    else console.log("  'Check your goals' opens the Goals screen, without the saying");
+  }
+  if (errors.length) fail("WELCOME BACK: console errors — " + errors.slice(0, 2).join(" | "));
 }
 
-// Second visit, same day: it must NOT reopen. Fresh window, same marker.
+// 2. CONTROL for the gate: the same learner on their FIRST day — work today only — gets Home.
 {
-  const dom = new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>',
-    { runScripts: "outside-only", pretendToBeVisual: true, url: "http://localhost/" });
-  const w = dom.window;
-  w.HTMLCanvasElement.prototype.getContext = () => new Proxy({
-    canvas: { width: 300, height: 300 }, measureText: () => ({ width: 0 }),
-  }, { get: (t, k) => (k in t ? t[k] : () => {}), set: (t, k, v) => { t[k] = v; return true; } });
-  w.fetch = () => Promise.resolve({ ok: false, status: 404 });
-  w.console.error = () => {}; w.console.warn = () => {};
-  w.localStorage.setItem("tsumiki-hiragana-progress-v2", JSON.stringify({ "h-a": { seen: true } }));
-  const d = new Date();
-  const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-  w.localStorage.setItem("tsumiki-goals-seen", today);
-  w.eval(fs.readFileSync(BUNDLE, "utf8"));
+  const { w } = engWindow({ "tsumiki-hiragana-progress-v2": STARTED, "tsumiki-module-recency-v1": recencyAt(60e3) });
   await new Promise(r => setTimeout(r, 2500));
+  if (mainText(w).includes("WELCOME BACK")) fail("WELCOME BACK: shown to a learner on their first day");
+  else if (!mainText(w).includes("YOUR BLOCKS")) fail("WELCOME BACK CONTROL: first-day learner did not reach Home");
+  else console.log("  not shown to a learner on their first day (control)");
+}
 
-  const reopened = [...w.document.querySelectorAll('[role="dialog"]')]
-    .find(x => x.getAttribute("aria-label") === "Goals");
-  if (reopened) {
-    fail("GOALS: opened again on a second visit the same day — the marker is not being read");
-  } else {
-    console.log("  stays shut on a second visit the same day");
-  }
-
-  // …and the Goals button is still there to open it on purpose.
-  const btn = [...w.document.querySelectorAll("button")]
-    .find(b => (b.textContent || "").trim() === "Goals");
-  if (!btn) {
-    fail("GOALS: no Goals button on Home — the dialog would be unreachable after the first visit");
-  } else {
+// 3. Second visit the same day: Home, and the Goals button opens the Goals screen on purpose.
+{
+  const { w } = engWindow({ "tsumiki-hiragana-progress-v2": STARTED, "tsumiki-module-recency-v1": recencyAt(36 * 3600e3),
+                            "tsumiki-goals-seen": localToday() });
+  await new Promise(r => setTimeout(r, 2500));
+  if (mainText(w).includes("WELCOME BACK")) fail("WELCOME BACK: shown again on a second visit the same day — the marker is not being read");
+  else console.log("  not shown twice in one day");
+  const btn = buttonText(w, "Goals");
+  if (!btn) fail("GOALS: no Goals button on Home — the screen would be unreachable after the welcome");
+  else {
     btn.click();
-    await new Promise(r => setTimeout(r, 900));
-    const opened = [...w.document.querySelectorAll('[role="dialog"]')]
-      .find(x => x.getAttribute("aria-label") === "Goals");
-    if (!opened) fail("GOALS: the Goals button did not open the dialog");
-    else console.log("  the Goals button reopens it on demand");
+    await new Promise(r => setTimeout(r, 1200));
+    if (!headerText(w).includes("Goals") || !/days this week/.test(mainText(w))) fail("GOALS: the Goals button did not open the Goals screen");
+    else console.log("  the Goals button opens the Goals screen");
   }
 }
 
@@ -961,18 +942,20 @@ if (!ONLY.length || ONLY.includes("dictionary")) {
 
   console.log("\nDICTIONARY — the module, the drawer, and the week");
 
-  // The week first: the Goals dialog opens itself on this first visit.
-  const g = dlg("Goals");
-  if (!g) fail("DICTIONARY: Goals did not open, so the own-words line could not be checked");
+  // The week first. Goals is a screen since Oct 2026, opened from Home's
+  // button (no welcome-back here: this learner has no earlier day of work).
+  const goalsBtn = all().find(b => (b.textContent || "").trim() === "Goals");
+  if (!goalsBtn) fail("DICTIONARY: no Goals button, so the own-words line could not be checked");
   else {
-    await wait(600);
-    const gt = g.textContent || "";
+    goalsBtn.click();
+    await wait(1500);
+    const gt = w.document.querySelector("main")?.textContent || "";
     if (!/words of your own — 2 so far/.test(gt)) {
       fail("DICTIONARY: Goals does not show own-word practice as 2 (one visit predates the send and must not count) — got: " +
            (gt.match(/Or practise[^.]*/) || ["(no own-words line)"])[0]);
     } else console.log("  Goals: own-word practice counted, pre-send visit excluded");
-    [...g.querySelectorAll("button")].find(b => b.getAttribute("aria-label") === "Close")?.click();
-    await wait(300);
+    all().find(b => b.getAttribute("aria-label") === "Back to home")?.click();
+    await wait(600);
   }
 
   // Tatami rework: the header 辞 button went; the じしょ edge tab on every

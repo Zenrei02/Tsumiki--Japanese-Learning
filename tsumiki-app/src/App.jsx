@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { storage } from "./lib/storage.js";
 import Account from "./lib/account.jsx";
 import Progress from "./lib/progress.jsx";
-import GoalsDialog from "./lib/engagementPanel.jsx";
+import GoalsScreen, { WelcomeBack, claimWelcomeBack } from "./lib/engagementPanel.jsx";
 import { reportStudy } from "./lib/activity.js";
 import { recordVisit, reconcileBlocks } from "./lib/blocks.js";
 import { markWorked, readRecency, orderByRecency, readWallet,
@@ -771,7 +771,10 @@ export default function App() {
   const [lastWorked, setLastWorked] = useState(null);
   const [nextTask, setNextTask] = useState(null);
   const [accountOpen, setAccountOpen] = useState(false);
-  const [goalsOpen, setGoalsOpen] = useState(false);
+  // Welcome back (Oct 2026): once a day, in place of Home, for a learner who
+  // studied on an earlier day. Decided in the Home load below, before Home is
+  // shown, so a returning learner never sees Home flash first.
+  const [welcomeBack, setWelcomeBack] = useState(false);
   const [recency, setRecency] = useState({});
   const [roomPulse, setRoomPulse] = useState(false);
   const [dormantDays, setDormantDays] = useState(null);
@@ -794,7 +797,9 @@ export default function App() {
         readStarted(), readNextTask(), storage.get("tsumiki-last-module"),
         readRecency(), readWallet(), daysSinceLastWorked(), storage.get(WELCOME_KEY),
       ]);
+      const backToday = await claimWelcomeBack(rec);
       if (!alive) return;
+      if (backToday) setWelcomeBack(true);
       setWelcomeSeen(Boolean(seen?.value));
       setHomeLoaded(true);
       setStartedMap(s);
@@ -814,6 +819,7 @@ export default function App() {
     progress: { label: "Progress", jp: "きろく", accent: T.sub },
     room: { label: "Room", jp: "へや", accent: T.woodLip },
     journey: { label: "Your tsumiki journey", jp: "つみき", accent: T.woodLip },
+    goals: { label: "Goals", jp: "めあて", accent: T.sub },
   };
   const place = NON_MODULE[active] || current;
 
@@ -899,6 +905,7 @@ export default function App() {
 
   const go = (id) => {
     commitIfWorked();
+    setWelcomeBack(false);
     setActive(id);
     setMenuOpen(false);
     if (id !== "home") snapshot(id);
@@ -1023,10 +1030,6 @@ export default function App() {
           learner’s work survives must not sit behind a closed menu. */}
       <Account open={accountOpen} setOpen={setAccountOpen} />
 
-      {/* Mounted always, not only on Home: it opens ITSELF once a day, and a
-          learner may well arrive straight into a module. */}
-      <GoalsDialog open={goalsOpen} setOpen={setGoalsOpen} startedMap={startedMap} />
-
       <LookupHost />
 
       {/* --ts-accent: the section colour, for the one shared stroke engine
@@ -1035,10 +1038,10 @@ export default function App() {
           tatami as the boards show. At dusk a section gets a lantern-lit washi
           ground instead — the modules draw their own text in day ink, and
           ink on dark tatami would be unreadable. */}
-      <main className={active === "home" || active === "room" || active === "journey" ? undefined : "ts-modroot"}
-            style={{ maxWidth: active === "home" || active === "room" || active === "journey" ? 520 : 900, margin: "0 auto",
+      <main className={active === "home" || active === "room" || active === "journey" || active === "goals" ? undefined : "ts-modroot"}
+            style={{ maxWidth: active === "home" || active === "room" || active === "journey" || active === "goals" ? 520 : 900, margin: "0 auto",
                      "--ts-accent": place.accent,
-                     ...(active === "home" || active === "room" || active === "journey" ? null : {
+                     ...(active === "home" || active === "room" || active === "journey" || active === "goals" ? null : {
                        background: "var(--ts-module-ground)", minHeight: "calc(100vh - 56px)",
                      }) }}>
         {active === "home" && !homeLoaded ? null : showWelcome ? (
@@ -1046,11 +1049,15 @@ export default function App() {
                    choose={(id) => { dismissWelcome(); go(id); }}
                    skip={() => { dismissWelcome(); setFocusHero(true); }}
                    signIn={() => { dismissWelcome(); setFocusHero(true); setAccountOpen(true); }} />
+        ) : active === "home" && welcomeBack ? (
+          <WelcomeBack startedMap={startedMap}
+                       openGoals={() => go("goals")}
+                       toHome={() => { setWelcomeBack(false); setFocusHero(true); }} />
         ) : active === "home" ? (
           <Home startedMap={startedMap} heroRef={heroRef} nextTask={nextTask} go={go}
                 recency={recency} roomPulse={roomPulse} dormantDays={dormantDays}
                 openAccount={() => setAccountOpen(true)}
-                openGoals={() => setGoalsOpen(true)} dusk={dusk}
+                openGoals={() => go("goals")} dusk={dusk}
                 lastMod={MODULES.find((m) => m.id === lastWorked) || null} />
         ) : active === "room" ? (
           <Suspense fallback={
@@ -1058,6 +1065,8 @@ export default function App() {
           }>
             <RoomModule />
           </Suspense>
+        ) : active === "goals" ? (
+          <GoalsScreen startedMap={startedMap} />
         ) : active === "journey" ? (
           <Suspense fallback={
             <p style={{ padding: "40px 18px", color: T.sub, font: `0.875rem ${T.uiFont}` }}>Loading…</p>
