@@ -117,7 +117,39 @@ export function unionBlocks(l, r) {
   return JSON.stringify({ v: 1, blocks, built: unionStamps(a.built, b.built), seeded: unionStamps(a.seeded, b.seeded) });
 }
 
+// Placement (lib/placement.js): { v, answers:{at,…}, quizzes:{ id: {unlocked, attempts[], passed, lockedUntil} } }.
+// The answers are state — the copy answered later wins, by `at`. The quizzes
+// are monotonic records: an unlock or a pass is never undone, attempts union
+// by their stamp, and a lock keeps its LATER end (a fail on either device
+// stands for its week) unless that quiz has been passed, when no lock applies.
+export function mergePlacement(l, r) {
+  const a = parse(l), b = parse(r);
+  if (!obj(a) || !obj(b)) return null;
+  const qa = obj(a.quizzes) ? a.quizzes : {}, qb = obj(b.quizzes) ? b.quizzes : {};
+  const quizzes = {};
+  for (const id of [...new Set([...Object.keys(qa), ...Object.keys(qb)])].sort()) {
+    const x = obj(qa[id]) ? qa[id] : {}, y = obj(qb[id]) ? qb[id] : {};
+    const min = (p, q) => (p == null ? q : q == null ? p : Math.min(p, q));
+    const max = (p, q) => (p == null ? q : q == null ? p : Math.max(p, q));
+    const seen = new Map();
+    for (const t of [...(x.attempts || []), ...(y.attempts || [])]) if (obj(t) && Number.isFinite(t.ts)) seen.set(t.ts + ":" + t.right + "/" + t.n, t);
+    const rec = { unlocked: min(x.unlocked, y.unlocked), attempts: [...seen.values()].sort((p, q) => p.ts - q.ts).slice(-20) };
+    const passed = min(x.passed, y.passed);
+    if (passed != null) rec.passed = passed;
+    else { const lock = max(x.lockedUntil, y.lockedUntil); if (lock != null) rec.lockedUntil = lock; }
+    quizzes[id] = rec;
+  }
+  const aa = obj(a.answers) ? a.answers : null, ab = obj(b.answers) ? b.answers : null;
+  let answers = aa || ab;
+  if (aa && ab) {
+    const ta = Number(aa.at) || 0, tb = Number(ab.at) || 0;
+    answers = ta !== tb ? (ta > tb ? aa : ab) : (canonEvent(aa) <= canonEvent(ab) ? aa : ab);
+  }
+  return JSON.stringify({ v: 1, answers: answers || null, quizzes });
+}
+
 export const ROOM_MERGERS = {
+  "tsumiki-placement-v1": mergePlacement,
   "tsumiki-blocks-v1": unionBlocks,
   "tsumiki-koban-ledger-v1": unionLedger,
   "tsumiki-room-owned-v1": unionOwned,

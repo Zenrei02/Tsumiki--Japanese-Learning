@@ -1158,7 +1158,7 @@ if (!ONLY.length || ONLY.includes("welcome")) {
     noErrors("seen", app);
   }
 
-  // 4. Each answer lands on its block and sets the flag. The flag's value is
+  // 4. Each path lands where it should and sets the flag. The flag's value is
   //    asserted exactly: it must be the same on every device (see WELCOME_KEY).
   const SEEN = JSON.stringify({ seen: true });
   const lands = async (name, steps, expectSection) => {
@@ -1180,28 +1180,83 @@ if (!ONLY.length || ONLY.includes("welcome")) {
   const pick = (id) => (app) => app.buttons().find(b => b.dataset.pick === id);
 
   await lands("new to Japanese", [answer("new")], "Hiragana");
-  await lands("studied before", [answer("studied")], "Checker");
 
-  // "I can read hiragana" offers EXACTLY Katakana and Kanji, as equals, and
-  // each lands on its own block (Lloyd, Oct 3).
+  // The wizard (Lloyd, Oct 7–8 2026): "I've studied Japanese" → what you have
+  // studied → one review-quiz question per section that has one → Home, or the
+  // Checker for "all of the above, and I want to practise writing sentences".
+  const tick = (app, id) => app.w.document.querySelector(`[data-studied="${id}"] input`);
+  const btnText = (app, txt) => app.buttons().find(b => (b.textContent || "").trim() === txt);
+  const btnStart = (app, txt) => app.buttons().find(b => (b.textContent || "").trim().startsWith(txt));
+  const placement = (app) => { try { return JSON.parse(app.w.localStorage.getItem("tsumiki-placement-v1")); } catch { return null; } };
   {
     const app = await mount();
-    const b = answer("kana")(app);
-    if (!b) fail("WELCOME (kana): no 'I can already read hiragana' answer");
-    else {
-      b.click();
-      await wait(400);
-      const picks = app.buttons().filter(x => x.dataset.pick).map(x => x.dataset.pick);
-      if (JSON.stringify(picks) !== JSON.stringify(["katakana", "kanji"])) {
-        fail(`WELCOME (kana): offers ${JSON.stringify(picks)}, want exactly katakana and kanji`);
-      } else if (app.flag() !== null) {
-        fail("WELCOME (kana): the second step set the flag before a block was picked");
-      } else console.log("  \"read hiragana\": offers exactly Katakana and Kanji, flag not yet set");
-      noErrors("kana", app);
+    answer("studied")(app)?.click();
+    await wait(400);
+    const cont = btnText(app, "Continue");
+    if (!tick(app, "hiragana") || !tick(app, "all")) fail("WELCOME (studied): the checkboxes are missing");
+    else if (!cont || !cont.disabled) fail("WELCOME (studied): Continue is usable before anything is ticked");
+    else console.log("  \"studied\": checkboxes, Continue waits for a tick");
+    // Select all → every box, four quiz questions (vocabulary has none) → the Checker.
+    tick(app, "all").click();
+    await wait(200);
+    const every = ["hiragana", "katakana", "kanji", "grammar", "vocabulary"].every(id => tick(app, id)?.checked);
+    btnText(app, "Continue")?.click();
+    await wait(400);
+    const asked = [];
+    for (let i = 0; i < 6; i++) {
+      const no = btnText(app, "No thanks");
+      if (!no) break;
+      asked.push(app.w.document.querySelector("h1")?.textContent || "");
+      no.click();
+      await wait(500);
     }
+    await wait(600);
+    if (!every) fail("WELCOME (all): 'All of the above' did not tick every box");
+    else if (asked.length !== 4) fail(`WELCOME (all): asked ${asked.length} quiz questions, want 4 — ${JSON.stringify(asked)}`);
+    else if (!asked.every(q => /review quiz\?$/.test(q))) fail("WELCOME (all): a question is not a review-quiz question");
+    else if (app.section() !== "Checker") fail(`WELCOME (all): landed on "${app.section() || "Home"}", want Checker`);
+    else if (!placement(app)?.answers?.writing) fail("WELCOME (all): the writing answer was not recorded");
+    else console.log("  \"all of the above\": four quiz questions, lands on the Checker");
+    noErrors("all", app);
   }
-  await lands("read hiragana → Katakana", [answer("kana"), pick("katakana")], "Katakana");
-  await lands("read hiragana → Kanji", [answer("kana"), pick("kanji")], "Kanji");
+  {
+    // Hiragana and kanji, yes to both: Home points PAST hiragana, and the
+    // hiragana quiz is waiting at the top of Hiragana — not started.
+    const app = await mount();
+    answer("studied")(app)?.click();
+    await wait(400);
+    tick(app, "hiragana")?.click(); tick(app, "kanji")?.click();
+    await wait(200);
+    btnText(app, "Continue")?.click();
+    await wait(400);
+    const reminders = [];
+    for (let i = 0; i < 2; i++) {
+      reminders.push(app.w.document.querySelector('section[aria-label="Welcome to tsumiki"]')?.textContent || "");
+      btnStart(app, "Yes")?.click();
+      await wait(500);
+    }
+    await wait(800);
+    const pl = placement(app);
+    const hero = app.hero()?.textContent || "";
+    if (!reminders.every(r => /won't start now/.test(r))) fail("WELCOME (quiz): a quiz question does not say the quiz won't start now");
+    else if (!/traditional order/.test(reminders[1])) fail("WELCOME (quiz): the kanji question does not explain the order");
+    else if (!pl?.quizzes?.["hiragana:g1"] || !pl?.quizzes?.["kanji:g1"]) fail("WELCOME (quiz): yes did not unlock the group quizzes");
+    else if (pl.quizzes["katakana:g1"]) fail("WELCOME (quiz): a quiz unlocked for a section nobody ticked");
+    else if (app.section() !== "") fail(`WELCOME (quiz): landed on "${app.section()}", want Home`);
+    else if (!/Katakana/.test(hero)) fail(`WELCOME (quiz): Home should start this learner at Katakana — hero reads "${hero.slice(0, 60)}"`);
+    else console.log("  hiragana + kanji, yes to both: quizzes unlocked, Home starts at Katakana");
+    // …and the card waits at the top of Hiragana.
+    app.buttons().find(b => b.getAttribute("aria-label") === "Menu")?.click();
+    await wait(300);
+    [...app.w.document.querySelectorAll("nav button")].find(b => (b.textContent || "").trim().startsWith("Hiragana"))?.click();
+    await wait(2500);
+    const card = app.w.document.querySelector('section[aria-label="Hiragana review quiz"]');
+    if (!card) fail("REVIEW QUIZ: no card at the top of Hiragana after saying yes");
+    else if (card.querySelectorAll("button").length !== 5) fail(`REVIEW QUIZ: Hiragana card has ${card.querySelectorAll("button").length} rows, want 4 groups + the stage`);
+    else if (!/Opens once every group above is passed/.test(card.textContent)) fail("REVIEW QUIZ: the stage quiz is open before its groups");
+    else console.log("  the Hiragana card: four group quizzes, the stage quiz waiting");
+    noErrors("quiz", app);
+  }
 
   // 5. Skip lands on Home with focus on the hero; sign-in opens Account.
   {

@@ -121,6 +121,10 @@ export const KEYS = [
   // block id (lib/kobanMerge.js). In no section of stats.js on purpose: blocks
   // outlive a reset of the work that earned them.
   "tsumiki-blocks-v1",
+  // Oct 2026: the first-visit wizard's answers and the review quizzes it
+  // unlocked — attempts, passes, week-long locks (lib/placement.js). Merged,
+  // not asked (lib/kobanMerge.js): an unlock or a pass is never undone.
+  "tsumiki-placement-v1",
   "tsumiki-engagement-v1",      // streak / rhythm / quests — listed ahead of the splice
   "tsumiki-stroke-data-v1",   // shared handwriting calibration — the reason one origin matters
   "tsumiki-kanji-mode",

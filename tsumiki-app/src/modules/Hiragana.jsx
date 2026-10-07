@@ -2470,7 +2470,14 @@ export default function HiraganaModule() {
   const isDone = (m) => {
     const p = progress[m.id];
     if (!p) return false;
+    // Placed out by the review quiz (lib/placement.js, Oct 2026): the learner
+    // passed the stage quiz for this chart, so the lesson counts as done.
+    if (p.placed) return true;
     if (m.kind === "culture") return !!p.read;
+    // A checkpoint is a drill over the chart so far; it has no characters of
+    // its own to trace, so the test below could never pass for it (found
+    // Oct 2026). Running its drill to the end is what finishing it means.
+    if (m.kind === "checkpoint") return p.drill != null;
     if (m.kind === "skill") return (p.judged || 0) >= (m.judge?.length || 1);
     // Recognise it, form it, then hear it and write it. Three abilities, in
     // the order the lesson teaches them.

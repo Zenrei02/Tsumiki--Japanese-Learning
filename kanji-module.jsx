@@ -1696,7 +1696,7 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
     const recallPassed = p.recallBest != null && p.recallOf
       ? p.recallBest / p.recallOf >= 0.8
       : false;
-    if (allTraced && recallPassed) {
+    if ((allTraced && recallPassed) || p.placed) {
       const unlearned = lessonChars.filter((c) => !known.includes(c));
       if (unlearned.length) onLearn(unlearned);
     }
@@ -1727,6 +1727,7 @@ function Lesson({ mod, known, progress, onProgress, onLearn, onBack, grammarDone
   // claim about what "finished" means.
   const lessonIsDone = (() => {
     const lp = progress[mod.id] || {};
+    if (lp.placed) return true;
     if (mod.kind === "culture") return !!lp.read;
     if (!lessonChars.length) return false;
     const tr = new Set((lp.traced || []).map((t) => String(t).split(":")[0]));
@@ -1974,6 +1975,9 @@ export default function KanjiModule() {
   const mod = current ? MODULES.find((m) => m.id === current) : null;
   const lessonDone = (m) => {
     const p = progress[m.id];
+    // Placed out by the review quiz (lib/placement.js, Oct 2026) — the third
+    // of the three "finished" tests the note above asks to keep in step.
+    if (p && p.placed) return true;
     if (!m.chars) return false;
     if (!p) return false;
     // Same test the lesson itself uses to unlock characters, so a ticked lesson
@@ -1994,7 +1998,7 @@ export default function KanjiModule() {
     if (!ready || typeof window === "undefined" || !window.tsumikiBlocks) return;
     const items = [];
     for (const m of MODULES) {
-      const done = m.chars ? lessonDone(m) : !!(progress[m.id] && progress[m.id].read);
+      const done = lessonDone(m) || (!m.chars && !!(progress[m.id] && progress[m.id].read));
       if (done) items.push({ id: "lesson:kanji:" + m.id, source: "kanji", action: "lesson",
         label: m.chars ? m.chars.join(" ") : null });
     }

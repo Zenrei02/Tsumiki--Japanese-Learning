@@ -27,11 +27,12 @@
 // Lazy, so a learner who never sees either screen does not pay for the quote
 // bank — it is the largest thing Home can pull in by some margin.
 
-import { useState, useEffect, useCallback, useRef, lazy, Suspense } from "react";
+import { useState, useEffect, useCallback, lazy, Suspense } from "react";
 import { ENGAGEMENT_CSS } from "./engagementStyles.js";
 import { onStudy } from "./activity.js";
 import { storage } from "./storage.js";
 import { T } from "./tokens.js";
+import Dialog from "./dialog.jsx";
 
 const EngagementModule = lazy(() => import("../modules/Engagement.jsx"));
 
@@ -132,49 +133,6 @@ function Engagement(props) {
         />
       </Suspense>
     </div>
-  );
-}
-
-const LABEL = { font: `700 0.6875rem ${T.uiFont}`, letterSpacing: ".08em", color: T.muted };
-
-// One frame for both: a washi card over a scrim, Escape and the scrim close it,
-// focus moves in on open and back to whatever opened it on close.
-function Dialog({ label, jp, onClose, children }) {
-  const closeRef = useRef(null);
-  // Held in a ref so a caller's inline onClose does not re-run the setup below
-  // on every render — that would steal focus back to ✕ each time.
-  const closeFn = useRef(onClose);
-  closeFn.current = onClose;
-  useEffect(() => {
-    const back = document.activeElement;
-    closeRef.current?.focus({ preventScroll: true });
-    const onKey = (e) => { if (e.key === "Escape") closeFn.current(); };
-    document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
-      try { back?.focus?.({ preventScroll: true }); } catch {}
-    };
-  }, []);
-  return (
-    <>
-      <div onClick={onClose} aria-hidden="true" style={{ position: "fixed", inset: 0, zIndex: 30, background: "rgba(44,42,38,.42)" }} />
-      <div role="dialog" aria-modal="true" aria-label={label} className="ts-card ts-washi-tex" style={{
-        position: "fixed", zIndex: 31, left: "50%", top: "50%", transform: "translate(-50%,-50%)",
-        width: "min(calc(100vw - 32px), 440px)", maxHeight: "86vh", overflowY: "auto", boxSizing: "border-box",
-        padding: "14px 16px 18px", display: "flex", flexDirection: "column", gap: 12,
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <span style={LABEL}>{label.toUpperCase()}</span>
-          {jp && <span lang="ja" style={{ font: `1.0625rem ${T.jpFont}`, color: T.sub }}>{jp}</span>}
-          <span style={{ flex: 1 }} />
-          <button ref={closeRef} className="ts-icon" onClick={onClose} aria-label="Close" style={{ color: T.sub }}>✕</button>
-        </div>
-        {children}
-      </div>
-    </>
   );
 }
 
