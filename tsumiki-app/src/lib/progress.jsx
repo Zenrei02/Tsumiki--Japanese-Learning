@@ -217,7 +217,8 @@ export default function Progress({ go }) {
                 "every sentence you have written". Deleting your own writing
                 should never be something you discover you did. */}
             {picked.includes("checker") &&
-              " That includes every sentence you have had checked, and what came back."}
+              " That includes every sentence you have had checked, and what came back" +
+              " — and the sentences kept on your journey's blocks. The blocks themselves stay."}
           </p>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             <button onClick={() => {

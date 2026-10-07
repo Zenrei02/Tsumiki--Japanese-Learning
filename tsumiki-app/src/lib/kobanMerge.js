@@ -88,9 +88,12 @@ export function mergeGarden(l, r) {
 // A LOG in the same sense as the koban ledger — every block has its own id, and
 // a block is never removed, so two devices' copies are both true and union.
 // Built structures and seeded sources are monotonic too; the earlier stamp wins.
-// For one block id held twice, a dated copy beats a backfilled one (it knows
-// more), then the earlier stamp, then the canonical text, for order independence.
+// For one block id held twice, a CLEARED copy wins first: a Checker reset
+// deleted that sentence, and a device that has not heard yet must not hand it
+// back. Then a dated copy beats a backfilled one (it knows more), then the
+// earlier stamp, then the canonical text, for order independence.
 function pickBlock(a, b) {
+  if (!!a.cleared !== !!b.cleared) return a.cleared ? a : b;
   if (!!a.bf !== !!b.bf) return a.bf ? b : a;
   if (a.ts !== b.ts) return a.ts < b.ts ? a : b;
   return canonEvent(a) <= canonEvent(b) ? a : b;

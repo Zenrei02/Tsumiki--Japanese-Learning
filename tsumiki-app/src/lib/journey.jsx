@@ -325,6 +325,11 @@ function BlockSheet({ b, onClose }) {
           )}
         </div>
       </div>
+      {b.action === "check" && b.cleared && (
+        // A Checker reset deleted the sentence (Lloyd, Oct 7 2026). The block
+        // stays — it still marks the week the learner wrote and checked.
+        <span style={{ font: `0.8125rem ${T.uiFont}`, color: T.sub }}>Sentence deleted along with your checker history.</span>
+      )}
       {b.action === "check" && b.sentence && (<>
         {/* AS WRITTEN. No verdict, no underline, no correction — the block is
             effort, and this is the sentence that earned it. */}

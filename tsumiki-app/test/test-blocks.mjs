@@ -10,6 +10,7 @@
 //   · the checker lays the first sentence of each week, as written, nothing else
 //   · the union is order-independent and never drops a block
 //   · a shape the merger does not own goes back to the question (null)
+//   · a Checker reset deletes kept sentences on every device, never the blocks
 //
 // Each block ends with a CONTROL that breaks the property and expects the
 // assertion to notice — a check that has only ever passed has not been tested.
@@ -169,8 +170,36 @@ const DAY = 86400e3;
   ok(a.slots.length > 0 && new Set(a.slots.map((s) => s.b.id)).size === a.slots.length, "5: one block used twice in a building");
 }
 
+// 6. a Checker reset deletes the kept sentences, never the blocks (Lloyd, Oct 7 2026)
+{
+  const d = device();
+  const B = await blocksOn(d);
+  const history = JSON.stringify({ _checks: [{ d: "2026-10-05", text: "駅で友だちを会いました。" }] });
+  const c = B.candidatesFrom({ koban: null, history, words: null });
+  await B.ensureBlocks(c);
+  await B.recordVisit(T0);
+  const r = await B.clearCheckerSentences(T0 + DAY);
+  let bl = ledgerOf(d).blocks;
+  const chk = bl.find((b) => b.source === "checker");
+  ok(r.cleared === 1 && chk && !("sentence" in chk) && chk.cleared === T0 + DAY, "6: the checker block kept its sentence after a reset");
+  ok(bl.length === 2, `6: a Checker reset removed blocks — ${bl.length} left, expected 2`);
+  // the history is still there on this device: re-reading it must NOT put the sentence back
+  await B.ensureBlocks(B.candidatesFrom({ koban: null, history, words: null }));
+  bl = ledgerOf(d).blocks;
+  ok(!("sentence" in bl.find((b) => b.source === "checker")), "6: re-reading the history restored a deleted sentence");
+  // a device that has not heard of the reset must not hand the sentence back
+  const kept = JSON.stringify({ v: 1, blocks: [{ ...c[0] }] });
+  const cleared = d.map.get(KEY);
+  const m1 = JSON.parse(unionBlocks(kept, cleared)), m2 = JSON.parse(unionBlocks(cleared, kept));
+  const one = (m) => m.blocks.find((b) => b.source === "checker");
+  ok(!("sentence" in one(m1)) && !("sentence" in one(m2)), "6: the union handed a deleted sentence back");
+  // CONTROL: without the cleared flag, the union keeps a sentence — so the flag is what decides
+  const unflagged = JSON.stringify({ v: 1, blocks: [{ ...one(m1), cleared: undefined, ts: one(m1).ts + 1 }] });
+  ok("sentence" in one(JSON.parse(unionBlocks(kept, unflagged))), "6 CONTROL: the union drops sentences even without the flag");
+}
+
 if (failures.length) {
   console.error(`FAIL — ${failures.length}:\n  ` + failures.join("\n  "));
   process.exit(1);
 }
-console.log("OK — blocks: showing-up cap, idempotent ids, back-fill, store reads, union, structures");
+console.log("OK — blocks: showing-up cap, idempotent ids, back-fill, store reads, union, structures, checker reset");

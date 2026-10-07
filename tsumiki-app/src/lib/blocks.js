@@ -32,6 +32,13 @@
 // eviction never removes a block: this key is in no section of stats.js, and
 // every id is deterministic, so re-reading a source never mints a block twice.
 //
+// ONE EXCEPTION, AND IT IS THE SENTENCE, NOT THE BLOCK (Lloyd, Oct 7 2026).
+// Resetting the Checker deletes the learner's record of their own mistakes,
+// and the sentence kept on a checker block is part of that record. So the
+// reset clears it here too — clearCheckerSentences() — while the block stays,
+// and its sheet says the sentence was deleted with the history. The merge in
+// kobanMerge.js lets a cleared copy win, so the deletion reaches every device.
+//
 // ————— Backfill —————
 // The first time grammar or kanji reports, everything it reports was finished
 // BEFORE the tower existed, and no store recorded when. Those blocks carry
@@ -171,6 +178,21 @@ export function recordVisit(now = Date.now()) {
     if (thisWeek >= LOGINS_PER_WEEK) return { added: false };
     led.blocks.push({ id, ts: now, source: "login", action: "login" });
     return { added: true, write: true };
+  });
+}
+
+// Called by stats.js when the Checker section is reset, before the reset is
+// pushed to the account. Blocks keep their id, date and place in the tower.
+export function clearCheckerSentences(now = Date.now()) {
+  return write((led) => {
+    let cleared = 0;
+    for (const b of led.blocks) {
+      if (b.source !== "checker" || b.cleared) continue;
+      delete b.sentence;
+      b.cleared = now;
+      cleared++;
+    }
+    return { cleared, write: cleared > 0 };
   });
 }
 

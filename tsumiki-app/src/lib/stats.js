@@ -8,6 +8,7 @@
 
 import { storage, KEYS, downloadProgress } from "./storage.js";
 import { kobanNow } from "./koban.js";
+import { clearCheckerSentences } from "./blocks.js";
 
 // ⚠️ COUNTS ARE STATED AS CAPABILITY, NEVER AS WORKLOAD. The standing rule is
 // that no lesson counts appear in the UI, because they read as a backlog and
@@ -239,6 +240,12 @@ export async function resetSections(sectionIds, { backupFirst = false } = {}) {
         console.error("reset failed for " + k, e);
       }
     }
+  }
+  // The journey's checker blocks keep the sentence that earned them. Resetting
+  // the Checker deletes that too (Lloyd, Oct 7 2026); the blocks themselves
+  // stay. Before the return, so resetEverywhere() pushes it with the rest.
+  if (ids.has("checker")) {
+    try { await clearCheckerSentences(); } catch (e) { console.error("clearing block sentences failed", e); }
   }
   return {
     ok: true,
