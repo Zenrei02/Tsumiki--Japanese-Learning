@@ -674,7 +674,14 @@ export default function CheckerModule() {
 
   const count = [...text].length;
   const over = count > MAX_CHARS;
-  const canCheck = text.trim().length > 0 && !over && !busy;
+  // What the last COMPLETE check was for (Lloyd, Oct 12 2026): once a result
+  // is in, the button says so and stays shut until there is something new to
+  // check — new text, or the same text for another register. A cut-off or
+  // failed check never sets this, so those can always be retried.
+  const [checkedKey, setCheckedKey] = useState(null);
+  const keyNow = context + "\u0000" + text.trim();
+  const alreadyChecked = checkedKey !== null && checkedKey === keyNow;
+  const canCheck = text.trim().length > 0 && !over && !busy && !alreadyChecked;
 
   // Aborting on the way out is not tidiness: the endpoint cancels its upstream
   // call when the client hangs up, and tokens nobody will read stop being
@@ -717,6 +724,12 @@ export default function CheckerModule() {
         data.submitted = submitted;
       }
       setResult(data);
+      // The check is DONE the moment its result is complete. The button used
+      // to stay on "Checking…" until the history write below had finished
+      // too, so a finished result sat under a button still saying it was
+      // checking (Lloyd, Oct 12 2026). The write is still awaited.
+      setBusy(false);
+      setCheckedKey(context + "\u0000" + submitted);
       // AFTER the result is on screen, and never on the error path: a check
       // that failed to reach the backend is not evidence about anyone's
       // Japanese. Awaited so the store is written before the learner can
@@ -833,8 +846,12 @@ export default function CheckerModule() {
       </div>
 
       <button onClick={check} disabled={!canCheck} className="ts-btn ts-btn-shu"
+              aria-live="polite"
+              title={alreadyChecked ? "Change the sentence, or the register, to check again." : undefined}
               style={{ width: "100%", marginBottom: 22 }}>
-        {busy ? "Checking…" : (<><span style={{ font: `700 1.25rem ${T.jpFont}` }}>直す</span> Check it</>)}
+        {busy ? "Checking…"
+          : alreadyChecked ? "✓ Checked"
+          : (<><span style={{ font: `700 1.25rem ${T.jpFont}` }}>直す</span> Check it</>)}
       </button>
 
       {busy && !result && (
@@ -941,6 +958,21 @@ export default function CheckerModule() {
                 only correct one.
               </p>
             </div>
+          )}
+
+          {/* Back to the top to write the next one (Lloyd, Oct 12 2026). The
+              sentence stays in the box, selected, so typing replaces it and a
+              small edit is one tap away. Found by id rather than a ref: this
+              module stays importless for the standalone artifact. */}
+          {!result.streaming && (
+            <button className="ts-btn ts-btn-washi" style={{ width: "100%", marginTop: 22 }}
+                    onClick={() => {
+                      try { window.scrollTo({ top: 0, behavior: "smooth" }); } catch (e) { window.scrollTo(0, 0); }
+                      const box = document.getElementById("ts-checker-draft");
+                      if (box) { box.focus({ preventScroll: true }); box.select(); }
+                    }}>
+              ↑ Check another sentence
+            </button>
           )}
 
         </div>
