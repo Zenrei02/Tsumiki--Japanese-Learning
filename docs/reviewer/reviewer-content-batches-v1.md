@@ -792,3 +792,95 @@ adding them would break the thing that makes it answerable. Batch X belongs here
 *Regenerate this table with `build-quote-bank.py`, which now prints the ratio
 `39/156` rather than the bare count `39` — a count without its denominator is
 what let 117 unsourced assertions read as a clean result for four days.*
+
+---
+
+## Batch Y — the room, the shop, the journey, and three screen labels (Oct 2026)
+
+*Added 2026-10-11 from the Oct 10 weekly audit (`docs/audits/audit-2026-10-10.md` §3③).
+All of it is learner-facing UI and catalogue Japanese that shipped (or is about to) without
+a reviewer read. Short: one sitting. No grammar claims — names, readings and naturalness only.*
+
+### 1. Room/shop catalogue — `room-module.jsx` CATALOG / HOMES / STYLES (lines ~177–300)
+
+The source marks these *"DRAFT Japanese, pending the reviewer."* Three "なし" (nothing) entries are omitted.
+
+| Japanese | Reading as shown | English as shown |
+|---|---|---|
+| 座卓 | ざたく | low table — sits at your study spot |
+| 座布団 | ざぶとん | floor cushion |
+| 鉢植え | はちうえ | potted plant |
+| 掛け軸 | かけじく | hanging scroll |
+| 生け花 | いけばな | flower arrangement |
+| 提灯 | ちょうちん | paper lantern |
+| 暖簾 | のれん | doorway curtain |
+| 行灯 | あんどん | paper floor lamp |
+| 本棚 | ほんだな | bookshelf |
+| 屏風 | びょうぶ | folding screen |
+| 布団 | ふとん | bedding |
+| 盆栽 | ぼんさい | bonsai — grows as you study |
+| 枯山水 | かれさんすい | sand garden — rake it |
+| こたつ | こたつ | heated table — takes the study spot |
+| 灯籠 | とうろう | stone lantern |
+| 桜色の壁 | さくらいろのかべ | cherry-pink walls |
+| 若竹色の壁 | わかたけいろのかべ | young-bamboo walls |
+| 藍色の壁 | あいいろのかべ | indigo walls |
+| 青畳 | あおだたみ | fresh green tatami |
+| 琉球畳 | りゅうきゅうだたみ | square, borderless tatami |
+| 紺のこたつ布団 | こんのこたつぶとん | navy kotatsu quilt |
+| 赤のこたつ布団 | あかのこたつぶとん | red kotatsu quilt |
+| 紅葉 | もみじ | maple — a second species |
+| 青磁の鉢 | せいじのはち | celadon pot |
+| 苔 | こけ | moss for the pot |
+| 四畳半 | よじょうはん | a four-and-a-half-mat room |
+| 六畳 | ろくじょう | a six-mat room |
+| 直幹 | ちょっかん | formal upright |
+| 模様木 | もようぎ | informal upright |
+| 懸崖 | けんがい | cascade |
+| 生成りのシャツ | — *(none shown)* | undyed shirt |
+| 藍の羽織 | — *(none shown)* | indigo haori |
+| 抹茶色の服 | — *(none shown)* | matcha top |
+| 桜色の服 | — *(none shown)* | cherry top |
+| パーカー | — *(none shown)* | hoodie |
+| 浴衣 | — *(none shown)* | yukata |
+| 墨色のズボン | — *(none shown)* | charcoal trousers |
+| 生成りのズボン | — *(none shown)* | undyed trousers |
+| スカート | — *(none shown)* | skirt |
+| 袴 | — *(none shown)* | hakama |
+| 鉢巻き | — *(none shown)* | headband |
+| 簪 | — *(none shown)* | hairpin |
+| ベレー帽 | — *(none shown)* | beret |
+| 眼鏡 | — *(none shown)* | glasses |
+| マフラー | — *(none shown)* | scarf |
+
+**Questions for the reviewer:**
+
+1. Is each name what a Japanese speaker would call the item? (e.g. 鉢巻き vs はちまき, 抹茶色の服, 生成りのシャツ)
+2. Are the readings right? Watch: 紅葉 (もみじ, not こうよう, as a tree species), 青畳 (あおだたみ), 琉球畳, 紺のこたつ布団 (ぶとん).
+3. The bonsai styles 直幹・模様木・懸崖 — correct terms and readings?
+4. ⚠️ **Not a reviewer question, for Lloyd:** the 15 clothing/accessory names carry **no reading at all**,
+   including 袴・簪・浴衣・眼鏡・鉢巻き・藍の羽織. Lloyd's Session 39 rule is readings on their own line for
+   learners new to kana; these are outside it as authored.
+
+### 2. The journey — `tsumiki-app/src/lib/blocks.js:283–298` (live since 2026-10-07)
+
+| Japanese | Reading | English as shown |
+|---|---|---|
+| 鳥居 | とりい | torii |
+| 厳島神社 | いつくしまじんじゃ | Itsukushima Shrine — Miyajima, Hiroshima |
+| 五重塔 | ごじゅうのとう | five-story pagoda |
+| 法隆寺 | ほうりゅうじ | Hōryū-ji — Ikaruga, Nara |
+| 天守 | てんしゅ | castle keep |
+| 松本城 | まつもとじょう | Matsumoto Castle — Matsumoto, Nagano |
+
+Question carried from Session 39: do the English place names count as romaji under the app's rule?
+
+### 3. Screen labels
+
+| Japanese | Where | Meaning intended |
+|---|---|---|
+| ようこそ | first-visit welcome header (`App.jsx:526`) | welcome |
+| おかえり | welcome-back dialog (`lib/engagementPanel.jsx:142`) | welcome back |
+| めあて | Goals dialog (`lib/engagementPanel.jsx:183`) | goals / aims |
+
+Is めあて the right register for an app's "Goals" screen, or would 目標 read more naturally to a native speaker?

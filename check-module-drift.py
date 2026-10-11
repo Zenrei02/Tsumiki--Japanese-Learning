@@ -11,12 +11,15 @@ That moment is the answer to "when do we stitch this together." Not a date: an
 event. This script watches for it.
 
 WHAT IT COMPARES
-  · the stroke engine functions (scoreStroke, samplePath, strokeStart,
-    tolerancesFor, thinPoints, resample) — whitespace-normalised
+  · the stroke engine — the SAME nine functions build-vite-app.py strips from
+    every module and replaces with one import (strokeStart, StrokeView,
+    resample, samplePath, scoreStroke, tolerancesFor, thinPoints, useStrokeData,
+    StrokePractice) — whitespace-normalised, parameter list AND body
   · the design token table `const T`
   · the storage helpers loadJSON / saveJSON
   · the lesson-completion block — LessonComplete() and COMPLETE_CSS, copied
     into grammar, kanji and vocabulary by e0da730 (added 2026-09-19)
+  · the koban ledger block (room/shop pass) — the build also refuses on this
   · storage KEYS, which are the real coupling: six modules read and write eight
     shared keys, and a key renamed in one place silently orphans a learner's
     progress everywhere else
@@ -33,11 +36,23 @@ import re, sys, pathlib, hashlib
 HERE = pathlib.Path(__file__).parent
 MODULES = ["tsumiki-prototype.jsx", "grammar-module.jsx", "kanji-module.jsx",
            "hiragana-module.jsx", "katakana-module.jsx", "vocabulary-module.jsx",
-           "dictionary-module.jsx"]   # Session 34 — carries T and loadJSON/saveJSON
+           "dictionary-module.jsx",   # Session 34 — carries T and loadJSON/saveJSON
+           # Added 2026-10-11 after the Oct 10 audit. Both read keys other modules
+           # write (the room: hiragana/katakana progress and the koban ledger, of
+           # which it holds the CANONICAL copy; engagement: the ledger) and neither
+           # was listed, so the storage-key table below left them out as readers.
+           "room-module.jsx", "engagement-module.jsx"]
 SRC = {m: (HERE / m).read_text(encoding="utf-8") for m in MODULES if (HERE / m).exists()}
 
-ENGINE_FNS = ["strokeStart", "resample", "samplePath", "scoreStroke",
-              "tolerancesFor", "thinPoints"]
+# ⚠️ KEEP THIS LIST EQUAL TO build-vite-app.py's ENGINE_FNS. That script strips
+# each module's local copy of all nine and replaces them with one import, so all
+# nine are shared code whether this check looks at them or not. It looked at six
+# until 2026-10-11, and StrokePractice had diverged inside the gap: the kana
+# copies are four props short (onSound, canSound, onFinish, finishLabel) while
+# their own call sites pass all four. Inert in the app, because the build
+# replaces them — but invisible here, which is the part that mattered.
+ENGINE_FNS = ["strokeStart", "StrokeView", "resample", "samplePath", "scoreStroke",
+              "tolerancesFor", "thinPoints", "useStrokeData", "StrokePractice"]
 
 def norm(t):
     """Normalise away formatting so only SEMANTIC drift is reported.
@@ -60,9 +75,23 @@ def norm(t):
     return t.strip()
 
 def fn_body(s, name):
-    i = s.find("function " + name)
-    if i < 0: return None
-    j = s.index("{", i); d, k = 1, j + 1
+    """Whole function: signature, parameter list and body.
+
+    ⚠️ Skips the PARAMETER LIST before brace-matching. The first version took
+    the first `{` after the name, which for `function StrokePractice({ chars, ...
+    })` is the destructured parameter object — so it compared the signature
+    only and would have passed while the body drifted. (The same trap the
+    LessonComplete note below describes.) `\\b` stops `StrokeView` matching a
+    longer name.
+    """
+    m = re.search(r"function " + re.escape(name) + r"\b\s*\(", s)
+    if not m: return None
+    i, q, d = m.start(), m.end(), 1
+    while d:
+        if s[q] == "(": d += 1
+        elif s[q] == ")": d -= 1
+        q += 1
+    j = s.index("{", q); d, k = 1, j + 1
     while d:
         if s[k] == "{": d += 1
         elif s[k] == "}": d -= 1
@@ -112,11 +141,15 @@ def line_block(s, opener, is_end):
 # somewhere to record "a human looked at this and it is fine", or every benign
 # style difference re-alarms forever and the tool gets ignored. Each entry says
 # what was compared and why it is benign — never just a hash.
-BENIGN = {
-    "`resample()`": "kana modules brace the single-statement for-loop body; "
-                    "kanji/vocabulary do not. Verified character-by-character: "
-                    "the only difference is one `{`/`}` pair. Same behaviour.",
-}
+#
+# ⚠️ The `resample()` entry that lived here was REMOVED 2026-10-11. Once
+# dictionary-module.jsx joined MODULES (Session 34), the old prefix match
+# `s.find("function resample")` picked up the dictionary's unrelated
+# `resamplePts()` as a fifth "copy" of `resample()`, and this allowlist then
+# waved that through as formatting. With the `\b` match the four real copies
+# are byte-identical, so the entry was hiding nothing — but it was approving a
+# comparison between two different functions, which is worse than no entry.
+BENIGN = {}
 
 problems = []
 lines = ["# Module drift check", ""]
@@ -159,8 +192,10 @@ def compare(label, values, expect_at_least=None):
 
 lines.append("## Stroke engine")
 lines.append("")
+# Four modules carry the engine (kanji, vocabulary, hiragana, katakana). Fewer
+# than four found means a rename or an extractor that stopped matching.
 for fn in ENGINE_FNS:
-    compare(f"`{fn}()`", {m: fn_body(s, fn) for m, s in SRC.items()})
+    compare(f"`{fn}()`", {m: fn_body(s, fn) for m, s in SRC.items()}, expect_at_least=4)
 
 lines += ["", "## Shared scaffolding", ""]
 # Design tokens diverge additively (the vocabulary module added okBg). Report
@@ -175,6 +210,24 @@ allk = sorted({k for d in tok.values() for k in d})
 conflict = {k: {m: d[k] for m, d in tok.items() if k in d}
             for k in allk
             if len({d[k] for d in tok.values() if k in d}) > 1}
+# The room is the one module authored AFTER the tatami rework, so it carries the
+# rework's values for keys the older modules still hold at their pre-rework
+# values. build-vite-app.py applies those rework values ON TOP of the union
+# (its REWORK dict), so what ships for every module is the room's value.
+# That is benign — but it is CHECKED, not allowlisted by name: a conflict is
+# only waived when (a) every other module agrees on one value, and (b) the
+# room's value is exactly what lib/tokens.js ships. Anything else still fails.
+SHIPPED = dict(re.findall(r'^\s*(\w+):\s*"([^"]*)"',
+                          (HERE / "tsumiki-app/src/lib/tokens.js").read_text(encoding="utf-8"),
+                          re.M)) if (HERE / "tsumiki-app/src/lib/tokens.js").exists() else {}
+REWORK_LED = "room-module.jsx"
+waived = {}
+for k in list(conflict):
+    vs = conflict[k]
+    others = {v for m, v in vs.items() if m != REWORK_LED}
+    if REWORK_LED in vs and len(others) == 1 and SHIPPED.get(k) == vs[REWORK_LED]:
+        waived[k] = (vs[REWORK_LED], others.pop())
+        del conflict[k]
 lines.append("")
 lines.append(f"- design tokens: {len(allk)} keys across {len(tok)} modules; "
              f"**{len(conflict)} hold conflicting values**")
@@ -184,6 +237,9 @@ if conflict:
         lines.append(f"    - ❌ `{k}` — " + "; ".join(f"{m.split('-')[0]}=`{v}`" for m, v in vs.items()))
 else:
     lines.append("    - ✅ no key holds two different values — divergence is additive only")
+for k, (new, old) in waived.items():
+    lines.append(f"    - ⚪ `{k}` — room `{new}` vs older modules `{old}`: **waived, checked** — "
+                 f"the room's value is the tatami-rework value lib/tokens.js ships for every module")
 compare("`loadJSON()`", {m: fn_body(s, "loadJSON") for m, s in SRC.items()})
 compare("`saveJSON()`", {m: fn_body(s, "saveJSON") for m, s in SRC.items()})
 
@@ -218,6 +274,22 @@ lines += ["", "## Romaji converter", "",
           "Copied from the dictionary into vocabulary for typed review answers.", ""]
 compare("`RK` table", {m: const_block(s, "RK") for m, s in SRC.items()}, expect_at_least=2)
 compare("`romajiToKana()`", {m: fn_body(s, "romajiToKana") for m, s in SRC.items()}, expect_at_least=2)
+
+# ---- the koban ledger ----
+# Every module that earns or spends carries the same delimited block, so each
+# single-file artifact works alone; the app gets one copy (lib/koban.js).
+# build-vite-app.py refuses to build if a copy differs from room-module.jsx's —
+# but that guard only runs when someone builds. This one runs every Saturday.
+KOBAN_START = "// ————— Koban ledger (room/shop pass, Oct 2026) —————"
+KOBAN_END = "// ————— end koban ledger —————"
+def koban_block(s):
+    i = s.find(KOBAN_START)
+    if i < 0: return None
+    j = s.find(KOBAN_END, i)
+    return s[i:j + len(KOBAN_END)] if j >= 0 else None   # BYTE-exact: the build is
+lines += ["", "## Koban ledger", "",                       # byte-exact too
+          "Byte-identical or the build refuses; compared here so drift shows before a build.", ""]
+compare("koban ledger block", {m: koban_block(s) for m, s in SRC.items()}, expect_at_least=2)
 
 # ---- storage keys: the coupling that actually breaks learners ----
 lines += ["", "## Storage keys", "",

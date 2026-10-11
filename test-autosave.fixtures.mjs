@@ -90,13 +90,22 @@ function fakeClient(initial = {}) {
           calls.push({ op: "GET" });
           return { data: { ...row, updated_at: null }, error: null };
         } }) }),
-        upsert: async (obj) => {
+        upsert: (obj) => {
           calls.push({ op: "POST", data: { ...obj.data } });
           // The archive trigger's own rule: an identical document is not a new
           // version. Modelled here so a test can assert the version DID NOT move.
           const same = JSON.stringify(obj.data) === JSON.stringify(row.data);
           row = { data: { ...obj.data }, version: same ? row.version : row.version + 1 };
-          return { error: null };
+          // ⚠️ NOT a Promise. sync.js chains .select("version").maybeSingle() onto
+          // this (added 5978017, Sep 29), and only the SERVER may supply the
+          // version — noteAccountVersion ignores a missing or lower one, so
+          // returning nothing here would make the stale-read check a silent
+          // no-op. This was an `async` function until Oct 11 2026, which made
+          // every push in this test throw and left it red for 12 days.
+          const built = { version: row.version };
+          return {
+            select: () => ({ maybeSingle: async () => ({ data: built, error: null }) }),
+          };
         },
       };
     },
