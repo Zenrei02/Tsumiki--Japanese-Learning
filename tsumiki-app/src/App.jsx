@@ -274,10 +274,20 @@ function Home({ startedMap, lastMod, nextTask, go, recency, roomPulse, dormantDa
   // 21). A module name is not an action, so when there is a task the task is
   // the headline and the module demotes to a subtitle.
   const taskMod = nextTask ? MODULES.find((m) => m.id === nextTask.module) : null;
-  const hero = taskMod || lastMod || MODULES.find((m) => m.id === startId) || MODULES[0];
+  // "Last worked on" is a per-device key, so a learner signing in on a new
+  // device has none — and Home used to greet them "NEW HERE?" four months in
+  // (found Oct 12 2026 restoring the demo save). Fall back to the most
+  // recently worked section, which the account DOES carry (stats.js recency).
+  // And someone who has started anything is never "new here".
+  const recentMod = !lastMod && !fresh
+    ? MODULES.find((m) => m.id === orderByRecency(Object.keys(recency || {}), recency || {})[0]) || null
+    : null;
+  const resumeMod = lastMod || recentMod;
+  const hero = taskMod || resumeMod || MODULES.find((m) => m.id === startId) || MODULES[0];
   const heroLabel = taskMod ? "NEXT ON YOUR PATH"
-    : lastMod ? "PICK UP WHERE YOU LEFT OFF" : studied ? "START WITH" : "NEW HERE? START WITH";
-  const heroCta = taskMod ? "Go" : lastMod ? "Continue" : "Start here";
+    : resumeMod ? "PICK UP WHERE YOU LEFT OFF"
+    : studied || !fresh ? "START WITH" : "NEW HERE? START WITH";
+  const heroCta = taskMod ? "Go" : resumeMod ? "Continue" : "Start here";
 
   return (
     <div>

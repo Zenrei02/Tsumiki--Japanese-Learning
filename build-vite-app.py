@@ -898,8 +898,11 @@ if ENG_SRC.exists() and ENG_QUOTES.exists():
 # quiz can never drift from the lessons it stands in for. A table that cannot
 # be found fails the build rather than shipping a quiz with nothing in it.
 def literal_span(text, pat):
-    """The JS literal ([…] or {…}) that starts right after `pat`. String-aware,
-    so a bracket inside a quoted string does not end the literal early."""
+    """The JS literal ([…] or {…}) that starts right after `pat`. String- and
+    comment-aware: a bracket inside a quoted string does not end the literal
+    early, and neither does an apostrophe in a comment (found Oct 12 2026 —
+    the grammar CURRICULUM has them; the kana and kanji tables had worked by
+    luck)."""
     m = re.search(pat, text)
     if not m:
         return None
@@ -915,6 +918,13 @@ def literal_span(text, pat):
                 k += 1
             elif c == quote:
                 quote = None
+        elif c == "/" and text[k + 1] == "/":
+            # A line comment: an apostrophe in "// don't" is not a string.
+            k = text.index("\n", k)
+            continue
+        elif c == "/" and text[k + 1] == "*":
+            k = text.index("*/", k) + 2
+            continue
         elif c in "\"'`":
             quote = c
         elif c in "[{":
@@ -1276,10 +1286,20 @@ function Home({ startedMap, lastMod, nextTask, go, recency, roomPulse, dormantDa
   // 21). A module name is not an action, so when there is a task the task is
   // the headline and the module demotes to a subtitle.
   const taskMod = nextTask ? MODULES.find((m) => m.id === nextTask.module) : null;
-  const hero = taskMod || lastMod || MODULES.find((m) => m.id === startId) || MODULES[0];
+  // "Last worked on" is a per-device key, so a learner signing in on a new
+  // device has none — and Home used to greet them "NEW HERE?" four months in
+  // (found Oct 12 2026 restoring the demo save). Fall back to the most
+  // recently worked section, which the account DOES carry (stats.js recency).
+  // And someone who has started anything is never "new here".
+  const recentMod = !lastMod && !fresh
+    ? MODULES.find((m) => m.id === orderByRecency(Object.keys(recency || {}), recency || {})[0]) || null
+    : null;
+  const resumeMod = lastMod || recentMod;
+  const hero = taskMod || resumeMod || MODULES.find((m) => m.id === startId) || MODULES[0];
   const heroLabel = taskMod ? "NEXT ON YOUR PATH"
-    : lastMod ? "PICK UP WHERE YOU LEFT OFF" : studied ? "START WITH" : "NEW HERE? START WITH";
-  const heroCta = taskMod ? "Go" : lastMod ? "Continue" : "Start here";
+    : resumeMod ? "PICK UP WHERE YOU LEFT OFF"
+    : studied || !fresh ? "START WITH" : "NEW HERE? START WITH";
+  const heroCta = taskMod ? "Go" : resumeMod ? "Continue" : "Start here";
 
   return (
     <div>
