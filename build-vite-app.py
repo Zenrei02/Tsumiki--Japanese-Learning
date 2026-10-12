@@ -1029,6 +1029,7 @@ import Account from "./lib/account.jsx";
 import Progress from "./lib/progress.jsx";
 import { WelcomeBackDialog, GoalsDialog, claimWelcomeBack } from "./lib/engagementPanel.jsx";
 import { reportStudy } from "./lib/activity.js";
+import { sectionFinished } from "./lib/finished.js";
 import { recordVisit, reconcileBlocks } from "./lib/blocks.js";
 import { markWorked, readRecency, orderByRecency, readWallet,
          daysSinceLastWorked, DORMANT_DAYS } from "./lib/stats.js";
@@ -1104,13 +1105,22 @@ async function readStarted() {
 // Written by the engagement module (engagement-v1). Absent until that module is
 // wired in and reportActivity() has call sites — Home falls back to the
 // continue card, so this is dark rather than broken until then.
+//
+// A "finish a set" task for a section with no lesson left is skipped (Oct 12
+// 2026): a chain stored before the section was finished still holds one until
+// the engagement module next mounts and swaps it out, and Home was offering it
+// as NEXT ON YOUR PATH in the meantime. Asked only of set tasks, so the
+// module's chunk loads only when there is one to ask about.
 async function readNextTask() {
   try {
     const r = await storage.get("tsumiki-engagement-v1");
     const chain = r ? JSON.parse(r.value)?.chain : null;
-    const t = chain?.tasks?.find((x) => x.done < x.target);
-    if (!t) return null;
-    return MODULES.some((m) => m.id === t.module) ? t : null;
+    for (const t of chain?.tasks || []) {
+      if (t.done >= t.target) continue;
+      if (t.kind === "set" && await sectionFinished(t.module)) continue;
+      return MODULES.some((m) => m.id === t.module) ? t : null;
+    }
+    return null;
   } catch (e) { return null; }
 }
 

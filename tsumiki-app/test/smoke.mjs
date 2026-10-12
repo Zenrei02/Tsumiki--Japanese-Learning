@@ -651,6 +651,56 @@ const dialogText = (w, label) => dialogOf(w, label)?.textContent || "";
   }
 }
 
+// 4. A FINISHED section is not offered as a quest (Oct 12 2026). The chain
+// filtered its tasks by which sections were OPEN, so a learner with every
+// hiragana lesson done — here, placed out by the review quiz — was told
+// "Finish one hiragana set", in Goals and as Home's NEXT ON YOUR PATH. Three
+// learners: all placed with no chain yet; all placed with a chain stored
+// BEFORE they finished, which still names the set (Home reads that store
+// directly); and the control, one lesson short, who MUST still be offered it —
+// without that, a quest that had simply vanished would pass the first two.
+{
+  // The lesson ids, read from the module itself rather than listed here.
+  const src = fs.readFileSync(fileURLToPath(new URL("../src/modules/Hiragana.jsx", import.meta.url)), "utf8");
+  const block = src.slice(src.indexOf("const MODULES = ["), src.indexOf("\n];", src.indexOf("const MODULES = [")));
+  const ids = [...block.matchAll(/^  \{ id: "([^"]+)"/gm)].map((m) => m[1]);
+  if (ids.length < 15) fail(`FINISHED: read only ${ids.length} hiragana lesson ids — the parse broke`);
+  const placedAll = (skip) => JSON.stringify(Object.fromEntries(ids.filter((id) => id !== skip).map((id) => [id, { placed: 1760000000000 }])));
+  const SET = "Finish one hiragana set";
+  const staleChain = JSON.stringify({ activeDays: [], chain: { startedOn: localToday(), claimed: false, bonus: false, bonusClaimed: false, tasks: [
+    { taskId: "hira_set", label: SET, target: 1, done: 0, kind: "set", module: "hiragana", order: 0, bonus: false },
+    { taskId: "check_one", label: "Write and check one sentence", target: 1, done: 0, kind: "write", module: "checker", order: 1, bonus: false },
+  ] } });
+  const goalsFor = async (seed) => {
+    const { w } = engWindow({ "tsumiki-module-recency-v1": recencyAt(36 * 3600e3), "tsumiki-goals-seen": localToday(), ...seed });
+    await new Promise(r => setTimeout(r, 2500));
+    const hero = w.document.querySelector(".ts-hero")?.textContent || "";
+    w.document.querySelector('header button[aria-label="Goals"]')?.click();
+    await new Promise(r => setTimeout(r, 1500));
+    const goals = dialogText(w, "Goals");
+    const stored = JSON.parse(w.localStorage.getItem("tsumiki-engagement-v1") || "null");
+    return { hero, goals, stored };
+  };
+
+  const fresh = await goalsFor({ "tsumiki-hiragana-progress-v2": placedAll() });
+  if (!/days this week/.test(fresh.goals)) fail("FINISHED: the Goals dialog did not open for the all-placed learner");
+  else if (fresh.goals.includes(SET)) fail("FINISHED: Goals offers '" + SET + "' to a learner with every hiragana lesson placed");
+  else console.log("  all hiragana placed: Goals does not offer a hiragana set");
+
+  const stale = await goalsFor({ "tsumiki-hiragana-progress-v2": placedAll(), "tsumiki-engagement-v1": staleChain });
+  if (stale.hero.includes(SET)) fail("FINISHED: Home's hero still offers '" + SET + "' from a chain stored before hiragana was finished");
+  else console.log("  a stored chain naming the finished set: Home skips it");
+  if (!/days this week/.test(stale.goals)) fail("FINISHED: the Goals dialog did not open for the stored-chain learner");
+  else if (stale.goals.includes(SET)) fail("FINISHED: Goals still shows '" + SET + "' from the stored chain");
+  else if (!stale.goals.includes("Write and check one sentence")) fail("FINISHED: repairing the stored chain lost its other task");
+  else if ((stale.stored?.chain?.tasks || []).some((t) => t.taskId === "hira_set")) fail("FINISHED: the stored chain still holds hira_set after Goals mounted");
+  else console.log("  ...and Goals swaps it out of the stored chain, keeping the other task");
+
+  const control = await goalsFor({ "tsumiki-hiragana-progress-v2": placedAll(ids[ids.length - 1]) });
+  if (!control.goals.includes(SET)) fail("FINISHED CONTROL: one hiragana lesson left, but Goals does not offer '" + SET + "' — the check above proves nothing");
+  else console.log("  one lesson left: Goals still offers a hiragana set (control)");
+}
+
 // ————— ACCOUNTS (Session 23) —————
 // Accounts are OPTIONAL, and this bundle is the un-configured case: esbuild's
 // iife output replaces `import.meta` with {}, so VITE_SUPABASE_URL and

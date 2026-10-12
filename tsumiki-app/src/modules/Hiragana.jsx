@@ -1663,6 +1663,56 @@ function traceCharsFor(mod) {
   return mod.walk || mod.show || [];
 }
 
+// ————— What "finished" means —————
+// ONE test, used for the lesson list's tick, the group counts, the koban
+// back-pay and sectionFinished() below. It was `isDone` inside the root;
+// lifted out (Oct 12 2026) so the host can ask whether the whole chart is
+// done without mounting the module — a second copy of this test anywhere
+// else would drift from it.
+function lessonFinished(m, progress) {
+  const p = progress[m.id];
+  if (!p) return false;
+  // Placed out by the review quiz (lib/placement.js, Oct 2026): the learner
+  // passed the stage quiz for this chart, so the lesson counts as done.
+  if (p.placed) return true;
+  if (m.kind === "culture") return !!p.read;
+  // A checkpoint is a drill over the chart so far; it has no characters of
+  // its own to trace, so the test below could never pass for it (found
+  // Oct 2026). Running its drill to the end is what finishing it means.
+  if (m.kind === "checkpoint") return p.drill != null;
+  if (m.kind === "skill") return (p.judged || 0) >= (m.judge?.length || 1);
+  // Recognise it, form it, then hear it and write it. Three abilities, in
+  // the order the lesson teaches them.
+  //
+  //   drill      — recognition
+  //   traced     — EVERY character in the lesson, not just one. A five-kana
+  //                lesson finishing after one traced character was the old
+  //                behaviour and it flattered the learner.
+  //   listenWrote— only where the lesson has words AND the device can speak
+  //                them. ListenWrite runs on speech synthesis, not the
+  //                recorded sprite (word playback stayed on synthesis
+  //                deliberately — stitched mora have no pitch accent), so a
+  //                device with no Japanese voice cannot do it at all.
+  //                Requiring it unconditionally would lock those learners out
+  //                permanently, which is why Listen was excluded from
+  //                completion in the first place. It marks itself satisfied
+  //                when unsupported.
+  //
+  // Free pad is open practice and is deliberately never part of this.
+  const chars = traceCharsFor(m);
+  const traced = new Set((p.traced || []).map((t) => String(t).split(":")[0]));
+  const allTraced = chars.length > 0 && chars.every((c) => traced.has(c));
+  const needsWords = !!(m.words && m.words.length);
+  const wordsDone = !needsWords || (p.listenWrote || 0) >= m.words.length;
+  return p.drill != null && allTraced && wordsDone;
+}
+
+/** Every lesson finished, by the test above. The host's Goals quests stop
+    offering "Finish one hiragana set" once this is true (lib/finished.js). */
+export function sectionFinished(progress) {
+  return MODULES.every((m) => lessonFinished(m, progress || {}));
+}
+
 // ————— Shared handwriting box —————
 // Extracted from the character walk (now WalkPage) so the pair practice and Listen & Write can both
 // reuse the stroke scoring. The canvas keeps a fixed internal resolution and is
@@ -2467,43 +2517,7 @@ export default function HiraganaModule() {
   useEffect(() => { loadProgress().then((p) => { setProgress(p); loaded.current = true; setLoadedOnce(true); }); }, []);
   const update = (p) => { const s = stampFirsts(p); setProgress(s); if (loaded.current) saveProgress(s); };
 
-  const isDone = (m) => {
-    const p = progress[m.id];
-    if (!p) return false;
-    // Placed out by the review quiz (lib/placement.js, Oct 2026): the learner
-    // passed the stage quiz for this chart, so the lesson counts as done.
-    if (p.placed) return true;
-    if (m.kind === "culture") return !!p.read;
-    // A checkpoint is a drill over the chart so far; it has no characters of
-    // its own to trace, so the test below could never pass for it (found
-    // Oct 2026). Running its drill to the end is what finishing it means.
-    if (m.kind === "checkpoint") return p.drill != null;
-    if (m.kind === "skill") return (p.judged || 0) >= (m.judge?.length || 1);
-    // Recognise it, form it, then hear it and write it. Three abilities, in
-    // the order the lesson teaches them.
-    //
-    //   drill      — recognition
-    //   traced     — EVERY character in the lesson, not just one. A five-kana
-    //                lesson finishing after one traced character was the old
-    //                behaviour and it flattered the learner.
-    //   listenWrote— only where the lesson has words AND the device can speak
-    //                them. ListenWrite runs on speech synthesis, not the
-    //                recorded sprite (word playback stayed on synthesis
-    //                deliberately — stitched mora have no pitch accent), so a
-    //                device with no Japanese voice cannot do it at all.
-    //                Requiring it unconditionally would lock those learners out
-    //                permanently, which is why Listen was excluded from
-    //                completion in the first place. It marks itself satisfied
-    //                when unsupported.
-    //
-    // Free pad is open practice and is deliberately never part of this.
-    const chars = traceCharsFor(m);
-    const traced = new Set((p.traced || []).map((t) => String(t).split(":")[0]));
-    const allTraced = chars.length > 0 && chars.every((c) => traced.has(c));
-    const needsWords = !!(m.words && m.words.length);
-    const wordsDone = !needsWords || (p.listenWrote || 0) >= m.words.length;
-    return p.drill != null && allTraced && wordsDone;
-  };
+  const isDone = (m) => lessonFinished(m, progress);
 
   // Back-pay, once per load: lessons finished before kana earned anything pay
   // now, silently — there is no flourish on screen to carry the line, and the
