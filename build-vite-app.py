@@ -1252,6 +1252,10 @@ function Scene({ onOpen, dusk = false }) {
   return <button onClick={onOpen} aria-label="Your room" className="ts-scene">{svg}</button>;
 }
 
+// The Room and Journey doors on the corners of Home's room picture.
+const SCENE_DOOR = { position: "absolute", bottom: 10, minHeight: 44, padding: "0 12px",
+                     fontSize: "0.875rem", gap: 6, boxSizing: "border-box" };
+
 function Home({ startedMap, lastMod, nextTask, go, recency, roomPulse, dormantDays, openAccount, dusk, heroRef, placement }) {
   const fresh = !MODULES.some((m) => startedMap[m.id]);
   // The first-visit wizard's answers (lib/placement.js, Oct 2026). A learner
@@ -1303,7 +1307,28 @@ function Home({ startedMap, lastMod, nextTask, go, recency, roomPulse, dormantDa
 
   return (
     <div>
-      <Scene onOpen={() => go("room")} dusk={dusk} />
+      {/* The two doors sit on the room picture's corners (Lloyd, Oct 12 2026):
+          below the blocks they were cut off on a phone, and you had to scroll
+          to find them. The picture itself is still the room's door; these are
+          siblings of it, not inside it (a button cannot hold buttons). Wood,
+          both — neither is the one thing to do next.
+
+          THE PULSE (reward-system-design-v1.md §5, approved Session 11) moved
+          with the Room door: it fires when the balance has crossed the price
+          of something not yet owned since this browser last looked in the
+          room — a few beats, then a still gold ring until the room is visited. */}
+      <div style={{ position: "relative" }}>
+        <Scene onOpen={() => go("room")} dusk={dusk} />
+        <button onClick={() => go("room")} className={"ts-btn ts-btn-wood" + (roomPulse ? " ts-wood-pulse" : "")}
+                style={{ ...SCENE_DOOR, left: 10 }}
+                aria-label={roomPulse ? "Room — something new is within reach" : "Room"}>
+          {ICON.house} Room <span style={{ fontFamily: T.jpFont, fontWeight: 500 }}>へや</span>
+        </button>
+        <button onClick={() => go("journey")} className="ts-btn ts-btn-wood"
+                style={{ ...SCENE_DOOR, right: 10 }} aria-label="Your tsumiki journey">
+          {ICON.blocks} Journey <span style={{ fontFamily: T.jpFont, fontWeight: 500 }}>つみき</span>
+        </button>
+      </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 18, padding: "18px 16px 32px" }}>
 
         {/* ⚠️ A REMINDER, NOT A DEADLINE (Session 23). Nothing in this app
@@ -1387,28 +1412,8 @@ function Home({ startedMap, lastMod, nextTask, go, recency, roomPulse, dormantDa
           </button>
         )}
 
-        {/* Goals moved to the header's top right (Lloyd, Oct 7 2026). */}
-
-        {/* THE PULSE (reward-system-design-v1.md §5, approved Session 11).
-            Fires when the balance has crossed the price of something not yet
-            owned since this browser last looked in the room — "significant to
-            this learner right now", not a raw coin total. A few beats, then a
-            still gold ring until the room is visited. Home only, so never
-            mid-exercise; and a door that pulsed forever would stop meaning
-            anything. */}
-        {/* Two doors side by side: the room, and the journey's tower (Oct
-            2026). Wood, both — neither is the one thing to do next. */}
-        <div style={{ display: "flex", gap: 12 }}>
-          <button onClick={() => go("room")} className={"ts-btn ts-btn-wood" + (roomPulse ? " ts-wood-pulse" : "")}
-                  style={{ flex: 1, minWidth: 0 }}
-                  aria-label={roomPulse ? "Room — something new is within reach" : undefined}>
-            {ICON.house} Room <span style={{ fontFamily: T.jpFont, fontWeight: 500 }}>へや</span>
-          </button>
-          <button onClick={() => go("journey")} className="ts-btn ts-btn-wood" style={{ flex: 1, minWidth: 0 }}
-                  aria-label="Your tsumiki journey">
-            {ICON.blocks} Journey <span style={{ fontFamily: T.jpFont, fontWeight: 500 }}>つみき</span>
-          </button>
-        </div>
+        {/* Goals moved to the header's top right (Lloyd, Oct 7 2026); Room and
+            Journey to the room picture's corners (Oct 12 2026). */}
       </div>
     </div>
   );
