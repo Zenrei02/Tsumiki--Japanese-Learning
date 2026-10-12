@@ -106,7 +106,10 @@ const JOURNEY_CSS = `
 @keyframes tj-glow{0%,100%{transform:scale(1);opacity:.55}50%{transform:scale(1.9);opacity:.95}}
 .tj-pt text{font-family:var(--ts-jp);font-weight:700;font-size:13px;fill:#2C2A26;paint-order:stroke;stroke:#FBF7EE;stroke-width:3px}
 .tj-pt text.tj-rd{font-weight:500;font-size:10.5px;fill:#4A463D}
+.tj-assemble{animation:tj-assemble .5s cubic-bezier(.3,.7,.4,1) both}
+@keyframes tj-assemble{0%{opacity:0;transform:translateY(-34px) scale(1.06)}60%{opacity:1;transform:translateY(3px)}100%{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){
+  .tj-assemble{animation:none}
   .tj-pt.tj-first .tj-halo{animation:none;transform:scale(1.5);opacity:.9}
   .tj-sheet,.tj-build .tj-cap{animation:none}
 }
@@ -253,15 +256,22 @@ function MapSvg({ built, inset, firstGlow, onPoint }) {
 }
 
 // A building, drawn from the learner's own blocks.
-function Building({ id, blocks, maxW, innerRef }) {
+// `assemble` (Lloyd, Oct 12 2026): visiting a building on the map plays it
+// being built again — its blocks laid bottom-up, in the order the build
+// moment lays them (assignForBuilding sorts the slots that way). Capped near
+// two seconds whatever the size. Reduced motion: it is simply there.
+function Building({ id, blocks, maxW, innerRef, assemble = false }) {
   const a = assignForBuilding(id, blocks);
   const cw = Math.min(34, Math.floor(maxW / a.cols)), ch = Math.round(cw * 0.66);
+  const step = Math.min(30, 2000 / Math.max(1, a.slots.length));
   return (
     <div ref={innerRef} style={{ position: "relative", width: a.cols * cw, height: a.rows * ch + 4 }}
          role="img" aria-label={`A ${RECIPES[id].en}, made of your blocks`}>
-      {a.slots.map((s) => (
-        <Block key={s.x + "," + s.y} b={s.b} w={cw - 2} h={ch - 3}
-               style={{ left: s.x * cw + 1, top: s.y * ch + 1, cursor: "default" }} data-slot={s.x + "," + s.y} />
+      {a.slots.map((s, i) => (
+        <Block key={s.x + "," + s.y} b={s.b} w={cw - 2} h={ch - 3} className={assemble ? "tj-assemble" : ""}
+               style={{ left: s.x * cw + 1, top: s.y * ch + 1, cursor: "default",
+                        ...(assemble ? { animationDelay: `${Math.round(i * step)}ms` } : null) }}
+               data-slot={s.x + "," + s.y} />
       ))}
     </div>
   );
@@ -348,7 +358,8 @@ function BuildingSheet({ id, blocks, onClose }) {
     <Sheet onClose={onClose}>
       <Names r={RECIPES[id]} />
       <div style={{ display: "flex", justifyContent: "center", padding: "6px 0 4px" }}>
-        <Building id={id} blocks={blocks} maxW={Math.min(300, (typeof window !== "undefined" ? window.innerWidth : 360) - 60)} />
+        <Building id={id} blocks={blocks} assemble
+                  maxW={Math.min(300, (typeof window !== "undefined" ? window.innerWidth : 360) - 60)} />
       </div>
     </Sheet>
   );
