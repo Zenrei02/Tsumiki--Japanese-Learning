@@ -168,10 +168,18 @@ const BONUS_TASK = { id: "bonus_write", requires: "checker", kind: "write", labe
 
 const CHAIN_WINDOW_DAYS = 3;
 
-function deriveQuests(unlockedIn, dueIn, seedKey) {
+/* ⚠️ OPEN IS NOT THE SAME AS UNFINISHED (Oct 12 2026). `unlocked` says a door
+   is open; it says nothing about whether anything is left behind it. Filtering
+   on it alone offered "Finish one hiragana set" to a learner with every
+   hiragana lesson done. `finished` is the host's word, by each module's OWN
+   done-test, that a section has no lesson left — so its "set" task has nothing
+   to point at. Its reviews and the checker are never finished. */
+const finishedTask = (t, finished) => t.kind === "set" && Boolean((finished || {})[t.requires || t.module]);
+
+function deriveQuests(unlockedIn, dueIn, seedKey, finishedIn) {
   const unlocked = { ...DEFAULT_UNLOCKED, ...(unlockedIn || {}) };
   const due = dueIn || {};
-  const available = TASK_LIBRARY.filter((t) => unlocked[t.requires]);
+  const available = TASK_LIBRARY.filter((t) => unlocked[t.requires] && !finishedTask(t, finishedIn));
   if (!available.length) return [];
 
   const dueTasks = available.filter((t) => t.dueFrom && (due[t.dueFrom] || 0) > 0);
@@ -256,7 +264,7 @@ function pickQuote(dateKey, recentIds = []) {
   return usable[h % usable.length];
 }
 
-function useEngagement(unlocked, due, simulatedDate) {
+function useEngagement(unlocked, due, simulatedDate, finished) {
   const today = simulatedDate || dayKey();
   const [state, setState] = useState(BLANK);
   const [wallet, setWallet] = useState(0);
@@ -320,12 +328,31 @@ function useEngagement(unlocked, due, simulatedDate) {
     const settled = c && c.claimed && (!c.bonus || c.bonusClaimed);
     const nextDay = settled && daysBetween(c.startedOn, today) >= 1;
 
-    if (!c || expired || nextDay) {
-      const tasks = deriveQuests(unlocked, due, today + (c?.startedOn || ""));
-      if (!tasks.length) return;
+    // A chain stored BEFORE a section was finished can still hold its set task,
+    // and would keep pointing Home at it for up to three days. Swap just that
+    // task for one the chain does not have, keeping its slot and the progress
+    // on the others — regenerating the whole chain would wipe work already
+    // credited today. A task already done stays: it was earned. With nothing to
+    // swap in it is dropped, and an emptied chain starts over below — or, with
+    // nothing left to offer at all, is cleared rather than left pointing at it.
+    const stale = (t) => !t.bonus && t.done < t.target && finishedTask(t, finished);
+    let emptied = false;
+    if (c && !c.claimed && !expired && c.tasks.some(stale)) {
+      const spare = deriveQuests(unlocked, due, today + c.startedOn, finished)
+        .filter((n) => !c.tasks.some((t) => t.taskId === n.taskId));
+      const tasks = c.tasks
+        .map((t) => (stale(t) ? (spare.length ? { ...spare.shift(), order: t.order } : null) : t))
+        .filter(Boolean);
+      if (tasks.length) { save({ chain: { ...c, tasks } }); return; }
+      emptied = true;
+    }
+
+    if (!c || expired || nextDay || emptied) {
+      const tasks = deriveQuests(unlocked, due, today + (c?.startedOn || ""), finished);
+      if (!tasks.length) { if (emptied) save({ chain: null }); return; }
       save({ chain: { startedOn: today, tasks, claimed: false, bonus: false, bonusClaimed: false } });
     }
-  }, [ready, state.chain, today, unlocked, due, save]);
+  }, [ready, state.chain, today, unlocked, due, finished, save]);
 
   const quote = useMemo(
     () => QUOTES.find((q) => q.id === state.recent[0]) || pickQuote(today, []),
@@ -642,6 +669,9 @@ function QuestChain({ chain, today, onClaim, onClaimBonus, onSimulate, devTools 
 export default function EngagementModule({
   unlocked = { hiragana: true, katakana: true, kanji: true, vocab: true, grammar: true, checker: true },
   due = { kanji: 6, vocab: 0, grammar: 0 },
+  // Sections with no lesson left, by the owning module's own test — the host
+  // reads it (tsumiki-app lib/finished.js); standalone, nothing is finished.
+  finished = {},
   devTools = true,
   onApi = null,
   ownVisits = null,   // ms timestamps of practice visits on words the learner sent (Session 34)
@@ -652,7 +682,7 @@ export default function EngagementModule({
   quoteDetails = true,
 }) {
   const [simDate, setSimDate] = useState(null);
-  const eng = useEngagement(unlocked, due, simDate);
+  const eng = useEngagement(unlocked, due, simDate, finished);
   const apiRef = useRef(null);
   apiRef.current = eng.reportActivity;
 

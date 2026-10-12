@@ -655,6 +655,36 @@ export const KANJI_SYLLABUS = GROUPED.flatMap((g) =>
   g.points.flatMap((p) => p.chars || [])
 ).filter((c, i, a) => a.indexOf(c) === i);
 
+// ————— What "finished" means —————
+// The list's tick, the journey's blocks and sectionFinished() below all use
+// this. It was `lessonDone` inside the root; lifted out (Oct 12 2026) so the
+// host can ask whether every kanji lesson is done without mounting the
+// module. Lesson's own `lessonIsDone` spells the same test out again — keep
+// the two in step, as the note there says.
+function lessonFinished(m, progress) {
+  const p = progress[m.id];
+  // Placed out by the review quiz (lib/placement.js, Oct 2026) — the third
+  // of the three "finished" tests Lesson's note asks to keep in step.
+  if (p && p.placed) return true;
+  if (!m.chars) return false;
+  if (!p) return false;
+  // Same test the lesson itself uses to unlock characters, so a ticked lesson
+  // and an unlocked character can never disagree. The old version accepted a
+  // single traced stroke and any recall attempt at all, which is why lessons
+  // looked finished while nothing had actually been learned.
+  const traced = new Set((p.traced || []).map((t) => String(t).split(":")[0]));
+  const allTraced = m.chars.every((c) => traced.has(c));
+  const recallPassed = p.recallBest != null && p.recallOf ? p.recallBest / p.recallOf >= 0.8 : false;
+  return allTraced && recallPassed;
+}
+
+/** Every lesson that teaches kanji, finished by the test above. Culture
+    lessons are left out: an unread one does not leave a new kanji set to
+    meet, which is the only question the host asks (lib/finished.js). */
+export function sectionFinished(progress) {
+  return MODULES.filter((m) => m.chars).every((m) => lessonFinished(m, progress || {}));
+}
+
 const KINDS = {
   kanji:      { short: "KJ", full: "Kanji lesson",       color: "#3D5A80" },
   skill:      { short: "SB", full: "Skill builder",      color: "#C7351B" },
@@ -1973,22 +2003,7 @@ export default function KanjiModule() {
   };
 
   const mod = current ? MODULES.find((m) => m.id === current) : null;
-  const lessonDone = (m) => {
-    const p = progress[m.id];
-    // Placed out by the review quiz (lib/placement.js, Oct 2026) — the third
-    // of the three "finished" tests the note above asks to keep in step.
-    if (p && p.placed) return true;
-    if (!m.chars) return false;
-    if (!p) return false;
-    // Same test the lesson itself uses to unlock characters, so a ticked lesson
-    // and an unlocked character can never disagree. The old version accepted a
-    // single traced stroke and any recall attempt at all, which is why lessons
-    // looked finished while nothing had actually been learned.
-    const traced = new Set((p.traced || []).map((t) => String(t).split(":")[0]));
-    const allTraced = m.chars.every((c) => traced.has(c));
-    const recallPassed = p.recallBest != null && p.recallOf ? p.recallBest / p.recallOf >= 0.8 : false;
-    return allTraced && recallPassed;
-  };
+  const lessonDone = (m) => lessonFinished(m, progress);
 
   // Effort blocks, for "Your tsumiki journey" (Oct 2026): every lesson this
   // module counts as finished, by the same test the lesson list ticks with.

@@ -31,6 +31,7 @@ import { useState, useEffect, useCallback, lazy, Suspense } from "react";
 import { ENGAGEMENT_CSS } from "./engagementStyles.js";
 import { onStudy } from "./activity.js";
 import { storage } from "./storage.js";
+import { readFinished } from "./finished.js";
 import { T } from "./tokens.js";
 import Dialog from "./dialog.jsx";
 
@@ -111,14 +112,27 @@ function useEngagementWiring() {
 const GROUND = `.eng-scope.eng-host > div{background:transparent;padding:0}`
   + `\n.eng-scope.eng-host .rounded-xl{background:var(--ts-washi);box-shadow:0 3px 0 var(--ts-washi-lip),0 10px 22px var(--ts-card-shadow),var(--ts-washi-halo)}`;
 
+// Which sections have no lesson left (lib/finished.js), so the chain stops
+// offering their sets. Read before the module mounts: mounting first would
+// build a fresh chain without it and then have to repair it a moment later.
+function useFinished() {
+  const [finished, setFinished] = useState(null);
+  useEffect(() => {
+    let alive = true;
+    readFinished().then((f) => { if (alive) setFinished(f); }, () => { if (alive) setFinished({}); });
+    return () => { alive = false; };
+  }, []);
+  return finished;
+}
+
 function Engagement(props) {
   const onApi = useEngagementWiring();
+  const finished = useFinished();
+  const loading = <p style={{ padding: "24px 4px", color: T.sub, font: `0.875rem ${T.uiFont}` }}>Loading…</p>;
   return (
     <div className="eng-scope eng-host">
       <style>{ENGAGEMENT_CSS + "\n" + GROUND}</style>
-      <Suspense fallback={
-        <p style={{ padding: "24px 4px", color: T.sub, font: `0.875rem ${T.uiFont}` }}>Loading…</p>
-      }>
+      {!finished ? loading : <Suspense fallback={loading}>
         <EngagementModule
           // ⚠️ EXPLICIT ZEROES, NOT THE DEFAULT. The module defaults `due` to
           // { kanji: 6, … } — a demo value that makes the chain open with
@@ -129,9 +143,10 @@ function Engagement(props) {
           due={{ kanji: 0, vocab: 0, grammar: 0 }}
           devTools={false}
           onApi={onApi}
+          finished={finished}
           {...props}
         />
-      </Suspense>
+      </Suspense>}
     </div>
   );
 }
