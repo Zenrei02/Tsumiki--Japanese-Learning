@@ -43,6 +43,14 @@ then mutated, which must be RED. The green run is the part that proves the
 temp environment is a faithful one, and it is the only reason the red run means
 anything.
 
+PART 3 IS A SECOND MUTATION: notePushed made a no-op, so no push ever tells
+autosave what it sent. The two "sends nothing" dedupe assertions must then fail
+BY NAME — exiting red is not enough here. On 2026-10-04 those same two
+assertions were failing at HEAD for an unrelated reason: the fake client's
+upsert was not chainable, every push threw on `.select`, and notePushed never
+ran. A red run proves only that something broke; naming the assertions shows
+this mutation is what they catch.
+
 Exit 0 = all assertions pass.
 """
 import subprocess, sys, pathlib, tempfile, shutil, os
@@ -55,23 +63,32 @@ FIXTURES = HERE / "test-autosave.fixtures.mjs"
 # that runs before account.jsx has settled this device against the account.
 GATE = '  if (!ready || !client || !userId) return "not-ready";'
 
+# The line that records what was last pushed. Without it every flush believes
+# the account has never seen this document, and re-sends identical state.
+NOTE_PUSHED = "  lastPushed = canonical;\n"
+DEDUPE_ASSERTIONS = [
+    "WRITING THE SAME VALUE SENDS NOTHING",
+    "re-serialised identical state sends nothing",
+]
+
 
 def run(lib_dir):
     env = dict(os.environ, TSUMIKI_LIB=pathlib.Path(lib_dir).resolve().as_uri())
     r = subprocess.run([ "node", str(FIXTURES) ], capture_output=True, text=True, env=env)
     sys.stdout.write(r.stdout)
     sys.stderr.write(r.stderr)
-    return r.returncode
+    return r.returncode, r.stdout + r.stderr
 
 
 def self_check():
     src = (LIB / "autosave.js").read_text(encoding="utf-8")
-    if GATE not in src:
-        print("!! the gate line this control mutates is not in autosave.js")
-        print("   looked for:", GATE.strip())
-        print("   if it was reworded, update GATE here — a control that cannot")
-        print("   find its landmark is not a control, it is a green exit code.")
-        return 2
+    for name, landmark in (("GATE", GATE), ("NOTE_PUSHED", NOTE_PUSHED)):
+        if src.count(landmark) != 1:
+            print("!! the line this control mutates is not in autosave.js exactly once")
+            print("   looked for:", landmark.strip())
+            print(f"   if it was reworded, update {name} here — a control that cannot")
+            print("   find its landmark is not a control, it is a green exit code.")
+            return 2
     tmp = tempfile.mkdtemp(prefix="tsumiki-autosave-control-")
     try:
         dst = pathlib.Path(tmp) / "lib"
@@ -81,21 +98,35 @@ def self_check():
         (dst / "package.json").write_text('{"type":"module"}', encoding="utf-8")
 
         print("— CONTROL, PART 1: the copy UNMUTATED. This must be GREEN. —")
-        if run(dst) != 0:
+        if run(dst)[0] != 0:
             print("\n!! THE UNMUTATED COPY FAILED. The temp environment is not")
             print("   faithful, so a red mutated run would prove nothing.")
             return 1
 
         (dst / "autosave.js").write_text(src.replace(GATE, ""), encoding="utf-8")
         print("\n— CONTROL, PART 2: the gate removed. These must FAIL. —")
-        if run(dst) == 0:
+        if run(dst)[0] == 0:
             print("\n!! THE CONTROL PASSED. The assertions do not test the gate.")
             return 1
-        print("\n(control went red as required, and only because of the mutation)")
+
+        (dst / "autosave.js").write_text(
+            src.replace(NOTE_PUSHED, "  /* control: notePushed records nothing */\n"),
+            encoding="utf-8")
+        print("\n— CONTROL, PART 3: notePushed a no-op. The dedupe assertions must FAIL. —")
+        code, out = run(dst)
+        missing = [a for a in DEDUPE_ASSERTIONS if "FAIL: " + a not in out]
+        if code == 0 or missing:
+            print("\n!! THE CONTROL DID NOT FAIL AS REQUIRED. Expected FAIL lines for:")
+            for a in missing or DEDUPE_ASSERTIONS:
+                print("     " + a)
+            print("   The dedupe assertions do not test notePushed.")
+            return 1
+
+        print("\n(control went red as required, and only because of each mutation)")
         return 0
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
 
 if __name__ == "__main__":
-    sys.exit(self_check() if "--self-check" in sys.argv else run(LIB))
+    sys.exit(self_check() if "--self-check" in sys.argv else run(LIB)[0])
