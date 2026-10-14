@@ -47,6 +47,7 @@
 // report, and syncs, so a second device does not re-flag them.
 
 import { storage } from "./storage.js";
+import { LANDMARKS } from "./landmarks.js";
 
 export const BLOCKS_KEY = "tsumiki-blocks-v1";
 const KOBAN_KEY = "tsumiki-koban-ledger-v1";
@@ -111,6 +112,7 @@ function write(step) {
     if (out.write) {
       try { await storage.set(BLOCKS_KEY, JSON.stringify(led)); } catch (e) { console.error("blocks save failed", e); }
     }
+    announce(out.fresh);
     return out;
   });
   queue = run.catch(() => {});
@@ -127,16 +129,31 @@ function clean(item, now) {
 
 // Add whichever of these ids the ledger does not already hold. Never updates an
 // existing block: the first record of an effort is the record.
-function addMissing(led, list, now, bf) {
+function addMissing(led, list, now, bf, fresh = []) {
   const have = new Set(led.blocks.map((b) => b.id));
   let added = 0;
   for (const it of list) {
     if (!it || !it.id || have.has(String(it.id))) continue;
     const b = clean(bf ? { ...it, bf: true } : it, now);
     if (!b) continue;
-    led.blocks.push(b); have.add(b.id); added++;
+    led.blocks.push(b); have.add(b.id); added++; fresh.push(b);
   }
   return added;
+}
+
+// ————— Telling the learner (Lloyd, Oct 15 2026) —————
+// "Let users know when they've received a block." Every block THIS device lays
+// is announced on window as "tsumiki-blocks-laid"; lib/blockNotice.jsx shows
+// it. Not announced: blocks arriving by sync (they never pass through here),
+// back-filled ones (work from before the tower), and anything dated more than
+// half a day ago — a restore or a first read of an old store is not news.
+export const LAID_EVENT = "tsumiki-blocks-laid";
+const NEWS_WINDOW = 12 * 3600e3;
+function announce(fresh) {
+  if (!Array.isArray(fresh) || typeof window === "undefined" || typeof CustomEvent === "undefined") return;
+  const now = Date.now();
+  const news = fresh.filter((b) => !b.bf && Math.abs(now - b.ts) < NEWS_WINDOW);
+  if (news.length) try { window.dispatchEvent(new CustomEvent(LAID_EVENT, { detail: news })); } catch {}
 }
 
 // For the sources read centrally, which all carry their own dates.
@@ -144,8 +161,9 @@ export function ensureBlocks(items) {
   const list = Array.isArray(items) ? items : [];
   if (!list.length) return Promise.resolve({ added: 0 });
   return write((led) => {
-    const added = addMissing(led, list, Date.now(), false);
-    return { added, write: added > 0 };
+    const fresh = [];
+    const added = addMissing(led, list, Date.now(), false, fresh);
+    return { added, fresh, write: added > 0 };
   });
 }
 
@@ -160,9 +178,10 @@ export function reportBlocks(source, items) {
   return write((led) => {
     const first = !led.seeded[source];
     const now = Date.now();
-    const added = addMissing(led, list, now, first);
+    const fresh = [];
+    const added = addMissing(led, list, now, first, fresh);
     if (first) led.seeded[source] = now;
-    return { added, write: added > 0 || first };
+    return { added, fresh, write: added > 0 || first };
   });
 }
 
@@ -176,8 +195,9 @@ export function recordVisit(now = Date.now()) {
     if (led.blocks.some((b) => b.id === id)) return { added: false };
     const thisWeek = led.blocks.filter((b) => b.source === "login" && b.id.startsWith("login:") && weekOf(b.id.slice(6)) === week).length;
     if (thisWeek >= LOGINS_PER_WEEK) return { added: false };
-    led.blocks.push({ id, ts: now, source: "login", action: "login" });
-    return { added: true, write: true };
+    const b = { id, ts: now, source: "login", action: "login" };
+    led.blocks.push(b);
+    return { added: true, fresh: [b], write: true };
   });
 }
 
@@ -196,11 +216,13 @@ export function clearCheckerSentences(now = Date.now()) {
   });
 }
 
-export function markBuilt(structureId, now = Date.now()) {
+// `tok` is the token that paid for it (see nextBuild); it is stamped too, so
+// the same kept week or milestone never pays for a second building.
+export function markBuilt(structureId, now = Date.now(), tok = null) {
   return write((led) => {
-    if (led.built[structureId]) return {};
-    led.built[structureId] = now;
-    return { write: true };
+    let changed = false;
+    for (const k of [structureId, tok]) if (k && !led.built[k]) { led.built[k] = now; changed = true; }
+    return changed ? { write: true } : {};
   });
 }
 
@@ -273,34 +295,40 @@ export function installBlocks() {
 }
 
 // ————— Structures —————
-// ⚠️ PROVISIONAL. The real site list, order, recipes and thresholds are NOT
-// decided (tracker: OPEN). These are the board's three, tuned for logins at up
-// to three a week. Thresholds are never shown anywhere — the screen announces a
-// structure only once it is earned, in the past tense, and never previews the
-// next one. Slot letters in `grid` pick the learner's blocks by preference.
-export const RECIPES = {
+// THE FIRST THREE (Session 39, Oct 6 2026) keep their own recipes and ids —
+// learners have already built them, and `built` is keyed by these ids. Every
+// other building is a landmark from lib/landmarks.js (Session 39.2's 182 sites;
+// these three are its #76, #62 and #33). Thresholds are never shown anywhere —
+// the screen announces a building only once it is earned, in the past tense,
+// and never previews the next one. Slot letters in `grid` pick the learner's
+// blocks by preference.
+const FIRST = {
   torii: {
-    kind: "count", jp: "鳥居", kana: "とりい", en: "torii", announce: "a torii",
-    place: { jp: "厳島神社", kana: "いつくしまじんじゃ", en: "Itsukushima Shrine — Miyajima, Hiroshima", x: 64.1, y: 245.7, label: "below" },
+    kind: "first", n: 76, size: "S", jp: "鳥居", kana: "とりい", en: "torii",
+    place: { jp: "厳島神社", kana: "いつくしまじんじゃ", en: "Itsukushima Shrine — Miyajima, Hiroshima", pref: "Hiroshima", x: 64.1, y: 245.7, label: "below" },
     earned: (c) => c.kana >= 15 && c.login >= 12,
     grid: ["BBBBBBBBBB", ".BBBBBBBB.", "..P....P..", ".BBBBBBBB.", "..P....P..", "..P....P..", "..P....P..", "..P....P..", ".LL....LL."],
     prefer: { B: ["kana"], P: ["kana"], L: ["login"] },
   },
   pagoda: {
-    kind: "special", jp: "五重塔", kana: "ごじゅうのとう", en: "five-story pagoda", announce: "a five-story pagoda",
-    place: { jp: "法隆寺", kana: "ほうりゅうじ", en: "Hōryū-ji — Ikaruga, Nara", x: 123.0, y: 238.7 },
+    kind: "first", n: 62, size: "M", jp: "五重塔", kana: "ごじゅうのとう", en: "five-story pagoda",
+    place: { jp: "法隆寺", kana: "ほうりゅうじ", en: "Hōryū-ji — Ikaruga, Nara", pref: "Nara", x: 123.0, y: 238.7 },
     earned: (c) => c.kanji >= 20,
     grid: [".....S.....", ".....S.....", "...RRRRR...", "....WWW....", "..RRRRRRR..", "....WWW....", "..RRRRRRR..", "...WWWWW...", ".RRRRRRRRR.", "...WWWWW...", "RRRRRRRRRRR", "..WWWWWWW..", ".LLLLLLLLL."],
     prefer: { S: ["stage"], R: ["kanji"], W: ["kanji", "review"], L: ["login"] },
   },
   castle: {
-    kind: "special", jp: "天守", kana: "てんしゅ", en: "castle keep", announce: "a castle keep",
-    place: { jp: "松本城", kana: "まつもとじょう", en: "Matsumoto Castle — Matsumoto, Nagano", x: 161.5, y: 203.4 },
+    kind: "first", n: 33, size: "L", jp: "天守", kana: "てんしゅ", en: "castle keep",
+    place: { jp: "松本城", kana: "まつもとじょう", en: "Matsumoto Castle — Matsumoto, Nagano", pref: "Nagano", x: 161.5, y: 203.4 },
     earned: (c) => c.kanji >= 20 && c.vocabulary >= 15,
     grid: ["....S..S....", "...RRRRRR...", "....WWWW....", "..RRRRRRRR..", "...WWWWWW...", ".RRRRRRRRRR.", "..WWWWWWWW..", "..WWWWWWWW..", ".LLLLLLLLLL.", "LLLLLLLLLLLL"],
     prefer: { S: ["stage"], R: ["vocabulary"], W: ["kanji"], L: ["login"] },
   },
 };
+export const RECIPES = { ...FIRST, ...LANDMARKS };
+
+// "a castle keep", "an old street" — for the announcement and the sheet.
+export const withArticle = (en) => (/^[aeiou]/i.test(en) ? "an " : "a ") + en;
 
 const isKana = (b) => b.source === "hiragana" || b.source === "katakana";
 export function tally(blocks) {
@@ -312,14 +340,140 @@ export function tally(blocks) {
   return c;
 }
 
-// The one structure to announce now, or null. Past tense only: this is never
-// asked "what is next?".
-// A structure is also never announced before the tower holds enough blocks to
-// build it WHOLE — a torii with gaps in its beam reads as something taken away.
+// ————— What earns a landmark (Lloyd, Oct 12–15 2026) —————
+// Two ways, both effort, both past tense:
+//
+//   A KEPT WEEK — three days of showing up in a Tokyo week (the login cap), OR
+//   a Goals path completed that week — earns one landmark, about one a week.
+//   The first four are small, then small or middle-sized. A missed week simply
+//   has none: nothing is taken away and nothing is owed.
+//
+//   A MILESTONE — every so many blocks of one kind, and every grammar stage
+//   finished — earns one of the LARGE landmarks, so the big ones mark long
+//   stretches of work.
+//
+// Which landmark a token gets is drawn from what is still unbuilt, seeded by
+// the token, so every device holding the same ledger draws the same one. The
+// draw happens when it is announced, and `built` records both the landmark and
+// the token that paid for it, so a token is spent once.
+//
+// (The village of small buildings planned Oct 12 is cut — Lloyd, Oct 15: the
+// landmark library is big enough to carry the weekly rhythm on its own.)
+export const MILESTONES = [
+  { key: "kana", every: 25, is: isKana },
+  { key: "kanji", every: 25, is: (b) => b.source === "kanji" && b.action !== "review" },
+  { key: "vocabulary", every: 20, is: (b) => b.source === "vocabulary" && b.action !== "review" },
+  { key: "review", every: 25, is: (b) => b.action === "review" },
+  { key: "checker", every: 13, is: (b) => b.source === "checker" },
+  { key: "login", every: 40, is: (b) => b.source === "login" },
+];
+const SMALL_FIRST = 4;     // the first kept weeks bring small landmarks only
+
+const when = (b) => (b.bf ? 0 : b.ts);
+function fnv(s) {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+
+// Goals paths completed, by Tokyo week, from the koban ledger's "path
+// completed" payouts (Engagement.jsx: id "quest:<startedOn>:<tasks>:chain").
+export function pathWeeksFrom(kobanRaw) {
+  const k = parse(kobanRaw);
+  const out = {};
+  for (const e of isObj(k) && Array.isArray(k.events) ? k.events : []) {
+    if (!isObj(e) || typeof e.id !== "string" || !Number.isFinite(e.ts) || !/^quest:.*:chain$/.test(e.id)) continue;
+    const wk = weekOf(tokyoDay(e.ts));
+    if (!(wk in out) || e.ts < out[wk]) out[wk] = e.ts;
+  }
+  return out;
+}
+export async function readPathWeeks() {
+  try { const r = await storage.get(KOBAN_KEY); return pathWeeksFrom(r ? r.value : null); } catch { return {}; }
+}
+
+// Every token the learner has earned, oldest first. Pure; exported for tests.
+export function earnedTokens(blocks, pathWeeks = {}) {
+  const ordered = towerOrder(blocks);
+  const out = [];
+  // The first three: the moment the running tally first met the recipe.
+  const c = { kana: 0, login: 0, kanji: 0, vocabulary: 0, grammar: 0 };
+  const firstAt = {};
+  // Milestones: every `every` blocks of a kind.
+  const counts = Object.fromEntries(MILESTONES.map((m) => [m.key, 0]));
+  const stages = new Map();
+  const logins = new Map();
+  for (const b of ordered) {
+    if (isKana(b)) c.kana++; else if (b.source in c) c[b.source]++;
+    for (const id of Object.keys(FIRST)) if (!(id in firstAt) && FIRST[id].earned(c)) firstAt[id] = when(b);
+    for (const m of MILESTONES) {
+      if (!m.is(b)) continue;
+      counts[m.key]++;
+      if (counts[m.key] % m.every === 0) out.push({ tok: `m:${m.key}:${counts[m.key]}`, ts: when(b), kind: "milestone" });
+    }
+    // A finished grammar stage: its keystones share "stage:<lesson>:".
+    if (b.source === "stage") {
+      const sk = b.id.replace(/:\d+$/, "");
+      if (!stages.has(sk)) stages.set(sk, when(b));
+    }
+    if (b.source === "login" && /^login:\d{4}-\d{2}-\d{2}$/.test(b.id)) {
+      const wk = weekOf(b.id.slice(6));
+      const l = logins.get(wk) || [];
+      l.push(when(b));
+      logins.set(wk, l);
+    }
+  }
+  for (const [id, ts] of Object.entries(firstAt)) out.push({ tok: id, ts, kind: "first" });
+  for (const [sk, ts] of stages) out.push({ tok: `m:${sk}`, ts, kind: "milestone" });
+  const weeks = new Map();
+  for (const [wk, l] of logins) if (l.length >= LOGINS_PER_WEEK) weeks.set(wk, l.sort((a, b) => a - b)[LOGINS_PER_WEEK - 1]);
+  for (const [wk, ts] of Object.entries(isObj(pathWeeks) ? pathWeeks : {})) {
+    if (!Number.isFinite(ts)) continue;
+    if (!weeks.has(wk) || ts < weeks.get(wk)) weeks.set(wk, ts);
+  }
+  for (const [wk, ts] of weeks) out.push({ tok: `w:${wk}`, ts, kind: "week" });
+  const rank = { first: 0, milestone: 1, week: 2 };
+  out.sort((a, b) => (a.ts - b.ts) || (rank[a.kind] - rank[b.kind]) || (a.tok < b.tok ? -1 : a.tok > b.tok ? 1 : 0));
+  let wi = 0;
+  for (const t of out) if (t.kind === "week") t.idx = wi++;
+  return out;
+}
+
+// Size tiers tried in order; the first with anything left is drawn from.
+const TIERS = { early: [["S"], ["M"], ["L"]], week: [["S", "M"], ["L"]], milestone: [["L"], ["M"], ["S"]] };
+// The landmark a token draws, from those neither built nor already drawn.
+export function drawFor(t, built = {}, held = new Set()) {
+  if (t.kind === "first") return t.tok;
+  const tiers = t.kind === "milestone" ? TIERS.milestone : t.idx < SMALL_FIRST ? TIERS.early : TIERS.week;
+  const ids = Object.keys(LANDMARKS).sort();
+  for (const sizes of tiers) {
+    const pool = ids.filter((id) => !built[id] && !held.has(id) && sizes.includes(LANDMARKS[id].size));
+    if (pool.length) return pool[fnv(t.tok) % pool.length];
+  }
+  return null;
+}
+
 export const slotCount = (id) => RECIPES[id].grid.join("").replace(/\./g, "").length;
-export function earnedUnbuilt(blocks, built = {}) {
-  const c = tally(blocks);
-  return Object.keys(RECIPES).find((id) => !built[id] && RECIPES[id].earned(c) && blocks.length >= slotCount(id)) || null;
+
+// The one building to announce now, with the token it spends — or null. Past
+// tense only: this is never asked "what is next?". A building is also never
+// announced before the tower holds enough blocks to build it WHOLE — a torii
+// with gaps in its beam reads as something taken away. A token whose draw is
+// too big for the tower yet keeps its draw and waits; later tokens draw around it.
+export function nextBuild(blocks, built = {}, pathWeeks = {}) {
+  const held = new Set();
+  for (const t of earnedTokens(blocks, pathWeeks)) {
+    if (built[t.tok]) continue;
+    const id = drawFor(t, built, held);
+    if (!id || (t.kind === "first" && built[id])) continue;
+    held.add(id);
+    if (blocks.length >= slotCount(id)) return { id, tok: t.tok };
+  }
+  return null;
+}
+export function earnedUnbuilt(blocks, built = {}, pathWeeks = {}) {
+  const n = nextBuild(blocks, built, pathWeeks);
+  return n ? n.id : null;
 }
 
 const matches = (b, pref) => pref === "kana" ? isKana(b) : pref === "review" ? b.action === "review" : b.source === pref;

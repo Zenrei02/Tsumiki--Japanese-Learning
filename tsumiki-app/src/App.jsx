@@ -7,6 +7,7 @@ import { WelcomeBackDialog, GoalsDialog, claimWelcomeBack } from "./lib/engageme
 import { reportStudy } from "./lib/activity.js";
 import { sectionFinished } from "./lib/finished.js";
 import { recordVisit, reconcileBlocks } from "./lib/blocks.js";
+import BlockNotice from "./lib/blockNotice.jsx";
 import { markWorked, readRecency, orderByRecency, readWallet,
          daysSinceLastWorked, DORMANT_DAYS } from "./lib/stats.js";
 import { T, ACCENT } from "./lib/tokens.js";
@@ -1210,6 +1211,9 @@ export default function App() {
           </>
         )}
       </main>
+      {/* "A block for your tower" — whenever this device lays one (Lloyd, Oct 15 2026).
+          Not over the first-visit welcome: a newcomer has no tower yet to look at. */}
+      {!showWelcome && <BlockNotice onOpen={() => go("journey")} onJourney={active === "journey"} />}
     </div>
   );
 }

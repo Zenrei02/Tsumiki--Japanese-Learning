@@ -21,12 +21,19 @@
 // package world-atlas@2.0.2 (countries-50m.json, Japan id 392), cropped to
 // 128.6–146.0°E / 30.0–45.6°N, equirectangular scaled by cos 37.5°, simplified
 // (Ramer–Douglas–Peucker, 0.45px). Inlined; nothing is fetched at runtime.
-// Okinawa and the outlying islands are not drawn at this scale — an inset box
-// is the answer if a site is ever placed there.
+// Okinawa and the outlying islands are not drawn at this scale; they sit in an
+// inset box in the open sea at the top left (OKINAWA_D, from countries-10m.json
+// of the same package, 123.6–128.4°E / 24.0–27.0°N at cos 25.5°, simplified at
+// 0.3px). lib/landmarks.js projects sites into it.
+//
+// THE MAP ZOOMS (Lloyd, Oct 13 2026): with up to 182 landmarks it pans and
+// zooms, points close together on screen are drawn as one grouped point that
+// zooms in when tapped, and labels appear only where they fit.
 
 import { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
 import { T, ACCENT } from "./tokens.js";
-import { readBlocks, reconcileBlocks, markBuilt, earnedUnbuilt, assignForBuilding, RECIPES } from "./blocks.js";
+import { readBlocks, reconcileBlocks, readPathWeeks, markBuilt, nextBuild, LAID_EVENT, assignForBuilding, RECIPES, withArticle } from "./blocks.js";
+import { INSET, REGIONS, regionOf } from "./landmarks.js";
 
 const SOURCES = {
   hiragana:   { glyph: "あ", name: "Hiragana",   accent: ACCENT.hiragana },
@@ -43,7 +50,9 @@ const SOURCES = {
 const REVIEW_GLYPH = "復";
 
 const JAPAN_D = "M82.2 204.2L81.5 205.0L80.0 204.7L79.1 203.6L79.4 202.3L81.0 201.2L82.4 203.3L82.2 204.2ZM168.0 169.0L166.0 168.9L166.9 168.3L167.6 165.8L166.3 165.3L167.4 161.7L170.7 158.3L169.9 163.5L172.0 163.7L170.6 167.2L168.0 169.0ZM109.2 245.8L107.3 247.7L105.7 247.6L104.9 246.7L104.6 245.7L107.5 241.8L110.4 240.3L108.7 243.4L109.2 245.8ZM34.9 333.3L32.9 333.8L31.8 333.3L30.8 330.6L32.7 328.9L35.7 331.1L34.9 333.3ZM40.7 330.4L39.2 330.6L39.1 329.4L42.1 321.2L42.8 321.8L42.4 325.1L40.7 330.4ZM25.6 290.6L24.2 291.3L23.4 290.3L24.4 289.2L23.7 288.0L24.3 284.2L27.0 283.8L27.6 288.2L25.6 290.6ZM11.7 249.4L10.6 250.3L10.1 249.0L10.6 245.1L12.7 245.9L11.7 249.4ZM13.6 244.4L13.2 245.4L11.5 244.1L12.5 238.9L14.7 237.2L15.1 240.4L13.4 243.0L13.6 244.4ZM1.2 278.5L1.8 279.1L4.1 279.0L5.1 281.4L3.8 281.5L2.6 282.8L1.0 281.9L1.2 278.5ZM218.9 10.4L217.7 10.6L216.3 9.7L216.1 8.6L217.2 7.7L219.1 9.2L218.9 10.4ZM8.2 277.3L7.8 277.5L6.9 274.9L8.8 271.0L9.0 272.3L10.0 274.0L8.2 277.3ZM262.5 32.2L267.2 32.6L273.8 35.9L277.9 36.3L280.5 35.2L289.2 27.6L288.8 29.8L284.9 37.6L284.5 39.9L285.2 42.1L288.7 49.9L291.1 50.4L294.4 48.1L297.1 48.1L293.5 50.2L291.5 52.7L288.7 52.7L281.4 56.5L276.4 57.6L268.9 57.1L265.0 59.1L258.3 65.2L255.7 69.1L254.6 71.2L253.7 76.4L252.4 78.2L239.8 72.6L228.5 65.6L220.8 66.4L213.6 70.8L208.8 66.2L204.8 66.1L202.6 68.8L202.2 71.9L205.7 75.4L209.2 75.7L216.4 82.5L215.2 83.4L212.2 83.8L207.9 82.2L205.0 85.4L203.2 88.7L201.2 90.1L198.0 90.5L196.5 87.4L198.4 80.1L197.5 76.8L193.7 72.2L193.6 68.5L194.7 64.1L198.5 62.3L204.0 57.5L204.9 55.4L203.4 52.9L203.3 49.9L204.9 49.2L210.0 51.8L216.2 52.6L218.9 52.2L220.3 50.4L220.9 48.2L220.6 42.6L224.9 34.4L225.2 29.0L226.9 24.3L227.3 19.2L226.2 14.3L223.9 9.7L225.3 4.3L228.1 3.5L229.9 2.0L238.2 10.3L246.3 20.2L253.2 26.1L262.5 32.2ZM44.4 260.7L47.7 261.4L51.4 259.6L53.4 260.7L53.6 262.9L50.6 267.9L56.8 268.3L56.0 271.3L57.8 272.8L57.1 274.4L58.8 275.6L52.7 285.4L49.3 298.1L49.3 302.7L47.2 308.5L42.6 307.8L42.0 309.1L43.1 311.7L39.7 314.9L36.0 317.0L37.8 311.4L36.3 304.8L37.6 304.2L37.9 302.7L37.5 301.9L35.4 301.7L33.7 305.1L33.4 308.5L35.2 311.5L34.3 313.4L27.6 310.9L26.7 308.4L29.2 307.5L29.7 304.2L27.4 300.6L27.5 296.6L27.5 293.6L29.6 292.5L31.0 290.8L35.2 282.1L32.8 281.3L33.9 279.6L33.6 277.5L30.7 271.8L28.2 270.0L26.3 271.6L27.1 273.6L27.2 277.1L29.8 277.0L30.0 280.3L28.3 280.8L26.7 279.3L25.1 278.8L20.1 283.1L21.1 279.8L18.8 276.5L18.6 272.5L20.3 274.2L21.2 276.2L24.0 277.1L22.4 273.3L16.9 268.7L17.4 266.3L18.3 265.9L21.5 266.8L21.1 264.3L25.4 262.5L27.0 260.8L30.5 260.0L32.5 255.7L36.5 253.7L40.6 254.9L42.4 259.2L44.4 260.7ZM99.3 246.5L101.6 247.4L104.1 247.2L104.1 251.1L105.1 253.7L104.8 255.4L105.9 256.0L99.6 260.6L97.3 264.3L96.2 268.5L92.4 264.1L90.6 263.1L86.8 262.7L80.8 266.0L78.4 272.0L76.1 274.2L75.5 277.3L73.6 279.2L72.5 279.2L69.7 279.0L70.9 275.9L67.1 275.6L67.1 273.7L66.0 272.5L67.5 268.3L67.4 267.4L65.6 266.6L65.7 264.5L59.2 266.4L69.7 258.8L72.2 252.3L74.8 250.0L75.7 250.2L78.2 253.7L79.2 253.6L81.9 252.6L84.0 252.7L85.9 251.7L86.9 249.2L86.3 246.8L88.1 246.9L92.2 244.5L94.4 244.3L99.3 246.5ZM217.7 91.9L218.4 92.3L221.6 91.2L220.7 97.9L221.2 106.0L221.8 108.4L224.9 111.4L227.5 115.4L230.9 126.2L230.6 134.1L229.3 141.0L225.2 144.0L223.2 148.6L221.9 156.4L215.7 157.8L213.1 161.9L212.6 166.3L214.4 176.7L213.8 184.4L213.2 186.9L210.2 190.2L209.2 192.7L207.4 197.7L206.4 203.6L207.3 207.3L211.6 214.6L207.6 216.0L204.4 219.3L203.8 224.5L202.7 226.4L197.5 229.5L195.2 232.5L193.1 231.3L193.8 230.1L193.6 223.9L194.9 222.9L198.2 217.6L196.4 215.8L193.7 216.1L192.5 219.6L190.5 221.5L190.8 223.4L192.1 224.9L191.0 227.1L190.3 227.3L187.5 223.9L183.6 224.3L181.6 227.0L180.8 233.9L177.6 238.4L176.5 238.6L175.2 236.9L175.9 230.9L177.6 229.8L176.2 228.3L174.5 227.7L172.0 228.5L166.4 236.2L165.3 239.1L161.7 238.2L154.2 237.7L145.9 239.4L146.2 238.6L149.8 236.8L149.6 235.3L145.4 235.5L144.2 233.9L143.9 236.4L143.3 236.7L142.6 236.2L142.3 230.8L143.0 229.6L141.4 229.3L139.5 230.7L136.8 237.3L138.2 239.3L142.7 242.7L142.3 245.0L133.3 248.2L126.2 261.6L122.3 263.3L118.2 261.8L113.4 254.3L112.6 251.9L112.1 245.8L115.7 243.0L117.5 240.2L117.5 238.7L116.5 237.9L111.1 238.4L105.9 235.5L103.2 235.3L96.7 236.9L92.6 240.6L83.5 242.7L78.3 245.5L76.2 244.9L72.0 246.5L69.9 246.7L65.9 244.4L64.0 245.0L62.7 247.1L61.1 255.6L54.2 251.0L49.6 251.7L45.4 253.2L42.6 251.6L40.0 252.6L39.5 246.4L40.6 244.5L41.4 243.6L47.5 243.1L51.9 238.7L56.2 236.3L63.1 229.9L69.3 223.7L70.7 221.3L74.5 219.3L80.5 218.3L82.3 220.4L86.5 219.3L92.8 219.3L96.8 218.6L101.0 216.7L108.3 215.9L113.4 214.1L114.9 214.7L114.4 217.5L116.0 218.9L122.1 219.4L124.1 218.4L129.2 213.7L128.0 211.4L127.7 208.9L128.8 206.1L130.3 203.8L133.8 200.8L139.6 192.5L140.5 188.0L140.0 182.6L142.1 178.6L150.4 175.5L150.6 177.4L147.5 180.7L143.5 183.2L143.1 184.3L144.7 186.3L145.1 190.4L147.0 191.8L149.1 192.3L150.7 191.9L153.7 188.0L167.6 182.1L173.0 176.6L177.3 168.6L183.6 165.0L186.2 162.1L188.3 154.3L193.1 146.0L195.1 138.5L197.2 134.5L197.7 129.9L196.5 124.8L195.6 124.2L193.3 124.3L192.1 123.4L192.3 122.6L193.6 122.5L194.9 121.2L196.7 116.0L195.2 110.1L196.0 107.1L197.0 105.8L200.0 104.9L201.4 103.3L202.4 99.9L202.0 96.5L203.2 95.0L207.4 95.7L208.3 102.3L209.5 103.7L210.3 103.6L211.6 101.5L212.7 101.3L215.9 102.5L217.7 100.2L218.3 97.7L218.0 95.5L217.2 94.7L210.3 97.0L210.4 94.5L211.4 90.7L212.7 89.0L215.6 90.1L217.7 91.9Z";
+const OKINAWA_D = "M5.4 72.2L8.3 72.9L8.4 73.6L6.8 75.9L2.1 75.2L1.7 74.9L2.3 74.2L3.6 74.2L4.3 71.5L5.4 72.2ZM18.2 67.0L16.9 69.6L16.1 73.0L15.3 73.8L13.5 73.6L13.1 73.1L13.5 72.4L13.1 71.6L11.9 71.2L12.6 70.7L13.2 70.1L13.9 70.9L15.1 70.8L17.9 66.8L18.2 67.0ZM44.7 61.4L46.1 62.1L46.1 62.7L41.4 62.8L41.9 59.4L41.5 58.6L42.2 58.8L43.2 60.6L44.0 61.4L44.7 61.4ZM80.2 17.9L79.9 19.2L79.0 18.4L77.6 17.8L77.4 17.5L78.1 17.0L79.2 17.0L80.2 17.9ZM118.4 5.6L117.7 8.3L116.1 10.2L114.0 10.5L113.3 11.6L113.6 11.8L113.4 12.4L111.4 12.5L108.7 15.2L106.3 15.5L106.1 16.2L106.6 16.4L107.0 17.9L108.0 19.1L105.7 18.9L104.2 22.2L105.6 22.5L104.9 23.8L103.9 24.2L103.1 25.2L101.3 25.4L100.9 21.8L101.5 21.8L102.5 20.0L103.3 19.7L103.3 15.5L105.2 15.3L105.8 14.1L108.4 13.0L109.0 12.1L108.9 11.2L107.3 10.8L107.0 8.4L109.7 8.5L110.0 8.9L109.8 10.0L111.5 9.8L112.8 9.0L112.5 8.5L115.9 5.2L116.4 3.2L118.4 5.6ZM105.3 7.3L105.3 8.1L104.6 8.3L103.9 7.5L105.3 7.3ZM90.6 11.1L91.1 11.4L90.7 11.7L90.2 11.6L90.6 11.1ZM40.1 59.7L40.5 60.5L40.1 60.8L38.7 60.8L38.6 60.1L39.1 59.4L40.1 59.7ZM94.3 21.8L93.6 23.3L93.6 22.0L94.3 21.8Z";
 const MAP_W = 300, MAP_H = 339;
+const MAX_ZOOM = 24;
 
 const LABEL = { font: `700 0.6875rem ${T.uiFont}`, letterSpacing: ".08em", color: T.muted };
 const fmtDate = (ts) => new Date(ts).toLocaleDateString("en-US", {
@@ -97,14 +106,23 @@ const JOURNEY_CSS = `
 .tj-fade{animation:tj-fade .3s ease both}
 @keyframes tj-fade{from{opacity:0}to{opacity:1}}
 .tj-fly{position:fixed;left:0;top:0;transform-origin:0 0;z-index:32;will-change:transform}
-.tj-land{fill:#EFE6CF;stroke:#A88B63;stroke-width:1;stroke-linejoin:round}
+.tj-land{fill:#EFE6CF;stroke:#A88B63;stroke-width:1;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.tj-inset{fill:none;stroke:#C9B48E;stroke-dasharray:3 2;vector-effect:non-scaling-stroke}
+.tj-inset-label{font-family:var(--ts-ui);font-weight:700;fill:#8C7A5A;letter-spacing:.06em}
+.tj-zoom{position:absolute;right:6px;bottom:6px;display:flex;flex-direction:column-reverse;gap:6px;align-items:flex-end}
+.tj-zbtn{min-width:44px;height:44px;border:0;border-radius:12px;cursor:pointer;font:700 1.25rem var(--ts-ui);color:#2C2A26;background:#FBF7EE;box-shadow:inset 0 0 0 1.5px #D9CFB8,0 2px 0 #CFC4A8}
+.tj-zbtn:disabled{opacity:.45;cursor:default}
+.tj-zbtn.tj-zall{font-size:.8125rem;padding:0 12px}
+.tj-zbtn:focus-visible,.tj-place:focus-visible{outline:3px solid var(--ts-ring);outline-offset:2px}
+.tj-place{display:block;width:100%;text-align:left;min-height:44px;padding:6px 8px;border:0;border-radius:10px;background:transparent;cursor:pointer}
+.tj-place:hover{background:rgba(201,162,74,.12)}
 .tj-pt{cursor:pointer}.tj-pt:focus{outline:none}.tj-pt:focus-visible .tj-halo{stroke:var(--ts-ring);stroke-width:3;opacity:1}
 .tj-pt .tj-dot{fill:#C9A24A;stroke:#7A5A3C;stroke-width:1.5}
 .tj-pt .tj-halo{fill:none;stroke:#C9A24A;stroke-width:2;opacity:.55}
 .tj-pt.tj-first .tj-halo{transform-box:fill-box;transform-origin:center;animation:tj-glow 1.8s ease-in-out 3 both}
 .tj-pt.tj-first .tj-dot{filter:drop-shadow(0 0 6px rgba(201,162,74,.9))}
 @keyframes tj-glow{0%,100%{transform:scale(1);opacity:.55}50%{transform:scale(1.9);opacity:.95}}
-.tj-pt text{font-family:var(--ts-jp);font-weight:700;font-size:13px;fill:#2C2A26;paint-order:stroke;stroke:#FBF7EE;stroke-width:3px}
+.tj-pt text{font-family:var(--ts-jp);font-weight:700;font-size:13px;fill:#2C2A26;paint-order:stroke;stroke:#FBF7EE;stroke-width:3px;pointer-events:none}
 .tj-pt text.tj-rd{font-weight:500;font-size:10.5px;fill:#4A463D}
 .tj-assemble{animation:tj-assemble .5s cubic-bezier(.3,.7,.4,1) both}
 @keyframes tj-assemble{0%{opacity:0;transform:translateY(-34px) scale(1.06)}60%{opacity:1;transform:translateY(3px)}100%{opacity:1;transform:none}}
@@ -149,6 +167,8 @@ function Block({ b, w, h, style, className = "", ...rest }) {
     </Tag>
   );
 }
+
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export function howEarned(b) {
   const name = SOURCES[b.source]?.name || "";
@@ -221,37 +241,271 @@ function Tower({ blocks, filter, onOpen }) {
   );
 }
 
-function MapSvg({ built, inset, firstGlow, onPoint }) {
+// The land, the Okinawa inset and nothing else — shared by the thumbnail and the full map.
+function Land() {
+  return (<>
+    <rect width={MAP_W} height={MAP_H} rx="10" fill="#F4EEDF" />
+    <path className="tj-land" d={JAPAN_D} />
+    <g transform={`translate(${INSET.x} ${INSET.y})`}>
+      <rect className="tj-inset" x="-4" y="-4" width={INSET.w + 8} height={INSET.h + 8} rx="4" />
+      <path className="tj-land" d={OKINAWA_D} />
+    </g>
+  </>);
+}
+
+// The tower's corner thumbnail: lit points only, nothing to tap.
+function MapThumb({ built }) {
   return (
     <svg viewBox={`0 0 ${MAP_W} ${MAP_H}`} style={{ display: "block", width: "100%", height: "auto" }}
          role="img" aria-label={built.length ? "Map of Japan showing the places you've built" : "Map of Japan"}>
-      <rect width={MAP_W} height={MAP_H} rx="10" fill="#F4EEDF" />
-      <path className="tj-land" d={JAPAN_D} />
+      <Land />
       {built.map((id) => {
-        const r = RECIPES[id];
-        if (!r) return null;
-        const p = r.place;
-        if (inset) return <circle key={id} cx={p.x} cy={p.y} r="9" fill="#C9A24A" stroke="#7A5A3C" strokeWidth="3" />;
-        const below = p.label === "below";
-        return (
-          <g key={id} className={"tj-pt" + (firstGlow.includes(id) ? " tj-first" : "")} role="button" tabIndex={0}
-             aria-label={`${r.en} at ${p.en}`}
-             onClick={() => onPoint(id)}
-             onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onPoint(id); } }}>
-            <circle cx={p.x} cy={p.y} r="22" fill="transparent" />
-            <circle className="tj-halo" cx={p.x} cy={p.y} r="11" />
-            <circle className="tj-dot" cx={p.x} cy={p.y} r="6" />
-            {below ? (<>
-              <text x={p.x} y={p.y + 26} textAnchor="middle">{p.jp}</text>
-              <text className="tj-rd" x={p.x} y={p.y + 41} textAnchor="middle">{p.kana}</text>
-            </>) : (<>
-              <text x={p.x + 12} y={p.y - 22}>{p.jp}</text>
-              <text className="tj-rd" x={p.x + 12} y={p.y - 8}>{p.kana}</text>
-            </>)}
-          </g>
-        );
+        const p = RECIPES[id]?.place;
+        return p ? <circle key={id} cx={p.x} cy={p.y} r="7" fill="#C9A24A" stroke="#7A5A3C" strokeWidth="2.5" /> : null;
       })}
     </svg>
+  );
+}
+
+// Points that would overlap on screen are drawn as one grouped point. Greedy,
+// in build order, so the grouping is stable while the learner looks.
+// Points closer than GROUP_PX on screen become one. Each tap target is half
+// that across, so two targets can never overlap and swallow each other's taps.
+const GROUP_PX = 30, HIT_PX = GROUP_PX / 2;
+function groupPoints(ids, unitsPerPx, radiusPx = GROUP_PX) {
+  const r = radiusPx * unitsPerPx, groups = [];
+  for (const id of ids) {
+    const p = RECIPES[id].place;
+    const g = groups.find((q) => Math.hypot(q.x - p.x, q.y - p.y) < r);
+    if (g) { g.ids.push(id); g.x = (g.x * (g.ids.length - 1) + p.x) / g.ids.length; g.y = (g.y * (g.ids.length - 1) + p.y) / g.ids.length; }
+    else groups.push({ ids: [id], x: p.x, y: p.y });
+  }
+  return groups;
+}
+
+// Labels go where they fit — never over another label or point.
+function placeLabels(groups, u, show, view) {
+  if (!show) return {};
+  const out = {}, taken = [];
+  const hit = (a) => taken.some((b) => a.x0 < b.x1 && a.x1 > b.x0 && a.y0 < b.y1 && a.y1 > b.y0);
+  for (const g of groups) taken.push({ x0: g.x - 8 * u, x1: g.x + 8 * u, y0: g.y - 8 * u, y1: g.y + 8 * u });
+  for (const g of groups) {
+    if (g.ids.length !== 1) continue;
+    const p = RECIPES[g.ids[0]].place;
+    const w = Math.max(p.jp.length * 13, p.kana.length * 10.5) * u, h = 30 * u;
+    const tries = [
+      { side: "right", x0: g.x + 11 * u, y0: g.y - 25 * u },
+      { side: "below", x0: g.x - w / 2, y0: g.y + 13 * u },
+      { side: "left", x0: g.x - 11 * u - w, y0: g.y - 25 * u },
+      { side: "above", x0: g.x - w / 2, y0: g.y - 14 * u - h },
+    ];
+    for (const t of tries) {
+      const box = { x0: t.x0, x1: t.x0 + w, y0: t.y0, y1: t.y0 + h };
+      const vh = view.w * MAP_H / MAP_W;
+      if (box.x0 < view.x || box.x1 > view.x + view.w || box.y0 < view.y || box.y1 > view.y + vh || hit(box)) continue;
+      taken.push(box); out[g.ids[0]] = box; break;
+    }
+  }
+  return out;
+}
+
+const fitView = (v) => {
+  const w = Math.min(MAP_W, Math.max(MAP_W / MAX_ZOOM, v.w)), h = w * MAP_H / MAP_W;
+  return { w, x: Math.min(MAP_W - w, Math.max(0, v.x)), y: Math.min(MAP_H - h, Math.max(0, v.y)) };
+};
+
+function JourneyMap({ built, firstGlow, focus, onPoint, onGroup }) {
+  const wrapRef = useRef(null);
+  const svgRef = useRef(null);
+  const sw = useWidth(wrapRef) || 340;
+  // After a build, open zoomed in on the new place, so it is never lost inside
+  // a grouped point in a crowded region.
+  const [view, setView] = useState(() => {
+    const p = focus && RECIPES[focus]?.place;
+    if (!p || built.length <= 8) return { x: 0, y: 0, w: MAP_W };
+    const w = MAP_W / 4;
+    return fitView({ w, x: p.x - w / 2, y: p.y - (w * MAP_H / MAP_W) / 2 });
+  });
+  const viewRef = useRef(view); viewRef.current = view;
+  const ptrs = useRef(new Map());
+  const gesture = useRef(null);
+  const moved = useRef(false);
+
+  const u = view.w / sw;                       // map units per screen pixel
+  const zoom = MAP_W / view.w;
+  const groups = groupPoints(built, u);
+  const labels = placeLabels(groups, u, zoom >= 2.5 || built.length <= 8, view);
+
+  const zoomAt = useCallback((factor, cx, cy) => {
+    const v = viewRef.current;
+    const w = Math.min(MAP_W, Math.max(MAP_W / MAX_ZOOM, v.w / factor));
+    const k = w / v.w;
+    setView(fitView({ w, x: cx - (cx - v.x) * k, y: cy - (cy - v.y) * k }));
+  }, []);
+  const toMap = (clientX, clientY) => {
+    const r = svgRef.current.getBoundingClientRect(), v = viewRef.current;
+    return { x: v.x + ((clientX - r.left) / r.width) * v.w, y: v.y + ((clientY - r.top) / r.height) * (v.w * MAP_H / MAP_W) };
+  };
+
+  // Wheel / trackpad pinch. Not passive, so the page does not scroll instead.
+  useEffect(() => {
+    const el = svgRef.current;
+    if (!el) return undefined;
+    const onWheel = (e) => {
+      e.preventDefault();
+      const m = toMap(e.clientX, e.clientY);
+      zoomAt(Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0025)), m.x, m.y);
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [zoomAt]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const onDown = (e) => {
+    ptrs.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    moved.current = false;
+    const pts = [...ptrs.current.values()];
+    if (pts.length === 1) gesture.current = { kind: "pan", sx: e.clientX, sy: e.clientY, v: viewRef.current };
+    else if (pts.length === 2) {
+      const [a, b] = pts;
+      gesture.current = { kind: "pinch", d: Math.hypot(a.x - b.x, a.y - b.y), v: viewRef.current, mid: toMap((a.x + b.x) / 2, (a.y + b.y) / 2) };
+    }
+  };
+  const onMove = (e) => {
+    if (!ptrs.current.has(e.pointerId)) return;
+    ptrs.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    const g = gesture.current;
+    if (!g) return;
+    if (g.kind === "pan") {
+      const dx = e.clientX - g.sx, dy = e.clientY - g.sy;
+      if (!moved.current && Math.hypot(dx, dy) < 6) return;
+      if (!moved.current) { moved.current = true; try { svgRef.current.setPointerCapture(e.pointerId); } catch {} }
+      const k = g.v.w / sw;
+      setView(fitView({ w: g.v.w, x: g.v.x - dx * k, y: g.v.y - dy * k }));
+    } else {
+      const [a, b] = [...ptrs.current.values()];
+      const d = Math.hypot(a.x - b.x, a.y - b.y);
+      if (!d || !g.d) return;
+      moved.current = true;
+      const w = Math.min(MAP_W, Math.max(MAP_W / MAX_ZOOM, g.v.w * g.d / d)), k = w / g.v.w;
+      setView(fitView({ w, x: g.mid.x - (g.mid.x - g.v.x) * k, y: g.mid.y - (g.mid.y - g.v.y) * k }));
+    }
+  };
+  const onUp = (e) => {
+    ptrs.current.delete(e.pointerId);
+    if (ptrs.current.size === 1) {
+      const [p] = [...ptrs.current.values()];
+      gesture.current = { kind: "pan", sx: p.x, sy: p.y, v: viewRef.current };
+    } else if (!ptrs.current.size) gesture.current = null;
+  };
+
+  // A grouped point zooms in on its places; at full zoom it lists them instead.
+  const openGroup = (g) => {
+    if (zoom >= MAX_ZOOM * 0.95) { onGroup(g.ids); return; }
+    const xs = g.ids.map((id) => RECIPES[id].place.x), ys = g.ids.map((id) => RECIPES[id].place.y);
+    const span = Math.max(Math.max(...xs) - Math.min(...xs), (Math.max(...ys) - Math.min(...ys)) * MAP_W / MAP_H);
+    const w = Math.max(MAP_W / MAX_ZOOM, Math.min(view.w / 2.5, span * 3 + 60 * u));
+    const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2;
+    setView(fitView({ w, x: cx - w / 2, y: cy - (w * MAP_H / MAP_W) / 2 }));
+  };
+  const act = (fn) => (e) => { if (moved.current) return; e.stopPropagation(); fn(); };
+  const key = (fn) => (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fn(); } };
+
+  const vh = view.w * MAP_H / MAP_W;
+  const center = () => ({ x: view.x + view.w / 2, y: view.y + vh / 2 });
+  return (
+    <div ref={wrapRef} style={{ position: "relative" }}>
+      <svg ref={svgRef} viewBox={`${view.x} ${view.y} ${view.w} ${vh}`}
+           style={{ display: "block", width: "100%", height: "auto", touchAction: "none", cursor: "grab", userSelect: "none" }}
+           onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp}
+           role="group" aria-label={built.length ? "Map of Japan showing the places you've built" : "Map of Japan"}>
+        <Land />
+        <text className="tj-inset-label" x={INSET.x + INSET.w} y={INSET.y + INSET.h + 1} textAnchor="end" style={{ fontSize: 10 * Math.min(1, u * 1.1) }}>Okinawa</text>
+        {groups.map((g) => {
+          if (g.ids.length > 1) {
+            const name = g.ids.map((id) => RECIPES[id].place.en.split(" — ")[0]).join(", ");
+            return (
+              <g key={"g:" + g.ids[0]} className="tj-pt tj-grp" role="button" tabIndex={0}
+                 aria-label={`Places you've built close together: ${name}. Zoom in.`}
+                 onClick={act(() => openGroup(g))} onKeyDown={key(() => openGroup(g))}>
+                <circle cx={g.x} cy={g.y} r={HIT_PX * u} fill="transparent" />
+                <circle className="tj-halo" cx={g.x} cy={g.y} r={13 * u} style={{ strokeWidth: 2 * u }} />
+                <circle className="tj-dot" cx={g.x + 2.5 * u} cy={g.y - 2.5 * u} r={6 * u} style={{ strokeWidth: 1.5 * u }} />
+                <circle className="tj-dot" cx={g.x - 2.5 * u} cy={g.y + 2.5 * u} r={6 * u} style={{ strokeWidth: 1.5 * u }} />
+              </g>
+            );
+          }
+          const id = g.ids[0], r = RECIPES[id], p = r.place, lb = labels[id];
+          return (
+            <g key={id} className={"tj-pt" + (firstGlow.includes(id) ? " tj-first" : "")} role="button" tabIndex={0}
+               aria-label={`${r.en} at ${p.en}`}
+               onClick={act(() => onPoint(id))} onKeyDown={key(() => onPoint(id))}>
+              <circle cx={p.x} cy={p.y} r={HIT_PX * u} fill="transparent" />
+              <circle className="tj-halo" cx={p.x} cy={p.y} r={11 * u} style={{ strokeWidth: 2 * u }} />
+              <circle className="tj-dot" cx={p.x} cy={p.y} r={6 * u} style={{ strokeWidth: 1.5 * u }} />
+              {lb && (<>
+                <text x={lb.x0} y={lb.y0 + 13 * u} style={{ fontSize: 13 * u, strokeWidth: 3 * u }}>{p.jp}</text>
+                <text className="tj-rd" x={lb.x0} y={lb.y0 + 27 * u} style={{ fontSize: 10.5 * u, strokeWidth: 3 * u }}>{p.kana}</text>
+              </>)}
+            </g>
+          );
+        })}
+      </svg>
+      <div className="tj-zoom">
+        <button className="tj-zbtn" aria-label="Zoom in" disabled={zoom >= MAX_ZOOM * 0.99}
+                onClick={() => { const c = center(); zoomAt(2, c.x, c.y); }}>+</button>
+        <button className="tj-zbtn" aria-label="Zoom out" disabled={zoom <= 1.01}
+                onClick={() => { const c = center(); zoomAt(0.5, c.x, c.y); }}>−</button>
+        {zoom > 1.01 && <button className="tj-zbtn tj-zall" onClick={() => setView({ x: 0, y: 0, w: MAP_W })}>Whole map</button>}
+      </div>
+    </div>
+  );
+}
+
+// Every place built so far, north to south — the map's places as a list, for
+// the crowded parts and for anyone who would rather not pinch. Built places
+// only: never a list of what is left.
+function PlaceList({ built, onPoint }) {
+  const byRegion = REGIONS.map((reg, i) => ({ reg, ids: built.filter((id) => regionOf(RECIPES[id].place.pref) === i) }))
+    .filter((x) => x.ids.length);
+  const northToSouth = (id) => { const p = RECIPES[id].place; return p.inset ? 1000 + p.y : p.y; };
+  for (const x of byRegion) x.ids.sort((a, b) => northToSouth(a) - northToSouth(b));
+  return (
+    <div className="ts-card" style={{ padding: "12px 14px", display: "flex", flexDirection: "column", gap: 10 }}>
+      <span style={LABEL}>PLACES YOU'VE BUILT</span>
+      {byRegion.map(({ reg, ids }) => (
+        <div key={reg.en} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <span style={{ font: `700 0.75rem ${T.uiFont}`, color: T.sub }}>{reg.en}</span>
+          {ids.map((id) => {
+            const p = RECIPES[id].place;
+            return (
+              <button key={id} className="tj-place" onClick={() => onPoint(id)}>
+                <span lang="ja" style={{ display: "block", font: `0.8125rem ${T.jpFont}`, color: T.sub }}>{p.kana}</span>
+                <span lang="ja" style={{ font: `700 1rem ${T.jpFont}`, color: T.ink }}>{p.jp}</span>
+                <span style={{ display: "block", font: `0.8125rem ${T.uiFont}`, color: T.sub }}>{p.en}</span>
+              </button>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function GroupSheet({ ids, onPick, onClose }) {
+  return (
+    <Sheet onClose={onClose}>
+      <span style={LABEL}>BUILT HERE</span>
+      {ids.map((id) => {
+        const p = RECIPES[id].place;
+        return (
+          <button key={id} className="tj-place" onClick={() => onPick(id)}>
+            <span lang="ja" style={{ display: "block", font: `0.8125rem ${T.jpFont}`, color: T.sub }}>{p.kana}</span>
+            <span lang="ja" style={{ font: `700 1rem ${T.jpFont}`, color: T.ink }}>{p.jp}</span>
+            <span style={{ display: "block", font: `0.8125rem ${T.uiFont}`, color: T.sub }}>{p.en}</span>
+          </button>
+        );
+      })}
+    </Sheet>
   );
 }
 
@@ -289,7 +543,7 @@ function Names({ r }) {
         {reading(r.kana, "0.9375rem")}
         <div style={{ display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" }}>
           <span lang="ja" style={{ font: `700 1.5rem/1.2 ${T.jpFont}` }}>{r.jp}</span>
-          <span style={{ font: `700 0.9375rem ${T.uiFont}` }}>A {r.en}</span>
+          <span style={{ font: `700 0.9375rem ${T.uiFont}` }}>{cap(withArticle(r.en))}</span>
         </div>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -370,7 +624,7 @@ function BuildingSheet({ id, blocks, onClose }) {
 // OWN BLOCKS NEVER MOVE: the tower is the all-time pile and buildings are made
 // FROM it — a block appears in both, because it is data. Reduced motion skips
 // straight to the finished building with a short crossfade.
-function BuildOverlay({ id, blocks, onDone }) {
+function BuildOverlay({ id, tok, blocks, onDone }) {
   const wrapRef = useRef(null);
   const goRef = useRef(null);
   const [on, setOn] = useState(false);
@@ -378,7 +632,7 @@ function BuildOverlay({ id, blocks, onDone }) {
   const reduced = useRef(reducedMotion()).current;
 
   useEffect(() => {
-    markBuilt(id);
+    markBuilt(id, Date.now(), tok);
     if (reduced) { setOn(true); setDone(true); return undefined; }
     const flyers = [];
     const raf = requestAnimationFrame(() => {
@@ -424,7 +678,7 @@ function BuildOverlay({ id, blocks, onDone }) {
 
   return (
     <div className={"tj-build" + (on ? " tj-on" : "") + (reduced ? " tj-fade" : "")} role="dialog" aria-modal="true"
-         aria-label={`Building a ${RECIPES[id].en}`}>
+         aria-label={`Building ${withArticle(RECIPES[id].en)}`}>
       <div style={{ flex: 1, display: "flex", alignItems: "flex-end", justifyContent: "center", padding: "0 16px 22px" }}>
         <div style={{ visibility: done ? "visible" : "hidden" }}>
           <Building id={id} blocks={blocks} innerRef={wrapRef}
@@ -453,21 +707,32 @@ export default function Journey() {
   const [openBuilding, setOpenBuilding] = useState(null);
   const [building, setBuilding] = useState(null);
   const [firstGlow, setFirstGlow] = useState([]);
+  const [group, setGroup] = useState(null);
+  const [focus, setFocus] = useState(null);       // a just-built place the map opens on
+  const [paths, setPaths] = useState({});
 
   const load = useCallback(async () => {
     try { await reconcileBlocks(); } catch (e) { console.error("blocks reconcile failed", e); }
-    setLed(await readBlocks());
+    const [l, p] = await Promise.all([readBlocks(), readPathWeeks()]);
+    setPaths(p); setLed(l);
   }, []);
   useEffect(() => { load(); }, [load]);
+  // A block laid while the tower is open joins it straight away.
+  useEffect(() => {
+    const on = () => { readBlocks().then(setLed).catch(() => {}); };
+    window.addEventListener(LAID_EVENT, on);
+    return () => window.removeEventListener(LAID_EVENT, on);
+  }, []);
 
   if (!led) return <p style={{ padding: "40px 18px", color: T.sub, font: `0.875rem ${T.uiFont}` }}>Loading…</p>;
 
   const blocks = led.blocks;
   const built = Object.keys(led.built || {}).filter((id) => RECIPES[id])
     .sort((a, b) => led.built[a] - led.built[b]);
-  const pending = earnedUnbuilt(blocks, led.built);
+  const pending = nextBuild(blocks, led.built, paths);
 
-  const openMap = (ids = built) => {
+  const openMap = (ids = built, at = null) => {
+    setFocus(at);
     // The first visit after a build glows; mark it seen here so the next is simply lit.
     const seen = readSeen();
     setFirstGlow(ids.filter((id) => !seen.includes(id)));
@@ -494,13 +759,14 @@ export default function Journey() {
           <span style={{ font: `0.8125rem ${T.jpFont}`, color: "var(--ts-on-tatami)" }}>つみき</span>
         </div>
         <div className="ts-card" style={{ padding: 10, display: "flex", flexDirection: "column", gap: 6 }}>
-          <MapSvg built={built} firstGlow={firstGlow} onPoint={setOpenBuilding} />
+          <JourneyMap built={built} firstGlow={firstGlow} focus={focus} onPoint={setOpenBuilding} onGroup={setGroup} />
           {!built.length && (
             <p style={{ margin: 0, textAlign: "center", padding: "4px 8px 6px", font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub }}>
               Your journey starts with your first blocks.
             </p>
           )}
         </div>
+        {built.length > 0 && <PlaceList built={built} onPoint={setOpenBuilding} />}
         <button className="ts-btn ts-btn-washi" style={{ alignSelf: "center", marginBottom: 20 }}
                 onClick={() => { setView("tower"); setFirstGlow([]); }}>Back to your tower</button>
       </>) : (<>
@@ -511,7 +777,7 @@ export default function Journey() {
             ) : pending ? (
               <div className="ts-card" style={{ padding: "14px 16px", display: "flex", flexDirection: "column", gap: 10 }}>
                 <span style={LABEL}>FROM YOUR BLOCKS</span>
-                <div style={{ font: `700 1.125rem/1.35 ${T.uiFont}` }}>You've gathered enough for {RECIPES[pending].announce}.</div>
+                <div style={{ font: `700 1.125rem/1.35 ${T.uiFont}` }}>You've gathered enough for {withArticle(RECIPES[pending.id].en)}.</div>
                 <button className="ts-btn ts-btn-shu" onClick={() => setBuilding(pending)}>Build</button>
               </div>
             ) : (
@@ -520,7 +786,7 @@ export default function Journey() {
           </div>
           <button className="ts-card ts-card-btn" onClick={() => openMap()} aria-label="Open your map"
                   style={{ width: 112, flexShrink: 0, padding: "6px 6px 4px", alignItems: "stretch", gap: 2 }}>
-            <MapSvg built={built} inset firstGlow={[]} onPoint={() => {}} />
+            <MapThumb built={built} />
             <span style={{ ...LABEL, fontSize: "0.625rem", textAlign: "center" }}>MAP</span>
           </button>
         </div>
@@ -542,12 +808,13 @@ export default function Journey() {
 
       {openBlock && <BlockSheet b={openBlock} onClose={() => setOpenBlock(null)} />}
       {openBuilding && <BuildingSheet id={openBuilding} blocks={blocks} onClose={() => setOpenBuilding(null)} />}
+      {group && <GroupSheet ids={group} onClose={() => setGroup(null)} onPick={(id) => { setGroup(null); setOpenBuilding(id); }} />}
       {building && (
-        <BuildOverlay id={building} blocks={blocks}
+        <BuildOverlay id={building.id} tok={building.tok} blocks={blocks}
                       onDone={async () => {
                         const next = await readBlocks();
                         setBuilding(null); setLed(next);
-                        openMap(Object.keys(next.built || {}).filter((k) => RECIPES[k]));
+                        openMap(Object.keys(next.built || {}).filter((k) => RECIPES[k]), building.id);
                       }} />
       )}
     </div>

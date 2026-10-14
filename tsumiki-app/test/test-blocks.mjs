@@ -29,7 +29,8 @@ function device(seed = {}) {
 // "device" with that one import swapped for the device's storage: its write
 // queue is module state, as two browsers' would be.
 const SRC = readFileSync(new URL("../src/lib/blocks.js", import.meta.url), "utf8")
-  .replace('import { storage } from "./storage.js";', "const storage = globalThis.__dev.storage;");
+  .replace('import { storage } from "./storage.js";', "const storage = globalThis.__dev.storage;")
+  .replace('from "./landmarks.js"', `from "${new URL("../src/lib/landmarks.js", import.meta.url).href}"`);
 if (SRC.includes('from "./storage.js"')) { console.error("could not stub storage.js"); process.exit(1); }
 let n = 0;
 async function blocksOn(dev) {
@@ -198,8 +199,89 @@ const DAY = 86400e3;
   ok("sentence" in one(JSON.parse(unionBlocks(kept, unflagged))), "6 CONTROL: the union drops sentences even without the flag");
 }
 
+// 7. landmarks: the list, and what earns one (Session 39.2; Lloyd, Oct 12–15 2026)
+{
+  const L = await import(new URL("../src/lib/landmarks.js", import.meta.url).href);
+  const d = device();
+  const B = await blocksOn(d);
+  const ids = Object.keys(B.RECIPES);
+  const ns = ids.map((id) => B.RECIPES[id].n);
+  // The journal's 191 numbers, minus its nine in reserve, is the list.
+  const RESERVE = [47, 55, 56, 99, 100, 129, 130, 133, 138];
+  const want = [...Array(191)].map((_, i) => i + 1).filter((n) => !RESERVE.includes(n));
+  ok(ids.length === 182, `7: ${ids.length} buildings, expected 182`);
+  ok(JSON.stringify([...ns].sort((a, b) => a - b)) === JSON.stringify(want), "7: the numbers are not the journal's 182");
+  ok(new Set(ids.map((id) => B.RECIPES[id].place.pref)).size === 47, "7: not every prefecture has a landmark");
+  for (const id of ids) {
+    const r = B.RECIPES[id], p = r.place;
+    if (new Set(r.grid.map((l) => l.length)).size !== 1) failures.push(`7: ${id}'s grid is ragged`);
+    if (!/^[.A-Z]+$/.test(r.grid.join(""))) failures.push(`7: ${id}'s grid has a stray character`);
+    for (const ch of new Set(r.grid.join("").replace(/\./g, ""))) if (!r.prefer[ch]) failures.push(`7: ${id} uses slot ${ch} with no preference`);
+    if (B.slotCount(id) < 15) failures.push(`7: ${id} is only ${B.slotCount(id)} blocks`);
+    if (!(p.x > 0 && p.x < 300 && p.y > 0 && p.y < 339)) failures.push(`7: ${id} is off the map at ${p.x},${p.y}`);
+    if (!p.jp || !p.kana || !p.en || !r.jp || !r.kana || !r.en) failures.push(`7: ${id} is missing a name`);
+    if (/[a-z]/i.test(p.kana.replace(/グラバー/, ""))) failures.push(`7: ${id}'s reading has romaji`);
+  }
+  // Okinawa sits in its inset box, not in the sea where it would really be.
+  for (const id of ids.filter((id) => B.RECIPES[id].place.pref === "Okinawa")) {
+    const p = B.RECIPES[id].place;
+    ok(p.inset && p.x >= L.INSET.x && p.x <= L.INSET.x + L.INSET.w && p.y >= L.INSET.y && p.y <= L.INSET.y + L.INSET.h, `7: ${id} is outside the Okinawa inset`);
+  }
+  // The two corrected characters (CLAUDE.md: settle a character by codepoint).
+  ok(L.LANDMARKS["tomonoura-lantern"].place.jp.codePointAt(0) === 0x9786, "7: 鞆の浦 is not U+9786");
+  ok(L.LANDMARKS["kushida-shrine"].place.jp.codePointAt(0) === 0x6ADB, "7: 櫛田神社 is not U+6ADB");
+
+  // A KEPT WEEK earns a token; two days of showing up does not.
+  const login = (day, h = 1) => ({ id: "login:" + day, ts: Date.parse(day + "T0" + h + ":00:00Z"), source: "login", action: "login" });
+  const lessons = [...Array(60)].map((_, i) => ({ id: "lesson:kanji:" + i, ts: T0 - 30 * DAY + i, source: "kanji", action: "lesson" }));
+  const kept = [login("2026-10-05"), login("2026-10-06"), login("2026-10-07")];
+  const toks = (bl, pw) => B.earnedTokens(bl, pw).map((t) => t.tok);
+  ok(toks(kept).includes("w:2026-10-05"), "7: a kept week earned nothing");
+  // CONTROL: two days that week — the same check must refuse
+  ok(!toks(kept.slice(0, 2)).includes("w:2026-10-05"), "7 CONTROL: a week with two days of showing up earned a landmark");
+  // …unless a Goals path was completed that week.
+  const koban = JSON.stringify({ events: [{ id: "quest:2026-10-06:a+b+c:chain", ts: Date.parse("2026-10-07T03:00:00Z"), amount: 8 }] });
+  const pw = B.pathWeeksFrom(koban);
+  ok(pw["2026-10-05"] && toks(kept.slice(0, 2), pw).includes("w:2026-10-05"), "7: a completed Goals path did not keep its week");
+  ok(toks(kept, pw).filter((t) => t === "w:2026-10-05").length === 1, "7: a week kept two ways earned two landmarks");
+
+  // Small first: the first four kept weeks draw small landmarks.
+  const weeks = [];
+  for (let w = 0; w < 8; w++) {
+    const mon = Date.parse("2026-08-03T00:00:00Z") + w * 7 * DAY;
+    for (let k = 0; k < 3; k++) weeks.push(login(new Date(mon + k * DAY).toISOString().slice(0, 10)));
+  }
+  const pile = weeks.concat(lessons, [...Array(200)].map((_, i) => ({ id: "lesson:hiragana:x" + i, ts: T0 + i, source: "hiragana", action: "lesson" })));
+  const built = {};
+  const drawn = [];
+  for (let i = 0; i < 30; i++) {
+    const n = B.nextBuild(pile, built);
+    if (!n) break;
+    ok(!built[n.id] && !built[n.tok], `7: ${n.id} (${n.tok}) was announced after it was built`);
+    built[n.id] = built[n.tok] = T0;
+    drawn.push(n);
+  }
+  const weekly = drawn.filter((n) => n.tok.startsWith("w:"));
+  ok(weekly.length === 8, `7: eight kept weeks drew ${weekly.length} landmarks`);
+  ok(weekly.slice(0, 4).every((n) => B.RECIPES[n.id].size === "S"), "7: an early kept week drew a big landmark");
+  const ms = drawn.filter((n) => n.tok.startsWith("m:"));
+  ok(ms.length > 0 && ms.every((n) => B.RECIPES[n.id].size === "L"), "7: a milestone did not draw a large landmark");
+  ok(new Set(drawn.map((n) => n.id)).size === drawn.length, "7: one landmark drawn twice");
+  // Every device draws the same: the draw depends on the ledger, not the moment.
+  const again = [], b2 = {};
+  for (let i = 0; i < 30; i++) { const n = B.nextBuild(pile, b2); if (!n) break; b2[n.id] = b2[n.tok] = 1; again.push(n.id); }
+  ok(JSON.stringify(again) === JSON.stringify(drawn.map((n) => n.id)), "7: the same ledger drew different landmarks");
+  // CONTROL: forget the spent tokens and the same week pays again
+  const noTok = Object.fromEntries(Object.entries(built).filter(([k]) => !k.startsWith("w:") && !k.startsWith("m:") && !B.RECIPES[k]?.earned));
+  ok(B.nextBuild(pile, noTok) !== null, "7 CONTROL: with no spent tokens recorded, nothing was announced — the token check was never tested");
+  // markBuilt stamps the token too
+  await B.markBuilt("kinkakuji", T0, "w:2026-08-03");
+  const led = ledgerOf(d);
+  ok(led.built.kinkakuji === T0 && led.built["w:2026-08-03"] === T0, "7: markBuilt did not stamp the token");
+}
+
 if (failures.length) {
   console.error(`FAIL — ${failures.length}:\n  ` + failures.join("\n  "));
   process.exit(1);
 }
-console.log("OK — blocks: showing-up cap, idempotent ids, back-fill, store reads, union, structures, checker reset");
+console.log("OK — blocks: showing-up cap, idempotent ids, back-fill, store reads, union, structures, checker reset, landmarks");
