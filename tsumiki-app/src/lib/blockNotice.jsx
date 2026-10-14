@@ -4,10 +4,12 @@
 // Lloyd, Oct 15 2026: "we need to let users know when they've received a
 // block." lib/blocks.js announces every block this device lays (LAID_EVENT);
 // this shows it, quietly, at the foot of the screen, and goes by itself.
+// The words are only "Earned an effort block!" (Lloyd, Oct 15 2026): a learner
+// who wonders why taps See it and finds out on the tower.
 //
 // The journey's rules hold here too:
-//   · effort only — the line says what was DONE, never how well
-//   · no counts — several blocks at once read "New blocks for your tower" and
+//   · effort only — never how well anything went
+//   · no counts — several blocks at once read "Earned effort blocks!" and
 //     show the blocks themselves, never a number
 //   · nothing to chase — no "next", no progress toward a building
 //   · color is never alone — every mark carries its glyph
@@ -23,18 +25,6 @@ const MARK = {
   kanji: ["漢", ACCENT.kanji, "Kanji"], grammar: ["文", ACCENT.grammar, "Grammar"],
   vocabulary: ["言", ACCENT.vocabulary, "Vocabulary"], checker: ["直", ACCENT.checker, "Checker"],
 };
-
-function line(b) {
-  const name = MARK[b.source]?.[2] || "";
-  switch (b.action) {
-    case "lesson": return `For finishing a lesson — ${name}`;
-    case "review": return `For finishing a review — ${name}`;
-    case "check":  return "For checking a sentence";
-    case "login":  return "For showing up today";
-    case "stage":  return `For finishing ${b.label || "a stage"}`;
-    default:       return "";
-  }
-}
 
 function Mini({ b }) {
   const m = MARK[b.source];
@@ -83,7 +73,6 @@ export default function BlockNotice({ onOpen, onJourney = false }) {
     return () => { window.removeEventListener(LAID_EVENT, on); clearTimeout(hide.current); };
   }, []);
 
-  const one = laid.length === 1 ? laid[0] : null;
   return (
     <div aria-live="polite" role="status">
       {laid.length > 0 && (
@@ -92,9 +81,10 @@ export default function BlockNotice({ onOpen, onJourney = false }) {
           <span style={{ display: "flex", gap: 3, flexShrink: 0 }}>
             {laid.slice(-5).map((b) => <Mini key={b.id} b={b} />)}
           </span>
-          <span style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 1 }}>
-            <span style={{ font: `700 0.875rem/1.3 ${T.uiFont}` }}>{one ? "A block for your tower" : "New blocks for your tower"}</span>
-            {one && <span style={{ font: `0.75rem/1.3 ${T.uiFont}`, color: T.sub }}>{line(one)}</span>}
+          {/* Just the fact (Lloyd, Oct 15 2026). Why it was earned is one tap
+              away: "See it" opens the tower, and the block's own sheet says. */}
+          <span style={{ flex: 1, minWidth: 0, font: `700 0.875rem/1.3 ${T.uiFont}` }}>
+            {laid.length === 1 ? "Earned an effort block!" : "Earned effort blocks!"}
           </span>
           {!onJourney && onOpen && (
             <button onClick={() => { setLaid([]); onOpen(); }}>See it</button>
