@@ -1,6 +1,13 @@
 <!--
   tsumiki — sign-in email (Supabase Auth template). HAND-MAINTAINED.
 
+  ⚠️ NOT LIVE, AND CANNOT BE YET. Supabase locks template editing until custom
+  SMTP is configured (found by Lloyd in the dashboard, Oct 16 2026), and custom
+  SMTP needs a domain tsumiki owns — on the back burner. Until then the email is
+  Supabase's default, link only, and CODE_SIGN_IN in tsumiki-app/src/lib/
+  account.jsx stays false. Domain → SMTP → paste this → flip that flag, in that
+  order, with the last two in the same deploy.
+
   WHERE IT GOES: Supabase dashboard → Authentication → Emails → Templates.
   Paste this file into BOTH templates, with the same subject:
 

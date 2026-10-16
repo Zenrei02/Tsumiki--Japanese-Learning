@@ -160,6 +160,22 @@ function withSyncLock(fn) {
   return locks.request(SYNC_LOCK, fn);
 }
 
+// ————— ⚠️ CODE SIGN-IN IS BUILT AND SWITCHED OFF (Session 40, Oct 16 2026) —————
+//
+// The code only reaches the learner if the email template carries {{ .Token }},
+// and SUPABASE WILL NOT LET THE TEMPLATE BE EDITED WITHOUT CUSTOM SMTP — found by
+// Lloyd in the dashboard the same evening the code path was written. Custom
+// SMTP needs a sending domain, and the domain is on the back burner by his call.
+// The default template is link-only.
+//
+// So with this false the panel behaves exactly as it did before Session 40:
+// "Email me a link", and the "open it in this browser" note. Turning it on is
+// one line, and it must happen in the SAME deploy as (or after) the custom
+// template going live in BOTH "Magic Link" and "Confirm signup" — otherwise the
+// app asks for a code the email does not contain. The template is ready at
+// supabase/email-templates/magic-link.html.
+const CODE_SIGN_IN = false;
+
 const box = {
   background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 10,
   padding: "16px 16px 18px", fontFamily: T.uiFont, color: T.ink,
@@ -661,16 +677,25 @@ export default function Account({ open, setOpen }) {
                         }}
                       />
                       <button type="submit" disabled={phase === "sending"} style={primary}>
-                        {phase === "sending" ? "Sending…" : "Email me a code"}
+                        {phase === "sending" ? "Sending…" : (CODE_SIGN_IN ? "Email me a code" : "Email me a link")}
                       </button>
                     </form>
                     <p style={{ ...quiet, marginTop: 10 }}>
-                      No password. We email you a code to type in here.
+                      {CODE_SIGN_IN
+                        ? "No password. We email you a code to type in here."
+                        : "No password. We email a link that signs you in on this device."}
                     </p>
                   </>
                 )}
 
-                {(phase === "sent" || phase === "verifying") && !session && (
+                {!CODE_SIGN_IN && phase === "sent" && !session && (
+                  <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.ink, marginTop: 8 }}>
+                    Check <strong>{email}</strong>. The link signs you in on this
+                    device — open it in this browser rather than another one.
+                  </p>
+                )}
+
+                {CODE_SIGN_IN && (phase === "sent" || phase === "verifying") && !session && (
                   <>
                     <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.ink, marginTop: 8 }}>
                       We sent a code to <strong style={{ wordBreak: "break-all" }}>{email}</strong>.
