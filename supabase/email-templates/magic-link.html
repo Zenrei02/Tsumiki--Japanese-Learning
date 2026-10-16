@@ -1,0 +1,114 @@
+<!--
+  tsumiki — sign-in email (Supabase Auth template). HAND-MAINTAINED.
+
+  WHERE IT GOES: Supabase dashboard → Authentication → Emails → Templates.
+  Paste this file into BOTH templates, with the same subject:
+
+    · Magic Link      — sent to an address that already has an account
+    · Confirm signup  — sent to an address signing in for the FIRST time.
+                        signInWithOtp creates the user, and an unconfirmed user
+                        gets this template, not Magic Link. Pasting only Magic
+                        Link means every NEW learner still gets the default
+                        Supabase email, with no code in it.
+
+  SUBJECT (both):   {{ .Token }} is your tsumiki sign-in code
+
+  The code comes first because the app now asks for it (Session 40): the learner
+  types it into the tab that asked, so the phone's mail app choosing a different
+  browser stops mattering. The link stays, smaller, for a laptop where one click
+  is easier. Either one signs in; using one spends both.
+
+  EMAIL-SAFE ON PURPOSE: tables, inline styles, system fonts, no images, no web
+  fonts, no CSS classes. Mail clients strip <style> and ignore most layout CSS,
+  so everything that matters is inline. The seal is a colored table cell with
+  a character in it, not an image — images are blocked by default in many
+  clients, and a blocked logo is a broken-image icon at the top of a sign-in
+  email, which looks like phishing.
+
+  Colors are the app's tokens (lib/tokens.js): paper #F6F1E6, washi #FBF7EE,
+  hairline #D9CFB8, ink #2C2A26, sub #4A463D, muted #6E6A60, shu #C7351B,
+  shu lip #7E1F0F.
+
+  THE SENDER IS NOT FIXED BY THIS FILE. It still says Supabase
+  (noreply@mail.app.supabase.io) until custom SMTP is set up on a domain tsumiki
+  owns — on the back burner by Lloyd's call, Oct 16 2026.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>Your tsumiki sign-in code</title>
+</head>
+<body style="margin:0;padding:0;background-color:#F6F1E6;-webkit-text-size-adjust:100%;">
+<!-- Preheader: the line most inboxes show beside the subject. -->
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:#F6F1E6;">Type this code into tsumiki to sign in. It works once and expires soon.</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#F6F1E6;">
+  <tr>
+    <td align="center" style="padding:32px 16px;">
+
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:440px;">
+
+        <!-- Seal + wordmark -->
+        <tr>
+          <td style="padding:0 0 20px 0;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td width="34" height="34" align="center" valign="middle" style="width:34px;height:34px;background-color:#C7351B;border-radius:8px;border-bottom:2px solid #7E1F0F;color:#FFF6EC;font-family:'Hiragino Mincho ProN','Yu Mincho',YuMincho,'Noto Serif JP',serif;font-size:21px;font-weight:700;line-height:34px;">つ</td>
+                <td style="padding-left:10px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans','Noto Sans JP',Helvetica,Arial,sans-serif;font-size:22px;font-weight:700;color:#2C2A26;letter-spacing:-0.01em;line-height:34px;">tsumiki</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- The washi card -->
+        <tr>
+          <td style="background-color:#FBF7EE;border:1px solid #D9CFB8;border-bottom:3px solid #CFC4A8;border-radius:16px;padding:26px 24px 24px 24px;">
+
+            <p style="margin:0 0 6px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans','Noto Sans JP',Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#6E6A60;">YOUR SIGN-IN CODE</p>
+
+            <p style="margin:0 0 18px 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans','Noto Sans JP',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.6;color:#4A463D;">Type this into tsumiki, in the tab where you asked to sign in.</p>
+
+            <!-- The code. Serif, large, spaced — and selectable as plain text,
+                 so a phone can long-press and copy it. -->
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" style="background-color:#F6F1E6;border:1px solid #D9CFB8;border-radius:12px;padding:18px 8px;font-family:Georgia,'Times New Roman','Hiragino Mincho ProN','Yu Mincho',serif;font-size:38px;font-weight:700;letter-spacing:0.18em;color:#2C2A26;line-height:1.1;">{{ .Token }}</td>
+              </tr>
+            </table>
+
+            <p style="margin:18px 0 0 0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans','Noto Sans JP',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6;color:#6E6A60;">It works once and expires soon. If you ask for another code, only the newest one works.</p>
+
+            <!-- The link: the second way in, deliberately smaller. -->
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;border-top:1px solid #D9CFB8;">
+              <tr>
+                <td style="padding-top:16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans','Noto Sans JP',Helvetica,Arial,sans-serif;font-size:13px;line-height:1.6;color:#4A463D;">
+                  On a computer? You can
+                  <a href="{{ .ConfirmationURL }}" style="color:#C7351B;font-weight:700;text-decoration:underline;">sign in with one click</a>
+                  instead. Open it in the same browser you use for tsumiki.
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td style="padding:18px 4px 0 4px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans','Noto Sans JP',Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#6E6A60;">
+            Sent to {{ .Email }} because someone asked to sign in to tsumiki with this address. If that wasn't you, ignore this email — nothing happens without the code.
+            <br><br>
+            <span style="font-family:'Hiragino Mincho ProN','Yu Mincho',YuMincho,'Noto Serif JP',serif;color:#4A463D;">つみき</span>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+</body>
+</html>

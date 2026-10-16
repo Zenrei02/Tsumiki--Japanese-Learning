@@ -212,7 +212,9 @@ export default function Account({ open, setOpen }) {
   const [client, setClient] = useState(null);
   const [session, setSession] = useState(null);
   const [email, setEmail] = useState("");
-  const [phase, setPhase] = useState("idle");   // idle | sending | sent | syncing | conflict | done
+  const [phase, setPhase] = useState("idle");   // idle | sending | sent | verifying | syncing | conflict | done
+  const [code, setCode] = useState("");
+  const [resent, setResent] = useState(null);   // the "new code sent" line on the code screen
   const [note, setNote] = useState(null);
   const [error, setError] = useState(null);
   const [plan, setPlan] = useState(null);
@@ -423,17 +425,75 @@ export default function Account({ open, setOpen }) {
     releaseGate(side);
   };
 
-  const sendLink = async (e) => {
-    e.preventDefault();
+  // ————— ⚠️ A CODE, TYPED INTO THE TAB THAT ASKED (Session 40, Oct 16 2026) —————
+  //
+  // The link alone had a problem no amount of wording fixed: on a phone, the
+  // mail app opens it in whichever browser IT picks, which is often not the one
+  // the learner was studying in — a different localStorage, so a session that
+  // lands somewhere their progress is not. The old copy had to say "open it in
+  // this browser rather than another one", which a learner cannot act on.
+  //
+  // A code removes the second browser entirely. SAME CALL — signInWithOtp sends
+  // one email carrying both {{ .Token }} and {{ .ConfirmationURL }}
+  // (supabase/email-templates/magic-link.html) — and verifyOtp with type
+  // "email" turns the typed code into a session HERE. auth-js then saves the
+  // session and fires SIGNED_IN through onAuthStateChange above, so runSync
+  // starts exactly as it does after a link, and in ONE tab: the two-tab race
+  // that SYNC_LOCK exists for does not arise on this path at all. The lock stays,
+  // because the link still works and still makes a second tab.
+  //
+  // ⚠️ THE CODE IS ONLY IN THE EMAIL IF THE TEMPLATE IS PASTED INTO SUPABASE —
+  // into BOTH "Magic Link" and "Confirm signup" (a first-time address gets the
+  // second). Until then the email is Supabase's default, link only, and the
+  // learner can still use the link; the copy below never claims the link is
+  // gone.
+  //
+  // LENGTH: the docs say six digits, and the project setting can raise it. The
+  // field accepts 6–10 and strips spaces, so a setting change is not a code
+  // change and a code pasted as "123 456" still works.
+  const sendCode = async (e) => {
+    e?.preventDefault?.();
     if (!client || !email.trim()) return;
-    setPhase("sending"); setError(null);
+    // A resend stays on the code screen: flipping back to the email form for
+    // the length of a request reads as "it forgot what I typed".
+    const again = phase === "sent";
+    if (!again) setPhase("sending");
+    setError(null); setCode(""); setResent(again ? "Sending…" : null);
     const { error: err } = await client.auth.signInWithOtp({
       email: email.trim(),
       options: { emailRedirectTo: redirectTo() },
     });
-    if (err) { setPhase("idle"); setError(err.message); return; }
+    if (err) {
+      // Most often the rate limit on a resend. Stay where the learner was.
+      if (!again) setPhase("idle");
+      setResent(null); setError(err.message); return;
+    }
     setPhase("sent");
+    setResent(again ? "A new code is on its way. Only the newest one works." : null);
   };
+
+  const cleanCode = code.replace(/\D/g, "");
+  const codeReady = cleanCode.length >= 6 && cleanCode.length <= 10;
+
+  const verifyCode = async (e) => {
+    e.preventDefault();
+    if (!client || !codeReady) return;
+    setPhase("verifying"); setError(null);
+    const { error: err } = await client.auth.verifyOtp({
+      email: email.trim(), token: cleanCode, type: "email",
+    });
+    if (err) {
+      setPhase("sent");
+      setError("That code did not work (" + err.message + "). Codes work once and " +
+               "expire — check it, or send a new one. Only the newest code works.");
+      return;
+    }
+    // Nothing else to do: SIGNED_IN has already reached onAuthStateChange, and
+    // the session effect starts runSync from there.
+    setCode(""); setResent(null);
+  };
+
+  const changeEmail = () => { setPhase("idle"); setCode(""); setError(null); setResent(null); };
 
   const signOut = async () => {
     // Sign-out does NOT clear local progress. The learner keeps studying on this
@@ -582,14 +642,14 @@ export default function Account({ open, setOpen }) {
                   </p>
                 )}
 
-                {accountsConfigured() && !session && phase !== "sent" && (
+                {accountsConfigured() && !session && phase !== "sent" && phase !== "verifying" && (
                   <>
                     <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.sub, marginTop: 0 }}>
                       Sign in and your progress follows you to any device. Right
                       now it lives only in this browser — clearing it would clear
                       your work.
                     </p>
-                    <form onSubmit={sendLink} style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
+                    <form onSubmit={sendCode} style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
                       <input
                         type="email" required value={email} autoComplete="email"
                         onChange={(ev) => setEmail(ev.target.value)}
@@ -601,20 +661,57 @@ export default function Account({ open, setOpen }) {
                         }}
                       />
                       <button type="submit" disabled={phase === "sending"} style={primary}>
-                        {phase === "sending" ? "Sending…" : "Email me a link"}
+                        {phase === "sending" ? "Sending…" : "Email me a code"}
                       </button>
                     </form>
                     <p style={{ ...quiet, marginTop: 10 }}>
-                      No password. We email a link that signs you in on this device.
+                      No password. We email you a code to type in here.
                     </p>
                   </>
                 )}
 
-                {phase === "sent" && !session && (
-                  <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.ink, marginTop: 8 }}>
-                    Check <strong>{email}</strong>. The link signs you in on this
-                    device — open it in this browser rather than another one.
-                  </p>
+                {(phase === "sent" || phase === "verifying") && !session && (
+                  <>
+                    <p style={{ font: `0.875rem/1.6 ${T.uiFont}`, color: T.ink, marginTop: 8 }}>
+                      We sent a code to <strong style={{ wordBreak: "break-all" }}>{email}</strong>.
+                      Type it here.
+                    </p>
+                    <form onSubmit={verifyCode} style={{ display: "flex", gap: 8, marginTop: 12, flexWrap: "wrap" }}>
+                      <input
+                        type="text" inputMode="numeric" autoComplete="one-time-code"
+                        aria-label="Sign-in code" maxLength={14} autoFocus
+                        value={code} onChange={(ev) => setCode(ev.target.value)}
+                        placeholder="123456"
+                        style={{
+                          flex: "1 1 160px", minWidth: 0, padding: "10px 12px",
+                          border: `1px solid ${T.hairline}`, borderRadius: 8,
+                          font: `600 1.25rem ${T.jpFont}`, letterSpacing: ".18em",
+                          color: T.ink, background: T.paper,
+                        }}
+                      />
+                      <button type="submit" disabled={!codeReady || phase === "verifying"}
+                              style={{ ...primary, opacity: codeReady ? 1 : 0.5 }}>
+                        {phase === "verifying" ? "Signing in…" : "Sign in"}
+                      </button>
+                    </form>
+                    {resent && (
+                      <p role="status" style={{ ...quiet, color: T.ok, marginTop: 8 }}>{resent}</p>
+                    )}
+                    <p style={{ ...quiet, marginTop: 10 }}>
+                      The email also has a link. It works too — on a computer it is
+                      one click — but open it in this browser.
+                    </p>
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
+                      <button type="button" onClick={sendCode} disabled={phase === "verifying"}
+                              style={{ ...ghost, padding: "8px 12px" }}>
+                        Send a new code
+                      </button>
+                      <button type="button" onClick={changeEmail}
+                              style={{ ...ghost, padding: "8px 12px", border: "none", textDecoration: "underline" }}>
+                        Use a different email
+                      </button>
+                    </div>
+                  </>
                 )}
 
                 {session && (

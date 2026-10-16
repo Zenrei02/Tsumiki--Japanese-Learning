@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>tsumiki Intro Slides</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<!--
+  Board 13 — the intro, as slides. Drawn Oct 16 2026 (Session 40), replacing the
+  same morning's six-stop look-around on the real Home, which Lloyd redirected:
+  a short slideshow with light animation for the universal features, then a
+  SEPARATE short deck the first time each section is opened.
+
+  Two rows. Row 1: the universal three, shown straight after the welcome
+  wizard (board 11). Row 2: the Checker deck, drawn as the pattern every other
+  section's deck follows. Same CSS idiom as 01/11. Every English line is a
+  DRAFT for Lloyd. The animations run on load and loop slowly so the board can
+  be judged as motion; prefers-reduced-motion shows the end state.
+
+  The illustrations are the app's own parts — blocks, washi cards, the room,
+  the じしょ tab, the tier labels — not video. A video goes stale every time
+  a screen changes; these change when the parts do.
+-->
+<style>
+body{margin:0;font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;background:#E9E2D1;color:#2C2A26;-webkit-font-smoothing:antialiased;padding:24px}
+.jp{font-family:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif}
+.tatami{background-color:#C6BE8E;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.22) 0 1px,rgba(0,0,0,0) 1px 5px),repeating-linear-gradient(0deg,rgba(84,74,34,.18) 0 1px,rgba(0,0,0,0) 1px 3px)}
+.washi{background-color:#FBF7EE;background-image:radial-gradient(rgba(120,100,60,.06) 1px,rgba(0,0,0,0) 1px),radial-gradient(rgba(120,100,60,.045) 1px,rgba(0,0,0,0) 1px);background-size:9px 9px,13px 13px;background-position:0 0,4px 6px}
+.card{border-radius:16px;color:#2C2A26;box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 3px 0 #CFC4A8,0 10px 22px rgba(60,45,20,.16)}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;box-sizing:border-box;border:0;cursor:pointer;font-family:inherit;font-weight:700}
+.btn-shu{min-height:56px;padding:0 24px;border-radius:14px;color:#FFF6EC;font-size:17px;background-image:linear-gradient(180deg,#DC4B2E 0%,#C7351B 52%,#AC2B15 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 -2px 0 rgba(0,0,0,.14),0 4px 0 #7E1F0F,0 8px 18px rgba(126,31,15,.30)}
+.btn-washi{min-height:44px;padding:0 16px;border-radius:12px;color:#2C2A26;font-size:15px;background-color:#FBF7EE;box-shadow:inset 0 0 0 1.5px #D9CFB8,0 2px 0 #CFC4A8}
+.label{font-size:11px;font-weight:700;letter-spacing:.08em;color:#6E6A60}
+.link{background:none;border:0;padding:10px 4px;min-height:44px;font:inherit;font-size:14px;font-weight:700;color:#4A463D;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.seal{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#FFF6EC;background-image:linear-gradient(180deg,#DC4B2E,#A82A15);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 2px 0 #7E1F0F}
+.draft{display:inline-block;margin-left:6px;padding:1px 5px;border-radius:4px;background:#F6EBD2;color:#907119;font-size:9px;font-weight:700;letter-spacing:.06em;vertical-align:middle}
+.frame{width:390px;height:844px;box-sizing:border-box;display:flex;flex-direction:column;position:relative;overflow:hidden;flex-shrink:0}
+.caption{font-size:12px;font-weight:700;letter-spacing:.06em;color:#6E6A60;margin:0 0 8px}
+.row{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;margin-bottom:40px}
+.rowhead{font-size:13px;font-weight:700;letter-spacing:.08em;color:#4A463D;margin:0 0 14px}
+.notes{width:360px;font-size:14px;line-height:1.6;color:#2C2A26}
+.notes h2{font-size:13px;letter-spacing:.08em;color:#6E6A60;margin:22px 0 6px}
+.notes li{margin-bottom:6px}
+code{font-size:12px;background:#F6EBD2;padding:0 4px;border-radius:3px}
+
+/* ——— slide chrome ——— */
+.top{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 0}
+.brand{display:flex;align-items:center;gap:10px}
+.word{font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1}
+.stage{height:340px;margin:18px 16px 0;border-radius:16px;position:relative;overflow:hidden}
+.body{padding:20px 16px 0;display:flex;flex-direction:column;gap:14px}
+.headline{font-size:24px;font-weight:700;line-height:1.3}
+.sentence{margin:0;font-size:15px;line-height:1.65;color:#4A463D}
+.foot{position:absolute;left:16px;right:16px;bottom:28px;display:flex;flex-direction:column;gap:14px}
+.dots{display:flex;justify-content:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(74,70,61,.28)}
+.dot.on{background:#2C2A26;width:22px;border-radius:4px}
+.navrow{display:flex;gap:12px}
+.navrow .btn-shu{flex:1}
+
+/* the blocks */
+.blk{position:absolute;width:64px;height:56px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:"Shippori Mincho",serif;font-weight:700;font-size:28px;color:#FFF8EC;background-image:linear-gradient(180deg,rgba(255,255,255,.16),rgba(0,0,0,0) 45%,rgba(0,0,0,.10));box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 5px 0 #7A5A3C}
+
+/* ——— motion ——— */
+@keyframes drop{0%{transform:translateY(-340px);opacity:0}8%{opacity:1}22%{transform:translateY(6px)}28%{transform:translateY(0)}92%{transform:translateY(0);opacity:1}100%{transform:translateY(0);opacity:0}}
+.drop{animation:drop 7s cubic-bezier(.3,.7,.4,1) infinite both}
+@keyframes ring{0%,100%{box-shadow:0 0 0 0 rgba(199,53,27,0),0 3px 0 #CFC4A8}50%{box-shadow:0 0 0 6px rgba(199,53,27,.28),0 3px 0 #CFC4A8}}
+.ring{animation:ring 2.4s ease-in-out infinite}
+@keyframes peek{0%,15%{transform:translateX(0)}35%,75%{transform:translateX(-170px)}95%,100%{transform:translateX(0)}}
+.peek{animation:peek 6s ease-in-out infinite}
+@keyframes type{from{width:0}to{width:14em}}
+@keyframes caret{50%{border-color:transparent}}
+.typing{display:inline-block;overflow:hidden;white-space:nowrap;border-right:2px solid #2C2A26;width:14em;animation:type 3.2s steps(14,end) .4s infinite alternate both,caret .8s step-end infinite}
+@keyframes rise{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:none}}
+.rise{animation:rise .6s ease-out both}
+@keyframes fill{0%,20%{width:0}60%,100%{width:10%}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.typing{width:14em;border-right:0}}
+</style>
+</head>
+<body>
+
+<!-- ═════════════════════════ ROW 1 · THE UNIVERSAL THREE ═════════════════════════ -->
+<p class="rowhead">ROW 1 — RIGHT AFTER THE WELCOME (BOARD 11). EVERY LEARNER, ONCE.</p>
+<div class="row">
+
+<!-- 1 · BLOCKS -->
+<div>
+<p class="caption">U1 · THE BLOCKS STACK UP</p>
+<div class="frame tatami">
+  <div class="top">
+    <div class="brand"><div class="seal jp">つ</div><div class="word">tsumiki</div></div>
+    <button class="btn btn-washi" style="min-height:36px;padding:0 12px;font-size:13px">Skip</button>
+  </div>
+  <div class="stage washi card">
+    <!-- floor -->
+    <div style="position:absolute;left:0;right:0;bottom:0;height:46px;background:#C9A47C;box-shadow:inset 0 3px 0 #8A6540"></div>
+    <!-- a stack building itself, bottom row wide, then up -->
+    <div class="blk drop" style="left:61px;bottom:46px;background-color:#9C8BC4;animation-delay:0s">あ</div>
+    <div class="blk drop" style="left:131px;bottom:46px;background-color:#9C8BC4;animation-delay:.25s">い</div>
+    <div class="blk drop" style="left:201px;bottom:46px;background-color:#7A66A8;animation-delay:.5s">ア</div>
+    <div class="blk drop" style="left:271px;bottom:46px;background-color:#2F6F6B;animation-delay:.75s">文</div>
+    <div class="blk drop" style="left:96px;bottom:107px;background-color:#8A5A3B;animation-delay:1.1s">言</div>
+    <div class="blk drop" style="left:166px;bottom:107px;background-color:#5B4A7D;animation-delay:1.35s">漢</div>
+    <div class="blk drop" style="left:236px;bottom:107px;background-color:#C7351B;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 5px 0 #7E1F0F;animation-delay:1.6s">直</div>
+    <div class="blk drop" style="left:131px;bottom:168px;background-color:#2F6F6B;animation-delay:2s">文</div>
+    <div class="blk drop" style="left:201px;bottom:168px;background-color:#9C8BC4;animation-delay:2.25s">う</div>
+    <div class="blk drop" style="left:166px;bottom:229px;background-color:#5B4A7D;animation-delay:2.7s">日</div>
+  </div>
+  <div class="body">
+    <div class="headline">Every bit of study is a block.<span class="draft">DRAFT</span></div>
+    <p class="sentence">Lessons, reviews and checks each add one, colored by where you earned it. Big or small, they all stack.<span class="draft">DRAFT</span></p>
+  </div>
+  <div class="foot">
+    <div class="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+    <div class="navrow"><button class="btn btn-shu">Next <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div>
+  </div>
+</div>
+</div>
+
+<!-- 2 · HOME -->
+<div>
+<p class="caption">U2 · HOME: ONE NEXT STEP, TWO DOORS</p>
+<div class="frame tatami">
+  <div class="top">
+    <div class="brand"><div class="seal jp">つ</div><div class="word">tsumiki</div></div>
+    <span></span>
+  </div>
+  <div class="stage" style="background:#EFE7D4">
+    <!-- a miniature Home: the room picture with its two corner doors, then the red card -->
+    <svg width="358" height="150" viewBox="0 0 390 164" role="img" aria-label="The room picture from Home" style="display:block;width:358px;height:150px">
+      <defs><pattern id="weave2" width="6" height="3" patternUnits="userSpaceOnUse"><rect width="6" height="3" fill="#C6BE8E"/><rect width="1" height="3" fill="#E4DDB3"/><rect y="2" width="6" height="1" fill="#A79E6A"/></pattern></defs>
+      <rect width="390" height="164" fill="#EFE7D4"/>
+      <g fill="#F5EEDD" stroke="#B89A72" stroke-width="2"><rect x="18" y="8" width="150" height="100"/><rect x="222" y="8" width="150" height="100"/></g>
+      <g stroke="#B89A72" stroke-width="1.4"><path d="M18 33h150M18 58h150M18 83h150M56 8v100M93 8v100M130 8v100"/><path d="M222 33h150M222 58h150M222 83h150M260 8v100M297 8v100M334 8v100"/></g>
+      <rect x="176" y="8" width="38" height="100" fill="#E3D9C3"/>
+      <rect x="0" y="108" width="390" height="8" fill="#5E4630"/><rect x="0" y="116" width="390" height="48" fill="url(#weave2)"/>
+      <path d="M0 116h390M195 116v48" stroke="#2B3A55" stroke-width="3"/>
+      <rect x="112" y="128" width="166" height="10" rx="3" fill="#4A3423"/>
+      <rect x="163" y="106" width="24" height="22" rx="3" fill="#C7351B" stroke="#7E1F0F"/><text x="175" y="123" text-anchor="middle" font-family="Shippori Mincho, serif" font-size="14" font-weight="700" fill="#FFF8EC">直</text>
+    </svg>
+    <!-- the two doors, on the picture's corners (commit be5a8c8) -->
+    <div class="washi rise" style="position:absolute;left:12px;top:104px;padding:6px 10px;border-radius:10px;font-size:13px;font-weight:700;box-shadow:inset 0 0 0 1.5px #D9CFB8,0 2px 0 #CFC4A8;animation-delay:1.4s">Room</div>
+    <div class="washi rise" style="position:absolute;right:12px;top:104px;padding:6px 10px;border-radius:10px;font-size:13px;font-weight:700;box-shadow:inset 0 0 0 1.5px #D9CFB8,0 2px 0 #CFC4A8;animation-delay:1.8s">Journey</div>
+    <!-- the red card -->
+    <div class="washi card ring" style="position:absolute;left:12px;right:12px;top:164px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:6px">
+      <div class="label">NEXT ON YOUR PATH</div>
+      <div style="font-size:17px;font-weight:700;line-height:1.3">Learn あ い う え お</div>
+      <div class="btn btn-shu" style="min-height:40px;font-size:15px;border-radius:11px;margin-top:4px">Go <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="headline">The red button is always your next step.<span class="draft">DRAFT</span></div>
+    <p class="sentence">Not sure what to do? Press it. The room picture has two doors: <b>Room</b>, which you furnish with what you earn, and <b>Journey</b>, your trip across Japan.<span class="draft">DRAFT</span></p>
+  </div>
+  <div class="foot">
+    <div class="dots"><span class="dot"></span><span class="dot on"></span><span class="dot"></span></div>
+    <div class="navrow"><button class="btn btn-washi" style="min-height:56px;padding:0 18px" aria-label="Back"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button class="btn btn-shu">Next <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div>
+  </div>
+</div>
+</div>
+
+<!-- 3 · EVERYWHERE -->
+<div>
+<p class="caption">U3 · EVERYWHERE: じしょ AND THE MENU</p>
+<div class="frame tatami">
+  <div class="top">
+    <div class="brand"><div class="seal jp">つ</div><div class="word">tsumiki</div></div>
+    <span></span>
+  </div>
+  <div class="stage washi card">
+    <!-- left: the menu, open -->
+    <div style="position:absolute;left:14px;top:16px;display:flex;align-items:center;gap:8px">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2C2A26" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <span class="label">MENU</span>
+    </div>
+    <div style="position:absolute;left:14px;top:52px;width:150px;display:flex;flex-direction:column;gap:8px">
+      <div class="rise" style="animation-delay:.3s;padding:10px 12px;border-radius:10px;background:#F6F1E6;box-shadow:inset 0 0 0 1.5px #D9CFB8;font-size:14px;font-weight:700">Progress</div>
+      <div class="rise" style="animation-delay:.55s;padding:10px 12px;border-radius:10px;background:#F6F1E6;box-shadow:inset 0 0 0 1.5px #D9CFB8;font-size:14px;font-weight:700">Account</div>
+      <div class="rise" style="animation-delay:.8s;padding:10px 12px;border-radius:10px;background:#23263A;color:#F3E9D2;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFD48A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v2M14 3v2M7 7h10l-1 11H8z"/><path d="M10 21h4"/></svg>Dusk lantern</div>
+    </div>
+    <!-- right: the じしょ tab sliding a panel out -->
+    <div class="peek" style="position:absolute;top:26px;right:-170px;height:290px;display:flex">
+      <div class="jp" style="align-self:center;width:34px;height:104px;border-radius:10px 0 0 10px;background:#FBF7EE;box-shadow:inset 1.5px 0 0 #D9CFB8,-2px 2px 6px rgba(60,45,20,.18);writing-mode:vertical-rl;letter-spacing:.1em;font-size:15px;display:flex;align-items:center;justify-content:center">じしょ</div>
+      <div style="width:170px;background:#F6F1E6;box-shadow:-2px 0 0 #D9CFB8,-6px 4px 14px rgba(60,45,20,.14);padding:14px 12px;box-sizing:border-box;display:flex;flex-direction:column;gap:8px">
+        <div style="padding:8px 10px;border-radius:8px;background:#FBF7EE;box-shadow:inset 0 0 0 1.5px #D9CFB8;font-size:13px;color:#6E6A60">たべる</div>
+        <div class="jp" style="font-size:24px;font-weight:700">食べる</div>
+        <div style="font-size:12px;color:#6E6A60">たべる</div>
+        <div style="font-size:14px;line-height:1.5">to eat</div>
+        <div style="margin-top:auto;font-size:12px;font-weight:700;color:#4A463D">Send to Vocabulary →</div>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="headline">Two things follow you everywhere.<span class="draft">DRAFT</span></div>
+    <p class="sentence">Tap <span class="jp" style="font-weight:700;color:#2C2A26">じしょ</span> on the right edge to look up any word. The menu holds your Progress, your Account, and the dusk lantern for studying at night.<span class="draft">DRAFT</span></p>
+  </div>
+  <div class="foot">
+    <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot on"></span></div>
+    <div class="navrow"><button class="btn btn-washi" style="min-height:56px;padding:0 18px" aria-label="Back"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button class="btn btn-shu">Start</button></div>
+  </div>
+</div>
+</div>
+
+<div class="notes">
+  <h2 style="margin-top:0">WHAT THIS IS FOR</h2>
+  <p>Board 11's wizard answers where the learner is starting from, then drops them on Home with nothing said about the room, the journey, じしょ or the menu. These three slides say it once, before the first block — and nothing about any single section, which waits for that section's own deck (row 2).</p>
+  <h2>DECIDED</h2>
+  <ul>
+    <li><b>Slides, not a tour of the live Home</b> (Lloyd, Oct 16 10:04). Board 13's first attempt — six stops with a scrim on the real Home — is superseded.</li>
+    <li><b>Animated from the app's own parts, not video.</b> Accepted in principle: a video goes stale every time a screen changes, and is heavy on a phone.</li>
+    <li>One red thing per slide, as everywhere: <b>Next</b>. The last slide's red button is <b>Start</b> and lands on Home with focus on the red card.</li>
+    <li>Dots, not "1 of 3". No counts.</li>
+  </ul>
+  <h2>OPEN — LLOYD'S CALL</h2>
+  <ul>
+    <li><b>The shape itself:</b> three universal slides, then 2–3 per section on first open. Approve or amend before anything is built.</li>
+    <li><b>All English copy</b> — every line marked DRAFT.</li>
+    <li><b>U1's promise.</b> "Every bit of study is a block" describes the tower that is wanted but not built yet. If the intro ships first, U1 says only what the block notice already does today.</li>
+    <li><b>Skip</b> on slide one only (as drawn), or on every slide.</li>
+  </ul>
+  <h2>BEHAVIOUR (PROPOSED)</h2>
+  <ul>
+    <li>Swipe or Next/Back. Skip on U1 marks the whole universal deck seen.</li>
+    <li>Seen once per account, on the welcome's mechanism: a flag in <code>KEYS</code> with a constant value, so a sign-in never asks "which copy?" about it.</li>
+    <li>Replayable — the universal deck from the menu, each section deck from a <b>?</b> in that section's header.</li>
+    <li>Reduced motion: the end state of each animation, no movement.</li>
+  </ul>
+</div>
+</div>
+
+<!-- ═════════════════════════ ROW 2 · THE CHECKER DECK (THE PATTERN) ═════════════════════════ -->
+<p class="rowhead">ROW 2 — THE FIRST TIME CHECKER 直し IS OPENED. THE PATTERN FOR EVERY SECTION DECK.</p>
+<div class="row">
+
+<!-- C1 · WRITE ANYTHING -->
+<div>
+<p class="caption">C1 · WRITE ANYTHING</p>
+<div class="frame tatami">
+  <div class="top">
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#C7351B;color:#FFF8EC;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 2px 0 #7E1F0F" class="jp"><b style="font-size:20px">直</b></span><span style="font-size:20px;font-weight:700">Checker <span class="jp">直し</span></span></div>
+    <button class="btn btn-washi" style="min-height:36px;padding:0 12px;font-size:13px">Skip</button>
+  </div>
+  <div class="stage washi card" style="padding:18px;box-sizing:border-box">
+    <div class="label">YOUR SENTENCE</div>
+    <div style="margin-top:10px;min-height:130px;padding:14px;border-radius:12px;background:#F6F1E6;box-shadow:inset 0 0 0 1.5px #D9CFB8">
+      <span class="jp typing" style="font-size:20px;font-weight:600">昨日、図書館で本を読みます。</span>
+    </div>
+    <div class="btn btn-shu" style="margin-top:16px">Check it</div>
+    <p style="margin:12px 0 0;font-size:12px;color:#6E6A60;text-align:center">Kana, kanji, or both — however you can write it.<span class="draft">DRAFT</span></p>
+  </div>
+  <div class="body">
+    <div class="headline">Write anything. Find out what is wrong — and why.<span class="draft">DRAFT</span></div>
+    <p class="sentence">A sentence from your lesson, a message you want to send, a line from your diary. The Checker reads it the way a teacher would.<span class="draft">DRAFT</span></p>
+  </div>
+  <div class="foot">
+    <div class="dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+    <div class="navrow"><button class="btn btn-shu">Next <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div>
+  </div>
+</div>
+</div>
+
+<!-- C2 · THREE COLORS -->
+<div>
+<p class="caption">C2 · RED, INDIGO, GOLD</p>
+<div class="frame tatami">
+  <div class="top">
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#C7351B;color:#FFF8EC;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 2px 0 #7E1F0F" class="jp"><b style="font-size:20px">直</b></span><span style="font-size:20px;font-weight:700">Checker <span class="jp">直し</span></span></div>
+    <span></span>
+  </div>
+  <div class="stage" style="display:flex;flex-direction:column;gap:12px;justify-content:center;padding:0 2px">
+    <div class="washi card rise" style="animation-delay:.2s;padding:14px 16px;border-left:5px solid #C7351B">
+      <span style="font-size:11px;font-weight:900;letter-spacing:.08em;color:#C7351B">FIX</span>
+      <div style="font-size:14px;line-height:1.55;margin-top:4px">A real mistake. <span class="jp">読みます</span> → <span class="jp" style="font-weight:700">読みました</span> — 昨日 is the past.</div>
+    </div>
+    <div class="washi card rise" style="animation-delay:.9s;padding:14px 16px;border-left:5px solid #3D5A80">
+      <span style="font-size:11px;font-weight:900;letter-spacing:.08em;color:#3D5A80">CORRECT, BUT UNNATURAL</span>
+      <div style="font-size:14px;line-height:1.55;margin-top:4px">Grammatical, but not what a Japanese speaker would say.</div>
+    </div>
+    <div class="washi card rise" style="animation-delay:1.6s;padding:14px 16px;border-left:5px solid #907119">
+      <span style="font-size:11px;font-weight:900;letter-spacing:.08em;color:#907119">WORTH KNOWING</span>
+      <div style="font-size:14px;line-height:1.55;margin-top:4px">Nothing wrong — a nuance or an option worth having.</div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="headline">Three colors, three kinds of feedback.<span class="draft">DRAFT</span></div>
+    <p class="sentence">Red is a mistake to fix. Indigo is correct but sounds off. Gold is just worth knowing. Tap any one for the why.<span class="draft">DRAFT</span></p>
+  </div>
+  <div class="foot">
+    <div class="dots"><span class="dot"></span><span class="dot on"></span><span class="dot"></span></div>
+    <div class="navrow"><button class="btn btn-washi" style="min-height:56px;padding:0 18px" aria-label="Back"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button class="btn btn-shu">Next <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button></div>
+  </div>
+</div>
+</div>
+
+<!-- C3 · DAILY CHECKS -->
+<div>
+<p class="caption">C3 · THE DAILY FREE CHECKS, AND THE ?</p>
+<div class="frame tatami">
+  <div class="top">
+    <div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:#C7351B;color:#FFF8EC;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 2px 0 #7E1F0F" class="jp"><b style="font-size:20px">直</b></span><span style="font-size:20px;font-weight:700">Checker <span class="jp">直し</span></span></div>
+    <span></span>
+  </div>
+  <div class="stage washi card" style="padding:22px 18px;box-sizing:border-box;display:flex;flex-direction:column;gap:18px">
+    <div>
+      <div class="label">TODAY</div>
+      <div style="margin-top:10px;height:12px;border-radius:6px;background:#EFE7D4;box-shadow:inset 0 0 0 1px #D9CFB8;overflow:hidden"><div style="height:100%;background:#3E7C4F;border-radius:6px;animation:fill 4s ease-out infinite;width:10%"></div></div>
+      <div style="margin-top:8px;font-size:14px;color:#4A463D">1 of 10 free checks used today</div>
+    </div>
+    <div style="border-top:1px solid #D9CFB8;padding-top:16px">
+      <div class="label">SEE THIS AGAIN</div>
+      <div style="margin-top:10px;display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:12px;background:#F6F1E6;box-shadow:inset 0 0 0 1.5px #D9CFB8">
+        <span style="font-size:15px;font-weight:700">Checker <span class="jp">直し</span></span>
+        <span class="ring" style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#FBF7EE;box-shadow:inset 0 0 0 1.5px #D9CFB8;font-weight:700">?</span>
+      </div>
+      <p style="margin:8px 0 0;font-size:12px;color:#6E6A60">Every section has one, top right.</p>
+    </div>
+  </div>
+  <div class="body">
+    <div class="headline">Free checks, every day.<span class="draft">DRAFT</span></div>
+    <p class="sentence">They reset each morning. Want this tour again? Tap <b>?</b> at the top of the Checker.<span class="draft">DRAFT</span></p>
+  </div>
+  <div class="foot">
+    <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot on"></span></div>
+    <div class="navrow"><button class="btn btn-washi" style="min-height:56px;padding:0 18px" aria-label="Back"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button><button class="btn btn-shu">Write a sentence</button></div>
+  </div>
+</div>
+</div>
+
+<div class="notes">
+  <h2 style="margin-top:0">THE PATTERN</h2>
+  <ul>
+    <li><b>2–3 slides, then straight into the section.</b> The last red button is the section's first real action ("Write a sentence"), not "Done".</li>
+    <li>The header carries the section's own block (直 on 朱 here), so the deck reads as part of that section, not a pop-up over it.</li>
+    <li>Skip on the first slide; the <b>?</b> brings it back.</li>
+    <li>C2 is the one place outside the Checker's results where the three tier colors appear, and they mean exactly what they mean there. That is the point of the slide.</li>
+  </ul>
+  <h2>THE OTHER DECKS (CONTENT ONLY, SAME SHAPE)</h2>
+  <ul>
+    <li><b>Hiragana / Katakana:</b> trace, then recall; the review quiz waits at the top.</li>
+    <li><b>Kanji:</b> why the order is not the textbook's; what a group is; how kanji you know change what Grammar shows.</li>
+    <li><b>Grammar:</b> Learn / Practice / the daily challenge; the three tiers.</li>
+    <li><b>Vocabulary:</b> words come back before you forget them; words sent from じしょ land here.</li>
+    <li><b>Dictionary:</b> probably none — U3 already introduced it. Lloyd's call.</li>
+  </ul>
+  <h2>CHECK BEFORE BUILDING</h2>
+  <ul>
+    <li>"1 of 10" is the live counter text as of Sep 2026. Read the cap from the Checker, not from this board.</li>
+    <li>C1's example sentence is deliberately wrong (読みます with 昨日) so C2 can show its FIX. Keiko has not seen it; it is the kind of line that needs her before it ships.</li>
+  </ul>
+</div>
+</div>
+
+</body>
+</html>
