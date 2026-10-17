@@ -1,0 +1,12 @@
+{
+ "format": "tsumiki-progress",
+ "version": 1,
+ "exported": "2026-10-15T09:20:00.000Z",
+ "keys": 3,
+ "_about": "Test save data, in the app's own export format (lib/storage.js exportProgress). A returning learner partway through hiragana who has already been through the first-visit welcome. It deliberately holds NO grammar, kanji or vocabulary progress: the render tests set those per case, and a greeting or word-list branch must not be decided by this file. Loaded by test/load-save.mjs, which refuses it if the format drifts.",
+ "data": {
+  "tsumiki-welcome-v1": "{\"seen\":true}",
+  "tsumiki-hiragana-progress-v2": "{\"cc-intro\":{\"read\":true},\"a\":{\"seen\":true,\"drill\":5,\"traced\":[\"あ:trace\",\"い:trace\",\"う:trace\",\"え:trace\",\"お:trace\"],\"listenWrote\":3},\"ka\":{\"seen\":true,\"traced\":[\"か:trace\",\"き:trace\"]}}",
+  "tsumiki-module-recency-v1": "{\"hiragana\":\"2026-10-15T09:12:00.000Z\"}"
+ }
+}

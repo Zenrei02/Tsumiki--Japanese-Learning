@@ -17,6 +17,7 @@
 
 import { JSDOM } from "jsdom";
 import fs from "fs";
+import { applySave } from "./load-save.mjs";
 import { fileURLToPath } from "url";
 
 const BUNDLE = process.env.SMOKE_BUNDLE || "/tmp/test-bundle.js";
@@ -73,9 +74,11 @@ function boot(modId) {
   w.console.warn = () => {};
   w.localStorage.setItem("tsumiki-known-kanji-v1", JSON.stringify(KNOWN));
   w.localStorage.setItem("tsumiki-last-module", modId);
-  // The first-visit welcome (eac4c57, Oct 4 2026) replaces Home for anyone who has
-  // started nothing, which hid the card this test enters by. Mark it seen, as smoke does.
-  w.localStorage.setItem("tsumiki-welcome-v1", JSON.stringify({ seen: true }));
+  // A returning learner's save data (test/fixtures/returning-learner.json). Booting
+  // with nothing saved made this a NEWCOMER once the first-visit welcome landed
+  // (eac4c57, Oct 4 2026): the welcome replaced Home and hid the card entered below.
+  // Known kanji and words are set here, so the save may not carry them.
+  applySave(w, "returning-learner", { without: ["tsumiki-known-kanji-v1", "tsumiki-known-words-v1", "tsumiki-n5-progress-v1"] });
   w.eval(fs.readFileSync(BUNDLE, "utf8"));
   return w;
 }
