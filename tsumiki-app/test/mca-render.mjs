@@ -73,6 +73,9 @@ function boot(modId) {
   w.console.warn = () => {};
   w.localStorage.setItem("tsumiki-known-kanji-v1", JSON.stringify(KNOWN));
   w.localStorage.setItem("tsumiki-last-module", modId);
+  // The first-visit welcome (eac4c57, Oct 4 2026) replaces Home for anyone who has
+  // started nothing, which hid the card this test enters by. Mark it seen, as smoke does.
+  w.localStorage.setItem("tsumiki-welcome-v1", JSON.stringify({ seen: true }));
   w.eval(fs.readFileSync(BUNDLE, "utf8"));
   return w;
 }

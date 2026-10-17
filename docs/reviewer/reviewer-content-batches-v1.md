@@ -884,3 +884,18 @@ Question carried from Session 39: do the English place names count as romaji und
 | めあて | Goals dialog (`lib/engagementPanel.jsx:183`) | goals / aims |
 
 Is めあて the right register for an app's "Goals" screen, or would 目標 read more naturally to a native speaker?
+
+## Batch Y.1 — one kanji story, rewritten (Oct 17 2026)
+
+*Added from the Oct 17 weekly audit (`docs/audits/audit-2026-10-17.md` §7③). `KANJI_DICT` in
+`kanji-module.jsx` held 心 twice; the first entry's story never displayed. The two were merged
+into one story that has to read correctly in both places 心's card appears (the "Out and about"
+group with `sb-kokoro`, and "The inner ledger" with `k-t38`). AI-authored; one item.*
+
+| Field | Text |
+|---|---|
+| 心 story (live) | Four strokes of heartbeat. You have been writing it for weeks: whole under 思 and 意, gone-from under 忘, squashed to 忄 at the left of 忙. Standing alone, it is the feeling all of them share — and 心配 finally reads: the heart distributed, worry. 安心 settles it: relief. |
+
+Questions for the reviewer: is "the heart distributed" a fair gloss for the 配 in 心配 (it is a
+mnemonic, not an etymology — say if it misleads)? Is 忄 at the left of 忙 described acceptably
+as 心 "squashed"? Readings shown on the card: シン / こころ; 心配 しんぱい, 安心 あんしん.

@@ -66,6 +66,9 @@ async function boot({ progress, depth } = {}) {
   w.fetch = () => Promise.resolve({ ok: false, status: 404 });
   w.console.warn = () => {};
   w.localStorage.setItem("tsumiki-last-module", "grammar");
+  // The first-visit welcome (eac4c57, Oct 4 2026) replaces Home for anyone who has
+  // started nothing, which hid the card this test enters by. Mark it seen, as smoke does.
+  w.localStorage.setItem("tsumiki-welcome-v1", JSON.stringify({ seen: true }));
   if (progress) w.localStorage.setItem("tsumiki-n5-progress-v1", JSON.stringify(progress));
   if (depth) w.localStorage.setItem("tsumiki-learner-depth-v1", depth);
   w.eval(fs.readFileSync(BUNDLE, "utf8"));
