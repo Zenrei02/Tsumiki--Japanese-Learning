@@ -1,11 +1,12 @@
 <!--
   tsumiki — sign-in email (Supabase Auth template). HAND-MAINTAINED.
 
-  ⚠️ NOT LIVE YET. Domain and custom SMTP now exist (tsumikiapp.com, Resend,
-  Oct 17 2026), so the dashboard can take this — but the app cannot use a code
-  until CODE_SIGN_IN in tsumiki-app/src/lib/account.jsx is true. Until then the
-  live template is magic-link-interim.html (link only). Paste this → flip that
-  flag, in the same deploy.
+  ⚠️ ORDER MATTERS. Domain and custom SMTP exist since Oct 17 2026
+  (tsumikiapp.com, Resend), and CODE_SIGN_IN in tsumiki-app/src/lib/account.jsx
+  is true from the same day. Paste this into BOTH templates BEFORE that build
+  goes live: an app that asks for a code the email lacks strands the learner,
+  while this email still works with the old link-only app (its link signs in).
+  magic-link-interim.html (link only) is the fallback if the flag goes off.
 
   WHERE IT GOES: Supabase dashboard → Authentication → Emails → Templates.
   Paste this file into BOTH templates, with the same subject:

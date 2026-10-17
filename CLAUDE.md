@@ -85,10 +85,10 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
 - Sign-in email goes Supabase → **Resend** (custom SMTP, free plan: 3,000/mo, 100/day) from
   `hello@tsumikiapp.com`, display name `tsumiki`. Resend's MX/SPF/DKIM/DMARC records live at
   Porkbun on `send.tsumikiapp.com`, `resend._domainkey` and `_dmarc`.
-- Templates are tracked in `supabase/email-templates/`. The INTERIM (link-only) one is live;
-  the code-first one (`magic-link.html`) waits for a `verifyOtp` input in the app, and its
-  header says it goes into BOTH Magic Link and Confirm signup — first-time learners get the
-  latter.
+- Templates are tracked in `supabase/email-templates/`. `magic-link.html` (code first) is the
+  one to use now that `CODE_SIGN_IN` is true (Oct 17 2026), in BOTH Magic Link and Confirm
+  signup — first-time learners get the latter. Paste it BEFORE the build with the flag ships.
+  `magic-link-interim.html` (link only) is the fallback if the flag is ever turned off.
 - ⚠️ **THREE PLACES MUST AGREE WITH THE DOMAIN, and only one of them fails loudly.** Supabase URL
   Configuration (Site URL + redirect allow-list — a miss sends magic links to localhost:3000),
   Netlify Domain management, and the Edge Function secret `TSUMIKI_ALLOWED_ORIGIN` — a miss

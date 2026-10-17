@@ -160,21 +160,18 @@ function withSyncLock(fn) {
   return locks.request(SYNC_LOCK, fn);
 }
 
-// ————— ⚠️ CODE SIGN-IN IS BUILT AND SWITCHED OFF (Session 40, Oct 16 2026) —————
+// ————— ⚠️ CODE SIGN-IN IS ON (built Session 40, Oct 16; switched on Oct 17 2026) —————
 //
-// The code only reaches the learner if the email template carries {{ .Token }},
-// and SUPABASE WILL NOT LET THE TEMPLATE BE EDITED WITHOUT CUSTOM SMTP — found by
-// Lloyd in the dashboard the same evening the code path was written. Custom
-// SMTP needs a sending domain, and the domain is on the back burner by his call.
-// The default template is link-only.
+// The code only reaches the learner if the email template carries {{ .Token }}.
+// Supabase will not let the template be edited without custom SMTP; that exists
+// since Oct 17 (tsumikiapp.com, Resend). The template is
+// supabase/email-templates/magic-link.html, and it must be live in BOTH "Magic
+// Link" and "Confirm signup" BEFORE this ships — otherwise the app asks for a
+// code the email does not contain. A first-time address gets Confirm signup.
 //
-// So with this false the panel behaves exactly as it did before Session 40:
-// "Email me a link", and the "open it in this browser" note. Turning it on is
-// one line, and it must happen in the SAME deploy as (or after) the custom
-// template going live in BOTH "Magic Link" and "Confirm signup" — otherwise the
-// app asks for a code the email does not contain. The template is ready at
-// supabase/email-templates/magic-link.html.
-const CODE_SIGN_IN = false;
+// Set false to get the pre-Session 40 panel back exactly: "Email me a link", and
+// the "open it in this browser" note.
+const CODE_SIGN_IN = true;
 
 const box = {
   background: T.sheet, border: `1px solid ${T.hairline}`, borderRadius: 10,
