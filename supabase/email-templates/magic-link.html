@@ -1,12 +1,11 @@
 <!--
   tsumiki — sign-in email (Supabase Auth template). HAND-MAINTAINED.
 
-  ⚠️ NOT LIVE, AND CANNOT BE YET. Supabase locks template editing until custom
-  SMTP is configured (found by Lloyd in the dashboard, Oct 16 2026), and custom
-  SMTP needs a domain tsumiki owns — on the back burner. Until then the email is
-  Supabase's default, link only, and CODE_SIGN_IN in tsumiki-app/src/lib/
-  account.jsx stays false. Domain → SMTP → paste this → flip that flag, in that
-  order, with the last two in the same deploy.
+  ⚠️ NOT LIVE YET. Domain and custom SMTP now exist (tsumikiapp.com, Resend,
+  Oct 17 2026), so the dashboard can take this — but the app cannot use a code
+  until CODE_SIGN_IN in tsumiki-app/src/lib/account.jsx is true. Until then the
+  live template is magic-link-interim.html (link only). Paste this → flip that
+  flag, in the same deploy.
 
   WHERE IT GOES: Supabase dashboard → Authentication → Emails → Templates.
   Paste this file into BOTH templates, with the same subject:
@@ -36,9 +35,8 @@
   hairline #D9CFB8, ink #2C2A26, sub #4A463D, muted #6E6A60, shu #C7351B,
   shu lip #7E1F0F.
 
-  THE SENDER IS NOT FIXED BY THIS FILE. It still says Supabase
-  (noreply@mail.app.supabase.io) until custom SMTP is set up on a domain tsumiki
-  owns — on the back burner by Lloyd's call, Oct 16 2026.
+  THE SENDER IS NOT FIXED BY THIS FILE. Since Oct 17 2026 it is
+  tsumiki <hello@tsumikiapp.com> via Resend, set in Supabase's SMTP settings.
 -->
 <!doctype html>
 <html lang="en">

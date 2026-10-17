@@ -118,7 +118,17 @@ Optional, all with working defaults:
 | `TSUMIKI_MODEL` | `claude-sonnet-5` | Which model answers. Change it when the bake-off returns a verdict — no redeploy of anything else needed. |
 | `TSUMIKI_DAILY_CAP` | `10` | Checks per client per day. This is the cost bound. |
 | `TSUMIKI_MAX_CHARS` | `600` | Longest text accepted. Caps the per-call cost. |
-| `TSUMIKI_ALLOWED_ORIGIN` | `*` | Set to the deployed site's origin before real traffic. |
+| `TSUMIKI_ALLOWED_ORIGIN` | `*` | Set to the deployed site's origin before real traffic. Production value since Oct 17 2026: https://tsumikiapp.com (www redirects at Netlify, so one origin suffices). Must change whenever the domain does — a stale value breaks the Checker only, silently. |
+
+**Probe the origin from outside** after any change to it or to the domain. The
+header must name the site's origin exactly:
+
+```
+curl -s -i -X OPTIONS "https://llkazgmhsuonhwrubwjw.supabase.co/functions/v1/check" \
+  -H "Origin: https://tsumikiapp.com" \
+  -H "Access-Control-Request-Method: POST" \
+  -H "Access-Control-Request-Headers: content-type" | grep -i "^HTTP\|access-control"
+```
 
 **4. Deploy:**
 

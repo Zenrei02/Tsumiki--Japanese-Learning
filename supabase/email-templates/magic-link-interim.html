@@ -1,0 +1,61 @@
+<!--
+  tsumiki — Supabase Auth email template: Magic Link (sign-in), INTERIM.
+  Link-only. Use THIS one until the app has a place to type a code;
+  switch to magic-link.html (code first) when verifyOtp ships.
+  Paste into Authentication → Emails → Templates → Magic Link.
+  Subject line:  Your tsumiki sign-in link
+
+  Email-safe on purpose: tables, inline styles, system fonts, no images.
+  Variable: {{ .ConfirmationURL }} (the link).
+-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#E9E2D1;padding:24px 12px;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:420px;background-color:#FBF7EE;border-radius:16px;border-bottom:3px solid #CFC4A8;font-family:'Zen Kaku Gothic New','Hiragino Sans','Noto Sans JP',Helvetica,Arial,sans-serif;color:#2C2A26;">
+        <tr>
+          <td style="padding:24px 24px 0;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td width="34" height="34" align="center" valign="middle" style="width:34px;height:34px;border-radius:8px;background-color:#C7351B;color:#FFF6EC;font-family:'Shippori Mincho','Hiragino Mincho ProN','Yu Mincho',Georgia,serif;font-size:22px;font-weight:700;line-height:34px;">つ</td>
+                <td style="padding-left:10px;font-size:20px;font-weight:700;letter-spacing:-0.01em;">tsumiki</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:20px 24px 0;font-size:18px;font-weight:700;line-height:1.3;">Your sign-in link</td>
+        </tr>
+        <tr>
+          <td style="padding:10px 24px 0;font-size:14px;line-height:1.6;color:#4A463D;">Open it on the device you asked from, in the same browser. It works once, and only for the next hour.</td>
+        </tr>
+        <tr>
+          <td style="padding:22px 24px 6px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" style="border-radius:14px;background-color:#C7351B;border-bottom:4px solid #7E1F0F;">
+                  <a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:16px 28px;color:#FFF6EC;font-size:16px;font-weight:700;text-decoration:none;">Sign in to tsumiki</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:18px 24px 0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="height:1px;background-color:#D9CFB8;font-size:0;line-height:0;">&nbsp;</td></tr></table>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:14px 24px 0;font-size:12px;line-height:1.6;color:#6E6A60;">If the button does nothing, copy this into the address bar:<br><a href="{{ .ConfirmationURL }}" style="color:#8C3B2A;word-break:break-all;">{{ .ConfirmationURL }}</a></td>
+        </tr>
+        <tr>
+          <td style="padding:10px 24px 24px;font-size:12px;line-height:1.6;color:#6E6A60;">If you didn't ask for this, nobody has your account — just ignore this email.</td>
+        </tr>
+      </table>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:420px;">
+        <tr>
+          <td align="center" style="padding:14px 8px 0;font-family:'Zen Kaku Gothic New','Hiragino Sans','Noto Sans JP',Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#6E6A60;">つみき · Japanese, one block at a time.</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

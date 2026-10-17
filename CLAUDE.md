@@ -77,6 +77,28 @@ than re-querying. `query_meeting_notes` and `convert_page_to_skill` are genuinel
 - There is no delete tool. Superseded pages get an `[SUPERSEDED — safe to delete]` title prefix
   for Lloyd to remove by hand.
 
+## Domain and email (Oct 17 2026)
+
+- Production is **https://tsumikiapp.com** (bare `tsumiki` is registered on every usable TLD).
+  Registrar and DNS: Porkbun. `www` is a CNAME to `tsumiki-jp.netlify.app` and Netlify 301s it
+  to the bare domain. `tsumiki-jp.netlify.app` still resolves and is the fallback URL only.
+- Sign-in email goes Supabase → **Resend** (custom SMTP, free plan: 3,000/mo, 100/day) from
+  `hello@tsumikiapp.com`, display name `tsumiki`. Resend's MX/SPF/DKIM/DMARC records live at
+  Porkbun on `send.tsumikiapp.com`, `resend._domainkey` and `_dmarc`.
+- Templates are tracked in `supabase/email-templates/`. The INTERIM (link-only) one is live;
+  the code-first one (`magic-link.html`) waits for a `verifyOtp` input in the app, and its
+  header says it goes into BOTH Magic Link and Confirm signup — first-time learners get the
+  latter.
+- ⚠️ **THREE PLACES MUST AGREE WITH THE DOMAIN, and only one of them fails loudly.** Supabase URL
+  Configuration (Site URL + redirect allow-list — a miss sends magic links to localhost:3000),
+  Netlify Domain management, and the Edge Function secret `TSUMIKI_ALLOWED_ORIGIN` — a miss
+  there breaks ONLY the Checker, with no error on screen, because every other module is local
+  data. Oct 17 2026: the domain moved and the secret did not; found by probing CORS from
+  outside, not by looking at the app. Probe command is in supabase/README.md.
+- ⚠️ Supabase's BUILT-IN mailer delivers only to the project's team addresses. Before custom
+  SMTP, "the mailer delivers" (Sep 6) was Lloyd's own address. Outside delivery is proven
+  only by an outside-address test.
+
 ## Other environment quirks
 
 - **`rm` fails until you ASK for permission. It is not impossible.**
